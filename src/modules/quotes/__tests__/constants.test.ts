@@ -9,9 +9,13 @@ import {
 } from "../constants";
 
 describe("isQuoteEditable", () => {
-  it("only allows editing drafts", () => {
+  it("allows editing a draft and a quote still awaiting an answer", () => {
     expect(isQuoteEditable(QuoteStatus.DRAFT)).toBe(true);
-    for (const status of [QuoteStatus.SENT, QuoteStatus.ACCEPTED, QuoteStatus.REJECTED, QuoteStatus.EXPIRED]) {
+    expect(isQuoteEditable(QuoteStatus.SENT)).toBe(true);
+  });
+
+  it("locks a quote once the customer has answered, or it ran out", () => {
+    for (const status of [QuoteStatus.ACCEPTED, QuoteStatus.REJECTED, QuoteStatus.EXPIRED]) {
       expect(isQuoteEditable(status)).toBe(false);
     }
   });

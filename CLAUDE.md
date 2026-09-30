@@ -363,8 +363,8 @@ setting. The picker sits in the totals card and the running figures beside it
 follow it, so what is being typed and what it adds up to never disagree.
 
 It is editable exactly as long as the rest of the quote is — `updateQuote`
-refuses once the status is past draft. After that the currency the customer read
-is frozen with everything else.
+refuses once the customer has decided or the quote has run out. Only then is the
+currency the customer read frozen with everything else.
 
 > **Amounts only add up inside one currency; counts add up across all of them.**
 > "We sent eleven quotes" is true whatever they were priced in, but NZD plus AUD
@@ -534,15 +534,38 @@ through the same `calculateQuoteTotals` in both cases.
 
 ### Prices with or without tax
 
-`Company.pricesIncludeTax` decides whether the amounts that get typed in already
-have the tax inside them. In New Zealand the Fair Trading Act requires showing
-the end consumer the price with GST included; between businesses the opposite is
-customary. Whichever the choice, **the breakdown always shows subtotal, tax and
-total**.
+A plain `pricesIncludeTax` boolean could only say "already inside the price" or
+"add it on top" — it had no way to say "quote it without tax at all" or "leave
+tax out of the figure the customer is shown". `TaxDisplayMode` is four modes
+instead, one `select` (`Item pricing is`) rather than a checkbox:
+
+| Mode | What's typed | What the customer's total shows |
+|---|---|---|
+| `TAX_INCLUSIVE` | tax already inside | Subtotal, tax, **Total including** it |
+| `TAX_EXCLUSIVE_INCLUSIVE_TOTAL` | tax excluded | Subtotal, tax, **Total including** it |
+| `TAX_EXCLUSIVE` | tax excluded | just the **Total excluding** it — tax is handled elsewhere, off the quote |
+| `NO_TAX` | — | just the **Total**, no tax mentioned |
+
+`TAX_INCLUSIVE` and `TAX_EXCLUSIVE_INCLUSIVE_TOTAL` render **identically** to the
+customer — Subtotal, tax, Total including it — because the only difference
+between them is how the person quoting typed the numbers in, never something on
+the document itself. In New Zealand the Fair Trading Act requires showing the
+end consumer the price with GST included; between businesses `TAX_EXCLUSIVE`
+(add it later) or `TAX_EXCLUSIVE_INCLUSIVE_TOTAL` (show it added) are both
+customary.
 
 When prices include it, the tax is obtained by **subtracting**
 (`total − subtotal`) rather than by multiplying: that way the breakdown squares
-with the total without a rounding leaving a stray cent.
+with the total without a rounding leaving a stray cent. `taxIsInTotal(mode)` is
+the one function both the portal and the team's own screens ask before showing
+the tax row at all — a computed tax amount sitting above a total that doesn't
+include it would read as a mistake, not as a choice.
+
+`Company.taxDisplayMode` is a **starting value**, same as the currency: every
+new quote is suggested the company's own setting, and the quote keeps its own
+copy from there. It's editable for exactly as long as the rest of the quote is
+— `DRAFT` or `SENT`, never once the customer has decided (see "Editing a quote
+that has already gone out", above).
 
 ### Reusing a quote: two things, not one
 
@@ -610,6 +633,24 @@ afterwards cannot change what the customer already has in their inbox.
 The dashboard's sections (All, Drafts, Waiting, Active, Closed) are views over
 the statuses that already exist, not new statuses.
 
+### Editing a quote that has already gone out
+
+`isQuoteEditable` allows `DRAFT` and `SENT`. What makes the second one safe is a
+decision made for a different reason: the customer's email never carried prices
+or line items, only the share link, and the link is read live rather than copied
+into the message. So fixing a figure or a typo after sending doesn't leave two
+versions in the customer's inbox — there is only ever the one link, and it now
+shows what was corrected.
+
+`ACCEPTED` stays out of reach for good: what the customer agreed to is what
+freezes. `REJECTED` and `EXPIRED` also stay locked — reviving one is done by
+sending again, which reopens editing along with the link, not by editing a quote
+that's already closed.
+
+The edit itself leaves a line in the lead's activity (`QUOTE_EDITED`), the same
+way sending and deciding do, so the history says a sent quote changed even
+though the customer's link didn't.
+
 ## The three security contexts
 
 Everything built before answered a single question: "does this user belong to
@@ -647,7 +688,18 @@ snippet handed to each customer is identical except for their token.
 
 - The page speaks the **quote's** language, not that of the customer's browser.
 - "Viewing now" comes from a heartbeat every 20 s that updates a row; the
-  dashboard polls every 15 s. No real-time infrastructure.
+  dashboard polls every 10 s. No real-time infrastructure.
+- **A closed tab says so, rather than being waited out.** A heartbeat gone
+  quiet and a tab that closed on purpose looked identical for up to the whole
+  45 s presence window — long enough that closing a customer's tab in a demo
+  read as the "viewing now" dot lying. `QuoteShare.viewing` is the tab's own
+  word for it: the heartbeat sets it true, and `pagehide` — the page actually
+  being torn down — sends one last beacon that sets it false immediately,
+  through `navigator.sendBeacon`, which a browser still delivers at that
+  instant when a `fetch`, even `keepalive`, isn't guaranteed to survive it. The
+  window still matters as the fallback for a tab that never gets to say
+  anything — a crash, a killed process — so `isViewingNow` ANDs the flag with
+  it rather than trusting either alone.
 - **The first beat also records the opening**, and the page render does not. A
   render is not a visit: every action in the portal revalidates the page, so
   accepting a quote or sending a message logged an opening that never happened
@@ -1227,12 +1279,39 @@ affecting the others.
 - Feature catalogue: `src/lib/auth/permissions.ts` (source of truth).
 - Initial templates per profile: `src/lib/auth/role-templates.ts`.
 - When adding a permission: add it to the catalogue, translate it in both
-  languages and run `pnpm db:seed`.
+  languages and run `pnpm db:seed`. **That syncs the catalogue only** —
+  `syncPermissions` upserts `Permission` rows, it doesn't touch any existing
+  company's `RolePermission` grants. Templates are applied exactly once, when
+  `createCompanyWithOwner` runs; a permission added to a template afterwards
+  reaches only companies created from then on. A permission meant to change
+  what an existing profile can do everywhere (not just for new companies)
+  needs a one-off backfill granting it to every existing `Role` that should
+  have it, same shape as `createCompanyWithOwner`'s own grant.
 - Standard profiles **don't store their name** in the database: it is null and
   translated from `key`. The field is only filled in if a company renames a
   profile.
 
 To protect an action: `await requirePermission("quotes.send")`.
+
+### A permission that hides a datum, not an action
+
+Every permission above gives or takes something somebody can *do*. `quotes.read.amounts`
+is different: without it, a quote a profile can otherwise open still shows —
+title, status, customer, dates — but its priced figures don't. `HiddenAmount`
+stands in wherever one would sit, so the cell reads as a deliberate choice
+rather than as data that went missing.
+
+It's enforced by simply not rendering the figure from a server component,
+which is what makes it a real boundary and not a cosmetic one: the number
+never reaches the browser to begin with, so there's nothing on the client a
+curious person could inspect their way past. The edit form is untouched —
+typing a price *is* seeing it, so the permission has nothing left to hide
+there, and a company that wants a profile to neither see nor set prices
+already has `quotes.update` for that.
+
+Every standard profile is granted it by default, same as the feature already
+implicitly was before this existed: hiding amounts is something a company
+opts into for a specific profile, not something new profiles start without.
 
 ### Who may change whom
 

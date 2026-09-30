@@ -10,9 +10,9 @@ import { NativeSelect } from "@/components/ui/native-select";
 import type { Option } from "@/lib/intl/options";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { PricingMode } from "@/generated/prisma/enums";
+import { PricingMode, TaxDisplayMode } from "@/generated/prisma/enums";
 import { RichTextEditor } from "@/components/rich-text-editor";
-import { calculateQuoteTotals } from "./totals";
+import { calculateQuoteTotals, taxIsInTotal } from "./totals";
 import { formatMoney } from "@/lib/format";
 import type { QuoteActionState } from "./actions";
 import { useActionToast } from "@/lib/use-action-toast";
@@ -47,6 +47,7 @@ export type QuoteFormDefaults = {
   exclusions?: string | null;
   leadId?: string | null;
   taxRate?: number;
+  taxDisplayMode?: TaxDisplayMode;
   currency?: string;
   discount?: number;
   validUntil?: string | null;
@@ -68,7 +69,7 @@ export function QuoteForm({
   currency,
   currencies,
   formatLocale,
-  pricesIncludeTax,
+  taxDisplayMode,
   taxLabel,
   submitLabel,
 }: {
@@ -84,8 +85,8 @@ export function QuoteForm({
   currencies: Option[];
   /** How the amounts look; it belongs to the company, not the user's language. */
   formatLocale: string;
-  /** Whether the amounts being typed already carry the tax inside. */
-  pricesIncludeTax: boolean;
+  /** The company's own setting, suggested here and overridable per quote. */
+  taxDisplayMode: TaxDisplayMode;
   /** The company's tax name (GST, VAT…), to label the breakdown. */
   taxLabel: string;
   submitLabel: string;
@@ -99,6 +100,9 @@ export function QuoteForm({
     defaults.items?.length ? defaults.items : [{ ...EMPTY_LINE }],
   );
   const [taxRate, setTaxRate] = useState(String(defaults.taxRate ?? 15));
+  const [pickedTaxDisplayMode, setPickedTaxDisplayMode] = useState(
+    defaults.taxDisplayMode ?? taxDisplayMode,
+  );
   const [pickedCurrency, setPickedCurrency] = useState(defaults.currency ?? currency);
   const [discount, setDiscount] = useState(String(defaults.discount ?? 0));
   const [pricingMode, setPricingMode] = useState<PricingMode>(
@@ -125,9 +129,9 @@ export function QuoteForm({
         sections: bySections ? sections.map((section) => Number(section.amount) || 0) : null,
         taxRate: Number(taxRate) || 0,
         discount: Number(discount) || 0,
-        pricesIncludeTax,
+        taxDisplayMode: pickedTaxDisplayMode,
       }),
-    [bySections, items, sections, taxRate, discount, pricesIncludeTax],
+    [bySections, items, sections, taxRate, discount, pickedTaxDisplayMode],
   );
 
   function updateSection(index: number, field: keyof QuoteSectionDraft, value: string) {
@@ -175,6 +179,17 @@ export function QuoteForm({
   // Follows the select rather than the prop, so the running totals beside it
   // are in the currency being chosen and not the one the company happens to use.
   const money = (value: number) => formatMoney(value, pickedCurrency, formatLocale);
+
+  // One sentence per mode, spelling out what it does to this quote's own
+  // numbers — the select's label names the mode, this says what it means.
+  const taxHint =
+    pickedTaxDisplayMode === TaxDisplayMode.NO_TAX
+      ? t("form.noTaxHint")
+      : pickedTaxDisplayMode === TaxDisplayMode.TAX_INCLUSIVE
+        ? t("form.taxIncluded", { tax: taxLabel })
+        : pickedTaxDisplayMode === TaxDisplayMode.TAX_EXCLUSIVE
+          ? t("form.taxExcluded", { tax: taxLabel })
+          : t("form.taxExclusiveInclusiveHint", { tax: taxLabel });
 
   return (
     <form action={formAction} className="grid gap-6 lg:grid-cols-3">
@@ -524,29 +539,52 @@ export function QuoteForm({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="taxRate">{t("form.taxRate")}</Label>
-              <Input
-                id="taxRate"
-                name="taxRate"
-                type="number"
-                min={0}
-                max={100}
-                step="0.01"
-                value={taxRate}
-                onChange={(e) => setTaxRate(e.target.value)}
+              <Label htmlFor="taxDisplayMode">{t("form.taxDisplayMode")}</Label>
+              <NativeSelect
+                id="taxDisplayMode"
+                name="taxDisplayMode"
+                value={pickedTaxDisplayMode}
+                onChange={(event) =>
+                  setPickedTaxDisplayMode(event.target.value as TaxDisplayMode)
+                }
+                options={Object.values(TaxDisplayMode).map((mode) => ({
+                  value: mode,
+                  label: t(`taxDisplayMode.${mode}`),
+                }))}
               />
             </div>
 
-            <p className="text-xs text-muted-foreground">
-              {pricesIncludeTax
-                ? t("form.taxIncluded", { tax: taxLabel })
-                : t("form.taxExcluded", { tax: taxLabel })}
-            </p>
+            {pickedTaxDisplayMode !== TaxDisplayMode.NO_TAX ? (
+              <div className="space-y-2">
+                <Label htmlFor="taxRate">{t("form.taxRate")}</Label>
+                <Input
+                  id="taxRate"
+                  name="taxRate"
+                  type="number"
+                  min={0}
+                  max={100}
+                  step="0.01"
+                  value={taxRate}
+                  onChange={(e) => setTaxRate(e.target.value)}
+                />
+              </div>
+            ) : (
+              // Unmounting the field entirely would drop it from the posted
+              // form, and `taxRate` would arrive as if nobody had ever set one —
+              // the parser's fallback would then overwrite whatever rate this
+              // quote actually had. Carrying it hidden is what lets `NO_TAX`
+              // toggle back to a tax mode without the rate resetting under it.
+              <input type="hidden" name="taxRate" value={taxRate} />
+            )}
+
+            <p className="text-xs text-muted-foreground">{taxHint}</p>
 
             <dl className="space-y-1.5 border-t pt-4 text-sm">
               <Row label={t("form.subtotal")} value={money(totals.subtotal)} />
               <Row label={t("form.discount")} value={`− ${money(totals.discount)}`} />
-              <Row label={taxLabel} value={money(totals.taxAmount)} />
+              {taxIsInTotal(pickedTaxDisplayMode) ? (
+                <Row label={taxLabel} value={money(totals.taxAmount)} />
+              ) : null}
               <div className="flex items-center justify-between border-t pt-2 text-base font-semibold">
                 <dt>{t("form.total")}</dt>
                 <dd className="tabular-nums">{money(totals.total)}</dd>

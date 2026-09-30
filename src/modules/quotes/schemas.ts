@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { PricingMode, QuoteStatus } from "@/generated/prisma/enums";
+import { PricingMode, QuoteStatus, TaxDisplayMode } from "@/generated/prisma/enums";
 import { isSupportedCurrency } from "@/lib/intl/options";
 import { QUOTE_SECTIONS } from "./constants";
 
@@ -33,7 +33,11 @@ export const quoteFormSchema = z
     .transform((v) => (v === "" ? null : v))
     .nullable()
     .optional(),
-  taxRate: z.coerce.number().min(0).max(100).default(19),
+  taxRate: z.coerce.number().min(0).max(100).default(15),
+  // Optional, same reason as currency below: the service fills in the
+  // company's own setting when the form doesn't send one (a new quote, before
+  // the person has touched the select).
+  taxDisplayMode: z.nativeEnum(TaxDisplayMode).optional(),
   // Optional, and left to the service to fill in from the company. A default
   // here would be a second opinion about what the company's currency is, in a
   // file that has no way of knowing.
@@ -183,7 +187,8 @@ export function quoteFormDataToInput(formData: FormData): Record<string, unknown
     sections: parseQuoteSections(formData),
     leadId: get("leadId"),
     termsDocumentId: get("termsDocumentId"),
-    taxRate: get("taxRate") ?? 19,
+    taxRate: get("taxRate") ?? 15,
+    taxDisplayMode: get("taxDisplayMode"),
     currency: get("currency"),
     discount: get("discount") ?? 0,
     validUntil: get("validUntil"),

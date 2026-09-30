@@ -12,8 +12,16 @@ export type Presence = {
   lastSeenAt: string | null;
 };
 
-/** How often the panel asks. Shorter than this is noise. */
-const POLL_SECONDS = 15;
+/**
+ * How often the panel asks.
+ *
+ * Used to be 15s, on the theory that anything shorter was noise — but that
+ * held only while presence could merely time out, never actually change on a
+ * close. Now that a closed tab flips it the instant it closes (see
+ * `markLeft`), the poll is what stands between that write and somebody seeing
+ * it; 10s is the same cadence the message thread already polls at.
+ */
+const POLL_SECONDS = 10;
 
 /**
  * Tracking the customer on a sent quote.

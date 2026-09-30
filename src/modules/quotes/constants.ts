@@ -10,11 +10,18 @@ export const QUOTE_STATUSES: readonly QuoteStatus[] = [
 ];
 
 /**
- * A quote can only be edited while it hasn't gone out to the customer. After
- * that, what was sent must stay as it is: if something changes, issue another.
+ * A quote can be edited while it's still being worked on, and while it's out
+ * with the customer awaiting an answer. What makes the second one safe is that
+ * the email never carried prices or lines — the share link is the only source
+ * and it's read live, so a correction reaches the customer's own open link
+ * rather than leaving a stale copy in their inbox alongside a fresh one.
+ *
+ * Once the customer has answered, the quote is history: `ACCEPTED` is frozen
+ * for good, and a `REJECTED` or `EXPIRED` one is revived by sending again
+ * (which reopens editing), not by editing what's already closed.
  */
 export function isQuoteEditable(status: QuoteStatus): boolean {
-  return status === QuoteStatus.DRAFT;
+  return status === QuoteStatus.DRAFT || status === QuoteStatus.SENT;
 }
 
 /**

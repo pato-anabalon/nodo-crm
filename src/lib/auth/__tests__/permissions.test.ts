@@ -77,4 +77,16 @@ describe("profile templates", () => {
       expect(new Set(permissions).size).toBe(permissions.length);
     }
   });
+
+  /**
+   * `quotes.read.amounts` hides a datum rather than an action, and it's new:
+   * every standard profile starts seeing amounts same as before, since
+   * nothing about existing companies should change until one of them
+   * deliberately unticks it for a profile on the grid.
+   */
+  it("every standard profile sees quote amounts by default", () => {
+    for (const key of [RoleKey.OWNER, RoleKey.ADMIN, RoleKey.MANAGER, RoleKey.SALES, RoleKey.VIEWER]) {
+      expect(templatePermissions(roleTemplate(key))).toContain("quotes.read.amounts");
+    }
+  });
 });

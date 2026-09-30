@@ -6,8 +6,8 @@ import { useTranslations } from "next-intl";
 export type PresenceRow = { viewingNow: boolean; openCount: number };
 export type PresenceMap = Record<string, PresenceRow>;
 
-/** Same cadence as the quote's own panel. Shorter than this is noise. */
-const POLL_SECONDS = 15;
+/** Same cadence as the quote's own panel — see there for why. */
+const POLL_SECONDS = 10;
 
 const PresenceContext = createContext<PresenceMap>({});
 

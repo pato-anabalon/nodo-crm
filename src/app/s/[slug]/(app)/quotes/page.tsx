@@ -31,6 +31,7 @@ import {
   QUOTE_STATUS_TEXT_CLASS,
 } from "@/modules/quotes/constants";
 import { formatMoney, formatQuoteNumber, truncate } from "@/lib/format";
+import { HiddenAmount } from "@/modules/quotes/hidden-amount";
 
 export async function generateMetadata() {
   const t = await getTranslations("quotes");
@@ -59,6 +60,8 @@ export default async function QuotesPage({
   if (!can(ctx, "quotes.read")) {
     return <p className="text-sm text-muted-foreground">{t("noAccess")}</p>;
   }
+
+  const canSeeAmounts = can(ctx, "quotes.read.amounts");
 
   const raw = await searchParams;
   const filters = quoteFiltersSchema.parse({
@@ -142,7 +145,7 @@ export default async function QuotesPage({
             .map((quote) => [
               quote.id,
               {
-                viewingNow: isViewingNow(quote.share!.lastSeenAt),
+                viewingNow: isViewingNow(quote.share!),
                 openCount: quote.share!.openCount,
               },
             ]),
@@ -231,7 +234,11 @@ export default async function QuotesPage({
                     </TableCell>
 
                     <TableCell className="text-right tabular-nums whitespace-nowrap">
-                      {formatMoney(Number(quote.total), quote.currency, ctx.company.formatLocale)}
+                      {canSeeAmounts ? (
+                        formatMoney(Number(quote.total), quote.currency, ctx.company.formatLocale)
+                      ) : (
+                        <HiddenAmount />
+                      )}
                     </TableCell>
 
                     <TableCell className="text-right">

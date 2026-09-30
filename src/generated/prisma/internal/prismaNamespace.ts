@@ -3339,7 +3339,7 @@ export const CompanyScalarFieldEnum = {
   quoteNotes: 'quoteNotes',
   quoteExclusions: 'quoteExclusions',
   quoteTerms: 'quoteTerms',
-  pricesIncludeTax: 'pricesIncludeTax',
+  taxDisplayMode: 'taxDisplayMode',
   acceptanceMode: 'acceptanceMode',
   acceptanceStatement: 'acceptanceStatement',
   requireSignature: 'requireSignature',
@@ -3713,7 +3713,7 @@ export const QuoteScalarFieldEnum = {
   language: 'language',
   taxType: 'taxType',
   taxRate: 'taxRate',
-  pricesIncludeTax: 'pricesIncludeTax',
+  taxDisplayMode: 'taxDisplayMode',
   discount: 'discount',
   subtotal: 'subtotal',
   taxAmount: 'taxAmount',
@@ -3754,6 +3754,7 @@ export const QuoteShareScalarFieldEnum = {
   expiresAt: 'expiresAt',
   revokedAt: 'revokedAt',
   lastSeenAt: 'lastSeenAt',
+  viewing: 'viewing',
   openCount: 'openCount',
   createdAt: 'createdAt'
 } as const
@@ -4063,6 +4064,20 @@ export type ListEnumSenderNameStyleFieldRefInput<$PrismaModel> = FieldRefInputTy
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'TaxDisplayMode'
+ */
+export type EnumTaxDisplayModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TaxDisplayMode'>
+    
+
+
+/**
+ * Reference to a field of type 'TaxDisplayMode[]'
+ */
+export type ListEnumTaxDisplayModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TaxDisplayMode[]'>
     
 
 

@@ -1,4 +1,4 @@
-import { calculateQuoteTotals, lineTotal, round2 } from "../totals";
+import { calculateQuoteTotals, lineTotal, round2, taxIsInTotal } from "../totals";
 import { formatQuoteNumber } from "@/lib/format";
 
 describe("round2", () => {
@@ -130,13 +130,13 @@ describe("calculateQuoteTotals — by sections", () => {
   });
 });
 
-describe("calculateQuoteTotals — prices including GST", () => {
+describe("calculateQuoteTotals — TAX_INCLUSIVE", () => {
   it("pulls the tax back out instead of adding it on top", () => {
     // 4,887.50 with 15% GST inside equals 4,250 net.
     const totals = calculateQuoteTotals({
       sections: [4887.5],
       taxRate: 15,
-      pricesIncludeTax: true,
+      taxDisplayMode: "TAX_INCLUSIVE",
     });
 
     expect(totals.total).toBe(4887.5);
@@ -148,7 +148,7 @@ describe("calculateQuoteTotals — prices including GST", () => {
     const totals = calculateQuoteTotals({
       sections: [1234.56, 789.01],
       taxRate: 15,
-      pricesIncludeTax: true,
+      taxDisplayMode: "TAX_INCLUSIVE",
     });
     expect(totals.total).toBe(2023.57);
   });
@@ -158,7 +158,7 @@ describe("calculateQuoteTotals — prices including GST", () => {
       const totals = calculateQuoteTotals({
         sections: [amount],
         taxRate: 15,
-        pricesIncludeTax: true,
+        taxDisplayMode: "TAX_INCLUSIVE",
       });
       expect(totals.taxableBase + totals.taxAmount).toBeCloseTo(totals.total, 2);
     }
@@ -169,7 +169,7 @@ describe("calculateQuoteTotals — prices including GST", () => {
     const including = calculateQuoteTotals({
       sections: [1000],
       taxRate: 15,
-      pricesIncludeTax: true,
+      taxDisplayMode: "TAX_INCLUSIVE",
     });
 
     expect(excluding.total).toBe(1150);
@@ -182,7 +182,7 @@ describe("calculateQuoteTotals — prices including GST", () => {
       sections: [1150],
       taxRate: 15,
       discount: 115,
-      pricesIncludeTax: true,
+      taxDisplayMode: "TAX_INCLUSIVE",
     });
 
     // 115 gross is taken off: the total drops from 1,150 to 1,035.
@@ -192,7 +192,7 @@ describe("calculateQuoteTotals — prices including GST", () => {
 
   it("with no tax, including it or not makes no difference", () => {
     const a = calculateQuoteTotals({ sections: [500], taxRate: 0 });
-    const b = calculateQuoteTotals({ sections: [500], taxRate: 0, pricesIncludeTax: true });
+    const b = calculateQuoteTotals({ sections: [500], taxRate: 0, taxDisplayMode: "TAX_INCLUSIVE" });
     expect(a.total).toBe(b.total);
     expect(a.subtotal).toBe(b.subtotal);
   });
@@ -201,9 +201,58 @@ describe("calculateQuoteTotals — prices including GST", () => {
     const totals = calculateQuoteTotals({
       items: [{ quantity: 2, unitPrice: 575 }],
       taxRate: 15,
-      pricesIncludeTax: true,
+      taxDisplayMode: "TAX_INCLUSIVE",
     });
     expect(totals.total).toBe(1150);
     expect(totals.subtotal).toBe(1000);
+  });
+});
+
+describe("calculateQuoteTotals — TAX_EXCLUSIVE", () => {
+  it("computes the tax but leaves it out of the total", () => {
+    const totals = calculateQuoteTotals({
+      sections: [1000],
+      taxRate: 15,
+      taxDisplayMode: "TAX_EXCLUSIVE",
+    });
+
+    // The customer is shown the bare subtotal; the 150 of GST is quoted for
+    // later, not folded in here.
+    expect(totals.taxableBase).toBe(1000);
+    expect(totals.taxAmount).toBe(150);
+    expect(totals.total).toBe(1000);
+  });
+
+  it("the discount still comes off before the total", () => {
+    const totals = calculateQuoteTotals({
+      sections: [1000],
+      taxRate: 15,
+      discount: 100,
+      taxDisplayMode: "TAX_EXCLUSIVE",
+    });
+
+    expect(totals.total).toBe(900);
+  });
+});
+
+describe("calculateQuoteTotals — NO_TAX", () => {
+  it("zeroes the tax regardless of what rate is sitting in the field", () => {
+    const totals = calculateQuoteTotals({
+      sections: [1000],
+      taxRate: 15,
+      taxDisplayMode: "NO_TAX",
+    });
+
+    expect(totals.taxAmount).toBe(0);
+    expect(totals.total).toBe(1000);
+  });
+});
+
+describe("taxIsInTotal", () => {
+  it("is true only for the two modes whose total carries tax", () => {
+    expect(taxIsInTotal("TAX_INCLUSIVE")).toBe(true);
+    expect(taxIsInTotal("TAX_EXCLUSIVE_INCLUSIVE_TOTAL")).toBe(true);
+    expect(taxIsInTotal("TAX_EXCLUSIVE")).toBe(false);
+    expect(taxIsInTotal("NO_TAX")).toBe(false);
   });
 });

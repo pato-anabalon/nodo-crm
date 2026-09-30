@@ -1,6 +1,6 @@
 import { after } from "next/server";
 import { NextResponse } from "next/server";
-import { recordOpen, resolveShare, touchPresence } from "@/modules/portal/service";
+import { markLeft, recordOpen, resolveShare, touchPresence } from "@/modules/portal/service";
 import { notifyQuoteOpened } from "@/modules/notifications/service";
 
 /**
@@ -20,6 +20,11 @@ import { notifyQuoteOpened } from "@/modules/notifications/service";
  * The trade is that somebody browsing with JavaScript off stops being counted.
  * They could never have accepted or replied either, so the portal was already
  * theirs to read and nothing else.
+ *
+ * **`leaving=1` is the last beat of all**, sent on `pagehide` instead of on the
+ * usual timer. Without it, closing the tab looked exactly like a heartbeat
+ * gone briefly quiet, and the panel kept saying "viewing now" for up to the
+ * whole presence window after the customer had actually gone.
  */
 export async function POST(request: Request, context: { params: Promise<{ token: string }> }) {
   const { token } = await context.params;
@@ -29,9 +34,13 @@ export async function POST(request: Request, context: { params: Promise<{ token:
     return new NextResponse(null, { status: 204 });
   }
 
-  const first = new URL(request.url).searchParams.get("first") === "1";
+  const params = new URL(request.url).searchParams;
+  const first = params.get("first") === "1";
+  const leaving = params.get("leaving") === "1";
 
-  if (first) {
+  if (leaving) {
+    await markLeft(share.id);
+  } else if (first) {
     const headers = request.headers;
     after(async () => {
       await recordOpen({

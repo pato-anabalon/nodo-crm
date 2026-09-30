@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AcceptanceMode, Language, TaxType } from "@/generated/prisma/enums";
+import { AcceptanceMode, Language, TaxDisplayMode, TaxType } from "@/generated/prisma/enums";
 import {
   isSupportedCurrency,
   isSupportedFormatLocale,
@@ -57,7 +57,7 @@ export const quoteSettingsSchema = z.object({
   defaultLanguage: z.nativeEnum(Language),
   defaultTaxType: z.nativeEnum(TaxType),
   defaultTaxRate: z.coerce.number().min(0).max(100),
-  pricesIncludeTax: z.coerce.boolean(),
+  taxDisplayMode: z.nativeEnum(TaxDisplayMode),
   quotePrefix: z.string().trim().min(1).max(10).toUpperCase(),
   quoteValidityDays: z.coerce.number().int().min(1).max(365),
   quoteIntro: optionalText(8000),

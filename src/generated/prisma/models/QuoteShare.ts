@@ -44,6 +44,7 @@ export type QuoteShareMinAggregateOutputType = {
   expiresAt: Date | null
   revokedAt: Date | null
   lastSeenAt: Date | null
+  viewing: boolean | null
   openCount: number | null
   createdAt: Date | null
 }
@@ -55,6 +56,7 @@ export type QuoteShareMaxAggregateOutputType = {
   expiresAt: Date | null
   revokedAt: Date | null
   lastSeenAt: Date | null
+  viewing: boolean | null
   openCount: number | null
   createdAt: Date | null
 }
@@ -66,6 +68,7 @@ export type QuoteShareCountAggregateOutputType = {
   expiresAt: number
   revokedAt: number
   lastSeenAt: number
+  viewing: number
   openCount: number
   createdAt: number
   _all: number
@@ -87,6 +90,7 @@ export type QuoteShareMinAggregateInputType = {
   expiresAt?: true
   revokedAt?: true
   lastSeenAt?: true
+  viewing?: true
   openCount?: true
   createdAt?: true
 }
@@ -98,6 +102,7 @@ export type QuoteShareMaxAggregateInputType = {
   expiresAt?: true
   revokedAt?: true
   lastSeenAt?: true
+  viewing?: true
   openCount?: true
   createdAt?: true
 }
@@ -109,6 +114,7 @@ export type QuoteShareCountAggregateInputType = {
   expiresAt?: true
   revokedAt?: true
   lastSeenAt?: true
+  viewing?: true
   openCount?: true
   createdAt?: true
   _all?: true
@@ -207,6 +213,7 @@ export type QuoteShareGroupByOutputType = {
   expiresAt: Date | null
   revokedAt: Date | null
   lastSeenAt: Date | null
+  viewing: boolean
   openCount: number
   createdAt: Date
   _count: QuoteShareCountAggregateOutputType | null
@@ -241,6 +248,7 @@ export type QuoteShareWhereInput = {
   expiresAt?: Prisma.DateTimeNullableFilter<"QuoteShare"> | Date | string | null
   revokedAt?: Prisma.DateTimeNullableFilter<"QuoteShare"> | Date | string | null
   lastSeenAt?: Prisma.DateTimeNullableFilter<"QuoteShare"> | Date | string | null
+  viewing?: Prisma.BoolFilter<"QuoteShare"> | boolean
   openCount?: Prisma.IntFilter<"QuoteShare"> | number
   createdAt?: Prisma.DateTimeFilter<"QuoteShare"> | Date | string
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
@@ -255,6 +263,7 @@ export type QuoteShareOrderByWithRelationInput = {
   expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   revokedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  viewing?: Prisma.SortOrder
   openCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   company?: Prisma.CompanyOrderByWithRelationInput
@@ -272,6 +281,7 @@ export type QuoteShareWhereUniqueInput = Prisma.AtLeast<{
   expiresAt?: Prisma.DateTimeNullableFilter<"QuoteShare"> | Date | string | null
   revokedAt?: Prisma.DateTimeNullableFilter<"QuoteShare"> | Date | string | null
   lastSeenAt?: Prisma.DateTimeNullableFilter<"QuoteShare"> | Date | string | null
+  viewing?: Prisma.BoolFilter<"QuoteShare"> | boolean
   openCount?: Prisma.IntFilter<"QuoteShare"> | number
   createdAt?: Prisma.DateTimeFilter<"QuoteShare"> | Date | string
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
@@ -286,6 +296,7 @@ export type QuoteShareOrderByWithAggregationInput = {
   expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   revokedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  viewing?: Prisma.SortOrder
   openCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.QuoteShareCountOrderByAggregateInput
@@ -305,6 +316,7 @@ export type QuoteShareScalarWhereWithAggregatesInput = {
   expiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"QuoteShare"> | Date | string | null
   revokedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"QuoteShare"> | Date | string | null
   lastSeenAt?: Prisma.DateTimeNullableWithAggregatesFilter<"QuoteShare"> | Date | string | null
+  viewing?: Prisma.BoolWithAggregatesFilter<"QuoteShare"> | boolean
   openCount?: Prisma.IntWithAggregatesFilter<"QuoteShare"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"QuoteShare"> | Date | string
 }
@@ -314,6 +326,7 @@ export type QuoteShareCreateInput = {
   expiresAt?: Date | string | null
   revokedAt?: Date | string | null
   lastSeenAt?: Date | string | null
+  viewing?: boolean
   openCount?: number
   createdAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuoteSharesInput
@@ -328,6 +341,7 @@ export type QuoteShareUncheckedCreateInput = {
   expiresAt?: Date | string | null
   revokedAt?: Date | string | null
   lastSeenAt?: Date | string | null
+  viewing?: boolean
   openCount?: number
   createdAt?: Date | string
   tokens?: Prisma.QuoteShareTokenUncheckedCreateNestedManyWithoutShareInput
@@ -338,6 +352,7 @@ export type QuoteShareUpdateInput = {
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   openCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuoteSharesNestedInput
@@ -352,6 +367,7 @@ export type QuoteShareUncheckedUpdateInput = {
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   openCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tokens?: Prisma.QuoteShareTokenUncheckedUpdateManyWithoutShareNestedInput
@@ -364,6 +380,7 @@ export type QuoteShareCreateManyInput = {
   expiresAt?: Date | string | null
   revokedAt?: Date | string | null
   lastSeenAt?: Date | string | null
+  viewing?: boolean
   openCount?: number
   createdAt?: Date | string
 }
@@ -373,6 +390,7 @@ export type QuoteShareUpdateManyMutationInput = {
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   openCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -384,6 +402,7 @@ export type QuoteShareUncheckedUpdateManyInput = {
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   openCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -410,6 +429,7 @@ export type QuoteShareCountOrderByAggregateInput = {
   expiresAt?: Prisma.SortOrder
   revokedAt?: Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrder
+  viewing?: Prisma.SortOrder
   openCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -425,6 +445,7 @@ export type QuoteShareMaxOrderByAggregateInput = {
   expiresAt?: Prisma.SortOrder
   revokedAt?: Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrder
+  viewing?: Prisma.SortOrder
   openCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -436,6 +457,7 @@ export type QuoteShareMinOrderByAggregateInput = {
   expiresAt?: Prisma.SortOrder
   revokedAt?: Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrder
+  viewing?: Prisma.SortOrder
   openCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -542,6 +564,7 @@ export type QuoteShareCreateWithoutCompanyInput = {
   expiresAt?: Date | string | null
   revokedAt?: Date | string | null
   lastSeenAt?: Date | string | null
+  viewing?: boolean
   openCount?: number
   createdAt?: Date | string
   quote: Prisma.QuoteCreateNestedOneWithoutShareInput
@@ -554,6 +577,7 @@ export type QuoteShareUncheckedCreateWithoutCompanyInput = {
   expiresAt?: Date | string | null
   revokedAt?: Date | string | null
   lastSeenAt?: Date | string | null
+  viewing?: boolean
   openCount?: number
   createdAt?: Date | string
   tokens?: Prisma.QuoteShareTokenUncheckedCreateNestedManyWithoutShareInput
@@ -595,6 +619,7 @@ export type QuoteShareScalarWhereInput = {
   expiresAt?: Prisma.DateTimeNullableFilter<"QuoteShare"> | Date | string | null
   revokedAt?: Prisma.DateTimeNullableFilter<"QuoteShare"> | Date | string | null
   lastSeenAt?: Prisma.DateTimeNullableFilter<"QuoteShare"> | Date | string | null
+  viewing?: Prisma.BoolFilter<"QuoteShare"> | boolean
   openCount?: Prisma.IntFilter<"QuoteShare"> | number
   createdAt?: Prisma.DateTimeFilter<"QuoteShare"> | Date | string
 }
@@ -604,6 +629,7 @@ export type QuoteShareCreateWithoutQuoteInput = {
   expiresAt?: Date | string | null
   revokedAt?: Date | string | null
   lastSeenAt?: Date | string | null
+  viewing?: boolean
   openCount?: number
   createdAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuoteSharesInput
@@ -616,6 +642,7 @@ export type QuoteShareUncheckedCreateWithoutQuoteInput = {
   expiresAt?: Date | string | null
   revokedAt?: Date | string | null
   lastSeenAt?: Date | string | null
+  viewing?: boolean
   openCount?: number
   createdAt?: Date | string
   tokens?: Prisma.QuoteShareTokenUncheckedCreateNestedManyWithoutShareInput
@@ -642,6 +669,7 @@ export type QuoteShareUpdateWithoutQuoteInput = {
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   openCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuoteSharesNestedInput
@@ -654,6 +682,7 @@ export type QuoteShareUncheckedUpdateWithoutQuoteInput = {
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   openCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tokens?: Prisma.QuoteShareTokenUncheckedUpdateManyWithoutShareNestedInput
@@ -664,6 +693,7 @@ export type QuoteShareCreateWithoutTokensInput = {
   expiresAt?: Date | string | null
   revokedAt?: Date | string | null
   lastSeenAt?: Date | string | null
+  viewing?: boolean
   openCount?: number
   createdAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuoteSharesInput
@@ -677,6 +707,7 @@ export type QuoteShareUncheckedCreateWithoutTokensInput = {
   expiresAt?: Date | string | null
   revokedAt?: Date | string | null
   lastSeenAt?: Date | string | null
+  viewing?: boolean
   openCount?: number
   createdAt?: Date | string
 }
@@ -702,6 +733,7 @@ export type QuoteShareUpdateWithoutTokensInput = {
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   openCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuoteSharesNestedInput
@@ -715,6 +747,7 @@ export type QuoteShareUncheckedUpdateWithoutTokensInput = {
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   openCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -725,6 +758,7 @@ export type QuoteShareCreateManyCompanyInput = {
   expiresAt?: Date | string | null
   revokedAt?: Date | string | null
   lastSeenAt?: Date | string | null
+  viewing?: boolean
   openCount?: number
   createdAt?: Date | string
 }
@@ -734,6 +768,7 @@ export type QuoteShareUpdateWithoutCompanyInput = {
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   openCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quote?: Prisma.QuoteUpdateOneRequiredWithoutShareNestedInput
@@ -746,6 +781,7 @@ export type QuoteShareUncheckedUpdateWithoutCompanyInput = {
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   openCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tokens?: Prisma.QuoteShareTokenUncheckedUpdateManyWithoutShareNestedInput
@@ -757,6 +793,7 @@ export type QuoteShareUncheckedUpdateManyWithoutCompanyInput = {
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewing?: Prisma.BoolFieldUpdateOperationsInput | boolean
   openCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -799,6 +836,7 @@ export type QuoteShareSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   expiresAt?: boolean
   revokedAt?: boolean
   lastSeenAt?: boolean
+  viewing?: boolean
   openCount?: boolean
   createdAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -814,6 +852,7 @@ export type QuoteShareSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   expiresAt?: boolean
   revokedAt?: boolean
   lastSeenAt?: boolean
+  viewing?: boolean
   openCount?: boolean
   createdAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -827,6 +866,7 @@ export type QuoteShareSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   expiresAt?: boolean
   revokedAt?: boolean
   lastSeenAt?: boolean
+  viewing?: boolean
   openCount?: boolean
   createdAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -840,11 +880,12 @@ export type QuoteShareSelectScalar = {
   expiresAt?: boolean
   revokedAt?: boolean
   lastSeenAt?: boolean
+  viewing?: boolean
   openCount?: boolean
   createdAt?: boolean
 }
 
-export type QuoteShareOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "quoteId" | "expiresAt" | "revokedAt" | "lastSeenAt" | "openCount" | "createdAt", ExtArgs["result"]["quoteShare"]>
+export type QuoteShareOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "quoteId" | "expiresAt" | "revokedAt" | "lastSeenAt" | "viewing" | "openCount" | "createdAt", ExtArgs["result"]["quoteShare"]>
 export type QuoteShareInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
@@ -877,8 +918,21 @@ export type $QuoteSharePayload<ExtArgs extends runtime.Types.Extensions.Internal
      * *
      *    * The customer page's last sign of life. Updated rather than inserting a row
      *    * per beat: the panel only needs to know whether someone is looking right now.
+     *    * Kept even after they leave, so "last seen" still has an answer.
      */
     lastSeenAt: Date | null
+    /**
+     * *
+     *    * Whether the page said it's still here, the last time it spoke up at all.
+     *    * `lastSeenAt` alone can't tell a closed tab from one that's merely gone
+     *    * quiet for a few seconds — both look identical until the window in
+     *    * `isViewingNow` runs out. This is the customer's own tab saying "I'm
+     *    * leaving" on `pagehide`, so a closed window stops reading as watched the
+     *    * moment it closes rather than up to a window's worth of seconds later.
+     *    * `isViewingNow` still ANDs it with the window, as a fallback for a tab that
+     *    * disappears without the chance to say so — a crash, a killed process.
+     */
+    viewing: boolean
     /**
      * *
      *    * How many times it was opened. The sum of the OPENED events, denormalised.
@@ -1317,6 +1371,7 @@ export interface QuoteShareFieldRefs {
   readonly expiresAt: Prisma.FieldRef<"QuoteShare", 'DateTime'>
   readonly revokedAt: Prisma.FieldRef<"QuoteShare", 'DateTime'>
   readonly lastSeenAt: Prisma.FieldRef<"QuoteShare", 'DateTime'>
+  readonly viewing: Prisma.FieldRef<"QuoteShare", 'Boolean'>
   readonly openCount: Prisma.FieldRef<"QuoteShare", 'Int'>
   readonly createdAt: Prisma.FieldRef<"QuoteShare", 'DateTime'>
 }

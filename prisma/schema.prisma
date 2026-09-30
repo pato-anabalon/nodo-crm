@@ -34,6 +34,35 @@ enum TaxType {
 }
 
 /**
+ * How tax relates to what gets typed in and to the total the customer is
+ * shown. Replaces a plain `pricesIncludeTax` boolean, which could only tell
+ * "already inside the price" from "add it on top" and had no way to say
+ * "quote it without tax at all" or "leave it out of the figure shown here".
+ * `TAX_INCLUSIVE` and `TAX_EXCLUSIVE_INCLUSIVE_TOTAL` read identically to the
+ * customer — Subtotal, tax, Total (incl. tax) — because the difference between
+ * them is only how the person quoting typed the numbers, never something the
+ * customer can see.
+ */
+enum TaxDisplayMode {
+  /**
+   * Prices exclude tax; it's added on top and the total the customer sees includes it.
+   */
+  TAX_EXCLUSIVE_INCLUSIVE_TOTAL
+  /**
+   * Prices exclude tax, and so does the total shown — tax is handled elsewhere, off the quote.
+   */
+  TAX_EXCLUSIVE
+  /**
+   * Prices already carry the tax inside; the breakdown pulls it back out to show it.
+   */
+  TAX_INCLUSIVE
+  /**
+   * No tax applies — a service with none, nothing to break out.
+   */
+  NO_TAX
+}
+
+/**
  * How a quote's price is put together.
  * `ITEMIZED` breaks out lines with quantity and unit price, for work that gets
  * measured. `SECTIONS` groups the work into blocks with a title, long description
@@ -257,12 +286,13 @@ model Company {
   quoteTerms      String?
 
   /**
-   * Whether the amounts typed in already carry the tax inside.
+   * How tax relates to the prices typed in and to the total the customer sees.
    * In New Zealand the Fair Trading Act requires showing the end consumer the
    * price with GST included; between businesses the opposite is customary.
-   * Whichever the choice, the breakdown always shows subtotal, tax and total.
+   * Suggested on every new quote; the quote keeps its own copy and can change
+   * it on its own while still a draft or awaiting an answer.
    */
-  pricesIncludeTax Boolean @default(false)
+  taxDisplayMode TaxDisplayMode @default(TAX_EXCLUSIVE_INCLUSIVE_TOTAL)
 
   // How the customer accepts. The statement is copied onto the quote at
   // acceptance, so changing it later doesn't rewrite what someone already accepted.
@@ -886,6 +916,12 @@ enum ActivityType {
    * statuses, so the log asked for `leads.status.SENT` and found nothing.
    */
   QUOTE_DECIDED
+  /**
+   * A sent quote was edited without reissuing it. Content is the quote's
+   * number, since the customer's link stays the same and the edit is what
+   * changed under it.
+   */
+  QUOTE_EDITED
   // Lead flow actions, each with its author and time.
   RECEIVED
   ASSIGNED
@@ -999,17 +1035,20 @@ model Quote {
   // Frozen copies of the company settings at the moment of issue: if tomorrow
   // the company changes currency, tax or language, what was already sent to the
   // customer must not change retroactively.
-  currency         String   @default("NZD")
-  language         Language @default(EN_GB)
-  taxType          TaxType  @default(GST)
+  currency       String         @default("NZD")
+  language       Language       @default(EN_GB)
+  taxType        TaxType        @default(GST)
   // Percentage applied to the subtotal (e.g. 15 for New Zealand GST).
-  taxRate          Decimal  @default(15) @db.Decimal(5, 2)
+  taxRate        Decimal        @default(15) @db.Decimal(5, 2)
   /**
-   * Whether the amounts entered already carried the tax inside.
+   * How tax relates to what was typed in and to the total the customer was
+   * shown. Suggested from the company's own setting on issue, but the quote
+   * keeps its own copy and can be changed on its own — while it's still a
+   * draft or awaiting an answer, same as everything else on it.
    */
-  pricesIncludeTax Boolean  @default(false)
+  taxDisplayMode TaxDisplayMode @default(TAX_EXCLUSIVE_INCLUSIVE_TOTAL)
   // Overall discount as an amount, applied after the per-line discounts.
-  discount         Decimal  @default(0) @db.Decimal(14, 2)
+  discount       Decimal        @default(0) @db.Decimal(14, 2)
 
   // Totals calculated and persisted so a future price change can't alter a quote
   // that has already been issued.
@@ -1096,8 +1135,20 @@ model QuoteShare {
   /**
    * The customer page's last sign of life. Updated rather than inserting a row
    * per beat: the panel only needs to know whether someone is looking right now.
+   * Kept even after they leave, so "last seen" still has an answer.
    */
   lastSeenAt DateTime?
+  /**
+   * Whether the page said it's still here, the last time it spoke up at all.
+   * `lastSeenAt` alone can't tell a closed tab from one that's merely gone
+   * quiet for a few seconds — both look identical until the window in
+   * `isViewingNow` runs out. This is the customer's own tab saying "I'm
+   * leaving" on `pagehide`, so a closed window stops reading as watched the
+   * moment it closes rather than up to a window's worth of seconds later.
+   * `isViewingNow` still ANDs it with the window, as a fallback for a tab that
+   * disappears without the chance to say so — a crash, a killed process.
+   */
+  viewing    Boolean   @default(false)
   /**
    * How many times it was opened. The sum of the OPENED events, denormalised.
    */

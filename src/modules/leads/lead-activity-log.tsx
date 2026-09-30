@@ -100,6 +100,9 @@ export function describe(
       });
     }
 
+    case ActivityType.QUOTE_EDITED:
+      return t("activity.QUOTE_EDITED", { reference: activity.content });
+
     case ActivityType.ASSIGNED:
       return activity.content
         ? t("activity.ASSIGNED", { name: activity.content })

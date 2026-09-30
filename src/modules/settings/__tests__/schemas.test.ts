@@ -41,7 +41,7 @@ const baseQuoteSettings = {
   defaultLanguage: "EN_GB",
   defaultTaxType: "GST",
   defaultTaxRate: "15",
-  pricesIncludeTax: false,
+  taxDisplayMode: "TAX_EXCLUSIVE_INCLUSIVE_TOTAL",
   quotePrefix: "cot",
   quoteValidityDays: "30",
 };
@@ -145,7 +145,7 @@ describe("quoteSettingsSchema: the closed lists", () => {
     defaultLanguage: "EN_GB",
     defaultTaxType: "GST",
     defaultTaxRate: "15",
-    pricesIncludeTax: "on",
+    taxDisplayMode: "TAX_EXCLUSIVE_INCLUSIVE_TOTAL",
     quotePrefix: "COT",
     quoteValidityDays: "30",
   };
@@ -166,5 +166,31 @@ describe("quoteSettingsSchema: the closed lists", () => {
     ["timezone", "Pacific/Aukland"],
   ])("rejects %s = %s", (field, value) => {
     expect(quoteSettingsSchema.safeParse({ ...valid, [field]: value }).success).toBe(false);
+  });
+});
+
+describe("quoteSettingsSchema: taxDisplayMode", () => {
+  const valid = {
+    currency: "NZD",
+    formatLocale: "en-NZ",
+    timezone: "Pacific/Auckland",
+    defaultLanguage: "EN_GB",
+    defaultTaxType: "GST",
+    defaultTaxRate: "15",
+    taxDisplayMode: "TAX_EXCLUSIVE_INCLUSIVE_TOTAL",
+    quotePrefix: "COT",
+    quoteValidityDays: "30",
+  };
+
+  it.each(["TAX_EXCLUSIVE_INCLUSIVE_TOTAL", "TAX_EXCLUSIVE", "TAX_INCLUSIVE", "NO_TAX"])(
+    "accepts %s",
+    (mode) => {
+      expect(quoteSettingsSchema.safeParse({ ...valid, taxDisplayMode: mode }).success).toBe(true);
+    },
+  );
+
+  it("rejects the boolean this field replaces, and anything else invented", () => {
+    expect(quoteSettingsSchema.safeParse({ ...valid, taxDisplayMode: "true" }).success).toBe(false);
+    expect(quoteSettingsSchema.safeParse({ ...valid, taxDisplayMode: "MAYBE" }).success).toBe(false);
   });
 });

@@ -14,6 +14,14 @@ import { HEARTBEAT_SECONDS } from "./share";
  * the page, so accepting a quote or sending a message logged an "opened the
  * quote" that never happened and bumped the counter the company reads. A beat
  * comes from a browser that has the page in front of somebody.
+ *
+ * **The last beat says so.** Closing the tab used to look exactly like a
+ * heartbeat gone quiet for a few seconds, so the panel kept reading "viewing
+ * now" until the whole presence window ran out — which read as fake in a demo,
+ * closing the customer's tab and having the panel insist for another half
+ * minute that they were still there. `pagehide` fires as the page is actually
+ * torn down, and `sendBeacon` is what a browser still delivers at that moment —
+ * a `fetch`, even `keepalive`, isn't guaranteed to survive it.
  */
 export function PresenceHeartbeat({ token }: { token: string }) {
   const opened = useRef(false);
@@ -34,13 +42,21 @@ export function PresenceHeartbeat({ token }: { token: string }) {
       }).catch(() => undefined);
     };
 
+    const leave = () => {
+      // Nothing was ever recorded as watched, so there's nothing to retract.
+      if (!opened.current) return;
+      navigator.sendBeacon?.(`${url}?leaving=1`);
+    };
+
     ping();
     const timer = setInterval(ping, HEARTBEAT_SECONDS * 1000);
     document.addEventListener("visibilitychange", ping);
+    window.addEventListener("pagehide", leave);
 
     return () => {
       clearInterval(timer);
       document.removeEventListener("visibilitychange", ping);
+      window.removeEventListener("pagehide", leave);
     };
   }, [token]);
 

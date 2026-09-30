@@ -137,6 +137,7 @@
     "quotes_send": "Enviar cotizaciones por correo",
     "quotes_decide": "Marcar cotizaciones como aceptadas o rechazadas",
     "quotes_read_all": "Ver las cotizaciones de toda la empresa",
+    "quotes_read_amounts": "Ver los montos de las cotizaciones",
     "contacts_read": "Ver contactos",
     "contacts_create": "Crear contactos",
     "contacts_update": "Editar contactos",
@@ -272,7 +273,8 @@
       "DISCARDED": "Lead descartado",
       "RESTORED": "Lead restaurado",
       "CONVERTED": "Cotización {reference} creada",
-      "QUOTE_DECIDED": "La cotización #{reference} fue {status, select, ACCEPTED {aceptada} REJECTED {rechazada} EXPIRED {dejada vencer} other {respondida}}"
+      "QUOTE_DECIDED": "La cotización #{reference} fue {status, select, ACCEPTED {aceptada} REJECTED {rechazada} EXPIRED {dejada vencer} other {respondida}}",
+      "QUOTE_EDITED": "Cotización #{reference} editada después de enviada"
     },
     "ownerSaved": "Responsable actualizado.",
     "ownerCleared": "Responsable quitado."
@@ -336,6 +338,7 @@
       "discount": "Descuento",
       "tax": "Impuesto",
       "total": "Total",
+      "preview": "Vista previa",
       "titleTooShort": "Ponle un título a la cotización",
       "describeItem": "Describe el ítem",
       "quantityPositive": "La cantidad debe ser mayor a 0",
@@ -364,8 +367,11 @@
       "intro": "Texto de introducción",
       "introHint": "Se copia desde la configuración de la empresa; puedes ajustarlo para esta cotización.",
       "exclusions": "Exclusiones",
+      "taxDisplayMode": "Los precios de los ítems son",
       "taxIncluded": "Los precios ya incluyen {tax}",
-      "taxExcluded": "Los precios no incluyen {tax}",
+      "taxExclusiveInclusiveHint": "Los precios no incluyen {tax}; se suma aparte y queda incluido en el total.",
+      "taxExcluded": "Los precios no incluyen {tax}, y el total mostrado tampoco — se maneja aparte, fuera de esta cotización.",
+      "noTaxHint": "Esta cotización no lleva impuesto.",
       "fromCatalogue": "Desde la lista de precios",
       "pickFromCatalogue": "Elegir un ítem…",
       "catalogueHint": "Se copia a la cotización; cambiar la lista después no la altera."
@@ -377,6 +383,7 @@
       "reject": "Marcar rechazada"
     },
     "detail": "Detalle",
+    "amountHidden": "Oculto",
     "status": {
       "DRAFT": "Borrador",
       "SENT": "Enviada",
@@ -390,6 +397,12 @@
       "VAT": "VAT",
       "IVA": "IVA",
       "TAX": "Impuesto"
+    },
+    "taxDisplayMode": {
+      "TAX_EXCLUSIVE_INCLUSIVE_TOTAL": "Exento de impuesto (total con impuesto)",
+      "TAX_EXCLUSIVE": "Exento de impuesto",
+      "TAX_INCLUSIVE": "Impuesto incluido",
+      "NO_TAX": "Sin impuesto"
     },
     "email": {
       "noContactEmail": "El lead no tiene correo de contacto, así que no se envió.",
@@ -773,8 +786,8 @@
       "defaultLanguage": "Idioma por defecto",
       "defaultTaxType": "Tipo de impuesto",
       "defaultTaxRate": "Tasa (%)",
-      "pricesIncludeTax": "Los precios que escribo ya incluyen el impuesto",
-      "pricesIncludeTaxHint": "En Nueva Zelanda, al consumidor final el precio debe mostrarse con GST incluido. Entre empresas se acostumbra lo contrario. En ambos casos el cliente ve el desglose completo.",
+      "taxDisplayMode": "Los precios de los ítems son",
+      "taxDisplayModeHint": "Se sugiere en cada cotización nueva; cada una puede cambiarlo por su cuenta mientras siga en borrador o esperando respuesta. En Nueva Zelanda, al consumidor final el precio debe mostrarse con GST incluido — entre empresas se acostumbra lo contrario.",
       "quotePrefix": "Prefijo del número",
       "quoteValidityDays": "Validez (días)",
       "quoteIntro": "Texto de introducción",
@@ -1052,6 +1065,7 @@
     "reviewBy": "por {author}",
     "totalExcluding": "Total {currency} sin {tax}",
     "totalIncluding": "Total {currency} con {tax} incluido",
+    "totalPlain": "Total {currency}",
     "subtotal": "Subtotal",
     "discount": "Descuento",
     "questionsAndAnswers": "Preguntas y respuestas"

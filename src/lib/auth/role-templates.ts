@@ -25,7 +25,7 @@ export const ROLE_TEMPLATES: readonly RoleTemplate[] = [
     key: RoleKey.ADMIN,
     permissions: [
       "leads.read", "leads.create", "leads.update", "leads.delete", "leads.assign", "leads.read.all",
-      "quotes.read", "quotes.create", "quotes.update", "quotes.delete", "quotes.send", "quotes.decide", "quotes.read.all",
+      "quotes.read", "quotes.create", "quotes.update", "quotes.delete", "quotes.send", "quotes.decide", "quotes.read.all", "quotes.read.amounts",
       "contacts.read", "contacts.create", "contacts.update", "contacts.delete",
       "settings.read", "settings.update",
       "users.read", "users.invite", "users.update", "users.remove",
@@ -37,7 +37,7 @@ export const ROLE_TEMPLATES: readonly RoleTemplate[] = [
     key: RoleKey.MANAGER,
     permissions: [
       "leads.read", "leads.create", "leads.update", "leads.delete", "leads.assign", "leads.read.all",
-      "quotes.read", "quotes.create", "quotes.update", "quotes.delete", "quotes.send", "quotes.decide", "quotes.read.all",
+      "quotes.read", "quotes.create", "quotes.update", "quotes.delete", "quotes.send", "quotes.decide", "quotes.read.all", "quotes.read.amounts",
       "contacts.read", "contacts.create", "contacts.update",
       "users.read",
       "reports.read",
@@ -47,7 +47,7 @@ export const ROLE_TEMPLATES: readonly RoleTemplate[] = [
     key: RoleKey.SALES,
     permissions: [
       "leads.read", "leads.create", "leads.update",
-      "quotes.read", "quotes.create", "quotes.update", "quotes.send",
+      "quotes.read", "quotes.create", "quotes.update", "quotes.send", "quotes.read.amounts",
       "contacts.read", "contacts.create", "contacts.update",
     ],
   },
@@ -55,7 +55,7 @@ export const ROLE_TEMPLATES: readonly RoleTemplate[] = [
     key: RoleKey.VIEWER,
     permissions: [
       "leads.read", "leads.read.all",
-      "quotes.read", "quotes.read.all",
+      "quotes.read", "quotes.read.all", "quotes.read.amounts",
       "contacts.read",
       "reports.read",
     ],

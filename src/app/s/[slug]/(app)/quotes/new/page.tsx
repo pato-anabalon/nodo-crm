@@ -65,7 +65,7 @@ export default async function NewQuotePage({
         currency={ctx.company.currency}
         currencies={currencyOptions(await getLocale())}
         formatLocale={ctx.company.formatLocale}
-        pricesIncludeTax={ctx.company.pricesIncludeTax}
+        taxDisplayMode={ctx.company.taxDisplayMode}
         taxLabel={t(`taxType.${ctx.company.defaultTaxType}`)}
         submitLabel={t("create")}
         defaults={{

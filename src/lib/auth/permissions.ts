@@ -36,6 +36,10 @@ export const PERMISSIONS = [
   "quotes.send",
   "quotes.decide",
   "quotes.read.all",
+  // Unlike the rest of the catalogue, this one hides a **datum** rather than
+  // granting or withholding an action: without it, a quote a profile can
+  // otherwise open still shows, but its priced figures don't.
+  "quotes.read.amounts",
 
   // Contacts
   "contacts.read",

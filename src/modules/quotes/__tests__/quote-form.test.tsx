@@ -13,7 +13,7 @@ function renderForm() {
       currency="NZD"
       currencies={[{ value: "NZD", label: "NZD — New Zealand Dollar" }]}
       formatLocale="en-NZ"
-      pricesIncludeTax={false}
+      taxDisplayMode="TAX_EXCLUSIVE_INCLUSIVE_TOTAL"
       taxLabel="GST"
       submitLabel="Create quote"
     />,
@@ -171,7 +171,7 @@ describe("QuoteForm — la moneda", () => {
         currency="NZD"
         currencies={CURRENCIES}
         formatLocale="en-NZ"
-        pricesIncludeTax={false}
+        taxDisplayMode="TAX_EXCLUSIVE_INCLUSIVE_TOTAL"
         taxLabel="GST"
         submitLabel="Save"
         defaults={defaults}
@@ -210,5 +210,54 @@ describe("QuoteForm — la moneda", () => {
     });
 
     expect(select).toHaveValue("AUD");
+  });
+});
+
+describe("QuoteForm — the tax rate under No tax", () => {
+  function renderWithTaxMode(defaults = {}) {
+    renderWithIntl(
+      <QuoteForm
+        action={jest.fn(async () => ({}))}
+        leads={[]}
+        documents={[]}
+        currency="NZD"
+        currencies={[{ value: "NZD", label: "NZD — New Zealand Dollar" }]}
+        formatLocale="en-NZ"
+        taxDisplayMode="TAX_EXCLUSIVE_INCLUSIVE_TOTAL"
+        taxLabel="GST"
+        submitLabel="Save"
+        defaults={{ taxRate: 15, ...defaults }}
+      />,
+    );
+    return screen.getByLabelText("Item pricing is") as HTMLSelectElement;
+  }
+
+  /**
+   * The field disappears under "No tax", but it must not disappear from the
+   * posted form: that's how a save under "No tax" once overwrote the
+   * company's own rate with the parser's hardcoded fallback of 19, and the
+   * field came back showing 19 the next time tax was turned back on.
+   */
+  it("keeps posting the rate, hidden, once No tax is picked", async () => {
+    const user = userEvent.setup();
+    const select = renderWithTaxMode();
+
+    await user.selectOptions(select, "NO_TAX");
+
+    expect(screen.queryByLabelText("Tax rate (%)")).not.toBeInTheDocument();
+    const hidden = document.querySelector<HTMLInputElement>(
+      'input[type="hidden"][name="taxRate"]',
+    );
+    expect(hidden?.value).toBe("15");
+  });
+
+  it("shows the rate it had before, not a hardcoded one, once tax is turned back on", async () => {
+    const user = userEvent.setup();
+    const select = renderWithTaxMode();
+
+    await user.selectOptions(select, "NO_TAX");
+    await user.selectOptions(select, "TAX_INCLUSIVE");
+
+    expect(screen.getByLabelText("Tax rate (%)")).toHaveValue(15);
   });
 });

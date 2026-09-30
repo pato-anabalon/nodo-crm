@@ -30,13 +30,13 @@ export async function GET(request: Request) {
   // nothing, so the response can't confirm that another company's quote exists.
   const shares = await ctx.db.quoteShare.findMany({
     where: { quoteId: { in: ids } },
-    select: { quoteId: true, openCount: true, lastSeenAt: true },
+    select: { quoteId: true, openCount: true, lastSeenAt: true, viewing: true },
   });
 
   const presence: Record<string, { viewingNow: boolean; openCount: number }> = {};
   for (const share of shares) {
     presence[share.quoteId] = {
-      viewingNow: isViewingNow(share.lastSeenAt),
+      viewingNow: isViewingNow(share),
       openCount: share.openCount,
     };
   }

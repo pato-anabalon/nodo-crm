@@ -28,11 +28,17 @@ export const HEARTBEAT_SECONDS = 20;
  * Is the customer looking at the quote right now?
  *
  * Periodic polling from the panel is enough: no real-time infrastructure is
- * needed to answer this question.
+ * needed to answer this question. `viewing` is the customer's own tab saying
+ * so — set on every heartbeat, and cleared the moment it says it's leaving —
+ * and the window is what stops a tab that vanished without saying anything
+ * (a crash, a killed process) from reading as watched forever.
  */
-export function isViewingNow(lastSeenAt: Date | null, now: Date = new Date()): boolean {
-  if (!lastSeenAt) return false;
-  const elapsed = now.getTime() - lastSeenAt.getTime();
+export function isViewingNow(
+  share: { viewing: boolean; lastSeenAt: Date | null },
+  now: Date = new Date(),
+): boolean {
+  if (!share.viewing || !share.lastSeenAt) return false;
+  const elapsed = now.getTime() - share.lastSeenAt.getTime();
   return elapsed >= 0 && elapsed <= PRESENCE_WINDOW_SECONDS * 1000;
 }
 

@@ -28,6 +28,16 @@ export const TaxType = {
 export type TaxType = (typeof TaxType)[keyof typeof TaxType]
 
 
+export const TaxDisplayMode = {
+  TAX_EXCLUSIVE_INCLUSIVE_TOTAL: 'TAX_EXCLUSIVE_INCLUSIVE_TOTAL',
+  TAX_EXCLUSIVE: 'TAX_EXCLUSIVE',
+  TAX_INCLUSIVE: 'TAX_INCLUSIVE',
+  NO_TAX: 'NO_TAX'
+} as const
+
+export type TaxDisplayMode = (typeof TaxDisplayMode)[keyof typeof TaxDisplayMode]
+
+
 export const PricingMode = {
   ITEMIZED: 'ITEMIZED',
   SECTIONS: 'SECTIONS'
@@ -202,6 +212,7 @@ export const ActivityType = {
   STATUS_CHANGE: 'STATUS_CHANGE',
   QUOTE_SENT: 'QUOTE_SENT',
   QUOTE_DECIDED: 'QUOTE_DECIDED',
+  QUOTE_EDITED: 'QUOTE_EDITED',
   RECEIVED: 'RECEIVED',
   ASSIGNED: 'ASSIGNED',
   DISCARDED: 'DISCARDED',

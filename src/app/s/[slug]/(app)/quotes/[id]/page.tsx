@@ -30,6 +30,8 @@ import {
 import { ShareCard } from "@/modules/quotes/share-card";
 import { QuoteReuseCard } from "@/modules/quote-templates/quote-actions";
 import { isQuoteEditable, QUOTE_STATUS_CLASS } from "@/modules/quotes/constants";
+import { taxIsInTotal } from "@/modules/quotes/totals";
+import { HiddenAmount } from "@/modules/quotes/hidden-amount";
 import { currencyOptions } from "@/lib/intl/options";
 import { EmailTemplateKind, MessageAuthor, PricingMode, QuoteStatus } from "@/generated/prisma/enums";
 import { Celebrate } from "@/components/celebrate";
@@ -62,6 +64,13 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
   // The currency comes from the quote, not the company: it's the copy frozen on issue.
   const money = (value: number) => formatMoney(value, quote.currency, ctx.company.formatLocale);
   const editable = isQuoteEditable(quote.status) && can(ctx, "quotes.update");
+  const canSeeAmounts = can(ctx, "quotes.read.amounts");
+  // Stands in for a raw figure wherever `quotes.read.amounts` says not to show
+  // one — used throughout the read-only detail below. The edit form is a
+  // separate component and untouched: typing a price *is* seeing it, so the
+  // permission has nothing to add there.
+  const maskedMoney = (value: number): React.ReactNode =>
+    canSeeAmounts ? money(value) : <HiddenAmount />;
 
   const sendAction = sendQuoteAction.bind(null, quote.id);
   const decideAction = decideQuoteAction.bind(null, quote.id);
@@ -139,6 +148,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
             "use server";
             return decideAction(decision);
           }}
+          previewHref={`/quotes/${quote.id}/preview`}
         />
       </div>
 
@@ -157,7 +167,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
           currency={ctx.company.currency}
           currencies={currencyOptions(await getLocale())}
           formatLocale={ctx.company.formatLocale}
-          pricesIncludeTax={quote.pricesIncludeTax}
+          taxDisplayMode={ctx.company.taxDisplayMode}
           taxLabel={t(`taxType.${quote.taxType}`)}
           submitLabel={tCommon("saveChanges")}
           defaults={{
@@ -173,6 +183,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
             leadId: quote.leadId,
             termsDocumentId: quote.termsDocumentId,
             taxRate: Number(quote.taxRate),
+            taxDisplayMode: quote.taxDisplayMode,
             currency: quote.currency,
             discount: Number(quote.discount),
             validUntil: quote.validUntil?.toISOString().slice(0, 10) ?? null,
@@ -199,7 +210,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
                   <div key={section.id} className="space-y-1.5">
                     <div className="flex flex-wrap items-baseline justify-between gap-3">
                       <h3 className="font-semibold">{section.title}</h3>
-                      <span className="tabular-nums">{money(Number(section.amount))}</span>
+                      <span className="tabular-nums">{maskedMoney(Number(section.amount))}</span>
                     </div>
                     <RichText className="text-sm text-muted-foreground" html={section.body} />
                   </div>
@@ -222,9 +233,9 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
                     <TableRow key={item.id}>
                       <TableCell>{item.description}</TableCell>
                       <TableCell className="text-right tabular-nums">{Number(item.quantity)}</TableCell>
-                      <TableCell className="text-right tabular-nums">{money(Number(item.unitPrice))}</TableCell>
+                      <TableCell className="text-right tabular-nums">{maskedMoney(Number(item.unitPrice))}</TableCell>
                       <TableCell className="text-right tabular-nums">{Number(item.discount)}%</TableCell>
-                      <TableCell className="text-right tabular-nums">{money(Number(item.total))}</TableCell>
+                      <TableCell className="text-right tabular-nums">{maskedMoney(Number(item.total))}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -239,12 +250,20 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
             </CardHeader>
             <CardContent>
               <dl className="space-y-1.5 text-sm">
-                <Row label={t("form.subtotal")} value={money(Number(quote.subtotal))} />
-                <Row label={t("form.discount")} value={`− ${money(Number(quote.discount))}`} />
-                <Row label={`${t(`taxType.${quote.taxType}`)} (${Number(quote.taxRate)}%)`} value={money(Number(quote.taxAmount))} />
+                <Row label={t("form.subtotal")} value={maskedMoney(Number(quote.subtotal))} />
+                <Row
+                  label={t("form.discount")}
+                  value={canSeeAmounts ? `− ${money(Number(quote.discount))}` : <HiddenAmount />}
+                />
+                {taxIsInTotal(quote.taxDisplayMode) ? (
+                  <Row
+                    label={`${t(`taxType.${quote.taxType}`)} (${Number(quote.taxRate)}%)`}
+                    value={maskedMoney(Number(quote.taxAmount))}
+                  />
+                ) : null}
                 <div className="flex items-center justify-between border-t pt-2 text-base font-semibold">
                   <dt>{t("form.total")}</dt>
-                  <dd className="tabular-nums">{money(Number(quote.total))}</dd>
+                  <dd className="tabular-nums">{maskedMoney(Number(quote.total))}</dd>
                 </div>
               </dl>
 
@@ -317,7 +336,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
               quoteId={quote.id}
               initial={{
                 shared: true,
-                viewingNow: isViewingNow(quote.share.lastSeenAt),
+                viewingNow: isViewingNow(quote.share),
                 openCount: quote.share.openCount,
                 lastSeenAt: quote.share.lastSeenAt?.toISOString() ?? null,
               }}
@@ -542,7 +561,7 @@ async function AcceptanceCard({
   );
 }
 
-function Row({ label, value }: { label: string; value: string }) {
+function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex items-center justify-between text-muted-foreground">
       <dt>{label}</dt>

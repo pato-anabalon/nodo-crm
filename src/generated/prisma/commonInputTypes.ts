@@ -92,6 +92,13 @@ export type BoolFilter<$PrismaModel = never> = {
   not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
 }
 
+export type EnumTaxDisplayModeFilter<$PrismaModel = never> = {
+  equals?: $Enums.TaxDisplayMode | Prisma.EnumTaxDisplayModeFieldRefInput<$PrismaModel>
+  in?: $Enums.TaxDisplayMode[] | Prisma.ListEnumTaxDisplayModeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TaxDisplayMode[] | Prisma.ListEnumTaxDisplayModeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTaxDisplayModeFilter<$PrismaModel> | $Enums.TaxDisplayMode
+}
+
 export type EnumAcceptanceModeFilter<$PrismaModel = never> = {
   equals?: $Enums.AcceptanceMode | Prisma.EnumAcceptanceModeFieldRefInput<$PrismaModel>
   in?: $Enums.AcceptanceMode[] | Prisma.ListEnumAcceptanceModeFieldRefInput<$PrismaModel>
@@ -219,6 +226,16 @@ export type BoolWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedBoolFilter<$PrismaModel>
   _max?: Prisma.NestedBoolFilter<$PrismaModel>
+}
+
+export type EnumTaxDisplayModeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TaxDisplayMode | Prisma.EnumTaxDisplayModeFieldRefInput<$PrismaModel>
+  in?: $Enums.TaxDisplayMode[] | Prisma.ListEnumTaxDisplayModeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TaxDisplayMode[] | Prisma.ListEnumTaxDisplayModeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTaxDisplayModeWithAggregatesFilter<$PrismaModel> | $Enums.TaxDisplayMode
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTaxDisplayModeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTaxDisplayModeFilter<$PrismaModel>
 }
 
 export type EnumAcceptanceModeWithAggregatesFilter<$PrismaModel = never> = {
@@ -740,6 +757,13 @@ export type NestedBoolFilter<$PrismaModel = never> = {
   not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
 }
 
+export type NestedEnumTaxDisplayModeFilter<$PrismaModel = never> = {
+  equals?: $Enums.TaxDisplayMode | Prisma.EnumTaxDisplayModeFieldRefInput<$PrismaModel>
+  in?: $Enums.TaxDisplayMode[] | Prisma.ListEnumTaxDisplayModeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TaxDisplayMode[] | Prisma.ListEnumTaxDisplayModeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTaxDisplayModeFilter<$PrismaModel> | $Enums.TaxDisplayMode
+}
+
 export type NestedEnumAcceptanceModeFilter<$PrismaModel = never> = {
   equals?: $Enums.AcceptanceMode | Prisma.EnumAcceptanceModeFieldRefInput<$PrismaModel>
   in?: $Enums.AcceptanceMode[] | Prisma.ListEnumAcceptanceModeFieldRefInput<$PrismaModel>
@@ -882,6 +906,16 @@ export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedBoolFilter<$PrismaModel>
   _max?: Prisma.NestedBoolFilter<$PrismaModel>
+}
+
+export type NestedEnumTaxDisplayModeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TaxDisplayMode | Prisma.EnumTaxDisplayModeFieldRefInput<$PrismaModel>
+  in?: $Enums.TaxDisplayMode[] | Prisma.ListEnumTaxDisplayModeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TaxDisplayMode[] | Prisma.ListEnumTaxDisplayModeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTaxDisplayModeWithAggregatesFilter<$PrismaModel> | $Enums.TaxDisplayMode
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTaxDisplayModeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTaxDisplayModeFilter<$PrismaModel>
 }
 
 export type NestedEnumAcceptanceModeWithAggregatesFilter<$PrismaModel = never> = {

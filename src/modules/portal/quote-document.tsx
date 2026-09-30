@@ -11,6 +11,7 @@ import {
 import type { Prisma } from "@/generated/prisma/client";
 import type { Locale } from "@/i18n/config";
 import { formatDateTime, formatMoney } from "@/lib/format";
+import { taxIsInTotal } from "@/modules/quotes/totals";
 import { RichText } from "@/components/rich-text";
 import { PrintButton } from "./print-button";
 import { PresenceHeartbeat } from "./heartbeat";
@@ -77,6 +78,19 @@ export async function QuoteDocument({
   const live = token !== null;
   const open = live && canClientRespond(quote.status);
   const taxLabel = quote.taxType;
+  const showTaxBreakdown = taxIsInTotal(quote.taxDisplayMode);
+
+  // `TAX_INCLUSIVE` and `TAX_EXCLUSIVE_INCLUSIVE_TOTAL` read identically here —
+  // Subtotal, tax, Total including it — because the difference between them is
+  // only how the amounts were typed in, never something the customer can see.
+  const totalLabel = () => {
+    if (quote.taxDisplayMode === "NO_TAX") {
+      return t("totalPlain", { currency: quote.currency });
+    }
+    return showTaxBreakdown
+      ? t("totalIncluding", { currency: quote.currency, tax: taxLabel })
+      : t("totalExcluding", { currency: quote.currency, tax: taxLabel });
+  };
 
   return (
     <NextIntlClientProvider
@@ -224,7 +238,9 @@ export async function QuoteDocument({
               </div>
             ) : null}
 
-            {/* The breakdown always shows all three, whichever base was chosen. */}
+            {/* Tax only breaks out as its own line when it's part of the total
+                below it — otherwise a figure sits there that the total doesn't
+                reflect, which reads as a mistake rather than a choice. */}
             <dl className="ml-auto max-w-xs space-y-1.5 border-t pt-4 text-sm">
               <Row
                 label={t("subtotal")}
@@ -236,22 +252,14 @@ export async function QuoteDocument({
                   value={`− ${money(Number(quote.discount))}`}
                 />
               ) : null}
-              <Row
-                label={`${taxLabel} ${Number(quote.taxRate)}%`}
-                value={money(Number(quote.taxAmount))}
-              />
+              {showTaxBreakdown ? (
+                <Row
+                  label={`${taxLabel} ${Number(quote.taxRate)}%`}
+                  value={money(Number(quote.taxAmount))}
+                />
+              ) : null}
               <div className="flex items-baseline justify-between gap-3 border-t pt-2 text-base font-semibold">
-                <dt>
-                  {quote.pricesIncludeTax
-                    ? t("totalIncluding", {
-                        currency: quote.currency,
-                        tax: taxLabel,
-                      })
-                    : t("totalExcluding", {
-                        currency: quote.currency,
-                        tax: taxLabel,
-                      })}
-                </dt>
+                <dt>{totalLabel()}</dt>
                 <dd className="tabular-nums">{money(Number(quote.total))}</dd>
               </div>
             </dl>
@@ -367,17 +375,7 @@ export async function QuoteDocument({
         <div className="no-print fixed inset-x-0 bottom-0 border-t bg-background/95 backdrop-blur">
           <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-3 px-6 py-3">
             <span className="text-sm">
-              <span className="text-muted-foreground">
-                {quote.pricesIncludeTax
-                  ? t("totalIncluding", {
-                      currency: quote.currency,
-                      tax: taxLabel,
-                    })
-                  : t("totalExcluding", {
-                      currency: quote.currency,
-                      tax: taxLabel,
-                    })}
-              </span>{" "}
+              <span className="text-muted-foreground">{totalLabel()}</span>{" "}
               <span className="text-base font-semibold tabular-nums">
                 {money(Number(quote.total))}
               </span>

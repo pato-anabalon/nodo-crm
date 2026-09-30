@@ -52,7 +52,7 @@ describe("the company's copy reaches every quote", () => {
       defaultLanguage: "EN_GB",
       defaultTaxType: "GST",
       defaultTaxRate: 15,
-      pricesIncludeTax: false,
+      taxDisplayMode: "TAX_EXCLUSIVE_INCLUSIVE_TOTAL",
       quotePrefix: "COT",
       quoteValidityDays: 30,
       quoteIntro: "Thank you for the opportunity.",

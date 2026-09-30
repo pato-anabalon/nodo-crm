@@ -75,7 +75,7 @@ export type CompanyMinAggregateOutputType = {
   quoteNotes: string | null
   quoteExclusions: string | null
   quoteTerms: string | null
-  pricesIncludeTax: boolean | null
+  taxDisplayMode: $Enums.TaxDisplayMode | null
   acceptanceMode: $Enums.AcceptanceMode | null
   acceptanceStatement: string | null
   requireSignature: boolean | null
@@ -119,7 +119,7 @@ export type CompanyMaxAggregateOutputType = {
   quoteNotes: string | null
   quoteExclusions: string | null
   quoteTerms: string | null
-  pricesIncludeTax: boolean | null
+  taxDisplayMode: $Enums.TaxDisplayMode | null
   acceptanceMode: $Enums.AcceptanceMode | null
   acceptanceStatement: string | null
   requireSignature: boolean | null
@@ -164,7 +164,7 @@ export type CompanyCountAggregateOutputType = {
   quoteNotes: number
   quoteExclusions: number
   quoteTerms: number
-  pricesIncludeTax: number
+  taxDisplayMode: number
   acceptanceMode: number
   acceptanceStatement: number
   requireSignature: number
@@ -226,7 +226,7 @@ export type CompanyMinAggregateInputType = {
   quoteNotes?: true
   quoteExclusions?: true
   quoteTerms?: true
-  pricesIncludeTax?: true
+  taxDisplayMode?: true
   acceptanceMode?: true
   acceptanceStatement?: true
   requireSignature?: true
@@ -270,7 +270,7 @@ export type CompanyMaxAggregateInputType = {
   quoteNotes?: true
   quoteExclusions?: true
   quoteTerms?: true
-  pricesIncludeTax?: true
+  taxDisplayMode?: true
   acceptanceMode?: true
   acceptanceStatement?: true
   requireSignature?: true
@@ -315,7 +315,7 @@ export type CompanyCountAggregateInputType = {
   quoteNotes?: true
   quoteExclusions?: true
   quoteTerms?: true
-  pricesIncludeTax?: true
+  taxDisplayMode?: true
   acceptanceMode?: true
   acceptanceStatement?: true
   requireSignature?: true
@@ -447,7 +447,7 @@ export type CompanyGroupByOutputType = {
   quoteNotes: string | null
   quoteExclusions: string | null
   quoteTerms: string | null
-  pricesIncludeTax: boolean
+  taxDisplayMode: $Enums.TaxDisplayMode
   acceptanceMode: $Enums.AcceptanceMode
   acceptanceStatement: string | null
   requireSignature: boolean
@@ -515,7 +515,7 @@ export type CompanyWhereInput = {
   quoteNotes?: Prisma.StringNullableFilter<"Company"> | string | null
   quoteExclusions?: Prisma.StringNullableFilter<"Company"> | string | null
   quoteTerms?: Prisma.StringNullableFilter<"Company"> | string | null
-  pricesIncludeTax?: Prisma.BoolFilter<"Company"> | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFilter<"Company"> | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFilter<"Company"> | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.StringNullableFilter<"Company"> | string | null
   requireSignature?: Prisma.BoolFilter<"Company"> | boolean
@@ -584,7 +584,7 @@ export type CompanyOrderByWithRelationInput = {
   quoteNotes?: Prisma.SortOrderInput | Prisma.SortOrder
   quoteExclusions?: Prisma.SortOrderInput | Prisma.SortOrder
   quoteTerms?: Prisma.SortOrderInput | Prisma.SortOrder
-  pricesIncludeTax?: Prisma.SortOrder
+  taxDisplayMode?: Prisma.SortOrder
   acceptanceMode?: Prisma.SortOrder
   acceptanceStatement?: Prisma.SortOrderInput | Prisma.SortOrder
   requireSignature?: Prisma.SortOrder
@@ -656,7 +656,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   quoteNotes?: Prisma.StringNullableFilter<"Company"> | string | null
   quoteExclusions?: Prisma.StringNullableFilter<"Company"> | string | null
   quoteTerms?: Prisma.StringNullableFilter<"Company"> | string | null
-  pricesIncludeTax?: Prisma.BoolFilter<"Company"> | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFilter<"Company"> | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFilter<"Company"> | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.StringNullableFilter<"Company"> | string | null
   requireSignature?: Prisma.BoolFilter<"Company"> | boolean
@@ -725,7 +725,7 @@ export type CompanyOrderByWithAggregationInput = {
   quoteNotes?: Prisma.SortOrderInput | Prisma.SortOrder
   quoteExclusions?: Prisma.SortOrderInput | Prisma.SortOrder
   quoteTerms?: Prisma.SortOrderInput | Prisma.SortOrder
-  pricesIncludeTax?: Prisma.SortOrder
+  taxDisplayMode?: Prisma.SortOrder
   acceptanceMode?: Prisma.SortOrder
   acceptanceStatement?: Prisma.SortOrderInput | Prisma.SortOrder
   requireSignature?: Prisma.SortOrder
@@ -778,7 +778,7 @@ export type CompanyScalarWhereWithAggregatesInput = {
   quoteNotes?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   quoteExclusions?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   quoteTerms?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
-  pricesIncludeTax?: Prisma.BoolWithAggregatesFilter<"Company"> | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeWithAggregatesFilter<"Company"> | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeWithAggregatesFilter<"Company"> | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   requireSignature?: Prisma.BoolWithAggregatesFilter<"Company"> | boolean
@@ -823,7 +823,7 @@ export type CompanyCreateInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -892,7 +892,7 @@ export type CompanyUncheckedCreateInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -961,7 +961,7 @@ export type CompanyUpdateInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1030,7 +1030,7 @@ export type CompanyUncheckedUpdateInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1099,7 +1099,7 @@ export type CompanyCreateManyInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -1144,7 +1144,7 @@ export type CompanyUpdateManyMutationInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1189,7 +1189,7 @@ export type CompanyUncheckedUpdateManyInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1242,7 +1242,7 @@ export type CompanyCountOrderByAggregateInput = {
   quoteNotes?: Prisma.SortOrder
   quoteExclusions?: Prisma.SortOrder
   quoteTerms?: Prisma.SortOrder
-  pricesIncludeTax?: Prisma.SortOrder
+  taxDisplayMode?: Prisma.SortOrder
   acceptanceMode?: Prisma.SortOrder
   acceptanceStatement?: Prisma.SortOrder
   requireSignature?: Prisma.SortOrder
@@ -1294,7 +1294,7 @@ export type CompanyMaxOrderByAggregateInput = {
   quoteNotes?: Prisma.SortOrder
   quoteExclusions?: Prisma.SortOrder
   quoteTerms?: Prisma.SortOrder
-  pricesIncludeTax?: Prisma.SortOrder
+  taxDisplayMode?: Prisma.SortOrder
   acceptanceMode?: Prisma.SortOrder
   acceptanceStatement?: Prisma.SortOrder
   requireSignature?: Prisma.SortOrder
@@ -1338,7 +1338,7 @@ export type CompanyMinOrderByAggregateInput = {
   quoteNotes?: Prisma.SortOrder
   quoteExclusions?: Prisma.SortOrder
   quoteTerms?: Prisma.SortOrder
-  pricesIncludeTax?: Prisma.SortOrder
+  taxDisplayMode?: Prisma.SortOrder
   acceptanceMode?: Prisma.SortOrder
   acceptanceStatement?: Prisma.SortOrder
   requireSignature?: Prisma.SortOrder
@@ -1414,6 +1414,10 @@ export type BoolFieldUpdateOperationsInput = {
 export type CompanyUpdateleadNotificationEmailsInput = {
   set?: string[]
   push?: string | string[]
+}
+
+export type EnumTaxDisplayModeFieldUpdateOperationsInput = {
+  set?: $Enums.TaxDisplayMode
 }
 
 export type EnumAcceptanceModeFieldUpdateOperationsInput = {
@@ -1796,7 +1800,7 @@ export type CompanyCreateWithoutMembershipsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -1864,7 +1868,7 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -1948,7 +1952,7 @@ export type CompanyUpdateWithoutMembershipsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2016,7 +2020,7 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2084,7 +2088,7 @@ export type CompanyCreateWithoutRolesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -2152,7 +2156,7 @@ export type CompanyUncheckedCreateWithoutRolesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -2236,7 +2240,7 @@ export type CompanyUpdateWithoutRolesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2304,7 +2308,7 @@ export type CompanyUncheckedUpdateWithoutRolesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2372,7 +2376,7 @@ export type CompanyCreateWithoutInvitationsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -2440,7 +2444,7 @@ export type CompanyUncheckedCreateWithoutInvitationsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -2524,7 +2528,7 @@ export type CompanyUpdateWithoutInvitationsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2592,7 +2596,7 @@ export type CompanyUncheckedUpdateWithoutInvitationsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2660,7 +2664,7 @@ export type CompanyCreateWithoutTasksInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -2728,7 +2732,7 @@ export type CompanyUncheckedCreateWithoutTasksInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -2812,7 +2816,7 @@ export type CompanyUpdateWithoutTasksInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2880,7 +2884,7 @@ export type CompanyUncheckedUpdateWithoutTasksInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2948,7 +2952,7 @@ export type CompanyCreateWithoutNotificationsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -3016,7 +3020,7 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -3100,7 +3104,7 @@ export type CompanyUpdateWithoutNotificationsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3168,7 +3172,7 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3236,7 +3240,7 @@ export type CompanyCreateWithoutCatalogueInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -3304,7 +3308,7 @@ export type CompanyUncheckedCreateWithoutCatalogueInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -3388,7 +3392,7 @@ export type CompanyUpdateWithoutCatalogueInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3456,7 +3460,7 @@ export type CompanyUncheckedUpdateWithoutCatalogueInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3524,7 +3528,7 @@ export type CompanyCreateWithoutClientCompaniesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -3592,7 +3596,7 @@ export type CompanyUncheckedCreateWithoutClientCompaniesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -3676,7 +3680,7 @@ export type CompanyUpdateWithoutClientCompaniesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3744,7 +3748,7 @@ export type CompanyUncheckedUpdateWithoutClientCompaniesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3812,7 +3816,7 @@ export type CompanyCreateWithoutContactsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -3880,7 +3884,7 @@ export type CompanyUncheckedCreateWithoutContactsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -3964,7 +3968,7 @@ export type CompanyUpdateWithoutContactsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4032,7 +4036,7 @@ export type CompanyUncheckedUpdateWithoutContactsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4100,7 +4104,7 @@ export type CompanyCreateWithoutLeadsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -4168,7 +4172,7 @@ export type CompanyUncheckedCreateWithoutLeadsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -4252,7 +4256,7 @@ export type CompanyUpdateWithoutLeadsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4320,7 +4324,7 @@ export type CompanyUncheckedUpdateWithoutLeadsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4388,7 +4392,7 @@ export type CompanyCreateWithoutSubmissionsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -4456,7 +4460,7 @@ export type CompanyUncheckedCreateWithoutSubmissionsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -4540,7 +4544,7 @@ export type CompanyUpdateWithoutSubmissionsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4608,7 +4612,7 @@ export type CompanyUncheckedUpdateWithoutSubmissionsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4676,7 +4680,7 @@ export type CompanyCreateWithoutIngestKeysInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -4744,7 +4748,7 @@ export type CompanyUncheckedCreateWithoutIngestKeysInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -4828,7 +4832,7 @@ export type CompanyUpdateWithoutIngestKeysInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4896,7 +4900,7 @@ export type CompanyUncheckedUpdateWithoutIngestKeysInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4964,7 +4968,7 @@ export type CompanyCreateWithoutIngestAttemptsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -5032,7 +5036,7 @@ export type CompanyUncheckedCreateWithoutIngestAttemptsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -5116,7 +5120,7 @@ export type CompanyUpdateWithoutIngestAttemptsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5184,7 +5188,7 @@ export type CompanyUncheckedUpdateWithoutIngestAttemptsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5252,7 +5256,7 @@ export type CompanyCreateWithoutActivitiesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -5320,7 +5324,7 @@ export type CompanyUncheckedCreateWithoutActivitiesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -5404,7 +5408,7 @@ export type CompanyUpdateWithoutActivitiesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5472,7 +5476,7 @@ export type CompanyUncheckedUpdateWithoutActivitiesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5540,7 +5544,7 @@ export type CompanyCreateWithoutQuoteTemplatesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -5608,7 +5612,7 @@ export type CompanyUncheckedCreateWithoutQuoteTemplatesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -5692,7 +5696,7 @@ export type CompanyUpdateWithoutQuoteTemplatesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5760,7 +5764,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTemplatesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5828,7 +5832,7 @@ export type CompanyCreateWithoutQuotesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -5896,7 +5900,7 @@ export type CompanyUncheckedCreateWithoutQuotesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -5980,7 +5984,7 @@ export type CompanyUpdateWithoutQuotesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6048,7 +6052,7 @@ export type CompanyUncheckedUpdateWithoutQuotesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6116,7 +6120,7 @@ export type CompanyCreateWithoutDocumentsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -6184,7 +6188,7 @@ export type CompanyUncheckedCreateWithoutDocumentsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -6268,7 +6272,7 @@ export type CompanyUpdateWithoutDocumentsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6336,7 +6340,7 @@ export type CompanyUncheckedUpdateWithoutDocumentsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6404,7 +6408,7 @@ export type CompanyCreateWithoutQuoteSharesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -6472,7 +6476,7 @@ export type CompanyUncheckedCreateWithoutQuoteSharesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -6556,7 +6560,7 @@ export type CompanyUpdateWithoutQuoteSharesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6624,7 +6628,7 @@ export type CompanyUncheckedUpdateWithoutQuoteSharesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6692,7 +6696,7 @@ export type CompanyCreateWithoutQuoteEventsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -6760,7 +6764,7 @@ export type CompanyUncheckedCreateWithoutQuoteEventsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -6844,7 +6848,7 @@ export type CompanyUpdateWithoutQuoteEventsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6912,7 +6916,7 @@ export type CompanyUncheckedUpdateWithoutQuoteEventsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6980,7 +6984,7 @@ export type CompanyCreateWithoutQuoteMessagesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -7048,7 +7052,7 @@ export type CompanyUncheckedCreateWithoutQuoteMessagesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -7132,7 +7136,7 @@ export type CompanyUpdateWithoutQuoteMessagesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7200,7 +7204,7 @@ export type CompanyUncheckedUpdateWithoutQuoteMessagesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7268,7 +7272,7 @@ export type CompanyCreateWithoutAcceptancesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -7336,7 +7340,7 @@ export type CompanyUncheckedCreateWithoutAcceptancesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -7420,7 +7424,7 @@ export type CompanyUpdateWithoutAcceptancesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7488,7 +7492,7 @@ export type CompanyUncheckedUpdateWithoutAcceptancesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7556,7 +7560,7 @@ export type CompanyCreateWithoutReviewLinksInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -7624,7 +7628,7 @@ export type CompanyUncheckedCreateWithoutReviewLinksInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -7708,7 +7712,7 @@ export type CompanyUpdateWithoutReviewLinksInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7776,7 +7780,7 @@ export type CompanyUncheckedUpdateWithoutReviewLinksInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7844,7 +7848,7 @@ export type CompanyCreateWithoutEmailTemplatesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -7912,7 +7916,7 @@ export type CompanyUncheckedCreateWithoutEmailTemplatesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -7996,7 +8000,7 @@ export type CompanyUpdateWithoutEmailTemplatesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -8064,7 +8068,7 @@ export type CompanyUncheckedUpdateWithoutEmailTemplatesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -8132,7 +8136,7 @@ export type CompanyCreateWithoutReviewsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -8200,7 +8204,7 @@ export type CompanyUncheckedCreateWithoutReviewsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -8284,7 +8288,7 @@ export type CompanyUpdateWithoutReviewsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -8352,7 +8356,7 @@ export type CompanyUncheckedUpdateWithoutReviewsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -8420,7 +8424,7 @@ export type CompanyCreateWithoutNotificationPreferencesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -8488,7 +8492,7 @@ export type CompanyUncheckedCreateWithoutNotificationPreferencesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
   requireSignature?: boolean
@@ -8572,7 +8576,7 @@ export type CompanyUpdateWithoutNotificationPreferencesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -8640,7 +8644,7 @@ export type CompanyUncheckedUpdateWithoutNotificationPreferencesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pricesIncludeTax?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -8946,7 +8950,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   quoteNotes?: boolean
   quoteExclusions?: boolean
   quoteTerms?: boolean
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: boolean
   acceptanceMode?: boolean
   acceptanceStatement?: boolean
   requireSignature?: boolean
@@ -9016,7 +9020,7 @@ export type CompanySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   quoteNotes?: boolean
   quoteExclusions?: boolean
   quoteTerms?: boolean
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: boolean
   acceptanceMode?: boolean
   acceptanceStatement?: boolean
   requireSignature?: boolean
@@ -9061,7 +9065,7 @@ export type CompanySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   quoteNotes?: boolean
   quoteExclusions?: boolean
   quoteTerms?: boolean
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: boolean
   acceptanceMode?: boolean
   acceptanceStatement?: boolean
   requireSignature?: boolean
@@ -9106,7 +9110,7 @@ export type CompanySelectScalar = {
   quoteNotes?: boolean
   quoteExclusions?: boolean
   quoteTerms?: boolean
-  pricesIncludeTax?: boolean
+  taxDisplayMode?: boolean
   acceptanceMode?: boolean
   acceptanceStatement?: boolean
   requireSignature?: boolean
@@ -9117,7 +9121,7 @@ export type CompanySelectScalar = {
   updatedAt?: boolean
 }
 
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "legalName" | "taxId" | "email" | "phone" | "website" | "address" | "logoUrl" | "watermarkUrl" | "primaryColor" | "accentColor" | "defaultLanguage" | "currency" | "formatLocale" | "timezone" | "defaultTaxType" | "defaultTaxRate" | "quotePrefix" | "quoteValidityDays" | "quoteFooter" | "slogan" | "senderNameStyle" | "firstFollowUpDays" | "secondFollowUpDays" | "reviewRequestDays" | "sendQuoteCopy" | "leadNotificationEmails" | "quoteIntro" | "quoteNotes" | "quoteExclusions" | "quoteTerms" | "pricesIncludeTax" | "acceptanceMode" | "acceptanceStatement" | "requireSignature" | "askAdditionalComments" | "askOrderReference" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "legalName" | "taxId" | "email" | "phone" | "website" | "address" | "logoUrl" | "watermarkUrl" | "primaryColor" | "accentColor" | "defaultLanguage" | "currency" | "formatLocale" | "timezone" | "defaultTaxType" | "defaultTaxRate" | "quotePrefix" | "quoteValidityDays" | "quoteFooter" | "slogan" | "senderNameStyle" | "firstFollowUpDays" | "secondFollowUpDays" | "reviewRequestDays" | "sendQuoteCopy" | "leadNotificationEmails" | "quoteIntro" | "quoteNotes" | "quoteExclusions" | "quoteTerms" | "taxDisplayMode" | "acceptanceMode" | "acceptanceStatement" | "requireSignature" | "askAdditionalComments" | "askOrderReference" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   memberships?: boolean | Prisma.Company$membershipsArgs<ExtArgs>
   roles?: boolean | Prisma.Company$rolesArgs<ExtArgs>
@@ -9262,12 +9266,13 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     quoteTerms: string | null
     /**
      * *
-     *    * Whether the amounts typed in already carry the tax inside.
+     *    * How tax relates to the prices typed in and to the total the customer sees.
      *    * In New Zealand the Fair Trading Act requires showing the end consumer the
      *    * price with GST included; between businesses the opposite is customary.
-     *    * Whichever the choice, the breakdown always shows subtotal, tax and total.
+     *    * Suggested on every new quote; the quote keeps its own copy and can change
+     *    * it on its own while still a draft or awaiting an answer.
      */
-    pricesIncludeTax: boolean
+    taxDisplayMode: $Enums.TaxDisplayMode
     acceptanceMode: $Enums.AcceptanceMode
     acceptanceStatement: string | null
     requireSignature: boolean
@@ -9756,7 +9761,7 @@ export interface CompanyFieldRefs {
   readonly quoteNotes: Prisma.FieldRef<"Company", 'String'>
   readonly quoteExclusions: Prisma.FieldRef<"Company", 'String'>
   readonly quoteTerms: Prisma.FieldRef<"Company", 'String'>
-  readonly pricesIncludeTax: Prisma.FieldRef<"Company", 'Boolean'>
+  readonly taxDisplayMode: Prisma.FieldRef<"Company", 'TaxDisplayMode'>
   readonly acceptanceMode: Prisma.FieldRef<"Company", 'AcceptanceMode'>
   readonly acceptanceStatement: Prisma.FieldRef<"Company", 'String'>
   readonly requireSignature: Prisma.FieldRef<"Company", 'Boolean'>

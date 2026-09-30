@@ -137,6 +137,7 @@
     "quotes_send": "Send quotes by email",
     "quotes_decide": "Mark quotes as accepted or declined",
     "quotes_read_all": "View the whole company's quotes",
+    "quotes_read_amounts": "See quote amounts",
     "contacts_read": "View contacts",
     "contacts_create": "Create contacts",
     "contacts_update": "Edit contacts",
@@ -272,7 +273,8 @@
       "DISCARDED": "Lead discarded",
       "RESTORED": "Lead restored",
       "CONVERTED": "Quote {reference} created",
-      "QUOTE_DECIDED": "Quote #{reference} was {status, select, ACCEPTED {accepted} REJECTED {declined} EXPIRED {left to expire} other {answered}}"
+      "QUOTE_DECIDED": "Quote #{reference} was {status, select, ACCEPTED {accepted} REJECTED {declined} EXPIRED {left to expire} other {answered}}",
+      "QUOTE_EDITED": "Quote #{reference} edited after being sent"
     },
     "ownerSaved": "Owner updated.",
     "ownerCleared": "Owner removed."
@@ -336,6 +338,7 @@
       "discount": "Discount",
       "tax": "Tax",
       "total": "Total",
+      "preview": "Preview",
       "titleTooShort": "Give the quote a title",
       "describeItem": "Describe the item",
       "quantityPositive": "Quantity must be greater than 0",
@@ -364,8 +367,11 @@
       "intro": "Introduction",
       "introHint": "Copied from the company settings; you can adjust it for this quote.",
       "exclusions": "Exclusions",
+      "taxDisplayMode": "Item pricing is",
       "taxIncluded": "Prices already include {tax}",
-      "taxExcluded": "Prices exclude {tax}",
+      "taxExclusiveInclusiveHint": "Prices exclude {tax}; it's added on top and included in the total.",
+      "taxExcluded": "Prices exclude {tax}, and so does the total shown — it's handled elsewhere, off this quote.",
+      "noTaxHint": "This quote carries no tax.",
       "fromCatalogue": "From the price list",
       "pickFromCatalogue": "Pick an item…",
       "catalogueHint": "It's copied onto the quote; changing the list later won't alter it."
@@ -377,6 +383,7 @@
       "reject": "Mark as declined"
     },
     "detail": "Details",
+    "amountHidden": "Hidden",
     "status": {
       "DRAFT": "Draft",
       "SENT": "Sent",
@@ -390,6 +397,12 @@
       "VAT": "VAT",
       "IVA": "IVA",
       "TAX": "Tax"
+    },
+    "taxDisplayMode": {
+      "TAX_EXCLUSIVE_INCLUSIVE_TOTAL": "Tax exclusive (inclusive total)",
+      "TAX_EXCLUSIVE": "Tax exclusive",
+      "TAX_INCLUSIVE": "Tax inclusive",
+      "NO_TAX": "No tax"
     },
     "email": {
       "noContactEmail": "The lead has no contact email, so nothing was sent.",
@@ -773,8 +786,8 @@
       "defaultLanguage": "Default language",
       "defaultTaxType": "Tax type",
       "defaultTaxRate": "Rate (%)",
-      "pricesIncludeTax": "The prices I enter already include tax",
-      "pricesIncludeTaxHint": "In New Zealand, prices shown to consumers must include GST. Between businesses the opposite is customary. Either way the customer sees the full breakdown.",
+      "taxDisplayMode": "Item pricing is",
+      "taxDisplayModeHint": "Suggested on every new quote; each one can change it on its own while still a draft or awaiting an answer. In New Zealand, prices shown to consumers must include GST — between businesses the opposite is customary.",
       "quotePrefix": "Number prefix",
       "quoteValidityDays": "Valid for (days)",
       "quoteIntro": "Introduction",
@@ -1052,6 +1065,7 @@
     "reviewBy": "by {author}",
     "totalExcluding": "Total {currency} excluding {tax}",
     "totalIncluding": "Total {currency} including {tax}",
+    "totalPlain": "Total {currency}",
     "subtotal": "Subtotal",
     "discount": "Discount",
     "questionsAndAnswers": "Questions & answers"

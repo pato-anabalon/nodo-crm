@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
+import { ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QuoteStatus } from "@/generated/prisma/enums";
 import { acceptedKey, celebrate, originOf } from "@/lib/celebrate";
@@ -19,6 +21,7 @@ export function QuoteActionsBar({
   canDecide,
   onSend,
   onDecide,
+  previewHref,
 }: {
   quoteId: string;
   status: QuoteStatus;
@@ -26,6 +29,12 @@ export function QuoteActionsBar({
   canDecide: boolean;
   onSend: () => Promise<QuoteActionState>;
   onDecide: (decision: "ACCEPTED" | "REJECTED") => Promise<QuoteActionState>;
+  /**
+   * The quote's own `/preview` route, shown beside Send so it can be checked
+   * right before it goes out. Only offered alongside Send — once the quote is
+   * out for a decision, the share card below has its own preview link.
+   */
+  previewHref?: string;
 }) {
   const [pending, startTransition] = useTransition();
   const [busy, setBusy] = useState<string | null>(null);
@@ -57,19 +66,30 @@ export function QuoteActionsBar({
   return (
     <div className="flex flex-wrap gap-2">
       {showSend ? (
-        <Button
-          onClick={(event) => {
-            // Read now, while the button is still under the pointer: by the
-            // time the action resolves the bar may have re-rendered away.
-            const origin = originOf(event.currentTarget);
-            // Small and short: sending is routine, and this happens several
-            // times a week. No key — it answers a click, so it fires every time.
-            run("send", onSend, () => void celebrate({ intensity: "small", origin }));
-          }}
-          disabled={pending}
-        >
-          {busy === "send" ? t("actions.sending") : t("actions.send")}
-        </Button>
+        <>
+          {previewHref ? (
+            <Button asChild variant="outline">
+              <Link href={previewHref}>
+                <ExternalLink className="size-4" />
+                {t("form.preview")}
+              </Link>
+            </Button>
+          ) : null}
+
+          <Button
+            onClick={(event) => {
+              // Read now, while the button is still under the pointer: by the
+              // time the action resolves the bar may have re-rendered away.
+              const origin = originOf(event.currentTarget);
+              // Small and short: sending is routine, and this happens several
+              // times a week. No key — it answers a click, so it fires every time.
+              run("send", onSend, () => void celebrate({ intensity: "small", origin }));
+            }}
+            disabled={pending}
+          >
+            {busy === "send" ? t("actions.sending") : t("actions.send")}
+          </Button>
+        </>
       ) : null}
 
       {showDecision ? (

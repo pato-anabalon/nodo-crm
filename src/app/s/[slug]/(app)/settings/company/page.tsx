@@ -1,7 +1,7 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { can, requirePermission } from "@/lib/auth/session";
 import { prisma } from "@/lib/db/prisma";
-import { AcceptanceMode, Language, TaxType } from "@/generated/prisma/enums";
+import { AcceptanceMode, Language, TaxDisplayMode, TaxType } from "@/generated/prisma/enums";
 import { LOCALES, LOCALE_NAMES } from "@/i18n/config";
 import {
   currencyOptions,
@@ -135,8 +135,13 @@ export default async function CompanySettingsPage() {
                 defaultValue={String(Number(company.defaultTaxRate))} />
             </FieldRow>
 
-            <CheckField label={t("quotes.pricesIncludeTax")} name="pricesIncludeTax"
-              hint={t("quotes.pricesIncludeTaxHint")} defaultChecked={company.pricesIncludeTax} />
+            <SelectField label={t("quotes.taxDisplayMode")} name="taxDisplayMode"
+              hint={t("quotes.taxDisplayModeHint")}
+              defaultValue={company.taxDisplayMode}
+              options={Object.values(TaxDisplayMode).map((mode) => ({
+                value: mode,
+                label: tQuotes(`taxDisplayMode.${mode}`),
+              }))} />
 
             <FieldRow>
               <TextField label={t("quotes.quotePrefix")} name="quotePrefix" required

@@ -7,7 +7,13 @@ import { forCompany, type TenantClient } from "@/lib/db/tenant";
 import { companySlugFromHost, companyUrl } from "@/lib/tenant/host";
 import { isPermission, type Permission } from "./permissions";
 import { languageToLocale, type Locale } from "@/i18n/config";
-import { Language, MembershipStatus, SenderNameStyle, type TaxType } from "@/generated/prisma/enums";
+import {
+  Language,
+  MembershipStatus,
+  SenderNameStyle,
+  type TaxDisplayMode,
+  type TaxType,
+} from "@/generated/prisma/enums";
 
 export type CompanyContext = {
   user: { id: string; name: string | null; email: string; image: string | null };
@@ -28,8 +34,8 @@ export type CompanyContext = {
     timezone: string;
     defaultTaxType: TaxType;
     defaultTaxRate: number;
-    /** Whether the amounts entered already carry the tax inside. */
-    pricesIncludeTax: boolean;
+    /** Suggested on every new quote; each quote keeps its own copy and can change it. */
+    taxDisplayMode: TaxDisplayMode;
     /** Copy that accompanies every quote the company issues. */
     quoteIntro: string | null;
     quoteNotes: string | null;
@@ -113,7 +119,7 @@ export const getCompanyContext = cache(async (): Promise<CompanyContext | null> 
       timezone: company.timezone,
       defaultTaxType: company.defaultTaxType,
       defaultTaxRate: Number(company.defaultTaxRate),
-      pricesIncludeTax: company.pricesIncludeTax,
+      taxDisplayMode: company.taxDisplayMode,
       quoteIntro: company.quoteIntro,
       quoteNotes: company.quoteNotes,
       quoteExclusions: company.quoteExclusions,

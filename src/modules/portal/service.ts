@@ -121,7 +121,7 @@ export async function recordOpen(input: {
     }),
     prisma.quoteShare.update({
       where: { id: input.shareId },
-      data: { openCount: { increment: 1 }, lastSeenAt: now },
+      data: { openCount: { increment: 1 }, lastSeenAt: now, viewing: true },
     }),
   ]);
 }
@@ -135,7 +135,23 @@ export async function recordOpen(input: {
 export async function touchPresence(shareId: string) {
   await prisma.quoteShare.update({
     where: { id: shareId },
-    data: { lastSeenAt: new Date() },
+    data: { lastSeenAt: new Date(), viewing: true },
+  });
+}
+
+/**
+ * The customer's tab saying it's leaving — sent on `pagehide`, not waited out.
+ *
+ * Without this, a closed tab reads as watched for up to the presence window
+ * (see `isViewingNow`), because a heartbeat going quiet looks identical to one
+ * that stopped on purpose until the window runs out. `lastSeenAt` still moves
+ * to now: leaving *is* the last instant they were actually looking, so "last
+ * seen" stays accurate rather than freezing on the second-to-last heartbeat.
+ */
+export async function markLeft(shareId: string) {
+  await prisma.quoteShare.update({
+    where: { id: shareId },
+    data: { lastSeenAt: new Date(), viewing: false },
   });
 }
 
@@ -233,14 +249,14 @@ export async function revokeShare(ctx: CompanyContext, quoteId: string): Promise
 export async function shareSummary(companyId: string, quoteId: string) {
   const share = await prisma.quoteShare.findFirst({
     where: { quoteId, companyId },
-    select: { lastSeenAt: true, openCount: true, revokedAt: true, expiresAt: true },
+    select: { lastSeenAt: true, viewing: true, openCount: true, revokedAt: true, expiresAt: true },
   });
   if (!share) return null;
 
   return {
     openCount: share.openCount,
     lastSeenAt: share.lastSeenAt,
-    viewingNow: isViewingNow(share.lastSeenAt),
+    viewingNow: isViewingNow(share),
     revoked: share.revokedAt !== null,
   };
 }

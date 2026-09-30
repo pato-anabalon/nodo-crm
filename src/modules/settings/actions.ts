@@ -158,10 +158,7 @@ export async function saveQuoteSettingsAction(
   const ctx = await requirePermission("settings.update");
   const t = await getTranslations();
 
-  const parsed = quoteSettingsSchema.safeParse({
-    ...Object.fromEntries(formData),
-    pricesIncludeTax: checkbox(formData, "pricesIncludeTax"),
-  });
+  const parsed = quoteSettingsSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) {
     return { fieldErrors: translateFieldErrors(parsed.error.flatten().fieldErrors, t) };
   }

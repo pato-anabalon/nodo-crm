@@ -1,6 +1,6 @@
 import type { CompanyContext } from "@/lib/auth/session";
 import { prisma } from "@/lib/db/prisma";
-import { ActivityType, PricingMode, Prisma, QuoteStatus } from "@/generated/prisma/client";
+import { ActivityType, PricingMode, Prisma, QuoteStatus, type TaxDisplayMode } from "@/generated/prisma/client";
 import { isRichTextEmpty, sanitizeRichText } from "@/lib/rich-text";
 import { calculateQuoteTotals } from "./totals";
 import { canTransition, isQuoteEditable, sectionStatuses } from "./constants";
@@ -69,7 +69,7 @@ export async function listQuotes(ctx: CompanyContext, filters: QuoteFilters) {
         lead: { select: { id: true, title: true } },
         createdBy: { select: { name: true, email: true } },
         // How often the customer opened it, and whether they have it open now.
-        share: { select: { openCount: true, lastSeenAt: true } },
+        share: { select: { openCount: true, lastSeenAt: true, viewing: true } },
         _count: { select: { items: true } },
       },
     }),
@@ -120,7 +120,9 @@ export async function getQuote(ctx: CompanyContext, id: string) {
       createdBy: { select: { name: true, email: true, jobTitle: true, phone: true } },
       termsDocument: { select: { name: true, url: true } },
       acceptance: true,
-      share: { select: { lastSeenAt: true, openCount: true, revokedAt: true, expiresAt: true } },
+      share: {
+        select: { lastSeenAt: true, viewing: true, openCount: true, revokedAt: true, expiresAt: true },
+      },
       events: { orderBy: { createdAt: "desc" }, take: 20 },
       emailsSent: { orderBy: { sentAt: "desc" } },
       messages: {
@@ -150,14 +152,14 @@ async function nextQuoteNumber(tx: Prisma.TransactionClient, companyId: string):
 const MAX_NUMBER_RETRIES = 5;
 
 /** The mode decides where the sum comes from; the rest of the maths is identical. */
-function totalsFor(values: QuoteFormValues, pricesIncludeTax: boolean) {
+function totalsFor(values: QuoteFormValues, taxDisplayMode: TaxDisplayMode) {
   const bySections = values.pricingMode === PricingMode.SECTIONS;
   return calculateQuoteTotals({
     items: bySections ? [] : values.items,
     sections: bySections ? values.sections.map((section) => section.amount) : null,
     taxRate: values.taxRate,
     discount: values.discount,
-    pricesIncludeTax,
+    taxDisplayMode,
   });
 }
 
@@ -191,6 +193,7 @@ export async function duplicateQuote(
     pricingMode: source.pricingMode,
     leadId,
     taxRate: Number(source.taxRate),
+    taxDisplayMode: source.taxDisplayMode,
     currency: source.currency,
     discount: Number(source.discount),
     intro: source.intro,
@@ -216,7 +219,10 @@ export async function duplicateQuote(
 }
 
 export async function createQuote(ctx: CompanyContext, values: QuoteFormValues) {
-  const totals = totalsFor(values, ctx.company.pricesIncludeTax);
+  // Suggested from the company's own setting; the form always sends one once
+  // the person has seen the select, so this only matters before that.
+  const taxDisplayMode = values.taxDisplayMode ?? ctx.company.taxDisplayMode;
+  const totals = totalsFor(values, taxDisplayMode);
   const bySections = values.pricingMode === PricingMode.SECTIONS;
 
   // Customer details and company copy are snapshotted on issue: from here on the
@@ -260,7 +266,7 @@ export async function createQuote(ctx: CompanyContext, values: QuoteFormValues) 
             exclusions: values.exclusions ?? ctx.company.quoteExclusions,
 
             // Frozen copies of the company settings at the moment of issue.
-            pricesIncludeTax: ctx.company.pricesIncludeTax,
+            taxDisplayMode,
             currency: values.currency ?? ctx.company.currency,
             language: languageFor(ctx),
             taxType: ctx.company.defaultTaxType,
@@ -320,14 +326,17 @@ function isUniqueNumberConflict(error: unknown): boolean {
 export async function updateQuote(ctx: CompanyContext, id: string, values: QuoteFormValues) {
   const current = await ctx.db.quote.findFirst({
     where: { id, ...visibilityWhere(ctx) },
-    select: { id: true, status: true, pricesIncludeTax: true },
+    select: { id: true, status: true, taxDisplayMode: true, leadId: true, number: true },
   });
   if (!current) return { ok: false as const, reason: "not-found" as const };
   if (!isQuoteEditable(current.status)) {
     return { ok: false as const, reason: "locked" as const };
   }
 
-  const totals = totalsFor(values, current.pricesIncludeTax);
+  // Falls back to what the quote already had, same as currency below — the
+  // form always sends its own, this only matters for a caller that doesn't.
+  const taxDisplayMode = values.taxDisplayMode ?? current.taxDisplayMode;
+  const totals = totalsFor(values, taxDisplayMode);
   const bySections = values.pricingMode === PricingMode.SECTIONS;
 
   const quote = await ctx.db.quote.update({
@@ -337,12 +346,14 @@ export async function updateQuote(ctx: CompanyContext, id: string, values: Quote
       leadId: values.leadId ?? null,
       termsDocumentId: values.termsDocumentId ?? null,
       pricingMode: values.pricingMode,
-      // Only reachable while the quote is a draft, like everything else here:
-      // once it is sent, the currency the customer read is frozen with it.
+      // Editable exactly as long as the rest of the quote is: the customer's
+      // link is read live, so a currency correction reaches it same as any
+      // other field. It freezes only once the quote is decided.
       currency: values.currency,
       intro: values.intro ?? null,
       exclusions: values.exclusions ?? null,
       taxRate: values.taxRate,
+      taxDisplayMode,
       discount: totals.discount,
       subtotal: totals.subtotal,
       taxAmount: totals.taxAmount,
@@ -378,6 +389,21 @@ export async function updateQuote(ctx: CompanyContext, id: string, values: Quote
       },
     },
   });
+
+  // A sent quote being edited is worth a line in the lead's history — the
+  // customer's link didn't change, but what's under it did. Not for a draft:
+  // nobody has seen it yet, so there is nothing to record changing.
+  if (current.status === QuoteStatus.SENT && current.leadId) {
+    await ctx.db.activity.create({
+      data: {
+        companyId: ctx.company.id,
+        leadId: current.leadId,
+        userId: ctx.user.id,
+        type: ActivityType.QUOTE_EDITED,
+        content: String(current.number),
+      },
+    });
+  }
 
   return { ok: true as const, quote };
 }

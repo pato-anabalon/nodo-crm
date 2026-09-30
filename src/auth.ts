@@ -13,29 +13,38 @@ import { credentialsSchema } from "@/lib/auth/schemas";
  * drags permissions from one into another.
  */
 const rootDomain = process.env.NEXT_PUBLIC_ROOT_DOMAIN ?? "localhost:3000";
-const isLocal = rootDomain.startsWith("localhost");
+// Sharing the cookie across subdomains needs an explicit `Domain`, which is
+// pointless on plain `localhost`: the browser won't apply one across sibling
+// `*.localhost` hosts anyway, so the default (host-only) is left alone there.
+// Anywhere else — the real domain in production, or a wildcard-DNS trick like
+// lvh.me for exercising this locally over plain HTTP — it's worth setting.
+const shareAcrossSubdomains = !rootDomain.startsWith("localhost");
+// `next dev` is always HTTP, whatever ROOT_DOMAIN says; a Vercel build —
+// preview or production — is always HTTPS. `Secure`, and the `__Secure-`
+// name prefix it's paired with, are what a browser needs HTTPS for: get this
+// wrong and the browser drops the cookie silently rather than rejecting it,
+// which reads as "the login did nothing".
+const isSecureContext = process.env.NODE_ENV === "production";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
   trustHost: true,
   // A single session across every subdomain: whoever belongs to two companies
   // signs in once. Access is still checked company by company.
-  // Locally the default is left alone, because browsers don't share cookies
-  // between `localhost` subdomains.
-  cookies: isLocal
-    ? undefined
-    : {
+  cookies: shareAcrossSubdomains
+    ? {
         sessionToken: {
-          name: "__Secure-authjs.session-token",
+          name: isSecureContext ? "__Secure-authjs.session-token" : "authjs.session-token",
           options: {
             httpOnly: true,
             sameSite: "lax",
             path: "/",
-            secure: true,
+            secure: isSecureContext,
             domain: `.${rootDomain.split(":")[0]}`,
           },
         },
-      },
+      }
+    : undefined,
   // Required with the credentials provider.
   session: { strategy: "jwt", maxAge: 60 * 60 * 24 * 30 },
   pages: {

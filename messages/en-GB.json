@@ -1340,5 +1340,26 @@
       }
     },
     "sentTitle": "Emails sent"
+  },
+  "platform": {
+    "title": "Platform companies",
+    "subtitle": "Every company registered on Nodo CRM, and whether its subdomain is switched on.",
+    "columns": {
+      "company": "Company",
+      "owner": "Owner",
+      "users": "Users",
+      "createdAt": "Registered",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Active",
+      "suspended": "Suspended"
+    },
+    "suspend": "Suspend",
+    "activate": "Activate",
+    "activated": "Company activated",
+    "suspended": "Company suspended",
+    "empty": "No companies registered yet."
   }
 }

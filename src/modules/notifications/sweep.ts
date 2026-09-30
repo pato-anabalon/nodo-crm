@@ -41,6 +41,8 @@ export type SweepResult = {
  */
 export async function runDailySweep(now: Date = new Date()): Promise<SweepResult> {
   const companies = await prisma.company.findMany({
+    // A suspended company gets no more chasing emails than it gets a login.
+    where: { isActive: true },
     select: {
       id: true,
       name: true,

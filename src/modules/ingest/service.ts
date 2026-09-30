@@ -34,13 +34,22 @@ export async function authenticateKey(
 
   const key = await prisma.ingestKey.findUnique({
     where: { hashedSecret: hashIngestKey(token) },
-    select: { id: true, companyId: true, type: true, allowedOrigins: true, revokedAt: true },
+    select: {
+      id: true,
+      companyId: true,
+      type: true,
+      allowedOrigins: true,
+      revokedAt: true,
+      company: { select: { isActive: true } },
+    },
   });
 
   if (!key) {
     return { ok: false, outcome: IngestOutcome.INVALID_KEY, detail: "Token no reconocido" };
   }
-  if (key.revokedAt) {
+  // A suspended company reads the same as a revoked key from the outside: the
+  // rejection stays opaque either way, so this isn't a new outcome of its own.
+  if (key.revokedAt || !key.company.isActive) {
     return {
       ok: false,
       outcome: IngestOutcome.REVOKED_KEY,

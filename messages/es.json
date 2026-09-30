@@ -1340,5 +1340,26 @@
       }
     },
     "sentTitle": "Correos enviados"
+  },
+  "platform": {
+    "title": "Empresas de la plataforma",
+    "subtitle": "Todas las empresas registradas en Nodo CRM, y si su subdominio está habilitado.",
+    "columns": {
+      "company": "Empresa",
+      "owner": "Administrador",
+      "users": "Usuarios",
+      "createdAt": "Alta",
+      "status": "Estado",
+      "actions": "Acciones"
+    },
+    "status": {
+      "active": "Activa",
+      "suspended": "Suspendida"
+    },
+    "suspend": "Suspender",
+    "activate": "Activar",
+    "activated": "Empresa activada",
+    "suspended": "Empresa suspendida",
+    "empty": "Todavía no hay empresas registradas."
   }
 }

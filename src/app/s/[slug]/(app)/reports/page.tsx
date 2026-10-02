@@ -53,6 +53,7 @@ export default async function ReportsPage({
   // Every panel fetches its own data and suspends on its own. The key changes
   // with any filter, which is what makes React show the skeleton again instead
   // of leaving the previous period's figures on screen while the new ones load.
+  // The donut and trend panels below are the exceptions, on purpose.
   const key = new URLSearchParams(
     Object.entries(raw).map(([name, value]) => [
       name,
@@ -80,13 +81,20 @@ export default async function ReportsPage({
 
       <div className="grid gap-6 lg:grid-cols-5">
         <div className="lg:col-span-2">
-          <Suspense key={`donut-${key}`} fallback={<ChartSkeleton />}>
+          {/* No `key` here, unlike its siblings: the donut keeps the previous
+              period's ring on screen through the filter's transition instead
+              of remounting to a skeleton, and animates into the new shares
+              once they land (see the hooks in `donut.tsx`). */}
+          <Suspense fallback={<ChartSkeleton />}>
             <BreakdownPanel params={raw} />
           </Suspense>
         </div>
 
         <div className="lg:col-span-3">
-          <Suspense key={`trend-${key}`} fallback={<ChartSkeleton />}>
+          {/* No `key` here either, same reason as the donut beside it: it
+              keeps its previous curve on screen and tweens into the new one
+              instead of remounting to a skeleton (see `trend-chart.tsx`). */}
+          <Suspense fallback={<ChartSkeleton />}>
             <TrendPanel params={raw} />
           </Suspense>
         </div>

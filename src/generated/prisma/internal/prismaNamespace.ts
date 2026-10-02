@@ -398,6 +398,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   Company: 'Company',
+  CompanyQuoteType: 'CompanyQuoteType',
   User: 'User',
   Membership: 'Membership',
   Role: 'Role',
@@ -450,7 +451,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "user" | "membership" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "lead" | "leadSubmission" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem"
+    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "lead" | "leadSubmission" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -525,6 +526,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.CompanyCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CompanyCountAggregateOutputType> | number
+        }
+      }
+    }
+    CompanyQuoteType: {
+      payload: Prisma.$CompanyQuoteTypePayload<ExtArgs>
+      fields: Prisma.CompanyQuoteTypeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CompanyQuoteTypeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyQuoteTypePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CompanyQuoteTypeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyQuoteTypePayload>
+        }
+        findFirst: {
+          args: Prisma.CompanyQuoteTypeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyQuoteTypePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CompanyQuoteTypeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyQuoteTypePayload>
+        }
+        findMany: {
+          args: Prisma.CompanyQuoteTypeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyQuoteTypePayload>[]
+        }
+        create: {
+          args: Prisma.CompanyQuoteTypeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyQuoteTypePayload>
+        }
+        createMany: {
+          args: Prisma.CompanyQuoteTypeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CompanyQuoteTypeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyQuoteTypePayload>[]
+        }
+        delete: {
+          args: Prisma.CompanyQuoteTypeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyQuoteTypePayload>
+        }
+        update: {
+          args: Prisma.CompanyQuoteTypeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyQuoteTypePayload>
+        }
+        deleteMany: {
+          args: Prisma.CompanyQuoteTypeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CompanyQuoteTypeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CompanyQuoteTypeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyQuoteTypePayload>[]
+        }
+        upsert: {
+          args: Prisma.CompanyQuoteTypeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyQuoteTypePayload>
+        }
+        aggregate: {
+          args: Prisma.CompanyQuoteTypeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCompanyQuoteType>
+        }
+        groupBy: {
+          args: Prisma.CompanyQuoteTypeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanyQuoteTypeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CompanyQuoteTypeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanyQuoteTypeCountAggregateOutputType> | number
         }
       }
     }
@@ -3339,6 +3414,7 @@ export const CompanyScalarFieldEnum = {
   quoteNotes: 'quoteNotes',
   quoteExclusions: 'quoteExclusions',
   quoteTerms: 'quoteTerms',
+  quoteScope: 'quoteScope',
   taxDisplayMode: 'taxDisplayMode',
   acceptanceMode: 'acceptanceMode',
   acceptanceStatement: 'acceptanceStatement',
@@ -3351,6 +3427,17 @@ export const CompanyScalarFieldEnum = {
 } as const
 
 export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
+
+
+export const CompanyQuoteTypeScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  label: 'label',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type CompanyQuoteTypeScalarFieldEnum = (typeof CompanyQuoteTypeScalarFieldEnum)[keyof typeof CompanyQuoteTypeScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -3660,6 +3747,7 @@ export const QuoteTemplateScalarFieldEnum = {
   notes: 'notes',
   terms: 'terms',
   exclusions: 'exclusions',
+  scope: 'scope',
   active: 'active',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -3687,7 +3775,8 @@ export const QuoteTemplateSectionScalarFieldEnum = {
   position: 'position',
   title: 'title',
   body: 'body',
-  amount: 'amount'
+  amount: 'amount',
+  kind: 'kind'
 } as const
 
 export type QuoteTemplateSectionScalarFieldEnum = (typeof QuoteTemplateSectionScalarFieldEnum)[keyof typeof QuoteTemplateSectionScalarFieldEnum]
@@ -3708,6 +3797,9 @@ export const QuoteScalarFieldEnum = {
   clientPhone: 'clientPhone',
   intro: 'intro',
   exclusions: 'exclusions',
+  scope: 'scope',
+  quoteType: 'quoteType',
+  projectAddress: 'projectAddress',
   termsDocumentId: 'termsDocumentId',
   currency: 'currency',
   language: 'language',
@@ -3715,6 +3807,11 @@ export const QuoteScalarFieldEnum = {
   taxRate: 'taxRate',
   taxDisplayMode: 'taxDisplayMode',
   discount: 'discount',
+  discountType: 'discountType',
+  discountValue: 'discountValue',
+  optionalDiscountThreshold: 'optionalDiscountThreshold',
+  optionalDiscountType: 'optionalDiscountType',
+  optionalDiscountValue: 'optionalDiscountValue',
   subtotal: 'subtotal',
   taxAmount: 'taxAmount',
   total: 'total',
@@ -3825,7 +3922,12 @@ export const QuoteSectionScalarFieldEnum = {
   position: 'position',
   title: 'title',
   body: 'body',
-  amount: 'amount'
+  amount: 'amount',
+  discountType: 'discountType',
+  discountValue: 'discountValue',
+  kind: 'kind',
+  selectedByDefault: 'selectedByDefault',
+  customerSelected: 'customerSelected'
 } as const
 
 export type QuoteSectionScalarFieldEnum = (typeof QuoteSectionScalarFieldEnum)[keyof typeof QuoteSectionScalarFieldEnum]
@@ -4264,6 +4366,20 @@ export type ListEnumPricingModeFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
+ * Reference to a field of type 'QuoteSectionKind'
+ */
+export type EnumQuoteSectionKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuoteSectionKind'>
+    
+
+
+/**
+ * Reference to a field of type 'QuoteSectionKind[]'
+ */
+export type ListEnumQuoteSectionKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuoteSectionKind[]'>
+    
+
+
+/**
  * Reference to a field of type 'QuoteStatus'
  */
 export type EnumQuoteStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuoteStatus'>
@@ -4274,6 +4390,20 @@ export type EnumQuoteStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pris
  * Reference to a field of type 'QuoteStatus[]'
  */
 export type ListEnumQuoteStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuoteStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DiscountType'
+ */
+export type EnumDiscountTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DiscountType'>
+    
+
+
+/**
+ * Reference to a field of type 'DiscountType[]'
+ */
+export type ListEnumDiscountTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DiscountType[]'>
     
 
 
@@ -4512,6 +4642,7 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
   company?: Prisma.CompanyOmit
+  companyQuoteType?: Prisma.CompanyQuoteTypeOmit
   user?: Prisma.UserOmit
   membership?: Prisma.MembershipOmit
   role?: Prisma.RoleOmit

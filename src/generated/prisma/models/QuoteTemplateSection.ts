@@ -43,6 +43,7 @@ export type QuoteTemplateSectionMinAggregateOutputType = {
   title: string | null
   body: string | null
   amount: runtime.Decimal | null
+  kind: $Enums.QuoteSectionKind | null
 }
 
 export type QuoteTemplateSectionMaxAggregateOutputType = {
@@ -52,6 +53,7 @@ export type QuoteTemplateSectionMaxAggregateOutputType = {
   title: string | null
   body: string | null
   amount: runtime.Decimal | null
+  kind: $Enums.QuoteSectionKind | null
 }
 
 export type QuoteTemplateSectionCountAggregateOutputType = {
@@ -61,6 +63,7 @@ export type QuoteTemplateSectionCountAggregateOutputType = {
   title: number
   body: number
   amount: number
+  kind: number
   _all: number
 }
 
@@ -82,6 +85,7 @@ export type QuoteTemplateSectionMinAggregateInputType = {
   title?: true
   body?: true
   amount?: true
+  kind?: true
 }
 
 export type QuoteTemplateSectionMaxAggregateInputType = {
@@ -91,6 +95,7 @@ export type QuoteTemplateSectionMaxAggregateInputType = {
   title?: true
   body?: true
   amount?: true
+  kind?: true
 }
 
 export type QuoteTemplateSectionCountAggregateInputType = {
@@ -100,6 +105,7 @@ export type QuoteTemplateSectionCountAggregateInputType = {
   title?: true
   body?: true
   amount?: true
+  kind?: true
   _all?: true
 }
 
@@ -196,6 +202,7 @@ export type QuoteTemplateSectionGroupByOutputType = {
   title: string
   body: string | null
   amount: runtime.Decimal
+  kind: $Enums.QuoteSectionKind
   _count: QuoteTemplateSectionCountAggregateOutputType | null
   _avg: QuoteTemplateSectionAvgAggregateOutputType | null
   _sum: QuoteTemplateSectionSumAggregateOutputType | null
@@ -228,6 +235,7 @@ export type QuoteTemplateSectionWhereInput = {
   title?: Prisma.StringFilter<"QuoteTemplateSection"> | string
   body?: Prisma.StringNullableFilter<"QuoteTemplateSection"> | string | null
   amount?: Prisma.DecimalFilter<"QuoteTemplateSection"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFilter<"QuoteTemplateSection"> | $Enums.QuoteSectionKind
   template?: Prisma.XOR<Prisma.QuoteTemplateScalarRelationFilter, Prisma.QuoteTemplateWhereInput>
 }
 
@@ -238,6 +246,7 @@ export type QuoteTemplateSectionOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrderInput | Prisma.SortOrder
   amount?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   template?: Prisma.QuoteTemplateOrderByWithRelationInput
 }
 
@@ -251,6 +260,7 @@ export type QuoteTemplateSectionWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"QuoteTemplateSection"> | string
   body?: Prisma.StringNullableFilter<"QuoteTemplateSection"> | string | null
   amount?: Prisma.DecimalFilter<"QuoteTemplateSection"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFilter<"QuoteTemplateSection"> | $Enums.QuoteSectionKind
   template?: Prisma.XOR<Prisma.QuoteTemplateScalarRelationFilter, Prisma.QuoteTemplateWhereInput>
 }, "id">
 
@@ -261,6 +271,7 @@ export type QuoteTemplateSectionOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrderInput | Prisma.SortOrder
   amount?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   _count?: Prisma.QuoteTemplateSectionCountOrderByAggregateInput
   _avg?: Prisma.QuoteTemplateSectionAvgOrderByAggregateInput
   _max?: Prisma.QuoteTemplateSectionMaxOrderByAggregateInput
@@ -278,6 +289,7 @@ export type QuoteTemplateSectionScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"QuoteTemplateSection"> | string
   body?: Prisma.StringNullableWithAggregatesFilter<"QuoteTemplateSection"> | string | null
   amount?: Prisma.DecimalWithAggregatesFilter<"QuoteTemplateSection"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindWithAggregatesFilter<"QuoteTemplateSection"> | $Enums.QuoteSectionKind
 }
 
 export type QuoteTemplateSectionCreateInput = {
@@ -286,6 +298,7 @@ export type QuoteTemplateSectionCreateInput = {
   title: string
   body?: string | null
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: $Enums.QuoteSectionKind
   template: Prisma.QuoteTemplateCreateNestedOneWithoutSectionsInput
 }
 
@@ -296,6 +309,7 @@ export type QuoteTemplateSectionUncheckedCreateInput = {
   title: string
   body?: string | null
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: $Enums.QuoteSectionKind
 }
 
 export type QuoteTemplateSectionUpdateInput = {
@@ -304,6 +318,7 @@ export type QuoteTemplateSectionUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
   template?: Prisma.QuoteTemplateUpdateOneRequiredWithoutSectionsNestedInput
 }
 
@@ -314,6 +329,7 @@ export type QuoteTemplateSectionUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
 }
 
 export type QuoteTemplateSectionCreateManyInput = {
@@ -323,6 +339,7 @@ export type QuoteTemplateSectionCreateManyInput = {
   title: string
   body?: string | null
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: $Enums.QuoteSectionKind
 }
 
 export type QuoteTemplateSectionUpdateManyMutationInput = {
@@ -331,6 +348,7 @@ export type QuoteTemplateSectionUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
 }
 
 export type QuoteTemplateSectionUncheckedUpdateManyInput = {
@@ -340,6 +358,7 @@ export type QuoteTemplateSectionUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
 }
 
 export type QuoteTemplateSectionListRelationFilter = {
@@ -359,6 +378,7 @@ export type QuoteTemplateSectionCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
 }
 
 export type QuoteTemplateSectionAvgOrderByAggregateInput = {
@@ -373,6 +393,7 @@ export type QuoteTemplateSectionMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
 }
 
 export type QuoteTemplateSectionMinOrderByAggregateInput = {
@@ -382,6 +403,7 @@ export type QuoteTemplateSectionMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
 }
 
 export type QuoteTemplateSectionSumOrderByAggregateInput = {
@@ -431,12 +453,17 @@ export type QuoteTemplateSectionUncheckedUpdateManyWithoutTemplateNestedInput = 
   deleteMany?: Prisma.QuoteTemplateSectionScalarWhereInput | Prisma.QuoteTemplateSectionScalarWhereInput[]
 }
 
+export type EnumQuoteSectionKindFieldUpdateOperationsInput = {
+  set?: $Enums.QuoteSectionKind
+}
+
 export type QuoteTemplateSectionCreateWithoutTemplateInput = {
   id?: string
   position?: number
   title: string
   body?: string | null
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: $Enums.QuoteSectionKind
 }
 
 export type QuoteTemplateSectionUncheckedCreateWithoutTemplateInput = {
@@ -445,6 +472,7 @@ export type QuoteTemplateSectionUncheckedCreateWithoutTemplateInput = {
   title: string
   body?: string | null
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: $Enums.QuoteSectionKind
 }
 
 export type QuoteTemplateSectionCreateOrConnectWithoutTemplateInput = {
@@ -483,6 +511,7 @@ export type QuoteTemplateSectionScalarWhereInput = {
   title?: Prisma.StringFilter<"QuoteTemplateSection"> | string
   body?: Prisma.StringNullableFilter<"QuoteTemplateSection"> | string | null
   amount?: Prisma.DecimalFilter<"QuoteTemplateSection"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFilter<"QuoteTemplateSection"> | $Enums.QuoteSectionKind
 }
 
 export type QuoteTemplateSectionCreateManyTemplateInput = {
@@ -491,6 +520,7 @@ export type QuoteTemplateSectionCreateManyTemplateInput = {
   title: string
   body?: string | null
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: $Enums.QuoteSectionKind
 }
 
 export type QuoteTemplateSectionUpdateWithoutTemplateInput = {
@@ -499,6 +529,7 @@ export type QuoteTemplateSectionUpdateWithoutTemplateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
 }
 
 export type QuoteTemplateSectionUncheckedUpdateWithoutTemplateInput = {
@@ -507,6 +538,7 @@ export type QuoteTemplateSectionUncheckedUpdateWithoutTemplateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
 }
 
 export type QuoteTemplateSectionUncheckedUpdateManyWithoutTemplateInput = {
@@ -515,6 +547,7 @@ export type QuoteTemplateSectionUncheckedUpdateManyWithoutTemplateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
 }
 
 
@@ -526,6 +559,7 @@ export type QuoteTemplateSectionSelect<ExtArgs extends runtime.Types.Extensions.
   title?: boolean
   body?: boolean
   amount?: boolean
+  kind?: boolean
   template?: boolean | Prisma.QuoteTemplateDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["quoteTemplateSection"]>
 
@@ -536,6 +570,7 @@ export type QuoteTemplateSectionSelectCreateManyAndReturn<ExtArgs extends runtim
   title?: boolean
   body?: boolean
   amount?: boolean
+  kind?: boolean
   template?: boolean | Prisma.QuoteTemplateDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["quoteTemplateSection"]>
 
@@ -546,6 +581,7 @@ export type QuoteTemplateSectionSelectUpdateManyAndReturn<ExtArgs extends runtim
   title?: boolean
   body?: boolean
   amount?: boolean
+  kind?: boolean
   template?: boolean | Prisma.QuoteTemplateDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["quoteTemplateSection"]>
 
@@ -556,9 +592,10 @@ export type QuoteTemplateSectionSelectScalar = {
   title?: boolean
   body?: boolean
   amount?: boolean
+  kind?: boolean
 }
 
-export type QuoteTemplateSectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "templateId" | "position" | "title" | "body" | "amount", ExtArgs["result"]["quoteTemplateSection"]>
+export type QuoteTemplateSectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "templateId" | "position" | "title" | "body" | "amount" | "kind", ExtArgs["result"]["quoteTemplateSection"]>
 export type QuoteTemplateSectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   template?: boolean | Prisma.QuoteTemplateDefaultArgs<ExtArgs>
 }
@@ -581,6 +618,7 @@ export type $QuoteTemplateSectionPayload<ExtArgs extends runtime.Types.Extension
     title: string
     body: string | null
     amount: runtime.Decimal
+    kind: $Enums.QuoteSectionKind
   }, ExtArgs["result"]["quoteTemplateSection"]>
   composites: {}
 }
@@ -1011,6 +1049,7 @@ export interface QuoteTemplateSectionFieldRefs {
   readonly title: Prisma.FieldRef<"QuoteTemplateSection", 'String'>
   readonly body: Prisma.FieldRef<"QuoteTemplateSection", 'String'>
   readonly amount: Prisma.FieldRef<"QuoteTemplateSection", 'Decimal'>
+  readonly kind: Prisma.FieldRef<"QuoteTemplateSection", 'QuoteSectionKind'>
 }
     
 

@@ -33,11 +33,13 @@ export type AggregateQuoteSection = {
 export type QuoteSectionAvgAggregateOutputType = {
   position: number | null
   amount: runtime.Decimal | null
+  discountValue: runtime.Decimal | null
 }
 
 export type QuoteSectionSumAggregateOutputType = {
   position: number | null
   amount: runtime.Decimal | null
+  discountValue: runtime.Decimal | null
 }
 
 export type QuoteSectionMinAggregateOutputType = {
@@ -47,6 +49,11 @@ export type QuoteSectionMinAggregateOutputType = {
   title: string | null
   body: string | null
   amount: runtime.Decimal | null
+  discountType: $Enums.DiscountType | null
+  discountValue: runtime.Decimal | null
+  kind: $Enums.QuoteSectionKind | null
+  selectedByDefault: boolean | null
+  customerSelected: boolean | null
 }
 
 export type QuoteSectionMaxAggregateOutputType = {
@@ -56,6 +63,11 @@ export type QuoteSectionMaxAggregateOutputType = {
   title: string | null
   body: string | null
   amount: runtime.Decimal | null
+  discountType: $Enums.DiscountType | null
+  discountValue: runtime.Decimal | null
+  kind: $Enums.QuoteSectionKind | null
+  selectedByDefault: boolean | null
+  customerSelected: boolean | null
 }
 
 export type QuoteSectionCountAggregateOutputType = {
@@ -65,6 +77,11 @@ export type QuoteSectionCountAggregateOutputType = {
   title: number
   body: number
   amount: number
+  discountType: number
+  discountValue: number
+  kind: number
+  selectedByDefault: number
+  customerSelected: number
   _all: number
 }
 
@@ -72,11 +89,13 @@ export type QuoteSectionCountAggregateOutputType = {
 export type QuoteSectionAvgAggregateInputType = {
   position?: true
   amount?: true
+  discountValue?: true
 }
 
 export type QuoteSectionSumAggregateInputType = {
   position?: true
   amount?: true
+  discountValue?: true
 }
 
 export type QuoteSectionMinAggregateInputType = {
@@ -86,6 +105,11 @@ export type QuoteSectionMinAggregateInputType = {
   title?: true
   body?: true
   amount?: true
+  discountType?: true
+  discountValue?: true
+  kind?: true
+  selectedByDefault?: true
+  customerSelected?: true
 }
 
 export type QuoteSectionMaxAggregateInputType = {
@@ -95,6 +119,11 @@ export type QuoteSectionMaxAggregateInputType = {
   title?: true
   body?: true
   amount?: true
+  discountType?: true
+  discountValue?: true
+  kind?: true
+  selectedByDefault?: true
+  customerSelected?: true
 }
 
 export type QuoteSectionCountAggregateInputType = {
@@ -104,6 +133,11 @@ export type QuoteSectionCountAggregateInputType = {
   title?: true
   body?: true
   amount?: true
+  discountType?: true
+  discountValue?: true
+  kind?: true
+  selectedByDefault?: true
+  customerSelected?: true
   _all?: true
 }
 
@@ -200,6 +234,11 @@ export type QuoteSectionGroupByOutputType = {
   title: string
   body: string | null
   amount: runtime.Decimal
+  discountType: $Enums.DiscountType
+  discountValue: runtime.Decimal
+  kind: $Enums.QuoteSectionKind
+  selectedByDefault: boolean
+  customerSelected: boolean | null
   _count: QuoteSectionCountAggregateOutputType | null
   _avg: QuoteSectionAvgAggregateOutputType | null
   _sum: QuoteSectionSumAggregateOutputType | null
@@ -232,6 +271,11 @@ export type QuoteSectionWhereInput = {
   title?: Prisma.StringFilter<"QuoteSection"> | string
   body?: Prisma.StringNullableFilter<"QuoteSection"> | string | null
   amount?: Prisma.DecimalFilter<"QuoteSection"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFilter<"QuoteSection"> | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFilter<"QuoteSection"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFilter<"QuoteSection"> | $Enums.QuoteSectionKind
+  selectedByDefault?: Prisma.BoolFilter<"QuoteSection"> | boolean
+  customerSelected?: Prisma.BoolNullableFilter<"QuoteSection"> | boolean | null
   quote?: Prisma.XOR<Prisma.QuoteScalarRelationFilter, Prisma.QuoteWhereInput>
 }
 
@@ -242,6 +286,11 @@ export type QuoteSectionOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrderInput | Prisma.SortOrder
   amount?: Prisma.SortOrder
+  discountType?: Prisma.SortOrder
+  discountValue?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
+  selectedByDefault?: Prisma.SortOrder
+  customerSelected?: Prisma.SortOrderInput | Prisma.SortOrder
   quote?: Prisma.QuoteOrderByWithRelationInput
 }
 
@@ -255,6 +304,11 @@ export type QuoteSectionWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"QuoteSection"> | string
   body?: Prisma.StringNullableFilter<"QuoteSection"> | string | null
   amount?: Prisma.DecimalFilter<"QuoteSection"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFilter<"QuoteSection"> | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFilter<"QuoteSection"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFilter<"QuoteSection"> | $Enums.QuoteSectionKind
+  selectedByDefault?: Prisma.BoolFilter<"QuoteSection"> | boolean
+  customerSelected?: Prisma.BoolNullableFilter<"QuoteSection"> | boolean | null
   quote?: Prisma.XOR<Prisma.QuoteScalarRelationFilter, Prisma.QuoteWhereInput>
 }, "id">
 
@@ -265,6 +319,11 @@ export type QuoteSectionOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrderInput | Prisma.SortOrder
   amount?: Prisma.SortOrder
+  discountType?: Prisma.SortOrder
+  discountValue?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
+  selectedByDefault?: Prisma.SortOrder
+  customerSelected?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.QuoteSectionCountOrderByAggregateInput
   _avg?: Prisma.QuoteSectionAvgOrderByAggregateInput
   _max?: Prisma.QuoteSectionMaxOrderByAggregateInput
@@ -282,6 +341,11 @@ export type QuoteSectionScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"QuoteSection"> | string
   body?: Prisma.StringNullableWithAggregatesFilter<"QuoteSection"> | string | null
   amount?: Prisma.DecimalWithAggregatesFilter<"QuoteSection"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeWithAggregatesFilter<"QuoteSection"> | $Enums.DiscountType
+  discountValue?: Prisma.DecimalWithAggregatesFilter<"QuoteSection"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindWithAggregatesFilter<"QuoteSection"> | $Enums.QuoteSectionKind
+  selectedByDefault?: Prisma.BoolWithAggregatesFilter<"QuoteSection"> | boolean
+  customerSelected?: Prisma.BoolNullableWithAggregatesFilter<"QuoteSection"> | boolean | null
 }
 
 export type QuoteSectionCreateInput = {
@@ -290,6 +354,11 @@ export type QuoteSectionCreateInput = {
   title: string
   body?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: $Enums.QuoteSectionKind
+  selectedByDefault?: boolean
+  customerSelected?: boolean | null
   quote: Prisma.QuoteCreateNestedOneWithoutSectionsInput
 }
 
@@ -300,6 +369,11 @@ export type QuoteSectionUncheckedCreateInput = {
   title: string
   body?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: $Enums.QuoteSectionKind
+  selectedByDefault?: boolean
+  customerSelected?: boolean | null
 }
 
 export type QuoteSectionUpdateInput = {
@@ -308,6 +382,11 @@ export type QuoteSectionUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
+  selectedByDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  customerSelected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   quote?: Prisma.QuoteUpdateOneRequiredWithoutSectionsNestedInput
 }
 
@@ -318,6 +397,11 @@ export type QuoteSectionUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
+  selectedByDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  customerSelected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type QuoteSectionCreateManyInput = {
@@ -327,6 +411,11 @@ export type QuoteSectionCreateManyInput = {
   title: string
   body?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: $Enums.QuoteSectionKind
+  selectedByDefault?: boolean
+  customerSelected?: boolean | null
 }
 
 export type QuoteSectionUpdateManyMutationInput = {
@@ -335,6 +424,11 @@ export type QuoteSectionUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
+  selectedByDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  customerSelected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type QuoteSectionUncheckedUpdateManyInput = {
@@ -344,6 +438,11 @@ export type QuoteSectionUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
+  selectedByDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  customerSelected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type QuoteSectionListRelationFilter = {
@@ -363,11 +462,17 @@ export type QuoteSectionCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  discountType?: Prisma.SortOrder
+  discountValue?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
+  selectedByDefault?: Prisma.SortOrder
+  customerSelected?: Prisma.SortOrder
 }
 
 export type QuoteSectionAvgOrderByAggregateInput = {
   position?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  discountValue?: Prisma.SortOrder
 }
 
 export type QuoteSectionMaxOrderByAggregateInput = {
@@ -377,6 +482,11 @@ export type QuoteSectionMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  discountType?: Prisma.SortOrder
+  discountValue?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
+  selectedByDefault?: Prisma.SortOrder
+  customerSelected?: Prisma.SortOrder
 }
 
 export type QuoteSectionMinOrderByAggregateInput = {
@@ -386,11 +496,17 @@ export type QuoteSectionMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  discountType?: Prisma.SortOrder
+  discountValue?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
+  selectedByDefault?: Prisma.SortOrder
+  customerSelected?: Prisma.SortOrder
 }
 
 export type QuoteSectionSumOrderByAggregateInput = {
   position?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  discountValue?: Prisma.SortOrder
 }
 
 export type QuoteSectionCreateNestedManyWithoutQuoteInput = {
@@ -435,12 +551,21 @@ export type QuoteSectionUncheckedUpdateManyWithoutQuoteNestedInput = {
   deleteMany?: Prisma.QuoteSectionScalarWhereInput | Prisma.QuoteSectionScalarWhereInput[]
 }
 
+export type NullableBoolFieldUpdateOperationsInput = {
+  set?: boolean | null
+}
+
 export type QuoteSectionCreateWithoutQuoteInput = {
   id?: string
   position: number
   title: string
   body?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: $Enums.QuoteSectionKind
+  selectedByDefault?: boolean
+  customerSelected?: boolean | null
 }
 
 export type QuoteSectionUncheckedCreateWithoutQuoteInput = {
@@ -449,6 +574,11 @@ export type QuoteSectionUncheckedCreateWithoutQuoteInput = {
   title: string
   body?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: $Enums.QuoteSectionKind
+  selectedByDefault?: boolean
+  customerSelected?: boolean | null
 }
 
 export type QuoteSectionCreateOrConnectWithoutQuoteInput = {
@@ -487,6 +617,11 @@ export type QuoteSectionScalarWhereInput = {
   title?: Prisma.StringFilter<"QuoteSection"> | string
   body?: Prisma.StringNullableFilter<"QuoteSection"> | string | null
   amount?: Prisma.DecimalFilter<"QuoteSection"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFilter<"QuoteSection"> | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFilter<"QuoteSection"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFilter<"QuoteSection"> | $Enums.QuoteSectionKind
+  selectedByDefault?: Prisma.BoolFilter<"QuoteSection"> | boolean
+  customerSelected?: Prisma.BoolNullableFilter<"QuoteSection"> | boolean | null
 }
 
 export type QuoteSectionCreateManyQuoteInput = {
@@ -495,6 +630,11 @@ export type QuoteSectionCreateManyQuoteInput = {
   title: string
   body?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: $Enums.QuoteSectionKind
+  selectedByDefault?: boolean
+  customerSelected?: boolean | null
 }
 
 export type QuoteSectionUpdateWithoutQuoteInput = {
@@ -503,6 +643,11 @@ export type QuoteSectionUpdateWithoutQuoteInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
+  selectedByDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  customerSelected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type QuoteSectionUncheckedUpdateWithoutQuoteInput = {
@@ -511,6 +656,11 @@ export type QuoteSectionUncheckedUpdateWithoutQuoteInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
+  selectedByDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  customerSelected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type QuoteSectionUncheckedUpdateManyWithoutQuoteInput = {
@@ -519,6 +669,11 @@ export type QuoteSectionUncheckedUpdateManyWithoutQuoteInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
+  selectedByDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  customerSelected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 
@@ -530,6 +685,11 @@ export type QuoteSectionSelect<ExtArgs extends runtime.Types.Extensions.Internal
   title?: boolean
   body?: boolean
   amount?: boolean
+  discountType?: boolean
+  discountValue?: boolean
+  kind?: boolean
+  selectedByDefault?: boolean
+  customerSelected?: boolean
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["quoteSection"]>
 
@@ -540,6 +700,11 @@ export type QuoteSectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   title?: boolean
   body?: boolean
   amount?: boolean
+  discountType?: boolean
+  discountValue?: boolean
+  kind?: boolean
+  selectedByDefault?: boolean
+  customerSelected?: boolean
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["quoteSection"]>
 
@@ -550,6 +715,11 @@ export type QuoteSectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   title?: boolean
   body?: boolean
   amount?: boolean
+  discountType?: boolean
+  discountValue?: boolean
+  kind?: boolean
+  selectedByDefault?: boolean
+  customerSelected?: boolean
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["quoteSection"]>
 
@@ -560,9 +730,14 @@ export type QuoteSectionSelectScalar = {
   title?: boolean
   body?: boolean
   amount?: boolean
+  discountType?: boolean
+  discountValue?: boolean
+  kind?: boolean
+  selectedByDefault?: boolean
+  customerSelected?: boolean
 }
 
-export type QuoteSectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "quoteId" | "position" | "title" | "body" | "amount", ExtArgs["result"]["quoteSection"]>
+export type QuoteSectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "quoteId" | "position" | "title" | "body" | "amount" | "discountType" | "discountValue" | "kind" | "selectedByDefault" | "customerSelected", ExtArgs["result"]["quoteSection"]>
 export type QuoteSectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
 }
@@ -585,6 +760,18 @@ export type $QuoteSectionPayload<ExtArgs extends runtime.Types.Extensions.Intern
     title: string
     body: string | null
     amount: runtime.Decimal
+    discountType: $Enums.DiscountType
+    discountValue: runtime.Decimal
+    kind: $Enums.QuoteSectionKind
+    selectedByDefault: boolean
+    /**
+     * *
+     *    * Null until the customer decides — falls back to `selectedByDefault`.
+     *    * True/false once they've actually ticked or chosen something. Lives on
+     *    * the row itself rather than a separate table: it's a 1:1 fact about this
+     *    * section, not something that needs its own history.
+     */
+    customerSelected: boolean | null
   }, ExtArgs["result"]["quoteSection"]>
   composites: {}
 }
@@ -1015,6 +1202,11 @@ export interface QuoteSectionFieldRefs {
   readonly title: Prisma.FieldRef<"QuoteSection", 'String'>
   readonly body: Prisma.FieldRef<"QuoteSection", 'String'>
   readonly amount: Prisma.FieldRef<"QuoteSection", 'Decimal'>
+  readonly discountType: Prisma.FieldRef<"QuoteSection", 'DiscountType'>
+  readonly discountValue: Prisma.FieldRef<"QuoteSection", 'Decimal'>
+  readonly kind: Prisma.FieldRef<"QuoteSection", 'QuoteSectionKind'>
+  readonly selectedByDefault: Prisma.FieldRef<"QuoteSection", 'Boolean'>
+  readonly customerSelected: Prisma.FieldRef<"QuoteSection", 'Boolean'>
 }
     
 

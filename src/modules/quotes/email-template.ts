@@ -25,7 +25,8 @@ export type QuoteEmailData = {
   lines: QuoteEmailLine[];
   /** Blocks of work with their price, when quoting by sections. */
   sections: QuoteEmailSection[];
-  notes: string | null;
+  /** Already-sanitised HTML, same as a section's `bodyHtml`; not escaped again. */
+  notesHtml: string | null;
   /** Link to the customer portal. Null when a valid one already existed. */
   viewUrl: string | null;
   labels: {
@@ -111,7 +112,7 @@ export function renderQuoteEmail(data: QuoteEmailData): string {
         : ""
     }
     ${data.validUntil ? `<p style="font-size:13px;color:#64748b">${escapeHtml(data.labels.validUntil)}</p>` : ""}
-    ${data.notes ? `<p style="font-size:13px;color:#475569;white-space:pre-wrap">${escapeHtml(data.notes)}</p>` : ""}
+    ${data.notesHtml ? `<div style="font-size:13px;color:#475569">${data.notesHtml}</div>` : ""}
   </div>
 </div>`;
 }

@@ -5,11 +5,13 @@ import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";
 import { requirePermission } from "@/lib/auth/session";
 import { translateFieldErrors } from "@/lib/i18n-errors";
+import { sanitizeRichText } from "@/lib/rich-text";
 import {
   acceptanceSettingsSchema,
   checkbox,
   companyProfileSchema,
   quoteSettingsSchema,
+  quoteTypeSchema,
   reviewSchema,
 } from "./schemas";
 import {
@@ -163,7 +165,66 @@ export async function saveQuoteSettingsAction(
     return { fieldErrors: translateFieldErrors(parsed.error.flatten().fieldErrors, t) };
   }
 
-  await ctx.db.company.update({ where: { id: ctx.company.id }, data: parsed.data });
+  await ctx.db.company.update({
+    where: { id: ctx.company.id },
+    data: {
+      ...parsed.data,
+      // Cleaned on the way in as well as on the way out, same as the email
+      // footer: the request can be hand-crafted, and this text ends up on
+      // every quote a company sends from here on.
+      quoteIntro: parsed.data.quoteIntro ? sanitizeRichText(parsed.data.quoteIntro) : null,
+      quoteNotes: parsed.data.quoteNotes ? sanitizeRichText(parsed.data.quoteNotes) : null,
+      quoteExclusions: parsed.data.quoteExclusions
+        ? sanitizeRichText(parsed.data.quoteExclusions)
+        : null,
+      quoteTerms: parsed.data.quoteTerms ? sanitizeRichText(parsed.data.quoteTerms) : null,
+      quoteScope: parsed.data.quoteScope ? sanitizeRichText(parsed.data.quoteScope) : null,
+    },
+  });
+
+  revalidatePath("/settings", "layout");
+  return saved();
+}
+
+/**
+ * Adds one of the company's own quote types ("Estimate For", "Quote For",
+ * "Variation For", or whatever it wants to call what it sends).
+ *
+ * One at a time, same as a review link: a typo in the third one is invisible
+ * in a comma-separated box, and this way it's checked on the way in. The
+ * label itself isn't translated — it's the company's own words, same
+ * treatment as `quoteIntro` and the rest of its texts.
+ */
+export async function addQuoteTypeAction(
+  _prev: SettingsState,
+  formData: FormData,
+): Promise<SettingsState> {
+  const ctx = await requirePermission("settings.update");
+  const t = await getTranslations();
+
+  const parsed = quoteTypeSchema.safeParse({ label: formData.get("label") });
+  if (!parsed.success) {
+    return { fieldErrors: translateFieldErrors(parsed.error.flatten().fieldErrors, t) };
+  }
+
+  const count = await ctx.db.companyQuoteType.count();
+  try {
+    await ctx.db.companyQuoteType.create({
+      data: { companyId: ctx.company.id, label: parsed.data.label, position: count },
+    });
+  } catch {
+    // The unique constraint on (companyId, label) — a type already exists
+    // under that exact name.
+    return { fieldErrors: { label: [t("settings.errors.quoteTypeExists")] } };
+  }
+
+  revalidatePath("/settings", "layout");
+  return saved();
+}
+
+export async function removeQuoteTypeAction(id: string): Promise<SettingsState> {
+  const ctx = await requirePermission("settings.update");
+  await ctx.db.companyQuoteType.deleteMany({ where: { id } });
 
   revalidatePath("/settings", "layout");
   return saved();

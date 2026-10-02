@@ -41,6 +41,7 @@ export type QuoteTemplateMinAggregateOutputType = {
   notes: string | null
   terms: string | null
   exclusions: string | null
+  scope: string | null
   active: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -57,6 +58,7 @@ export type QuoteTemplateMaxAggregateOutputType = {
   notes: string | null
   terms: string | null
   exclusions: string | null
+  scope: string | null
   active: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -73,6 +75,7 @@ export type QuoteTemplateCountAggregateOutputType = {
   notes: number
   terms: number
   exclusions: number
+  scope: number
   active: number
   createdAt: number
   updatedAt: number
@@ -91,6 +94,7 @@ export type QuoteTemplateMinAggregateInputType = {
   notes?: true
   terms?: true
   exclusions?: true
+  scope?: true
   active?: true
   createdAt?: true
   updatedAt?: true
@@ -107,6 +111,7 @@ export type QuoteTemplateMaxAggregateInputType = {
   notes?: true
   terms?: true
   exclusions?: true
+  scope?: true
   active?: true
   createdAt?: true
   updatedAt?: true
@@ -123,6 +128,7 @@ export type QuoteTemplateCountAggregateInputType = {
   notes?: true
   terms?: true
   exclusions?: true
+  scope?: true
   active?: true
   createdAt?: true
   updatedAt?: true
@@ -212,6 +218,7 @@ export type QuoteTemplateGroupByOutputType = {
   notes: string | null
   terms: string | null
   exclusions: string | null
+  scope: string | null
   active: boolean
   createdAt: Date
   updatedAt: Date
@@ -249,6 +256,7 @@ export type QuoteTemplateWhereInput = {
   notes?: Prisma.StringNullableFilter<"QuoteTemplate"> | string | null
   terms?: Prisma.StringNullableFilter<"QuoteTemplate"> | string | null
   exclusions?: Prisma.StringNullableFilter<"QuoteTemplate"> | string | null
+  scope?: Prisma.StringNullableFilter<"QuoteTemplate"> | string | null
   active?: Prisma.BoolFilter<"QuoteTemplate"> | boolean
   createdAt?: Prisma.DateTimeFilter<"QuoteTemplate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"QuoteTemplate"> | Date | string
@@ -268,6 +276,7 @@ export type QuoteTemplateOrderByWithRelationInput = {
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   terms?: Prisma.SortOrderInput | Prisma.SortOrder
   exclusions?: Prisma.SortOrderInput | Prisma.SortOrder
+  scope?: Prisma.SortOrderInput | Prisma.SortOrder
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -290,6 +299,7 @@ export type QuoteTemplateWhereUniqueInput = Prisma.AtLeast<{
   notes?: Prisma.StringNullableFilter<"QuoteTemplate"> | string | null
   terms?: Prisma.StringNullableFilter<"QuoteTemplate"> | string | null
   exclusions?: Prisma.StringNullableFilter<"QuoteTemplate"> | string | null
+  scope?: Prisma.StringNullableFilter<"QuoteTemplate"> | string | null
   active?: Prisma.BoolFilter<"QuoteTemplate"> | boolean
   createdAt?: Prisma.DateTimeFilter<"QuoteTemplate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"QuoteTemplate"> | Date | string
@@ -309,6 +319,7 @@ export type QuoteTemplateOrderByWithAggregationInput = {
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   terms?: Prisma.SortOrderInput | Prisma.SortOrder
   exclusions?: Prisma.SortOrderInput | Prisma.SortOrder
+  scope?: Prisma.SortOrderInput | Prisma.SortOrder
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -331,6 +342,7 @@ export type QuoteTemplateScalarWhereWithAggregatesInput = {
   notes?: Prisma.StringNullableWithAggregatesFilter<"QuoteTemplate"> | string | null
   terms?: Prisma.StringNullableWithAggregatesFilter<"QuoteTemplate"> | string | null
   exclusions?: Prisma.StringNullableWithAggregatesFilter<"QuoteTemplate"> | string | null
+  scope?: Prisma.StringNullableWithAggregatesFilter<"QuoteTemplate"> | string | null
   active?: Prisma.BoolWithAggregatesFilter<"QuoteTemplate"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"QuoteTemplate"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"QuoteTemplate"> | Date | string
@@ -346,6 +358,7 @@ export type QuoteTemplateCreateInput = {
   notes?: string | null
   terms?: string | null
   exclusions?: string | null
+  scope?: string | null
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -365,6 +378,7 @@ export type QuoteTemplateUncheckedCreateInput = {
   notes?: string | null
   terms?: string | null
   exclusions?: string | null
+  scope?: string | null
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -382,6 +396,7 @@ export type QuoteTemplateUpdateInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -401,6 +416,7 @@ export type QuoteTemplateUncheckedUpdateInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -419,6 +435,7 @@ export type QuoteTemplateCreateManyInput = {
   notes?: string | null
   terms?: string | null
   exclusions?: string | null
+  scope?: string | null
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -434,6 +451,7 @@ export type QuoteTemplateUpdateManyMutationInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -450,6 +468,7 @@ export type QuoteTemplateUncheckedUpdateManyInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -476,6 +495,7 @@ export type QuoteTemplateCountOrderByAggregateInput = {
   notes?: Prisma.SortOrder
   terms?: Prisma.SortOrder
   exclusions?: Prisma.SortOrder
+  scope?: Prisma.SortOrder
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -492,6 +512,7 @@ export type QuoteTemplateMaxOrderByAggregateInput = {
   notes?: Prisma.SortOrder
   terms?: Prisma.SortOrder
   exclusions?: Prisma.SortOrder
+  scope?: Prisma.SortOrder
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -508,6 +529,7 @@ export type QuoteTemplateMinOrderByAggregateInput = {
   notes?: Prisma.SortOrder
   terms?: Prisma.SortOrder
   exclusions?: Prisma.SortOrder
+  scope?: Prisma.SortOrder
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -602,6 +624,7 @@ export type QuoteTemplateCreateWithoutCompanyInput = {
   notes?: string | null
   terms?: string | null
   exclusions?: string | null
+  scope?: string | null
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -619,6 +642,7 @@ export type QuoteTemplateUncheckedCreateWithoutCompanyInput = {
   notes?: string | null
   terms?: string | null
   exclusions?: string | null
+  scope?: string | null
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -666,6 +690,7 @@ export type QuoteTemplateScalarWhereInput = {
   notes?: Prisma.StringNullableFilter<"QuoteTemplate"> | string | null
   terms?: Prisma.StringNullableFilter<"QuoteTemplate"> | string | null
   exclusions?: Prisma.StringNullableFilter<"QuoteTemplate"> | string | null
+  scope?: Prisma.StringNullableFilter<"QuoteTemplate"> | string | null
   active?: Prisma.BoolFilter<"QuoteTemplate"> | boolean
   createdAt?: Prisma.DateTimeFilter<"QuoteTemplate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"QuoteTemplate"> | Date | string
@@ -681,6 +706,7 @@ export type QuoteTemplateCreateWithoutItemsInput = {
   notes?: string | null
   terms?: string | null
   exclusions?: string | null
+  scope?: string | null
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -699,6 +725,7 @@ export type QuoteTemplateUncheckedCreateWithoutItemsInput = {
   notes?: string | null
   terms?: string | null
   exclusions?: string | null
+  scope?: string | null
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -731,6 +758,7 @@ export type QuoteTemplateUpdateWithoutItemsInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -749,6 +777,7 @@ export type QuoteTemplateUncheckedUpdateWithoutItemsInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -765,6 +794,7 @@ export type QuoteTemplateCreateWithoutSectionsInput = {
   notes?: string | null
   terms?: string | null
   exclusions?: string | null
+  scope?: string | null
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -783,6 +813,7 @@ export type QuoteTemplateUncheckedCreateWithoutSectionsInput = {
   notes?: string | null
   terms?: string | null
   exclusions?: string | null
+  scope?: string | null
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -815,6 +846,7 @@ export type QuoteTemplateUpdateWithoutSectionsInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -833,6 +865,7 @@ export type QuoteTemplateUncheckedUpdateWithoutSectionsInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -849,6 +882,7 @@ export type QuoteTemplateCreateManyCompanyInput = {
   notes?: string | null
   terms?: string | null
   exclusions?: string | null
+  scope?: string | null
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -864,6 +898,7 @@ export type QuoteTemplateUpdateWithoutCompanyInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -881,6 +916,7 @@ export type QuoteTemplateUncheckedUpdateWithoutCompanyInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -898,6 +934,7 @@ export type QuoteTemplateUncheckedUpdateManyWithoutCompanyInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -954,6 +991,7 @@ export type QuoteTemplateSelect<ExtArgs extends runtime.Types.Extensions.Interna
   notes?: boolean
   terms?: boolean
   exclusions?: boolean
+  scope?: boolean
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -974,6 +1012,7 @@ export type QuoteTemplateSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   notes?: boolean
   terms?: boolean
   exclusions?: boolean
+  scope?: boolean
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -991,6 +1030,7 @@ export type QuoteTemplateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   notes?: boolean
   terms?: boolean
   exclusions?: boolean
+  scope?: boolean
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1008,12 +1048,13 @@ export type QuoteTemplateSelectScalar = {
   notes?: boolean
   terms?: boolean
   exclusions?: boolean
+  scope?: boolean
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type QuoteTemplateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "name" | "description" | "titlePattern" | "pricingMode" | "intro" | "notes" | "terms" | "exclusions" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["quoteTemplate"]>
+export type QuoteTemplateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "name" | "description" | "titlePattern" | "pricingMode" | "intro" | "notes" | "terms" | "exclusions" | "scope" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["quoteTemplate"]>
 export type QuoteTemplateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   items?: boolean | Prisma.QuoteTemplate$itemsArgs<ExtArgs>
@@ -1049,6 +1090,7 @@ export type $QuoteTemplatePayload<ExtArgs extends runtime.Types.Extensions.Inter
     notes: string | null
     terms: string | null
     exclusions: string | null
+    scope: string | null
     active: boolean
     createdAt: Date
     updatedAt: Date
@@ -1488,6 +1530,7 @@ export interface QuoteTemplateFieldRefs {
   readonly notes: Prisma.FieldRef<"QuoteTemplate", 'String'>
   readonly terms: Prisma.FieldRef<"QuoteTemplate", 'String'>
   readonly exclusions: Prisma.FieldRef<"QuoteTemplate", 'String'>
+  readonly scope: Prisma.FieldRef<"QuoteTemplate", 'String'>
   readonly active: Prisma.FieldRef<"QuoteTemplate", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"QuoteTemplate", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"QuoteTemplate", 'DateTime'>

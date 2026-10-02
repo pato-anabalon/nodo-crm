@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Company: 'Company',
+  CompanyQuoteType: 'CompanyQuoteType',
   User: 'User',
   Membership: 'Membership',
   Role: 'Role',
@@ -141,6 +142,7 @@ export const CompanyScalarFieldEnum = {
   quoteNotes: 'quoteNotes',
   quoteExclusions: 'quoteExclusions',
   quoteTerms: 'quoteTerms',
+  quoteScope: 'quoteScope',
   taxDisplayMode: 'taxDisplayMode',
   acceptanceMode: 'acceptanceMode',
   acceptanceStatement: 'acceptanceStatement',
@@ -153,6 +155,17 @@ export const CompanyScalarFieldEnum = {
 } as const
 
 export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
+
+
+export const CompanyQuoteTypeScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  label: 'label',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type CompanyQuoteTypeScalarFieldEnum = (typeof CompanyQuoteTypeScalarFieldEnum)[keyof typeof CompanyQuoteTypeScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -462,6 +475,7 @@ export const QuoteTemplateScalarFieldEnum = {
   notes: 'notes',
   terms: 'terms',
   exclusions: 'exclusions',
+  scope: 'scope',
   active: 'active',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -489,7 +503,8 @@ export const QuoteTemplateSectionScalarFieldEnum = {
   position: 'position',
   title: 'title',
   body: 'body',
-  amount: 'amount'
+  amount: 'amount',
+  kind: 'kind'
 } as const
 
 export type QuoteTemplateSectionScalarFieldEnum = (typeof QuoteTemplateSectionScalarFieldEnum)[keyof typeof QuoteTemplateSectionScalarFieldEnum]
@@ -510,6 +525,9 @@ export const QuoteScalarFieldEnum = {
   clientPhone: 'clientPhone',
   intro: 'intro',
   exclusions: 'exclusions',
+  scope: 'scope',
+  quoteType: 'quoteType',
+  projectAddress: 'projectAddress',
   termsDocumentId: 'termsDocumentId',
   currency: 'currency',
   language: 'language',
@@ -517,6 +535,11 @@ export const QuoteScalarFieldEnum = {
   taxRate: 'taxRate',
   taxDisplayMode: 'taxDisplayMode',
   discount: 'discount',
+  discountType: 'discountType',
+  discountValue: 'discountValue',
+  optionalDiscountThreshold: 'optionalDiscountThreshold',
+  optionalDiscountType: 'optionalDiscountType',
+  optionalDiscountValue: 'optionalDiscountValue',
   subtotal: 'subtotal',
   taxAmount: 'taxAmount',
   total: 'total',
@@ -627,7 +650,12 @@ export const QuoteSectionScalarFieldEnum = {
   position: 'position',
   title: 'title',
   body: 'body',
-  amount: 'amount'
+  amount: 'amount',
+  discountType: 'discountType',
+  discountValue: 'discountValue',
+  kind: 'kind',
+  selectedByDefault: 'selectedByDefault',
+  customerSelected: 'customerSelected'
 } as const
 
 export type QuoteSectionScalarFieldEnum = (typeof QuoteSectionScalarFieldEnum)[keyof typeof QuoteSectionScalarFieldEnum]

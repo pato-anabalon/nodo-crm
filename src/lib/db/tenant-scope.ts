@@ -20,6 +20,7 @@ export const DIRECT_TENANT_MODELS = new Set([
   "EmailTemplate",
   "QuoteEmail",
   "ReviewLink",
+  "CompanyQuoteType",
   "QuoteTemplate",
   "ClientCompany",
   "CompanyDocument",

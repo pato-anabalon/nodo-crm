@@ -64,6 +64,18 @@ export const quoteSettingsSchema = z.object({
   quoteNotes: optionalText(8000),
   quoteExclusions: optionalText(8000),
   quoteTerms: optionalText(8000),
+  quoteScope: optionalText(8000),
+});
+
+/**
+ * One entry in the company's own list of document kinds ("Estimate For",
+ * "Quote For", "Variation For", or whatever it wants to call what it sends).
+ * Added one at a time, same as a `ReviewLink` — each label is checked on the
+ * way in, and `@@unique([companyId, label])` on the row itself catches a
+ * duplicate the schema alone can't.
+ */
+export const quoteTypeSchema = z.object({
+  label: z.string().trim().min(1, "quotes.form.quoteTypeLabelRequired").max(100),
 });
 
 /** What the customer is asked for in order to accept. */

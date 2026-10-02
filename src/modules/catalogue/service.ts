@@ -23,11 +23,24 @@ export async function listCatalogue(ctx: CompanyContext, filters: CatalogueFilte
   });
 }
 
-/** What the quote form offers. Retired lines are never proposed for a new quote. */
-export async function activeCatalogue(ctx: CompanyContext) {
-  return ctx.db.catalogueItem.findMany({
+/** Whether the quote form's "from catalogue" picker has anything to offer at
+ * all — cheap enough to check on every quote page without loading the list
+ * itself, which is what the picker searches for instead. */
+export async function hasActiveCatalogue(ctx: CompanyContext): Promise<boolean> {
+  const first = await ctx.db.catalogueItem.findFirst({
     where: { active: true },
+    select: { id: true },
+  });
+  return first !== null;
+}
+
+/** What the quote form's "from catalogue" combobox calls on every keystroke,
+ * searched and bounded — never the whole price list at once. */
+export async function searchActiveCatalogue(ctx: CompanyContext, query: string) {
+  return ctx.db.catalogueItem.findMany({
+    where: buildWhere({ q: query.trim() || undefined, includeRetired: false }),
     orderBy: { name: "asc" },
+    take: 20,
     select: { id: true, name: true, description: true, unit: true, unitPrice: true },
   });
 }

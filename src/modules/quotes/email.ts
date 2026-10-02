@@ -177,7 +177,7 @@ async function sendInternalCopy(
             bodyHtml: section.body ? sanitizeRichText(section.body) : null,
           }))
         : [],
-    notes: quote.notes,
+    notesHtml: quote.notes ? sanitizeRichText(quote.notes) : null,
     viewUrl: companyUrl(ctx.company.slug, `/quotes/${quote.id}/preview`),
     labels: {
       greeting: tEmail("copyGreeting", { customer: quote.lead?.contactName ?? "" }),

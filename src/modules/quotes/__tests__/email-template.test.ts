@@ -21,7 +21,7 @@ const base: QuoteEmailData = {
   validUntil: "18 October 2026",
   lines: [{ description: "24-port switch", quantity: "3", total: "$13,500.00" }],
   sections: [],
-  notes: null,
+  notesHtml: null,
   viewUrl: "https://acme.crm.nodo.co.nz/q/TOKEN",
   labels,
 };
@@ -93,18 +93,26 @@ describe("renderQuoteEmail", () => {
     expect(html).not.toContain("Valid until");
   });
 
-  it("escapes HTML coming from the quote's content", () => {
+  it("escapes HTML coming from the quote's plain-text content", () => {
     const html = renderQuoteEmail({
       ...base,
       title: '<script>alert("xss")</script>',
       lines: [{ description: "<img src=x onerror=alert(1)>", quantity: "1", total: "$0.00" }],
-      notes: "Rebaja del 5% por pago < 7 días",
     });
 
     expect(html).not.toContain("<script>");
     expect(html).not.toContain("<img src=x");
     expect(html).toContain("&lt;script&gt;");
-    expect(html).toContain("pago &lt; 7 días");
+  });
+
+  it("the notes' sanitised HTML goes in without being escaped again", () => {
+    const html = renderQuoteEmail({
+      ...base,
+      notesHtml: "<p>Rebaja del 5% por pago antes de <strong>7 días</strong></p>",
+    });
+
+    expect(html).toContain("<strong>7 días</strong>");
+    expect(html).not.toContain("&lt;strong&gt;");
   });
 
   it("includes the button through to the customer portal", () => {

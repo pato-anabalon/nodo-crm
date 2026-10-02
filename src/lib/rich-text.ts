@@ -53,7 +53,22 @@ const OPTIONS: sanitizeHtml.IOptions = {
 
 export function sanitizeRichText(html: string | null | undefined): string {
   if (!html) return "";
-  return sanitizeHtml(html, OPTIONS).trim();
+  return sanitizeHtml(toRichTextHtml(html), OPTIONS).trim();
+}
+
+/**
+ * Either already-HTML content from the editor, or legacy plain text saved
+ * before it existed — turned into HTML either way.
+ *
+ * Tiptap always wraps even a single line in a block tag, so a value that
+ * doesn't start with one is text from before the field was a rich editor:
+ * the introduction, notes, exclusions and terms all started as a plain
+ * `<textarea>`, and whatever a company had already written has to keep
+ * reading the same way — as paragraphs and line breaks, not one run-on line.
+ */
+export function toRichTextHtml(value: string | null | undefined): string {
+  if (!value) return "";
+  return /^\s*</.test(value) ? value : plainTextToHtml(value);
 }
 
 /** Does it hold real content, or just the empty tags the editor leaves behind? */

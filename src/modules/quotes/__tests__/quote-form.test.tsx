@@ -8,7 +8,8 @@ function renderForm() {
   renderWithIntl(
     <QuoteForm
       action={action}
-      leads={[{ id: "lead_1", title: "Office network" }]}
+      searchLeads={async () => []}
+      searchCatalogue={async () => []}
       documents={[]}
       currency="NZD"
       currencies={[{ value: "NZD", label: "NZD — New Zealand Dollar" }]}
@@ -20,6 +21,55 @@ function renderForm() {
   );
   return { action };
 }
+
+describe("QuoteForm — the company's quote types", () => {
+  it("doesn't show the field at all for a company with none configured", () => {
+    renderForm();
+    expect(screen.queryByLabelText("Quote type")).not.toBeInTheDocument();
+  });
+
+  it("starts on the first type, in the order the company set them", async () => {
+    const action = jest.fn(async () => ({}));
+    renderWithIntl(
+      <QuoteForm
+        action={action}
+        searchLeads={async () => []}
+        searchCatalogue={async () => []}
+        documents={[]}
+        quoteTypes={["Estimate For", "Quote For", "Variation For"]}
+        currency="NZD"
+        currencies={[{ value: "NZD", label: "NZD — New Zealand Dollar" }]}
+        formatLocale="en-NZ"
+        taxDisplayMode="TAX_EXCLUSIVE_INCLUSIVE_TOTAL"
+        taxLabel="GST"
+        submitLabel="Create quote"
+      />,
+    );
+
+    expect(screen.getByLabelText("Quote type")).toHaveValue("Estimate For");
+  });
+
+  it("keeps the quote's own type selected when editing one", () => {
+    renderWithIntl(
+      <QuoteForm
+        action={jest.fn(async () => ({}))}
+        searchLeads={async () => []}
+        searchCatalogue={async () => []}
+        documents={[]}
+        quoteTypes={["Estimate For", "Quote For", "Variation For"]}
+        currency="NZD"
+        currencies={[{ value: "NZD", label: "NZD — New Zealand Dollar" }]}
+        formatLocale="en-NZ"
+        taxDisplayMode="TAX_EXCLUSIVE_INCLUSIVE_TOTAL"
+        taxLabel="GST"
+        submitLabel="Save"
+        defaults={{ quoteType: "Variation For" }}
+      />,
+    );
+
+    expect(screen.getByLabelText("Quote type")).toHaveValue("Variation For");
+  });
+});
 
 describe("QuoteForm", () => {
   it("starts with one line and the total at zero", () => {
@@ -144,6 +194,25 @@ describe("QuoteForm — modo de precio", () => {
     expect(screen.getByRole("button", { name: "Remove section 1" })).toBeDisabled();
   });
 
+  it("reorders sections with the up and down buttons, not only by dragging", async () => {
+    const user = userEvent.setup();
+    renderForm();
+
+    await user.click(screen.getByRole("button", { name: /by work sections/i }));
+    await user.type(screen.getAllByLabelText(/section title/i)[0], "First");
+    await user.click(screen.getByRole("button", { name: /add section/i }));
+    await user.type(screen.getAllByLabelText(/section title/i)[1], "Second");
+
+    expect(screen.getByRole("button", { name: "Move section 1 up" })).toBeDisabled();
+
+    await user.click(screen.getByRole("button", { name: "Move section 2 up" }));
+
+    const titles = screen
+      .getAllByLabelText(/section title/i)
+      .map((el) => (el as HTMLInputElement).value);
+    expect(titles).toEqual(["Second", "First"]);
+  });
+
   it("submits the chosen mode to the server", async () => {
     const user = userEvent.setup();
     renderForm();
@@ -152,6 +221,99 @@ describe("QuoteForm — modo de precio", () => {
 
     const hidden = document.querySelector<HTMLInputElement>('input[name="pricingMode"]');
     expect(hidden?.value).toBe("SECTIONS");
+  });
+});
+
+describe("QuoteForm — discounts", () => {
+  it("a section's own percentage discount reduces its final price and the quote's subtotal", async () => {
+    const user = userEvent.setup();
+    renderForm();
+
+    await user.click(screen.getByRole("button", { name: /by work sections/i }));
+    await user.clear(screen.getByLabelText(/^price/i));
+    await user.type(screen.getByLabelText(/^price/i), "1000");
+
+    // "Discount type" labels three different selects on this page (the
+    // section's own, the bundle discount's, and the quote's overall one) —
+    // targeted by id rather than by label text, which only the section's own
+    // field carries.
+    const sectionDiscountType = document.getElementById("sections[0].discountType")!;
+    await user.selectOptions(sectionDiscountType, "PERCENT");
+    const sectionDiscountValue = document.getElementById("sections[0].discountValue")!;
+    await user.clear(sectionDiscountValue);
+    await user.type(sectionDiscountValue, "10");
+
+    expect(screen.getByText("Final price").closest("div")).toHaveTextContent("$900.00");
+    // 900 net of the section's own discount, +15% GST = 1,035.
+    expect(screen.getByText("Total").closest("div")).toHaveTextContent("1,035.00");
+  });
+
+  it("a flat section discount is clamped to its own price, never going negative", async () => {
+    const user = userEvent.setup();
+    renderForm();
+
+    await user.click(screen.getByRole("button", { name: /by work sections/i }));
+    await user.clear(screen.getByLabelText(/^price/i));
+    await user.type(screen.getByLabelText(/^price/i), "100");
+
+    await user.clear(screen.getByLabelText("Discount (NZD)"));
+    await user.type(screen.getByLabelText("Discount (NZD)"), "500");
+
+    expect(screen.getByText("Final price").closest("div")).toHaveTextContent("$0.00");
+  });
+
+  it("the overall discount switches from a flat amount to a percentage of the gross", async () => {
+    const user = userEvent.setup();
+    renderForm();
+
+    await user.clear(screen.getByLabelText("Unit price"));
+    await user.type(screen.getByLabelText("Unit price"), "1000");
+
+    // Targeted by id, same reason as the section discount test above — three
+    // fields on the page now share the "Discount type" label.
+    const overallDiscountType = document.getElementById("discountType")!;
+    await user.selectOptions(overallDiscountType, "PERCENT");
+    await user.clear(screen.getByLabelText("Overall discount (%)"));
+    await user.type(screen.getByLabelText("Overall discount (%)"), "10");
+
+    // 1,000 − 10% = 900 net, +15% GST = 1,035.
+    expect(screen.getByText("Discount").closest("div")).toHaveTextContent("100.00");
+    expect(screen.getByText("Total").closest("div")).toHaveTextContent("1,035.00");
+  });
+});
+
+describe("QuoteForm — section behaviour", () => {
+  it("offers 'pre-selected' only once a section stops being independent", async () => {
+    const user = userEvent.setup();
+    renderForm();
+
+    await user.click(screen.getByRole("button", { name: /by work sections/i }));
+    expect(screen.queryByText("Pre-selected for the customer")).not.toBeInTheDocument();
+
+    const kind = document.getElementById("sections[0].kind")!;
+    await user.selectOptions(kind, "OPTIONAL");
+
+    expect(screen.getByText("Pre-selected for the customer")).toBeInTheDocument();
+  });
+
+  it("an optional section only counts toward the total once pre-selected", async () => {
+    const user = userEvent.setup();
+    renderForm();
+
+    await user.click(screen.getByRole("button", { name: /by work sections/i }));
+    await user.clear(screen.getByLabelText(/^price/i));
+    await user.type(screen.getByLabelText(/^price/i), "1000");
+
+    const kind = document.getElementById("sections[0].kind")!;
+    await user.selectOptions(kind, "OPTIONAL");
+
+    // Not pre-selected yet: an optional section nobody's chosen contributes
+    // nothing to the quote's own preview, same as the customer would see
+    // before ticking it.
+    expect(screen.getByText("Subtotal").closest("div")).toHaveTextContent("$0.00");
+
+    await user.click(screen.getByRole("checkbox", { name: /pre-selected for the customer/i }));
+    expect(screen.getByText("Subtotal").closest("div")).toHaveTextContent("1,000.00");
   });
 });
 
@@ -166,7 +328,8 @@ describe("QuoteForm — la moneda", () => {
     renderWithIntl(
       <QuoteForm
         action={jest.fn(async () => ({}))}
-        leads={[]}
+        searchLeads={async () => []}
+        searchCatalogue={async () => []}
         documents={[]}
         currency="NZD"
         currencies={CURRENCIES}
@@ -218,7 +381,8 @@ describe("QuoteForm — the tax rate under No tax", () => {
     renderWithIntl(
       <QuoteForm
         action={jest.fn(async () => ({}))}
-        leads={[]}
+        searchLeads={async () => []}
+        searchCatalogue={async () => []}
         documents={[]}
         currency="NZD"
         currencies={[{ value: "NZD", label: "NZD — New Zealand Dollar" }]}
@@ -259,5 +423,75 @@ describe("QuoteForm — the tax rate under No tax", () => {
     await user.selectOptions(select, "TAX_INCLUSIVE");
 
     expect(screen.getByLabelText("Tax rate (%)")).toHaveValue(15);
+  });
+});
+
+describe("QuoteForm — confirming an edit to a quote already sent", () => {
+  function renderSent(action = jest.fn(async () => ({}))) {
+    renderWithIntl(
+      <QuoteForm
+        action={action}
+        searchLeads={async () => []}
+        searchCatalogue={async () => []}
+        documents={[]}
+        currency="NZD"
+        currencies={[{ value: "NZD", label: "NZD — New Zealand Dollar" }]}
+        formatLocale="en-NZ"
+        taxDisplayMode="TAX_EXCLUSIVE_INCLUSIVE_TOTAL"
+        taxLabel="GST"
+        submitLabel="Save changes"
+        status="SENT"
+        // Otherwise the title field's own `required` blocks the native
+        // submission `requestSubmit()` performs before the confirm test
+        // below ever reaches the action — same validation a real click on
+        // a submit button would run.
+        defaults={{ title: "Office network quote" }}
+      />,
+    );
+    return action;
+  }
+
+  it("asks before submitting, rather than saving straight away", async () => {
+    const user = userEvent.setup();
+    const action = renderSent();
+
+    await user.click(screen.getByRole("button", { name: "Save changes" }));
+
+    expect(screen.getByText("This quote has already been sent")).toBeInTheDocument();
+    expect(action).not.toHaveBeenCalled();
+  });
+
+  it("submits only once the warning is confirmed", async () => {
+    const user = userEvent.setup();
+    const action = renderSent();
+
+    await user.click(screen.getByRole("button", { name: "Save changes" }));
+    // The trigger and the dialog's own confirm button share a label on
+    // purpose — the dialog's is whichever one opened last.
+    const buttons = screen.getAllByRole("button", { name: "Save changes" });
+    await user.click(buttons[buttons.length - 1]);
+
+    expect(action).toHaveBeenCalled();
+  });
+
+  it("does not ask at all for a draft, or any other status", () => {
+    renderWithIntl(
+      <QuoteForm
+        action={jest.fn(async () => ({}))}
+        searchLeads={async () => []}
+        searchCatalogue={async () => []}
+        documents={[]}
+        currency="NZD"
+        currencies={[{ value: "NZD", label: "NZD — New Zealand Dollar" }]}
+        formatLocale="en-NZ"
+        taxDisplayMode="TAX_EXCLUSIVE_INCLUSIVE_TOTAL"
+        taxLabel="GST"
+        submitLabel="Save changes"
+        status="DRAFT"
+      />,
+    );
+
+    const submit = screen.getByRole("button", { name: "Save changes" });
+    expect(submit).toHaveAttribute("type", "submit");
   });
 });

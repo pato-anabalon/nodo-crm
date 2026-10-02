@@ -1,4 +1,4 @@
-import { calculateQuoteTotals, lineTotal, round2, taxIsInTotal } from "../totals";
+import { calculateQuoteTotals, lineTotal, round2, sectionNetAmount, taxIsInTotal } from "../totals";
 import { formatQuoteNumber } from "@/lib/format";
 
 describe("round2", () => {
@@ -245,6 +245,87 @@ describe("calculateQuoteTotals — NO_TAX", () => {
 
     expect(totals.taxAmount).toBe(0);
     expect(totals.total).toBe(1000);
+  });
+});
+
+describe("sectionNetAmount", () => {
+  it("is a no-op with no discount configured — every section row before this feature", () => {
+    expect(sectionNetAmount({ amount: 1000 })).toBe(1000);
+  });
+
+  it("subtracts a flat discount", () => {
+    expect(sectionNetAmount({ amount: 1000, discountType: "FIXED", discountValue: 150 })).toBe(850);
+  });
+
+  it("subtracts a percentage of the amount", () => {
+    expect(sectionNetAmount({ amount: 1000, discountType: "PERCENT", discountValue: 10 })).toBe(900);
+  });
+
+  it("clamps a flat discount to the amount, never going negative", () => {
+    expect(sectionNetAmount({ amount: 100, discountType: "FIXED", discountValue: 500 })).toBe(0);
+  });
+
+  it("clamps a percentage discount to 100", () => {
+    expect(sectionNetAmount({ amount: 1000, discountType: "PERCENT", discountValue: 150 })).toBe(0);
+  });
+
+  it("treats a negative amount as zero", () => {
+    expect(sectionNetAmount({ amount: -500, discountType: "FIXED", discountValue: 10 })).toBe(0);
+  });
+});
+
+describe("calculateQuoteTotals — discountType", () => {
+  it("is byte-identical to the undecorated discount when FIXED, the default", () => {
+    const withType = calculateQuoteTotals({ sections: [1000], taxRate: 15, discount: 100, discountType: "FIXED" });
+    const withoutType = calculateQuoteTotals({ sections: [1000], taxRate: 15, discount: 100 });
+    expect(withType).toEqual(withoutType);
+  });
+
+  it("applies a percentage of the gross rather than a flat amount", () => {
+    const totals = calculateQuoteTotals({
+      sections: [1000],
+      taxRate: 15,
+      discount: 10,
+      discountType: "PERCENT",
+    });
+
+    expect(totals.discount).toBe(100);
+    expect(totals.taxableBase).toBe(900);
+  });
+
+  it("clamps a percentage discount over 100", () => {
+    const totals = calculateQuoteTotals({
+      sections: [1000],
+      taxRate: 15,
+      discount: 250,
+      discountType: "PERCENT",
+    });
+
+    expect(totals.discount).toBe(1000);
+    expect(totals.total).toBe(0);
+  });
+
+  it("the breakdown still reconciles with the total under TAX_INCLUSIVE", () => {
+    const totals = calculateQuoteTotals({
+      sections: [1234.56],
+      taxRate: 15,
+      discount: 12,
+      discountType: "PERCENT",
+      taxDisplayMode: "TAX_INCLUSIVE",
+    });
+
+    expect(totals.taxableBase + totals.taxAmount).toBeCloseTo(totals.total, 2);
+  });
+
+  it("is orthogonal to sections winning over lines — unaffected either way", () => {
+    const totals = calculateQuoteTotals({
+      items: [{ quantity: 1, unitPrice: 99999 }],
+      sections: [1000],
+      taxRate: 15,
+      discount: 10,
+      discountType: "PERCENT",
+    });
+    expect(totals.discount).toBe(100);
   });
 });
 

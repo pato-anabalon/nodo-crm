@@ -75,6 +75,7 @@ export type CompanyMinAggregateOutputType = {
   quoteNotes: string | null
   quoteExclusions: string | null
   quoteTerms: string | null
+  quoteScope: string | null
   taxDisplayMode: $Enums.TaxDisplayMode | null
   acceptanceMode: $Enums.AcceptanceMode | null
   acceptanceStatement: string | null
@@ -119,6 +120,7 @@ export type CompanyMaxAggregateOutputType = {
   quoteNotes: string | null
   quoteExclusions: string | null
   quoteTerms: string | null
+  quoteScope: string | null
   taxDisplayMode: $Enums.TaxDisplayMode | null
   acceptanceMode: $Enums.AcceptanceMode | null
   acceptanceStatement: string | null
@@ -164,6 +166,7 @@ export type CompanyCountAggregateOutputType = {
   quoteNotes: number
   quoteExclusions: number
   quoteTerms: number
+  quoteScope: number
   taxDisplayMode: number
   acceptanceMode: number
   acceptanceStatement: number
@@ -226,6 +229,7 @@ export type CompanyMinAggregateInputType = {
   quoteNotes?: true
   quoteExclusions?: true
   quoteTerms?: true
+  quoteScope?: true
   taxDisplayMode?: true
   acceptanceMode?: true
   acceptanceStatement?: true
@@ -270,6 +274,7 @@ export type CompanyMaxAggregateInputType = {
   quoteNotes?: true
   quoteExclusions?: true
   quoteTerms?: true
+  quoteScope?: true
   taxDisplayMode?: true
   acceptanceMode?: true
   acceptanceStatement?: true
@@ -315,6 +320,7 @@ export type CompanyCountAggregateInputType = {
   quoteNotes?: true
   quoteExclusions?: true
   quoteTerms?: true
+  quoteScope?: true
   taxDisplayMode?: true
   acceptanceMode?: true
   acceptanceStatement?: true
@@ -447,6 +453,7 @@ export type CompanyGroupByOutputType = {
   quoteNotes: string | null
   quoteExclusions: string | null
   quoteTerms: string | null
+  quoteScope: string | null
   taxDisplayMode: $Enums.TaxDisplayMode
   acceptanceMode: $Enums.AcceptanceMode
   acceptanceStatement: string | null
@@ -515,6 +522,7 @@ export type CompanyWhereInput = {
   quoteNotes?: Prisma.StringNullableFilter<"Company"> | string | null
   quoteExclusions?: Prisma.StringNullableFilter<"Company"> | string | null
   quoteTerms?: Prisma.StringNullableFilter<"Company"> | string | null
+  quoteScope?: Prisma.StringNullableFilter<"Company"> | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFilter<"Company"> | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFilter<"Company"> | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.StringNullableFilter<"Company"> | string | null
@@ -548,6 +556,7 @@ export type CompanyWhereInput = {
   reviews?: Prisma.CompanyReviewListRelationFilter
   emailTemplates?: Prisma.EmailTemplateListRelationFilter
   reviewLinks?: Prisma.ReviewLinkListRelationFilter
+  quoteTypes?: Prisma.CompanyQuoteTypeListRelationFilter
 }
 
 export type CompanyOrderByWithRelationInput = {
@@ -584,6 +593,7 @@ export type CompanyOrderByWithRelationInput = {
   quoteNotes?: Prisma.SortOrderInput | Prisma.SortOrder
   quoteExclusions?: Prisma.SortOrderInput | Prisma.SortOrder
   quoteTerms?: Prisma.SortOrderInput | Prisma.SortOrder
+  quoteScope?: Prisma.SortOrderInput | Prisma.SortOrder
   taxDisplayMode?: Prisma.SortOrder
   acceptanceMode?: Prisma.SortOrder
   acceptanceStatement?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -617,6 +627,7 @@ export type CompanyOrderByWithRelationInput = {
   reviews?: Prisma.CompanyReviewOrderByRelationAggregateInput
   emailTemplates?: Prisma.EmailTemplateOrderByRelationAggregateInput
   reviewLinks?: Prisma.ReviewLinkOrderByRelationAggregateInput
+  quoteTypes?: Prisma.CompanyQuoteTypeOrderByRelationAggregateInput
 }
 
 export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -656,6 +667,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   quoteNotes?: Prisma.StringNullableFilter<"Company"> | string | null
   quoteExclusions?: Prisma.StringNullableFilter<"Company"> | string | null
   quoteTerms?: Prisma.StringNullableFilter<"Company"> | string | null
+  quoteScope?: Prisma.StringNullableFilter<"Company"> | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFilter<"Company"> | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFilter<"Company"> | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.StringNullableFilter<"Company"> | string | null
@@ -689,6 +701,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   reviews?: Prisma.CompanyReviewListRelationFilter
   emailTemplates?: Prisma.EmailTemplateListRelationFilter
   reviewLinks?: Prisma.ReviewLinkListRelationFilter
+  quoteTypes?: Prisma.CompanyQuoteTypeListRelationFilter
 }, "id" | "slug">
 
 export type CompanyOrderByWithAggregationInput = {
@@ -725,6 +738,7 @@ export type CompanyOrderByWithAggregationInput = {
   quoteNotes?: Prisma.SortOrderInput | Prisma.SortOrder
   quoteExclusions?: Prisma.SortOrderInput | Prisma.SortOrder
   quoteTerms?: Prisma.SortOrderInput | Prisma.SortOrder
+  quoteScope?: Prisma.SortOrderInput | Prisma.SortOrder
   taxDisplayMode?: Prisma.SortOrder
   acceptanceMode?: Prisma.SortOrder
   acceptanceStatement?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -778,6 +792,7 @@ export type CompanyScalarWhereWithAggregatesInput = {
   quoteNotes?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   quoteExclusions?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   quoteTerms?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
+  quoteScope?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeWithAggregatesFilter<"Company"> | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeWithAggregatesFilter<"Company"> | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
@@ -823,6 +838,7 @@ export type CompanyCreateInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -856,6 +872,7 @@ export type CompanyCreateInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateInput = {
@@ -892,6 +909,7 @@ export type CompanyUncheckedCreateInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -925,6 +943,7 @@ export type CompanyUncheckedCreateInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUpdateInput = {
@@ -961,6 +980,7 @@ export type CompanyUpdateInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -994,6 +1014,7 @@ export type CompanyUpdateInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateInput = {
@@ -1030,6 +1051,7 @@ export type CompanyUncheckedUpdateInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1063,6 +1085,7 @@ export type CompanyUncheckedUpdateInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateManyInput = {
@@ -1099,6 +1122,7 @@ export type CompanyCreateManyInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -1144,6 +1168,7 @@ export type CompanyUpdateManyMutationInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1189,6 +1214,7 @@ export type CompanyUncheckedUpdateManyInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1242,6 +1268,7 @@ export type CompanyCountOrderByAggregateInput = {
   quoteNotes?: Prisma.SortOrder
   quoteExclusions?: Prisma.SortOrder
   quoteTerms?: Prisma.SortOrder
+  quoteScope?: Prisma.SortOrder
   taxDisplayMode?: Prisma.SortOrder
   acceptanceMode?: Prisma.SortOrder
   acceptanceStatement?: Prisma.SortOrder
@@ -1294,6 +1321,7 @@ export type CompanyMaxOrderByAggregateInput = {
   quoteNotes?: Prisma.SortOrder
   quoteExclusions?: Prisma.SortOrder
   quoteTerms?: Prisma.SortOrder
+  quoteScope?: Prisma.SortOrder
   taxDisplayMode?: Prisma.SortOrder
   acceptanceMode?: Prisma.SortOrder
   acceptanceStatement?: Prisma.SortOrder
@@ -1338,6 +1366,7 @@ export type CompanyMinOrderByAggregateInput = {
   quoteNotes?: Prisma.SortOrder
   quoteExclusions?: Prisma.SortOrder
   quoteTerms?: Prisma.SortOrder
+  quoteScope?: Prisma.SortOrder
   taxDisplayMode?: Prisma.SortOrder
   acceptanceMode?: Prisma.SortOrder
   acceptanceStatement?: Prisma.SortOrder
@@ -1426,6 +1455,20 @@ export type EnumAcceptanceModeFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type CompanyCreateNestedOneWithoutQuoteTypesInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutQuoteTypesInput, Prisma.CompanyUncheckedCreateWithoutQuoteTypesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutQuoteTypesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutQuoteTypesNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutQuoteTypesInput, Prisma.CompanyUncheckedCreateWithoutQuoteTypesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutQuoteTypesInput
+  upsert?: Prisma.CompanyUpsertWithoutQuoteTypesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutQuoteTypesInput, Prisma.CompanyUpdateWithoutQuoteTypesInput>, Prisma.CompanyUncheckedUpdateWithoutQuoteTypesInput>
 }
 
 export type CompanyCreateNestedOneWithoutMembershipsInput = {
@@ -1766,6 +1809,302 @@ export type CompanyUpdateOneRequiredWithoutNotificationPreferencesNestedInput = 
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutNotificationPreferencesInput, Prisma.CompanyUpdateWithoutNotificationPreferencesInput>, Prisma.CompanyUncheckedUpdateWithoutNotificationPreferencesInput>
 }
 
+export type CompanyCreateWithoutQuoteTypesInput = {
+  id?: string
+  slug: string
+  name: string
+  legalName?: string | null
+  taxId?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  logoUrl?: string | null
+  watermarkUrl?: string | null
+  primaryColor?: string
+  accentColor?: string
+  defaultLanguage?: $Enums.Language
+  currency?: string
+  formatLocale?: string
+  timezone?: string
+  defaultTaxType?: $Enums.TaxType
+  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: string
+  quoteValidityDays?: number
+  quoteFooter?: string | null
+  slogan?: string | null
+  senderNameStyle?: $Enums.SenderNameStyle
+  firstFollowUpDays?: number
+  secondFollowUpDays?: number
+  reviewRequestDays?: number
+  sendQuoteCopy?: boolean
+  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
+  quoteIntro?: string | null
+  quoteNotes?: string | null
+  quoteExclusions?: string | null
+  quoteTerms?: string | null
+  quoteScope?: string | null
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  acceptanceMode?: $Enums.AcceptanceMode
+  acceptanceStatement?: string | null
+  requireSignature?: boolean
+  askAdditionalComments?: boolean
+  askOrderReference?: boolean
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipCreateNestedManyWithoutCompanyInput
+  roles?: Prisma.RoleCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutCompanyInput
+  leads?: Prisma.LeadCreateNestedManyWithoutCompanyInput
+  quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
+  clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
+  catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
+  quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
+  submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
+  ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
+  quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
+  acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
+  emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
+  reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutQuoteTypesInput = {
+  id?: string
+  slug: string
+  name: string
+  legalName?: string | null
+  taxId?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  logoUrl?: string | null
+  watermarkUrl?: string | null
+  primaryColor?: string
+  accentColor?: string
+  defaultLanguage?: $Enums.Language
+  currency?: string
+  formatLocale?: string
+  timezone?: string
+  defaultTaxType?: $Enums.TaxType
+  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: string
+  quoteValidityDays?: number
+  quoteFooter?: string | null
+  slogan?: string | null
+  senderNameStyle?: $Enums.SenderNameStyle
+  firstFollowUpDays?: number
+  secondFollowUpDays?: number
+  reviewRequestDays?: number
+  sendQuoteCopy?: boolean
+  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
+  quoteIntro?: string | null
+  quoteNotes?: string | null
+  quoteExclusions?: string | null
+  quoteTerms?: string | null
+  quoteScope?: string | null
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  acceptanceMode?: $Enums.AcceptanceMode
+  acceptanceStatement?: string | null
+  requireSignature?: boolean
+  askAdditionalComments?: boolean
+  askOrderReference?: boolean
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutCompanyInput
+  roles?: Prisma.RoleUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutCompanyInput
+  leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCompanyInput
+  quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
+  clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
+  catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
+  submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
+  ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
+  quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
+  acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
+  emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutQuoteTypesInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutQuoteTypesInput, Prisma.CompanyUncheckedCreateWithoutQuoteTypesInput>
+}
+
+export type CompanyUpsertWithoutQuoteTypesInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutQuoteTypesInput, Prisma.CompanyUncheckedUpdateWithoutQuoteTypesInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutQuoteTypesInput, Prisma.CompanyUncheckedCreateWithoutQuoteTypesInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutQuoteTypesInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutQuoteTypesInput, Prisma.CompanyUncheckedUpdateWithoutQuoteTypesInput>
+}
+
+export type CompanyUpdateWithoutQuoteTypesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
+  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
+  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
+  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
+  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
+  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUpdateManyWithoutCompanyNestedInput
+  roles?: Prisma.RoleUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutCompanyNestedInput
+  leads?: Prisma.LeadUpdateManyWithoutCompanyNestedInput
+  quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
+  clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
+  catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
+  quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
+  submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
+  ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
+  quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
+  acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
+  emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
+  reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutQuoteTypesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
+  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
+  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
+  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
+  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
+  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutCompanyNestedInput
+  roles?: Prisma.RoleUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  leads?: Prisma.LeadUncheckedUpdateManyWithoutCompanyNestedInput
+  quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
+  clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
+  catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
+  submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
+  ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
 export type CompanyCreateWithoutMembershipsInput = {
   id?: string
   slug: string
@@ -1800,6 +2139,7 @@ export type CompanyCreateWithoutMembershipsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -1832,6 +2172,7 @@ export type CompanyCreateWithoutMembershipsInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutMembershipsInput = {
@@ -1868,6 +2209,7 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -1900,6 +2242,7 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutMembershipsInput = {
@@ -1952,6 +2295,7 @@ export type CompanyUpdateWithoutMembershipsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1984,6 +2328,7 @@ export type CompanyUpdateWithoutMembershipsInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutMembershipsInput = {
@@ -2020,6 +2365,7 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2052,6 +2398,7 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutRolesInput = {
@@ -2088,6 +2435,7 @@ export type CompanyCreateWithoutRolesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -2120,6 +2468,7 @@ export type CompanyCreateWithoutRolesInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutRolesInput = {
@@ -2156,6 +2505,7 @@ export type CompanyUncheckedCreateWithoutRolesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -2188,6 +2538,7 @@ export type CompanyUncheckedCreateWithoutRolesInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutRolesInput = {
@@ -2240,6 +2591,7 @@ export type CompanyUpdateWithoutRolesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2272,6 +2624,7 @@ export type CompanyUpdateWithoutRolesInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutRolesInput = {
@@ -2308,6 +2661,7 @@ export type CompanyUncheckedUpdateWithoutRolesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2340,6 +2694,7 @@ export type CompanyUncheckedUpdateWithoutRolesInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutInvitationsInput = {
@@ -2376,6 +2731,7 @@ export type CompanyCreateWithoutInvitationsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -2408,6 +2764,7 @@ export type CompanyCreateWithoutInvitationsInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutInvitationsInput = {
@@ -2444,6 +2801,7 @@ export type CompanyUncheckedCreateWithoutInvitationsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -2476,6 +2834,7 @@ export type CompanyUncheckedCreateWithoutInvitationsInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutInvitationsInput = {
@@ -2528,6 +2887,7 @@ export type CompanyUpdateWithoutInvitationsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2560,6 +2920,7 @@ export type CompanyUpdateWithoutInvitationsInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutInvitationsInput = {
@@ -2596,6 +2957,7 @@ export type CompanyUncheckedUpdateWithoutInvitationsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2628,6 +2990,7 @@ export type CompanyUncheckedUpdateWithoutInvitationsInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutTasksInput = {
@@ -2664,6 +3027,7 @@ export type CompanyCreateWithoutTasksInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -2696,6 +3060,7 @@ export type CompanyCreateWithoutTasksInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutTasksInput = {
@@ -2732,6 +3097,7 @@ export type CompanyUncheckedCreateWithoutTasksInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -2764,6 +3130,7 @@ export type CompanyUncheckedCreateWithoutTasksInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutTasksInput = {
@@ -2816,6 +3183,7 @@ export type CompanyUpdateWithoutTasksInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2848,6 +3216,7 @@ export type CompanyUpdateWithoutTasksInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutTasksInput = {
@@ -2884,6 +3253,7 @@ export type CompanyUncheckedUpdateWithoutTasksInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2916,6 +3286,7 @@ export type CompanyUncheckedUpdateWithoutTasksInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutNotificationsInput = {
@@ -2952,6 +3323,7 @@ export type CompanyCreateWithoutNotificationsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -2984,6 +3356,7 @@ export type CompanyCreateWithoutNotificationsInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutNotificationsInput = {
@@ -3020,6 +3393,7 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -3052,6 +3426,7 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutNotificationsInput = {
@@ -3104,6 +3479,7 @@ export type CompanyUpdateWithoutNotificationsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3136,6 +3512,7 @@ export type CompanyUpdateWithoutNotificationsInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutNotificationsInput = {
@@ -3172,6 +3549,7 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3204,6 +3582,7 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutCatalogueInput = {
@@ -3240,6 +3619,7 @@ export type CompanyCreateWithoutCatalogueInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -3272,6 +3652,7 @@ export type CompanyCreateWithoutCatalogueInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutCatalogueInput = {
@@ -3308,6 +3689,7 @@ export type CompanyUncheckedCreateWithoutCatalogueInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -3340,6 +3722,7 @@ export type CompanyUncheckedCreateWithoutCatalogueInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutCatalogueInput = {
@@ -3392,6 +3775,7 @@ export type CompanyUpdateWithoutCatalogueInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3424,6 +3808,7 @@ export type CompanyUpdateWithoutCatalogueInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutCatalogueInput = {
@@ -3460,6 +3845,7 @@ export type CompanyUncheckedUpdateWithoutCatalogueInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3492,6 +3878,7 @@ export type CompanyUncheckedUpdateWithoutCatalogueInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutClientCompaniesInput = {
@@ -3528,6 +3915,7 @@ export type CompanyCreateWithoutClientCompaniesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -3560,6 +3948,7 @@ export type CompanyCreateWithoutClientCompaniesInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutClientCompaniesInput = {
@@ -3596,6 +3985,7 @@ export type CompanyUncheckedCreateWithoutClientCompaniesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -3628,6 +4018,7 @@ export type CompanyUncheckedCreateWithoutClientCompaniesInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutClientCompaniesInput = {
@@ -3680,6 +4071,7 @@ export type CompanyUpdateWithoutClientCompaniesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3712,6 +4104,7 @@ export type CompanyUpdateWithoutClientCompaniesInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutClientCompaniesInput = {
@@ -3748,6 +4141,7 @@ export type CompanyUncheckedUpdateWithoutClientCompaniesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3780,6 +4174,7 @@ export type CompanyUncheckedUpdateWithoutClientCompaniesInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutContactsInput = {
@@ -3816,6 +4211,7 @@ export type CompanyCreateWithoutContactsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -3848,6 +4244,7 @@ export type CompanyCreateWithoutContactsInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutContactsInput = {
@@ -3884,6 +4281,7 @@ export type CompanyUncheckedCreateWithoutContactsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -3916,6 +4314,7 @@ export type CompanyUncheckedCreateWithoutContactsInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutContactsInput = {
@@ -3968,6 +4367,7 @@ export type CompanyUpdateWithoutContactsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4000,6 +4400,7 @@ export type CompanyUpdateWithoutContactsInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutContactsInput = {
@@ -4036,6 +4437,7 @@ export type CompanyUncheckedUpdateWithoutContactsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4068,6 +4470,7 @@ export type CompanyUncheckedUpdateWithoutContactsInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutLeadsInput = {
@@ -4104,6 +4507,7 @@ export type CompanyCreateWithoutLeadsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -4136,6 +4540,7 @@ export type CompanyCreateWithoutLeadsInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutLeadsInput = {
@@ -4172,6 +4577,7 @@ export type CompanyUncheckedCreateWithoutLeadsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -4204,6 +4610,7 @@ export type CompanyUncheckedCreateWithoutLeadsInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutLeadsInput = {
@@ -4256,6 +4663,7 @@ export type CompanyUpdateWithoutLeadsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4288,6 +4696,7 @@ export type CompanyUpdateWithoutLeadsInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutLeadsInput = {
@@ -4324,6 +4733,7 @@ export type CompanyUncheckedUpdateWithoutLeadsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4356,6 +4766,7 @@ export type CompanyUncheckedUpdateWithoutLeadsInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutSubmissionsInput = {
@@ -4392,6 +4803,7 @@ export type CompanyCreateWithoutSubmissionsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -4424,6 +4836,7 @@ export type CompanyCreateWithoutSubmissionsInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutSubmissionsInput = {
@@ -4460,6 +4873,7 @@ export type CompanyUncheckedCreateWithoutSubmissionsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -4492,6 +4906,7 @@ export type CompanyUncheckedCreateWithoutSubmissionsInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutSubmissionsInput = {
@@ -4544,6 +4959,7 @@ export type CompanyUpdateWithoutSubmissionsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4576,6 +4992,7 @@ export type CompanyUpdateWithoutSubmissionsInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutSubmissionsInput = {
@@ -4612,6 +5029,7 @@ export type CompanyUncheckedUpdateWithoutSubmissionsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4644,6 +5062,7 @@ export type CompanyUncheckedUpdateWithoutSubmissionsInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutIngestKeysInput = {
@@ -4680,6 +5099,7 @@ export type CompanyCreateWithoutIngestKeysInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -4712,6 +5132,7 @@ export type CompanyCreateWithoutIngestKeysInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutIngestKeysInput = {
@@ -4748,6 +5169,7 @@ export type CompanyUncheckedCreateWithoutIngestKeysInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -4780,6 +5202,7 @@ export type CompanyUncheckedCreateWithoutIngestKeysInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutIngestKeysInput = {
@@ -4832,6 +5255,7 @@ export type CompanyUpdateWithoutIngestKeysInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4864,6 +5288,7 @@ export type CompanyUpdateWithoutIngestKeysInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutIngestKeysInput = {
@@ -4900,6 +5325,7 @@ export type CompanyUncheckedUpdateWithoutIngestKeysInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4932,6 +5358,7 @@ export type CompanyUncheckedUpdateWithoutIngestKeysInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutIngestAttemptsInput = {
@@ -4968,6 +5395,7 @@ export type CompanyCreateWithoutIngestAttemptsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -5000,6 +5428,7 @@ export type CompanyCreateWithoutIngestAttemptsInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutIngestAttemptsInput = {
@@ -5036,6 +5465,7 @@ export type CompanyUncheckedCreateWithoutIngestAttemptsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -5068,6 +5498,7 @@ export type CompanyUncheckedCreateWithoutIngestAttemptsInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutIngestAttemptsInput = {
@@ -5120,6 +5551,7 @@ export type CompanyUpdateWithoutIngestAttemptsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5152,6 +5584,7 @@ export type CompanyUpdateWithoutIngestAttemptsInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutIngestAttemptsInput = {
@@ -5188,6 +5621,7 @@ export type CompanyUncheckedUpdateWithoutIngestAttemptsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5220,6 +5654,7 @@ export type CompanyUncheckedUpdateWithoutIngestAttemptsInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutActivitiesInput = {
@@ -5256,6 +5691,7 @@ export type CompanyCreateWithoutActivitiesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -5288,6 +5724,7 @@ export type CompanyCreateWithoutActivitiesInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutActivitiesInput = {
@@ -5324,6 +5761,7 @@ export type CompanyUncheckedCreateWithoutActivitiesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -5356,6 +5794,7 @@ export type CompanyUncheckedCreateWithoutActivitiesInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutActivitiesInput = {
@@ -5408,6 +5847,7 @@ export type CompanyUpdateWithoutActivitiesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5440,6 +5880,7 @@ export type CompanyUpdateWithoutActivitiesInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutActivitiesInput = {
@@ -5476,6 +5917,7 @@ export type CompanyUncheckedUpdateWithoutActivitiesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5508,6 +5950,7 @@ export type CompanyUncheckedUpdateWithoutActivitiesInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutQuoteTemplatesInput = {
@@ -5544,6 +5987,7 @@ export type CompanyCreateWithoutQuoteTemplatesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -5576,6 +6020,7 @@ export type CompanyCreateWithoutQuoteTemplatesInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutQuoteTemplatesInput = {
@@ -5612,6 +6057,7 @@ export type CompanyUncheckedCreateWithoutQuoteTemplatesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -5644,6 +6090,7 @@ export type CompanyUncheckedCreateWithoutQuoteTemplatesInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutQuoteTemplatesInput = {
@@ -5696,6 +6143,7 @@ export type CompanyUpdateWithoutQuoteTemplatesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5728,6 +6176,7 @@ export type CompanyUpdateWithoutQuoteTemplatesInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutQuoteTemplatesInput = {
@@ -5764,6 +6213,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTemplatesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5796,6 +6246,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTemplatesInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutQuotesInput = {
@@ -5832,6 +6283,7 @@ export type CompanyCreateWithoutQuotesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -5864,6 +6316,7 @@ export type CompanyCreateWithoutQuotesInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutQuotesInput = {
@@ -5900,6 +6353,7 @@ export type CompanyUncheckedCreateWithoutQuotesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -5932,6 +6386,7 @@ export type CompanyUncheckedCreateWithoutQuotesInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutQuotesInput = {
@@ -5984,6 +6439,7 @@ export type CompanyUpdateWithoutQuotesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6016,6 +6472,7 @@ export type CompanyUpdateWithoutQuotesInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutQuotesInput = {
@@ -6052,6 +6509,7 @@ export type CompanyUncheckedUpdateWithoutQuotesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6084,6 +6542,7 @@ export type CompanyUncheckedUpdateWithoutQuotesInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutDocumentsInput = {
@@ -6120,6 +6579,7 @@ export type CompanyCreateWithoutDocumentsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -6152,6 +6612,7 @@ export type CompanyCreateWithoutDocumentsInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutDocumentsInput = {
@@ -6188,6 +6649,7 @@ export type CompanyUncheckedCreateWithoutDocumentsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -6220,6 +6682,7 @@ export type CompanyUncheckedCreateWithoutDocumentsInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutDocumentsInput = {
@@ -6272,6 +6735,7 @@ export type CompanyUpdateWithoutDocumentsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6304,6 +6768,7 @@ export type CompanyUpdateWithoutDocumentsInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutDocumentsInput = {
@@ -6340,6 +6805,7 @@ export type CompanyUncheckedUpdateWithoutDocumentsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6372,6 +6838,7 @@ export type CompanyUncheckedUpdateWithoutDocumentsInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutQuoteSharesInput = {
@@ -6408,6 +6875,7 @@ export type CompanyCreateWithoutQuoteSharesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -6440,6 +6908,7 @@ export type CompanyCreateWithoutQuoteSharesInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutQuoteSharesInput = {
@@ -6476,6 +6945,7 @@ export type CompanyUncheckedCreateWithoutQuoteSharesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -6508,6 +6978,7 @@ export type CompanyUncheckedCreateWithoutQuoteSharesInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutQuoteSharesInput = {
@@ -6560,6 +7031,7 @@ export type CompanyUpdateWithoutQuoteSharesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6592,6 +7064,7 @@ export type CompanyUpdateWithoutQuoteSharesInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutQuoteSharesInput = {
@@ -6628,6 +7101,7 @@ export type CompanyUncheckedUpdateWithoutQuoteSharesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6660,6 +7134,7 @@ export type CompanyUncheckedUpdateWithoutQuoteSharesInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutQuoteEventsInput = {
@@ -6696,6 +7171,7 @@ export type CompanyCreateWithoutQuoteEventsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -6728,6 +7204,7 @@ export type CompanyCreateWithoutQuoteEventsInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutQuoteEventsInput = {
@@ -6764,6 +7241,7 @@ export type CompanyUncheckedCreateWithoutQuoteEventsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -6796,6 +7274,7 @@ export type CompanyUncheckedCreateWithoutQuoteEventsInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutQuoteEventsInput = {
@@ -6848,6 +7327,7 @@ export type CompanyUpdateWithoutQuoteEventsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6880,6 +7360,7 @@ export type CompanyUpdateWithoutQuoteEventsInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutQuoteEventsInput = {
@@ -6916,6 +7397,7 @@ export type CompanyUncheckedUpdateWithoutQuoteEventsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6948,6 +7430,7 @@ export type CompanyUncheckedUpdateWithoutQuoteEventsInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutQuoteMessagesInput = {
@@ -6984,6 +7467,7 @@ export type CompanyCreateWithoutQuoteMessagesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -7016,6 +7500,7 @@ export type CompanyCreateWithoutQuoteMessagesInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutQuoteMessagesInput = {
@@ -7052,6 +7537,7 @@ export type CompanyUncheckedCreateWithoutQuoteMessagesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -7084,6 +7570,7 @@ export type CompanyUncheckedCreateWithoutQuoteMessagesInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutQuoteMessagesInput = {
@@ -7136,6 +7623,7 @@ export type CompanyUpdateWithoutQuoteMessagesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7168,6 +7656,7 @@ export type CompanyUpdateWithoutQuoteMessagesInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutQuoteMessagesInput = {
@@ -7204,6 +7693,7 @@ export type CompanyUncheckedUpdateWithoutQuoteMessagesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7236,6 +7726,7 @@ export type CompanyUncheckedUpdateWithoutQuoteMessagesInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutAcceptancesInput = {
@@ -7272,6 +7763,7 @@ export type CompanyCreateWithoutAcceptancesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -7304,6 +7796,7 @@ export type CompanyCreateWithoutAcceptancesInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutAcceptancesInput = {
@@ -7340,6 +7833,7 @@ export type CompanyUncheckedCreateWithoutAcceptancesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -7372,6 +7866,7 @@ export type CompanyUncheckedCreateWithoutAcceptancesInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutAcceptancesInput = {
@@ -7424,6 +7919,7 @@ export type CompanyUpdateWithoutAcceptancesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7456,6 +7952,7 @@ export type CompanyUpdateWithoutAcceptancesInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutAcceptancesInput = {
@@ -7492,6 +7989,7 @@ export type CompanyUncheckedUpdateWithoutAcceptancesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7524,6 +8022,7 @@ export type CompanyUncheckedUpdateWithoutAcceptancesInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutReviewLinksInput = {
@@ -7560,6 +8059,7 @@ export type CompanyCreateWithoutReviewLinksInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -7592,6 +8092,7 @@ export type CompanyCreateWithoutReviewLinksInput = {
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutReviewLinksInput = {
@@ -7628,6 +8129,7 @@ export type CompanyUncheckedCreateWithoutReviewLinksInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -7660,6 +8162,7 @@ export type CompanyUncheckedCreateWithoutReviewLinksInput = {
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutReviewLinksInput = {
@@ -7712,6 +8215,7 @@ export type CompanyUpdateWithoutReviewLinksInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7744,6 +8248,7 @@ export type CompanyUpdateWithoutReviewLinksInput = {
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutReviewLinksInput = {
@@ -7780,6 +8285,7 @@ export type CompanyUncheckedUpdateWithoutReviewLinksInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7812,6 +8318,7 @@ export type CompanyUncheckedUpdateWithoutReviewLinksInput = {
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutEmailTemplatesInput = {
@@ -7848,6 +8355,7 @@ export type CompanyCreateWithoutEmailTemplatesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -7880,6 +8388,7 @@ export type CompanyCreateWithoutEmailTemplatesInput = {
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutEmailTemplatesInput = {
@@ -7916,6 +8425,7 @@ export type CompanyUncheckedCreateWithoutEmailTemplatesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -7948,6 +8458,7 @@ export type CompanyUncheckedCreateWithoutEmailTemplatesInput = {
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutEmailTemplatesInput = {
@@ -8000,6 +8511,7 @@ export type CompanyUpdateWithoutEmailTemplatesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8032,6 +8544,7 @@ export type CompanyUpdateWithoutEmailTemplatesInput = {
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutEmailTemplatesInput = {
@@ -8068,6 +8581,7 @@ export type CompanyUncheckedUpdateWithoutEmailTemplatesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8100,6 +8614,7 @@ export type CompanyUncheckedUpdateWithoutEmailTemplatesInput = {
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutReviewsInput = {
@@ -8136,6 +8651,7 @@ export type CompanyCreateWithoutReviewsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -8168,6 +8684,7 @@ export type CompanyCreateWithoutReviewsInput = {
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutReviewsInput = {
@@ -8204,6 +8721,7 @@ export type CompanyUncheckedCreateWithoutReviewsInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -8236,6 +8754,7 @@ export type CompanyUncheckedCreateWithoutReviewsInput = {
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutReviewsInput = {
@@ -8288,6 +8807,7 @@ export type CompanyUpdateWithoutReviewsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8320,6 +8840,7 @@ export type CompanyUpdateWithoutReviewsInput = {
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutReviewsInput = {
@@ -8356,6 +8877,7 @@ export type CompanyUncheckedUpdateWithoutReviewsInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8388,6 +8910,7 @@ export type CompanyUncheckedUpdateWithoutReviewsInput = {
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutNotificationPreferencesInput = {
@@ -8424,6 +8947,7 @@ export type CompanyCreateWithoutNotificationPreferencesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -8456,6 +8980,7 @@ export type CompanyCreateWithoutNotificationPreferencesInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutNotificationPreferencesInput = {
@@ -8492,6 +9017,7 @@ export type CompanyUncheckedCreateWithoutNotificationPreferencesInput = {
   quoteNotes?: string | null
   quoteExclusions?: string | null
   quoteTerms?: string | null
+  quoteScope?: string | null
   taxDisplayMode?: $Enums.TaxDisplayMode
   acceptanceMode?: $Enums.AcceptanceMode
   acceptanceStatement?: string | null
@@ -8524,6 +9050,7 @@ export type CompanyUncheckedCreateWithoutNotificationPreferencesInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutNotificationPreferencesInput = {
@@ -8576,6 +9103,7 @@ export type CompanyUpdateWithoutNotificationPreferencesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8608,6 +9136,7 @@ export type CompanyUpdateWithoutNotificationPreferencesInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutNotificationPreferencesInput = {
@@ -8644,6 +9173,7 @@ export type CompanyUncheckedUpdateWithoutNotificationPreferencesInput = {
   quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
   acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8676,6 +9206,7 @@ export type CompanyUncheckedUpdateWithoutNotificationPreferencesInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 
@@ -8708,6 +9239,7 @@ export type CompanyCountOutputType = {
   reviews: number
   emailTemplates: number
   reviewLinks: number
+  quoteTypes: number
 }
 
 export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -8735,6 +9267,7 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   reviews?: boolean | CompanyCountOutputTypeCountReviewsArgs
   emailTemplates?: boolean | CompanyCountOutputTypeCountEmailTemplatesArgs
   reviewLinks?: boolean | CompanyCountOutputTypeCountReviewLinksArgs
+  quoteTypes?: boolean | CompanyCountOutputTypeCountQuoteTypesArgs
 }
 
 /**
@@ -8915,6 +9448,13 @@ export type CompanyCountOutputTypeCountReviewLinksArgs<ExtArgs extends runtime.T
   where?: Prisma.ReviewLinkWhereInput
 }
 
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountQuoteTypesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompanyQuoteTypeWhereInput
+}
+
 
 export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -8950,6 +9490,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   quoteNotes?: boolean
   quoteExclusions?: boolean
   quoteTerms?: boolean
+  quoteScope?: boolean
   taxDisplayMode?: boolean
   acceptanceMode?: boolean
   acceptanceStatement?: boolean
@@ -8983,6 +9524,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   reviews?: boolean | Prisma.Company$reviewsArgs<ExtArgs>
   emailTemplates?: boolean | Prisma.Company$emailTemplatesArgs<ExtArgs>
   reviewLinks?: boolean | Prisma.Company$reviewLinksArgs<ExtArgs>
+  quoteTypes?: boolean | Prisma.Company$quoteTypesArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
 
@@ -9020,6 +9562,7 @@ export type CompanySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   quoteNotes?: boolean
   quoteExclusions?: boolean
   quoteTerms?: boolean
+  quoteScope?: boolean
   taxDisplayMode?: boolean
   acceptanceMode?: boolean
   acceptanceStatement?: boolean
@@ -9065,6 +9608,7 @@ export type CompanySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   quoteNotes?: boolean
   quoteExclusions?: boolean
   quoteTerms?: boolean
+  quoteScope?: boolean
   taxDisplayMode?: boolean
   acceptanceMode?: boolean
   acceptanceStatement?: boolean
@@ -9110,6 +9654,7 @@ export type CompanySelectScalar = {
   quoteNotes?: boolean
   quoteExclusions?: boolean
   quoteTerms?: boolean
+  quoteScope?: boolean
   taxDisplayMode?: boolean
   acceptanceMode?: boolean
   acceptanceStatement?: boolean
@@ -9121,7 +9666,7 @@ export type CompanySelectScalar = {
   updatedAt?: boolean
 }
 
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "legalName" | "taxId" | "email" | "phone" | "website" | "address" | "logoUrl" | "watermarkUrl" | "primaryColor" | "accentColor" | "defaultLanguage" | "currency" | "formatLocale" | "timezone" | "defaultTaxType" | "defaultTaxRate" | "quotePrefix" | "quoteValidityDays" | "quoteFooter" | "slogan" | "senderNameStyle" | "firstFollowUpDays" | "secondFollowUpDays" | "reviewRequestDays" | "sendQuoteCopy" | "leadNotificationEmails" | "quoteIntro" | "quoteNotes" | "quoteExclusions" | "quoteTerms" | "taxDisplayMode" | "acceptanceMode" | "acceptanceStatement" | "requireSignature" | "askAdditionalComments" | "askOrderReference" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "legalName" | "taxId" | "email" | "phone" | "website" | "address" | "logoUrl" | "watermarkUrl" | "primaryColor" | "accentColor" | "defaultLanguage" | "currency" | "formatLocale" | "timezone" | "defaultTaxType" | "defaultTaxRate" | "quotePrefix" | "quoteValidityDays" | "quoteFooter" | "slogan" | "senderNameStyle" | "firstFollowUpDays" | "secondFollowUpDays" | "reviewRequestDays" | "sendQuoteCopy" | "leadNotificationEmails" | "quoteIntro" | "quoteNotes" | "quoteExclusions" | "quoteTerms" | "quoteScope" | "taxDisplayMode" | "acceptanceMode" | "acceptanceStatement" | "requireSignature" | "askAdditionalComments" | "askOrderReference" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   memberships?: boolean | Prisma.Company$membershipsArgs<ExtArgs>
   roles?: boolean | Prisma.Company$rolesArgs<ExtArgs>
@@ -9147,6 +9692,7 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   reviews?: boolean | Prisma.Company$reviewsArgs<ExtArgs>
   emailTemplates?: boolean | Prisma.Company$emailTemplatesArgs<ExtArgs>
   reviewLinks?: boolean | Prisma.Company$reviewLinksArgs<ExtArgs>
+  quoteTypes?: boolean | Prisma.Company$quoteTypesArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CompanyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -9179,6 +9725,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     reviews: Prisma.$CompanyReviewPayload<ExtArgs>[]
     emailTemplates: Prisma.$EmailTemplatePayload<ExtArgs>[]
     reviewLinks: Prisma.$ReviewLinkPayload<ExtArgs>[]
+    quoteTypes: Prisma.$CompanyQuoteTypePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -9264,6 +9811,13 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
      *    * anything, and the document is the full legal text attached beside it.
      */
     quoteTerms: string | null
+    /**
+     * *
+     *    * What kind of work this is, in general — reusable boilerplate, same
+     *    * treatment as the four texts above it: copied onto the quote at creation,
+     *    * and from there into a `QuoteTemplate` built off it.
+     */
+    quoteScope: string | null
     /**
      * *
      *    * How tax relates to the prices typed in and to the total the customer sees.
@@ -9699,6 +10253,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   reviews<T extends Prisma.Company$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   emailTemplates<T extends Prisma.Company$emailTemplatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$emailTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviewLinks<T extends Prisma.Company$reviewLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$reviewLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  quoteTypes<T extends Prisma.Company$quoteTypesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$quoteTypesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyQuoteTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9761,6 +10316,7 @@ export interface CompanyFieldRefs {
   readonly quoteNotes: Prisma.FieldRef<"Company", 'String'>
   readonly quoteExclusions: Prisma.FieldRef<"Company", 'String'>
   readonly quoteTerms: Prisma.FieldRef<"Company", 'String'>
+  readonly quoteScope: Prisma.FieldRef<"Company", 'String'>
   readonly taxDisplayMode: Prisma.FieldRef<"Company", 'TaxDisplayMode'>
   readonly acceptanceMode: Prisma.FieldRef<"Company", 'AcceptanceMode'>
   readonly acceptanceStatement: Prisma.FieldRef<"Company", 'String'>
@@ -10736,6 +11292,30 @@ export type Company$reviewLinksArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.ReviewLinkScalarFieldEnum | Prisma.ReviewLinkScalarFieldEnum[]
+}
+
+/**
+ * Company.quoteTypes
+ */
+export type Company$quoteTypesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompanyQuoteType
+   */
+  select?: Prisma.CompanyQuoteTypeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CompanyQuoteType
+   */
+  omit?: Prisma.CompanyQuoteTypeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyQuoteTypeInclude<ExtArgs> | null
+  where?: Prisma.CompanyQuoteTypeWhereInput
+  orderBy?: Prisma.CompanyQuoteTypeOrderByWithRelationInput | Prisma.CompanyQuoteTypeOrderByWithRelationInput[]
+  cursor?: Prisma.CompanyQuoteTypeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CompanyQuoteTypeScalarFieldEnum | Prisma.CompanyQuoteTypeScalarFieldEnum[]
 }
 
 /**

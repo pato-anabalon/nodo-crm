@@ -9,11 +9,15 @@ import { translateFieldErrors } from "@/lib/i18n-errors";
 import {
   MessageAuthor,
   QuoteEventType,
+  QuoteSectionKind,
   QuoteStatus,
   SignatureType,
 } from "@/generated/prisma/enums";
 import { sendAcceptedEmail } from "@/modules/email-templates/accepted-email";
 import { notifyClientMessage, notifyQuoteDecided } from "@/modules/notifications/service";
+import { calculateQuoteTotals } from "@/modules/quotes/totals";
+import { resolveSelectedSectionAmounts, type SectionSelectionState } from "@/modules/quotes/section-selection";
+import { bundleFrom } from "@/modules/quotes/service";
 import { acceptQuoteSchema, buildStatement, clientMessageSchema, declineQuoteSchema } from "./schemas";
 import { canClientRespond, resolveShare } from "./service";
 
@@ -80,6 +84,63 @@ export async function acceptQuoteAction(
     t("portal.defaultStatement"),
   );
 
+  /*
+   * The figures freeze here against the customer's *final* choices, not
+   * whatever was true when the quote was sent — the same pipeline the
+   * creator's form and the server both already run (see `totalsFor` in
+   * `quotes/service.ts`), just fed the selection as it actually stood the
+   * moment they accepted. For a quote with no selectable sections (every
+   * install base before this feature, and most quotes after it too) this
+   * reproduces exactly what was already frozen at send time.
+   */
+  const quote = share.quote;
+  const selection: SectionSelectionState = Object.fromEntries(
+    quote.sections.map((section) => [section.id, section.customerSelected]),
+  );
+  const bySections = quote.pricingMode === "SECTIONS";
+  const sectionsTotal = bySections
+    ? resolveSelectedSectionAmounts(
+        quote.sections.map((section) => ({
+          id: section.id,
+          amount: Number(section.amount),
+          discountType: section.discountType,
+          discountValue: Number(section.discountValue),
+          kind: section.kind,
+          selectedByDefault: section.selectedByDefault,
+        })),
+        selection,
+        bundleFrom({
+          optionalDiscountThreshold: quote.optionalDiscountThreshold,
+          optionalDiscountType: quote.optionalDiscountType,
+          optionalDiscountValue:
+            quote.optionalDiscountValue === null ? null : Number(quote.optionalDiscountValue),
+        }),
+      ).sectionsTotal
+    : null;
+  const totals = calculateQuoteTotals({
+    items: bySections
+      ? []
+      : quote.items.map((item) => ({
+          quantity: Number(item.quantity),
+          unitPrice: Number(item.unitPrice),
+          discount: Number(item.discount),
+        })),
+    sections: sectionsTotal === null ? null : [sectionsTotal],
+    taxRate: Number(quote.taxRate),
+    discount: Number(quote.discountValue),
+    discountType: quote.discountType,
+    taxDisplayMode: quote.taxDisplayMode,
+  });
+
+  // A quote priced by sections can be accepted with nothing actually
+  // selected — every `OPTIONAL` left unticked, no `MULTIPLE_CHOICE` winner —
+  // which would freeze a $0 commitment. Checked here, against the figure
+  // that's about to be frozen, rather than trusting whatever the client last
+  // rendered.
+  if (totals.total <= 0) {
+    return { error: t("portal.errors.nothingSelected") };
+  }
+
   await prisma.$transaction([
     prisma.quoteAcceptance.create({
       data: {
@@ -98,7 +159,14 @@ export async function acceptQuoteAction(
     }),
     prisma.quote.update({
       where: { id: share.quoteId },
-      data: { status: QuoteStatus.ACCEPTED, decidedAt: new Date() },
+      data: {
+        status: QuoteStatus.ACCEPTED,
+        decidedAt: new Date(),
+        subtotal: totals.subtotal,
+        discount: totals.discount,
+        taxAmount: totals.taxAmount,
+        total: totals.total,
+      },
     }),
     prisma.quoteEvent.create({
       data: {
@@ -210,4 +278,52 @@ export async function sendClientMessageAction(
 
   revalidatePath(`/q/${token}`);
   return { done: true };
+}
+
+export type SectionSelectionResult = { ok: boolean; error?: string };
+
+/**
+ * The customer ticking an optional section, or choosing one of several.
+ *
+ * Deliberately no `revalidatePath`, unlike every action above: this fires on
+ * every click, and a full-page revalidate would throw away the section
+ * selector's own optimistic, animated state for something the page already
+ * reflects locally. The write is best-effort persistence — so the choice
+ * survives a reload or a resumed session — not something the current render
+ * is waiting on.
+ */
+export async function updateSectionSelectionAction(
+  token: string,
+  sectionId: string,
+  selected: boolean,
+): Promise<SectionSelectionResult> {
+  const { status, share } = await resolveShare(token);
+  if (status !== "ok" || !share) return { ok: false, error: "not-available" };
+  if (!canClientRespond(share.quote.status)) return { ok: false, error: "not-available" };
+
+  const section = share.quote.sections.find((s) => s.id === sectionId);
+  if (!section) return { ok: false, error: "not-found" };
+
+  if (section.kind === QuoteSectionKind.MULTIPLE_CHOICE && selected) {
+    // Every other multiple-choice section in the same quote is cleared in the
+    // same statement, so two rows can never read `true` at once, even for an
+    // instant — the whole point of "one of several choices".
+    await prisma.$transaction([
+      prisma.quoteSection.updateMany({
+        where: { quoteId: share.quoteId, kind: QuoteSectionKind.MULTIPLE_CHOICE },
+        data: { customerSelected: false },
+      }),
+      prisma.quoteSection.update({
+        where: { id: sectionId },
+        data: { customerSelected: true },
+      }),
+    ]);
+  } else {
+    await prisma.quoteSection.update({
+      where: { id: sectionId },
+      data: { customerSelected: selected },
+    });
+  }
+
+  return { ok: true };
 }

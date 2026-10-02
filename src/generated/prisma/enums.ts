@@ -46,6 +46,23 @@ export const PricingMode = {
 export type PricingMode = (typeof PricingMode)[keyof typeof PricingMode]
 
 
+export const DiscountType = {
+  PERCENT: 'PERCENT',
+  FIXED: 'FIXED'
+} as const
+
+export type DiscountType = (typeof DiscountType)[keyof typeof DiscountType]
+
+
+export const QuoteSectionKind = {
+  INDEPENDENT: 'INDEPENDENT',
+  OPTIONAL: 'OPTIONAL',
+  MULTIPLE_CHOICE: 'MULTIPLE_CHOICE'
+} as const
+
+export type QuoteSectionKind = (typeof QuoteSectionKind)[keyof typeof QuoteSectionKind]
+
+
 export const EmailTemplateKind = {
   NEW_QUOTE: 'NEW_QUOTE',
   QUOTE_ACCEPTED: 'QUOTE_ACCEPTED',

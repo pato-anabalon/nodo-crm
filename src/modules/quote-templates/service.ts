@@ -11,11 +11,35 @@ export async function listQuoteTemplates(ctx: CompanyContext, includeRetired = f
   });
 }
 
-/** The ones offered when starting a quote. Retired templates are never proposed. */
-export async function activeQuoteTemplates(ctx: CompanyContext) {
-  return ctx.db.quoteTemplate.findMany({
+/** Whether starting a quote has any template to offer at all — cheap enough
+ * to check without loading the list itself, which the picker searches for
+ * instead. */
+export async function hasActiveQuoteTemplates(ctx: CompanyContext): Promise<boolean> {
+  const first = await ctx.db.quoteTemplate.findFirst({
     where: { active: true },
+    select: { id: true },
+  });
+  return first !== null;
+}
+
+/** What the "start from a template" combobox calls on every keystroke,
+ * searched and bounded — never the whole list at once. */
+export async function searchActiveQuoteTemplates(ctx: CompanyContext, query: string) {
+  const q = query.trim();
+  return ctx.db.quoteTemplate.findMany({
+    where: {
+      active: true,
+      ...(q
+        ? {
+            OR: [
+              { name: { contains: q, mode: "insensitive" } },
+              { description: { contains: q, mode: "insensitive" } },
+            ],
+          }
+        : {}),
+    },
     orderBy: { name: "asc" },
+    take: 20,
     select: { id: true, name: true, description: true },
   });
 }
@@ -64,6 +88,7 @@ export async function createTemplateFromQuote(
       notes: quote.notes,
       terms: quote.terms,
       exclusions: quote.exclusions,
+      scope: quote.scope,
       items: {
         create: quote.items.map((item, position) => ({
           position,
@@ -79,6 +104,10 @@ export async function createTemplateFromQuote(
           title: section.title,
           body: section.body,
           amount: section.amount,
+          // The shape of how it's offered is reusable across jobs, same as
+          // `pricingMode` above — unlike its discount or who it ships
+          // pre-ticked for, which are this job's own and stay off the template.
+          kind: section.kind,
         })),
       },
     },
@@ -122,12 +151,14 @@ export async function templateDefaults(ctx: CompanyContext, id: string) {
   if (!template) return null;
 
   return {
+    name: template.name,
     title: template.titlePattern ?? template.name,
     pricingMode: template.pricingMode,
     intro: template.intro,
     notes: template.notes,
     terms: template.terms,
     exclusions: template.exclusions,
+    scope: template.scope,
     items: template.items.map((item) => ({
       description: item.description,
       quantity: String(Number(item.quantity)),
@@ -138,6 +169,7 @@ export async function templateDefaults(ctx: CompanyContext, id: string) {
       title: section.title,
       body: section.body ?? "",
       amount: String(Number(section.amount)),
+      kind: section.kind,
     })),
     isSections: template.pricingMode === PricingMode.SECTIONS,
   };

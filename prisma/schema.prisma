@@ -78,6 +78,29 @@ enum PricingMode {
 }
 
 /**
+ * Percentage of the gross, or a flat amount on the same basis as the prices.
+ * Shared by the overall discount and by each section's own — one type, used
+ * the same way everywhere a discount is typed in.
+ */
+enum DiscountType {
+  PERCENT
+  FIXED
+}
+
+/**
+ * How a section behaves for the customer, when `pricingMode` is `SECTIONS`.
+ * `INDEPENDENT` is today's only behaviour — always counted. `OPTIONAL` is an
+ * add-on the customer ticks on or off; `MULTIPLE_CHOICE` is one radio button
+ * among every section marked this way in the quote, where only the chosen
+ * one counts.
+ */
+enum QuoteSectionKind {
+  INDEPENDENT
+  OPTIONAL
+  MULTIPLE_CHOICE
+}
+
+/**
  * Where a review came from, so it can link back to the original.
  */
 /**
@@ -284,6 +307,12 @@ model Company {
    * anything, and the document is the full legal text attached beside it.
    */
   quoteTerms      String?
+  /**
+   * What kind of work this is, in general — reusable boilerplate, same
+   * treatment as the four texts above it: copied onto the quote at creation,
+   * and from there into a `QuoteTemplate` built off it.
+   */
+  quoteScope      String?
 
   /**
    * How tax relates to the prices typed in and to the total the customer sees.
@@ -330,8 +359,38 @@ model Company {
   reviews                 CompanyReview[]
   emailTemplates          EmailTemplate[]
   reviewLinks             ReviewLink[]
+  quoteTypes              CompanyQuoteType[]
 
   @@index([isActive])
+}
+
+/**
+ * A company's own set of document kinds — "Estimate For", "Quote For",
+ * "Variation For", or whatever it wants to call what it sends. Not an enum:
+ * every company drew up this list differently, same reason `CatalogueItem`
+ * and `ReviewLink` aren't enums either — added one at a time, each checked on
+ * the way in (`@@unique([companyId, label])`).
+ *
+ * A quote never points back here by id. It freezes the label text itself at
+ * creation, the same way it freezes `currency`/`taxType` — so deleting a type
+ * later can't change what a quote already issued is shown as, and there is no
+ * dangling reference to guard against.
+ */
+model CompanyQuoteType {
+  id        String @id @default(cuid())
+  companyId String
+
+  label String
+  // The order it's offered in the picker — same reason `ReviewLink.position`
+  // exists.
+  position Int    @default(0)
+
+  createdAt DateTime @default(now())
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([companyId, label])
+  @@index([companyId, position])
 }
 
 model User {
@@ -958,6 +1017,7 @@ model QuoteTemplate {
   notes      String?
   terms      String?
   exclusions String?
+  scope      String?
 
   active Boolean @default(true)
 
@@ -994,6 +1054,10 @@ model QuoteTemplateSection {
   title  String
   body   String?
   amount Decimal @default(0) @db.Decimal(14, 2)
+  // The section's behaviour is shape, reused across jobs, same as the rest of
+  // the template — unlike its discount or who it's pre-selected for, which
+  // are negotiated per job and stay off the template (see `QuoteSection`).
+  kind   QuoteSectionKind @default(INDEPENDENT)
 
   template QuoteTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
 
@@ -1029,6 +1093,19 @@ model Quote {
    */
   intro      String?
   exclusions String?
+  scope      String?
+
+  /**
+   * "Estimate For", "Quote For", "Variation For" — whatever the company's own
+   * `CompanyQuoteType` list offered at the moment this was created. The label
+   * text itself, frozen, not a reference to that row: deleting the type later
+   * must not change what this quote already shows. Null only for a quote made
+   * while the company had no types configured at all.
+   */
+  quoteType String?
+  // Where the work happens — not necessarily the lead's own address, and not
+  // carried into a duplicate or a template: it belongs to this one job.
+  projectAddress String?
 
   termsDocumentId String?
 
@@ -1047,8 +1124,28 @@ model Quote {
    * draft or awaiting an answer, same as everything else on it.
    */
   taxDisplayMode TaxDisplayMode @default(TAX_EXCLUSIVE_INCLUSIVE_TOTAL)
-  // Overall discount as an amount, applied after the per-line discounts.
+  // The computed discount amount, on the same basis as the prices — what
+  // every existing reader already expects this field to mean, unchanged.
   discount       Decimal        @default(0) @db.Decimal(14, 2)
+  /**
+   * What was actually typed in to produce `discount` above: a percentage if
+   * `discountType` is `PERCENT`, a flat amount if `FIXED`. Kept separately
+   * because the gross it applies against can change — a customer picking
+   * optional sections after the quote was sent — and recomputing then needs
+   * the original intent ("10%"), not the amount that intent happened to
+   * produce against the gross that existed at send time.
+   */
+  discountType  DiscountType   @default(FIXED)
+  discountValue Decimal        @default(0) @db.Decimal(14, 2)
+
+  /**
+   * A single-threshold volume discount for sections marked `OPTIONAL`: once
+   * the customer has this many selected, it applies to the sum of their net
+   * amounts. All three null together means no bundle discount is configured.
+   */
+  optionalDiscountThreshold Int?
+  optionalDiscountType      DiscountType?
+  optionalDiscountValue     Decimal?      @db.Decimal(14, 2)
 
   // Totals calculated and persisted so a future price change can't alter a quote
   // that has already been issued.
@@ -1298,6 +1395,28 @@ model QuoteSection {
   title  String
   body   String?
   amount Decimal @db.Decimal(14, 2)
+
+  // A negotiated term for this one job, same reason it stays off
+  // `QuoteTemplateSection` — the default (0, FIXED) is a no-op, so every
+  // section that exists today keeps computing exactly as before.
+  discountType  DiscountType @default(FIXED)
+  discountValue Decimal      @default(0) @db.Decimal(14, 2)
+
+  // See `QuoteSectionKind`. `INDEPENDENT` reproduces today's only behaviour.
+  kind QuoteSectionKind @default(INDEPENDENT)
+
+  // Whether the company ships this pre-ticked (OPTIONAL) or pre-chosen
+  // (MULTIPLE_CHOICE) — a sales decision for this customer, not something a
+  // template remembers.
+  selectedByDefault Boolean @default(false)
+
+  /**
+   * Null until the customer decides — falls back to `selectedByDefault`.
+   * True/false once they've actually ticked or chosen something. Lives on
+   * the row itself rather than a separate table: it's a 1:1 fact about this
+   * section, not something that needs its own history.
+   */
+  customerSelected Boolean?
 
   quote Quote @relation(fields: [quoteId], references: [id], onDelete: Cascade)
 

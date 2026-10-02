@@ -47,6 +47,21 @@ export { Prisma }
  */
 export type Company = Prisma.CompanyModel
 /**
+ * Model CompanyQuoteType
+ * *
+ *  * A company's own set of document kinds — "Estimate For", "Quote For",
+ *  * "Variation For", or whatever it wants to call what it sends. Not an enum:
+ *  * every company drew up this list differently, same reason `CatalogueItem`
+ *  * and `ReviewLink` aren't enums either — added one at a time, each checked on
+ *  * the way in (`@@unique([companyId, label])`).
+ *  *
+ *  * A quote never points back here by id. It freezes the label text itself at
+ *  * creation, the same way it freezes `currency`/`taxType` — so deleting a type
+ *  * later can't change what a quote already issued is shown as, and there is no
+ *  * dangling reference to guard against.
+ */
+export type CompanyQuoteType = Prisma.CompanyQuoteTypeModel
+/**
  * Model User
  * 
  */

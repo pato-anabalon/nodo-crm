@@ -15,10 +15,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { getQuote } from "@/modules/quotes/service";
-import { listLeads } from "@/modules/leads/service";
 import { listCompanyDocuments } from "@/modules/documents/service";
 import { QuoteForm } from "@/modules/quotes/quote-form";
-import { activeCatalogue } from "@/modules/catalogue/service";
+import { hasActiveCatalogue } from "@/modules/catalogue/service";
+import { searchCatalogueAction } from "@/modules/catalogue/actions";
+import { searchLeadsAction } from "@/modules/leads/actions";
 import { QuoteActionsBar } from "@/modules/quotes/quote-actions-bar";
 import {
   decideQuoteAction,
@@ -78,13 +79,13 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
   const resendAction = resendQuoteAction.bind(null, quote.id);
   const revokeAction = revokeShareAction.bind(null, quote.id);
 
-  const [{ items: leads }, documents, catalogue] = editable
+  const [documents, catalogueAvailable, companyQuoteTypes] = editable
     ? await Promise.all([
-        listLeads(ctx, { page: 1, discarded: false }),
         listCompanyDocuments(ctx),
-        activeCatalogue(ctx),
+        hasActiveCatalogue(ctx),
+        ctx.db.companyQuoteType.findMany({ orderBy: { position: "asc" } }),
       ])
-    : [{ items: [] }, [], []];
+    : [[], false, []];
 
   // Named because they appear in both arrangements below, and a copy in each
   // branch is how the two quietly drift apart.
@@ -154,16 +155,13 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
 
       {editable ? (
         <QuoteForm
-          catalogue={catalogue.map((item) => ({
-            id: item.id,
-            name: item.name,
-            description: item.description,
-            unit: item.unit,
-            unitPrice: String(Number(item.unitPrice)),
-          }))}
+          hasCatalogue={catalogueAvailable}
+          searchLeads={searchLeadsAction}
+          searchCatalogue={searchCatalogueAction}
           action={updateAction}
-          leads={leads.map((lead) => ({ id: lead.id, title: lead.title }))}
+          status={quote.status}
           documents={documents.map((doc) => ({ id: doc.id, name: doc.name }))}
+          quoteTypes={companyQuoteTypes.map((type) => type.label)}
           currency={ctx.company.currency}
           currencies={currencyOptions(await getLocale())}
           formatLocale={ctx.company.formatLocale}
@@ -172,20 +170,38 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
           submitLabel={tCommon("saveChanges")}
           defaults={{
             title: quote.title,
+            quoteType: quote.quoteType,
+            projectAddress: quote.projectAddress,
+            scope: quote.scope,
             pricingMode: quote.pricingMode,
             sections: quote.sections.map((section) => ({
               title: section.title,
               body: section.body ?? "",
               amount: String(Number(section.amount)),
+              discountType: section.discountType,
+              discountValue: String(Number(section.discountValue)),
+              kind: section.kind,
+              selectedByDefault: section.selectedByDefault,
             })),
             intro: quote.intro,
             exclusions: quote.exclusions,
             leadId: quote.leadId,
+            leadTitle: quote.lead?.title ?? null,
             termsDocumentId: quote.termsDocumentId,
             taxRate: Number(quote.taxRate),
             taxDisplayMode: quote.taxDisplayMode,
             currency: quote.currency,
-            discount: Number(quote.discount),
+            // The raw typed input, not `quote.discount` (the computed, frozen
+            // amount) — the same distinction `duplicateQuote` already draws,
+            // and necessary here for the same reason: a `PERCENT` discount
+            // would otherwise show its dollar amount in a field expecting a
+            // percentage the next time the quote is opened.
+            discount: Number(quote.discountValue),
+            discountType: quote.discountType,
+            optionalDiscountThreshold: quote.optionalDiscountThreshold,
+            optionalDiscountType: quote.optionalDiscountType,
+            optionalDiscountValue:
+              quote.optionalDiscountValue === null ? null : Number(quote.optionalDiscountValue),
             validUntil: quote.validUntil?.toISOString().slice(0, 10) ?? null,
             notes: quote.notes,
             terms: quote.terms,
@@ -279,11 +295,9 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
                 </p>
               ) : null}
 
-              {quote.notes ? (
-                <p className="mt-4 text-sm whitespace-pre-wrap">{quote.notes}</p>
-              ) : null}
+              {quote.notes ? <RichText className="mt-4 text-sm" html={quote.notes} /> : null}
               {quote.terms ? (
-                <p className="mt-2 text-xs whitespace-pre-wrap text-muted-foreground">{quote.terms}</p>
+                <RichText className="mt-2 text-xs text-muted-foreground" html={quote.terms} />
               ) : null}
             </CardContent>
           </Card>

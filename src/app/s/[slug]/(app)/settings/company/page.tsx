@@ -12,6 +12,7 @@ import {
   AreaField,
   CheckField,
   FieldRow,
+  RichAreaField,
   SelectField,
   SettingsForm,
   TextField,
@@ -23,6 +24,7 @@ import {
 } from "@/modules/settings/actions";
 import { LogoManager } from "@/modules/settings/logo-manager";
 import { WatermarkManager } from "@/modules/settings/watermark-manager";
+import { QuoteTypesManager } from "@/modules/settings/quote-types-manager";
 import { SettingsHeader } from "@/modules/settings/settings-header";
 
 export async function generateMetadata() {
@@ -47,6 +49,7 @@ export default async function CompanySettingsPage() {
 
   // Read directly: it's the settings of the company in the context itself.
   const company = await prisma.company.findUniqueOrThrow({ where: { id: ctx.company.id } });
+  const quoteTypes = await ctx.db.companyQuoteType.findMany({ orderBy: { position: "asc" } });
 
   return (
     <div className="space-y-6">
@@ -150,16 +153,23 @@ export default async function CompanySettingsPage() {
                 defaultValue={String(company.quoteValidityDays)} />
             </FieldRow>
 
-            <AreaField label={t("quotes.quoteIntro")} name="quoteIntro" rows={5}
+            <RichAreaField label={t("quotes.quoteIntro")} name="quoteIntro"
               hint={t("quotes.quoteIntroHint")} defaultValue={company.quoteIntro} />
-            <AreaField label={t("quotes.quoteNotes")} name="quoteNotes"
+            <RichAreaField label={t("quotes.quoteNotes")} name="quoteNotes"
               defaultValue={company.quoteNotes} />
-            <AreaField label={t("quotes.quoteExclusions")} name="quoteExclusions" rows={6}
+            <RichAreaField label={t("quotes.quoteExclusions")} name="quoteExclusions"
               defaultValue={company.quoteExclusions} />
-            <AreaField label={t("quotes.quoteTerms")} name="quoteTerms" rows={6}
+            <RichAreaField label={t("quotes.quoteTerms")} name="quoteTerms"
               hint={t("quotes.quoteTermsHint")} defaultValue={company.quoteTerms} />
+            <RichAreaField label={t("quotes.quoteScope")} name="quoteScope"
+              hint={t("quotes.quoteScopeHint")} defaultValue={company.quoteScope} />
         </>
       </SettingsForm>
+
+      <QuoteTypesManager
+        types={quoteTypes}
+        canManage={can(ctx, "settings.update")}
+      />
 
       <SettingsForm
         title={t("acceptance.title")}

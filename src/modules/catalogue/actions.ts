@@ -7,6 +7,7 @@ import { translateFieldErrors } from "@/lib/i18n-errors";
 import { catalogueItemSchema } from "./schemas";
 import {
   createCatalogueItem,
+  searchActiveCatalogue,
   setCatalogueItemActive,
   updateCatalogueItem,
 } from "./service";
@@ -76,4 +77,26 @@ export async function setCatalogueItemActiveAction(
 
   revalidatePath("/settings/catalogue");
   return { message: active ? t("restored") : t("retired") };
+}
+
+export type CatalogueSearchItem = {
+  id: string;
+  label: string;
+  name: string;
+  description: string | null;
+  unitPrice: string;
+};
+
+/** Backs the quote form's "From catalogue" combobox — same gate the quote
+ * form itself already requires to be on screen at all. */
+export async function searchCatalogueAction(query: string): Promise<CatalogueSearchItem[]> {
+  const ctx = await requirePermission("quotes.read");
+  const items = await searchActiveCatalogue(ctx, query);
+  return items.map((item) => ({
+    id: item.id,
+    label: item.unit ? `${item.name} · ${item.unit}` : item.name,
+    name: item.name,
+    description: item.description,
+    unitPrice: String(item.unitPrice),
+  }));
 }

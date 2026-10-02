@@ -30,6 +30,9 @@ export type QuoteAvgAggregateOutputType = {
   number: number | null
   taxRate: runtime.Decimal | null
   discount: runtime.Decimal | null
+  discountValue: runtime.Decimal | null
+  optionalDiscountThreshold: number | null
+  optionalDiscountValue: runtime.Decimal | null
   subtotal: runtime.Decimal | null
   taxAmount: runtime.Decimal | null
   total: runtime.Decimal | null
@@ -39,6 +42,9 @@ export type QuoteSumAggregateOutputType = {
   number: number | null
   taxRate: runtime.Decimal | null
   discount: runtime.Decimal | null
+  discountValue: runtime.Decimal | null
+  optionalDiscountThreshold: number | null
+  optionalDiscountValue: runtime.Decimal | null
   subtotal: runtime.Decimal | null
   taxAmount: runtime.Decimal | null
   total: runtime.Decimal | null
@@ -59,6 +65,9 @@ export type QuoteMinAggregateOutputType = {
   clientPhone: string | null
   intro: string | null
   exclusions: string | null
+  scope: string | null
+  quoteType: string | null
+  projectAddress: string | null
   termsDocumentId: string | null
   currency: string | null
   language: $Enums.Language | null
@@ -66,6 +75,11 @@ export type QuoteMinAggregateOutputType = {
   taxRate: runtime.Decimal | null
   taxDisplayMode: $Enums.TaxDisplayMode | null
   discount: runtime.Decimal | null
+  discountType: $Enums.DiscountType | null
+  discountValue: runtime.Decimal | null
+  optionalDiscountThreshold: number | null
+  optionalDiscountType: $Enums.DiscountType | null
+  optionalDiscountValue: runtime.Decimal | null
   subtotal: runtime.Decimal | null
   taxAmount: runtime.Decimal | null
   total: runtime.Decimal | null
@@ -93,6 +107,9 @@ export type QuoteMaxAggregateOutputType = {
   clientPhone: string | null
   intro: string | null
   exclusions: string | null
+  scope: string | null
+  quoteType: string | null
+  projectAddress: string | null
   termsDocumentId: string | null
   currency: string | null
   language: $Enums.Language | null
@@ -100,6 +117,11 @@ export type QuoteMaxAggregateOutputType = {
   taxRate: runtime.Decimal | null
   taxDisplayMode: $Enums.TaxDisplayMode | null
   discount: runtime.Decimal | null
+  discountType: $Enums.DiscountType | null
+  discountValue: runtime.Decimal | null
+  optionalDiscountThreshold: number | null
+  optionalDiscountType: $Enums.DiscountType | null
+  optionalDiscountValue: runtime.Decimal | null
   subtotal: runtime.Decimal | null
   taxAmount: runtime.Decimal | null
   total: runtime.Decimal | null
@@ -127,6 +149,9 @@ export type QuoteCountAggregateOutputType = {
   clientPhone: number
   intro: number
   exclusions: number
+  scope: number
+  quoteType: number
+  projectAddress: number
   termsDocumentId: number
   currency: number
   language: number
@@ -134,6 +159,11 @@ export type QuoteCountAggregateOutputType = {
   taxRate: number
   taxDisplayMode: number
   discount: number
+  discountType: number
+  discountValue: number
+  optionalDiscountThreshold: number
+  optionalDiscountType: number
+  optionalDiscountValue: number
   subtotal: number
   taxAmount: number
   total: number
@@ -152,6 +182,9 @@ export type QuoteAvgAggregateInputType = {
   number?: true
   taxRate?: true
   discount?: true
+  discountValue?: true
+  optionalDiscountThreshold?: true
+  optionalDiscountValue?: true
   subtotal?: true
   taxAmount?: true
   total?: true
@@ -161,6 +194,9 @@ export type QuoteSumAggregateInputType = {
   number?: true
   taxRate?: true
   discount?: true
+  discountValue?: true
+  optionalDiscountThreshold?: true
+  optionalDiscountValue?: true
   subtotal?: true
   taxAmount?: true
   total?: true
@@ -181,6 +217,9 @@ export type QuoteMinAggregateInputType = {
   clientPhone?: true
   intro?: true
   exclusions?: true
+  scope?: true
+  quoteType?: true
+  projectAddress?: true
   termsDocumentId?: true
   currency?: true
   language?: true
@@ -188,6 +227,11 @@ export type QuoteMinAggregateInputType = {
   taxRate?: true
   taxDisplayMode?: true
   discount?: true
+  discountType?: true
+  discountValue?: true
+  optionalDiscountThreshold?: true
+  optionalDiscountType?: true
+  optionalDiscountValue?: true
   subtotal?: true
   taxAmount?: true
   total?: true
@@ -215,6 +259,9 @@ export type QuoteMaxAggregateInputType = {
   clientPhone?: true
   intro?: true
   exclusions?: true
+  scope?: true
+  quoteType?: true
+  projectAddress?: true
   termsDocumentId?: true
   currency?: true
   language?: true
@@ -222,6 +269,11 @@ export type QuoteMaxAggregateInputType = {
   taxRate?: true
   taxDisplayMode?: true
   discount?: true
+  discountType?: true
+  discountValue?: true
+  optionalDiscountThreshold?: true
+  optionalDiscountType?: true
+  optionalDiscountValue?: true
   subtotal?: true
   taxAmount?: true
   total?: true
@@ -249,6 +301,9 @@ export type QuoteCountAggregateInputType = {
   clientPhone?: true
   intro?: true
   exclusions?: true
+  scope?: true
+  quoteType?: true
+  projectAddress?: true
   termsDocumentId?: true
   currency?: true
   language?: true
@@ -256,6 +311,11 @@ export type QuoteCountAggregateInputType = {
   taxRate?: true
   taxDisplayMode?: true
   discount?: true
+  discountType?: true
+  discountValue?: true
+  optionalDiscountThreshold?: true
+  optionalDiscountType?: true
+  optionalDiscountValue?: true
   subtotal?: true
   taxAmount?: true
   total?: true
@@ -370,6 +430,9 @@ export type QuoteGroupByOutputType = {
   clientPhone: string | null
   intro: string | null
   exclusions: string | null
+  scope: string | null
+  quoteType: string | null
+  projectAddress: string | null
   termsDocumentId: string | null
   currency: string
   language: $Enums.Language
@@ -377,6 +440,11 @@ export type QuoteGroupByOutputType = {
   taxRate: runtime.Decimal
   taxDisplayMode: $Enums.TaxDisplayMode
   discount: runtime.Decimal
+  discountType: $Enums.DiscountType
+  discountValue: runtime.Decimal
+  optionalDiscountThreshold: number | null
+  optionalDiscountType: $Enums.DiscountType | null
+  optionalDiscountValue: runtime.Decimal | null
   subtotal: runtime.Decimal
   taxAmount: runtime.Decimal
   total: runtime.Decimal
@@ -427,6 +495,9 @@ export type QuoteWhereInput = {
   clientPhone?: Prisma.StringNullableFilter<"Quote"> | string | null
   intro?: Prisma.StringNullableFilter<"Quote"> | string | null
   exclusions?: Prisma.StringNullableFilter<"Quote"> | string | null
+  scope?: Prisma.StringNullableFilter<"Quote"> | string | null
+  quoteType?: Prisma.StringNullableFilter<"Quote"> | string | null
+  projectAddress?: Prisma.StringNullableFilter<"Quote"> | string | null
   termsDocumentId?: Prisma.StringNullableFilter<"Quote"> | string | null
   currency?: Prisma.StringFilter<"Quote"> | string
   language?: Prisma.EnumLanguageFilter<"Quote"> | $Enums.Language
@@ -434,6 +505,11 @@ export type QuoteWhereInput = {
   taxRate?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFilter<"Quote"> | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFilter<"Quote"> | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.IntNullableFilter<"Quote"> | number | null
+  optionalDiscountType?: Prisma.EnumDiscountTypeNullableFilter<"Quote"> | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.DecimalNullableFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -474,6 +550,9 @@ export type QuoteOrderByWithRelationInput = {
   clientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   intro?: Prisma.SortOrderInput | Prisma.SortOrder
   exclusions?: Prisma.SortOrderInput | Prisma.SortOrder
+  scope?: Prisma.SortOrderInput | Prisma.SortOrder
+  quoteType?: Prisma.SortOrderInput | Prisma.SortOrder
+  projectAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   termsDocumentId?: Prisma.SortOrderInput | Prisma.SortOrder
   currency?: Prisma.SortOrder
   language?: Prisma.SortOrder
@@ -481,6 +560,11 @@ export type QuoteOrderByWithRelationInput = {
   taxRate?: Prisma.SortOrder
   taxDisplayMode?: Prisma.SortOrder
   discount?: Prisma.SortOrder
+  discountType?: Prisma.SortOrder
+  discountValue?: Prisma.SortOrder
+  optionalDiscountThreshold?: Prisma.SortOrderInput | Prisma.SortOrder
+  optionalDiscountType?: Prisma.SortOrderInput | Prisma.SortOrder
+  optionalDiscountValue?: Prisma.SortOrderInput | Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
   total?: Prisma.SortOrder
@@ -525,6 +609,9 @@ export type QuoteWhereUniqueInput = Prisma.AtLeast<{
   clientPhone?: Prisma.StringNullableFilter<"Quote"> | string | null
   intro?: Prisma.StringNullableFilter<"Quote"> | string | null
   exclusions?: Prisma.StringNullableFilter<"Quote"> | string | null
+  scope?: Prisma.StringNullableFilter<"Quote"> | string | null
+  quoteType?: Prisma.StringNullableFilter<"Quote"> | string | null
+  projectAddress?: Prisma.StringNullableFilter<"Quote"> | string | null
   termsDocumentId?: Prisma.StringNullableFilter<"Quote"> | string | null
   currency?: Prisma.StringFilter<"Quote"> | string
   language?: Prisma.EnumLanguageFilter<"Quote"> | $Enums.Language
@@ -532,6 +619,11 @@ export type QuoteWhereUniqueInput = Prisma.AtLeast<{
   taxRate?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFilter<"Quote"> | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFilter<"Quote"> | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.IntNullableFilter<"Quote"> | number | null
+  optionalDiscountType?: Prisma.EnumDiscountTypeNullableFilter<"Quote"> | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.DecimalNullableFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -572,6 +664,9 @@ export type QuoteOrderByWithAggregationInput = {
   clientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   intro?: Prisma.SortOrderInput | Prisma.SortOrder
   exclusions?: Prisma.SortOrderInput | Prisma.SortOrder
+  scope?: Prisma.SortOrderInput | Prisma.SortOrder
+  quoteType?: Prisma.SortOrderInput | Prisma.SortOrder
+  projectAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   termsDocumentId?: Prisma.SortOrderInput | Prisma.SortOrder
   currency?: Prisma.SortOrder
   language?: Prisma.SortOrder
@@ -579,6 +674,11 @@ export type QuoteOrderByWithAggregationInput = {
   taxRate?: Prisma.SortOrder
   taxDisplayMode?: Prisma.SortOrder
   discount?: Prisma.SortOrder
+  discountType?: Prisma.SortOrder
+  discountValue?: Prisma.SortOrder
+  optionalDiscountThreshold?: Prisma.SortOrderInput | Prisma.SortOrder
+  optionalDiscountType?: Prisma.SortOrderInput | Prisma.SortOrder
+  optionalDiscountValue?: Prisma.SortOrderInput | Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
   total?: Prisma.SortOrder
@@ -614,6 +714,9 @@ export type QuoteScalarWhereWithAggregatesInput = {
   clientPhone?: Prisma.StringNullableWithAggregatesFilter<"Quote"> | string | null
   intro?: Prisma.StringNullableWithAggregatesFilter<"Quote"> | string | null
   exclusions?: Prisma.StringNullableWithAggregatesFilter<"Quote"> | string | null
+  scope?: Prisma.StringNullableWithAggregatesFilter<"Quote"> | string | null
+  quoteType?: Prisma.StringNullableWithAggregatesFilter<"Quote"> | string | null
+  projectAddress?: Prisma.StringNullableWithAggregatesFilter<"Quote"> | string | null
   termsDocumentId?: Prisma.StringNullableWithAggregatesFilter<"Quote"> | string | null
   currency?: Prisma.StringWithAggregatesFilter<"Quote"> | string
   language?: Prisma.EnumLanguageWithAggregatesFilter<"Quote"> | $Enums.Language
@@ -621,6 +724,11 @@ export type QuoteScalarWhereWithAggregatesInput = {
   taxRate?: Prisma.DecimalWithAggregatesFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeWithAggregatesFilter<"Quote"> | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalWithAggregatesFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeWithAggregatesFilter<"Quote"> | $Enums.DiscountType
+  discountValue?: Prisma.DecimalWithAggregatesFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.IntNullableWithAggregatesFilter<"Quote"> | number | null
+  optionalDiscountType?: Prisma.EnumDiscountTypeNullableWithAggregatesFilter<"Quote"> | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.DecimalNullableWithAggregatesFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalWithAggregatesFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalWithAggregatesFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalWithAggregatesFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -645,12 +753,20 @@ export type QuoteCreateInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   currency?: string
   language?: $Enums.Language
   taxType?: $Enums.TaxType
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -691,6 +807,9 @@ export type QuoteUncheckedCreateInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   termsDocumentId?: string | null
   currency?: string
   language?: $Enums.Language
@@ -698,6 +817,11 @@ export type QuoteUncheckedCreateInput = {
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -731,12 +855,20 @@ export type QuoteUpdateInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
   taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -777,6 +909,9 @@ export type QuoteUncheckedUpdateInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   termsDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -784,6 +919,11 @@ export type QuoteUncheckedUpdateInput = {
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -820,6 +960,9 @@ export type QuoteCreateManyInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   termsDocumentId?: string | null
   currency?: string
   language?: $Enums.Language
@@ -827,6 +970,11 @@ export type QuoteCreateManyInput = {
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -851,12 +999,20 @@ export type QuoteUpdateManyMutationInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
   taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -884,6 +1040,9 @@ export type QuoteUncheckedUpdateManyInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   termsDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -891,6 +1050,11 @@ export type QuoteUncheckedUpdateManyInput = {
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -938,6 +1102,9 @@ export type QuoteCountOrderByAggregateInput = {
   clientPhone?: Prisma.SortOrder
   intro?: Prisma.SortOrder
   exclusions?: Prisma.SortOrder
+  scope?: Prisma.SortOrder
+  quoteType?: Prisma.SortOrder
+  projectAddress?: Prisma.SortOrder
   termsDocumentId?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   language?: Prisma.SortOrder
@@ -945,6 +1112,11 @@ export type QuoteCountOrderByAggregateInput = {
   taxRate?: Prisma.SortOrder
   taxDisplayMode?: Prisma.SortOrder
   discount?: Prisma.SortOrder
+  discountType?: Prisma.SortOrder
+  discountValue?: Prisma.SortOrder
+  optionalDiscountThreshold?: Prisma.SortOrder
+  optionalDiscountType?: Prisma.SortOrder
+  optionalDiscountValue?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
   total?: Prisma.SortOrder
@@ -961,6 +1133,9 @@ export type QuoteAvgOrderByAggregateInput = {
   number?: Prisma.SortOrder
   taxRate?: Prisma.SortOrder
   discount?: Prisma.SortOrder
+  discountValue?: Prisma.SortOrder
+  optionalDiscountThreshold?: Prisma.SortOrder
+  optionalDiscountValue?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
   total?: Prisma.SortOrder
@@ -981,6 +1156,9 @@ export type QuoteMaxOrderByAggregateInput = {
   clientPhone?: Prisma.SortOrder
   intro?: Prisma.SortOrder
   exclusions?: Prisma.SortOrder
+  scope?: Prisma.SortOrder
+  quoteType?: Prisma.SortOrder
+  projectAddress?: Prisma.SortOrder
   termsDocumentId?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   language?: Prisma.SortOrder
@@ -988,6 +1166,11 @@ export type QuoteMaxOrderByAggregateInput = {
   taxRate?: Prisma.SortOrder
   taxDisplayMode?: Prisma.SortOrder
   discount?: Prisma.SortOrder
+  discountType?: Prisma.SortOrder
+  discountValue?: Prisma.SortOrder
+  optionalDiscountThreshold?: Prisma.SortOrder
+  optionalDiscountType?: Prisma.SortOrder
+  optionalDiscountValue?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
   total?: Prisma.SortOrder
@@ -1015,6 +1198,9 @@ export type QuoteMinOrderByAggregateInput = {
   clientPhone?: Prisma.SortOrder
   intro?: Prisma.SortOrder
   exclusions?: Prisma.SortOrder
+  scope?: Prisma.SortOrder
+  quoteType?: Prisma.SortOrder
+  projectAddress?: Prisma.SortOrder
   termsDocumentId?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   language?: Prisma.SortOrder
@@ -1022,6 +1208,11 @@ export type QuoteMinOrderByAggregateInput = {
   taxRate?: Prisma.SortOrder
   taxDisplayMode?: Prisma.SortOrder
   discount?: Prisma.SortOrder
+  discountType?: Prisma.SortOrder
+  discountValue?: Prisma.SortOrder
+  optionalDiscountThreshold?: Prisma.SortOrder
+  optionalDiscountType?: Prisma.SortOrder
+  optionalDiscountValue?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
   total?: Prisma.SortOrder
@@ -1038,6 +1229,9 @@ export type QuoteSumOrderByAggregateInput = {
   number?: Prisma.SortOrder
   taxRate?: Prisma.SortOrder
   discount?: Prisma.SortOrder
+  discountValue?: Prisma.SortOrder
+  optionalDiscountThreshold?: Prisma.SortOrder
+  optionalDiscountValue?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
   total?: Prisma.SortOrder
@@ -1192,6 +1386,14 @@ export type QuoteUncheckedUpdateManyWithoutLeadNestedInput = {
 
 export type EnumQuoteStatusFieldUpdateOperationsInput = {
   set?: $Enums.QuoteStatus
+}
+
+export type EnumDiscountTypeFieldUpdateOperationsInput = {
+  set?: $Enums.DiscountType
+}
+
+export type NullableEnumDiscountTypeFieldUpdateOperationsInput = {
+  set?: $Enums.DiscountType | null
 }
 
 export type QuoteCreateNestedManyWithoutTermsDocumentInput = {
@@ -1360,12 +1562,20 @@ export type QuoteCreateWithoutCompanyInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   currency?: string
   language?: $Enums.Language
   taxType?: $Enums.TaxType
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1404,6 +1614,9 @@ export type QuoteUncheckedCreateWithoutCompanyInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   termsDocumentId?: string | null
   currency?: string
   language?: $Enums.Language
@@ -1411,6 +1624,11 @@ export type QuoteUncheckedCreateWithoutCompanyInput = {
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1476,6 +1694,9 @@ export type QuoteScalarWhereInput = {
   clientPhone?: Prisma.StringNullableFilter<"Quote"> | string | null
   intro?: Prisma.StringNullableFilter<"Quote"> | string | null
   exclusions?: Prisma.StringNullableFilter<"Quote"> | string | null
+  scope?: Prisma.StringNullableFilter<"Quote"> | string | null
+  quoteType?: Prisma.StringNullableFilter<"Quote"> | string | null
+  projectAddress?: Prisma.StringNullableFilter<"Quote"> | string | null
   termsDocumentId?: Prisma.StringNullableFilter<"Quote"> | string | null
   currency?: Prisma.StringFilter<"Quote"> | string
   language?: Prisma.EnumLanguageFilter<"Quote"> | $Enums.Language
@@ -1483,6 +1704,11 @@ export type QuoteScalarWhereInput = {
   taxRate?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFilter<"Quote"> | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFilter<"Quote"> | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.IntNullableFilter<"Quote"> | number | null
+  optionalDiscountType?: Prisma.EnumDiscountTypeNullableFilter<"Quote"> | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.DecimalNullableFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFilter<"Quote"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1507,12 +1733,20 @@ export type QuoteCreateWithoutCreatedByInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   currency?: string
   language?: $Enums.Language
   taxType?: $Enums.TaxType
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1551,6 +1785,9 @@ export type QuoteUncheckedCreateWithoutCreatedByInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   termsDocumentId?: string | null
   currency?: string
   language?: $Enums.Language
@@ -1558,6 +1795,11 @@ export type QuoteUncheckedCreateWithoutCreatedByInput = {
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1617,12 +1859,20 @@ export type QuoteCreateWithoutTasksInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   currency?: string
   language?: $Enums.Language
   taxType?: $Enums.TaxType
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1662,6 +1912,9 @@ export type QuoteUncheckedCreateWithoutTasksInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   termsDocumentId?: string | null
   currency?: string
   language?: $Enums.Language
@@ -1669,6 +1922,11 @@ export type QuoteUncheckedCreateWithoutTasksInput = {
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1717,12 +1975,20 @@ export type QuoteUpdateWithoutTasksInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
   taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1762,6 +2028,9 @@ export type QuoteUncheckedUpdateWithoutTasksInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   termsDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -1769,6 +2038,11 @@ export type QuoteUncheckedUpdateWithoutTasksInput = {
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1801,12 +2075,20 @@ export type QuoteCreateWithoutLeadInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   currency?: string
   language?: $Enums.Language
   taxType?: $Enums.TaxType
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1845,6 +2127,9 @@ export type QuoteUncheckedCreateWithoutLeadInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   termsDocumentId?: string | null
   currency?: string
   language?: $Enums.Language
@@ -1852,6 +2137,11 @@ export type QuoteUncheckedCreateWithoutLeadInput = {
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1911,12 +2201,20 @@ export type QuoteCreateWithoutTermsDocumentInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   currency?: string
   language?: $Enums.Language
   taxType?: $Enums.TaxType
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1956,12 +2254,20 @@ export type QuoteUncheckedCreateWithoutTermsDocumentInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   currency?: string
   language?: $Enums.Language
   taxType?: $Enums.TaxType
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2021,12 +2327,20 @@ export type QuoteCreateWithoutShareInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   currency?: string
   language?: $Enums.Language
   taxType?: $Enums.TaxType
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2066,6 +2380,9 @@ export type QuoteUncheckedCreateWithoutShareInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   termsDocumentId?: string | null
   currency?: string
   language?: $Enums.Language
@@ -2073,6 +2390,11 @@ export type QuoteUncheckedCreateWithoutShareInput = {
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2121,12 +2443,20 @@ export type QuoteUpdateWithoutShareInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
   taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2166,6 +2496,9 @@ export type QuoteUncheckedUpdateWithoutShareInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   termsDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -2173,6 +2506,11 @@ export type QuoteUncheckedUpdateWithoutShareInput = {
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2205,12 +2543,20 @@ export type QuoteCreateWithoutEventsInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   currency?: string
   language?: $Enums.Language
   taxType?: $Enums.TaxType
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2250,6 +2596,9 @@ export type QuoteUncheckedCreateWithoutEventsInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   termsDocumentId?: string | null
   currency?: string
   language?: $Enums.Language
@@ -2257,6 +2606,11 @@ export type QuoteUncheckedCreateWithoutEventsInput = {
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2305,12 +2659,20 @@ export type QuoteUpdateWithoutEventsInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
   taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2350,6 +2712,9 @@ export type QuoteUncheckedUpdateWithoutEventsInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   termsDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -2357,6 +2722,11 @@ export type QuoteUncheckedUpdateWithoutEventsInput = {
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2389,12 +2759,20 @@ export type QuoteCreateWithoutMessagesInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   currency?: string
   language?: $Enums.Language
   taxType?: $Enums.TaxType
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2434,6 +2812,9 @@ export type QuoteUncheckedCreateWithoutMessagesInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   termsDocumentId?: string | null
   currency?: string
   language?: $Enums.Language
@@ -2441,6 +2822,11 @@ export type QuoteUncheckedCreateWithoutMessagesInput = {
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2489,12 +2875,20 @@ export type QuoteUpdateWithoutMessagesInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
   taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2534,6 +2928,9 @@ export type QuoteUncheckedUpdateWithoutMessagesInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   termsDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -2541,6 +2938,11 @@ export type QuoteUncheckedUpdateWithoutMessagesInput = {
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2573,12 +2975,20 @@ export type QuoteCreateWithoutAcceptanceInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   currency?: string
   language?: $Enums.Language
   taxType?: $Enums.TaxType
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2618,6 +3028,9 @@ export type QuoteUncheckedCreateWithoutAcceptanceInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   termsDocumentId?: string | null
   currency?: string
   language?: $Enums.Language
@@ -2625,6 +3038,11 @@ export type QuoteUncheckedCreateWithoutAcceptanceInput = {
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2673,12 +3091,20 @@ export type QuoteUpdateWithoutAcceptanceInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
   taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2718,6 +3144,9 @@ export type QuoteUncheckedUpdateWithoutAcceptanceInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   termsDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -2725,6 +3154,11 @@ export type QuoteUncheckedUpdateWithoutAcceptanceInput = {
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2757,12 +3191,20 @@ export type QuoteCreateWithoutSectionsInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   currency?: string
   language?: $Enums.Language
   taxType?: $Enums.TaxType
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2802,6 +3244,9 @@ export type QuoteUncheckedCreateWithoutSectionsInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   termsDocumentId?: string | null
   currency?: string
   language?: $Enums.Language
@@ -2809,6 +3254,11 @@ export type QuoteUncheckedCreateWithoutSectionsInput = {
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2857,12 +3307,20 @@ export type QuoteUpdateWithoutSectionsInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
   taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2902,6 +3360,9 @@ export type QuoteUncheckedUpdateWithoutSectionsInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   termsDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -2909,6 +3370,11 @@ export type QuoteUncheckedUpdateWithoutSectionsInput = {
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2941,12 +3407,20 @@ export type QuoteCreateWithoutAttachmentsInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   currency?: string
   language?: $Enums.Language
   taxType?: $Enums.TaxType
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2986,6 +3460,9 @@ export type QuoteUncheckedCreateWithoutAttachmentsInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   termsDocumentId?: string | null
   currency?: string
   language?: $Enums.Language
@@ -2993,6 +3470,11 @@ export type QuoteUncheckedCreateWithoutAttachmentsInput = {
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3041,12 +3523,20 @@ export type QuoteUpdateWithoutAttachmentsInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
   taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3086,6 +3576,9 @@ export type QuoteUncheckedUpdateWithoutAttachmentsInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   termsDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -3093,6 +3586,11 @@ export type QuoteUncheckedUpdateWithoutAttachmentsInput = {
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3125,12 +3623,20 @@ export type QuoteCreateWithoutEmailsSentInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   currency?: string
   language?: $Enums.Language
   taxType?: $Enums.TaxType
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3170,6 +3676,9 @@ export type QuoteUncheckedCreateWithoutEmailsSentInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   termsDocumentId?: string | null
   currency?: string
   language?: $Enums.Language
@@ -3177,6 +3686,11 @@ export type QuoteUncheckedCreateWithoutEmailsSentInput = {
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3225,12 +3739,20 @@ export type QuoteUpdateWithoutEmailsSentInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
   taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3270,6 +3792,9 @@ export type QuoteUncheckedUpdateWithoutEmailsSentInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   termsDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -3277,6 +3802,11 @@ export type QuoteUncheckedUpdateWithoutEmailsSentInput = {
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3309,12 +3839,20 @@ export type QuoteCreateWithoutItemsInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   currency?: string
   language?: $Enums.Language
   taxType?: $Enums.TaxType
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3354,6 +3892,9 @@ export type QuoteUncheckedCreateWithoutItemsInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   termsDocumentId?: string | null
   currency?: string
   language?: $Enums.Language
@@ -3361,6 +3902,11 @@ export type QuoteUncheckedCreateWithoutItemsInput = {
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3409,12 +3955,20 @@ export type QuoteUpdateWithoutItemsInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
   taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3454,6 +4008,9 @@ export type QuoteUncheckedUpdateWithoutItemsInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   termsDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -3461,6 +4018,11 @@ export type QuoteUncheckedUpdateWithoutItemsInput = {
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3495,6 +4057,9 @@ export type QuoteCreateManyCompanyInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   termsDocumentId?: string | null
   currency?: string
   language?: $Enums.Language
@@ -3502,6 +4067,11 @@ export type QuoteCreateManyCompanyInput = {
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3526,12 +4096,20 @@ export type QuoteUpdateWithoutCompanyInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
   taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3570,6 +4148,9 @@ export type QuoteUncheckedUpdateWithoutCompanyInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   termsDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -3577,6 +4158,11 @@ export type QuoteUncheckedUpdateWithoutCompanyInput = {
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3612,6 +4198,9 @@ export type QuoteUncheckedUpdateManyWithoutCompanyInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   termsDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -3619,6 +4208,11 @@ export type QuoteUncheckedUpdateManyWithoutCompanyInput = {
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3645,6 +4239,9 @@ export type QuoteCreateManyCreatedByInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   termsDocumentId?: string | null
   currency?: string
   language?: $Enums.Language
@@ -3652,6 +4249,11 @@ export type QuoteCreateManyCreatedByInput = {
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3676,12 +4278,20 @@ export type QuoteUpdateWithoutCreatedByInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
   taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3720,6 +4330,9 @@ export type QuoteUncheckedUpdateWithoutCreatedByInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   termsDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -3727,6 +4340,11 @@ export type QuoteUncheckedUpdateWithoutCreatedByInput = {
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3762,6 +4380,9 @@ export type QuoteUncheckedUpdateManyWithoutCreatedByInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   termsDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -3769,6 +4390,11 @@ export type QuoteUncheckedUpdateManyWithoutCreatedByInput = {
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3795,6 +4421,9 @@ export type QuoteCreateManyLeadInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   termsDocumentId?: string | null
   currency?: string
   language?: $Enums.Language
@@ -3802,6 +4431,11 @@ export type QuoteCreateManyLeadInput = {
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3826,12 +4460,20 @@ export type QuoteUpdateWithoutLeadInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
   taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3870,6 +4512,9 @@ export type QuoteUncheckedUpdateWithoutLeadInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   termsDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -3877,6 +4522,11 @@ export type QuoteUncheckedUpdateWithoutLeadInput = {
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3912,6 +4562,9 @@ export type QuoteUncheckedUpdateManyWithoutLeadInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   termsDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -3919,6 +4572,11 @@ export type QuoteUncheckedUpdateManyWithoutLeadInput = {
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3946,12 +4604,20 @@ export type QuoteCreateManyTermsDocumentInput = {
   clientPhone?: string | null
   intro?: string | null
   exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
   currency?: string
   language?: $Enums.Language
   taxType?: $Enums.TaxType
   taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: $Enums.TaxDisplayMode
   discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -3976,12 +4642,20 @@ export type QuoteUpdateWithoutTermsDocumentInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
   taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -4021,12 +4695,20 @@ export type QuoteUncheckedUpdateWithoutTermsDocumentInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
   taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -4063,12 +4745,20 @@ export type QuoteUncheckedUpdateManyWithoutTermsDocumentInput = {
   clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
   taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
   discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -4181,6 +4871,9 @@ export type QuoteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   clientPhone?: boolean
   intro?: boolean
   exclusions?: boolean
+  scope?: boolean
+  quoteType?: boolean
+  projectAddress?: boolean
   termsDocumentId?: boolean
   currency?: boolean
   language?: boolean
@@ -4188,6 +4881,11 @@ export type QuoteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   taxRate?: boolean
   taxDisplayMode?: boolean
   discount?: boolean
+  discountType?: boolean
+  discountValue?: boolean
+  optionalDiscountThreshold?: boolean
+  optionalDiscountType?: boolean
+  optionalDiscountValue?: boolean
   subtotal?: boolean
   taxAmount?: boolean
   total?: boolean
@@ -4229,6 +4927,9 @@ export type QuoteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   clientPhone?: boolean
   intro?: boolean
   exclusions?: boolean
+  scope?: boolean
+  quoteType?: boolean
+  projectAddress?: boolean
   termsDocumentId?: boolean
   currency?: boolean
   language?: boolean
@@ -4236,6 +4937,11 @@ export type QuoteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   taxRate?: boolean
   taxDisplayMode?: boolean
   discount?: boolean
+  discountType?: boolean
+  discountValue?: boolean
+  optionalDiscountThreshold?: boolean
+  optionalDiscountType?: boolean
+  optionalDiscountValue?: boolean
   subtotal?: boolean
   taxAmount?: boolean
   total?: boolean
@@ -4267,6 +4973,9 @@ export type QuoteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   clientPhone?: boolean
   intro?: boolean
   exclusions?: boolean
+  scope?: boolean
+  quoteType?: boolean
+  projectAddress?: boolean
   termsDocumentId?: boolean
   currency?: boolean
   language?: boolean
@@ -4274,6 +4983,11 @@ export type QuoteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   taxRate?: boolean
   taxDisplayMode?: boolean
   discount?: boolean
+  discountType?: boolean
+  discountValue?: boolean
+  optionalDiscountThreshold?: boolean
+  optionalDiscountType?: boolean
+  optionalDiscountValue?: boolean
   subtotal?: boolean
   taxAmount?: boolean
   total?: boolean
@@ -4305,6 +5019,9 @@ export type QuoteSelectScalar = {
   clientPhone?: boolean
   intro?: boolean
   exclusions?: boolean
+  scope?: boolean
+  quoteType?: boolean
+  projectAddress?: boolean
   termsDocumentId?: boolean
   currency?: boolean
   language?: boolean
@@ -4312,6 +5029,11 @@ export type QuoteSelectScalar = {
   taxRate?: boolean
   taxDisplayMode?: boolean
   discount?: boolean
+  discountType?: boolean
+  discountValue?: boolean
+  optionalDiscountThreshold?: boolean
+  optionalDiscountType?: boolean
+  optionalDiscountValue?: boolean
   subtotal?: boolean
   taxAmount?: boolean
   total?: boolean
@@ -4324,7 +5046,7 @@ export type QuoteSelectScalar = {
   updatedAt?: boolean
 }
 
-export type QuoteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "number" | "leadId" | "createdById" | "title" | "status" | "pricingMode" | "clientCompanyName" | "clientName" | "clientEmail" | "clientPhone" | "intro" | "exclusions" | "termsDocumentId" | "currency" | "language" | "taxType" | "taxRate" | "taxDisplayMode" | "discount" | "subtotal" | "taxAmount" | "total" | "notes" | "terms" | "validUntil" | "sentAt" | "decidedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["quote"]>
+export type QuoteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "number" | "leadId" | "createdById" | "title" | "status" | "pricingMode" | "clientCompanyName" | "clientName" | "clientEmail" | "clientPhone" | "intro" | "exclusions" | "scope" | "quoteType" | "projectAddress" | "termsDocumentId" | "currency" | "language" | "taxType" | "taxRate" | "taxDisplayMode" | "discount" | "discountType" | "discountValue" | "optionalDiscountThreshold" | "optionalDiscountType" | "optionalDiscountValue" | "subtotal" | "taxAmount" | "total" | "notes" | "terms" | "validUntil" | "sentAt" | "decidedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["quote"]>
 export type QuoteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   lead?: boolean | Prisma.Quote$leadArgs<ExtArgs>
@@ -4396,6 +5118,17 @@ export type $QuotePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
      */
     intro: string | null
     exclusions: string | null
+    scope: string | null
+    /**
+     * *
+     *    * "Estimate For", "Quote For", "Variation For" — whatever the company's own
+     *    * `CompanyQuoteType` list offered at the moment this was created. The label
+     *    * text itself, frozen, not a reference to that row: deleting the type later
+     *    * must not change what this quote already shows. Null only for a quote made
+     *    * while the company had no types configured at all.
+     */
+    quoteType: string | null
+    projectAddress: string | null
     termsDocumentId: string | null
     currency: string
     language: $Enums.Language
@@ -4410,6 +5143,26 @@ export type $QuotePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
      */
     taxDisplayMode: $Enums.TaxDisplayMode
     discount: runtime.Decimal
+    /**
+     * *
+     *    * What was actually typed in to produce `discount` above: a percentage if
+     *    * `discountType` is `PERCENT`, a flat amount if `FIXED`. Kept separately
+     *    * because the gross it applies against can change — a customer picking
+     *    * optional sections after the quote was sent — and recomputing then needs
+     *    * the original intent ("10%"), not the amount that intent happened to
+     *    * produce against the gross that existed at send time.
+     */
+    discountType: $Enums.DiscountType
+    discountValue: runtime.Decimal
+    /**
+     * *
+     *    * A single-threshold volume discount for sections marked `OPTIONAL`: once
+     *    * the customer has this many selected, it applies to the sum of their net
+     *    * amounts. All three null together means no bundle discount is configured.
+     */
+    optionalDiscountThreshold: number | null
+    optionalDiscountType: $Enums.DiscountType | null
+    optionalDiscountValue: runtime.Decimal | null
     subtotal: runtime.Decimal
     taxAmount: runtime.Decimal
     total: runtime.Decimal
@@ -4870,6 +5623,9 @@ export interface QuoteFieldRefs {
   readonly clientPhone: Prisma.FieldRef<"Quote", 'String'>
   readonly intro: Prisma.FieldRef<"Quote", 'String'>
   readonly exclusions: Prisma.FieldRef<"Quote", 'String'>
+  readonly scope: Prisma.FieldRef<"Quote", 'String'>
+  readonly quoteType: Prisma.FieldRef<"Quote", 'String'>
+  readonly projectAddress: Prisma.FieldRef<"Quote", 'String'>
   readonly termsDocumentId: Prisma.FieldRef<"Quote", 'String'>
   readonly currency: Prisma.FieldRef<"Quote", 'String'>
   readonly language: Prisma.FieldRef<"Quote", 'Language'>
@@ -4877,6 +5633,11 @@ export interface QuoteFieldRefs {
   readonly taxRate: Prisma.FieldRef<"Quote", 'Decimal'>
   readonly taxDisplayMode: Prisma.FieldRef<"Quote", 'TaxDisplayMode'>
   readonly discount: Prisma.FieldRef<"Quote", 'Decimal'>
+  readonly discountType: Prisma.FieldRef<"Quote", 'DiscountType'>
+  readonly discountValue: Prisma.FieldRef<"Quote", 'Decimal'>
+  readonly optionalDiscountThreshold: Prisma.FieldRef<"Quote", 'Int'>
+  readonly optionalDiscountType: Prisma.FieldRef<"Quote", 'DiscountType'>
+  readonly optionalDiscountValue: Prisma.FieldRef<"Quote", 'Decimal'>
   readonly subtotal: Prisma.FieldRef<"Quote", 'Decimal'>
   readonly taxAmount: Prisma.FieldRef<"Quote", 'Decimal'>
   readonly total: Prisma.FieldRef<"Quote", 'Decimal'>

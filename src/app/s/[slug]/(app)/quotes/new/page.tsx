@@ -4,11 +4,17 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { requirePermission } from "@/lib/auth/session";
 import { Button } from "@/components/ui/button";
 import { QuoteForm } from "@/modules/quotes/quote-form";
-import { activeCatalogue } from "@/modules/catalogue/service";
-import { activeQuoteTemplates, templateDefaults } from "@/modules/quote-templates/service";
+import { hasActiveCatalogue } from "@/modules/catalogue/service";
+import {
+  hasActiveQuoteTemplates,
+  templateDefaults,
+} from "@/modules/quote-templates/service";
 import { TemplatePicker } from "@/modules/quote-templates/template-picker";
+import { searchTemplatesAction } from "@/modules/quote-templates/actions";
 import { createQuoteAction } from "@/modules/quotes/actions";
-import { listLeads } from "@/modules/leads/service";
+import { leadTitle } from "@/modules/leads/service";
+import { searchLeadsAction } from "@/modules/leads/actions";
+import { searchCatalogueAction } from "@/modules/catalogue/actions";
 import { defaultDocumentId, listCompanyDocuments } from "@/modules/documents/service";
 import { defaultValidUntil } from "@/modules/quotes/constants";
 import { currencyOptions } from "@/lib/intl/options";
@@ -27,18 +33,19 @@ export default async function NewQuotePage({
   const t = await getTranslations("quotes");
   const { leadId, template } = await searchParams;
 
-  // The leads a user can see are the ones they can quote for.
-  const [{ items: leads }, documents, defaultTerms, catalogue] = await Promise.all([
-    listLeads(ctx, { page: 1, discarded: false }),
-    listCompanyDocuments(ctx),
-    defaultDocumentId(ctx),
-    activeCatalogue(ctx),
-  ]);
+  const [leadLabel, documents, defaultTerms, catalogueAvailable, companyQuoteTypes] =
+    await Promise.all([
+      leadId ? leadTitle(ctx, leadId) : null,
+      listCompanyDocuments(ctx),
+      defaultDocumentId(ctx),
+      hasActiveCatalogue(ctx),
+      ctx.db.companyQuoteType.findMany({ orderBy: { position: "asc" } }),
+    ]);
 
   // A template only supplies starting values; nothing is written until the
   // person saves, and every field is still theirs to change.
-  const [templates, fromTemplate] = await Promise.all([
-    activeQuoteTemplates(ctx),
+  const [templatesAvailable, fromTemplate] = await Promise.all([
+    hasActiveQuoteTemplates(ctx),
     template ? templateDefaults(ctx, template) : null,
   ]);
 
@@ -55,13 +62,20 @@ export default async function NewQuotePage({
         <h1 className="text-2xl font-semibold tracking-tight">{t("new")}</h1>
       </div>
 
-      <TemplatePicker templates={templates} current={template ?? null} leadId={leadId ?? null} />
+      <TemplatePicker
+        available={templatesAvailable}
+        current={template && fromTemplate ? { id: template, name: fromTemplate.name } : null}
+        leadId={leadId ?? null}
+        search={searchTemplatesAction}
+      />
 
       <QuoteForm
-          catalogue={toOptions(catalogue)}
+        hasCatalogue={catalogueAvailable}
+        searchLeads={searchLeadsAction}
+        searchCatalogue={searchCatalogueAction}
         action={createQuoteAction}
-        leads={leads.map((lead) => ({ id: lead.id, title: lead.title }))}
         documents={documents.map((doc) => ({ id: doc.id, name: doc.name }))}
+        quoteTypes={companyQuoteTypes.map((type) => type.label)}
         currency={ctx.company.currency}
         currencies={currencyOptions(await getLocale())}
         formatLocale={ctx.company.formatLocale}
@@ -70,6 +84,7 @@ export default async function NewQuotePage({
         submitLabel={t("create")}
         defaults={{
           leadId: leadId ?? null,
+          leadTitle: leadLabel,
           ...(fromTemplate
             ? {
                 title: fromTemplate.title,
@@ -86,21 +101,11 @@ export default async function NewQuotePage({
           notes: fromTemplate?.notes ?? ctx.company.quoteNotes,
           exclusions: fromTemplate?.exclusions ?? ctx.company.quoteExclusions,
           terms: fromTemplate?.terms ?? ctx.company.quoteTerms,
+          scope: fromTemplate?.scope ?? ctx.company.quoteScope,
           termsDocumentId: defaultTerms,
           validUntil: validUntil.toISOString().slice(0, 10),
         }}
       />
     </div>
   );
-}
-
-/** Prisma hands back a Decimal; the form fields are text. */
-function toOptions(items: { id: string; name: string; description: string | null; unit: string | null; unitPrice: unknown }[]) {
-  return items.map((item) => ({
-    id: item.id,
-    name: item.name,
-    description: item.description,
-    unit: item.unit,
-    unitPrice: String(Number(item.unitPrice)),
-  }));
 }

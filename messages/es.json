@@ -313,9 +313,15 @@
     },
     "form": {
       "details": "Datos",
+      "quoteType": "Tipo de cotización",
+      "quoteTypeLabelRequired": "Ponle un nombre a este tipo",
       "title": "Título",
+      "projectAddress": "Dirección del proyecto",
+      "scope": "Alcance",
       "lead": "Lead asociado",
       "noLead": "Sin lead",
+      "searchLeads": "Buscar leads…",
+      "noLeadsFound": "No se encontraron leads",
       "validUntil": "Válida hasta",
       "lines": "Líneas",
       "addLine": "Agregar línea",
@@ -331,6 +337,12 @@
       "terms": "Términos y condiciones",
       "totals": "Totales",
       "globalDiscount": "Descuento global ({currency})",
+      "globalDiscountPercent": "Descuento global (%)",
+      "discountType": {
+        "label": "Tipo de descuento",
+        "FIXED": "Monto fijo",
+        "PERCENT": "Porcentaje"
+      },
       "taxRate": "Impuesto (%)",
       "currency": "Moneda",
       "currencyDiffers": "La empresa trabaja en {currency}; esta cotización no se sumará con las demás en los reportes.",
@@ -338,6 +350,10 @@
       "discount": "Descuento",
       "tax": "Impuesto",
       "total": "Total",
+      "confirmSentEditTitle": "Esta cotización ya fue enviada",
+      "confirmSentEditBody": "¿Seguro que quieres modificarla?",
+      "confirmSentEditNote": "Esto no cambia el estado Sent de la cotización — el enlace del cliente siempre muestra la última versión.",
+      "confirmSentEditConfirm": "Guardar cambios",
       "preview": "Vista previa",
       "titleTooShort": "Ponle un título a la cotización",
       "describeItem": "Describe el ítem",
@@ -357,11 +373,29 @@
       "sections": "Secciones",
       "addSection": "Agregar sección",
       "removeSection": "Quitar sección {position}",
+      "dragSectionHandle": "Reordenar sección",
+      "moveSectionUp": "Subir sección {position}",
+      "moveSectionDown": "Bajar sección {position}",
       "sectionTitle": "Título de la sección",
       "sectionTitlePlaceholder": "Plaster on concrete block wall",
       "sectionBody": "Alcance del trabajo",
       "sectionBodyPlaceholder": "Qué incluye, materiales, preparación, plazos…",
       "sectionAmount": "Precio ({currency})",
+      "discountValue": "Descuento ({currency})",
+      "discountValuePercent": "Descuento (%)",
+      "sectionFinalPrice": "Precio final",
+      "sectionKind": {
+        "label": "Tipo de sección",
+        "INDEPENDENT": "Siempre incluida",
+        "OPTIONAL": "Opcional — el cliente puede agregarla",
+        "MULTIPLE_CHOICE": "Una entre varias opciones"
+      },
+      "sectionSelectedByDefault": "Preseleccionada para el cliente",
+      "bundleDiscount": {
+        "title": "Descuento por varias secciones opcionales",
+        "hint": "Se aplica cuando el cliente tiene esta cantidad de secciones opcionales seleccionadas — además del descuento propio de cada sección.",
+        "threshold": "A partir de esta cantidad de secciones"
+      },
       "sectionTitleRequired": "Ponle un título a la sección",
       "atLeastOneSection": "Agrega al menos una sección",
       "intro": "Texto de introducción",
@@ -374,6 +408,8 @@
       "noTaxHint": "Esta cotización no lleva impuesto.",
       "fromCatalogue": "Desde la lista de precios",
       "pickFromCatalogue": "Elegir un ítem…",
+      "searchCatalogue": "Buscar en la lista de precios…",
+      "noCatalogueFound": "No se encontraron ítems",
       "catalogueHint": "Se copia a la cotización; cambiar la lista después no la altera."
     },
     "actions": {
@@ -708,7 +744,9 @@
     "picker": {
       "label": "Partir desde",
       "blank": "Una cotización en blanco",
-      "hint": "Solo rellena los campos; todo sigue siendo tuyo para cambiar."
+      "hint": "Solo rellena los campos; todo sigue siendo tuyo para cambiar.",
+      "search": "Buscar plantillas…",
+      "empty": "No se encontraron plantillas"
     }
   },
   "settings": {
@@ -795,7 +833,17 @@
       "quoteNotes": "Notas",
       "quoteExclusions": "Exclusiones",
       "quoteTerms": "Términos y condiciones",
-      "quoteTermsHint": "Los términos breves que se imprimen en la cotización misma. El documento completo va en Términos y condiciones, como PDF adjunto al lado."
+      "quoteTermsHint": "Los términos breves que se imprimen en la cotización misma. El documento completo va en Términos y condiciones, como PDF adjunto al lado.",
+      "quoteScope": "Alcance",
+      "quoteScopeHint": "Qué tipo de trabajo es, en general. Se copia a cada cotización nueva y a una plantilla guardada desde ella, igual que la introducción."
+    },
+    "quoteTypes": {
+      "title": "Tipos de cotización",
+      "subtitle": "Cómo llamar a lo que envías — una cotización nueva empieza en el primero. Aparece en la cotización del cliente como \"Presupuesto para: Renovación de cocina\".",
+      "empty": "Todavía no hay tipos de cotización.",
+      "label": "Nombre",
+      "add": "Agregar",
+      "remove": "Quitar {label}"
     },
     "acceptance": {
       "title": "Aceptación",
@@ -843,7 +891,8 @@
       "reviewNotFound": "No encontramos esa reseña.",
       "unknownCurrency": "Elige una moneda de la lista",
       "unknownFormatLocale": "Elige un formato de números y fechas de la lista",
-      "unknownTimezone": "Elige una zona horaria de la lista"
+      "unknownTimezone": "Elige una zona horaria de la lista",
+      "quoteTypeExists": "Ese tipo ya existe"
     },
     "groups": {
       "company": "Tu empresa",
@@ -1043,6 +1092,7 @@
       "statementRequired": "Debes marcar la casilla para aceptar",
       "signatureRequired": "Firma para poder aceptar",
       "notAvailable": "Esta cotización ya no admite respuesta.",
+      "nothingSelected": "Selecciona al menos un ítem antes de aceptar.",
       "messageEmpty": "Escribe algo antes de enviar",
       "messageTooLong": "El mensaje es demasiado largo"
     },
@@ -1056,6 +1106,8 @@
     "mobile": "Móvil",
     "phone": "Teléfono",
     "gstNumber": "GST",
+    "projectAddress": "Dirección del proyecto",
+    "scope": "Alcance",
     "attachments": "Archivos adjuntos",
     "notes": "Notas",
     "exclusions": "Exclusiones",
@@ -1068,6 +1120,11 @@
     "totalPlain": "Total {currency}",
     "subtotal": "Subtotal",
     "discount": "Descuento",
+    "bundleDiscount": "Descuento por paquete",
+    "sectionDiscountOff": "{amount} de descuento",
+    "bundleProgress": "Selecciona {count, plural, one {# ítem opcional más} other {# ítems opcionales más}} para desbloquear {amount} de descuento",
+    "bundleUnlocked": "Descuento de {amount} desbloqueado",
+    "chooseOne": "Elige una de las siguientes opciones",
     "questionsAndAnswers": "Preguntas y respuestas"
   },
   "notifications": {

@@ -313,9 +313,15 @@
     },
     "form": {
       "details": "Details",
+      "quoteType": "Quote type",
+      "quoteTypeLabelRequired": "Give this type a name",
       "title": "Title",
+      "projectAddress": "Project address",
+      "scope": "Scope",
       "lead": "Linked lead",
       "noLead": "No lead",
+      "searchLeads": "Search leads…",
+      "noLeadsFound": "No leads found",
       "validUntil": "Valid until",
       "lines": "Line items",
       "addLine": "Add line",
@@ -331,6 +337,12 @@
       "terms": "Terms and conditions",
       "totals": "Totals",
       "globalDiscount": "Overall discount ({currency})",
+      "globalDiscountPercent": "Overall discount (%)",
+      "discountType": {
+        "label": "Discount type",
+        "FIXED": "Fixed amount",
+        "PERCENT": "Percentage"
+      },
       "taxRate": "Tax rate (%)",
       "currency": "Currency",
       "currencyDiffers": "The company works in {currency}; this quote won't be counted with the rest in the reports.",
@@ -338,6 +350,10 @@
       "discount": "Discount",
       "tax": "Tax",
       "total": "Total",
+      "confirmSentEditTitle": "This quote has already been sent",
+      "confirmSentEditBody": "Are you sure you want to change it?",
+      "confirmSentEditNote": "This won't change the quote's Sent status — the customer's link always shows the latest version.",
+      "confirmSentEditConfirm": "Save changes",
       "preview": "Preview",
       "titleTooShort": "Give the quote a title",
       "describeItem": "Describe the item",
@@ -357,11 +373,29 @@
       "sections": "Sections",
       "addSection": "Add section",
       "removeSection": "Remove section {position}",
+      "dragSectionHandle": "Reorder section",
+      "moveSectionUp": "Move section {position} up",
+      "moveSectionDown": "Move section {position} down",
       "sectionTitle": "Section title",
       "sectionTitlePlaceholder": "Plaster on concrete block wall",
       "sectionBody": "Scope of work",
       "sectionBodyPlaceholder": "What's included, materials, preparation, timing…",
       "sectionAmount": "Price ({currency})",
+      "discountValue": "Discount ({currency})",
+      "discountValuePercent": "Discount (%)",
+      "sectionFinalPrice": "Final price",
+      "sectionKind": {
+        "label": "Section type",
+        "INDEPENDENT": "Always included",
+        "OPTIONAL": "Optional — the customer can add it",
+        "MULTIPLE_CHOICE": "One of several choices"
+      },
+      "sectionSelectedByDefault": "Pre-selected for the customer",
+      "bundleDiscount": {
+        "title": "Discount for several optional sections",
+        "hint": "Applies once the customer has this many optional sections selected — on top of each section's own discount.",
+        "threshold": "From this many sections"
+      },
       "sectionTitleRequired": "Give the section a title",
       "atLeastOneSection": "Add at least one section",
       "intro": "Introduction",
@@ -374,6 +408,8 @@
       "noTaxHint": "This quote carries no tax.",
       "fromCatalogue": "From the price list",
       "pickFromCatalogue": "Pick an item…",
+      "searchCatalogue": "Search the price list…",
+      "noCatalogueFound": "No items found",
       "catalogueHint": "It's copied onto the quote; changing the list later won't alter it."
     },
     "actions": {
@@ -708,7 +744,9 @@
     "picker": {
       "label": "Start from",
       "blank": "A blank quote",
-      "hint": "It only fills the fields in; everything is still yours to change."
+      "hint": "It only fills the fields in; everything is still yours to change.",
+      "search": "Search templates…",
+      "empty": "No templates found"
     }
   },
   "settings": {
@@ -795,7 +833,17 @@
       "quoteNotes": "Notes",
       "quoteExclusions": "Exclusions",
       "quoteTerms": "Terms and conditions",
-      "quoteTermsHint": "The short terms printed on the quote itself. The full document goes in Terms and conditions, as a PDF attached beside it."
+      "quoteTermsHint": "The short terms printed on the quote itself. The full document goes in Terms and conditions, as a PDF attached beside it.",
+      "quoteScope": "Scope",
+      "quoteScopeHint": "What kind of work this is, in general. Copied onto every new quote and into a template saved from one, same as the introduction."
+    },
+    "quoteTypes": {
+      "title": "Quote types",
+      "subtitle": "What to call what you send — a new quote starts on the first one. Shows on the customer's quote as \"Estimate For: Kitchen renovation\".",
+      "empty": "No quote types yet.",
+      "label": "Name",
+      "add": "Add",
+      "remove": "Remove {label}"
     },
     "acceptance": {
       "title": "Acceptance",
@@ -843,7 +891,8 @@
       "reviewNotFound": "We couldn't find that review.",
       "unknownCurrency": "Pick a currency from the list",
       "unknownFormatLocale": "Pick a number and date format from the list",
-      "unknownTimezone": "Pick a timezone from the list"
+      "unknownTimezone": "Pick a timezone from the list",
+      "quoteTypeExists": "That type already exists"
     },
     "groups": {
       "company": "Your company",
@@ -1043,6 +1092,7 @@
       "statementRequired": "Tick the box to accept",
       "signatureRequired": "Sign to accept",
       "notAvailable": "This quote is no longer open for a response.",
+      "nothingSelected": "Select at least one item before accepting.",
       "messageEmpty": "Write something before sending",
       "messageTooLong": "That message is too long"
     },
@@ -1056,6 +1106,8 @@
     "mobile": "Mobile",
     "phone": "Phone",
     "gstNumber": "GST number",
+    "projectAddress": "Project address",
+    "scope": "Scope",
     "attachments": "Attachments",
     "notes": "Notes",
     "exclusions": "Exclusions",
@@ -1068,6 +1120,11 @@
     "totalPlain": "Total {currency}",
     "subtotal": "Subtotal",
     "discount": "Discount",
+    "bundleDiscount": "Bundle discount",
+    "sectionDiscountOff": "{amount} off",
+    "bundleProgress": "Select {count, plural, one {# more optional item} other {# more optional items}} to unlock {amount} off",
+    "bundleUnlocked": "{amount} discount unlocked",
+    "chooseOne": "Choose one of the following",
     "questionsAndAnswers": "Questions & answers"
   },
   "notifications": {

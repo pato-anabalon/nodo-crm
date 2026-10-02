@@ -41,6 +41,7 @@ export type CompanyContext = {
     quoteNotes: string | null;
     quoteExclusions: string | null;
     quoteTerms: string | null;
+    quoteScope: string | null;
     quotePrefix: string;
     quoteValidityDays: number;
     /** Closes every email the company sends. */
@@ -124,6 +125,7 @@ export const getCompanyContext = cache(async (): Promise<CompanyContext | null> 
       quoteNotes: company.quoteNotes,
       quoteExclusions: company.quoteExclusions,
       quoteTerms: company.quoteTerms,
+      quoteScope: company.quoteScope,
       quotePrefix: company.quotePrefix,
       quoteValidityDays: company.quoteValidityDays,
       quoteFooter: company.quoteFooter,

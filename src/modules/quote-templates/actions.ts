@@ -11,6 +11,7 @@ import {
   createTemplateFromQuote,
   deleteQuoteTemplate,
   renameQuoteTemplate,
+  searchActiveQuoteTemplates,
   setQuoteTemplateActive,
 } from "./service";
 
@@ -109,4 +110,14 @@ export async function duplicateQuoteAction(quoteId: string): Promise<void> {
 
   revalidatePath("/quotes");
   redirect(`/quotes/${created.id}`);
+}
+
+/** Backs the "start from a template" combobox on a new quote — same gate the
+ * page itself already requires to be on screen at all. */
+export async function searchTemplatesAction(
+  query: string,
+): Promise<Array<{ id: string; label: string; description: string | null }>> {
+  const ctx = await requirePermission("quotes.create");
+  const items = await searchActiveQuoteTemplates(ctx, query);
+  return items.map((item) => ({ id: item.id, label: item.name, description: item.description }));
 }

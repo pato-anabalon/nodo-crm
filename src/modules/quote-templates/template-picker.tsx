@@ -3,8 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Card, CardContent } from "@/components/ui/card";
-import { NativeSelect } from "@/components/ui/native-select";
 import { Label } from "@/components/ui/label";
+import { SearchCombobox, type SearchComboboxItem } from "@/components/search-combobox";
 
 /**
  * Where a new quote starts from.
@@ -13,25 +13,35 @@ import { Label } from "@/components/ui/label";
  * rewriting the form in place: a half-filled quote silently replaced under
  * somebody's hands is worse than a navigation they can undo with the back
  * button.
+ *
+ * Searches the server instead of holding every template, same reasoning and
+ * the same shared component as the quote form's lead and catalogue pickers.
  */
 export function TemplatePicker({
-  templates,
+  available,
   current,
   leadId,
+  search,
 }: {
-  templates: Array<{ id: string; name: string; description: string | null }>;
-  current: string | null;
+  /** Whether the company has any template to offer at all. */
+  available: boolean;
+  current: { id: string; name: string } | null;
   leadId: string | null;
+  /** A Server Action, passed down rather than imported here directly —
+   * importing a `"use server"` module pulls in everything else it imports
+   * too, which breaks this component's Jest tests even though it's harmless
+   * in a real Next.js build. */
+  search: (query: string) => Promise<SearchComboboxItem[]>;
 }) {
   const t = useTranslations("quoteTemplates.picker");
   const router = useRouter();
 
-  if (templates.length === 0) return null;
+  if (!available) return null;
 
-  function choose(id: string) {
+  function choose(item: SearchComboboxItem | null) {
     const params = new URLSearchParams();
     if (leadId) params.set("leadId", leadId);
-    if (id) params.set("template", id);
+    if (item) params.set("template", item.id);
     router.push(`/quotes/new${params.size > 0 ? `?${params.toString()}` : ""}`);
   }
 
@@ -40,15 +50,15 @@ export function TemplatePicker({
       <CardContent className="flex flex-wrap items-end gap-3 pt-6">
         <div className="min-w-56 flex-1 space-y-1.5">
           <Label htmlFor="template">{t("label")}</Label>
-          <NativeSelect
+          <SearchCombobox
             id="template"
-            value={current ?? ""}
-            onChange={(event) => choose(event.target.value)}
+            value={current ? { id: current.id, label: current.name } : null}
+            onSelect={choose}
+            search={search}
             placeholder={t("blank")}
-            options={templates.map((template) => ({
-              value: template.id,
-              label: template.name,
-            }))}
+            searchPlaceholder={t("search")}
+            emptyLabel={t("empty")}
+            noneLabel={t("blank")}
           />
         </div>
         <p className="text-xs text-muted-foreground">{t("hint")}</p>

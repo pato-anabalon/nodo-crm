@@ -31,14 +31,19 @@ export function ConfirmButton({
   title,
   description,
   confirmLabel,
+  confirmVariant = "destructive",
   onConfirm,
   disabled,
 }: {
   trigger: ReactNode;
   title: string;
   /** What exactly is about to happen, with the subject named. */
-  description: string;
+  description: ReactNode;
   confirmLabel: string;
+  /** `destructive` by default — most callers confirm a delete. A non-destructive
+   * confirmation (e.g. "you're about to edit something already sent") wants a
+   * button that doesn't read as dangerous. */
+  confirmVariant?: "destructive" | "default";
   onConfirm: () => void;
   disabled?: boolean;
 }) {
@@ -62,7 +67,7 @@ export function ConfirmButton({
             <Button variant="outline">{tCommon("cancel")}</Button>
           </DialogClose>
           <Button
-            variant="destructive"
+            variant={confirmVariant}
             onClick={() => {
               setOpen(false);
               onConfirm();

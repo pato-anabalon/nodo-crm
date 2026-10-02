@@ -96,4 +96,41 @@ describe("quoteFormSchema", () => {
     });
     expect(result.success).toBe(false);
   });
+
+  it("rejects an overall percentage discount over 100", () => {
+    const result = quoteFormSchema.safeParse({
+      title: "Cotización",
+      discountType: "PERCENT",
+      discount: 200,
+      sections: [],
+      items: [{ description: "x", quantity: 1, unitPrice: 100, discount: 0 }],
+    });
+    expect(result.success).toBe(false);
+    if (result.success) return;
+    expect(result.error.flatten().fieldErrors.discount).toBeDefined();
+  });
+
+  it("rejects a bundle discount over 100% but allows a flat amount of the same size", () => {
+    const base = {
+      title: "Cotización",
+      sections: [],
+      items: [{ description: "x", quantity: 1, unitPrice: 100, discount: 0 }],
+    };
+
+    expect(
+      quoteFormSchema.safeParse({
+        ...base,
+        optionalDiscountType: "PERCENT",
+        optionalDiscountValue: "200",
+      }).success,
+    ).toBe(false);
+
+    expect(
+      quoteFormSchema.safeParse({
+        ...base,
+        optionalDiscountType: "FIXED",
+        optionalDiscountValue: "200",
+      }).success,
+    ).toBe(true);
+  });
 });

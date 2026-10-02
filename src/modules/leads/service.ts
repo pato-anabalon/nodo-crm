@@ -71,6 +71,16 @@ export async function listLeads(ctx: CompanyContext, filters: LeadFilters) {
   };
 }
 
+/** Just the title, to seed a lead combobox's initial selection — a full
+ * `getLead` would be wasteful when the whole point is not over-fetching. */
+export async function leadTitle(ctx: CompanyContext, id: string): Promise<string | null> {
+  const lead = await ctx.db.lead.findFirst({
+    where: { id, ...visibilityWhere(ctx) },
+    select: { title: true },
+  });
+  return lead?.title ?? null;
+}
+
 export async function getLead(ctx: CompanyContext, id: string) {
   return ctx.db.lead.findFirst({
     where: { id, ...visibilityWhere(ctx) },

@@ -30,6 +30,17 @@ const Toaster = ({ ...props }: ToasterProps) => {
           "--normal-text": "var(--popover-foreground)",
           "--normal-border": "var(--border)",
           "--border-radius": "var(--radius)",
+          // `richColors` is what gives a success toast its own colour at all
+          // — sonner's own green otherwise, a pale wash in light mode and a
+          // near-black one in dark, both of which read as barely distinct
+          // from the page behind them. `--primary`/`--primary-foreground`
+          // are the same pair `BrandTheme` sets per company (and already a
+          // readable pair by construction, see `inkOn`), so this is the
+          // company's own colour rather than a fixed green or a second
+          // brand colour to maintain.
+          "--success-bg": "var(--primary)",
+          "--success-text": "var(--primary-foreground)",
+          "--success-border": "var(--primary)",
         } as React.CSSProperties
       }
       {...props}

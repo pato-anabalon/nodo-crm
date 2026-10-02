@@ -12,6 +12,7 @@ import {
   createLead,
   deleteLead,
   discardLead,
+  listLeads,
   restoreLead,
   updateLead,
 } from "./service";
@@ -152,4 +153,24 @@ export async function restoreLeadAction(id: string): Promise<LeadActionState> {
   revalidatePath("/leads");
   revalidatePath(`/leads/${id}`);
   return {};
+}
+
+/**
+ * Backs the "Linked lead" combobox on a quote.
+ *
+ * `quotes.read` rather than `leads.read`: this runs from the quote form,
+ * which already gated the page on that permission, and a rep who can see a
+ * quote has always been able to see the full list of leads it could link to
+ * — this just stops shipping all of them to search the first twenty.
+ */
+export async function searchLeadsAction(
+  query: string,
+): Promise<Array<{ id: string; label: string }>> {
+  const ctx = await requirePermission("quotes.read");
+  const { items } = await listLeads(ctx, {
+    page: 1,
+    discarded: false,
+    q: query.trim() || undefined,
+  });
+  return items.map((lead) => ({ id: lead.id, label: lead.title }));
 }

@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db/prisma";
 import { ActivityType, PricingMode, Prisma, QuoteStatus, type TaxDisplayMode } from "@/generated/prisma/client";
 import { isRichTextEmpty, sanitizeRichText } from "@/lib/rich-text";
 import { calculateQuoteTotals } from "./totals";
+import { resolveSelectedSectionAmounts, type BundleDiscount } from "./section-selection";
 import { canTransition, isQuoteEditable, sectionStatuses } from "./constants";
 import { nextLeadStatus, type LeadEvent } from "@/modules/leads/constants";
 import type { QuoteFilters, QuoteFormValues } from "./schemas";
@@ -152,13 +153,49 @@ async function nextQuoteNumber(tx: Prisma.TransactionClient, companyId: string):
 const MAX_NUMBER_RETRIES = 5;
 
 /** The mode decides where the sum comes from; the rest of the maths is identical. */
+/** `null` unless all three bundle fields are actually set — any one missing
+ * means "not configured", not "configured with a gap". */
+export function bundleFrom(values: {
+  optionalDiscountThreshold?: number | null;
+  optionalDiscountType?: string | null;
+  optionalDiscountValue?: number | null;
+}): BundleDiscount | null {
+  if (
+    values.optionalDiscountThreshold == null ||
+    !values.optionalDiscountType ||
+    values.optionalDiscountValue == null
+  ) {
+    return null;
+  }
+  return {
+    threshold: values.optionalDiscountThreshold,
+    type: values.optionalDiscountType as BundleDiscount["type"],
+    value: values.optionalDiscountValue,
+  };
+}
+
 function totalsFor(values: QuoteFormValues, taxDisplayMode: TaxDisplayMode) {
   const bySections = values.pricingMode === PricingMode.SECTIONS;
+  // No selection yet — every OPTIONAL/MULTIPLE_CHOICE section falls back to
+  // its own `selectedByDefault`, which is exactly "how this quote looks the
+  // moment it's sent, before the customer has touched anything". The
+  // selection map stays empty here, so the synthetic id below (the row's
+  // index — these aren't persisted yet, so there's no real id to use) never
+  // actually gets looked up.
+  const sectionsTotal = bySections
+    ? resolveSelectedSectionAmounts(
+        values.sections.map((section, index) => ({ ...section, id: String(index) })),
+        {},
+        bundleFrom(values),
+      ).sectionsTotal
+    : null;
+
   return calculateQuoteTotals({
     items: bySections ? [] : values.items,
-    sections: bySections ? values.sections.map((section) => section.amount) : null,
+    sections: sectionsTotal === null ? null : [sectionsTotal],
     taxRate: values.taxRate,
     discount: values.discount,
+    discountType: values.discountType,
     taxDisplayMode,
   });
 }
@@ -195,9 +232,20 @@ export async function duplicateQuote(
     taxRate: Number(source.taxRate),
     taxDisplayMode: source.taxDisplayMode,
     currency: source.currency,
-    discount: Number(source.discount),
+    // The raw input, not the computed `discount` amount — `createQuote`
+    // recomputes the latter itself from this.
+    discount: Number(source.discountValue),
+    discountType: source.discountType,
+    optionalDiscountThreshold: source.optionalDiscountThreshold,
+    optionalDiscountType: source.optionalDiscountType,
+    optionalDiscountValue:
+      source.optionalDiscountValue === null ? null : Number(source.optionalDiscountValue),
     intro: source.intro,
     exclusions: source.exclusions,
+    scope: source.scope,
+    // Already-frozen text, copied as-is — not re-resolved against the
+    // company's current list, same as currency/taxDisplayMode above it.
+    quoteType: source.quoteType,
     notes: source.notes,
     terms: source.terms,
     termsDocumentId: source.termsDocumentId,
@@ -214,6 +262,11 @@ export async function duplicateQuote(
       title: section.title,
       body: section.body,
       amount: Number(section.amount),
+      discountType: section.discountType,
+      discountValue: Number(section.discountValue),
+      kind: section.kind,
+      selectedByDefault: section.selectedByDefault,
+      // Not `customerSelected` — a duplicate is a new, undecided quote.
     })),
   } as QuoteFormValues);
 }
@@ -228,12 +281,17 @@ export async function createQuote(ctx: CompanyContext, values: QuoteFormValues) 
   // Customer details and company copy are snapshotted on issue: from here on the
   // document no longer depends on the lead or the settings staying the same
   // tomorrow.
-  const lead = values.leadId
-    ? await ctx.db.lead.findFirst({
-        where: { id: values.leadId },
-        select: { contactName: true, contactEmail: true, contactPhone: true, companyName: true },
-      })
-    : null;
+  const [lead, companyQuoteTypes] = await Promise.all([
+    values.leadId
+      ? ctx.db.lead.findFirst({
+          where: { id: values.leadId },
+          select: { contactName: true, contactEmail: true, contactPhone: true, companyName: true },
+        })
+      : null,
+    // Only needed as a fallback when the form sends none — a quote created
+    // before the person has seen the select, or a company with just one type.
+    values.quoteType ? null : ctx.db.companyQuoteType.findMany({ orderBy: { position: "asc" }, take: 1 }),
+  ]);
 
   const validUntil = values.validUntil
     ? new Date(values.validUntil)
@@ -262,8 +320,11 @@ export async function createQuote(ctx: CompanyContext, values: QuoteFormValues) 
             clientEmail: lead?.contactEmail ?? null,
             clientPhone: lead?.contactPhone ?? null,
 
-            intro: values.intro ?? ctx.company.quoteIntro,
-            exclusions: values.exclusions ?? ctx.company.quoteExclusions,
+            intro: cleanBody(values.intro ?? ctx.company.quoteIntro),
+            exclusions: cleanBody(values.exclusions ?? ctx.company.quoteExclusions),
+            scope: cleanBody(values.scope ?? ctx.company.quoteScope),
+            quoteType: values.quoteType ?? companyQuoteTypes?.[0]?.label ?? null,
+            projectAddress: values.projectAddress ?? null,
 
             // Frozen copies of the company settings at the moment of issue.
             taxDisplayMode,
@@ -272,11 +333,19 @@ export async function createQuote(ctx: CompanyContext, values: QuoteFormValues) 
             taxType: ctx.company.defaultTaxType,
             taxRate: values.taxRate,
             discount: totals.discount,
+            // The raw typed input, separate from the computed amount above —
+            // recomputing against a different gross later needs the original
+            // intent ("10%"), not what it happened to produce this time.
+            discountType: values.discountType,
+            discountValue: values.discount,
+            optionalDiscountThreshold: values.optionalDiscountThreshold ?? null,
+            optionalDiscountType: values.optionalDiscountType ?? null,
+            optionalDiscountValue: values.optionalDiscountValue ?? null,
             subtotal: totals.subtotal,
             taxAmount: totals.taxAmount,
             total: totals.total,
-            notes: values.notes ?? ctx.company.quoteNotes,
-            terms: values.terms ?? ctx.company.quoteTerms,
+            notes: cleanBody(values.notes ?? ctx.company.quoteNotes),
+            terms: cleanBody(values.terms ?? ctx.company.quoteTerms),
             validUntil,
             sections: bySections
               ? {
@@ -287,6 +356,10 @@ export async function createQuote(ctx: CompanyContext, values: QuoteFormValues) 
                     // isn't trustworthy, and the customer ends up seeing this HTML.
                     body: cleanBody(section.body),
                     amount: section.amount,
+                    discountType: section.discountType,
+                    discountValue: section.discountValue,
+                    kind: section.kind,
+                    selectedByDefault: section.selectedByDefault,
                   })),
                 }
               : undefined,
@@ -350,16 +423,24 @@ export async function updateQuote(ctx: CompanyContext, id: string, values: Quote
       // link is read live, so a currency correction reaches it same as any
       // other field. It freezes only once the quote is decided.
       currency: values.currency,
-      intro: values.intro ?? null,
-      exclusions: values.exclusions ?? null,
+      intro: cleanBody(values.intro),
+      exclusions: cleanBody(values.exclusions),
+      scope: cleanBody(values.scope),
+      quoteType: values.quoteType ?? null,
+      projectAddress: values.projectAddress ?? null,
       taxRate: values.taxRate,
       taxDisplayMode,
       discount: totals.discount,
+      discountType: values.discountType,
+      discountValue: values.discount,
+      optionalDiscountThreshold: values.optionalDiscountThreshold ?? null,
+      optionalDiscountType: values.optionalDiscountType ?? null,
+      optionalDiscountValue: values.optionalDiscountValue ?? null,
       subtotal: totals.subtotal,
       taxAmount: totals.taxAmount,
       total: totals.total,
-      notes: values.notes ?? null,
-      terms: values.terms ?? null,
+      notes: cleanBody(values.notes),
+      terms: cleanBody(values.terms),
       validUntil: values.validUntil ? new Date(values.validUntil) : null,
       // Every section and line is replaced wholesale: simpler and more
       // predictable than matching up additions, removals and reordering one by one.
@@ -371,6 +452,14 @@ export async function updateQuote(ctx: CompanyContext, id: string, values: Quote
               title: section.title,
               body: cleanBody(section.body),
               amount: section.amount,
+              discountType: section.discountType,
+              discountValue: section.discountValue,
+              kind: section.kind,
+              selectedByDefault: section.selectedByDefault,
+              // `customerSelected` starts over at null (undecided) on every
+              // edit, same as the rest of a section: sections are replaced
+              // wholesale here, not diffed one at a time, so there's no
+              // continuity to preserve a prior pick against in the first place.
             }))
           : [],
       },

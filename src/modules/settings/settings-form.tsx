@@ -11,6 +11,8 @@ import { NativeSelect } from "@/components/ui/native-select";
 import type { Option, OptionGroup } from "@/lib/intl/options";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import { RichTextEditor } from "@/components/rich-text-editor";
+import { toRichTextHtml } from "@/lib/rich-text";
 import type { SettingsState } from "./actions";
 
 /**
@@ -127,6 +129,46 @@ export function AreaField({
     <Field label={label} name={name} hint={hint}>
       <Textarea id={name} name={name} rows={rows} defaultValue={defaultValue ?? ""} />
     </Field>
+  );
+}
+
+/**
+ * Same field shape as `AreaField`, a formatted editor instead of plain text.
+ *
+ * Not built on `Field`: that wraps the label in a `htmlFor` pointing at an
+ * `id` the editor doesn't have — `RichTextEditor` is several elements, not
+ * one input, and takes the label as `ariaLabel` instead (same as the quote
+ * form's section body, the one place this editor already shipped).
+ */
+export function RichAreaField({
+  label,
+  name,
+  hint,
+  defaultValue,
+  placeholder,
+}: {
+  label: string;
+  name: string;
+  hint?: string;
+  defaultValue?: string | null;
+  placeholder?: string;
+}) {
+  const error = useFieldError(name);
+
+  return (
+    <div className="space-y-2">
+      <Label>{label}</Label>
+      {/* Content written before this editor existed was plain text; this is
+          what makes it still read as paragraphs instead of one run-on line. */}
+      <RichTextEditor
+        name={name}
+        defaultValue={toRichTextHtml(defaultValue)}
+        ariaLabel={label}
+        placeholder={placeholder}
+      />
+      {hint ? <p className="text-xs text-muted-foreground">{hint}</p> : null}
+      {error ? <p className="text-sm text-destructive">{error}</p> : null}
+    </div>
   );
 }
 

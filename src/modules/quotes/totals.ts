@@ -14,6 +14,14 @@ export type QuoteLineInput = {
 };
 
 /**
+ * Percentage of the gross, or a flat amount on the same basis as the prices.
+ * Shared by the overall discount and by each section's own — a literal copy
+ * of the Prisma enum, same reason `TaxDisplayMode` below is one: this file
+ * stays free of Prisma so it can be tested without a database.
+ */
+export type DiscountType = "PERCENT" | "FIXED";
+
+/**
  * How tax relates to what was typed in and to the total that comes out.
  *
  * A local, string-identical copy of the Prisma enum: this file stays free of
@@ -41,8 +49,12 @@ export type QuoteTotalsInput = {
   sections?: number[] | null;
   /** GST, VAT or another tax, as a percentage. Ignored under `NO_TAX`. */
   taxRate?: number;
-  /** Overall discount, as an amount, on the same basis as the prices. */
+  /** Overall discount, raw: a percentage if `discountType` is `PERCENT`, a
+   * flat amount on the same basis as the prices if `FIXED`. */
   discount?: number;
+  /** Defaults to `"FIXED"` — every quote already in the database is one, and
+   * this is what keeps their totals computing exactly as they always have. */
+  discountType?: DiscountType;
   /**
    * One of four modes, defaulting to the one that used to be `false`:
    * prices exclude tax, and it's added on top into the total shown.
@@ -82,6 +94,30 @@ export function lineTotal(line: QuoteLineInput): number {
   return round2(gross * (1 - discount / 100));
 }
 
+export type SectionDiscountInput = {
+  amount: number;
+  discountType?: DiscountType;
+  discountValue?: number;
+};
+
+/**
+ * One section's price after its own discount.
+ *
+ * The building block every section-aware total runs through — the form's
+ * live preview, the server save, the portal's live recalculation and the
+ * acceptance-time freeze all call this the same way, so a section's "final
+ * price" can never mean something different in one of them than in another.
+ */
+export function sectionNetAmount(input: SectionDiscountInput): number {
+  const amount = Math.max(0, input.amount || 0);
+  const value = Math.max(0, input.discountValue || 0);
+  const discount =
+    input.discountType === "PERCENT"
+      ? round2(amount * (clampPercent(value) / 100))
+      : round2(Math.min(value, amount));
+  return round2(amount - discount);
+}
+
 /**
  * The pricing mode only decides where the sum comes from; discount, tax and
  * total all run the same path.
@@ -110,7 +146,13 @@ export function calculateQuoteTotals(input: QuoteTotalsInput): QuoteTotals {
   const factor = 1 + taxRate / 100;
 
   // A discount larger than what was quoted would leave a negative total.
-  const discountInput = round2(Math.min(Math.max(0, input.discount ?? 0), gross));
+  // `PERCENT` is of the gross itself; `FIXED` (the default, and every row
+  // already in the database) is unchanged from before this branch existed.
+  const discountType = input.discountType ?? "FIXED";
+  const discountInput =
+    discountType === "PERCENT"
+      ? round2(gross * (clampPercent(input.discount ?? 0) / 100))
+      : round2(Math.min(Math.max(0, input.discount ?? 0), gross));
 
   if (mode === "TAX_INCLUSIVE") {
     const total = round2(gross - discountInput);

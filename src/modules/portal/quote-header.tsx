@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { CompanyLogo } from "@/components/company-logo";
+import { RichText } from "@/components/rich-text";
 import { formatDate, formatDateTime, formatQuoteNumber } from "@/lib/format";
 import type { Locale } from "@/i18n/config";
 
@@ -35,14 +36,23 @@ export type HeaderQuote = {
   sentAt: Date | null;
   createdAt: Date;
   validUntil: Date | null;
+  title: string;
+  /** Already the frozen label text — "Estimate For", or whatever the company
+   * called it — never a key to translate. Null for a quote created before
+   * the company had any type configured. */
+  quoteType: string | null;
+  projectAddress: string | null;
+  scope: string | null;
 };
 
 /**
  * The document header: who is quoting, to whom, and the document's details.
  *
- * It's what turns the page into a formal quote rather than an email with figures:
- * without the phone number or the GST number, the customer has no way to call, and
- * no way to check who they're about to hire.
+ * FROM and FOR come first, as a matched pair of brand-tinted cards — the
+ * parties to the document, read before the document itself. Everything about
+ * *this* document — its type, its title, its number and dates, where the work
+ * happens, what it covers — sits together below a divider, as one subject
+ * rather than a third box competing with the two parties for space.
  */
 export async function QuoteHeader({
   company,
@@ -64,13 +74,48 @@ export async function QuoteHeader({
 
   return (
     <header className="space-y-8 border-b pb-8">
-      <CompanyLogo name={company.name} logoUrl={company.logoUrl} size="xl" />
+      {/* The document's own identity sits opposite the logo — who issued it
+          on one side, which one this is on the other — rather than buried
+          below the title where it used to compete with the scope of work
+          for attention. */}
+      <div className="flex flex-wrap items-start justify-between gap-6">
+        <CompanyLogo name={company.name} logoUrl={company.logoUrl} size="xl" />
 
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <Column label={t("from")}>
-          {issuer?.name ? <Strong>{issuer.name}</Strong> : null}
+        <div className="text-right">
+          <Field label={t("quoteNumber")}>
+            <Line>{reference}</Line>
+          </Field>
+          <Field label={t("date")}>
+            <Line>
+              {formatDate(
+                quote.sentAt ?? quote.createdAt,
+                company.formatLocale,
+                company.timezone,
+              )}
+            </Line>
+          </Field>
+          {quote.validUntil ? (
+            <Field label={t("expiryDate")}>
+              <Line>
+                {formatDateTime(
+                  quote.validUntil,
+                  company.formatLocale,
+                  company.timezone,
+                )}
+              </Line>
+            </Field>
+          ) : null}
+        </div>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <PartyCard label={t("from")}>
+          {issuer?.name ? (
+            <Line>
+              <Strong>{issuer.name}</Strong>
+            </Line>
+          ) : null}
           {issuer?.jobTitle ? <Line>{issuer.jobTitle}</Line> : null}
-          {issuer?.phone ? <Line>{issuer.phone}</Line> : null}
 
           <div className="pt-2">
             <Strong>{company.legalName ?? company.name}</Strong>
@@ -89,12 +134,18 @@ export async function QuoteHeader({
               <Line>{company.taxId}</Line>
             </Field>
           ) : null}
-        </Column>
+        </PartyCard>
 
-        <Column label={t("for")}>
-          {client.companyName ? <Strong>{client.companyName}</Strong> : null}
+        <PartyCard label={t("for")}>
+          {/* Whichever identifies the customer goes bold — most quotes have no
+              client company, so the person's own name carries it instead. */}
+          {client.companyName ? (
+            <Strong>{client.companyName}</Strong>
+          ) : client.name ? (
+            <Strong>{client.name}</Strong>
+          ) : null}
 
-          {client.name ? (
+          {client.name && client.companyName ? (
             <Field label={t("to")}>
               <Line>{client.name}</Line>
             </Field>
@@ -111,42 +162,72 @@ export async function QuoteHeader({
               <Line>{client.phone}</Line>
             </Field>
           ) : null}
-        </Column>
+        </PartyCard>
+      </div>
 
-        <Column label={t("quoteNumber")}>
-          <Line>{reference}</Line>
+      <hr className="border-t" />
 
-          <Field label={t("date")}>
-            <Line>
-              {formatDate(quote.sentAt ?? quote.createdAt, company.formatLocale, company.timezone)}
-            </Line>
-          </Field>
+      <div className="flex flex-wrap items-start justify-between gap-6">
+        <div className="min-w-0 flex-1 space-y-3">
+          <h1 className="text-3xl font-semibold tracking-tight text-balance">
+            {quote.quoteType ? `${quote.quoteType}: ` : ""}
+            {quote.title}
+          </h1>
 
-          {quote.validUntil ? (
-            <Field label={t("expiryDate")}>
-              <Line>
-                {formatDateTime(quote.validUntil, company.formatLocale, company.timezone)}
-              </Line>
+          {quote.projectAddress ? (
+            <Field label={t("projectAddress")}>
+              <Line>{quote.projectAddress}</Line>
             </Field>
           ) : null}
 
-          {printButton ? <div className="pt-3">{printButton}</div> : null}
-        </Column>
+          {quote.scope ? (
+            <div className="space-y-1 pt-1">
+              <Label>{t("scope")}</Label>
+              <RichText
+                className="text-sm text-muted-foreground"
+                html={quote.scope}
+              />
+            </div>
+          ) : null}
+        </div>
+
+        {printButton ? <div className="shrink-0">{printButton}</div> : null}
       </div>
     </header>
   );
 }
 
-function Column({ label, children }: { label: string; children: React.ReactNode }) {
+/**
+ * FROM and FOR, matched: rounded corners and a wash of the company's own
+ * brand colour (`--primary`, not a solid fill — the text underneath still
+ * has to read). `Label` inside keeps `--brand-ink`, the colour chosen to work
+ * as text rather than as a fill — the two tokens solve different problems and
+ * neither substitutes for the other.
+ */
+function PartyCard({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
-    <div className="space-y-1 border-l pl-4 text-sm">
-      <Label>{label}</Label>
+    <div className="space-y-1 rounded-xl border border-primary/20 bg-muted-foreground/5 p-4 text-sm">
+      <Label>
+        <Strong>{label}</Strong>
+      </Label>
       {children}
     </div>
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="pt-2">
       <Label>{label}</Label>

@@ -15,8 +15,15 @@ export function CompanyLogo({
   // `xl` is 140px (35 × the 0.25rem spacing step), and only the customer's own
   // quote uses it: there the logo is the company introducing itself, not a chip
   // identifying which tenant the sidebar belongs to.
-  const dimensions = { sm: "size-7", md: "size-9", lg: "size-14", xl: "size-35" }[size];
-  const text = { sm: "text-xs", md: "text-sm", lg: "text-lg", xl: "text-4xl" }[size];
+  const dimensions = {
+    sm: "size-7",
+    md: "size-9",
+    lg: "size-14",
+    xl: "size-35",
+  }[size];
+  const text = { sm: "text-xs", md: "text-sm", lg: "text-lg", xl: "text-4xl" }[
+    size
+  ];
 
   if (logoUrl) {
     return (

@@ -11,13 +11,15 @@ import {
 import type { Prisma } from "@/generated/prisma/client";
 import type { Locale } from "@/i18n/config";
 import { formatDateTime, formatMoney } from "@/lib/format";
-import { taxIsInTotal } from "@/modules/quotes/totals";
+import { sectionNetAmount, taxIsInTotal } from "@/modules/quotes/totals";
+import { bundleFrom } from "@/modules/quotes/service";
 import { RichText } from "@/components/rich-text";
 import { PrintButton } from "./print-button";
 import { PresenceHeartbeat } from "./heartbeat";
 import { QuoteHeader } from "./quote-header";
 import { CompanyReviews } from "./company-reviews";
 import { AcceptPanel } from "./accept-panel";
+import { SectionSelector } from "./section-selector";
 import { Celebrate } from "@/components/celebrate";
 import { acceptedKey } from "@/lib/celebrate";
 import { MessageThread } from "./message-thread";
@@ -31,6 +33,7 @@ import {
   acceptQuoteAction,
   declineQuoteAction,
   sendClientMessageAction,
+  updateSectionSelectionAction,
 } from "./actions";
 
 type DocumentCompany = Prisma.CompanyGetPayload<{
@@ -79,6 +82,33 @@ export async function QuoteDocument({
   const open = live && canClientRespond(quote.status);
   const taxLabel = quote.taxType;
   const showTaxBreakdown = taxIsInTotal(quote.taxDisplayMode);
+  const hasSelectableSections =
+    quote.pricingMode === PricingMode.SECTIONS &&
+    quote.sections.some((section) => section.kind !== "INDEPENDENT");
+
+  // Rendered once and placed differently below: right after the work when
+  // there's nothing interactive between it and the totals, or after
+  // `SectionSelector`'s own totals when there is — see the two call sites.
+  const attachmentsBlock =
+    quote.attachments.length > 0 ? (
+      <div className="space-y-2">
+        <p className="text-[11px] font-medium tracking-wide text-[var(--brand-ink)] uppercase">
+          {t("attachments")}
+        </p>
+        <ul className="flex flex-wrap gap-2">
+          {quote.attachments.map((attachment) => (
+            <li key={attachment.id}>
+              <Button asChild variant="outline" size="sm">
+                <a href={attachment.url} target="_blank" rel="noopener noreferrer">
+                  <FileText className="size-4" />
+                  {attachment.name}
+                </a>
+              </Button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ) : null;
 
   // `TAX_INCLUSIVE` and `TAX_EXCLUSIVE_INCLUSIVE_TOTAL` read identically here —
   // Subtotal, tax, Total including it — because the difference between them is
@@ -165,34 +195,64 @@ export async function QuoteDocument({
           ) : null}
 
           <section className="space-y-6">
-            <h1 className="text-3xl font-semibold tracking-tight text-balance">
-              {quote.title}
-            </h1>
+            <RichText className="text-sm text-muted-foreground" html={quote.intro} />
 
-            {quote.intro ? (
-              <p className="text-sm whitespace-pre-wrap text-muted-foreground">
-                {quote.intro}
-              </p>
-            ) : null}
-
-            {quote.pricingMode === PricingMode.SECTIONS ? (
+            {quote.pricingMode === PricingMode.SECTIONS && !hasSelectableSections ? (
               <div className="space-y-8 border-t pt-6">
-                {quote.sections.map((section) => (
-                  <article key={section.id} className="space-y-3">
-                    <div className="flex flex-wrap items-baseline justify-between gap-4">
-                      <h2 className="text-lg font-semibold">{section.title}</h2>
-                      <span className="text-lg tabular-nums">
-                        {money(Number(section.amount))}
-                      </span>
-                    </div>
-                    <RichText
-                      className="text-sm text-muted-foreground"
-                      html={section.body}
-                    />
-                  </article>
-                ))}
+                {quote.sections.map((section) => {
+                  const gross = Number(section.amount);
+                  const discountValue = Number(section.discountValue);
+                  const net = sectionNetAmount({
+                    amount: gross,
+                    discountType: section.discountType,
+                    discountValue,
+                  });
+                  const discountLabel =
+                    section.discountType === "PERCENT"
+                      ? t("sectionDiscountOff", { amount: `${discountValue}%` })
+                      : t("sectionDiscountOff", { amount: money(discountValue) });
+
+                  return (
+                    <article
+                      key={section.id}
+                      className="grid grid-cols-[80%_20%] overflow-hidden rounded-2xl border border-[color-mix(in_oklab,var(--primary)_60%,transparent)]"
+                    >
+                      <div className="min-w-0 space-y-3 p-4">
+                        <h2 className="text-lg font-semibold">{section.title}</h2>
+                        <RichText
+                          className="text-sm text-muted-foreground"
+                          html={section.body}
+                        />
+                      </div>
+                      {/* Stretches to the row's full height by default — the
+                          description beside it decides how tall the row is,
+                          and this column fills exactly that. No rounding of
+                          its own: `overflow-hidden` on the article clips it to
+                          the shared outer radius instead. */}
+                      <div className="flex items-center justify-end bg-muted-foreground/10 px-3">
+                        {discountValue > 0 ? (
+                          <div className="flex flex-col items-end gap-0.5 py-2">
+                            <span className="text-xs text-muted-foreground line-through">
+                              {money(gross)}
+                            </span>
+                            <span className="text-xs font-semibold text-primary">
+                              {discountLabel}
+                            </span>
+                            <span className="text-lg font-medium tabular-nums">
+                              {money(net)}
+                            </span>
+                          </div>
+                        ) : (
+                          <span className="text-lg font-medium tabular-nums">
+                            {money(net)}
+                          </span>
+                        )}
+                      </div>
+                    </article>
+                  );
+                })}
               </div>
-            ) : (
+            ) : quote.pricingMode !== PricingMode.SECTIONS ? (
               <div className="space-y-3 border-t pt-6">
                 {quote.items.map((item) => (
                   <div
@@ -212,58 +272,75 @@ export async function QuoteDocument({
                   </div>
                 ))}
               </div>
-            )}
-
-            {quote.attachments.length > 0 ? (
-              <div className="space-y-2">
-                <p className="text-[11px] font-medium tracking-wide text-[var(--brand-ink)] uppercase">
-                  {t("attachments")}
-                </p>
-                <ul className="flex flex-wrap gap-2">
-                  {quote.attachments.map((attachment) => (
-                    <li key={attachment.id}>
-                      <Button asChild variant="outline" size="sm">
-                        <a
-                          href={attachment.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <FileText className="size-4" />
-                          {attachment.name}
-                        </a>
-                      </Button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
             ) : null}
 
-            {/* Tax only breaks out as its own line when it's part of the total
-                below it — otherwise a figure sits there that the total doesn't
-                reflect, which reads as a mistake rather than a choice. */}
-            <dl className="ml-auto max-w-xs space-y-1.5 border-t pt-4 text-sm">
-              <Row
-                label={t("subtotal")}
-                value={money(Number(quote.subtotal))}
+            {hasSelectableSections ? (
+              <SectionSelector
+                sections={quote.sections.map((section) => ({
+                  id: section.id,
+                  title: section.title,
+                  body: section.body ?? "",
+                  amount: Number(section.amount),
+                  discountType: section.discountType,
+                  discountValue: Number(section.discountValue),
+                  kind: section.kind,
+                  selectedByDefault: section.selectedByDefault,
+                  customerSelected: section.customerSelected,
+                }))}
+                bundle={bundleFrom({
+                  optionalDiscountThreshold: quote.optionalDiscountThreshold,
+                  optionalDiscountType: quote.optionalDiscountType,
+                  optionalDiscountValue:
+                    quote.optionalDiscountValue === null
+                      ? null
+                      : Number(quote.optionalDiscountValue),
+                })}
+                currency={quote.currency}
+                formatLocale={company.formatLocale}
+                taxRate={Number(quote.taxRate)}
+                discount={Number(quote.discountValue)}
+                discountType={quote.discountType}
+                taxDisplayMode={quote.taxDisplayMode}
+                taxLabel={taxLabel}
+                open={open}
+                updateSelection={
+                  token ? updateSectionSelectionAction.bind(null, token) : null
+                }
               />
-              {Number(quote.discount) > 0 ? (
+            ) : null}
+
+            {!hasSelectableSections ? attachmentsBlock : null}
+
+            {!hasSelectableSections ? (
+              // Tax only breaks out as its own line when it's part of the total
+              // below it — otherwise a figure sits there that the total doesn't
+              // reflect, which reads as a mistake rather than a choice.
+              <dl className="ml-auto max-w-xs space-y-1.5 border-t pt-4 text-sm">
                 <Row
-                  label={t("discount")}
-                  value={`− ${money(Number(quote.discount))}`}
+                  label={t("subtotal")}
+                  value={money(Number(quote.subtotal))}
                 />
-              ) : null}
-              {showTaxBreakdown ? (
-                <Row
-                  label={`${taxLabel} ${Number(quote.taxRate)}%`}
-                  value={money(Number(quote.taxAmount))}
-                />
-              ) : null}
-              <div className="flex items-baseline justify-between gap-3 border-t pt-2 text-base font-semibold">
-                <dt>{totalLabel()}</dt>
-                <dd className="tabular-nums">{money(Number(quote.total))}</dd>
-              </div>
-            </dl>
+                {Number(quote.discount) > 0 ? (
+                  <Row
+                    label={t("discount")}
+                    value={`− ${money(Number(quote.discount))}`}
+                  />
+                ) : null}
+                {showTaxBreakdown ? (
+                  <Row
+                    label={`${taxLabel} ${Number(quote.taxRate)}%`}
+                    value={money(Number(quote.taxAmount))}
+                  />
+                ) : null}
+                <div className="flex items-baseline justify-between gap-3 border-t pt-2 text-base font-semibold">
+                  <dt>{totalLabel()}</dt>
+                  <dd className="tabular-nums">{money(Number(quote.total))}</dd>
+                </div>
+              </dl>
+            ) : null}
           </section>
+
+          {hasSelectableSections ? attachmentsBlock : null}
 
           {quote.notes ||
           quote.exclusions ||
@@ -271,11 +348,15 @@ export async function QuoteDocument({
           quote.termsDocument ? (
             <section className="space-y-6 border-t pt-8 text-sm">
               {quote.notes ? (
-                <Block title={t("notes")}>{quote.notes}</Block>
+                <Block title={t("notes")}>
+                  <RichText html={quote.notes} />
+                </Block>
               ) : null}
 
               {quote.terms ? (
-                <Block title={t("termsOfQuotation")}>{quote.terms}</Block>
+                <Block title={t("termsOfQuotation")}>
+                  <RichText html={quote.terms} />
+                </Block>
               ) : null}
 
               {quote.termsDocument ? (
@@ -292,7 +373,9 @@ export async function QuoteDocument({
               ) : null}
 
               {quote.exclusions ? (
-                <Block title={t("exclusions")}>{quote.exclusions}</Block>
+                <Block title={t("exclusions")}>
+                  <RichText html={quote.exclusions} />
+                </Block>
               ) : null}
             </section>
           ) : null}
@@ -370,8 +453,12 @@ export async function QuoteDocument({
       </div>
 
       {/* The total and the button follow the view: without this, the customer has
-          to get past the legal exclusions to find how to accept. */}
-      {open ? (
+          to get past the legal exclusions to find how to accept.
+
+          When the quote has a selectable section, `SectionSelector` renders
+          this same bar itself, driven by its own live state — rendering it
+          again here would double it up. */}
+      {open && !hasSelectableSections ? (
         <div className="no-print fixed inset-x-0 bottom-0 border-t bg-background/95 backdrop-blur">
           <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-3 px-6 py-3">
             <span className="text-sm">
@@ -400,7 +487,11 @@ function Block({
   return (
     <div className="space-y-1.5">
       <h2 className="font-semibold">{title}</h2>
-      <p className="whitespace-pre-wrap text-muted-foreground">{children}</p>
+      {/* No `<p>` here any more: its content is a `RichText`, which already
+          renders its own paragraphs, lists and headings — nesting those
+          inside a `<p>` is invalid HTML and would have the browser close
+          it early. */}
+      <div className="text-muted-foreground">{children}</div>
     </div>
   );
 }

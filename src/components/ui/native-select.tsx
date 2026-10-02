@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { ChevronDown } from "lucide-react"
 import { cn } from "cn"
 import type { Option, OptionGroup } from "@/lib/intl/options"
 
@@ -71,38 +72,58 @@ function NativeSelect({
   useSelectionSurvivesReset(ref, props.value ?? props.defaultValue)
 
   return (
-    <select
-      data-slot="native-select"
-      ref={(element) => {
-        ref.current = element
-        if (typeof externalRef === "function") externalRef(element)
-        else if (externalRef) externalRef.current = element
-      }}
-      className={cn(
-        "flex h-9 w-full rounded-md border border-input bg-field px-3 text-sm shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
-        "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
-        "aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40",
-        className
-      )}
-      {...props}
-    >
-      {placeholder !== undefined ? <option value="">{placeholder}</option> : null}
-      {options?.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-      {groups?.map((group) => (
-        <optgroup key={group.label} label={group.label}>
-          {group.options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </optgroup>
-      ))}
-      {children}
-    </select>
+    // `relative` is this element's own doing, same reason as `Button`: a
+    // positioned child needs somewhere to hang (see the hidden-controls note
+    // in CLAUDE.md). The chevron below is that child.
+    <div className="relative">
+      <select
+        data-slot="native-select"
+        ref={(element) => {
+          ref.current = element
+          if (typeof externalRef === "function") externalRef(element)
+          else if (externalRef) externalRef.current = element
+        }}
+        className={cn(
+          // `appearance-none` drops the browser's own caret, which sat flush
+          // against the border with no padding able to move it — on macOS in
+          // particular, it's drawn as OS chrome that ignores `padding-right`
+          // entirely. `pr-8` makes room for the one drawn below instead.
+          "flex h-9 w-full appearance-none rounded-md border border-input bg-field pl-3 pr-8 text-sm shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
+          "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
+          "aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40",
+          className
+        )}
+        {...props}
+      >
+        {placeholder !== undefined ? <option value="">{placeholder}</option> : null}
+        {options?.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+        {groups?.map((group) => (
+          <optgroup key={group.label} label={group.label}>
+            {group.options.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </optgroup>
+        ))}
+        {children}
+      </select>
+      {/* Drawn ourselves rather than left to the browser: a real element
+          picks up `text-muted-foreground`'s theme value, which a background
+          image on the select couldn't — `currentColor` inside one doesn't
+          resolve to the control's own colour the way it would inline. */}
+      <ChevronDown
+        aria-hidden
+        className={cn(
+          "pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted-foreground",
+          props.disabled && "opacity-50"
+        )}
+      />
+    </div>
   )
 }
 

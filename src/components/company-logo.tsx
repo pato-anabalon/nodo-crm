@@ -26,15 +26,29 @@ export function CompanyLogo({
   ];
 
   if (logoUrl) {
+    // A company's logo is as likely to be dark text on a transparent
+    // background as light — fine on the white page it was designed against,
+    // close to invisible on the dark sidebar or the customer's quote in dark
+    // mode. Rather than asking for a second upload, or inverting colours
+    // generically (which would also invert ones that didn't need it), the
+    // logo always sits on its own small light card: the one background it's
+    // guaranteed to read against, in either theme.
+    const padding = { sm: "p-1", md: "p-1", lg: "p-2", xl: "p-4" }[size];
     return (
-      // Served from the blob store, or from whatever host a company pointed at
-      // before uploads existed — so the host isn't known ahead of time.
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={logoUrl}
-        alt={name}
-        className={cn(dimensions, "rounded-md object-contain", className)}
-      />
+      <div
+        className={cn(
+          dimensions,
+          padding,
+          "flex items-center justify-center rounded-md border border-black/10 bg-white",
+          className,
+        )}
+      >
+        {/* Served from the blob store, or from whatever host a company
+            pointed at before uploads existed — so the host isn't known
+            ahead of time. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={logoUrl} alt={name} className="size-full object-contain" />
+      </div>
     );
   }
 

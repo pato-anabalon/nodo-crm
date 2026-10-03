@@ -253,7 +253,12 @@ function Label({ children }: { children: React.ReactNode }) {
 }
 
 function Strong({ children }: { children: React.ReactNode }) {
-  return <p className="font-semibold break-words">{children}</p>;
+  // `<strong>`, not `<p>`: this is nested inside `Label` and `Line` in a
+  // couple of spots (the party card's own title, the issuer's name), and a
+  // `<p>` can't legally contain another one — the browser silently closes
+  // the outer one, which is what a hydration mismatch here would mean.
+  // `block` keeps it taking its own line, same as before.
+  return <strong className="block font-semibold break-words">{children}</strong>;
 }
 
 function Line({ children }: { children: React.ReactNode }) {

@@ -33,6 +33,13 @@ export const leadFormSchema = z.object({
   contactEmail: optionalEmail,
   contactPhone: optionalText,
   companyName: optionalText,
+  // Set only by picking an existing contact in the "existing contact"
+  // combobox — never typed. The four fields above stay the lead's own
+  // snapshot either way, which is what lets them diverge from the contact's
+  // own record afterwards without that being a bug. `clientCompanyId` isn't
+  // a field here at all: it's inherited server-side from whichever contact
+  // this resolves to, in `resolveLeadLinks`.
+  contactId: optionalText,
   ownerId: optionalText,
   lostReason: optionalText,
 });
@@ -79,6 +86,7 @@ export function leadFormDataToInput(formData: FormData): Record<string, unknown>
     contactEmail: get("contactEmail"),
     contactPhone: get("contactPhone"),
     companyName: get("companyName"),
+    contactId: get("contactId"),
     ownerId: get("ownerId"),
     lostReason: get("lostReason"),
   };

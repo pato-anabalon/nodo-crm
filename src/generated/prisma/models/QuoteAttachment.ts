@@ -16,6 +16,11 @@ import type * as Prisma from "../internal/prismaNamespace"
  * Model QuoteAttachment
  * *
  *  * Files that travel with the quote: drawings, spec sheets, markups.
+ *  *
+ *  * `sectionId` is optional — null for a file attached to the quote as a whole,
+ *  * set for one attached to a single section. Both share this table rather than
+ *  * two, because they're the same thing with a narrower scope: same upload
+ *  * pipeline, same size/type checks, same storage path.
  */
 export type QuoteAttachmentModel = runtime.Types.Result.DefaultSelection<Prisma.$QuoteAttachmentPayload>
 
@@ -40,6 +45,7 @@ export type QuoteAttachmentSumAggregateOutputType = {
 export type QuoteAttachmentMinAggregateOutputType = {
   id: string | null
   quoteId: string | null
+  sectionId: string | null
   name: string | null
   url: string | null
   pathname: string | null
@@ -53,6 +59,7 @@ export type QuoteAttachmentMinAggregateOutputType = {
 export type QuoteAttachmentMaxAggregateOutputType = {
   id: string | null
   quoteId: string | null
+  sectionId: string | null
   name: string | null
   url: string | null
   pathname: string | null
@@ -66,6 +73,7 @@ export type QuoteAttachmentMaxAggregateOutputType = {
 export type QuoteAttachmentCountAggregateOutputType = {
   id: number
   quoteId: number
+  sectionId: number
   name: number
   url: number
   pathname: number
@@ -91,6 +99,7 @@ export type QuoteAttachmentSumAggregateInputType = {
 export type QuoteAttachmentMinAggregateInputType = {
   id?: true
   quoteId?: true
+  sectionId?: true
   name?: true
   url?: true
   pathname?: true
@@ -104,6 +113,7 @@ export type QuoteAttachmentMinAggregateInputType = {
 export type QuoteAttachmentMaxAggregateInputType = {
   id?: true
   quoteId?: true
+  sectionId?: true
   name?: true
   url?: true
   pathname?: true
@@ -117,6 +127,7 @@ export type QuoteAttachmentMaxAggregateInputType = {
 export type QuoteAttachmentCountAggregateInputType = {
   id?: true
   quoteId?: true
+  sectionId?: true
   name?: true
   url?: true
   pathname?: true
@@ -217,6 +228,7 @@ export type QuoteAttachmentGroupByArgs<ExtArgs extends runtime.Types.Extensions.
 export type QuoteAttachmentGroupByOutputType = {
   id: string
   quoteId: string
+  sectionId: string | null
   name: string
   url: string
   pathname: string
@@ -253,6 +265,7 @@ export type QuoteAttachmentWhereInput = {
   NOT?: Prisma.QuoteAttachmentWhereInput | Prisma.QuoteAttachmentWhereInput[]
   id?: Prisma.StringFilter<"QuoteAttachment"> | string
   quoteId?: Prisma.StringFilter<"QuoteAttachment"> | string
+  sectionId?: Prisma.StringNullableFilter<"QuoteAttachment"> | string | null
   name?: Prisma.StringFilter<"QuoteAttachment"> | string
   url?: Prisma.StringFilter<"QuoteAttachment"> | string
   pathname?: Prisma.StringFilter<"QuoteAttachment"> | string
@@ -262,11 +275,13 @@ export type QuoteAttachmentWhereInput = {
   uploadedById?: Prisma.StringNullableFilter<"QuoteAttachment"> | string | null
   createdAt?: Prisma.DateTimeFilter<"QuoteAttachment"> | Date | string
   quote?: Prisma.XOR<Prisma.QuoteScalarRelationFilter, Prisma.QuoteWhereInput>
+  section?: Prisma.XOR<Prisma.QuoteSectionNullableScalarRelationFilter, Prisma.QuoteSectionWhereInput> | null
 }
 
 export type QuoteAttachmentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   quoteId?: Prisma.SortOrder
+  sectionId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   url?: Prisma.SortOrder
   pathname?: Prisma.SortOrder
@@ -276,6 +291,7 @@ export type QuoteAttachmentOrderByWithRelationInput = {
   uploadedById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   quote?: Prisma.QuoteOrderByWithRelationInput
+  section?: Prisma.QuoteSectionOrderByWithRelationInput
 }
 
 export type QuoteAttachmentWhereUniqueInput = Prisma.AtLeast<{
@@ -284,6 +300,7 @@ export type QuoteAttachmentWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.QuoteAttachmentWhereInput[]
   NOT?: Prisma.QuoteAttachmentWhereInput | Prisma.QuoteAttachmentWhereInput[]
   quoteId?: Prisma.StringFilter<"QuoteAttachment"> | string
+  sectionId?: Prisma.StringNullableFilter<"QuoteAttachment"> | string | null
   name?: Prisma.StringFilter<"QuoteAttachment"> | string
   url?: Prisma.StringFilter<"QuoteAttachment"> | string
   pathname?: Prisma.StringFilter<"QuoteAttachment"> | string
@@ -293,11 +310,13 @@ export type QuoteAttachmentWhereUniqueInput = Prisma.AtLeast<{
   uploadedById?: Prisma.StringNullableFilter<"QuoteAttachment"> | string | null
   createdAt?: Prisma.DateTimeFilter<"QuoteAttachment"> | Date | string
   quote?: Prisma.XOR<Prisma.QuoteScalarRelationFilter, Prisma.QuoteWhereInput>
+  section?: Prisma.XOR<Prisma.QuoteSectionNullableScalarRelationFilter, Prisma.QuoteSectionWhereInput> | null
 }, "id">
 
 export type QuoteAttachmentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   quoteId?: Prisma.SortOrder
+  sectionId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   url?: Prisma.SortOrder
   pathname?: Prisma.SortOrder
@@ -319,6 +338,7 @@ export type QuoteAttachmentScalarWhereWithAggregatesInput = {
   NOT?: Prisma.QuoteAttachmentScalarWhereWithAggregatesInput | Prisma.QuoteAttachmentScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"QuoteAttachment"> | string
   quoteId?: Prisma.StringWithAggregatesFilter<"QuoteAttachment"> | string
+  sectionId?: Prisma.StringNullableWithAggregatesFilter<"QuoteAttachment"> | string | null
   name?: Prisma.StringWithAggregatesFilter<"QuoteAttachment"> | string
   url?: Prisma.StringWithAggregatesFilter<"QuoteAttachment"> | string
   pathname?: Prisma.StringWithAggregatesFilter<"QuoteAttachment"> | string
@@ -340,11 +360,13 @@ export type QuoteAttachmentCreateInput = {
   uploadedById?: string | null
   createdAt?: Date | string
   quote: Prisma.QuoteCreateNestedOneWithoutAttachmentsInput
+  section?: Prisma.QuoteSectionCreateNestedOneWithoutAttachmentsInput
 }
 
 export type QuoteAttachmentUncheckedCreateInput = {
   id?: string
   quoteId: string
+  sectionId?: string | null
   name: string
   url: string
   pathname: string
@@ -366,11 +388,13 @@ export type QuoteAttachmentUpdateInput = {
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quote?: Prisma.QuoteUpdateOneRequiredWithoutAttachmentsNestedInput
+  section?: Prisma.QuoteSectionUpdateOneWithoutAttachmentsNestedInput
 }
 
 export type QuoteAttachmentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quoteId?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -384,6 +408,7 @@ export type QuoteAttachmentUncheckedUpdateInput = {
 export type QuoteAttachmentCreateManyInput = {
   id?: string
   quoteId: string
+  sectionId?: string | null
   name: string
   url: string
   pathname: string
@@ -409,6 +434,7 @@ export type QuoteAttachmentUpdateManyMutationInput = {
 export type QuoteAttachmentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quoteId?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -432,6 +458,7 @@ export type QuoteAttachmentOrderByRelationAggregateInput = {
 export type QuoteAttachmentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   quoteId?: Prisma.SortOrder
+  sectionId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   url?: Prisma.SortOrder
   pathname?: Prisma.SortOrder
@@ -450,6 +477,7 @@ export type QuoteAttachmentAvgOrderByAggregateInput = {
 export type QuoteAttachmentMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   quoteId?: Prisma.SortOrder
+  sectionId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   url?: Prisma.SortOrder
   pathname?: Prisma.SortOrder
@@ -463,6 +491,7 @@ export type QuoteAttachmentMaxOrderByAggregateInput = {
 export type QuoteAttachmentMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   quoteId?: Prisma.SortOrder
+  sectionId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   url?: Prisma.SortOrder
   pathname?: Prisma.SortOrder
@@ -520,6 +549,48 @@ export type QuoteAttachmentUncheckedUpdateManyWithoutQuoteNestedInput = {
   deleteMany?: Prisma.QuoteAttachmentScalarWhereInput | Prisma.QuoteAttachmentScalarWhereInput[]
 }
 
+export type QuoteAttachmentCreateNestedManyWithoutSectionInput = {
+  create?: Prisma.XOR<Prisma.QuoteAttachmentCreateWithoutSectionInput, Prisma.QuoteAttachmentUncheckedCreateWithoutSectionInput> | Prisma.QuoteAttachmentCreateWithoutSectionInput[] | Prisma.QuoteAttachmentUncheckedCreateWithoutSectionInput[]
+  connectOrCreate?: Prisma.QuoteAttachmentCreateOrConnectWithoutSectionInput | Prisma.QuoteAttachmentCreateOrConnectWithoutSectionInput[]
+  createMany?: Prisma.QuoteAttachmentCreateManySectionInputEnvelope
+  connect?: Prisma.QuoteAttachmentWhereUniqueInput | Prisma.QuoteAttachmentWhereUniqueInput[]
+}
+
+export type QuoteAttachmentUncheckedCreateNestedManyWithoutSectionInput = {
+  create?: Prisma.XOR<Prisma.QuoteAttachmentCreateWithoutSectionInput, Prisma.QuoteAttachmentUncheckedCreateWithoutSectionInput> | Prisma.QuoteAttachmentCreateWithoutSectionInput[] | Prisma.QuoteAttachmentUncheckedCreateWithoutSectionInput[]
+  connectOrCreate?: Prisma.QuoteAttachmentCreateOrConnectWithoutSectionInput | Prisma.QuoteAttachmentCreateOrConnectWithoutSectionInput[]
+  createMany?: Prisma.QuoteAttachmentCreateManySectionInputEnvelope
+  connect?: Prisma.QuoteAttachmentWhereUniqueInput | Prisma.QuoteAttachmentWhereUniqueInput[]
+}
+
+export type QuoteAttachmentUpdateManyWithoutSectionNestedInput = {
+  create?: Prisma.XOR<Prisma.QuoteAttachmentCreateWithoutSectionInput, Prisma.QuoteAttachmentUncheckedCreateWithoutSectionInput> | Prisma.QuoteAttachmentCreateWithoutSectionInput[] | Prisma.QuoteAttachmentUncheckedCreateWithoutSectionInput[]
+  connectOrCreate?: Prisma.QuoteAttachmentCreateOrConnectWithoutSectionInput | Prisma.QuoteAttachmentCreateOrConnectWithoutSectionInput[]
+  upsert?: Prisma.QuoteAttachmentUpsertWithWhereUniqueWithoutSectionInput | Prisma.QuoteAttachmentUpsertWithWhereUniqueWithoutSectionInput[]
+  createMany?: Prisma.QuoteAttachmentCreateManySectionInputEnvelope
+  set?: Prisma.QuoteAttachmentWhereUniqueInput | Prisma.QuoteAttachmentWhereUniqueInput[]
+  disconnect?: Prisma.QuoteAttachmentWhereUniqueInput | Prisma.QuoteAttachmentWhereUniqueInput[]
+  delete?: Prisma.QuoteAttachmentWhereUniqueInput | Prisma.QuoteAttachmentWhereUniqueInput[]
+  connect?: Prisma.QuoteAttachmentWhereUniqueInput | Prisma.QuoteAttachmentWhereUniqueInput[]
+  update?: Prisma.QuoteAttachmentUpdateWithWhereUniqueWithoutSectionInput | Prisma.QuoteAttachmentUpdateWithWhereUniqueWithoutSectionInput[]
+  updateMany?: Prisma.QuoteAttachmentUpdateManyWithWhereWithoutSectionInput | Prisma.QuoteAttachmentUpdateManyWithWhereWithoutSectionInput[]
+  deleteMany?: Prisma.QuoteAttachmentScalarWhereInput | Prisma.QuoteAttachmentScalarWhereInput[]
+}
+
+export type QuoteAttachmentUncheckedUpdateManyWithoutSectionNestedInput = {
+  create?: Prisma.XOR<Prisma.QuoteAttachmentCreateWithoutSectionInput, Prisma.QuoteAttachmentUncheckedCreateWithoutSectionInput> | Prisma.QuoteAttachmentCreateWithoutSectionInput[] | Prisma.QuoteAttachmentUncheckedCreateWithoutSectionInput[]
+  connectOrCreate?: Prisma.QuoteAttachmentCreateOrConnectWithoutSectionInput | Prisma.QuoteAttachmentCreateOrConnectWithoutSectionInput[]
+  upsert?: Prisma.QuoteAttachmentUpsertWithWhereUniqueWithoutSectionInput | Prisma.QuoteAttachmentUpsertWithWhereUniqueWithoutSectionInput[]
+  createMany?: Prisma.QuoteAttachmentCreateManySectionInputEnvelope
+  set?: Prisma.QuoteAttachmentWhereUniqueInput | Prisma.QuoteAttachmentWhereUniqueInput[]
+  disconnect?: Prisma.QuoteAttachmentWhereUniqueInput | Prisma.QuoteAttachmentWhereUniqueInput[]
+  delete?: Prisma.QuoteAttachmentWhereUniqueInput | Prisma.QuoteAttachmentWhereUniqueInput[]
+  connect?: Prisma.QuoteAttachmentWhereUniqueInput | Prisma.QuoteAttachmentWhereUniqueInput[]
+  update?: Prisma.QuoteAttachmentUpdateWithWhereUniqueWithoutSectionInput | Prisma.QuoteAttachmentUpdateWithWhereUniqueWithoutSectionInput[]
+  updateMany?: Prisma.QuoteAttachmentUpdateManyWithWhereWithoutSectionInput | Prisma.QuoteAttachmentUpdateManyWithWhereWithoutSectionInput[]
+  deleteMany?: Prisma.QuoteAttachmentScalarWhereInput | Prisma.QuoteAttachmentScalarWhereInput[]
+}
+
 export type QuoteAttachmentCreateWithoutQuoteInput = {
   id?: string
   name: string
@@ -530,10 +601,12 @@ export type QuoteAttachmentCreateWithoutQuoteInput = {
   position?: number
   uploadedById?: string | null
   createdAt?: Date | string
+  section?: Prisma.QuoteSectionCreateNestedOneWithoutAttachmentsInput
 }
 
 export type QuoteAttachmentUncheckedCreateWithoutQuoteInput = {
   id?: string
+  sectionId?: string | null
   name: string
   url: string
   pathname: string
@@ -576,6 +649,7 @@ export type QuoteAttachmentScalarWhereInput = {
   NOT?: Prisma.QuoteAttachmentScalarWhereInput | Prisma.QuoteAttachmentScalarWhereInput[]
   id?: Prisma.StringFilter<"QuoteAttachment"> | string
   quoteId?: Prisma.StringFilter<"QuoteAttachment"> | string
+  sectionId?: Prisma.StringNullableFilter<"QuoteAttachment"> | string | null
   name?: Prisma.StringFilter<"QuoteAttachment"> | string
   url?: Prisma.StringFilter<"QuoteAttachment"> | string
   pathname?: Prisma.StringFilter<"QuoteAttachment"> | string
@@ -586,8 +660,61 @@ export type QuoteAttachmentScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"QuoteAttachment"> | Date | string
 }
 
+export type QuoteAttachmentCreateWithoutSectionInput = {
+  id?: string
+  name: string
+  url: string
+  pathname: string
+  contentType?: string
+  size: number
+  position?: number
+  uploadedById?: string | null
+  createdAt?: Date | string
+  quote: Prisma.QuoteCreateNestedOneWithoutAttachmentsInput
+}
+
+export type QuoteAttachmentUncheckedCreateWithoutSectionInput = {
+  id?: string
+  quoteId: string
+  name: string
+  url: string
+  pathname: string
+  contentType?: string
+  size: number
+  position?: number
+  uploadedById?: string | null
+  createdAt?: Date | string
+}
+
+export type QuoteAttachmentCreateOrConnectWithoutSectionInput = {
+  where: Prisma.QuoteAttachmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.QuoteAttachmentCreateWithoutSectionInput, Prisma.QuoteAttachmentUncheckedCreateWithoutSectionInput>
+}
+
+export type QuoteAttachmentCreateManySectionInputEnvelope = {
+  data: Prisma.QuoteAttachmentCreateManySectionInput | Prisma.QuoteAttachmentCreateManySectionInput[]
+  skipDuplicates?: boolean
+}
+
+export type QuoteAttachmentUpsertWithWhereUniqueWithoutSectionInput = {
+  where: Prisma.QuoteAttachmentWhereUniqueInput
+  update: Prisma.XOR<Prisma.QuoteAttachmentUpdateWithoutSectionInput, Prisma.QuoteAttachmentUncheckedUpdateWithoutSectionInput>
+  create: Prisma.XOR<Prisma.QuoteAttachmentCreateWithoutSectionInput, Prisma.QuoteAttachmentUncheckedCreateWithoutSectionInput>
+}
+
+export type QuoteAttachmentUpdateWithWhereUniqueWithoutSectionInput = {
+  where: Prisma.QuoteAttachmentWhereUniqueInput
+  data: Prisma.XOR<Prisma.QuoteAttachmentUpdateWithoutSectionInput, Prisma.QuoteAttachmentUncheckedUpdateWithoutSectionInput>
+}
+
+export type QuoteAttachmentUpdateManyWithWhereWithoutSectionInput = {
+  where: Prisma.QuoteAttachmentScalarWhereInput
+  data: Prisma.XOR<Prisma.QuoteAttachmentUpdateManyMutationInput, Prisma.QuoteAttachmentUncheckedUpdateManyWithoutSectionInput>
+}
+
 export type QuoteAttachmentCreateManyQuoteInput = {
   id?: string
+  sectionId?: string | null
   name: string
   url: string
   pathname: string
@@ -608,10 +735,12 @@ export type QuoteAttachmentUpdateWithoutQuoteInput = {
   position?: Prisma.IntFieldUpdateOperationsInput | number
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  section?: Prisma.QuoteSectionUpdateOneWithoutAttachmentsNestedInput
 }
 
 export type QuoteAttachmentUncheckedUpdateWithoutQuoteInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -624,6 +753,59 @@ export type QuoteAttachmentUncheckedUpdateWithoutQuoteInput = {
 
 export type QuoteAttachmentUncheckedUpdateManyWithoutQuoteInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  sectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  pathname?: Prisma.StringFieldUpdateOperationsInput | string
+  contentType?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type QuoteAttachmentCreateManySectionInput = {
+  id?: string
+  quoteId: string
+  name: string
+  url: string
+  pathname: string
+  contentType?: string
+  size: number
+  position?: number
+  uploadedById?: string | null
+  createdAt?: Date | string
+}
+
+export type QuoteAttachmentUpdateWithoutSectionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  pathname?: Prisma.StringFieldUpdateOperationsInput | string
+  contentType?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  quote?: Prisma.QuoteUpdateOneRequiredWithoutAttachmentsNestedInput
+}
+
+export type QuoteAttachmentUncheckedUpdateWithoutSectionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  pathname?: Prisma.StringFieldUpdateOperationsInput | string
+  contentType?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type QuoteAttachmentUncheckedUpdateManyWithoutSectionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -639,6 +821,7 @@ export type QuoteAttachmentUncheckedUpdateManyWithoutQuoteInput = {
 export type QuoteAttachmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   quoteId?: boolean
+  sectionId?: boolean
   name?: boolean
   url?: boolean
   pathname?: boolean
@@ -648,11 +831,13 @@ export type QuoteAttachmentSelect<ExtArgs extends runtime.Types.Extensions.Inter
   uploadedById?: boolean
   createdAt?: boolean
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
+  section?: boolean | Prisma.QuoteAttachment$sectionArgs<ExtArgs>
 }, ExtArgs["result"]["quoteAttachment"]>
 
 export type QuoteAttachmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   quoteId?: boolean
+  sectionId?: boolean
   name?: boolean
   url?: boolean
   pathname?: boolean
@@ -662,11 +847,13 @@ export type QuoteAttachmentSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   uploadedById?: boolean
   createdAt?: boolean
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
+  section?: boolean | Prisma.QuoteAttachment$sectionArgs<ExtArgs>
 }, ExtArgs["result"]["quoteAttachment"]>
 
 export type QuoteAttachmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   quoteId?: boolean
+  sectionId?: boolean
   name?: boolean
   url?: boolean
   pathname?: boolean
@@ -676,11 +863,13 @@ export type QuoteAttachmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   uploadedById?: boolean
   createdAt?: boolean
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
+  section?: boolean | Prisma.QuoteAttachment$sectionArgs<ExtArgs>
 }, ExtArgs["result"]["quoteAttachment"]>
 
 export type QuoteAttachmentSelectScalar = {
   id?: boolean
   quoteId?: boolean
+  sectionId?: boolean
   name?: boolean
   url?: boolean
   pathname?: boolean
@@ -691,25 +880,30 @@ export type QuoteAttachmentSelectScalar = {
   createdAt?: boolean
 }
 
-export type QuoteAttachmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "quoteId" | "name" | "url" | "pathname" | "contentType" | "size" | "position" | "uploadedById" | "createdAt", ExtArgs["result"]["quoteAttachment"]>
+export type QuoteAttachmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "quoteId" | "sectionId" | "name" | "url" | "pathname" | "contentType" | "size" | "position" | "uploadedById" | "createdAt", ExtArgs["result"]["quoteAttachment"]>
 export type QuoteAttachmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
+  section?: boolean | Prisma.QuoteAttachment$sectionArgs<ExtArgs>
 }
 export type QuoteAttachmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
+  section?: boolean | Prisma.QuoteAttachment$sectionArgs<ExtArgs>
 }
 export type QuoteAttachmentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
+  section?: boolean | Prisma.QuoteAttachment$sectionArgs<ExtArgs>
 }
 
 export type $QuoteAttachmentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "QuoteAttachment"
   objects: {
     quote: Prisma.$QuotePayload<ExtArgs>
+    section: Prisma.$QuoteSectionPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     quoteId: string
+    sectionId: string | null
     name: string
     url: string
     pathname: string
@@ -1113,6 +1307,7 @@ readonly fields: QuoteAttachmentFieldRefs;
 export interface Prisma__QuoteAttachmentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   quote<T extends Prisma.QuoteDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuoteDefaultArgs<ExtArgs>>): Prisma.Prisma__QuoteClient<runtime.Types.Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  section<T extends Prisma.QuoteAttachment$sectionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuoteAttachment$sectionArgs<ExtArgs>>): Prisma.Prisma__QuoteSectionClient<runtime.Types.Result.GetResult<Prisma.$QuoteSectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1144,6 +1339,7 @@ export interface Prisma__QuoteAttachmentClient<T, Null = never, ExtArgs extends 
 export interface QuoteAttachmentFieldRefs {
   readonly id: Prisma.FieldRef<"QuoteAttachment", 'String'>
   readonly quoteId: Prisma.FieldRef<"QuoteAttachment", 'String'>
+  readonly sectionId: Prisma.FieldRef<"QuoteAttachment", 'String'>
   readonly name: Prisma.FieldRef<"QuoteAttachment", 'String'>
   readonly url: Prisma.FieldRef<"QuoteAttachment", 'String'>
   readonly pathname: Prisma.FieldRef<"QuoteAttachment", 'String'>
@@ -1550,6 +1746,25 @@ export type QuoteAttachmentDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many QuoteAttachments to delete.
    */
   limit?: number
+}
+
+/**
+ * QuoteAttachment.section
+ */
+export type QuoteAttachment$sectionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QuoteSection
+   */
+  select?: Prisma.QuoteSectionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the QuoteSection
+   */
+  omit?: Prisma.QuoteSectionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuoteSectionInclude<ExtArgs> | null
+  where?: Prisma.QuoteSectionWhereInput
 }
 
 /**

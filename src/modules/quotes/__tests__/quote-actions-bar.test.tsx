@@ -10,6 +10,7 @@ function renderBar(overrides: Partial<Parameters<typeof QuoteActionsBar>[0]> = {
       status={QuoteStatus.DRAFT}
       canSend
       canDecide={false}
+      hasLead
       onSend={async () => ({})}
       onDecide={async () => ({})}
       {...overrides}
@@ -44,5 +45,17 @@ describe("QuoteActionsBar — preview", () => {
       previewHref: "/quotes/quote_1/preview",
     });
     expect(screen.queryByRole("link", { name: "Preview" })).not.toBeInTheDocument();
+  });
+});
+
+describe("QuoteActionsBar — sending without a lead", () => {
+  it("disables Send when no lead is linked", () => {
+    renderBar({ hasLead: false });
+    expect(screen.getByRole("button", { name: "Send to customer" })).toBeDisabled();
+  });
+
+  it("leaves Send enabled once a lead is linked", () => {
+    renderBar({ hasLead: true });
+    expect(screen.getByRole("button", { name: "Send to customer" })).toBeEnabled();
   });
 });

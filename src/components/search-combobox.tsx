@@ -144,7 +144,7 @@ export function SearchCombobox<T extends SearchComboboxItem>({
       </PopoverTrigger>
       <PopoverContent
         align="start"
-        className="w-80 p-0"
+        className="w-[28rem] max-w-[90vw] p-0"
         onOpenAutoFocus={(event) => {
           event.preventDefault();
           searchInputRef.current?.focus();

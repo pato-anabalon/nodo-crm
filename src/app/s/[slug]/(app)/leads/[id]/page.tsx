@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getLead } from "@/modules/leads/service";
 import { listCompanyMembers } from "@/modules/team/service";
 import { LeadForm } from "@/modules/leads/lead-form";
+import { searchContactsAction } from "@/modules/contacts/actions";
 import { LeadNoteForm } from "@/modules/leads/lead-notes";
 import { LeadActionsBar } from "@/modules/leads/lead-actions-bar";
 import { LeadActivityLog } from "@/modules/leads/lead-activity-log";
@@ -143,6 +144,7 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
               canAssign={canAssign}
               submitLabel={tCommon("saveChanges")}
               currency={ctx.company.currency}
+              searchContacts={searchContactsAction}
               defaults={{
                 title: lead.title,
                 description: lead.description,
@@ -154,6 +156,10 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
                 contactEmail: lead.contactEmail,
                 contactPhone: lead.contactPhone,
                 companyName: lead.companyName,
+                contactId: lead.contactId,
+                contactLabel: lead.contact
+                  ? [lead.contact.firstName, lead.contact.lastName].filter(Boolean).join(" ")
+                  : null,
                 ownerId: lead.ownerId,
                 lostReason: lead.lostReason,
               }}

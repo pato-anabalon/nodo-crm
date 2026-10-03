@@ -29,6 +29,14 @@ export const quoteItemSchema = z.object({
 
 export const quoteSectionSchema = z
   .object({
+    // The client-side id the form already mints for drag reordering and React
+    // keys — never minted here, only read back. `updateQuote` matches it
+    // against this quote's own existing sections to update one in place
+    // instead of replacing it, which is what lets a section's attachments
+    // survive editing the quote around it. An id that doesn't match anything
+    // of this quote's own (a brand new row, a stray value) is simply treated
+    // as new.
+    id: z.string().trim().optional(),
     title: z.string().trim().min(2, "quotes.form.sectionTitleRequired").max(200),
     body: z
       .string()

@@ -5,6 +5,7 @@ import { requirePermission } from "@/lib/auth/session";
 import { Button } from "@/components/ui/button";
 import { LeadForm } from "@/modules/leads/lead-form";
 import { createLeadAction } from "@/modules/leads/actions";
+import { searchContactsAction } from "@/modules/contacts/actions";
 import { listCompanyMembers } from "@/modules/team/service";
 
 export async function generateMetadata() {
@@ -36,6 +37,7 @@ export default async function NuevoLeadPage() {
         canAssign={canAssign}
         submitLabel={t("create")}
         currency={ctx.company.currency}
+        searchContacts={searchContactsAction}
         defaults={{ ownerId: ctx.user.id }}
       />
     </div>

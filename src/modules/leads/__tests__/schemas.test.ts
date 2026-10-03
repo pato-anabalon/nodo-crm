@@ -53,6 +53,21 @@ describe("leadFormSchema", () => {
     const result = leadFormSchema.safeParse({ title: "Oportunidad válida", estimatedValue: -5 });
     expect(result.success).toBe(false);
   });
+
+  it("carries the picked contact's id through, and reads it back as null when nothing was picked", () => {
+    const picked = leadFormDataToInput(
+      formDataFrom({ title: "Oportunidad válida", contactId: "contact_1" }),
+    );
+    expect(leadFormSchema.parse(picked).contactId).toBe("contact_1");
+
+    // The combobox always posts its hidden field, empty string when nothing
+    // is picked — the same shape `SearchCombobox` renders for every nullable
+    // field it backs.
+    const unpicked = leadFormDataToInput(
+      formDataFrom({ title: "Oportunidad válida", contactId: "" }),
+    );
+    expect(leadFormSchema.parse(unpicked).contactId).toBeNull();
+  });
 });
 
 describe("leadFiltersSchema", () => {

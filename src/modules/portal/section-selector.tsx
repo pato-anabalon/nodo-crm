@@ -25,6 +25,7 @@ import {
 } from "@/modules/quotes/section-selection";
 import { usePortalAnimatedTotal } from "./animated-total";
 import type { SectionSelectionResult } from "./actions";
+import { SectionAttachments, type SectionAttachmentRow } from "./section-attachments";
 
 export type SelectorSection = {
   id: string;
@@ -36,6 +37,7 @@ export type SelectorSection = {
   kind: SectionKind;
   selectedByDefault: boolean;
   customerSelected: boolean | null;
+  attachments: SectionAttachmentRow[];
 };
 
 type SectionSelectorProps = {
@@ -226,6 +228,7 @@ export function SectionSelector({
                     <h2 className="text-lg font-semibold">{section.title}</h2>
                   )}
                   <RichText className="text-sm text-muted-foreground" html={section.body} />
+                  <SectionAttachments attachments={section.attachments} />
                 </div>
                 {/* Stretches to the row's full height by default — the
                     title and description beside it decide how tall the row

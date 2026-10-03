@@ -277,6 +277,7 @@ export type QuoteSectionWhereInput = {
   selectedByDefault?: Prisma.BoolFilter<"QuoteSection"> | boolean
   customerSelected?: Prisma.BoolNullableFilter<"QuoteSection"> | boolean | null
   quote?: Prisma.XOR<Prisma.QuoteScalarRelationFilter, Prisma.QuoteWhereInput>
+  attachments?: Prisma.QuoteAttachmentListRelationFilter
 }
 
 export type QuoteSectionOrderByWithRelationInput = {
@@ -292,6 +293,7 @@ export type QuoteSectionOrderByWithRelationInput = {
   selectedByDefault?: Prisma.SortOrder
   customerSelected?: Prisma.SortOrderInput | Prisma.SortOrder
   quote?: Prisma.QuoteOrderByWithRelationInput
+  attachments?: Prisma.QuoteAttachmentOrderByRelationAggregateInput
 }
 
 export type QuoteSectionWhereUniqueInput = Prisma.AtLeast<{
@@ -310,6 +312,7 @@ export type QuoteSectionWhereUniqueInput = Prisma.AtLeast<{
   selectedByDefault?: Prisma.BoolFilter<"QuoteSection"> | boolean
   customerSelected?: Prisma.BoolNullableFilter<"QuoteSection"> | boolean | null
   quote?: Prisma.XOR<Prisma.QuoteScalarRelationFilter, Prisma.QuoteWhereInput>
+  attachments?: Prisma.QuoteAttachmentListRelationFilter
 }, "id">
 
 export type QuoteSectionOrderByWithAggregationInput = {
@@ -360,6 +363,7 @@ export type QuoteSectionCreateInput = {
   selectedByDefault?: boolean
   customerSelected?: boolean | null
   quote: Prisma.QuoteCreateNestedOneWithoutSectionsInput
+  attachments?: Prisma.QuoteAttachmentCreateNestedManyWithoutSectionInput
 }
 
 export type QuoteSectionUncheckedCreateInput = {
@@ -374,6 +378,7 @@ export type QuoteSectionUncheckedCreateInput = {
   kind?: $Enums.QuoteSectionKind
   selectedByDefault?: boolean
   customerSelected?: boolean | null
+  attachments?: Prisma.QuoteAttachmentUncheckedCreateNestedManyWithoutSectionInput
 }
 
 export type QuoteSectionUpdateInput = {
@@ -388,6 +393,7 @@ export type QuoteSectionUpdateInput = {
   selectedByDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   customerSelected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   quote?: Prisma.QuoteUpdateOneRequiredWithoutSectionsNestedInput
+  attachments?: Prisma.QuoteAttachmentUpdateManyWithoutSectionNestedInput
 }
 
 export type QuoteSectionUncheckedUpdateInput = {
@@ -402,6 +408,7 @@ export type QuoteSectionUncheckedUpdateInput = {
   kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
   selectedByDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   customerSelected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  attachments?: Prisma.QuoteAttachmentUncheckedUpdateManyWithoutSectionNestedInput
 }
 
 export type QuoteSectionCreateManyInput = {
@@ -509,6 +516,11 @@ export type QuoteSectionSumOrderByAggregateInput = {
   discountValue?: Prisma.SortOrder
 }
 
+export type QuoteSectionNullableScalarRelationFilter = {
+  is?: Prisma.QuoteSectionWhereInput | null
+  isNot?: Prisma.QuoteSectionWhereInput | null
+}
+
 export type QuoteSectionCreateNestedManyWithoutQuoteInput = {
   create?: Prisma.XOR<Prisma.QuoteSectionCreateWithoutQuoteInput, Prisma.QuoteSectionUncheckedCreateWithoutQuoteInput> | Prisma.QuoteSectionCreateWithoutQuoteInput[] | Prisma.QuoteSectionUncheckedCreateWithoutQuoteInput[]
   connectOrCreate?: Prisma.QuoteSectionCreateOrConnectWithoutQuoteInput | Prisma.QuoteSectionCreateOrConnectWithoutQuoteInput[]
@@ -555,6 +567,22 @@ export type NullableBoolFieldUpdateOperationsInput = {
   set?: boolean | null
 }
 
+export type QuoteSectionCreateNestedOneWithoutAttachmentsInput = {
+  create?: Prisma.XOR<Prisma.QuoteSectionCreateWithoutAttachmentsInput, Prisma.QuoteSectionUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.QuoteSectionCreateOrConnectWithoutAttachmentsInput
+  connect?: Prisma.QuoteSectionWhereUniqueInput
+}
+
+export type QuoteSectionUpdateOneWithoutAttachmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.QuoteSectionCreateWithoutAttachmentsInput, Prisma.QuoteSectionUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.QuoteSectionCreateOrConnectWithoutAttachmentsInput
+  upsert?: Prisma.QuoteSectionUpsertWithoutAttachmentsInput
+  disconnect?: Prisma.QuoteSectionWhereInput | boolean
+  delete?: Prisma.QuoteSectionWhereInput | boolean
+  connect?: Prisma.QuoteSectionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.QuoteSectionUpdateToOneWithWhereWithoutAttachmentsInput, Prisma.QuoteSectionUpdateWithoutAttachmentsInput>, Prisma.QuoteSectionUncheckedUpdateWithoutAttachmentsInput>
+}
+
 export type QuoteSectionCreateWithoutQuoteInput = {
   id?: string
   position: number
@@ -566,6 +594,7 @@ export type QuoteSectionCreateWithoutQuoteInput = {
   kind?: $Enums.QuoteSectionKind
   selectedByDefault?: boolean
   customerSelected?: boolean | null
+  attachments?: Prisma.QuoteAttachmentCreateNestedManyWithoutSectionInput
 }
 
 export type QuoteSectionUncheckedCreateWithoutQuoteInput = {
@@ -579,6 +608,7 @@ export type QuoteSectionUncheckedCreateWithoutQuoteInput = {
   kind?: $Enums.QuoteSectionKind
   selectedByDefault?: boolean
   customerSelected?: boolean | null
+  attachments?: Prisma.QuoteAttachmentUncheckedCreateNestedManyWithoutSectionInput
 }
 
 export type QuoteSectionCreateOrConnectWithoutQuoteInput = {
@@ -624,6 +654,78 @@ export type QuoteSectionScalarWhereInput = {
   customerSelected?: Prisma.BoolNullableFilter<"QuoteSection"> | boolean | null
 }
 
+export type QuoteSectionCreateWithoutAttachmentsInput = {
+  id?: string
+  position: number
+  title: string
+  body?: string | null
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: $Enums.QuoteSectionKind
+  selectedByDefault?: boolean
+  customerSelected?: boolean | null
+  quote: Prisma.QuoteCreateNestedOneWithoutSectionsInput
+}
+
+export type QuoteSectionUncheckedCreateWithoutAttachmentsInput = {
+  id?: string
+  quoteId: string
+  position: number
+  title: string
+  body?: string | null
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: $Enums.QuoteSectionKind
+  selectedByDefault?: boolean
+  customerSelected?: boolean | null
+}
+
+export type QuoteSectionCreateOrConnectWithoutAttachmentsInput = {
+  where: Prisma.QuoteSectionWhereUniqueInput
+  create: Prisma.XOR<Prisma.QuoteSectionCreateWithoutAttachmentsInput, Prisma.QuoteSectionUncheckedCreateWithoutAttachmentsInput>
+}
+
+export type QuoteSectionUpsertWithoutAttachmentsInput = {
+  update: Prisma.XOR<Prisma.QuoteSectionUpdateWithoutAttachmentsInput, Prisma.QuoteSectionUncheckedUpdateWithoutAttachmentsInput>
+  create: Prisma.XOR<Prisma.QuoteSectionCreateWithoutAttachmentsInput, Prisma.QuoteSectionUncheckedCreateWithoutAttachmentsInput>
+  where?: Prisma.QuoteSectionWhereInput
+}
+
+export type QuoteSectionUpdateToOneWithWhereWithoutAttachmentsInput = {
+  where?: Prisma.QuoteSectionWhereInput
+  data: Prisma.XOR<Prisma.QuoteSectionUpdateWithoutAttachmentsInput, Prisma.QuoteSectionUncheckedUpdateWithoutAttachmentsInput>
+}
+
+export type QuoteSectionUpdateWithoutAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
+  selectedByDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  customerSelected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  quote?: Prisma.QuoteUpdateOneRequiredWithoutSectionsNestedInput
+}
+
+export type QuoteSectionUncheckedUpdateWithoutAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteId?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
+  selectedByDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  customerSelected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+}
+
 export type QuoteSectionCreateManyQuoteInput = {
   id?: string
   position: number
@@ -648,6 +750,7 @@ export type QuoteSectionUpdateWithoutQuoteInput = {
   kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
   selectedByDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   customerSelected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  attachments?: Prisma.QuoteAttachmentUpdateManyWithoutSectionNestedInput
 }
 
 export type QuoteSectionUncheckedUpdateWithoutQuoteInput = {
@@ -661,6 +764,7 @@ export type QuoteSectionUncheckedUpdateWithoutQuoteInput = {
   kind?: Prisma.EnumQuoteSectionKindFieldUpdateOperationsInput | $Enums.QuoteSectionKind
   selectedByDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   customerSelected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  attachments?: Prisma.QuoteAttachmentUncheckedUpdateManyWithoutSectionNestedInput
 }
 
 export type QuoteSectionUncheckedUpdateManyWithoutQuoteInput = {
@@ -677,6 +781,35 @@ export type QuoteSectionUncheckedUpdateManyWithoutQuoteInput = {
 }
 
 
+/**
+ * Count Type QuoteSectionCountOutputType
+ */
+
+export type QuoteSectionCountOutputType = {
+  attachments: number
+}
+
+export type QuoteSectionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  attachments?: boolean | QuoteSectionCountOutputTypeCountAttachmentsArgs
+}
+
+/**
+ * QuoteSectionCountOutputType without action
+ */
+export type QuoteSectionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QuoteSectionCountOutputType
+   */
+  select?: Prisma.QuoteSectionCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * QuoteSectionCountOutputType without action
+ */
+export type QuoteSectionCountOutputTypeCountAttachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.QuoteAttachmentWhereInput
+}
+
 
 export type QuoteSectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -691,6 +824,8 @@ export type QuoteSectionSelect<ExtArgs extends runtime.Types.Extensions.Internal
   selectedByDefault?: boolean
   customerSelected?: boolean
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
+  attachments?: boolean | Prisma.QuoteSection$attachmentsArgs<ExtArgs>
+  _count?: boolean | Prisma.QuoteSectionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["quoteSection"]>
 
 export type QuoteSectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -740,6 +875,8 @@ export type QuoteSectionSelectScalar = {
 export type QuoteSectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "quoteId" | "position" | "title" | "body" | "amount" | "discountType" | "discountValue" | "kind" | "selectedByDefault" | "customerSelected", ExtArgs["result"]["quoteSection"]>
 export type QuoteSectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
+  attachments?: boolean | Prisma.QuoteSection$attachmentsArgs<ExtArgs>
+  _count?: boolean | Prisma.QuoteSectionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type QuoteSectionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
@@ -752,6 +889,7 @@ export type $QuoteSectionPayload<ExtArgs extends runtime.Types.Extensions.Intern
   name: "QuoteSection"
   objects: {
     quote: Prisma.$QuotePayload<ExtArgs>
+    attachments: Prisma.$QuoteAttachmentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1167,6 +1305,7 @@ readonly fields: QuoteSectionFieldRefs;
 export interface Prisma__QuoteSectionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   quote<T extends Prisma.QuoteDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuoteDefaultArgs<ExtArgs>>): Prisma.Prisma__QuoteClient<runtime.Types.Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  attachments<T extends Prisma.QuoteSection$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuoteSection$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuoteAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1605,6 +1744,30 @@ export type QuoteSectionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many QuoteSections to delete.
    */
   limit?: number
+}
+
+/**
+ * QuoteSection.attachments
+ */
+export type QuoteSection$attachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QuoteAttachment
+   */
+  select?: Prisma.QuoteAttachmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the QuoteAttachment
+   */
+  omit?: Prisma.QuoteAttachmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuoteAttachmentInclude<ExtArgs> | null
+  where?: Prisma.QuoteAttachmentWhereInput
+  orderBy?: Prisma.QuoteAttachmentOrderByWithRelationInput | Prisma.QuoteAttachmentOrderByWithRelationInput[]
+  cursor?: Prisma.QuoteAttachmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.QuoteAttachmentScalarFieldEnum | Prisma.QuoteAttachmentScalarFieldEnum[]
 }
 
 /**

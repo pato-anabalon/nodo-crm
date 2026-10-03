@@ -664,6 +664,7 @@ export type QuoteSectionScalarFieldEnum = (typeof QuoteSectionScalarFieldEnum)[k
 export const QuoteAttachmentScalarFieldEnum = {
   id: 'id',
   quoteId: 'quoteId',
+  sectionId: 'sectionId',
   name: 'name',
   url: 'url',
   pathname: 'pathname',

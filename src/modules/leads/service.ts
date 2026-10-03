@@ -103,11 +103,38 @@ export async function getLead(ctx: CompanyContext, id: string) {
   });
 }
 
+/**
+ * Checks a posted `contactId` actually belongs to this tenant before
+ * trusting it — `ctx.db` scopes a `where`, but a raw foreign key assigned
+ * straight into `data` writes the pointer without checking the row it points
+ * at, so a hand-crafted id from another company would otherwise link across
+ * the isolation boundary. Same check `linkLeadToContact` already does for the
+ * same reason.
+ *
+ * `clientCompanyId` isn't a field the form posts on its own — it's inherited
+ * from whichever contact this resolves to, the same way the lead's company
+ * name follows the contact picked for it.
+ */
+async function resolveLeadLinks(
+  ctx: CompanyContext,
+  values: Pick<LeadFormValues, "contactId">,
+): Promise<{ contactId: string | null; clientCompanyId: string | null }> {
+  const contact = values.contactId
+    ? await ctx.db.contact.findFirst({
+        where: { id: values.contactId },
+        select: { id: true, clientCompanyId: true },
+      })
+    : null;
+
+  return { contactId: contact?.id ?? null, clientCompanyId: contact?.clientCompanyId ?? null };
+}
+
 export async function createLead(ctx: CompanyContext, values: LeadFormValues) {
   // Without permission to assign, the lead stays with whoever created it.
   const ownerId = ctx.permissions.has("leads.assign")
     ? values.ownerId ?? ctx.user.id
     : ctx.user.id;
+  const { contactId, clientCompanyId } = await resolveLeadLinks(ctx, values);
 
   const lead = await ctx.db.lead.create({
     data: {
@@ -126,6 +153,8 @@ export async function createLead(ctx: CompanyContext, values: LeadFormValues) {
       contactEmail: values.contactEmail ?? null,
       contactPhone: values.contactPhone ?? null,
       companyName: values.companyName ?? null,
+      contactId,
+      clientCompanyId,
       ownerId,
       closedAt: isClosedStatus(values.status) ? new Date() : null,
     },
@@ -155,6 +184,7 @@ export async function updateLead(ctx: CompanyContext, id: string, values: LeadFo
 
   const ownerId = ctx.permissions.has("leads.assign") ? values.ownerId ?? null : current.ownerId;
   const statusChanged = current.status !== values.status;
+  const { contactId, clientCompanyId } = await resolveLeadLinks(ctx, values);
 
   const lead = await ctx.db.lead.update({
     where: { id },
@@ -169,6 +199,8 @@ export async function updateLead(ctx: CompanyContext, id: string, values: LeadFo
       contactEmail: values.contactEmail ?? null,
       contactPhone: values.contactPhone ?? null,
       companyName: values.companyName ?? null,
+      contactId,
+      clientCompanyId,
       lostReason: values.status === LeadStatus.LOST ? values.lostReason ?? null : null,
       ownerId,
       // Reopening a closed lead clears the closing date.

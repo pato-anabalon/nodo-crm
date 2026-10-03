@@ -20,6 +20,7 @@ import { QuoteHeader } from "./quote-header";
 import { CompanyReviews } from "./company-reviews";
 import { AcceptPanel } from "./accept-panel";
 import { SectionSelector } from "./section-selector";
+import { SectionAttachments } from "./section-attachments";
 import { Celebrate } from "@/components/celebrate";
 import { acceptedKey } from "@/lib/celebrate";
 import { MessageThread } from "./message-thread";
@@ -223,6 +224,7 @@ export async function QuoteDocument({
                           className="text-sm text-muted-foreground"
                           html={section.body}
                         />
+                        <SectionAttachments attachments={section.attachments} />
                       </div>
                       {/* Stretches to the row's full height by default — the
                           description beside it decides how tall the row is,
@@ -286,6 +288,12 @@ export async function QuoteDocument({
                   kind: section.kind,
                   selectedByDefault: section.selectedByDefault,
                   customerSelected: section.customerSelected,
+                  attachments: section.attachments.map((attachment) => ({
+                    id: attachment.id,
+                    name: attachment.name,
+                    url: attachment.url,
+                    contentType: attachment.contentType,
+                  })),
                 }))}
                 bundle={bundleFrom({
                   optionalDiscountThreshold: quote.optionalDiscountThreshold,
@@ -434,12 +442,18 @@ export async function QuoteDocument({
           */}
           {company.watermarkUrl ? (
             <div className="relative min-h-70">
+              {/* `dark:invert` rather than a second upload: at 15% opacity
+                  this is already a faint background mark, not something that
+                  has to stay colour-accurate the way the logo does — a rough
+                  inversion is a much smaller lie here than a watermark that
+                  goes near-invisible because it happened to be dark on a
+                  page that's now dark too. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={company.watermarkUrl}
                 alt=""
                 aria-hidden
-                className="pointer-events-none absolute -right-[125px] -bottom-[90px] max-h-125 w-125 object-contain opacity-15"
+                className="pointer-events-none absolute -right-[125px] -bottom-[90px] max-h-125 w-125 object-contain opacity-15 dark:invert"
               />
 
               <div className="relative">

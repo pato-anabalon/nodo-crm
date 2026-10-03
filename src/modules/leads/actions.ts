@@ -172,5 +172,11 @@ export async function searchLeadsAction(
     discarded: false,
     q: query.trim() || undefined,
   });
-  return items.map((lead) => ({ id: lead.id, label: lead.title }));
+  return items.map((lead) => ({
+    id: lead.id,
+    // Several leads can share a title ("Kitchen replaster"), so the picker
+    // needs the contact and company alongside it to tell them apart — missing
+    // pieces drop out instead of leaving stray " - " gaps.
+    label: [lead.title, lead.contactName, lead.companyName].filter(Boolean).join(" - "),
+  }));
 }

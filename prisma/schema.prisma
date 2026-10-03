@@ -1418,17 +1418,24 @@ model QuoteSection {
    */
   customerSelected Boolean?
 
-  quote Quote @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  quote       Quote             @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  attachments QuoteAttachment[]
 
   @@index([quoteId, position])
 }
 
 /**
  * Files that travel with the quote: drawings, spec sheets, markups.
+ *
+ * `sectionId` is optional — null for a file attached to the quote as a whole,
+ * set for one attached to a single section. Both share this table rather than
+ * two, because they're the same thing with a narrower scope: same upload
+ * pipeline, same size/type checks, same storage path.
  */
 model QuoteAttachment {
-  id      String @id @default(cuid())
-  quoteId String
+  id        String  @id @default(cuid())
+  quoteId   String
+  sectionId String?
 
   name        String
   url         String
@@ -1440,9 +1447,15 @@ model QuoteAttachment {
   uploadedById String?
   createdAt    DateTime @default(now())
 
-  quote Quote @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  quote   Quote        @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  // A section's own attachments go with it: `updateQuote` keeps a section's
+  // identity across an edit precisely so this relation survives editing the
+  // quote around it, and removing the section is what's meant to take its
+  // files with it.
+  section QuoteSection? @relation(fields: [sectionId], references: [id], onDelete: Cascade)
 
   @@index([quoteId, position])
+  @@index([sectionId, position])
 }
 
 /**

@@ -10,6 +10,7 @@ import {
   createContact,
   deleteContact,
   linkLeadToContact,
+  searchContacts,
   updateContact,
 } from "./service";
 
@@ -96,4 +97,34 @@ export async function linkLeadToContactAction(
   revalidatePath(`/leads/${leadId}`);
   if (contactId) revalidatePath(`/contacts/${contactId}`);
   return { message: t("common.saveChanges") };
+}
+
+export type ContactSearchItem = {
+  id: string;
+  label: string;
+  description: string | null;
+  firstName: string;
+  lastName: string | null;
+  email: string | null;
+  phone: string | null;
+  clientCompanyId: string | null;
+  clientCompanyName: string | null;
+};
+
+/** Backs the lead form's "existing contact" combobox — same gate the lead
+ * form itself already requires to be on screen at all. */
+export async function searchContactsAction(query: string): Promise<ContactSearchItem[]> {
+  const ctx = await requirePermission("leads.read");
+  const items = await searchContacts(ctx, query);
+  return items.map((contact) => ({
+    id: contact.id,
+    label: [contact.firstName, contact.lastName].filter(Boolean).join(" "),
+    description: contact.clientCompany?.name ?? contact.email ?? null,
+    firstName: contact.firstName,
+    lastName: contact.lastName,
+    email: contact.email,
+    phone: contact.phone,
+    clientCompanyId: contact.clientCompanyId,
+    clientCompanyName: contact.clientCompany?.name ?? null,
+  }));
 }

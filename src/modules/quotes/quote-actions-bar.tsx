@@ -19,6 +19,7 @@ export function QuoteActionsBar({
   status,
   canSend,
   canDecide,
+  hasLead,
   onSend,
   onDecide,
   previewHref,
@@ -27,6 +28,10 @@ export function QuoteActionsBar({
   status: QuoteStatus;
   canSend: boolean;
   canDecide: boolean;
+  /** Whether a lead is linked — a quote with none has nowhere to log its
+   * history, so Send stays disabled rather than bouncing back with an error
+   * once clicked. */
+  hasLead: boolean;
   onSend: () => Promise<QuoteActionState>;
   onDecide: (decision: "ACCEPTED" | "REJECTED") => Promise<QuoteActionState>;
   /**
@@ -85,7 +90,8 @@ export function QuoteActionsBar({
               // times a week. No key — it answers a click, so it fires every time.
               run("send", onSend, () => void celebrate({ intensity: "small", origin }));
             }}
-            disabled={pending}
+            disabled={pending || !hasLead}
+            title={hasLead ? undefined : t("needsLeadToSend")}
           >
             {busy === "send" ? t("actions.sending") : t("actions.send")}
           </Button>

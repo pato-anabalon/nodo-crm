@@ -53,8 +53,9 @@ import {
   SearchCombobox,
   type SearchComboboxItem,
 } from "@/components/search-combobox";
-import { toRichTextHtml } from "@/lib/rich-text";
+import { richTextToPlain, toRichTextHtml } from "@/lib/rich-text";
 import type { CatalogueSearchItem } from "@/modules/catalogue/actions";
+import { AttachmentsManager, type AttachmentRow } from "./attachments-manager";
 import { calculateQuoteTotals, sectionNetAmount, taxIsInTotal } from "./totals";
 import { resolveSelectedSectionAmounts } from "./section-selection";
 import { formatMoney } from "@/lib/format";
@@ -69,6 +70,12 @@ export type QuoteLineDraft = {
 };
 
 export type QuoteSectionDraft = {
+  /** The section's own persisted id — absent from a template-sourced or
+   * duplicated default, which never shares identity with another quote's
+   * rows. Present, this is what `updateQuote` matches against to update the
+   * row in place instead of replacing it, which is what lets its attachments
+   * survive editing the quote around it. */
+  id?: string;
   title: string;
   body: string;
   amount: string;
@@ -81,17 +88,25 @@ export type QuoteSectionDraft = {
    * but never `selectedByDefault` (a sales choice for this one customer). */
   kind?: QuoteSectionKind;
   selectedByDefault?: boolean;
+  /** This section's own files, already on the server — empty for a
+   * template-sourced or brand new row. */
+  attachments?: AttachmentRow[];
 };
 
 /**
  * A section row in the editor, with a stable client-side id for drag
- * reordering and as a React key — minted once per row by `newSectionId()`
- * and never posted. `position` on save is still purely this array's order,
- * the same as before: the id only exists so dnd-kit (and React) can tell one
- * row from another across a reorder.
+ * reordering and as a React key. For a section that already exists in the
+ * database, this is its own real id — posted back on save, which is what
+ * lets `updateQuote` update the row in place. For a brand new row it's
+ * minted by `newSectionId()` instead, and simply won't match anything on
+ * save, which is exactly what marks it as new.
  */
 type SortableSectionDraft = QuoteSectionDraft & {
   id: string;
+  /** Whether `id` is a real, saved row — not just this session's own
+   * tracking id. Attachments can only be managed on a persisted section: an
+   * unsaved one has nothing on the server yet to attach a file to. */
+  persisted: boolean;
   // Defaulted once a row enters the form's own state (see `emptySection`
   // and the seeding below) — optional only on the wire-in `QuoteFormDefaults`
   // shape, where a template-sourced default may have neither.
@@ -99,6 +114,7 @@ type SortableSectionDraft = QuoteSectionDraft & {
   discountValue: string;
   kind: QuoteSectionKind;
   selectedByDefault: boolean;
+  attachments: AttachmentRow[];
 };
 
 export type QuoteFormDefaults = {
@@ -157,6 +173,7 @@ function newSectionId(): string {
 function emptySection(): SortableSectionDraft {
   return {
     id: newSectionId(),
+    persisted: false,
     title: "",
     body: "",
     amount: "0",
@@ -164,10 +181,14 @@ function emptySection(): SortableSectionDraft {
     discountValue: "0",
     kind: QuoteSectionKind.INDEPENDENT,
     selectedByDefault: false,
+    attachments: [],
   };
 }
 
 export function QuoteForm({
+  quoteId,
+  uploadAttachment,
+  deleteAttachment,
   hasCatalogue = false,
   searchLeads,
   searchCatalogue,
@@ -183,6 +204,20 @@ export function QuoteForm({
   submitLabel,
   status,
 }: {
+  /** Present only on the edit form — a section can only manage its own
+   * attachments once the quote (and the section) actually exist on the
+   * server, same reason the quote's own attachments card only ever appears
+   * there too. `quotes/new/page.tsx` doesn't pass this. */
+  quoteId?: string;
+  /** Required alongside `quoteId` — a section's attachments manager needs
+   * both to render at all. */
+  uploadAttachment?: (
+    quoteId: string,
+    sectionId: string | null,
+    prev: QuoteActionState,
+    formData: FormData,
+  ) => Promise<QuoteActionState>;
+  deleteAttachment?: (quoteId: string, attachmentId: string) => Promise<QuoteActionState>;
   /** Whether the company has any price-list line at all — the "From
    * catalogue" picker searches the server instead of holding the list, so
    * this is all that's needed to decide whether to show it. */
@@ -272,11 +307,13 @@ export function QuoteForm({
     defaults.sections?.length
       ? defaults.sections.map((section) => ({
           ...section,
-          id: newSectionId(),
+          id: section.id ?? newSectionId(),
+          persisted: !!section.id,
           discountType: section.discountType ?? DiscountType.FIXED,
           discountValue: section.discountValue ?? "0",
           kind: section.kind ?? QuoteSectionKind.INDEPENDENT,
           selectedByDefault: section.selectedByDefault ?? false,
+          attachments: section.attachments ?? [],
         }))
       : [emptySection()],
   );
@@ -501,6 +538,21 @@ export function QuoteForm({
               />
             </div>
 
+            <div className="space-y-2">
+              <Label htmlFor="scope">{t("form.scope")}</Label>
+              {/* Plain text, not the rich editor the other three texts use —
+                  it's a short line, not prose, and still travels through the
+                  same `cleanBody`/`sanitizeRichText` pipeline server-side
+                  (wrapped in a paragraph tag there), so the portal's
+                  `RichText` render stays untouched and existing HTML-bearing
+                  values still display read as plain text, not raw tags. */}
+              <Input
+                id="scope"
+                name="scope"
+                defaultValue={richTextToPlain(defaults.scope)}
+              />
+            </div>
+
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="leadId">{t("form.lead")}</Label>
@@ -526,15 +578,6 @@ export function QuoteForm({
                   defaultValue={defaults.validUntil ?? ""}
                 />
               </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label>{t("form.scope")}</Label>
-              <RichTextEditor
-                name="scope"
-                defaultValue={toRichTextHtml(defaults.scope)}
-                ariaLabel={t("form.scope")}
-              />
             </div>
           </CardContent>
         </Card>
@@ -693,6 +736,7 @@ export function QuoteForm({
             </div>
 
             <DndContext
+              id="quote-sections"
               sensors={sectionSensors}
               collisionDetection={closestCenter}
               onDragEnd={handleSectionDragEnd}
@@ -718,6 +762,15 @@ export function QuoteForm({
                         position: index + 1,
                       })}
                     >
+                      {/* The id a persisted row already has, or the
+                          client-only tracking id of a brand new one —
+                          `updateQuote` tells the two apart on save, and only
+                          the first kind matches anything to update in place. */}
+                      <input
+                        type="hidden"
+                        name={`sections[${index}].id`}
+                        value={section.id}
+                      />
                       {/* `grid` rather than `flex` — a fixed column template
                           keeps the title and price columns at the same width
                           and the same baseline on every row, instead of each
@@ -937,6 +990,19 @@ export function QuoteForm({
                           placeholder={t("form.sectionBodyPlaceholder")}
                         />
                       </div>
+
+                      {quoteId && uploadAttachment && deleteAttachment && section.persisted ? (
+                        <AttachmentsManager
+                          quoteId={quoteId}
+                          sectionId={section.id}
+                          attachments={section.attachments}
+                          canManage
+                          formatLocale={formatLocale}
+                          compact
+                          uploadAction={uploadAttachment}
+                          deleteAction={deleteAttachment}
+                        />
+                      ) : null}
                     </SortableSectionRow>
                   ))}
                 </div>

@@ -54,8 +54,13 @@ export const companyDocumentSelect = {
 /** What the quote document needs about the quote itself. */
 export const quoteDocumentInclude = {
   items: { orderBy: { position: "asc" } },
-  sections: { orderBy: { position: "asc" } },
-  attachments: { orderBy: { position: "asc" } },
+  sections: {
+    orderBy: { position: "asc" },
+    include: { attachments: { orderBy: { position: "asc" } } },
+  },
+  // Section-scoped attachments travel with their section above, not here, or
+  // they'd show twice on the customer's own document.
+  attachments: { where: { sectionId: null }, orderBy: { position: "asc" } },
   termsDocument: { select: { name: true, url: true } },
   // The quote is signed by a person, not by the legal entity.
   createdBy: { select: { name: true, email: true, jobTitle: true, phone: true } },

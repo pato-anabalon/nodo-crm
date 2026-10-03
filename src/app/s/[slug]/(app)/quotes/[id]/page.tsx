@@ -23,10 +23,12 @@ import { searchLeadsAction } from "@/modules/leads/actions";
 import { QuoteActionsBar } from "@/modules/quotes/quote-actions-bar";
 import {
   decideQuoteAction,
+  deleteQuoteAttachmentAction,
   resendQuoteAction,
   revokeShareAction,
   sendQuoteAction,
   updateQuoteAction,
+  uploadQuoteAttachmentAction,
 } from "@/modules/quotes/actions";
 import { ShareCard } from "@/modules/quotes/share-card";
 import { QuoteReuseCard } from "@/modules/quote-templates/quote-actions";
@@ -98,9 +100,12 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
         name: attachment.name,
         url: attachment.url,
         size: attachment.size,
+        contentType: attachment.contentType,
       }))}
       canManage={editable}
       formatLocale={ctx.company.formatLocale}
+      uploadAction={uploadQuoteAttachmentAction}
+      deleteAction={deleteQuoteAttachmentAction}
     />
   );
 
@@ -141,6 +146,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
           status={quote.status}
           canSend={can(ctx, "quotes.send")}
           canDecide={can(ctx, "quotes.decide")}
+          hasLead={!!quote.leadId}
           onSend={async () => {
             "use server";
             return sendAction();
@@ -155,9 +161,12 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
 
       {editable ? (
         <QuoteForm
+          quoteId={quote.id}
           hasCatalogue={catalogueAvailable}
           searchLeads={searchLeadsAction}
           searchCatalogue={searchCatalogueAction}
+          uploadAttachment={uploadQuoteAttachmentAction}
+          deleteAttachment={deleteQuoteAttachmentAction}
           action={updateAction}
           status={quote.status}
           documents={documents.map((doc) => ({ id: doc.id, name: doc.name }))}
@@ -175,12 +184,20 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
             scope: quote.scope,
             pricingMode: quote.pricingMode,
             sections: quote.sections.map((section) => ({
+              id: section.id,
               title: section.title,
               body: section.body ?? "",
               amount: String(Number(section.amount)),
               discountType: section.discountType,
               discountValue: String(Number(section.discountValue)),
               kind: section.kind,
+              attachments: section.attachments.map((attachment) => ({
+                id: attachment.id,
+                name: attachment.name,
+                url: attachment.url,
+                size: attachment.size,
+                contentType: attachment.contentType,
+              })),
               selectedByDefault: section.selectedByDefault,
             })),
             intro: quote.intro,

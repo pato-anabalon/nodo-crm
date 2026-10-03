@@ -49,6 +49,18 @@ export async function listContacts(ctx: CompanyContext, filters: ContactFilters)
   };
 }
 
+/** What the lead form's "existing contact" combobox searches, instead of
+ * holding every contact client-side — same reasoning, and the same shared
+ * component, as the quote form's lead and catalogue pickers. */
+export async function searchContacts(ctx: CompanyContext, query: string) {
+  return ctx.db.contact.findMany({
+    where: buildWhere({ q: query.trim() || undefined, page: 1 }),
+    orderBy: [{ firstName: "asc" }, { lastName: "asc" }],
+    take: 20,
+    include: { clientCompany: { select: { id: true, name: true } } },
+  });
+}
+
 /**
  * One contact with everything that ever came from them.
  *

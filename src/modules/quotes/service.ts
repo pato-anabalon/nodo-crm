@@ -115,8 +115,14 @@ export async function getQuote(ctx: CompanyContext, id: string) {
     where: { id, ...visibilityWhere(ctx) },
     include: {
       items: { orderBy: { position: "asc" } },
-      sections: { orderBy: { position: "asc" } },
-      attachments: { orderBy: { position: "asc" } },
+      sections: {
+        orderBy: { position: "asc" },
+        include: { attachments: { orderBy: { position: "asc" } } },
+      },
+      // Section-scoped attachments travel with their section above, not
+      // here, or they'd show twice — once at the top of the quote, once
+      // inside the section they actually belong to.
+      attachments: { where: { sectionId: null }, orderBy: { position: "asc" } },
       lead: { select: { id: true, title: true, contactName: true, contactEmail: true, companyName: true } },
       createdBy: { select: { name: true, email: true, jobTitle: true, phone: true } },
       termsDocument: { select: { name: true, url: true } },
@@ -412,71 +418,112 @@ export async function updateQuote(ctx: CompanyContext, id: string, values: Quote
   const totals = totalsFor(values, taxDisplayMode);
   const bySections = values.pricingMode === PricingMode.SECTIONS;
 
-  const quote = await ctx.db.quote.update({
-    where: { id },
-    data: {
-      title: values.title,
-      leadId: values.leadId ?? null,
-      termsDocumentId: values.termsDocumentId ?? null,
-      pricingMode: values.pricingMode,
-      // Editable exactly as long as the rest of the quote is: the customer's
-      // link is read live, so a currency correction reaches it same as any
-      // other field. It freezes only once the quote is decided.
-      currency: values.currency,
-      intro: cleanBody(values.intro),
-      exclusions: cleanBody(values.exclusions),
-      scope: cleanBody(values.scope),
-      quoteType: values.quoteType ?? null,
-      projectAddress: values.projectAddress ?? null,
-      taxRate: values.taxRate,
-      taxDisplayMode,
-      discount: totals.discount,
-      discountType: values.discountType,
-      discountValue: values.discount,
-      optionalDiscountThreshold: values.optionalDiscountThreshold ?? null,
-      optionalDiscountType: values.optionalDiscountType ?? null,
-      optionalDiscountValue: values.optionalDiscountValue ?? null,
-      subtotal: totals.subtotal,
-      taxAmount: totals.taxAmount,
-      total: totals.total,
-      notes: cleanBody(values.notes),
-      terms: cleanBody(values.terms),
-      validUntil: values.validUntil ? new Date(values.validUntil) : null,
-      // Every section and line is replaced wholesale: simpler and more
-      // predictable than matching up additions, removals and reordering one by one.
-      sections: {
-        deleteMany: {},
-        create: bySections
-          ? values.sections.map((section, index) => ({
-              position: index,
-              title: section.title,
-              body: cleanBody(section.body),
-              amount: section.amount,
-              discountType: section.discountType,
-              discountValue: section.discountValue,
-              kind: section.kind,
-              selectedByDefault: section.selectedByDefault,
-              // `customerSelected` starts over at null (undecided) on every
-              // edit, same as the rest of a section: sections are replaced
-              // wholesale here, not diffed one at a time, so there's no
-              // continuity to preserve a prior pick against in the first place.
-            }))
-          : [],
+  // Sections keep their identity across a save now, matched by the id the
+  // form already carries — not replaced wholesale, the way items still are.
+  // That's what lets a section's own attachments (and, as a direct
+  // consequence, the customer's prior tick on it) survive an edit elsewhere
+  // in the quote. An incoming id only counts as a match when it's one of
+  // *this* quote's own rows — anything else (a brand new section, a stray
+  // value) is simply treated as new, never used to adopt another quote's row.
+  const existingSectionIds = bySections
+    ? new Set(
+        (await ctx.db.quoteSection.findMany({ where: { quoteId: id }, select: { id: true } })).map(
+          (section) => section.id,
+        ),
+      )
+    : new Set<string>();
+  const keptSectionIds = bySections
+    ? values.sections
+        .map((section) => section.id)
+        .filter((sectionId): sectionId is string => !!sectionId && existingSectionIds.has(sectionId))
+    : [];
+
+  // Transaction on the base client: companyId is explicit and controlled
+  // here, and `$transaction` doesn't travel through the tenant extension.
+  const quote = await prisma.$transaction(async (tx) => {
+    const updated = await tx.quote.update({
+      where: { id, companyId: ctx.company.id },
+      data: {
+        title: values.title,
+        leadId: values.leadId ?? null,
+        termsDocumentId: values.termsDocumentId ?? null,
+        pricingMode: values.pricingMode,
+        // Editable exactly as long as the rest of the quote is: the customer's
+        // link is read live, so a currency correction reaches it same as any
+        // other field. It freezes only once the quote is decided.
+        currency: values.currency,
+        intro: cleanBody(values.intro),
+        exclusions: cleanBody(values.exclusions),
+        scope: cleanBody(values.scope),
+        quoteType: values.quoteType ?? null,
+        projectAddress: values.projectAddress ?? null,
+        taxRate: values.taxRate,
+        taxDisplayMode,
+        discount: totals.discount,
+        discountType: values.discountType,
+        discountValue: values.discount,
+        optionalDiscountThreshold: values.optionalDiscountThreshold ?? null,
+        optionalDiscountType: values.optionalDiscountType ?? null,
+        optionalDiscountValue: values.optionalDiscountValue ?? null,
+        subtotal: totals.subtotal,
+        taxAmount: totals.taxAmount,
+        total: totals.total,
+        notes: cleanBody(values.notes),
+        terms: cleanBody(values.terms),
+        validUntil: values.validUntil ? new Date(values.validUntil) : null,
+        // Lines stay wholesale-replaced — there's nothing per-line that needs
+        // to survive an edit the way a section's attachments now do.
+        items: {
+          deleteMany: {},
+          create: bySections
+            ? []
+            : values.items.map((item, index) => ({
+                position: index,
+                description: item.description,
+                quantity: item.quantity,
+                unitPrice: item.unitPrice,
+                discount: item.discount,
+                total: totals.lineTotals[index],
+              })),
+        },
       },
-      items: {
-        deleteMany: {},
-        create: bySections
-          ? []
-          : values.items.map((item, index) => ({
-              position: index,
-              description: item.description,
-              quantity: item.quantity,
-              unitPrice: item.unitPrice,
-              discount: item.discount,
-              total: totals.lineTotals[index],
-            })),
-      },
-    },
+    });
+
+    if (bySections) {
+      // Removed by the user — cascades its attachments, correctly: a section
+      // that's gone shouldn't leave its files behind.
+      await tx.quoteSection.deleteMany({
+        where: { quoteId: id, id: { notIn: keptSectionIds } },
+      });
+
+      for (const [index, section] of values.sections.entries()) {
+        const data = {
+          position: index,
+          title: section.title,
+          body: cleanBody(section.body),
+          amount: section.amount,
+          discountType: section.discountType,
+          discountValue: section.discountValue,
+          kind: section.kind,
+          selectedByDefault: section.selectedByDefault,
+        };
+
+        if (section.id && existingSectionIds.has(section.id)) {
+          // A kept row: updated in place, `customerSelected` left untouched.
+          // Wiping it on every edit was only ever a side effect of replacing
+          // every section wholesale — now that the row survives, there's no
+          // reason an unrelated edit should throw away what the customer
+          // already picked.
+          await tx.quoteSection.update({ where: { id: section.id }, data });
+        } else {
+          await tx.quoteSection.create({ data: { ...data, quoteId: id } });
+        }
+      }
+    } else {
+      await tx.quoteSection.deleteMany({ where: { quoteId: id } });
+    }
+
+    return updated;
   });
 
   // A sent quote being edited is worth a line in the lead's history — the
@@ -509,6 +556,13 @@ export async function changeQuoteStatus(
   if (!current) return { ok: false as const, reason: "not-found" as const };
   if (!canTransition(current.status, to)) {
     return { ok: false as const, reason: "invalid-transition" as const };
+  }
+  // A quote with no lead has nowhere to log its own history — no activity
+  // trail, no funnel, no automatic PROPOSAL/WON/LOST — so sending one is a
+  // commitment this CRM then can't track. Creating and drafting without a
+  // lead still stays free; this only stops it the moment it goes out.
+  if (to === QuoteStatus.SENT && !current.leadId) {
+    return { ok: false as const, reason: "no-lead" as const };
   }
 
   const now = new Date();

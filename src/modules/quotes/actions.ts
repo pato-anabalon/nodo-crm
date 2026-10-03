@@ -30,6 +30,10 @@ export type QuoteActionState = {
   fieldErrors?: Record<string, string[]>;
   /** Set by actions whose form has to clear itself once it went through. */
   done?: boolean;
+  /** Set by `uploadQuoteAttachmentAction` on success — the manager appends it
+   * to its own list directly rather than waiting on a page revalidation to
+   * reach a client component that's already mounted with its own state. */
+  attachment?: { id: string; name: string; url: string; size: number; contentType: string };
 };
 
 export async function createQuoteAction(
@@ -87,9 +91,13 @@ export async function sendQuoteAction(id: string): Promise<QuoteActionState> {
   const t = await getTranslations("quotes");
   const result = await changeQuoteStatus(ctx, id, QuoteStatus.SENT);
   if (!result.ok) {
-    return {
-      error: result.reason === "invalid-transition" ? t("onlyDraftCanBeSent") : t("notFound"),
-    };
+    const message =
+      result.reason === "invalid-transition"
+        ? t("onlyDraftCanBeSent")
+        : result.reason === "no-lead"
+          ? t("needsLeadToSend")
+          : t("notFound");
+    return { error: message };
   }
 
   const delivery = await sendQuoteEmail(ctx, id);
@@ -206,25 +214,43 @@ export async function sendStaffMessageAction(
   return { done: true };
 }
 
-/** Uploads a file to a quote. Only while it's still a draft. */
+/**
+ * Uploads a file to a quote, or to one of its sections when `sectionId` is
+ * given. Both share this one action — same checks, same storage path, same
+ * table — rather than a copy of it for the section case.
+ */
 export async function uploadQuoteAttachmentAction(
   quoteId: string,
+  sectionId: string | null,
   _prev: QuoteActionState,
   formData: FormData,
 ): Promise<QuoteActionState> {
   const ctx = await requirePermission("quotes.update");
   const t = await getTranslations("quotes.attachments");
 
-  const quote = await ctx.db.quote.findFirst({
-    where: { id: quoteId },
-    select: { id: true, status: true, _count: { select: { attachments: true } } },
-  });
+  const quote = await ctx.db.quote.findFirst({ where: { id: quoteId }, select: { id: true } });
   if (!quote) return { error: t("notFound") };
+
+  // The `quoteId` in the where is what stops attaching to a section of
+  // another quote — `ctx.db` alone only guards the tenant, not the quote.
+  if (sectionId) {
+    const section = await ctx.db.quoteSection.findFirst({
+      where: { id: sectionId, quoteId },
+      select: { id: true },
+    });
+    if (!section) return { error: t("notFound") };
+  }
+
+  // Each section counts against its own cap, separate from the quote's own
+  // list — one section with several photos shouldn't crowd out another's.
+  const existingCount = await ctx.db.quoteAttachment.count({
+    where: sectionId ? { sectionId } : { quoteId, sectionId: null },
+  });
 
   const file = formData.get("file");
   if (!(file instanceof File)) return { error: t("errors.empty") };
 
-  const check = checkAttachment(file, quote._count.attachments);
+  const check = checkAttachment(file, existingCount);
   if (!check.ok) {
     return {
       error:
@@ -244,21 +270,31 @@ export async function uploadQuoteAttachmentAction(
     contentType: file.type,
   });
 
-  await ctx.db.quoteAttachment.create({
+  const attachment = await ctx.db.quoteAttachment.create({
     data: {
       quoteId,
+      sectionId,
       name: file.name,
       url: blob.url,
       pathname: blob.pathname,
       contentType: file.type,
       size: file.size,
-      position: quote._count.attachments,
+      position: existingCount,
       uploadedById: ctx.user.id,
     },
   });
 
   revalidatePath(`/quotes/${quoteId}`);
-  return { message: t("uploaded") };
+  return {
+    message: t("uploaded"),
+    attachment: {
+      id: attachment.id,
+      name: attachment.name,
+      url: attachment.url,
+      size: attachment.size,
+      contentType: attachment.contentType,
+    },
+  };
 }
 
 export async function deleteQuoteAttachmentAction(

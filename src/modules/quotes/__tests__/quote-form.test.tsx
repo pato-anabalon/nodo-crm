@@ -224,6 +224,48 @@ describe("QuoteForm — modo de precio", () => {
   });
 });
 
+describe("QuoteForm — collapsing sections", () => {
+  it("collapsing a section hides its fields and shows its title and price instead, without losing either", async () => {
+    const user = userEvent.setup();
+    renderForm();
+
+    await user.click(screen.getByRole("button", { name: /by work sections/i }));
+    await user.type(screen.getByLabelText(/section title/i), "Plaster repairs");
+    await user.clear(screen.getByLabelText(/^price/i));
+    await user.type(screen.getByLabelText(/^price/i), "1500");
+
+    await user.click(screen.getByRole("button", { name: /collapse section/i }));
+
+    // jsdom loads no stylesheet, so the `grid-template-rows` transition
+    // never actually computes to zero height the way it would in a real
+    // browser — asserting the class itself is what's checkable here, same
+    // reason the field is still findable by its label despite being
+    // visually collapsed away.
+    expect(
+      screen.getByLabelText(/section title/i).closest('[class*="grid-rows-"]'),
+    ).toHaveClass("grid-rows-[0fr]");
+    expect(screen.getByText("Plaster repairs")).toBeInTheDocument();
+    // Also the entered price, elsewhere in the Totals card — not unique to
+    // the summary, so just confirmed present rather than singular.
+    expect(screen.getAllByText("$1,500.00").length).toBeGreaterThan(0);
+  });
+
+  it("expanding a collapsed section shows its fields again, with what was typed still there", async () => {
+    const user = userEvent.setup();
+    renderForm();
+
+    await user.click(screen.getByRole("button", { name: /by work sections/i }));
+    await user.type(screen.getByLabelText(/section title/i), "Plaster repairs");
+    await user.click(screen.getByRole("button", { name: /collapse section/i }));
+    await user.click(screen.getByRole("button", { name: /expand section/i }));
+
+    expect(
+      screen.getByLabelText(/section title/i).closest('[class*="grid-rows-"]'),
+    ).toHaveClass("grid-rows-[1fr]");
+    expect(screen.getByLabelText(/section title/i)).toHaveValue("Plaster repairs");
+  });
+});
+
 describe("QuoteForm — discounts", () => {
   it("a section's own percentage discount reduces its final price and the quote's subtotal", async () => {
     const user = userEvent.setup();

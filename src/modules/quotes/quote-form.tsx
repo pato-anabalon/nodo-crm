@@ -10,6 +10,8 @@ import {
 import { useTranslations } from "next-intl";
 import {
   ChevronDown,
+  ChevronsDownUp,
+  ChevronsUpDown,
   ChevronUp,
   GripVertical,
   Plus,
@@ -411,6 +413,24 @@ export function QuoteForm({
     });
   }
 
+  /**
+   * Purely a display choice, never posted and never touching `sections`
+   * itself — collapsing a row to its title and price makes reordering a long
+   * list of sections less of a scroll, without losing or resetting anything
+   * inside it. Every section starts expanded, same as today.
+   */
+  const [collapsedSections, setCollapsedSections] = useState<Set<string>>(
+    () => new Set(),
+  );
+  function toggleSectionCollapsed(id: string) {
+    setCollapsedSections((current) => {
+      const next = new Set(current);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
   function handleSectionDragEnd(event: DragEndEvent) {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
@@ -761,6 +781,26 @@ export function QuoteForm({
                       moveDownLabel={t("form.moveSectionDown", {
                         position: index + 1,
                       })}
+                      collapsed={collapsedSections.has(section.id)}
+                      onToggleCollapsed={() => toggleSectionCollapsed(section.id)}
+                      collapseLabel={t("form.collapseSection")}
+                      expandLabel={t("form.expandSection")}
+                      summary={
+                        <div className="flex flex-wrap items-baseline gap-x-2">
+                          <span
+                            className={`truncate text-sm ${
+                              section.title
+                                ? "font-medium"
+                                : "text-muted-foreground italic"
+                            }`}
+                          >
+                            {section.title || t("form.sectionUntitled")}
+                          </span>
+                          <span className="shrink-0 text-sm tabular-nums text-muted-foreground">
+                            {money(Number(section.amount) || 0)}
+                          </span>
+                        </div>
+                      }
                     >
                       {/* The id a persisted row already has, or the
                           client-only tracking id of a brand new one —
@@ -1411,6 +1451,11 @@ function SortableSectionRow({
   onMoveDown,
   moveUpLabel,
   moveDownLabel,
+  collapsed,
+  onToggleCollapsed,
+  collapseLabel,
+  expandLabel,
+  summary,
   children,
 }: {
   id: string;
@@ -1421,6 +1466,13 @@ function SortableSectionRow({
   onMoveDown: () => void;
   moveUpLabel: string;
   moveDownLabel: string;
+  collapsed: boolean;
+  onToggleCollapsed: () => void;
+  collapseLabel: string;
+  expandLabel: string;
+  /** The section's title and entered price, shown in place of the full form
+   * while it's collapsed. */
+  summary: ReactNode;
   children: ReactNode;
 }) {
   const {
@@ -1439,9 +1491,21 @@ function SortableSectionRow({
     <div
       ref={setNodeRef}
       style={style}
-      className={`flex items-start gap-2 rounded-lg border p-3 ${isDragging ? "opacity-50" : ""}`}
+      // Centred while collapsed — the left rail's own height otherwise sets
+      // the row's height regardless of how short the summary is, which is
+      // what left the row looking too tall and the text stuck at the top.
+      // Top-aligned while expanded, where the rail is the shorter column
+      // next to a full form and belongs anchored by the title, not centred
+      // against the whole thing.
+      className={`flex gap-2 rounded-lg border p-3 ${collapsed ? "items-center" : "items-start"} ${isDragging ? "opacity-50" : ""}`}
     >
-      <div className="flex shrink-0 flex-col items-center gap-0.5 pt-1">
+      <div
+        // Stacked normally, in a row while collapsed — three controls on top
+        // of each other are most of that ~80px the row couldn't get under
+        // even with the summary down to one line; laid out sideways instead,
+        // the row can actually shrink to it.
+        className={`flex shrink-0 items-center gap-0.5 ${collapsed ? "flex-row" : "flex-col pt-1"}`}
+      >
         <button
           type="button"
           aria-label={dragLabel}
@@ -1472,7 +1536,53 @@ function SortableSectionRow({
           <ChevronDown className="size-3.5" />
         </Button>
       </div>
-      <div className="min-w-0 flex-1 space-y-3">{children}</div>
+      {/* Not `space-y-3`: Tailwind puts that spacing on every child except
+          the last one, so it sits on the toggle row itself — invisible in
+          its own class list, since it comes from this parent selector, but
+          very visible as a gap between the toggle row and the collapsed
+          (so, invisible) content below it. Conditional instead, so there's
+          nothing to close up when collapsed. */}
+      <div className={`flex min-w-0 flex-1 flex-col ${collapsed ? "" : "gap-3"}`}>
+        {/* Opposite corner from the drag/reorder controls on purpose — a
+            second pair of chevrons right next to those would read as doing
+            the same thing. Double chevrons here instead of single ones, so
+            even the shape doesn't echo them. */}
+        <div className="flex items-start gap-3">
+          {collapsed ? <div className="min-w-0 flex-1">{summary}</div> : null}
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon-xs"
+            // `ml-auto` rather than `justify-between` on the row: with the
+            // summary only ever mounted while collapsed, `justify-between`
+            // had nothing to space this away from while expanded, and a
+            // lone flex child under `justify-between` sits at the start, not
+            // the end — the button landed top-left instead of top-right.
+            className="ml-auto shrink-0"
+            aria-label={collapsed ? expandLabel : collapseLabel}
+            onClick={onToggleCollapsed}
+          >
+            {collapsed ? (
+              <ChevronsUpDown className="size-3.5" />
+            ) : (
+              <ChevronsDownUp className="size-3.5" />
+            )}
+          </Button>
+        </div>
+        {/* Mounted either way, never unmounted — collapsing is a display
+            choice, not a reason for the fields inside to stop posting with
+            the rest of the form. A `grid-template-rows` transition rather
+            than `hidden`/`max-height`: unlike `display: none`, a grid track
+            size actually animates, and unlike `max-height` it needs no
+            guessed-at ceiling taller than the content could ever get. */}
+        <div
+          className={`grid transition-[grid-template-rows] duration-200 ease-in-out ${
+            collapsed ? "grid-rows-[0fr]" : "grid-rows-[1fr]"
+          }`}
+        >
+          <div className="space-y-3 overflow-hidden">{children}</div>
+        </div>
+      </div>
     </div>
   );
 }

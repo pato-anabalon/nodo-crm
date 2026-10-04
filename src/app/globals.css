@@ -326,3 +326,57 @@
     color: #555555;
   }
 }
+
+/*
+ * The marketing page's background: a few blurred colour blobs that drift and
+ * breathe slowly, the same idea as a macOS dynamic wallpaper. Pure CSS rather
+ * than a JS animation library — looping transforms are what the browser's
+ * compositor is for, and the page stays a Server Component with nothing to
+ * hydrate for it.
+ */
+.aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.5;
+  will-change: transform;
+}
+
+.dark .aurora-blob {
+  /* The same blobs read as a glow rather than a wash against a dark page. */
+  opacity: 0.32;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .aurora-blob-1 { animation: aurora-drift-1 26s ease-in-out infinite; }
+  .aurora-blob-2 { animation: aurora-drift-2 32s ease-in-out infinite; }
+  .aurora-blob-3 { animation: aurora-drift-3 38s ease-in-out infinite; }
+}
+
+/*
+ * Reduced motion doesn't turn the colour off, only the movement — the same
+ * choice `celebrate.ts` makes for confetti: someone who gets motion sickness
+ * still gets the page, just a still one.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-blob-1,
+  .aurora-blob-2,
+  .aurora-blob-3 {
+    animation: none;
+  }
+}
+
+@keyframes aurora-drift-1 {
+  0%, 100% { transform: translate(-8%, -6%) scale(1); }
+  50% { transform: translate(10%, 8%) scale(1.15); }
+}
+
+@keyframes aurora-drift-2 {
+  0%, 100% { transform: translate(8%, 10%) scale(1); }
+  50% { transform: translate(-12%, -6%) scale(1.1); }
+}
+
+@keyframes aurora-drift-3 {
+  0%, 100% { transform: translate(-4%, 12%) scale(1); }
+  50% { transform: translate(8%, -14%) scale(1.2); }
+}

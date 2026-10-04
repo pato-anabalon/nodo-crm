@@ -86,6 +86,33 @@ export async function listQuotes(ctx: CompanyContext, filters: QuoteFilters) {
 }
 
 /**
+ * The most recent quotes in a status, ordered by the date that status
+ * actually reflects — sent by `sentAt`, accepted by `decidedAt` — the same
+ * distinction the reports draw between the two. Backs the dashboard's "Last
+ * sent" and "Last accepted" panels.
+ */
+export function recentQuotesByStatus(
+  ctx: CompanyContext,
+  status: QuoteStatus,
+  orderBy: "sentAt" | "decidedAt",
+  take = 5,
+) {
+  return ctx.db.quote.findMany({
+    where: { ...visibilityWhere(ctx), status },
+    orderBy: { [orderBy]: "desc" },
+    take,
+    select: {
+      id: true,
+      title: true,
+      number: true,
+      status: true,
+      total: true,
+      currency: true,
+    },
+  });
+}
+
+/**
  * The quote as the customer sees it, loaded for the company's own preview.
  *
  * Reads through the same shape as the portal, so what the team previews can't

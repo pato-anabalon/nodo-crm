@@ -72,6 +72,69 @@ export function hexToOklch(hex: string): BrandColor | null {
   };
 }
 
+/** The signed distance from `a` to `b` around the wheel, in (-180, 180]. */
+function circularHueDiff(a: number, b: number): number {
+  return ((b - a + 540) % 360) - 180;
+}
+
+/**
+ * The hue that sits between `a` and `b` by the shortest arc.
+ *
+ * A plain average can take the long way round — orange (35°) and blue
+ * (266°) average to 150°, which passes through green on the way, not
+ * through anything either colour suggests. The short arc between them goes
+ * the other way, through red and magenta, which is what "between orange and
+ * blue" actually looks like.
+ */
+function circularMidpointHue(a: number, b: number): number {
+  return (a + circularHueDiff(a, b) / 2 + 360) % 360;
+}
+
+/**
+ * Three hues for a company's login-screen aurora, built from its own primary
+ * and accent colours rather than the fixed trio the generic marketing page
+ * uses — "the company's own colours", not a brand-blind default.
+ *
+ * Only the hue is taken as the brand gave it; lightness and chroma are
+ * clamped to a band that reads as a soft, blurred blob. A colour tuned to sit
+ * under white on a button isn't automatically a good blob — the same reason
+ * `inkOn` doesn't reuse `--primary` as-is for text, aimed at a different end
+ * here.
+ *
+ * The third blob is a blend of the other two, not an invented one: an
+ * earlier version rotated the primary by a fixed 150° for it, which for an
+ * orange brand landed on teal — a colour nothing in its palette suggested.
+ * `circularMidpointHue` is the fix, and also stands in for the accent
+ * whenever it's too close to the primary to read as its own colour, which is
+ * what keeps the three from collapsing toward one for a company with no
+ * accent set.
+ */
+export function auroraPalette(primaryColor: string, accentColor: string): [string, string, string] {
+  const primary = hexToOklch(primaryColor);
+  const accent = hexToOklch(accentColor);
+
+  const clampL = (l: number) => Math.min(0.78, Math.max(0.55, l));
+  const clampC = (c: number) => Math.min(0.22, Math.max(0.1, c));
+  const blob = (hue: number, l: number, c: number) => `oklch(${clampL(l)} ${clampC(c)} ${hue})`;
+
+  const primaryHue = primary?.h ?? 262;
+  const primaryL = primary?.l ?? 0.65;
+  const primaryC = primary?.c ?? 0.18;
+
+  const distinct = accent !== null && Math.abs(circularHueDiff(primaryHue, accent.h)) > 15;
+  const accentHue = distinct ? accent.h : primaryHue + 35;
+  const accentL = distinct ? accent.l : primaryL;
+  const accentC = distinct ? accent.c : primaryC;
+
+  const midHue = circularMidpointHue(primaryHue, accentHue);
+
+  return [
+    blob(primaryHue, primaryL, primaryC),
+    blob(accentHue, accentL, accentC),
+    blob(midHue, (primaryL + accentL) / 2, (primaryC + accentC) / 2),
+  ];
+}
+
 /**
  * WCAG 2.1 relative contrast between two sRGB hex colours.
  *

@@ -1,4 +1,4 @@
-import { hexToOklch, oklchToHex, parseHex } from "../color";
+import { auroraPalette, hexToOklch, oklchToHex, parseHex } from "../color";
 
 describe("parseHex", () => {
   it("accepts it with and without a hash, and in short form", () => {
@@ -35,6 +35,48 @@ describe("hexToOklch", () => {
 
   it("a grey has no chroma", () => {
     expect(hexToOklch("#808080")?.c).toBeCloseTo(0, 2);
+  });
+});
+
+describe("auroraPalette", () => {
+  it("returns three distinct oklch colours", () => {
+    const [a, b, c] = auroraPalette("#2563eb", "#0f172a");
+    expect(new Set([a, b, c]).size).toBe(3);
+    for (const colour of [a, b, c]) {
+      expect(colour).toMatch(/^oklch\(\d+(\.\d+)? \d+(\.\d+)? -?\d+(\.\d+)?\)$/);
+    }
+  });
+
+  it("keeps the primary's hue in the first blob", () => {
+    const primaryHue = hexToOklch("#2563eb")!.h;
+    const [first] = auroraPalette("#2563eb", "#0f172a");
+    expect(first).toContain(` ${primaryHue})`);
+  });
+
+  it("still produces three different blobs when primary and accent share a hue", () => {
+    const [a, b, c] = auroraPalette("#2563eb", "#1d4ed8");
+    expect(new Set([a, b, c]).size).toBe(3);
+  });
+
+  it("blends orange and blue through red/magenta, not through green", () => {
+    // A fixed +150° rotation once stood in for the third blob: for an orange
+    // brand that lands on teal, a colour nothing in its palette suggested.
+    const [, , third] = auroraPalette("#e2622c", "#2563eb");
+    const hue = Number(third.match(/ (\d+(?:\.\d+)?)\)$/)![1]);
+    expect(hue < 90 || hue > 200).toBe(true);
+  });
+
+  it("clamps lightness and chroma into a band that reads as a soft blob", () => {
+    // Near-black: far outside a usable blob lightness on its own.
+    const [a] = auroraPalette("#020617", "#0f172a");
+    const match = a.match(/^oklch\(([\d.]+) ([\d.]+) /);
+    expect(Number(match![1])).toBeGreaterThanOrEqual(0.55);
+    expect(Number(match![2])).toBeLessThanOrEqual(0.22);
+  });
+
+  it("falls back to a default hue for an unreadable colour", () => {
+    const [a] = auroraPalette("not-a-colour", "also-not-a-colour");
+    expect(a).toContain(" 262)");
   });
 });
 

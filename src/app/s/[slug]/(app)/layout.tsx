@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { requireCompanyContext } from "@/lib/auth/session";
 import { visibleNavItems } from "@/lib/navigation";
 import { roleDisplayName } from "@/lib/auth/role-name";
-import { AppSidebar } from "@/components/app-sidebar";
+import { AppSidebar, MobileNav } from "@/components/app-sidebar";
 import { UserMenu } from "@/components/user-menu";
 import { ScrollReset } from "@/components/scroll-reset";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -36,18 +36,28 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       <ScrollReset target="main" />
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="no-print flex h-14 shrink-0 items-center justify-end gap-1 border-b bg-background px-6">
-          <ThemeToggle />
-
-          <NotificationBell initialUnread={unread} />
-
-          <UserMenu
-            name={ctx.user.name}
-            email={ctx.user.email}
-            image={ctx.user.image}
-            roleName={roleDisplayName(ctx.role, tRoles)}
-            locale={ctx.locale}
+        <header className="no-print flex h-14 shrink-0 items-center gap-1 border-b bg-background px-3 md:px-6">
+          <MobileNav
+            companyName={ctx.company.name}
+            logoUrl={ctx.company.logoUrl}
+            items={items}
           />
+
+          {/* `md:hidden` on the trigger leaves no element in flow at that
+              breakpoint, so this still lands flush right on desktop. */}
+          <div className="ml-auto flex items-center gap-1">
+            <ThemeToggle />
+
+            <NotificationBell initialUnread={unread} />
+
+            <UserMenu
+              name={ctx.user.name}
+              email={ctx.user.email}
+              image={ctx.user.image}
+              roleName={roleDisplayName(ctx.role, tRoles)}
+              locale={ctx.locale}
+            />
+          </div>
         </header>
 
         {/* `min-h-0` is what actually lets this scroll: without it a flex child

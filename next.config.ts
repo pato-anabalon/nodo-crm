@@ -7,7 +7,12 @@ const nextConfig: NextConfig = {
   // default. Needed for the lvh.me trick (see .env.example) that lets
   // cross-subdomain auth — and so `/admin` — be exercised locally over plain
   // HTTP; every company subdomain needs the wildcard, not just one.
-  allowedDevOrigins: ["lvh.me", "**.lvh.me"],
+  allowedDevOrigins: [
+    "lvh.me",
+    "**.lvh.me",
+    "192.168.1.33",
+    "*.192.168.1.33.nip.io",
+  ],
   experimental: {
     serverActions: {
       // Every attachment upload (quote-level and per-section) goes through a

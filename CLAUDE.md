@@ -651,6 +651,66 @@ The edit itself leaves a line in the lead's activity (`QUOTE_EDITED`), the same
 way sending and deciding do, so the history says a sent quote changed even
 though the customer's link didn't.
 
+### Sections the customer decides on
+
+A section is normally `INDEPENDENT` — always in the total, the only behaviour
+that existed before this did. Two more kinds let the company offer choice
+instead of a fixed scope: `OPTIONAL` (a tick the customer can leave on or off,
+pre-ticked or not by the company) and `MULTIPLE_CHOICE` (one winner across
+every `MULTIPLE_CHOICE` section in the quote — picked by the customer, or
+pre-selected by the company). All three can sit in the same quote.
+
+One function decides which sections count and for how much —
+`resolveSelectedSectionAmounts` in `modules/quotes/section-selection.ts` —
+and nothing else reimplements it: the creator's live preview, the server on
+save, the portal's own live recalculation as the customer ticks boxes, and the
+freeze at acceptance all call it with a different `selection`, never a second
+version of what "counts" means. For a quote where every section is
+`INDEPENDENT` — the whole install base before this existed — it degenerates to
+exactly `sum(section)`, byte for byte.
+
+**The volume discount rewards bundling optionals, and a multiple-choice pick
+counts toward it without being discounted by it.**
+`Quote.optionalDiscountThreshold/Type/Value` is a single threshold: once the
+customer has that many `OPTIONAL` sections selected, a discount applies — but
+only to the sum of those `OPTIONAL` sections, never to an `INDEPENDENT` one or
+to the `MULTIPLE_CHOICE` winner's own price. A multiple-choice pick still
+counts as "one more selected" toward the threshold itself, because only one of
+several could ever be chosen in the first place — picking one reads the same
+as ticking an optional add-on.
+
+### Sections keep their identity across an edit
+
+Unlike items, still replaced wholesale on every save, a section's own database
+row now survives one — `updateQuote` matches each incoming section against the
+quote's existing rows by the id the form already carries (minted once per row
+for drag reordering, previously never posted), updating in place rather than
+deleting and recreating. Two things depend on that continuity: a section's own
+attachments (below), which would otherwise cascade-delete on the next save
+whether or not anything about that section actually changed; and the
+customer's own `customerSelected` pick on a sent quote, which no longer resets
+to undecided just because the company fixed a typo elsewhere in the quote.
+
+A posted section id with no match among the quote's own existing rows is
+simply created fresh — true for a brand new row, and the safe fallback for a
+stray or forged one: `ctx.db` only guards the tenant boundary, not which quote
+a row belongs to within it, so the match is checked explicitly against *this*
+quote's own sections before anything is ever updated in place.
+
+### A section's own attachments
+
+`QuoteAttachment.sectionId` is optional — null for a file attached to the
+quote as a whole, set for one attached to a single section. Same table, same
+upload pipeline, same size and type checks as the quote-level ones, because
+they are the same thing at a narrower scope, not a second system worth
+building. Deleting a section cascades its attachments; editing the rest of the
+quote does not, for the reason just above.
+
+On the customer's own document, an image gets a small preview; anything else
+(a PDF, a drawing) keeps the plain file badge the quote-level attachments
+already use — one component, `modules/portal/section-attachments.tsx`, shared
+by both the static section list and the interactive selector.
+
 ## The three security contexts
 
 Everything built before answered a single question: "does this user belong to

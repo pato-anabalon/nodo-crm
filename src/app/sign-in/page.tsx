@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { ROOT_DOMAIN } from "@/lib/tenant/host";
+import { AuroraBackground } from "@/components/aurora-background";
 import { CompanyFinder } from "./company-finder";
 
 export async function generateMetadata() {
@@ -18,20 +19,24 @@ export default async function SignInPage() {
   const t = await getTranslations("auth");
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center gap-6 px-6 py-12">
-      <div className="space-y-2">
-        <h1 className="text-2xl font-semibold tracking-tight">{t("signInTitle")}</h1>
-        <p className="text-sm text-muted-foreground">{t("findCompanyBody")}</p>
-      </div>
+    <div className="relative min-h-screen overflow-hidden">
+      <AuroraBackground />
 
-      <CompanyFinder rootDomain={ROOT_DOMAIN} />
+      <main className="relative mx-auto flex min-h-screen w-full max-w-md flex-col justify-center gap-6 px-6 py-12">
+        <div className="space-y-2">
+          <h1 className="text-2xl font-semibold tracking-tight">{t("signInTitle")}</h1>
+          <p className="text-sm text-muted-foreground">{t("findCompanyBody")}</p>
+        </div>
 
-      <p className="text-center text-sm text-muted-foreground">
-        {t("noCompanyYet")}{" "}
-        <Link href="/register" className="underline underline-offset-4">
-          {t("createCompany")}
-        </Link>
-      </p>
-    </main>
+        <CompanyFinder rootDomain={ROOT_DOMAIN} />
+
+        <p className="text-center text-sm text-muted-foreground">
+          {t("noCompanyYet")}{" "}
+          <Link href="/register" className="underline underline-offset-4">
+            {t("createCompany")}
+          </Link>
+        </p>
+      </main>
+    </div>
   );
 }

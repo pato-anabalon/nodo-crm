@@ -31,7 +31,8 @@
     "settings": "Settings",
     "reports": "Reports",
     "clients": "Client companies",
-    "tasks": "Tasks"
+    "tasks": "Tasks",
+    "openMenu": "Open menu"
   },
   "theme": {
     "toDark": "Switch to dark",
@@ -161,7 +162,12 @@
     "won": "Won",
     "lost": "Lost",
     "funnel": "Funnel",
-    "latestQuotes": "Latest quotes"
+    "latestQuotes": "Latest quotes",
+    "lastSent": "Last sent",
+    "lastAccepted": "Last accepted",
+    "noQuotesYet": "No quotes yet.",
+    "noneSentYet": "Nothing sent yet.",
+    "noneAcceptedYet": "Nothing accepted yet."
   },
   "leads": {
     "title": "Leads",
@@ -173,6 +179,10 @@
     "searchPlaceholder": "Search by title, company or contact…",
     "empty": "No leads match that filter.",
     "backToLeads": "Back to leads",
+    "loading": {
+      "title": "Preparing your lead",
+      "subtitle": "Setting up your lead data…"
+    },
     "quote": "Quote",
     "notFoundOrNoAccess": "We couldn't find that lead, or you don't have access to it.",
     "columns": {
@@ -293,6 +303,10 @@
     "searchPlaceholder": "Search by title, lead or number…",
     "empty": "No quotes yet.",
     "backToQuotes": "Back to quotes",
+    "loading": {
+      "title": "Preparing your quote",
+      "subtitle": "Setting up your quote data…"
+    },
     "notFound": "We couldn't find that quote.",
     "notFoundOrNoAccess": "We couldn't find that quote, or you don't have access to it.",
     "locked": "This quote has already gone out to the customer. To change it, issue a new one.",
@@ -595,6 +609,10 @@
     "notFound": "That contact no longer exists.",
     "noAccount": "No company on record",
     "searchPlaceholder": "Name, email or company",
+    "loading": {
+      "title": "Preparing your contact",
+      "subtitle": "Setting up your contact data…"
+    },
     "columns": {
       "name": "Name",
       "email": "Email",
@@ -628,6 +646,10 @@
     "notFound": "That company no longer exists.",
     "noDetails": "No details on record",
     "searchPlaceholder": "Name, email or tax number",
+    "loading": {
+      "title": "Preparing the client company",
+      "subtitle": "Setting up the company's details…"
+    },
     "columns": {
       "name": "Company",
       "email": "Email",

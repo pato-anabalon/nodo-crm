@@ -31,7 +31,8 @@
     "settings": "Configuración",
     "reports": "Reportes",
     "clients": "Empresas cliente",
-    "tasks": "Tareas"
+    "tasks": "Tareas",
+    "openMenu": "Abrir menú"
   },
   "theme": {
     "toDark": "Cambiar a oscuro",
@@ -161,7 +162,12 @@
     "won": "Ganados",
     "lost": "Perdidos",
     "funnel": "Embudo",
-    "latestQuotes": "Últimas cotizaciones"
+    "latestQuotes": "Últimas cotizaciones",
+    "lastSent": "Últimas enviadas",
+    "lastAccepted": "Últimas aceptadas",
+    "noQuotesYet": "Todavía no hay cotizaciones.",
+    "noneSentYet": "Todavía no se ha enviado nada.",
+    "noneAcceptedYet": "Todavía no se ha aceptado nada."
   },
   "leads": {
     "title": "Leads",
@@ -173,6 +179,10 @@
     "searchPlaceholder": "Buscar por título, empresa o contacto…",
     "empty": "No hay leads que coincidan con el filtro.",
     "backToLeads": "Volver a leads",
+    "loading": {
+      "title": "Preparando tu lead",
+      "subtitle": "Cargando los datos del lead…"
+    },
     "quote": "Cotizar",
     "notFoundOrNoAccess": "No encontramos ese lead o no tienes acceso a él.",
     "columns": {
@@ -293,6 +303,10 @@
     "searchPlaceholder": "Buscar por título, lead o número…",
     "empty": "Todavía no hay cotizaciones.",
     "backToQuotes": "Volver a cotizaciones",
+    "loading": {
+      "title": "Preparando tu cotización",
+      "subtitle": "Cargando los datos de la cotización…"
+    },
     "notFound": "No encontramos esa cotización.",
     "notFoundOrNoAccess": "No encontramos esa cotización o no tienes acceso a ella.",
     "locked": "Esta cotización ya salió al cliente. Para cambiarla, emite una nueva.",
@@ -595,6 +609,10 @@
     "notFound": "Ese contacto ya no existe.",
     "noAccount": "Sin empresa registrada",
     "searchPlaceholder": "Nombre, correo o empresa",
+    "loading": {
+      "title": "Preparando tu contacto",
+      "subtitle": "Cargando los datos del contacto…"
+    },
     "columns": {
       "name": "Nombre",
       "email": "Correo",
@@ -628,6 +646,10 @@
     "notFound": "Esa empresa ya no existe.",
     "noDetails": "Sin datos registrados",
     "searchPlaceholder": "Nombre, correo o RUT",
+    "loading": {
+      "title": "Preparando la empresa cliente",
+      "subtitle": "Cargando los datos de la empresa…"
+    },
     "columns": {
       "name": "Empresa",
       "email": "Correo",

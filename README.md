@@ -1004,14 +1004,67 @@ field, the field name — but **not editing itself**: ProseMirror needs
 is pinned instead is the failure above: the field still holds its value after
 the form around it is typed into.
 
-## The PDF comes from the browser
+## The PDF is its own document, not a capture of one
 
-The download button calls `window.print()` and a print stylesheet (`@media print`
-in `globals.css`) leaves the document ready for paper: interactive things out, no
-section cut across two pages, links expanded. Zero dependencies and full fidelity
-with what the customer sees; in exchange, the file name is theirs to choose.
+Two earlier versions of this got tried and dropped. `window.print()` cost
+nothing and matched the screen exactly, but handed the customer the browser's
+own print dialog — "Save as PDF" is a decision in there, not a download. A
+headless Chromium replaced it next, screenshotting the real page server-side —
+still full fidelity, but launching a browser per download took 6–30 seconds,
+and a download that slow read as broken in some browsers rather than merely
+patient.
 
-Whatever must not reach the paper carries the `no-print` class.
+`api/q/<token>/pdf` (and the team's own `api/quotes/<id>/preview/pdf`, for
+"view as customer") now builds the PDF directly with `@react-pdf/renderer`,
+in `src/modules/portal/pdf/`. No browser, no page to navigate to — the route
+reads the same `company`/`quote` shapes the portal itself reads
+(`companyDocumentSelect`/`quoteDocumentInclude`) and lays them out with React
+PDF's own primitives (`View`, `Text`, `Image`). Warm, it answers in little
+over a second — most of that is the logo and watermark downloading from Blob
+storage, not the PDF itself.
+
+The trade is real and deliberate: this is a **second layout**, not a
+screenshot of the first, so `quote-pdf.tsx` can drift from `quote-document.tsx`
+in a way Chromium's approach structurally couldn't. What keeps the two
+honest is sharing everything that isn't presentation — the same data shapes,
+and the same `calculateQuoteTotals` / `resolveSelectedSectionAmounts` the
+portal's own `SectionSelector` calls, so a quote's total is never computed a
+third way just because it's headed for paper instead of a screen.
+
+- **Geist is embedded, not named.** The 14 standard PDF fonts (Helvetica and
+  its siblings) aren't embedded — a PDF that names "Helvetica" is trusting
+  whichever viewer opens it to supply something close, usually Arial. Close
+  isn't identical: a two-line title overlapped the field below it because
+  Arial's line metrics didn't match the ones React PDF laid the page out
+  against. Shipping the real font file (`src/assets/fonts/geist/`, the exact
+  files `next/font/google` would otherwise fetch, registered once in
+  `pdf/fonts.ts`) fixed it, and reads as the same face as the rest of the app.
+- **Ligatures are off** (`fontFeatureSettings: { liga: false }`). Geist draws
+  "fi" as one glyph, and PDFKit's text layer didn't map it back to two
+  characters — "waterproofing" came back "waterproofng". Turning the feature
+  off keeps every letter its own glyph; nothing looks different, it just stops
+  losing one.
+- **The rich text has its own renderer**, `pdf/rich-text.tsx`: React PDF has
+  no HTML parser of its own, so the sanitised HTML — the same fixed tag set
+  `sanitizeRichText` allows, `p`, `strong`, `ul`, `a` and the rest — is walked
+  by hand with `htmlparser2` and turned into `View`/`Text`/`Link` nodes. A
+  symbol typed directly into the text (a company pasted `➢` instead of using
+  the list button) can still fall outside what Geist covers and come out as
+  the wrong glyph; an actual bullet list renders correctly either way.
+- **The filename is no longer theirs to pick.** `Content-Disposition` carries
+  the quote's own reference (`COT-000007.pdf`), so a customer with three
+  quotes open doesn't have to rename anything to tell them apart.
+- **Nothing here needs a session cookie forwarded or a host header rebuilt.**
+  Both routes read their data straight from the database, through the same
+  guards the pages themselves use (`resolveShare(token)`, `requireCompanyContext()`)
+  — there's no page being navigated to, so none of the problems that came with
+  pointing a browser at one.
+- **The watermark repeats on every page, not once.** On the web it sits at one
+  spot in the document's own scroll, so a long quote shows it only where that
+  spot happens to fall. The PDF's `<Image fixed>` is React PDF's own
+  per-page overlay — placed at the same corner on every physical page the
+  document paginates into, which is closer to what a watermark is for and was
+  a welcome difference rather than a bug to chase down.
 
 ## Confetti, and who it is for
 

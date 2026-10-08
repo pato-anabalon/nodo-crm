@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, FileText } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { can, requireCompanyContext } from "@/lib/auth/session";
 import { Button } from "@/components/ui/button";
@@ -231,94 +231,167 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
           }}
         />
       ) : (
-        <div className="grid gap-6 lg:grid-cols-3">
-          <Card className="lg:col-span-2">
-            <CardHeader>
-              <CardTitle className="text-base">{t("detail")}</CardTitle>
-            </CardHeader>
-
-            {quote.pricingMode === PricingMode.SECTIONS ? (
-              <CardContent className="space-y-5">
-                {quote.sections.map((section) => (
-                  <div key={section.id} className="space-y-1.5">
-                    <div className="flex flex-wrap items-baseline justify-between gap-3">
-                      <h3 className="font-semibold">{section.title}</h3>
-                      <span className="tabular-nums">{maskedMoney(Number(section.amount))}</span>
-                    </div>
-                    <RichText className="text-sm text-muted-foreground" html={section.body} />
-                  </div>
-                ))}
-              </CardContent>
-            ) : (
-            <CardContent className="p-0">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>{t("columns.description")}</TableHead>
-                    <TableHead className="text-right">{t("columns.quantity")}</TableHead>
-                    <TableHead className="text-right">{t("columns.unitPrice")}</TableHead>
-                    <TableHead className="text-right">{t("columns.discount")}</TableHead>
-                    <TableHead className="text-right">{t("columns.total")}</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {quote.items.map((item) => (
-                    <TableRow key={item.id}>
-                      <TableCell>{item.description}</TableCell>
-                      <TableCell className="text-right tabular-nums">{Number(item.quantity)}</TableCell>
-                      <TableCell className="text-right tabular-nums">{maskedMoney(Number(item.unitPrice))}</TableCell>
-                      <TableCell className="text-right tabular-nums">{Number(item.discount)}%</TableCell>
-                      <TableCell className="text-right tabular-nums">{maskedMoney(Number(item.total))}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-            )}
-          </Card>
-
-          <Card className="h-fit">
-            <CardHeader>
-              <CardTitle className="text-base">{t("form.totals")}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <dl className="space-y-1.5 text-sm">
-                <Row label={t("form.subtotal")} value={maskedMoney(Number(quote.subtotal))} />
-                <Row
-                  label={t("form.discount")}
-                  value={canSeeAmounts ? `− ${money(Number(quote.discount))}` : <HiddenAmount />}
-                />
-                {taxIsInTotal(quote.taxDisplayMode) ? (
-                  <Row
-                    label={`${t(`taxType.${quote.taxType}`)} (${Number(quote.taxRate)}%)`}
-                    value={maskedMoney(Number(quote.taxAmount))}
-                  />
+        <>
+          {quote.clientCompanyName ||
+          quote.clientName ||
+          quote.clientEmail ||
+          quote.clientPhone ||
+          quote.lead ? (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base">{t("columns.customer")}</CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-wrap items-end gap-x-8 gap-y-3 text-sm">
+                {quote.clientCompanyName ? (
+                  <ClientField label={t("form.customerCompany")} value={quote.clientCompanyName} />
                 ) : null}
-                <div className="flex items-center justify-between border-t pt-2 text-base font-semibold">
-                  <dt>{t("form.total")}</dt>
-                  <dd className="tabular-nums">{maskedMoney(Number(quote.total))}</dd>
-                </div>
-              </dl>
+                {quote.clientName ? (
+                  <ClientField label={t("form.customerName")} value={quote.clientName} />
+                ) : null}
+                {quote.clientEmail ? (
+                  <ClientField label={t("form.customerEmail")} value={quote.clientEmail} />
+                ) : null}
+                {quote.clientPhone ? (
+                  <ClientField label={t("form.customerPhone")} value={quote.clientPhone} />
+                ) : null}
+                {quote.lead ? (
+                  <Button asChild variant="outline" size="sm">
+                    <Link href={`/leads/${quote.lead.id}`}>{t("form.viewLead")}</Link>
+                  </Button>
+                ) : null}
+              </CardContent>
+            </Card>
+          ) : null}
 
-              {quote.validUntil ? (
-                <p className="mt-4 text-xs text-muted-foreground">
-                  {t("validUntilDate", {
-                    date: formatDate(
-                      quote.validUntil,
-                      ctx.company.formatLocale,
-                      ctx.company.timezone,
-                    ),
-                  })}
-                </p>
-              ) : null}
+          <div className="grid gap-6 lg:grid-cols-3">
+            <Card className="lg:col-span-2">
+              <CardHeader>
+                <CardTitle className="text-base">{t("detail")}</CardTitle>
+              </CardHeader>
 
-              {quote.notes ? <RichText className="mt-4 text-sm" html={quote.notes} /> : null}
-              {quote.terms ? (
-                <RichText className="mt-2 text-xs text-muted-foreground" html={quote.terms} />
-              ) : null}
-            </CardContent>
-          </Card>
-        </div>
+              {quote.pricingMode === PricingMode.SECTIONS ? (
+                <CardContent className="space-y-5">
+                  {quote.sections.map((section) => (
+                    <div key={section.id} className="space-y-1.5">
+                      <div className="flex flex-wrap items-baseline justify-between gap-3">
+                        <h3 className="font-semibold">{section.title}</h3>
+                        <span className="tabular-nums">{maskedMoney(Number(section.amount))}</span>
+                      </div>
+                      <RichText className="text-sm text-muted-foreground" html={section.body} />
+                    </div>
+                  ))}
+                </CardContent>
+              ) : (
+                <CardContent className="p-0">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>{t("columns.description")}</TableHead>
+                        <TableHead className="text-right">{t("columns.quantity")}</TableHead>
+                        <TableHead className="text-right">{t("columns.unitPrice")}</TableHead>
+                        <TableHead className="text-right">{t("columns.discount")}</TableHead>
+                        <TableHead className="text-right">{t("columns.total")}</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {quote.items.map((item) => (
+                        <TableRow key={item.id}>
+                          <TableCell>{item.description}</TableCell>
+                          <TableCell className="text-right tabular-nums">{Number(item.quantity)}</TableCell>
+                          <TableCell className="text-right tabular-nums">{maskedMoney(Number(item.unitPrice))}</TableCell>
+                          <TableCell className="text-right tabular-nums">{Number(item.discount)}%</TableCell>
+                          <TableCell className="text-right tabular-nums">{maskedMoney(Number(item.total))}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </CardContent>
+              )}
+            </Card>
+
+            <Card className="h-fit">
+              <CardHeader>
+                <CardTitle className="text-base">{t("form.totals")}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <dl className="space-y-1.5 text-sm">
+                  <Row label={t("form.subtotal")} value={maskedMoney(Number(quote.subtotal))} />
+                  <Row
+                    label={t("form.discount")}
+                    value={canSeeAmounts ? `− ${money(Number(quote.discount))}` : <HiddenAmount />}
+                  />
+                  {taxIsInTotal(quote.taxDisplayMode) ? (
+                    <Row
+                      label={`${t(`taxType.${quote.taxType}`)} (${Number(quote.taxRate)}%)`}
+                      value={maskedMoney(Number(quote.taxAmount))}
+                    />
+                  ) : null}
+                  <div className="flex items-center justify-between border-t pt-2 text-base font-semibold">
+                    <dt>{t("form.total")}</dt>
+                    <dd className="tabular-nums">{maskedMoney(Number(quote.total))}</dd>
+                  </div>
+                </dl>
+
+                {quote.validUntil ? (
+                  <p className="mt-4 text-xs text-muted-foreground">
+                    {t("validUntilDate", {
+                      date: formatDate(
+                        quote.validUntil,
+                        ctx.company.formatLocale,
+                        ctx.company.timezone,
+                      ),
+                    })}
+                  </p>
+                ) : null}
+              </CardContent>
+            </Card>
+          </div>
+
+          {quote.notes || quote.exclusions || quote.terms || quote.termsDocument ? (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base">{t("form.notesSection")}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4 text-sm">
+                {quote.notes ? (
+                  <div className="space-y-1.5">
+                    <h3 className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+                      {t("form.notes")}
+                    </h3>
+                    <RichText html={quote.notes} />
+                  </div>
+                ) : null}
+
+                {quote.exclusions ? (
+                  <div className="space-y-1.5">
+                    <h3 className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+                      {t("form.exclusions")}
+                    </h3>
+                    <RichText className="text-muted-foreground" html={quote.exclusions} />
+                  </div>
+                ) : null}
+
+                {quote.terms ? (
+                  <div className="space-y-1.5">
+                    <h3 className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+                      {t("form.terms")}
+                    </h3>
+                    <RichText className="text-muted-foreground" html={quote.terms} />
+                  </div>
+                ) : null}
+
+                {quote.termsDocument ? (
+                  <Button asChild variant="outline" size="sm">
+                    <a href={quote.termsDocument.url} target="_blank" rel="noopener noreferrer">
+                      <FileText className="size-4" />
+                      {quote.termsDocument.name}
+                    </a>
+                  </Button>
+                ) : null}
+              </CardContent>
+            </Card>
+          ) : null}
+        </>
       )}
 
       {/**
@@ -597,6 +670,17 @@ function Row({ label, value }: { label: string; value: React.ReactNode }) {
     <div className="flex items-center justify-between text-muted-foreground">
       <dt>{label}</dt>
       <dd className="tabular-nums">{value}</dd>
+    </div>
+  );
+}
+
+function ClientField({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="space-y-0.5">
+      <p className="text-[11px] font-medium tracking-wide text-muted-foreground uppercase">
+        {label}
+      </p>
+      <p className="break-words">{value}</p>
     </div>
   );
 }

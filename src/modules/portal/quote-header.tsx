@@ -73,7 +73,7 @@ export async function QuoteHeader({
   const reference = formatQuoteNumber(company.quotePrefix, quote.number);
 
   return (
-    <header className="space-y-8 border-b pb-8">
+    <header className="space-y-8 pb-8">
       {/* The document's own identity sits opposite the logo — who issued it
           on one side, which one this is on the other — rather than buried
           below the title where it used to compete with the scope of work
@@ -164,8 +164,6 @@ export async function QuoteHeader({
           ) : null}
         </PartyCard>
       </div>
-
-      <hr className="border-t" />
 
       <div className="flex flex-wrap items-start justify-between gap-6">
         <div className="min-w-0 flex-1 space-y-3">

@@ -80,6 +80,9 @@ export async function QuoteDocument({
   const money = (value: number) =>
     formatMoney(value, quote.currency, company.formatLocale);
   const live = token !== null;
+  const pdfHref = token
+    ? `/api/q/${encodeURIComponent(token)}/pdf`
+    : `/api/quotes/${quote.id}/preview/pdf`;
   const open = live && canClientRespond(quote.status);
   const taxLabel = quote.taxType;
   const showTaxBreakdown = taxIsInTotal(quote.taxDisplayMode);
@@ -153,7 +156,7 @@ export async function QuoteDocument({
             }}
             quote={quote}
             locale={locale}
-            printButton={<PrintButton label={t("downloadPdf")} />}
+            printButton={<PrintButton label={t("downloadPdf")} href={pdfHref} />}
           />
 
           {/* Only for the customer: `token` is null in the team's own preview,
@@ -199,7 +202,7 @@ export async function QuoteDocument({
             <RichText className="text-sm text-muted-foreground" html={quote.intro} />
 
             {quote.pricingMode === PricingMode.SECTIONS && !hasSelectableSections ? (
-              <div className="space-y-8 border-t pt-6">
+              <div className="space-y-8 pt-6">
                 {quote.sections.map((section) => {
                   const gross = Number(section.amount);
                   const discountValue = Number(section.discountValue);
@@ -255,7 +258,7 @@ export async function QuoteDocument({
                 })}
               </div>
             ) : quote.pricingMode !== PricingMode.SECTIONS ? (
-              <div className="space-y-3 border-t pt-6">
+              <div className="space-y-3 pt-6">
                 {quote.items.map((item) => (
                   <div
                     key={item.id}
@@ -323,7 +326,7 @@ export async function QuoteDocument({
               // Tax only breaks out as its own line when it's part of the total
               // below it — otherwise a figure sits there that the total doesn't
               // reflect, which reads as a mistake rather than a choice.
-              <dl className="ml-auto max-w-xs space-y-1.5 border-t pt-4 text-sm">
+              <dl className="ml-auto max-w-xs space-y-1.5 pt-4 text-sm">
                 <Row
                   label={t("subtotal")}
                   value={money(Number(quote.subtotal))}
@@ -340,7 +343,7 @@ export async function QuoteDocument({
                     value={money(Number(quote.taxAmount))}
                   />
                 ) : null}
-                <div className="flex items-baseline justify-between gap-3 border-t pt-2 text-base font-semibold">
+                <div className="flex items-baseline justify-between gap-3 pt-2 text-base font-semibold">
                   <dt>{totalLabel()}</dt>
                   <dd className="tabular-nums">{money(Number(quote.total))}</dd>
                 </div>
@@ -354,7 +357,7 @@ export async function QuoteDocument({
           quote.exclusions ||
           quote.terms ||
           quote.termsDocument ? (
-            <section className="space-y-6 border-t pt-8 text-sm">
+            <section className="space-y-6 pt-8 text-sm">
               {quote.notes ? (
                 <Block title={t("notes")}>
                   <RichText html={quote.notes} />

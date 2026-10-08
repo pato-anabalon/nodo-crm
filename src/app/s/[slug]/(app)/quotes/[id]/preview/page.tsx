@@ -43,7 +43,7 @@ export default async function QuotePreviewPage({
         <p className="text-sm text-muted-foreground">{t("previewHint")}</p>
       </div>
 
-      <div className="rounded-lg border bg-background">
+      <div className="rounded-lg bg-background">
         <QuoteDocument
           company={document.company}
           quote={document.quote}

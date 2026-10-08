@@ -172,7 +172,7 @@ export function SectionSelector({
       <RadioGroup
         value={selectedMultipleChoiceId}
         onValueChange={chooseMultiple}
-        className="space-y-8 border-t pt-6"
+        className="space-y-8 pt-6"
       >
         {sections.map((section) => {
           const checked = selection[section.id] ?? section.selectedByDefault;
@@ -262,7 +262,7 @@ export function SectionSelector({
         })}
       </RadioGroup>
 
-      <dl className="ml-auto max-w-xs space-y-1.5 border-t pt-4 text-sm">
+      <dl className="ml-auto max-w-xs space-y-1.5 pt-4 text-sm">
         <Row label={t("subtotal")} value={money(subtotalDisplay)} />
         {resolved.bundleDiscountApplied > 0 ? (
           <Row label={t("bundleDiscount")} value={`− ${money(resolved.bundleDiscountApplied)}`} />
@@ -273,7 +273,7 @@ export function SectionSelector({
         {showTaxBreakdown ? (
           <Row label={`${taxLabel} ${taxRate}%`} value={money(totals.taxAmount)} />
         ) : null}
-        <div className="flex items-baseline justify-between gap-3 border-t pt-2 text-base font-semibold">
+        <div className="flex items-baseline justify-between gap-3 pt-2 text-base font-semibold">
           <dt>{totalLabel}</dt>
           <dd className="tabular-nums">{money(animatedTotal)}</dd>
         </div>

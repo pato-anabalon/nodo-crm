@@ -322,6 +322,17 @@ getting through. A site taking a hundred leads and rejecting three is working; a
 rate limit and a duplicate are defences doing their job and are not counted at
 all.
 
+The sweep also **closes what `validUntil` already decided**: a `SENT` quote
+nobody answered before running out moves to `EXPIRED`, the same way
+`changeQuoteStatus` would if a person did it — its own `Activity` row
+(`QUOTE_DECIDED`, author "System"), and the lead moved along if nothing else is
+still open. Nothing else in the app ever makes that move; without the sweep a
+quote past its date just sits `SENT` forever, which is what made the Reports
+`awaiting` figure read as an accumulator before `expired` existed as its own
+measure (see `reports/stock-flow.ts`). `hasExpired` in `notifications/watch.ts`
+is the one tested word for "already run out," the sibling of `isExpiring`'s "about
+to."
+
 ### Addresses that aren't people
 
 `Company.leadNotificationEmails` adds recipients to the "new lead" notice beyond

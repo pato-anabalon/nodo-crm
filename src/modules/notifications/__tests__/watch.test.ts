@@ -3,6 +3,7 @@ import {
   BROKEN_THRESHOLD,
   dailyKey,
   formLooksBroken,
+  hasExpired,
   isBrokenOutcome,
   isExpiring,
 } from "../watch";
@@ -30,6 +31,27 @@ describe("isExpiring", () => {
 
   it("respects a different window", () => {
     expect(isExpiring(on("2026-03-20T00:00:00Z"), now, 30)).toBe(true);
+  });
+});
+
+describe("hasExpired", () => {
+  it("is false for one still inside its validity", () => {
+    expect(hasExpired(on("2026-03-12T00:00:00Z"), now)).toBe(false);
+  });
+
+  it("is true the moment validity has run out, not a few days ahead of it", () => {
+    // This is the line `isExpiring` crosses three days early; `hasExpired`
+    // only crosses it when there's genuinely nothing left to wait for.
+    expect(hasExpired(on("2026-03-09T00:00:00Z"), now)).toBe(true);
+  });
+
+  it("is false at the exact instant, and true the instant after", () => {
+    expect(hasExpired(on(now.toISOString()), now)).toBe(false);
+    expect(hasExpired(on(now.toISOString()), new Date(now.getTime() + 1))).toBe(true);
+  });
+
+  it("says nothing about a quote with no date — it never expires on its own", () => {
+    expect(hasExpired({ validUntil: null }, now)).toBe(false);
   });
 });
 

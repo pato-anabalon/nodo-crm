@@ -30,6 +30,34 @@ export function makeValueFormatter({ display, currency, formatLocale }: ChartFor
   return (value: number) => formatter.format(value);
 }
 
+/**
+ * The short form for a gridline — "$100K" rather than "$100,000.00" — where
+ * `makeValueFormatter`'s full precision is what the tooltip needs, not what
+ * several labels stacked down an axis do.
+ *
+ * `Intl`'s own `notation: "compact"` rather than a hand-rolled "k"/"M" suffix:
+ * "k" is an English convention, and the company's own `formatLocale` is what
+ * decides every other figure in the app — a Spanish-reading company sees "100
+ * mil", which `Intl` already knows how to produce correctly.
+ */
+export function makeCompactValueFormatter({ display, currency, formatLocale }: ChartFormat) {
+  if (display === "count") {
+    const formatter = new Intl.NumberFormat(formatLocale, {
+      notation: "compact",
+      maximumFractionDigits: 1,
+    });
+    return (value: number) => formatter.format(Math.round(value));
+  }
+
+  const formatter = new Intl.NumberFormat(formatLocale, {
+    style: "currency",
+    currency,
+    notation: "compact",
+    maximumFractionDigits: 1,
+  });
+  return (value: number) => formatter.format(value);
+}
+
 /** Short labels for the axis; the series dates already come in UTC. */
 export function makeShortDateFormatter(formatLocale: string) {
   const formatter = new Intl.DateTimeFormat(formatLocale, {

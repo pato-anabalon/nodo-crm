@@ -1,17 +1,21 @@
 /**
  * Quote status colours.
  *
- * Validated for colour blindness (ΔE deutan 16.3, normal vision 20.0) in both
- * light and dark. They're status colours, not series colours: never reused for
- * anything else and never changed by the company's brand colour.
+ * Validated for colour blindness (ΔE deutan 16.3, normal vision 20.0 for the
+ * original three) in both light and dark. They're status colours, not series
+ * colours: never reused for anything else and never changed by the company's
+ * brand colour.
  *
- * Blue for "accepted" isn't arbitrary: it's what Quotient uses and what the
- * validator accepts, because green can't separate from red under deuteranopia.
+ * "expired" reuses the badge's own `--status-expired` grey — see the comment
+ * on `--quote-expired` in `globals.css` for why it's fixed at the light
+ * value in both themes rather than switching to the dark badge's inverted
+ * one, and the simulated ΔE that choice is based on.
  */
 export const QUOTE_STATUS_COLORS = {
   accepted: "var(--quote-accepted)",
   awaiting: "var(--quote-awaiting)",
   declined: "var(--quote-declined)",
+  expired: "var(--quote-expired)",
 } as const;
 
 export type QuoteStatusKey = keyof typeof QUOTE_STATUS_COLORS;
@@ -26,6 +30,7 @@ export const QUOTE_STATUS_PATTERN: Record<QuoteStatusKey, number> = {
   accepted: 45,
   awaiting: 135,
   declined: 0,
+  expired: 90,
 };
 
-export const QUOTE_STATUS_ORDER: QuoteStatusKey[] = ["accepted", "awaiting", "declined"];
+export const QUOTE_STATUS_ORDER: QuoteStatusKey[] = ["accepted", "declined", "expired", "awaiting"];

@@ -14,32 +14,26 @@ export type SeriesPoint = {
   accepted: number;
 };
 
-export type Bucket = "day" | "week" | "month";
-
 /**
- * Groups quotes into regular buckets.
+ * Groups quotes by day.
  *
- * Empty buckets are included on purpose: without them a month with no activity
- * vanishes from the chart and the curve lies about the drop.
+ * Empty days are included on purpose: without them a quiet stretch vanishes
+ * from the chart and the curve lies about the drop.
  */
-export function buildSeries(
-  inputs: SeriesInput[],
-  period: Period,
-  bucket: Bucket,
-): SeriesPoint[] {
+export function buildSeries(inputs: SeriesInput[], period: Period): SeriesPoint[] {
   const points = new Map<string, SeriesPoint>();
 
   for (
-    let cursor = bucketStart(period.from, bucket);
+    let cursor = bucketStart(period.from);
     cursor < period.to;
-    cursor = nextBucket(cursor, bucket)
+    cursor = nextBucket(cursor)
   ) {
     const key = toKey(cursor);
     points.set(key, { date: key, total: 0, accepted: 0 });
   }
 
   for (const input of inputs) {
-    const key = toKey(bucketStart(input.at, bucket));
+    const key = toKey(bucketStart(input.at));
     const point = points.get(key);
     // A record outside the requested range must not create a stray bucket.
     if (!point) continue;
@@ -57,9 +51,8 @@ export function buildSeries(
  * Smooths the noise of individual days and lets the trend show, which is what a
  * sales panel is actually read for.
  */
-export function rollingSum(points: SeriesPoint[], days: number, bucket: Bucket): SeriesPoint[] {
-  const perBucket = bucket === "day" ? 1 : bucket === "week" ? 7 : 30;
-  const window = Math.max(1, Math.round(days / perBucket));
+export function rollingSum(points: SeriesPoint[], days: number): SeriesPoint[] {
+  const window = Math.max(1, Math.round(days));
 
   return points.map((point, index) => {
     const start = Math.max(0, index - window + 1);
@@ -90,26 +83,13 @@ export function divideSeries(sums: SeriesPoint[], counts: SeriesPoint[]): Series
   });
 }
 
-export function bucketStart(date: Date, bucket: Bucket): Date {
-  const year = date.getUTCFullYear();
-  const month = date.getUTCMonth();
-  const day = date.getUTCDate();
-
-  if (bucket === "month") return new Date(Date.UTC(year, month, 1));
-  if (bucket === "day") return new Date(Date.UTC(year, month, day));
-
-  // Week starting on Monday, which is how a business calendar reads.
-  const start = new Date(Date.UTC(year, month, day));
-  const weekday = (start.getUTCDay() + 6) % 7;
-  start.setUTCDate(start.getUTCDate() - weekday);
-  return start;
+export function bucketStart(date: Date): Date {
+  return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
 }
 
-function nextBucket(date: Date, bucket: Bucket): Date {
+function nextBucket(date: Date): Date {
   const next = new Date(date);
-  if (bucket === "day") next.setUTCDate(next.getUTCDate() + 1);
-  else if (bucket === "week") next.setUTCDate(next.getUTCDate() + 7);
-  else next.setUTCMonth(next.getUTCMonth() + 1);
+  next.setUTCDate(next.getUTCDate() + 1);
   return next;
 }
 

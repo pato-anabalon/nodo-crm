@@ -13,9 +13,11 @@ import { sendNotice } from "./service";
 import { dueDedupeKey, isDue } from "./due";
 import { dailyKey, formLooksBroken, isBrokenOutcome, isExpiring, EXPIRING_WITHIN_DAYS } from "./watch";
 import { sweepScheduledEmails } from "@/modules/email-templates/sweep";
+import { closeExpiredQuotes } from "@/modules/quotes/sweep";
 
 export type SweepResult = {
   companies: number;
+  closedExpired: number;
   expiring: number;
   brokenForms: number;
   dueTasks: number;
@@ -56,6 +58,7 @@ export async function runDailySweep(now: Date = new Date()): Promise<SweepResult
 
   const result: SweepResult = {
     companies: companies.length,
+    closedExpired: 0,
     expiring: 0,
     brokenForms: 0,
     dueTasks: 0,
@@ -65,6 +68,11 @@ export async function runDailySweep(now: Date = new Date()): Promise<SweepResult
   };
 
   for (const company of companies) {
+    // Closes out what's already dead before warning about what's about to
+    // be — the two never overlap (one is `validUntil < now`, the other is
+    // `validUntil` a few days ahead of it), but closing first is the more
+    // honest order to read in a log.
+    result.closedExpired += await closeExpiredQuotes(company, now);
     result.expiring += await sweepExpiringQuotes(company, now);
     result.brokenForms += await sweepBrokenForm(company, now);
     result.dueTasks += await sweepDueTasks(company, now);

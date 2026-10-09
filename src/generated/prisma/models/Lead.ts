@@ -27,11 +27,13 @@ export type AggregateLead = {
 }
 
 export type LeadAvgAggregateOutputType = {
+  legacyQuotientNumber: number | null
   score: number | null
   estimatedValue: runtime.Decimal | null
 }
 
 export type LeadSumAggregateOutputType = {
+  legacyQuotientNumber: number | null
   score: number | null
   estimatedValue: runtime.Decimal | null
 }
@@ -39,6 +41,7 @@ export type LeadSumAggregateOutputType = {
 export type LeadMinAggregateOutputType = {
   id: string | null
   companyId: string | null
+  legacyQuotientNumber: number | null
   title: string | null
   description: string | null
   status: $Enums.LeadStatus | null
@@ -65,6 +68,7 @@ export type LeadMinAggregateOutputType = {
 export type LeadMaxAggregateOutputType = {
   id: string | null
   companyId: string | null
+  legacyQuotientNumber: number | null
   title: string | null
   description: string | null
   status: $Enums.LeadStatus | null
@@ -91,6 +95,7 @@ export type LeadMaxAggregateOutputType = {
 export type LeadCountAggregateOutputType = {
   id: number
   companyId: number
+  legacyQuotientNumber: number
   title: number
   description: number
   status: number
@@ -117,11 +122,13 @@ export type LeadCountAggregateOutputType = {
 
 
 export type LeadAvgAggregateInputType = {
+  legacyQuotientNumber?: true
   score?: true
   estimatedValue?: true
 }
 
 export type LeadSumAggregateInputType = {
+  legacyQuotientNumber?: true
   score?: true
   estimatedValue?: true
 }
@@ -129,6 +136,7 @@ export type LeadSumAggregateInputType = {
 export type LeadMinAggregateInputType = {
   id?: true
   companyId?: true
+  legacyQuotientNumber?: true
   title?: true
   description?: true
   status?: true
@@ -155,6 +163,7 @@ export type LeadMinAggregateInputType = {
 export type LeadMaxAggregateInputType = {
   id?: true
   companyId?: true
+  legacyQuotientNumber?: true
   title?: true
   description?: true
   status?: true
@@ -181,6 +190,7 @@ export type LeadMaxAggregateInputType = {
 export type LeadCountAggregateInputType = {
   id?: true
   companyId?: true
+  legacyQuotientNumber?: true
   title?: true
   description?: true
   status?: true
@@ -294,6 +304,7 @@ export type LeadGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type LeadGroupByOutputType = {
   id: string
   companyId: string
+  legacyQuotientNumber: number | null
   title: string
   description: string | null
   status: $Enums.LeadStatus
@@ -343,6 +354,7 @@ export type LeadWhereInput = {
   NOT?: Prisma.LeadWhereInput | Prisma.LeadWhereInput[]
   id?: Prisma.StringFilter<"Lead"> | string
   companyId?: Prisma.StringFilter<"Lead"> | string
+  legacyQuotientNumber?: Prisma.IntNullableFilter<"Lead"> | number | null
   title?: Prisma.StringFilter<"Lead"> | string
   description?: Prisma.StringNullableFilter<"Lead"> | string | null
   status?: Prisma.EnumLeadStatusFilter<"Lead"> | $Enums.LeadStatus
@@ -378,6 +390,7 @@ export type LeadWhereInput = {
 export type LeadOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
+  legacyQuotientNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -412,6 +425,7 @@ export type LeadOrderByWithRelationInput = {
 
 export type LeadWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  legacyQuotientNumber?: number
   AND?: Prisma.LeadWhereInput | Prisma.LeadWhereInput[]
   OR?: Prisma.LeadWhereInput[]
   NOT?: Prisma.LeadWhereInput | Prisma.LeadWhereInput[]
@@ -446,11 +460,12 @@ export type LeadWhereUniqueInput = Prisma.AtLeast<{
   quotes?: Prisma.QuoteListRelationFilter
   activities?: Prisma.ActivityListRelationFilter
   tasks?: Prisma.TaskListRelationFilter
-}, "id">
+}, "id" | "legacyQuotientNumber">
 
 export type LeadOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
+  legacyQuotientNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -485,6 +500,7 @@ export type LeadScalarWhereWithAggregatesInput = {
   NOT?: Prisma.LeadScalarWhereWithAggregatesInput | Prisma.LeadScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Lead"> | string
   companyId?: Prisma.StringWithAggregatesFilter<"Lead"> | string
+  legacyQuotientNumber?: Prisma.IntNullableWithAggregatesFilter<"Lead"> | number | null
   title?: Prisma.StringWithAggregatesFilter<"Lead"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Lead"> | string | null
   status?: Prisma.EnumLeadStatusWithAggregatesFilter<"Lead"> | $Enums.LeadStatus
@@ -510,6 +526,7 @@ export type LeadScalarWhereWithAggregatesInput = {
 
 export type LeadCreateInput = {
   id?: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -541,6 +558,7 @@ export type LeadCreateInput = {
 export type LeadUncheckedCreateInput = {
   id?: string
   companyId: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -570,6 +588,7 @@ export type LeadUncheckedCreateInput = {
 
 export type LeadUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -601,6 +620,7 @@ export type LeadUpdateInput = {
 export type LeadUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -631,6 +651,7 @@ export type LeadUncheckedUpdateInput = {
 export type LeadCreateManyInput = {
   id?: string
   companyId: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -656,6 +677,7 @@ export type LeadCreateManyInput = {
 
 export type LeadUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -678,6 +700,7 @@ export type LeadUpdateManyMutationInput = {
 export type LeadUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -719,6 +742,7 @@ export type LeadNullableScalarRelationFilter = {
 export type LeadCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
+  legacyQuotientNumber?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -743,6 +767,7 @@ export type LeadCountOrderByAggregateInput = {
 }
 
 export type LeadAvgOrderByAggregateInput = {
+  legacyQuotientNumber?: Prisma.SortOrder
   score?: Prisma.SortOrder
   estimatedValue?: Prisma.SortOrder
 }
@@ -750,6 +775,7 @@ export type LeadAvgOrderByAggregateInput = {
 export type LeadMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
+  legacyQuotientNumber?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -776,6 +802,7 @@ export type LeadMaxOrderByAggregateInput = {
 export type LeadMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
+  legacyQuotientNumber?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -800,6 +827,7 @@ export type LeadMinOrderByAggregateInput = {
 }
 
 export type LeadSumOrderByAggregateInput = {
+  legacyQuotientNumber?: Prisma.SortOrder
   score?: Prisma.SortOrder
   estimatedValue?: Prisma.SortOrder
 }
@@ -1099,6 +1127,7 @@ export type LeadUpdateOneWithoutQuotesNestedInput = {
 
 export type LeadCreateWithoutCompanyInput = {
   id?: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -1128,6 +1157,7 @@ export type LeadCreateWithoutCompanyInput = {
 
 export type LeadUncheckedCreateWithoutCompanyInput = {
   id?: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -1187,6 +1217,7 @@ export type LeadScalarWhereInput = {
   NOT?: Prisma.LeadScalarWhereInput | Prisma.LeadScalarWhereInput[]
   id?: Prisma.StringFilter<"Lead"> | string
   companyId?: Prisma.StringFilter<"Lead"> | string
+  legacyQuotientNumber?: Prisma.IntNullableFilter<"Lead"> | number | null
   title?: Prisma.StringFilter<"Lead"> | string
   description?: Prisma.StringNullableFilter<"Lead"> | string | null
   status?: Prisma.EnumLeadStatusFilter<"Lead"> | $Enums.LeadStatus
@@ -1212,6 +1243,7 @@ export type LeadScalarWhereInput = {
 
 export type LeadCreateWithoutOwnerInput = {
   id?: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -1242,6 +1274,7 @@ export type LeadCreateWithoutOwnerInput = {
 export type LeadUncheckedCreateWithoutOwnerInput = {
   id?: string
   companyId: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -1280,6 +1313,7 @@ export type LeadCreateManyOwnerInputEnvelope = {
 
 export type LeadCreateWithoutDiscardedByInput = {
   id?: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -1310,6 +1344,7 @@ export type LeadCreateWithoutDiscardedByInput = {
 export type LeadUncheckedCreateWithoutDiscardedByInput = {
   id?: string
   companyId: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -1380,6 +1415,7 @@ export type LeadUpdateManyWithWhereWithoutDiscardedByInput = {
 
 export type LeadCreateWithoutTasksInput = {
   id?: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -1410,6 +1446,7 @@ export type LeadCreateWithoutTasksInput = {
 export type LeadUncheckedCreateWithoutTasksInput = {
   id?: string
   companyId: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -1454,6 +1491,7 @@ export type LeadUpdateToOneWithWhereWithoutTasksInput = {
 
 export type LeadUpdateWithoutTasksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -1484,6 +1522,7 @@ export type LeadUpdateWithoutTasksInput = {
 export type LeadUncheckedUpdateWithoutTasksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -1512,6 +1551,7 @@ export type LeadUncheckedUpdateWithoutTasksInput = {
 
 export type LeadCreateWithoutClientCompanyInput = {
   id?: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -1542,6 +1582,7 @@ export type LeadCreateWithoutClientCompanyInput = {
 export type LeadUncheckedCreateWithoutClientCompanyInput = {
   id?: string
   companyId: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -1596,6 +1637,7 @@ export type LeadUpdateManyWithWhereWithoutClientCompanyInput = {
 
 export type LeadCreateWithoutContactInput = {
   id?: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -1626,6 +1668,7 @@ export type LeadCreateWithoutContactInput = {
 export type LeadUncheckedCreateWithoutContactInput = {
   id?: string
   companyId: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -1680,6 +1723,7 @@ export type LeadUpdateManyWithWhereWithoutContactInput = {
 
 export type LeadCreateWithoutSubmissionInput = {
   id?: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -1710,6 +1754,7 @@ export type LeadCreateWithoutSubmissionInput = {
 export type LeadUncheckedCreateWithoutSubmissionInput = {
   id?: string
   companyId: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -1754,6 +1799,7 @@ export type LeadUpdateToOneWithWhereWithoutSubmissionInput = {
 
 export type LeadUpdateWithoutSubmissionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -1784,6 +1830,7 @@ export type LeadUpdateWithoutSubmissionInput = {
 export type LeadUncheckedUpdateWithoutSubmissionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -1812,6 +1859,7 @@ export type LeadUncheckedUpdateWithoutSubmissionInput = {
 
 export type LeadCreateWithoutActivitiesInput = {
   id?: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -1842,6 +1890,7 @@ export type LeadCreateWithoutActivitiesInput = {
 export type LeadUncheckedCreateWithoutActivitiesInput = {
   id?: string
   companyId: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -1886,6 +1935,7 @@ export type LeadUpdateToOneWithWhereWithoutActivitiesInput = {
 
 export type LeadUpdateWithoutActivitiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -1916,6 +1966,7 @@ export type LeadUpdateWithoutActivitiesInput = {
 export type LeadUncheckedUpdateWithoutActivitiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -1944,6 +1995,7 @@ export type LeadUncheckedUpdateWithoutActivitiesInput = {
 
 export type LeadCreateWithoutQuotesInput = {
   id?: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -1974,6 +2026,7 @@ export type LeadCreateWithoutQuotesInput = {
 export type LeadUncheckedCreateWithoutQuotesInput = {
   id?: string
   companyId: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -2018,6 +2071,7 @@ export type LeadUpdateToOneWithWhereWithoutQuotesInput = {
 
 export type LeadUpdateWithoutQuotesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -2048,6 +2102,7 @@ export type LeadUpdateWithoutQuotesInput = {
 export type LeadUncheckedUpdateWithoutQuotesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -2076,6 +2131,7 @@ export type LeadUncheckedUpdateWithoutQuotesInput = {
 
 export type LeadCreateManyCompanyInput = {
   id?: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -2101,6 +2157,7 @@ export type LeadCreateManyCompanyInput = {
 
 export type LeadUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -2130,6 +2187,7 @@ export type LeadUpdateWithoutCompanyInput = {
 
 export type LeadUncheckedUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -2159,6 +2217,7 @@ export type LeadUncheckedUpdateWithoutCompanyInput = {
 
 export type LeadUncheckedUpdateManyWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -2185,6 +2244,7 @@ export type LeadUncheckedUpdateManyWithoutCompanyInput = {
 export type LeadCreateManyOwnerInput = {
   id?: string
   companyId: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -2210,6 +2270,7 @@ export type LeadCreateManyOwnerInput = {
 export type LeadCreateManyDiscardedByInput = {
   id?: string
   companyId: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -2234,6 +2295,7 @@ export type LeadCreateManyDiscardedByInput = {
 
 export type LeadUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -2264,6 +2326,7 @@ export type LeadUpdateWithoutOwnerInput = {
 export type LeadUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -2293,6 +2356,7 @@ export type LeadUncheckedUpdateWithoutOwnerInput = {
 export type LeadUncheckedUpdateManyWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -2317,6 +2381,7 @@ export type LeadUncheckedUpdateManyWithoutOwnerInput = {
 
 export type LeadUpdateWithoutDiscardedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -2347,6 +2412,7 @@ export type LeadUpdateWithoutDiscardedByInput = {
 export type LeadUncheckedUpdateWithoutDiscardedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -2376,6 +2442,7 @@ export type LeadUncheckedUpdateWithoutDiscardedByInput = {
 export type LeadUncheckedUpdateManyWithoutDiscardedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -2401,6 +2468,7 @@ export type LeadUncheckedUpdateManyWithoutDiscardedByInput = {
 export type LeadCreateManyClientCompanyInput = {
   id?: string
   companyId: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -2425,6 +2493,7 @@ export type LeadCreateManyClientCompanyInput = {
 
 export type LeadUpdateWithoutClientCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -2455,6 +2524,7 @@ export type LeadUpdateWithoutClientCompanyInput = {
 export type LeadUncheckedUpdateWithoutClientCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -2484,6 +2554,7 @@ export type LeadUncheckedUpdateWithoutClientCompanyInput = {
 export type LeadUncheckedUpdateManyWithoutClientCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -2509,6 +2580,7 @@ export type LeadUncheckedUpdateManyWithoutClientCompanyInput = {
 export type LeadCreateManyContactInput = {
   id?: string
   companyId: string
+  legacyQuotientNumber?: number | null
   title: string
   description?: string | null
   status?: $Enums.LeadStatus
@@ -2533,6 +2605,7 @@ export type LeadCreateManyContactInput = {
 
 export type LeadUpdateWithoutContactInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -2563,6 +2636,7 @@ export type LeadUpdateWithoutContactInput = {
 export type LeadUncheckedUpdateWithoutContactInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -2592,6 +2666,7 @@ export type LeadUncheckedUpdateWithoutContactInput = {
 export type LeadUncheckedUpdateManyWithoutContactInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
@@ -2666,6 +2741,7 @@ export type LeadCountOutputTypeCountTasksArgs<ExtArgs extends runtime.Types.Exte
 export type LeadSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   companyId?: boolean
+  legacyQuotientNumber?: boolean
   title?: boolean
   description?: boolean
   status?: boolean
@@ -2702,6 +2778,7 @@ export type LeadSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 export type LeadSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   companyId?: boolean
+  legacyQuotientNumber?: boolean
   title?: boolean
   description?: boolean
   status?: boolean
@@ -2733,6 +2810,7 @@ export type LeadSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 export type LeadSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   companyId?: boolean
+  legacyQuotientNumber?: boolean
   title?: boolean
   description?: boolean
   status?: boolean
@@ -2764,6 +2842,7 @@ export type LeadSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 export type LeadSelectScalar = {
   id?: boolean
   companyId?: boolean
+  legacyQuotientNumber?: boolean
   title?: boolean
   description?: boolean
   status?: boolean
@@ -2787,7 +2866,7 @@ export type LeadSelectScalar = {
   updatedAt?: boolean
 }
 
-export type LeadOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "title" | "description" | "status" | "source" | "score" | "estimatedValue" | "currency" | "contactId" | "clientCompanyId" | "ownerId" | "contactName" | "contactEmail" | "contactPhone" | "companyName" | "lostReason" | "closedAt" | "discardedAt" | "discardedById" | "discardReason" | "createdAt" | "updatedAt", ExtArgs["result"]["lead"]>
+export type LeadOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "legacyQuotientNumber" | "title" | "description" | "status" | "source" | "score" | "estimatedValue" | "currency" | "contactId" | "clientCompanyId" | "ownerId" | "contactName" | "contactEmail" | "contactPhone" | "companyName" | "lostReason" | "closedAt" | "discardedAt" | "discardedById" | "discardReason" | "createdAt" | "updatedAt", ExtArgs["result"]["lead"]>
 export type LeadInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   contact?: boolean | Prisma.Lead$contactArgs<ExtArgs>
@@ -2831,6 +2910,7 @@ export type $LeadPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     companyId: string
+    legacyQuotientNumber: number | null
     title: string
     description: string | null
     status: $Enums.LeadStatus
@@ -3286,6 +3366,7 @@ export interface Prisma__LeadClient<T, Null = never, ExtArgs extends runtime.Typ
 export interface LeadFieldRefs {
   readonly id: Prisma.FieldRef<"Lead", 'String'>
   readonly companyId: Prisma.FieldRef<"Lead", 'String'>
+  readonly legacyQuotientNumber: Prisma.FieldRef<"Lead", 'Int'>
   readonly title: Prisma.FieldRef<"Lead", 'String'>
   readonly description: Prisma.FieldRef<"Lead", 'String'>
   readonly status: Prisma.FieldRef<"Lead", 'LeadStatus'>

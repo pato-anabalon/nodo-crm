@@ -7,6 +7,7 @@ import { periodFromParams, previousPeriod } from "@/modules/reports/period";
 import {
   breakdownFor,
   decisionTiming,
+  firstReportYear,
   leadFunnel,
   quoteSeries,
   repPerformance,
@@ -62,7 +63,11 @@ export default async function ReportsPage({
   ).toString();
 
   const currentYear = new Date().getFullYear();
-  const years = [currentYear, currentYear - 1, currentYear - 2];
+  const earliestYear = await firstReportYear(ctx);
+  const years = Array.from(
+    { length: currentYear - earliestYear + 1 },
+    (_, i) => currentYear - i,
+  );
 
   return (
     <div className="space-y-6">
@@ -176,10 +181,16 @@ async function StatsPanel({ params }: { params: Params }) {
       was: previous.awaiting,
       color: "var(--quote-awaiting)",
     },
+    {
+      key: "expired",
+      bucket: current.expired,
+      was: previous.expired,
+      color: "var(--status-expired)",
+    },
   ];
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
       {tiles.map((tile) => (
         <Card key={tile.key}>
           <CardContent>
@@ -213,11 +224,13 @@ async function StatsPanel({ params }: { params: Params }) {
 }
 
 /**
- * Accepted against declined.
+ * What became of every quote that was ever live in this period: answered,
+ * expired, or still open.
  *
- * Only what the customer actually answered: "awaiting" is not a third outcome
- * but an absence of one, and putting it in the same ring would make the
- * acceptance rate depend on how much happens to be outstanding today.
+ * `expired` belongs in the same ring as `accepted` and `declined` for the
+ * reason `awaiting` already is — it's a real outcome, not a rounding error,
+ * and leaving it out of the denominator is exactly what made the centre read
+ * 84% on a period where only half of everything sent ever got an answer.
  */
 async function BreakdownPanel({ params }: { params: Params }) {
   const ctx = await requireCompanyContext();
@@ -245,16 +258,20 @@ async function BreakdownPanel({ params }: { params: Params }) {
       : format(measure(bucket, display));
 
   /**
-   * Accepted over all three, which is what the reference panel does: on its
-   * figures 50,212.11 of 407,375.72 shows as 12%, where accepted over answered
-   * alone would have read 16%.
+   * Accepted over all four, the same reasoning the reference panel already
+   * applied to the original three: on its figures 50,212.11 of 407,375.72
+   * shows as 12%, where accepted over answered alone would have read 16%.
+   * `expired` is exactly one more thing the quote wasn't answered with.
    *
    * It also keeps the centre honest — the percentage is exactly the share of the
    * ring the accepted segment occupies, so the number and the drawing can't
    * disagree.
    */
   const everything =
-    pick(breakdown.accepted) + pick(breakdown.awaiting) + pick(breakdown.declined);
+    pick(breakdown.accepted) +
+    pick(breakdown.awaiting) +
+    pick(breakdown.declined) +
+    pick(breakdown.expired);
   const rate = acceptanceRate(pick(breakdown.accepted), everything);
 
   return (
@@ -295,6 +312,13 @@ async function BreakdownPanel({ params }: { params: Params }) {
               value: pick(breakdown.declined),
               count: breakdown.declined.count,
               formatted: show(breakdown.declined),
+            },
+            {
+              key: "expired",
+              label: t("expired"),
+              value: pick(breakdown.expired),
+              count: breakdown.expired.count,
+              formatted: show(breakdown.expired),
             },
           ]}
         />

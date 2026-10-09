@@ -751,6 +751,10 @@ model Lead {
   id        String @id @default(cuid())
   companyId String
 
+  // Quotient's own "Quote number", kept only on rows brought in by the
+  // historical import so the script can re-run without duplicating.
+  legacyQuotientNumber Int? @unique
+
   title          String
   description    String?
   status         LeadStatus @default(NEW)
@@ -1071,6 +1075,10 @@ model Quote {
   number      Int
   leadId      String?
   createdById String?
+
+  // Quotient's own "Quote number", kept only on rows brought in by the
+  // historical import so the script can re-run without duplicating.
+  legacyQuotientNumber Int? @unique
 
   title  String
   status QuoteStatus @default(DRAFT)

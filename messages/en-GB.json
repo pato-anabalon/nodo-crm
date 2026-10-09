@@ -1259,6 +1259,7 @@
     "accepted": "Accepted",
     "awaiting": "Awaiting acceptance",
     "declined": "Declined",
+    "expired": "Expired",
     "acceptanceRate": "accepted",
     "breakdownTitle": "Quotes in this period",
     "trendTitle": "Trend",
@@ -1271,7 +1272,7 @@
     "noPrevious": "No earlier period to compare",
     "changeValue": "{change}%",
     "versus": "vs {period}",
-    "breakdownHint": "Accepted and declined within the period, plus what was still open at its close.",
+    "breakdownHint": "Accepted, declined and expired within the period, plus what was still open at its close.",
     "mixedCurrencies": "Amounts count only quotes in {currency}; the counts include all of them.",
     "breakdownHintAverage": "The ring splits the total; the figures are the average quote.",
     "funnel": {

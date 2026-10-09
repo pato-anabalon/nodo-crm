@@ -235,7 +235,7 @@ export function StatusDonut({
         ) : null}
       </div>
 
-      {/* With three series a legend is compulsory: identity is never left to
+      {/* With four series a legend is compulsory: identity is never left to
           colour alone. */}
       <ul className="min-w-0 flex-1 space-y-2">
         {ordered.map((slice) => (

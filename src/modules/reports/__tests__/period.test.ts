@@ -1,10 +1,4 @@
-import {
-  bucketSize,
-  currentQuarter,
-  periodDays,
-  periodFromParams,
-  resolvePeriod,
-} from "../period";
+import { currentQuarter, periodDays, periodFromParams, resolvePeriod } from "../period";
 
 const NOW = new Date("2026-09-18T15:30:00Z");
 const iso = (d: Date) => d.toISOString().slice(0, 10);
@@ -120,24 +114,6 @@ describe("currentQuarter", () => {
     ["2026-12-31", 4],
   ])("%s falls in Q%i", (date, expected) => {
     expect(currentQuarter(new Date(`${date}T12:00:00`))).toBe(expected);
-  });
-});
-
-describe("bucketSize", () => {
-  it("a month is grouped by day", () => {
-    expect(bucketSize(resolvePeriod({ kind: "month", year: 2026, index: 9 }, NOW))).toBe("day");
-  });
-
-  it("a quarter is grouped by week", () => {
-    expect(bucketSize(resolvePeriod({ kind: "quarter", year: 2026, index: 3 }, NOW))).toBe("week");
-  });
-
-  it("a year is grouped by month", () => {
-    expect(bucketSize(resolvePeriod({ kind: "year", year: 2026 }, NOW))).toBe("month");
-  });
-
-  it("a week also goes by day", () => {
-    expect(bucketSize(resolvePeriod({ kind: "days", days: 7 }, NOW))).toBe("day");
   });
 });
 

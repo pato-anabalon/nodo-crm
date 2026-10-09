@@ -65,10 +65,19 @@
   /*
    * Quote chart colours. Independent of the brand colour on purpose: "accepted"
    * can't change meaning because a company picked a different primary.
+   *
+   * "expired" reuses the badge's own `--status-expired`, fixed at its *light*
+   * value (#1f2937) in both themes rather than switching to the dark
+   * variant's inverted #cbd5e1 — that one reads fine as a badge fill under
+   * dark text, but simulated for deuteranopia it sits only ΔE 16.7 from
+   * `--quote-awaiting`'s dark grey, worse than any existing pair. The fixed
+   * value stays ΔE 54+ from everything in both themes, same reasoning
+   * `--quote-declined` already not changing between themes follows.
    */
   --quote-accepted: #04c604;
   --quote-awaiting: #9b9b9b;
   --quote-declined: #be123c;
+  --quote-expired: #1f2937;
 
   /*
    * Quote status badges. A separate set from the chart colours above, because
@@ -152,10 +161,11 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
 
-  /* The same three: they pass the six checks over a dark surface as well. */
+  /* The same four: they pass the same checks over a dark surface as well. */
   --quote-accepted: #1dd826;
   --quote-awaiting: #aaaaaa;
   --quote-declined: #be123c;
+  --quote-expired: #1f2937;
 
   /*
    * Only the two neutrals move. A near-black badge on a near-black row is
@@ -218,6 +228,7 @@
   --color-quote-accepted: var(--quote-accepted);
   --color-quote-awaiting: var(--quote-awaiting);
   --color-quote-declined: var(--quote-declined);
+  --color-quote-expired: var(--quote-expired);
 }
 
 @layer base {

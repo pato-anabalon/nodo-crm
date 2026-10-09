@@ -367,6 +367,7 @@ export type ContactScalarFieldEnum = (typeof ContactScalarFieldEnum)[keyof typeo
 export const LeadScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
+  legacyQuotientNumber: 'legacyQuotientNumber',
   title: 'title',
   description: 'description',
   status: 'status',
@@ -516,6 +517,7 @@ export const QuoteScalarFieldEnum = {
   number: 'number',
   leadId: 'leadId',
   createdById: 'createdById',
+  legacyQuotientNumber: 'legacyQuotientNumber',
   title: 'title',
   status: 'status',
   pricingMode: 'pricingMode',

@@ -2,7 +2,7 @@ import { cache } from "react";
 import { requireCompanyContext, type CompanyContext } from "@/lib/auth/session";
 import { QuoteStatus } from "@/generated/prisma/enums";
 import { visibilityWhere } from "@/modules/quotes/service";
-import { bucketSize, type Period } from "./period";
+import type { Period } from "./period";
 import { buildSeries, divideSeries, rollingSum, type SeriesPoint } from "./series";
 import { conversionRate, daysBetween, median, type DisplayAs } from "./metrics";
 import { foldByCurrency, type Bucket } from "./currency";
@@ -16,6 +16,7 @@ export type Breakdown = {
   accepted: Bucket;
   declined: Bucket;
   awaiting: Bucket;
+  expired: Bucket;
   /** Whether any amount above leaves out quotes priced in another currency. */
   mixedCurrencies: boolean;
 };
@@ -40,11 +41,23 @@ export type Range = { from: Date; to: Date };
  *
  * `awaiting` is a different kind of number again — a stock, not a flow. It is
  * what was still hanging at the close of the period, whenever it went out.
+ *
+ * `expired` is the flow `awaiting` quietly drops: a quote nobody ever decided
+ * on, whose validity ran out. It has no `decidedAt` to key on — nobody
+ * decided — so it's keyed on `validUntil` instead, the one date that actually
+ * marks the event. Without this bucket, `accepted + declined + awaiting`
+ * silently falls short of `sent` by however many simply ran out unanswered.
+ *
+ * The five add up as a stock/flow identity, not a flat sum:
+ * `awaiting(start) + sent = decided + expired + awaiting(end)`. `stock-flow.ts`
+ * mirrors the four `where`s below in plain booleans and its test is what
+ * actually checks that identity — change a condition here and change it
+ * there too, or the check stops meaning anything.
  */
 export async function quoteBreakdown(ctx: CompanyContext, period: Range): Promise<Breakdown> {
   const visible = visibilityWhere(ctx);
 
-  const [decided, sent, awaiting] = await Promise.all([
+  const [decided, sent, awaiting, expired] = await Promise.all([
     ctx.db.quote.groupBy({
       by: ["status", "currency"],
       where: {
@@ -68,7 +81,40 @@ export async function quoteBreakdown(ctx: CompanyContext, period: Range): Promis
         sentAt: { lt: period.to },
         // Undecided by the end of the period — including quotes answered later,
         // which were still open at the moment being reported on.
-        OR: [{ decidedAt: null }, { decidedAt: { gte: period.to } }],
+        AND: [
+          { OR: [{ decidedAt: null }, { decidedAt: { gte: period.to } }] },
+          // An expired quote never gets a `decidedAt` — nobody decided, it
+          // just ran out — so the decidedAt check alone can't tell it apart
+          // from one still genuinely open. `validUntil` can: a quote whose
+          // validity hadn't lapsed yet as of the period's close really was
+          // still awaiting an answer *at that moment*, even if it has since
+          // expired; one whose validity had already run out by then wasn't,
+          // whatever the row says today. Without this, every quote that's
+          // since expired piles up in every past period's stock forever
+          // instead of dropping out once it's dead.
+          { OR: [{ validUntil: null }, { validUntil: { gte: period.to } }] },
+        ],
+      },
+      _count: { _all: true },
+      _sum: { total: true },
+    }),
+    ctx.db.quote.groupBy({
+      by: ["currency"],
+      where: {
+        ...visible,
+        // Not `status: EXPIRED` — nothing in this app ever flips a quote to
+        // that status on its own (only the Quotient import ever set it, from
+        // Quotient's own history). A live quote that simply outlives its
+        // `validUntil` stays `SENT` forever, so keying on the status would
+        // make it invisible here too, the same way it was invisible in
+        // `awaiting` before this bucket existed. `decidedAt: null` is what
+        // "nobody answered" actually means, regardless of what the status
+        // column says; `sentAt` not null excludes a draft that was never
+        // shown to anyone, which can still carry a `validUntil` — it's set
+        // at creation, not at send.
+        sentAt: { not: null },
+        decidedAt: null,
+        validUntil: { gte: period.from, lt: period.to },
       },
       _count: { _all: true },
       _sum: { total: true },
@@ -78,6 +124,7 @@ export async function quoteBreakdown(ctx: CompanyContext, period: Range): Promis
   const home = ctx.company.currency;
   const sentFold = foldByCurrency(sent, home);
   const awaitingFold = foldByCurrency(awaiting, home);
+  const expiredFold = foldByCurrency(expired, home);
   const acceptedFold = foldByCurrency(
     decided.filter((row) => row.status === QuoteStatus.ACCEPTED),
     home,
@@ -92,8 +139,14 @@ export async function quoteBreakdown(ctx: CompanyContext, period: Range): Promis
     accepted: acceptedFold.bucket,
     declined: declinedFold.bucket,
     awaiting: awaitingFold.bucket,
+    expired: expiredFold.bucket,
     mixedCurrencies:
-      sentFold.foreign + awaitingFold.foreign + acceptedFold.foreign + declinedFold.foreign > 0,
+      sentFold.foreign +
+        awaitingFold.foreign +
+        acceptedFold.foreign +
+        declinedFold.foreign +
+        expiredFold.foreign >
+      0,
   };
 }
 
@@ -249,6 +302,26 @@ export async function repPerformance(ctx: CompanyContext, period: Period): Promi
   return [...rows.values()].sort((a, b) => b.accepted.value - a.accepted.value);
 }
 
+/**
+ * The earliest year this company has anything to report on — across leads and
+ * quotes, since a quote can exist with no lead behind it and a lead can exist
+ * with no quote yet. A company with nothing at all gets the current year, so
+ * the picker still has one sane option rather than an empty list.
+ */
+export async function firstReportYear(ctx: CompanyContext): Promise<number> {
+  const [lead, quote] = await Promise.all([
+    ctx.db.lead.aggregate({ _min: { createdAt: true } }),
+    ctx.db.quote.aggregate({ _min: { createdAt: true } }),
+  ]);
+
+  const dates = [lead._min.createdAt, quote._min.createdAt].filter(
+    (date): date is Date => date !== null,
+  );
+  if (dates.length === 0) return new Date().getFullYear();
+
+  return Math.min(...dates.map((date) => date.getFullYear()));
+}
+
 export type Timing = {
   /** Median days from sending to the customer's answer, for what was decided. */
   medianToDecision: number | null;
@@ -321,22 +394,21 @@ export async function quoteSeries(
     orderBy: { createdAt: "asc" },
   });
 
-  const bucket = bucketSize(period);
   const rows = quotes.map((quote) => ({
     at: quote.createdAt,
     value: Number(quote.total),
     accepted: quote.status === QuoteStatus.ACCEPTED,
   }));
   const roll = (series: SeriesPoint[]) =>
-    rollingDays > 0 ? rollingSum(series, rollingDays, bucket) : series;
+    rollingDays > 0 ? rollingSum(series, rollingDays) : series;
 
   if (display === "average") {
     // Summed and counted separately, rolled separately, divided last.
-    const sums = roll(buildSeries(rows, period, bucket));
-    const counts = roll(buildSeries(rows.map((row) => ({ ...row, value: 1 })), period, bucket));
+    const sums = roll(buildSeries(rows, period));
+    const counts = roll(buildSeries(rows.map((row) => ({ ...row, value: 1 })), period));
     return divideSeries(sums, counts);
   }
 
   const values = display === "count" ? rows.map((row) => ({ ...row, value: 1 })) : rows;
-  return roll(buildSeries(values, period, bucket));
+  return roll(buildSeries(values, period));
 }

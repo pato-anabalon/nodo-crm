@@ -134,21 +134,9 @@ export function currentQuarter(date: Date): number {
   return Math.floor(date.getMonth() / QUARTER_MONTHS) + 1;
 }
 
-/** How many days the period spans, used to pick the chart's grain. */
+/** How many days the period spans. */
 export function periodDays(period: Period): number {
   return Math.round((period.to.getTime() - period.from.getTime()) / 86_400_000);
-}
-
-/**
- * Grain of the time series.
- *
- * A year by day is 365 unreadable points; a week by month is a single one.
- */
-export function bucketSize(period: Period): "day" | "week" | "month" {
-  const days = periodDays(period);
-  if (days <= 62) return "day";
-  if (days <= 190) return "week";
-  return "month";
 }
 
 /** Reads the period from the URL parameters, trusting none of them. */

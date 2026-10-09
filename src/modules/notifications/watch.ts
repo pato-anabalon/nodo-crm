@@ -29,6 +29,15 @@ export function isExpiring(
 }
 
 /**
+ * A quote past the point `isExpiring` only warned about: its validity has
+ * actually run out, with nobody having answered. One with no `validUntil`
+ * never expires on its own — there's nothing to compare `now` against.
+ */
+export function hasExpired(quote: { validUntil: Date | null }, now: Date = new Date()): boolean {
+  return quote.validUntil !== null && quote.validUntil.getTime() < now.getTime();
+}
+
+/**
  * Rejections that mean the form will never work until somebody changes
  * something.
  *

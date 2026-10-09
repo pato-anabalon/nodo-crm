@@ -4,7 +4,9 @@ import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import { useTranslations } from "next-intl";
 import { QUOTE_STATUS_COLORS } from "./status-colors";
 import { TRANSITION_MS, easeOutCubic } from "./animate";
+import { niceTicks } from "./scale";
 import {
+  makeCompactValueFormatter,
   makeLongDateFormatter,
   makeShortDateFormatter,
   makeValueFormatter,
@@ -156,6 +158,7 @@ export function TrendChart({ points, format }: { points: SeriesPoint[]; format: 
 
   // The formatters are built here: only data arrives from the server.
   const formatValue = useMemo(() => makeValueFormatter(format), [format]);
+  const formatAxisValue = useMemo(() => makeCompactValueFormatter(format), [format]);
   const formatDate = useMemo(() => makeShortDateFormatter(format.formatLocale), [format.formatLocale]);
   const formatTooltipDate = useMemo(
     () => makeLongDateFormatter(format.formatLocale),
@@ -165,7 +168,13 @@ export function TrendChart({ points, format }: { points: SeriesPoint[]; format: 
   const plot = useMemo(() => {
     const innerWidth = WIDTH - PADDING.left - PADDING.right;
     const innerHeight = HEIGHT - PADDING.top - PADDING.bottom;
-    const max = Math.max(1, ...animated.map((point) => point.total));
+    const dataMax = Math.max(1, ...animated.map((point) => point.total));
+    // The axis tops out at the highest gridline, not at the data's own peak —
+    // round numbers only mean something if the scale they're drawn against
+    // agrees with them, so a tick above the tallest point is headroom, not a
+    // mismatch.
+    const ticks = niceTicks(dataMax);
+    const max = ticks[ticks.length - 1];
 
     const x = (index: number) =>
       PADDING.left + (animated.length <= 1 ? innerWidth / 2 : (index / (animated.length - 1)) * innerWidth);
@@ -180,6 +189,7 @@ export function TrendChart({ points, format }: { points: SeriesPoint[]; format: 
       x,
       y,
       max,
+      ticks,
       innerHeight,
       totalLine: line((p) => p.total),
       acceptedLine: line((p) => p.accepted),
@@ -260,10 +270,9 @@ export function TrendChart({ points, format }: { points: SeriesPoint[]; format: 
           onMouseLeave={handlePointerLeave}
         >
           {/* Rejilla discreta: orienta sin competir con los datos. */}
-          {[0, 0.5, 1].map((ratio) => {
-            const value = plot.max * ratio;
+          {plot.ticks.map((value) => {
             return (
-              <g key={ratio}>
+              <g key={value}>
                 <line
                   x1={PADDING.left}
                   x2={WIDTH - PADDING.right}
@@ -278,7 +287,7 @@ export function TrendChart({ points, format }: { points: SeriesPoint[]; format: 
                   textAnchor="end"
                   className="fill-muted-foreground text-[10px] tabular-nums"
                 >
-                  {formatValue(value)}
+                  {formatAxisValue(value)}
                 </text>
               </g>
             );

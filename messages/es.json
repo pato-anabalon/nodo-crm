@@ -1259,6 +1259,7 @@
     "accepted": "Aceptadas",
     "awaiting": "En espera",
     "declined": "Rechazadas",
+    "expired": "Vencidas",
     "acceptanceRate": "aceptadas",
     "breakdownTitle": "Cotizaciones del período",
     "trendTitle": "Evolución",
@@ -1271,7 +1272,7 @@
     "noPrevious": "Sin período anterior con que comparar",
     "changeValue": "{change}%",
     "versus": "vs {period}",
-    "breakdownHint": "Aceptadas y rechazadas dentro del período, más lo que seguía abierto al cierre.",
+    "breakdownHint": "Aceptadas, rechazadas y vencidas dentro del período, más lo que seguía abierto al cierre.",
     "mixedCurrencies": "Los importes sólo cuentan las cotizaciones en {currency}; los recuentos las incluyen todas.",
     "breakdownHintAverage": "El anillo reparte el total; las cifras son la cotización promedio.",
     "funnel": {

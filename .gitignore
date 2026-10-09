@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Claude Code local settings (personal overrides, not shared)
+.claude/settings.local.json
+
+# Quotient historical-import scratch output (local backups, manifests, logs)
+quotient-pdf-backups/
+scripts/.output/

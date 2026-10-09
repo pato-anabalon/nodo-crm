@@ -28,6 +28,7 @@ export type AggregateQuote = {
 
 export type QuoteAvgAggregateOutputType = {
   number: number | null
+  legacyQuotientNumber: number | null
   taxRate: runtime.Decimal | null
   discount: runtime.Decimal | null
   discountValue: runtime.Decimal | null
@@ -40,6 +41,7 @@ export type QuoteAvgAggregateOutputType = {
 
 export type QuoteSumAggregateOutputType = {
   number: number | null
+  legacyQuotientNumber: number | null
   taxRate: runtime.Decimal | null
   discount: runtime.Decimal | null
   discountValue: runtime.Decimal | null
@@ -56,6 +58,7 @@ export type QuoteMinAggregateOutputType = {
   number: number | null
   leadId: string | null
   createdById: string | null
+  legacyQuotientNumber: number | null
   title: string | null
   status: $Enums.QuoteStatus | null
   pricingMode: $Enums.PricingMode | null
@@ -98,6 +101,7 @@ export type QuoteMaxAggregateOutputType = {
   number: number | null
   leadId: string | null
   createdById: string | null
+  legacyQuotientNumber: number | null
   title: string | null
   status: $Enums.QuoteStatus | null
   pricingMode: $Enums.PricingMode | null
@@ -140,6 +144,7 @@ export type QuoteCountAggregateOutputType = {
   number: number
   leadId: number
   createdById: number
+  legacyQuotientNumber: number
   title: number
   status: number
   pricingMode: number
@@ -180,6 +185,7 @@ export type QuoteCountAggregateOutputType = {
 
 export type QuoteAvgAggregateInputType = {
   number?: true
+  legacyQuotientNumber?: true
   taxRate?: true
   discount?: true
   discountValue?: true
@@ -192,6 +198,7 @@ export type QuoteAvgAggregateInputType = {
 
 export type QuoteSumAggregateInputType = {
   number?: true
+  legacyQuotientNumber?: true
   taxRate?: true
   discount?: true
   discountValue?: true
@@ -208,6 +215,7 @@ export type QuoteMinAggregateInputType = {
   number?: true
   leadId?: true
   createdById?: true
+  legacyQuotientNumber?: true
   title?: true
   status?: true
   pricingMode?: true
@@ -250,6 +258,7 @@ export type QuoteMaxAggregateInputType = {
   number?: true
   leadId?: true
   createdById?: true
+  legacyQuotientNumber?: true
   title?: true
   status?: true
   pricingMode?: true
@@ -292,6 +301,7 @@ export type QuoteCountAggregateInputType = {
   number?: true
   leadId?: true
   createdById?: true
+  legacyQuotientNumber?: true
   title?: true
   status?: true
   pricingMode?: true
@@ -421,6 +431,7 @@ export type QuoteGroupByOutputType = {
   number: number
   leadId: string | null
   createdById: string | null
+  legacyQuotientNumber: number | null
   title: string
   status: $Enums.QuoteStatus
   pricingMode: $Enums.PricingMode
@@ -486,6 +497,7 @@ export type QuoteWhereInput = {
   number?: Prisma.IntFilter<"Quote"> | number
   leadId?: Prisma.StringNullableFilter<"Quote"> | string | null
   createdById?: Prisma.StringNullableFilter<"Quote"> | string | null
+  legacyQuotientNumber?: Prisma.IntNullableFilter<"Quote"> | number | null
   title?: Prisma.StringFilter<"Quote"> | string
   status?: Prisma.EnumQuoteStatusFilter<"Quote"> | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFilter<"Quote"> | $Enums.PricingMode
@@ -541,6 +553,7 @@ export type QuoteOrderByWithRelationInput = {
   number?: Prisma.SortOrder
   leadId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
+  legacyQuotientNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   status?: Prisma.SortOrder
   pricingMode?: Prisma.SortOrder
@@ -592,6 +605,7 @@ export type QuoteOrderByWithRelationInput = {
 
 export type QuoteWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  legacyQuotientNumber?: number
   companyId_number?: Prisma.QuoteCompanyIdNumberCompoundUniqueInput
   AND?: Prisma.QuoteWhereInput | Prisma.QuoteWhereInput[]
   OR?: Prisma.QuoteWhereInput[]
@@ -647,7 +661,7 @@ export type QuoteWhereUniqueInput = Prisma.AtLeast<{
   messages?: Prisma.QuoteMessageListRelationFilter
   acceptance?: Prisma.XOR<Prisma.QuoteAcceptanceNullableScalarRelationFilter, Prisma.QuoteAcceptanceWhereInput> | null
   emailsSent?: Prisma.QuoteEmailListRelationFilter
-}, "id" | "companyId_number">
+}, "id" | "legacyQuotientNumber" | "companyId_number">
 
 export type QuoteOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -655,6 +669,7 @@ export type QuoteOrderByWithAggregationInput = {
   number?: Prisma.SortOrder
   leadId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
+  legacyQuotientNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   status?: Prisma.SortOrder
   pricingMode?: Prisma.SortOrder
@@ -705,6 +720,7 @@ export type QuoteScalarWhereWithAggregatesInput = {
   number?: Prisma.IntWithAggregatesFilter<"Quote"> | number
   leadId?: Prisma.StringNullableWithAggregatesFilter<"Quote"> | string | null
   createdById?: Prisma.StringNullableWithAggregatesFilter<"Quote"> | string | null
+  legacyQuotientNumber?: Prisma.IntNullableWithAggregatesFilter<"Quote"> | number | null
   title?: Prisma.StringWithAggregatesFilter<"Quote"> | string
   status?: Prisma.EnumQuoteStatusWithAggregatesFilter<"Quote"> | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeWithAggregatesFilter<"Quote"> | $Enums.PricingMode
@@ -744,6 +760,7 @@ export type QuoteScalarWhereWithAggregatesInput = {
 export type QuoteCreateInput = {
   id?: string
   number: number
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -798,6 +815,7 @@ export type QuoteUncheckedCreateInput = {
   number: number
   leadId?: string | null
   createdById?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -846,6 +864,7 @@ export type QuoteUncheckedCreateInput = {
 export type QuoteUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -900,6 +919,7 @@ export type QuoteUncheckedUpdateInput = {
   number?: Prisma.IntFieldUpdateOperationsInput | number
   leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -951,6 +971,7 @@ export type QuoteCreateManyInput = {
   number: number
   leadId?: string | null
   createdById?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -990,6 +1011,7 @@ export type QuoteCreateManyInput = {
 export type QuoteUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -1031,6 +1053,7 @@ export type QuoteUncheckedUpdateManyInput = {
   number?: Prisma.IntFieldUpdateOperationsInput | number
   leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -1093,6 +1116,7 @@ export type QuoteCountOrderByAggregateInput = {
   number?: Prisma.SortOrder
   leadId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
+  legacyQuotientNumber?: Prisma.SortOrder
   title?: Prisma.SortOrder
   status?: Prisma.SortOrder
   pricingMode?: Prisma.SortOrder
@@ -1131,6 +1155,7 @@ export type QuoteCountOrderByAggregateInput = {
 
 export type QuoteAvgOrderByAggregateInput = {
   number?: Prisma.SortOrder
+  legacyQuotientNumber?: Prisma.SortOrder
   taxRate?: Prisma.SortOrder
   discount?: Prisma.SortOrder
   discountValue?: Prisma.SortOrder
@@ -1147,6 +1172,7 @@ export type QuoteMaxOrderByAggregateInput = {
   number?: Prisma.SortOrder
   leadId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
+  legacyQuotientNumber?: Prisma.SortOrder
   title?: Prisma.SortOrder
   status?: Prisma.SortOrder
   pricingMode?: Prisma.SortOrder
@@ -1189,6 +1215,7 @@ export type QuoteMinOrderByAggregateInput = {
   number?: Prisma.SortOrder
   leadId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
+  legacyQuotientNumber?: Prisma.SortOrder
   title?: Prisma.SortOrder
   status?: Prisma.SortOrder
   pricingMode?: Prisma.SortOrder
@@ -1227,6 +1254,7 @@ export type QuoteMinOrderByAggregateInput = {
 
 export type QuoteSumOrderByAggregateInput = {
   number?: Prisma.SortOrder
+  legacyQuotientNumber?: Prisma.SortOrder
   taxRate?: Prisma.SortOrder
   discount?: Prisma.SortOrder
   discountValue?: Prisma.SortOrder
@@ -1553,6 +1581,7 @@ export type QuoteUpdateOneRequiredWithoutItemsNestedInput = {
 export type QuoteCreateWithoutCompanyInput = {
   id?: string
   number: number
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -1605,6 +1634,7 @@ export type QuoteUncheckedCreateWithoutCompanyInput = {
   number: number
   leadId?: string | null
   createdById?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -1685,6 +1715,7 @@ export type QuoteScalarWhereInput = {
   number?: Prisma.IntFilter<"Quote"> | number
   leadId?: Prisma.StringNullableFilter<"Quote"> | string | null
   createdById?: Prisma.StringNullableFilter<"Quote"> | string | null
+  legacyQuotientNumber?: Prisma.IntNullableFilter<"Quote"> | number | null
   title?: Prisma.StringFilter<"Quote"> | string
   status?: Prisma.EnumQuoteStatusFilter<"Quote"> | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFilter<"Quote"> | $Enums.PricingMode
@@ -1724,6 +1755,7 @@ export type QuoteScalarWhereInput = {
 export type QuoteCreateWithoutCreatedByInput = {
   id?: string
   number: number
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -1776,6 +1808,7 @@ export type QuoteUncheckedCreateWithoutCreatedByInput = {
   companyId: string
   number: number
   leadId?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -1850,6 +1883,7 @@ export type QuoteUpdateManyWithWhereWithoutCreatedByInput = {
 export type QuoteCreateWithoutTasksInput = {
   id?: string
   number: number
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -1903,6 +1937,7 @@ export type QuoteUncheckedCreateWithoutTasksInput = {
   number: number
   leadId?: string | null
   createdById?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -1966,6 +2001,7 @@ export type QuoteUpdateToOneWithWhereWithoutTasksInput = {
 export type QuoteUpdateWithoutTasksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -2019,6 +2055,7 @@ export type QuoteUncheckedUpdateWithoutTasksInput = {
   number?: Prisma.IntFieldUpdateOperationsInput | number
   leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -2066,6 +2103,7 @@ export type QuoteUncheckedUpdateWithoutTasksInput = {
 export type QuoteCreateWithoutLeadInput = {
   id?: string
   number: number
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -2118,6 +2156,7 @@ export type QuoteUncheckedCreateWithoutLeadInput = {
   companyId: string
   number: number
   createdById?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -2192,6 +2231,7 @@ export type QuoteUpdateManyWithWhereWithoutLeadInput = {
 export type QuoteCreateWithoutTermsDocumentInput = {
   id?: string
   number: number
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -2245,6 +2285,7 @@ export type QuoteUncheckedCreateWithoutTermsDocumentInput = {
   number: number
   leadId?: string | null
   createdById?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -2318,6 +2359,7 @@ export type QuoteUpdateManyWithWhereWithoutTermsDocumentInput = {
 export type QuoteCreateWithoutShareInput = {
   id?: string
   number: number
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -2371,6 +2413,7 @@ export type QuoteUncheckedCreateWithoutShareInput = {
   number: number
   leadId?: string | null
   createdById?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -2434,6 +2477,7 @@ export type QuoteUpdateToOneWithWhereWithoutShareInput = {
 export type QuoteUpdateWithoutShareInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -2487,6 +2531,7 @@ export type QuoteUncheckedUpdateWithoutShareInput = {
   number?: Prisma.IntFieldUpdateOperationsInput | number
   leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -2534,6 +2579,7 @@ export type QuoteUncheckedUpdateWithoutShareInput = {
 export type QuoteCreateWithoutEventsInput = {
   id?: string
   number: number
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -2587,6 +2633,7 @@ export type QuoteUncheckedCreateWithoutEventsInput = {
   number: number
   leadId?: string | null
   createdById?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -2650,6 +2697,7 @@ export type QuoteUpdateToOneWithWhereWithoutEventsInput = {
 export type QuoteUpdateWithoutEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -2703,6 +2751,7 @@ export type QuoteUncheckedUpdateWithoutEventsInput = {
   number?: Prisma.IntFieldUpdateOperationsInput | number
   leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -2750,6 +2799,7 @@ export type QuoteUncheckedUpdateWithoutEventsInput = {
 export type QuoteCreateWithoutMessagesInput = {
   id?: string
   number: number
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -2803,6 +2853,7 @@ export type QuoteUncheckedCreateWithoutMessagesInput = {
   number: number
   leadId?: string | null
   createdById?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -2866,6 +2917,7 @@ export type QuoteUpdateToOneWithWhereWithoutMessagesInput = {
 export type QuoteUpdateWithoutMessagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -2919,6 +2971,7 @@ export type QuoteUncheckedUpdateWithoutMessagesInput = {
   number?: Prisma.IntFieldUpdateOperationsInput | number
   leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -2966,6 +3019,7 @@ export type QuoteUncheckedUpdateWithoutMessagesInput = {
 export type QuoteCreateWithoutAcceptanceInput = {
   id?: string
   number: number
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -3019,6 +3073,7 @@ export type QuoteUncheckedCreateWithoutAcceptanceInput = {
   number: number
   leadId?: string | null
   createdById?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -3082,6 +3137,7 @@ export type QuoteUpdateToOneWithWhereWithoutAcceptanceInput = {
 export type QuoteUpdateWithoutAcceptanceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -3135,6 +3191,7 @@ export type QuoteUncheckedUpdateWithoutAcceptanceInput = {
   number?: Prisma.IntFieldUpdateOperationsInput | number
   leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -3182,6 +3239,7 @@ export type QuoteUncheckedUpdateWithoutAcceptanceInput = {
 export type QuoteCreateWithoutSectionsInput = {
   id?: string
   number: number
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -3235,6 +3293,7 @@ export type QuoteUncheckedCreateWithoutSectionsInput = {
   number: number
   leadId?: string | null
   createdById?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -3298,6 +3357,7 @@ export type QuoteUpdateToOneWithWhereWithoutSectionsInput = {
 export type QuoteUpdateWithoutSectionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -3351,6 +3411,7 @@ export type QuoteUncheckedUpdateWithoutSectionsInput = {
   number?: Prisma.IntFieldUpdateOperationsInput | number
   leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -3398,6 +3459,7 @@ export type QuoteUncheckedUpdateWithoutSectionsInput = {
 export type QuoteCreateWithoutAttachmentsInput = {
   id?: string
   number: number
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -3451,6 +3513,7 @@ export type QuoteUncheckedCreateWithoutAttachmentsInput = {
   number: number
   leadId?: string | null
   createdById?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -3514,6 +3577,7 @@ export type QuoteUpdateToOneWithWhereWithoutAttachmentsInput = {
 export type QuoteUpdateWithoutAttachmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -3567,6 +3631,7 @@ export type QuoteUncheckedUpdateWithoutAttachmentsInput = {
   number?: Prisma.IntFieldUpdateOperationsInput | number
   leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -3614,6 +3679,7 @@ export type QuoteUncheckedUpdateWithoutAttachmentsInput = {
 export type QuoteCreateWithoutEmailsSentInput = {
   id?: string
   number: number
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -3667,6 +3733,7 @@ export type QuoteUncheckedCreateWithoutEmailsSentInput = {
   number: number
   leadId?: string | null
   createdById?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -3730,6 +3797,7 @@ export type QuoteUpdateToOneWithWhereWithoutEmailsSentInput = {
 export type QuoteUpdateWithoutEmailsSentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -3783,6 +3851,7 @@ export type QuoteUncheckedUpdateWithoutEmailsSentInput = {
   number?: Prisma.IntFieldUpdateOperationsInput | number
   leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -3830,6 +3899,7 @@ export type QuoteUncheckedUpdateWithoutEmailsSentInput = {
 export type QuoteCreateWithoutItemsInput = {
   id?: string
   number: number
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -3883,6 +3953,7 @@ export type QuoteUncheckedCreateWithoutItemsInput = {
   number: number
   leadId?: string | null
   createdById?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -3946,6 +4017,7 @@ export type QuoteUpdateToOneWithWhereWithoutItemsInput = {
 export type QuoteUpdateWithoutItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -3999,6 +4071,7 @@ export type QuoteUncheckedUpdateWithoutItemsInput = {
   number?: Prisma.IntFieldUpdateOperationsInput | number
   leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -4048,6 +4121,7 @@ export type QuoteCreateManyCompanyInput = {
   number: number
   leadId?: string | null
   createdById?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -4087,6 +4161,7 @@ export type QuoteCreateManyCompanyInput = {
 export type QuoteUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -4139,6 +4214,7 @@ export type QuoteUncheckedUpdateWithoutCompanyInput = {
   number?: Prisma.IntFieldUpdateOperationsInput | number
   leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -4189,6 +4265,7 @@ export type QuoteUncheckedUpdateManyWithoutCompanyInput = {
   number?: Prisma.IntFieldUpdateOperationsInput | number
   leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -4230,6 +4307,7 @@ export type QuoteCreateManyCreatedByInput = {
   companyId: string
   number: number
   leadId?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -4269,6 +4347,7 @@ export type QuoteCreateManyCreatedByInput = {
 export type QuoteUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -4321,6 +4400,7 @@ export type QuoteUncheckedUpdateWithoutCreatedByInput = {
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
   leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -4371,6 +4451,7 @@ export type QuoteUncheckedUpdateManyWithoutCreatedByInput = {
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
   leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -4412,6 +4493,7 @@ export type QuoteCreateManyLeadInput = {
   companyId: string
   number: number
   createdById?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -4451,6 +4533,7 @@ export type QuoteCreateManyLeadInput = {
 export type QuoteUpdateWithoutLeadInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -4503,6 +4586,7 @@ export type QuoteUncheckedUpdateWithoutLeadInput = {
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -4553,6 +4637,7 @@ export type QuoteUncheckedUpdateManyWithoutLeadInput = {
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -4595,6 +4680,7 @@ export type QuoteCreateManyTermsDocumentInput = {
   number: number
   leadId?: string | null
   createdById?: string | null
+  legacyQuotientNumber?: number | null
   title: string
   status?: $Enums.QuoteStatus
   pricingMode?: $Enums.PricingMode
@@ -4633,6 +4719,7 @@ export type QuoteCreateManyTermsDocumentInput = {
 export type QuoteUpdateWithoutTermsDocumentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.IntFieldUpdateOperationsInput | number
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -4686,6 +4773,7 @@ export type QuoteUncheckedUpdateWithoutTermsDocumentInput = {
   number?: Prisma.IntFieldUpdateOperationsInput | number
   leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -4736,6 +4824,7 @@ export type QuoteUncheckedUpdateManyWithoutTermsDocumentInput = {
   number?: Prisma.IntFieldUpdateOperationsInput | number
   leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
   pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
@@ -4862,6 +4951,7 @@ export type QuoteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   number?: boolean
   leadId?: boolean
   createdById?: boolean
+  legacyQuotientNumber?: boolean
   title?: boolean
   status?: boolean
   pricingMode?: boolean
@@ -4918,6 +5008,7 @@ export type QuoteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   number?: boolean
   leadId?: boolean
   createdById?: boolean
+  legacyQuotientNumber?: boolean
   title?: boolean
   status?: boolean
   pricingMode?: boolean
@@ -4964,6 +5055,7 @@ export type QuoteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   number?: boolean
   leadId?: boolean
   createdById?: boolean
+  legacyQuotientNumber?: boolean
   title?: boolean
   status?: boolean
   pricingMode?: boolean
@@ -5010,6 +5102,7 @@ export type QuoteSelectScalar = {
   number?: boolean
   leadId?: boolean
   createdById?: boolean
+  legacyQuotientNumber?: boolean
   title?: boolean
   status?: boolean
   pricingMode?: boolean
@@ -5046,7 +5139,7 @@ export type QuoteSelectScalar = {
   updatedAt?: boolean
 }
 
-export type QuoteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "number" | "leadId" | "createdById" | "title" | "status" | "pricingMode" | "clientCompanyName" | "clientName" | "clientEmail" | "clientPhone" | "intro" | "exclusions" | "scope" | "quoteType" | "projectAddress" | "termsDocumentId" | "currency" | "language" | "taxType" | "taxRate" | "taxDisplayMode" | "discount" | "discountType" | "discountValue" | "optionalDiscountThreshold" | "optionalDiscountType" | "optionalDiscountValue" | "subtotal" | "taxAmount" | "total" | "notes" | "terms" | "validUntil" | "sentAt" | "decidedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["quote"]>
+export type QuoteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "number" | "leadId" | "createdById" | "legacyQuotientNumber" | "title" | "status" | "pricingMode" | "clientCompanyName" | "clientName" | "clientEmail" | "clientPhone" | "intro" | "exclusions" | "scope" | "quoteType" | "projectAddress" | "termsDocumentId" | "currency" | "language" | "taxType" | "taxRate" | "taxDisplayMode" | "discount" | "discountType" | "discountValue" | "optionalDiscountThreshold" | "optionalDiscountType" | "optionalDiscountValue" | "subtotal" | "taxAmount" | "total" | "notes" | "terms" | "validUntil" | "sentAt" | "decidedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["quote"]>
 export type QuoteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   lead?: boolean | Prisma.Quote$leadArgs<ExtArgs>
@@ -5099,6 +5192,7 @@ export type $QuotePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     number: number
     leadId: string | null
     createdById: string | null
+    legacyQuotientNumber: number | null
     title: string
     status: $Enums.QuoteStatus
     pricingMode: $Enums.PricingMode
@@ -5614,6 +5708,7 @@ export interface QuoteFieldRefs {
   readonly number: Prisma.FieldRef<"Quote", 'Int'>
   readonly leadId: Prisma.FieldRef<"Quote", 'String'>
   readonly createdById: Prisma.FieldRef<"Quote", 'String'>
+  readonly legacyQuotientNumber: Prisma.FieldRef<"Quote", 'Int'>
   readonly title: Prisma.FieldRef<"Quote", 'String'>
   readonly status: Prisma.FieldRef<"Quote", 'QuoteStatus'>
   readonly pricingMode: Prisma.FieldRef<"Quote", 'PricingMode'>

@@ -50,17 +50,14 @@ describe("a rolling average", () => {
     const sums = [point("2026-03-01", 900, 0), point("2026-03-02", 100, 0)];
     const counts = [point("2026-03-01", 3, 0), point("2026-03-02", 1, 0)];
 
-    const rolled = divideSeries(
-      rollingSum(sums, 2, "day"),
-      rollingSum(counts, 2, "day"),
-    );
+    const rolled = divideSeries(rollingSum(sums, 2), rollingSum(counts, 2));
 
     // Four quotes worth 1000 between them: 250 each.
     expect(rolled[1].total).toBe(250);
 
     // Averaging the two daily averages instead would give (300 + 100) / 2 = 200,
     // which counts the lone quote on day two as heavily as the three on day one.
-    const wrong = rollingSum(divideSeries(sums, counts), 2, "day");
+    const wrong = rollingSum(divideSeries(sums, counts), 2);
     expect(wrong[1].total / 2).toBe(200);
   });
 });

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { signOut } from "@/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -27,7 +28,11 @@ export async function UserMenu({
   roleName: string;
   locale: Locale;
 }) {
-  const t = await getTranslations("common");
+  const [t, tAccount, tNotices] = await Promise.all([
+    getTranslations("common"),
+    getTranslations("account"),
+    getTranslations("notificationSettings"),
+  ]);
   const display = name ?? email;
 
   return (
@@ -48,6 +53,21 @@ export async function UserMenu({
           <p className="text-xs text-muted-foreground">{email}</p>
           <p className="mt-1 text-xs text-muted-foreground">{roleName}</p>
         </DropdownMenuLabel>
+
+        {/*
+          The only way into a personal setting for a profile without
+          `settings.read` — the sidebar's own Settings link needs that
+          permission, so a Sales or Viewer profile never sees it there, even
+          though neither of these pages asks for any permission once reached.
+          This menu is the one thing every signed-in person already has.
+        */}
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link href="/settings/profile">{tAccount("title")}</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/settings/notifications">{tNotices("title")}</Link>
+        </DropdownMenuItem>
 
         <DropdownMenuSeparator />
         <LocaleSwitcher current={locale} />

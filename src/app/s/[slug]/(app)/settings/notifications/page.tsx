@@ -16,7 +16,10 @@ export async function generateMetadata() {
  */
 export default async function NotificationSettingsPage() {
   const ctx = await requireCompanyContext();
-  const t = await getTranslations("notificationSettings");
+  const [t, tNav] = await Promise.all([
+    getTranslations("notificationSettings"),
+    getTranslations("nav"),
+  ]);
 
   const [stored, company] = await Promise.all([
     ctx.db.notificationPreference.findMany({
@@ -29,9 +32,17 @@ export default async function NotificationSettingsPage() {
     }),
   ]);
 
+  // Reached from the sidebar's own Settings for an owner or admin, but from
+  // the user menu for anyone else — a Sales or Viewer profile has no
+  // `settings.read` and would hit a forbidden page clicking "Back to
+  // Settings" otherwise, since that index is exactly what they can't open.
+  const back = can(ctx, "settings.read")
+    ? undefined
+    : { href: "/", label: tNav("dashboard") };
+
   return (
     <div className="space-y-6">
-      <SettingsHeader title={t("title")} subtitle={t("subtitle", { company: ctx.company.name })} />
+      <SettingsHeader title={t("title")} subtitle={t("subtitle", { company: ctx.company.name })} back={back} />
 
       <NotificationPreferencesForm preferences={preferenceMap(stored)} />
 

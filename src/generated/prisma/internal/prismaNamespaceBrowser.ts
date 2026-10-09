@@ -55,6 +55,7 @@ export const ModelName = {
   CompanyQuoteType: 'CompanyQuoteType',
   User: 'User',
   Membership: 'Membership',
+  LoginAttempt: 'LoginAttempt',
   Role: 'Role',
   Permission: 'Permission',
   RolePermission: 'RolePermission',
@@ -197,6 +198,16 @@ export const MembershipScalarFieldEnum = {
 } as const
 
 export type MembershipScalarFieldEnum = (typeof MembershipScalarFieldEnum)[keyof typeof MembershipScalarFieldEnum]
+
+
+export const LoginAttemptScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  ipAddress: 'ipAddress',
+  createdAt: 'createdAt'
+} as const
+
+export type LoginAttemptScalarFieldEnum = (typeof LoginAttemptScalarFieldEnum)[keyof typeof LoginAttemptScalarFieldEnum]
 
 
 export const RoleScalarFieldEnum = {

@@ -11,10 +11,15 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
 import { syncLocaleAfterSignIn } from "@/i18n/actions";
 
-export function LoginForm() {
+export function LoginForm({
+  requestMagicLink,
+}: {
+  requestMagicLink: (email: string) => Promise<void>;
+}) {
   const router = useRouter();
   const t = useTranslations("auth");
   const [error, setError] = useState<string | null>(null);
+  const [magicLinkSent, setMagicLinkSent] = useState(false);
   const [pending, startTransition] = useTransition();
 
   function onSubmit(formData: FormData) {
@@ -75,8 +80,12 @@ export function LoginForm() {
       <form
         action={(formData: FormData) => {
           startTransition(async () => {
-            await signIn("resend", { email: String(formData.get("email") ?? ""), redirect: false });
+            await requestMagicLink(String(formData.get("email") ?? ""));
+            // The same message whatever actually happened server-side — a
+            // non-member, a rate-limited IP and a genuine send all read
+            // identically, on purpose (see the comment on `requestMagicLink`).
             setError(null);
+            setMagicLinkSent(true);
           });
         }}
         className="space-y-2"
@@ -88,6 +97,9 @@ export function LoginForm() {
             {t("send")}
           </Button>
         </div>
+        {magicLinkSent ? (
+          <p className="text-xs text-muted-foreground">{t("magicLinkSent")}</p>
+        ) : null}
       </form>
     </div>
   );

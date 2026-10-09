@@ -1,5 +1,7 @@
+import bcrypt from "bcryptjs";
 import type { CompanyContext } from "@/lib/auth/session";
 import { prisma } from "@/lib/db/prisma";
+import { meetsPasswordPolicy } from "@/lib/auth/password-policy";
 import { InvitationStatus, MembershipStatus, RoleKey } from "@/generated/prisma/enums";
 import {
   generateInvitationToken,
@@ -263,6 +265,83 @@ export async function acceptInvitation(token: string, user: { id: string; email:
         status: MembershipStatus.ACTIVE,
       },
       // Somebody removed and invited again keeps the same row.
+      update: { roleId: invitation.roleId, status: MembershipStatus.ACTIVE },
+    }),
+    prisma.invitation.update({
+      where: { id: invitation.id },
+      data: { status: InvitationStatus.ACCEPTED, acceptedAt: new Date() },
+    }),
+  ]);
+
+  return { ok: true, slug: invitation.company.slug };
+}
+
+/**
+ * Whether the invited address already has a password, so the join screen can
+ * ask the right question — "choose a password" for whoever's new, "enter
+ * your password" for somebody invited into a second company who already has
+ * one from the first.
+ */
+export async function hasExistingPassword(email: string): Promise<boolean> {
+  const user = await prisma.user.findUnique({
+    where: { email: email.toLowerCase() },
+    select: { passwordHash: true },
+  });
+  return Boolean(user?.passwordHash);
+}
+
+export type AcceptWithPasswordOutcome =
+  | { ok: true; slug: string }
+  | { ok: false; reason: "invalid" | "wrong-password" | "weak-password" };
+
+/**
+ * Turns an invitation into both a membership and an account, for whoever has
+ * no session yet — the ordinary case, since an invitation is often the first
+ * time somebody reaches the company at all.
+ *
+ * The token already proves they hold the invited address, the same guarantee
+ * the link itself rests on, so there's no separate magic-link round trip:
+ * typing a password here is what signs them up. If that address already has
+ * one — invited into a second company, say — it's checked rather than
+ * silently replaced, and a wrong one reads exactly like a bad password
+ * anywhere else in the app. `meetsPasswordPolicy` only gates a *new*
+ * password: an account from before the policy existed must go on signing in
+ * with whatever it already has.
+ */
+export async function acceptInvitationWithPassword(
+  token: string,
+  password: string,
+): Promise<AcceptWithPasswordOutcome> {
+  const { state, invitation } = await resolveInvitation(token);
+  if (state !== "ok" || !invitation) return { ok: false, reason: "invalid" };
+
+  const email = invitation.email.toLowerCase();
+  const existing = await prisma.user.findUnique({
+    where: { email },
+    select: { id: true, passwordHash: true },
+  });
+
+  let userId: string;
+  if (!existing || !existing.passwordHash) {
+    if (!meetsPasswordPolicy(password)) return { ok: false, reason: "weak-password" };
+    const passwordHash = await bcrypt.hash(password, 10);
+
+    if (!existing) {
+      userId = (await prisma.user.create({ data: { email, passwordHash } })).id;
+    } else {
+      await prisma.user.update({ where: { id: existing.id }, data: { passwordHash } });
+      userId = existing.id;
+    }
+  } else {
+    const valid = await bcrypt.compare(password, existing.passwordHash);
+    if (!valid) return { ok: false, reason: "wrong-password" };
+    userId = existing.id;
+  }
+
+  await prisma.$transaction([
+    prisma.membership.upsert({
+      where: { userId_companyId: { userId, companyId: invitation.companyId } },
+      create: { userId, companyId: invitation.companyId, roleId: invitation.roleId, status: MembershipStatus.ACTIVE },
       update: { roleId: invitation.roleId, status: MembershipStatus.ACTIVE },
     }),
     prisma.invitation.update({

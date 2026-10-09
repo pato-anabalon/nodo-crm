@@ -10,6 +10,7 @@ import {
   Plug,
   Shield,
   Star,
+  User,
   Users,
 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
@@ -36,7 +37,7 @@ type Entry = {
 
 export default async function SettingsPage() {
   const ctx = await requirePermission("settings.read");
-  const [t, tDocs, tApi, tReviews, tNotices, tTeam, tProfiles, tCatalogue, tTemplates, tEmails] =
+  const [t, tDocs, tApi, tReviews, tNotices, tTeam, tProfiles, tCatalogue, tTemplates, tEmails, tAccount] =
     await Promise.all([
       getTranslations("settings"),
       getTranslations("documents"),
@@ -48,6 +49,7 @@ export default async function SettingsPage() {
       getTranslations("catalogue"),
       getTranslations("quoteTemplates"),
       getTranslations("emailTemplates"),
+      getTranslations("account"),
     ]);
 
   const has = await settingsOverview(ctx);
@@ -163,18 +165,29 @@ export default async function SettingsPage() {
   /*
    * Apart, and said out loud.
    *
-   * It is the only one of the ten that is not the company's decision but this
-   * person's — the only one that needs no permission, because it is their own
-   * email. Sitting it among company settings reads as if it were one more.
+   * Neither of these is the company's decision but this person's own — a
+   * name and a photo belong to whoever is signed in, same as their own
+   * email preferences below. Sitting them among company settings would read
+   * as if they were one more.
    */
-  const mine: Entry = {
-    href: "/settings/notifications",
-    icon: Bell,
-    title: tNotices("title"),
-    description: tNotices("subtitle", { company: has.companyName }),
-    status: tState("notices", { count: has.mutedNotices }),
-    filled: true,
-  };
+  const mine: Entry[] = [
+    {
+      href: "/settings/profile",
+      icon: User,
+      title: tAccount("title"),
+      description: tAccount("subtitle"),
+      status: ctx.user.name ?? tState("profileNoName"),
+      filled: Boolean(ctx.user.name),
+    },
+    {
+      href: "/settings/notifications",
+      icon: Bell,
+      title: tNotices("title"),
+      description: tNotices("subtitle", { company: has.companyName }),
+      status: tState("notices", { count: has.mutedNotices }),
+      filled: true,
+    },
+  ];
 
   return (
     <div className="space-y-6">
@@ -192,7 +205,9 @@ export default async function SettingsPage() {
       ))}
 
       <Group label={t("groups.mine")}>
-        <SettingCard entry={mine} dashed />
+        {mine.map((entry) => (
+          <SettingCard key={entry.href} entry={entry} dashed />
+        ))}
       </Group>
     </div>
   );

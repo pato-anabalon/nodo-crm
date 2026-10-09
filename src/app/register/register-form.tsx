@@ -5,7 +5,9 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { PasswordFields } from "@/components/password-fields";
 import { ROOT_DOMAIN } from "@/lib/tenant/host";
+import { passwordsReady } from "@/lib/auth/password-policy";
 import { registerCompany, type RegisterState } from "./actions";
 import { useActionToast } from "@/lib/use-action-toast";
 
@@ -22,12 +24,15 @@ export function slugify(value: string): string {
 
 export function RegisterForm() {
   const t = useTranslations("auth");
+  const tp = useTranslations("password");
   const [state, action, pending] = useActionState<RegisterState, FormData>(registerCompany, {});
 
   useActionToast(state);
   const [companyName, setCompanyName] = useState("");
   const [slug, setSlug] = useState("");
   const [slugTouched, setSlugTouched] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   // Until the user edits the subdomain, it's derived from the name.
   const effectiveSlug = slugTouched ? slug : slugify(companyName);
@@ -48,9 +53,26 @@ export function RegisterForm() {
         <Input id="email" name="email" type="email" required autoComplete="email" placeholder="you@company.co.nz" />
       </Field>
 
-      <Field label={t("password")} name="password" errors={state.fieldErrors?.password}>
-        <Input id="password" name="password" type="password" required minLength={8} autoComplete="new-password" />
-      </Field>
+      <PasswordFields
+        password={password}
+        onPasswordChange={setPassword}
+        confirmPassword={confirmPassword}
+        onConfirmPasswordChange={setConfirmPassword}
+        labels={{
+          password: tp("choose"),
+          confirmPassword: tp("confirm"),
+          mismatch: tp("mismatch"),
+          rules: {
+            minLength: tp("rules.minLength"),
+            uppercase: tp("rules.uppercase"),
+            lowercase: tp("rules.lowercase"),
+            number: tp("rules.number"),
+          },
+        }}
+      />
+      {state.fieldErrors?.password?.length ? (
+        <p className="text-sm text-destructive">{state.fieldErrors.password[0]}</p>
+      ) : null}
 
       <Field label={t("companyName")} name="companyName" errors={state.fieldErrors?.companyName}>
         <Input
@@ -81,7 +103,7 @@ export function RegisterForm() {
         </div>
       </Field>
 
-      <Button type="submit" className="w-full" disabled={pending}>
+      <Button type="submit" className="w-full" disabled={pending || !passwordsReady(password, confirmPassword)}>
         {pending ? t("creating") : t("createCompany")}
       </Button>
     </form>

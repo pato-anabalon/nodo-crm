@@ -56,6 +56,7 @@
     "or": "or",
     "magicLinkLabel": "Sign in with an email link",
     "send": "Send",
+    "magicLinkSent": "If that email has access, we've sent it a sign-in link.",
     "invalidCredentials": "That email or password isn't right.",
     "noAccessTitle": "You don't have access",
     "noAccessBody": "Your account doesn't belong to {company}. Ask an administrator to invite you, or sign in with another account.",
@@ -77,9 +78,22 @@
     "goToCompany": "Go to my company",
     "noCompanyYet": "Don't have a company yet?"
   },
+  "password": {
+    "choose": "Choose a password",
+    "confirm": "Confirm password",
+    "mismatch": "Passwords don't match.",
+    "weak": "Your password doesn't meet the requirements above.",
+    "rules": {
+      "minLength": "At least 8 characters",
+      "uppercase": "One uppercase letter",
+      "lowercase": "One lowercase letter",
+      "number": "One number"
+    }
+  },
   "validation": {
     "invalidEmail": "Enter a valid email",
     "passwordTooShort": "Password must be at least 8 characters",
+    "passwordTooWeak": "Password must be at least 8 characters, with an uppercase letter, a lowercase letter and a number",
     "enterYourName": "Enter your name",
     "enterCompanyName": "Enter the company name",
     "slugTooShort": "The subdomain must be at least 3 characters",
@@ -948,9 +962,48 @@
       "emailTemplates": "{count, plural, =0 {All using our wording} other {# of {total} in your words}}",
       "reviews": "{count, plural, =0 {No reviews yet} one {# review} other {# reviews}}",
       "ingestKeys": "{count, plural, =0 {Not connected} one {# key in use} other {# keys in use}}",
-      "notices": "{count, plural, =0 {You get every notice} one {# notice turned off} other {# notices turned off}}"
+      "notices": "{count, plural, =0 {You get every notice} one {# notice turned off} other {# notices turned off}}",
+      "profileNoName": "No name set yet"
     },
     "back": "Back to {section}"
+  },
+  "account": {
+    "title": "My profile",
+    "subtitle": "Your own name, photo and password — not something the company manages for you.",
+    "nameTitle": "Name",
+    "nameSubtitle": "Shown across the app instead of your email.",
+    "nameLabel": "Name",
+    "save": "Save",
+    "saving": "Saving…",
+    "avatar": {
+      "title": "Photo",
+      "subtitle": "Shown next to your name throughout the app.",
+      "upload": "Upload a photo",
+      "choose": "Choose a file",
+      "noneChosen": "No file chosen",
+      "save": "Save",
+      "uploading": "Uploading…",
+      "hint": "PNG, JPEG or WebP, up to 2 MB.",
+      "remove": "Remove",
+      "removeTitle": "Remove your photo?",
+      "removeConfirm": "Your initials will show instead.",
+      "uploaded": "Photo updated.",
+      "removed": "Photo removed.",
+      "errors": {
+        "empty": "Choose a file.",
+        "type": "PNG, JPEG or WebP only.",
+        "size": "Up to {max} MB."
+      }
+    },
+    "changePassword": {
+      "title": "Password",
+      "subtitle": "Used to sign in with your email and password.",
+      "currentLabel": "Current password",
+      "save": "Change password",
+      "saving": "Changing…",
+      "changed": "Password changed.",
+      "incorrectCurrent": "That's not your current password."
+    }
   },
   "team": {
     "title": "Team",
@@ -1006,7 +1059,11 @@
     "join": {
       "title": "Join {company}",
       "body": "You've been invited with the {role} profile.",
+      "forEmail": "This invitation is for {email}.",
       "accept": "Accept and go in",
+      "passwordLabel": "Password",
+      "incorrectPassword": "That password isn't right.",
+      "joining": "Joining…",
       "invalidTitle": "This invitation is no longer valid",
       "invalid": {
         "not-found": "The link doesn't match any invitation.",
@@ -1014,9 +1071,6 @@
         "accepted": "It has already been used.",
         "revoked": "It was cancelled."
       },
-      "signInTitle": "Sign in to join {company}",
-      "signInBody": "The invitation is for {email}. Sign in with that address to accept it.",
-      "signIn": "Sign in",
       "wrongAccountTitle": "This invitation is for another address",
       "wrongAccountBody": "It was sent to {invited} and you're signed in as {current}."
     },

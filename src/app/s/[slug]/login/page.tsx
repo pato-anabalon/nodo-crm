@@ -7,6 +7,7 @@ import { CompanyLogo } from "@/components/company-logo";
 import { AuroraBackground } from "@/components/aurora-background";
 import { auroraPalette } from "@/lib/theme/color";
 import { LoginForm } from "./login-form";
+import { requestMagicLink } from "./actions";
 
 /**
  * The one screen forced to English, on purpose.
@@ -60,7 +61,7 @@ export default async function LoginPage({ params }: { params: Promise<{ slug: st
             </div>
           </div>
 
-          <LoginForm />
+          <LoginForm requestMagicLink={requestMagicLink} />
         </main>
       </div>
     </NextIntlClientProvider>

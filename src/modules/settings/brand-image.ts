@@ -36,8 +36,13 @@ export function checkBrandImage(file: { type: string; size: number; name: string
   return { ok: true };
 }
 
-/** The extension the stored file gets, taken from the type rather than the name. */
-function extensionFor(type: string): string {
+/**
+ * The extension the stored file gets, taken from the type rather than the
+ * name. Exported so a third image living outside this module — a user's
+ * avatar, under `users/<id>/` rather than `companies/<id>/` — gets its
+ * extension the same way instead of a second copy of this.
+ */
+export function extensionFor(type: string): string {
   if (type === "image/png") return "png";
   if (type === "image/webp") return "webp";
   return "jpg";

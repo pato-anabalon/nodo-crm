@@ -1,10 +1,13 @@
 import NextAuth from "next-auth";
+import { headers } from "next/headers";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import Credentials from "next-auth/providers/credentials";
 import Resend from "next-auth/providers/resend";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/db/prisma";
 import { credentialsSchema } from "@/lib/auth/schemas";
+import { canRequestMagicLink } from "@/lib/auth/magic-link-gate";
+import { companySlugFromHost } from "@/lib/tenant/host";
 
 /**
  * Auth.js resolves *who* the user is, not *which company* they're in: the company
@@ -83,6 +86,22 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
+    // Auth.js's own trust boundary: this fires for *every* path into a
+    // provider, including the framework's own `/api/auth/signin/:provider`
+    // route — not just the form action this app happens to call it from.
+    // A check that only lived in that action would be one an attacker could
+    // skip by calling the route directly. See the comment on
+    // `canRequestMagicLink` for the full reasoning.
+    async signIn({ user, account, email }) {
+      if (account?.provider !== "resend" || !email?.verificationRequest) return true;
+      if (!user.email) return false;
+
+      const incoming = await headers();
+      const slug = companySlugFromHost(incoming.get("host"));
+      if (!slug) return false;
+
+      return canRequestMagicLink({ slug, email: user.email, headers: incoming });
+    },
     async jwt({ token, user }) {
       if (user?.id) token.sub = user.id;
       return token;

@@ -1,11 +1,12 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CompanyLogo } from "@/components/company-logo";
-import { acceptInvitation, resolveInvitation } from "@/modules/team/service";
+import { acceptInvitation, hasExistingPassword, resolveInvitation } from "@/modules/team/service";
+import { acceptWithPassword } from "./actions";
+import { JoinPasswordForm } from "./join-password-form";
 
 /**
  * Where an invitation is accepted.
@@ -38,13 +39,17 @@ export default async function JoinPage({
   const user = session?.user;
 
   if (!user?.email) {
-    // Sign in first, then come back here rather than to the dashboard.
+    // The token already proves they hold the invited address, so this sets
+    // up the account directly rather than sending them off for a magic-link
+    // round trip — see the comment on `acceptInvitationWithPassword`.
+    const hasPassword = await hasExistingPassword(invitation.email);
     return (
-      <Notice
-        title={t("signInTitle", { company: invitation.company.name })}
-        body={t("signInBody", { email: invitation.email })}
-        logo={{ name: invitation.company.name, url: invitation.company.logoUrl }}
-        action={{ href: `/login?callbackUrl=/join/${encodeURIComponent(token)}`, label: t("signIn") }}
+      <JoinPasswordForm
+        company={{ name: invitation.company.name, logoUrl: invitation.company.logoUrl }}
+        email={invitation.email}
+        role={tRoles(`${invitation.role.key}.name`)}
+        hasPassword={hasPassword}
+        accept={acceptWithPassword.bind(null, token)}
       />
     );
   }
@@ -84,13 +89,11 @@ function Notice({
   title,
   body,
   logo,
-  action,
   form,
 }: {
   title: string;
   body: string;
   logo?: { name: string; url: string | null };
-  action?: { href: string; label: string };
   form?: { action: () => Promise<void>; label: string };
 }) {
   return (
@@ -107,12 +110,6 @@ function Notice({
             <h1 className="text-lg font-semibold">{title}</h1>
             <p className="text-sm text-muted-foreground">{body}</p>
           </div>
-
-          {action ? (
-            <Button asChild className="w-full">
-              <Link href={action.href}>{action.label}</Link>
-            </Button>
-          ) : null}
 
           {form ? (
             <form action={form.action}>

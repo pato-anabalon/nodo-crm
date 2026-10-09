@@ -56,6 +56,7 @@
     "or": "o",
     "magicLinkLabel": "Entrar con un enlace por correo",
     "send": "Enviar",
+    "magicLinkSent": "Si ese correo tiene acceso, le enviamos un enlace para entrar.",
     "invalidCredentials": "Correo o contraseña incorrectos.",
     "noAccessTitle": "No tienes acceso",
     "noAccessBody": "Tu cuenta no pertenece a {company}. Pídele a un administrador que te invite, o entra con otra cuenta.",
@@ -77,9 +78,22 @@
     "goToCompany": "Ir a mi empresa",
     "noCompanyYet": "¿Todavía no tienes empresa?"
   },
+  "password": {
+    "choose": "Elige una contraseña",
+    "confirm": "Confirma la contraseña",
+    "mismatch": "Las contraseñas no coinciden.",
+    "weak": "Tu contraseña no cumple los requisitos de arriba.",
+    "rules": {
+      "minLength": "Al menos 8 caracteres",
+      "uppercase": "Una letra mayúscula",
+      "lowercase": "Una letra minúscula",
+      "number": "Un número"
+    }
+  },
   "validation": {
     "invalidEmail": "Correo inválido",
     "passwordTooShort": "La contraseña debe tener al menos 8 caracteres",
+    "passwordTooWeak": "La contraseña debe tener al menos 8 caracteres, con una mayúscula, una minúscula y un número",
     "enterYourName": "Ingresa tu nombre",
     "enterCompanyName": "Ingresa el nombre de la empresa",
     "slugTooShort": "El subdominio debe tener al menos 3 caracteres",
@@ -948,9 +962,48 @@
       "emailTemplates": "{count, plural, =0 {Todos con nuestro texto} other {# de {total} con texto propio}}",
       "reviews": "{count, plural, =0 {Sin reseñas todavía} one {# reseña} other {# reseñas}}",
       "ingestKeys": "{count, plural, =0 {Sin conectar} one {# clave en uso} other {# claves en uso}}",
-      "notices": "{count, plural, =0 {Recibes todos los avisos} one {# aviso desactivado} other {# avisos desactivados}}"
+      "notices": "{count, plural, =0 {Recibes todos los avisos} one {# aviso desactivado} other {# avisos desactivados}}",
+      "profileNoName": "Todavía sin nombre"
     },
     "back": "Volver a {section}"
+  },
+  "account": {
+    "title": "Mi perfil",
+    "subtitle": "Tu nombre, foto y contraseña — algo tuyo, no algo que la empresa decide por ti.",
+    "nameTitle": "Nombre",
+    "nameSubtitle": "Se muestra en toda la app en vez de tu correo.",
+    "nameLabel": "Nombre",
+    "save": "Guardar",
+    "saving": "Guardando…",
+    "avatar": {
+      "title": "Foto",
+      "subtitle": "Se muestra junto a tu nombre en toda la app.",
+      "upload": "Sube una foto",
+      "choose": "Elige un archivo",
+      "noneChosen": "Ningún archivo elegido",
+      "save": "Guardar",
+      "uploading": "Subiendo…",
+      "hint": "PNG, JPEG o WebP, hasta 2 MB.",
+      "remove": "Quitar",
+      "removeTitle": "¿Quitar tu foto?",
+      "removeConfirm": "Se mostrarán tus iniciales en su lugar.",
+      "uploaded": "Foto actualizada.",
+      "removed": "Foto eliminada.",
+      "errors": {
+        "empty": "Elige un archivo.",
+        "type": "Solo PNG, JPEG o WebP.",
+        "size": "Hasta {max} MB."
+      }
+    },
+    "changePassword": {
+      "title": "Contraseña",
+      "subtitle": "La que usas para iniciar sesión con tu correo y contraseña.",
+      "currentLabel": "Contraseña actual",
+      "save": "Cambiar contraseña",
+      "saving": "Cambiando…",
+      "changed": "Contraseña cambiada.",
+      "incorrectCurrent": "Esa no es tu contraseña actual."
+    }
   },
   "team": {
     "title": "Equipo",
@@ -1006,7 +1059,11 @@
     "join": {
       "title": "Únete a {company}",
       "body": "Te invitaron con el perfil {role}.",
+      "forEmail": "Esta invitación es para {email}.",
       "accept": "Aceptar y entrar",
+      "passwordLabel": "Contraseña",
+      "incorrectPassword": "Esa contraseña no es correcta.",
+      "joining": "Uniéndote…",
       "invalidTitle": "Esta invitación ya no sirve",
       "invalid": {
         "not-found": "El enlace no corresponde a ninguna invitación.",
@@ -1014,9 +1071,6 @@
         "accepted": "Ya fue usada.",
         "revoked": "Fue cancelada."
       },
-      "signInTitle": "Inicia sesión para unirte a {company}",
-      "signInBody": "La invitación es para {email}. Inicia sesión con ese correo para aceptarla.",
-      "signIn": "Iniciar sesión",
       "wrongAccountTitle": "Esta invitación es para otro correo",
       "wrongAccountBody": "Se envió a {invited} y tú entraste como {current}."
     },

@@ -31,6 +31,7 @@ export const DIRECT_TENANT_MODELS = new Set([
   "Invitation",
   "Lead",
   "LeadSubmission",
+  "LoginAttempt",
   "Membership",
   "Notification",
   "NotificationPreference",

@@ -1,0 +1,591 @@
+﻿"Quote number","Item code","Item title","Cost price","Unit price",Quantity,Discount,"Item total","Sales category","Tax rate",Subscription,"Editable quantity",Optional
+99,,"To Gib Stopping walls and ceiling this incluided square stop",,"2,975.00",,20,"2,380.00",Sales,"15% GST",,,
+100,,"To Repair Plaster Around windows Masonry Render and Texture on Block wall",,919.07,,,919.07,Sales,"15% GST",,,
+101,,"To Repair Plaster Left Hand side Fence on Fiber cement wall",,"1,313.54",,,"1,313.54",Sales,"15% GST",,,
+102,,,,"1,042.36",,,"1,042.36",Sales,"15% GST",,,"Multiple choice, selected"
+103,,"As per plan (attached)
+2,6m stud",,"6,500.00",,,"6,500.00",Sales,"No tax",,,
+104,,Painting,,"11,655.00",,,"11,655.00",Sales,"15% GST",,,
+105,,"Paint Roof",,"2,956.50",,20,"2,365.20",Sales,"15% GST",,,
+105,,"Paint exterior weatherboard cladding, windows, soffit and fascia board",,"7,105.61",,10,"6,395.05",Sales,"15% GST",,,
+105,,"To  skimming the walls included ceilings if necessary",,"4,792.61",,20,"3,834.09",Sales,"15% GST",,,
+105,,"Painting the Interior of the house ( includes frames, doors, ceilings, windows )",,"8,973.61",,10,"8,076.25",Sales,"15% GST",,,
+106,,"Exterior Plaster and Paint full System Dulux Acratex Masonry Render and Texture on concrete block wall and Paint Timber Fence",,"5,132.10",,,"5,132.10",Sales,"15% GST",,,"Multiple choice, selected"
+107,,"Paint exterior weatherboard cladding",,"6,895.00",,,"6,895.00",Sales,"15% GST",,,
+107,,Soffit,,"1,186.00",,,"1,186.00",Sales,"15% GST",,,
+107,,"Concealed - gutter",,"1,077.00",,,"1,077.00",Sales,"15% GST",,,
+108,,"Paint exterior plaster cladding",,"2,777.63",,25,"2,083.22",Sales,"15% GST",,,
+109,,"Skim 2 x walls in laundry / Passage / Part of ceiling - Main bedroom",,"1,610.00",,,"1,610.00",Sales,"15% GST",,,
+109,,"Patches and repairs",,720.00,,,720.00,Sales,"15% GST",,,
+110,,"Render plastering",,"1,592.00",,,"1,592.00",Sales,"15% GST",,,
+111,,"Painting of 2 and a bit gables 2nd story, and fascias.
+Balustrades posts, fascias around deck and support under stairs.",,"3,495.00",,,"3,495.00",Sales,"No tax",,,
+111,,Scaffolding,,"1,500.00",,,"1,500.00",Sales,"No tax",,,
+111,,"Wooden steps",,"1,633.00",,,"1,633.00",Sales,"No tax",,,
+112,,Skimming,,"2,010.00",,,"2,010.00",Sales,"No tax",,,
+112,,"Interior - Painting walls and ceiling",,"5,325.00",,,"5,325.00",Sales,"No tax",,,
+112,,Sanding,,440.00,,,440.00,Sales,"No tax",,,
+112,,"Doors and Windows",,"1,020.00",,,"1,020.00",Sales,"No tax",,,
+113,,"Paint Walls",,"9,861.56",,,"9,861.56",Sales,"15% GST",,,Optional
+113,,"Re Plaster Exterior walls AcraTex AcraShield Advance Matt on Fibre cement sheet Full mesh system",,"12,101.01",,,"12,101.01",Sales,"15% GST",,,Optional
+114,,"Replaced fiber cement sheet and plaster",,725.83,,,725.83,Sales,"15% GST",,,
+115,,"SO, WHAT DOES THAT MEAN?",,0.00,,,0.00,Sales,"15% GST",,,
+115,W3,"Nano-Clear® Application to Three Bay Window",,0.00,,,0.00,Sales,"15% GST",,,
+115,DS2,"Nano-Clear® Application to Double Bay Sliding Door",,0.00,,,0.00,Sales,"15% GST",,,
+115,WCUSTOM,"Nano-Clear® Application to Custom Window",,0.00,,,0.00,Sales,"15% GST",,,
+115,WCUSTOM,"Nano-Clear® Application to Full-Length Single Bay Window",,0.00,,,0.00,Sales,"15% GST",,,
+115,DF1,"Nano-Clear® Application to Single Bay Entry Door",,0.00,,,0.00,Sales,"15% GST",,,
+115,W2,"Nano-Clear® Application to Double Bay Window",,0.00,,,0.00,Sales,"15% GST",,,
+115,W1,"Nano-Clear® Application to Single Bay Window",,0.00,,,0.00,Sales,"15% GST",,,
+115,WCUSTOM,"Nano-Clear® Application to Custom Window",,0.00,,,0.00,Sales,"15% GST",,,
+116,,"SO, WHAT DOES THAT MEAN?",,0.00,,,0.00,Sales,"No tax",,,
+116,W3,"Nano-Clear® Application to Three Bay Window",,858.00,,,858.00,Sales,"No tax",,,
+116,DS2,"Nano-Clear® Application to Double Bay Sliding Door",,356.00,,,356.00,Sales,"No tax",,,
+116,WCUSTOM,"Nano-Clear® Application to Custom Window",,315.00,,,315.00,Sales,"No tax",,,
+116,WCUSTOM,"Nano-Clear® Application to Full-Length Single Bay Window",,653.00,,,653.00,Sales,"No tax",,,
+116,DF1,"Nano-Clear® Application to Single Bay Entry Door",,191.00,,,191.00,Sales,"No tax",,,
+116,W2,"Nano-Clear® Application to Double Bay Window",,891.00,,,891.00,Sales,"No tax",,,
+116,W1,"Nano-Clear® Application to Single Bay Window",,742.00,,,742.00,Sales,"No tax",,,
+116,WCUSTOM,"Nano-Clear® Application to Custom Window",,327.00,,,327.00,Sales,"No tax",,,
+117,W3,"1), 7), 8), 10), 11), 18), 21), 23), 26), 29), 32) Nano-Clear® Application to Three Bay Window",,"3,148.20",,,"3,148.20",Sales,"No tax",,,
+117,W5,"2), 15), 22)  Nano-Clear® Application to Five Bay Window",,"1,240.20",,,"1,240.20",Sales,"No tax",,,
+117,W1,"3), 4), 5), 6), 16), 17), 19), 20) Nano-Clear® Application to Single Bay Window",,"1,187.20",,,"1,187.20",Sales,"No tax",,,
+117,W2,"24) Nano-Clear® Application to Double Bay Window",,222.60,,,222.60,Sales,"No tax",,,
+117,DF1,"9) Nano-Clear® Application to Double Bay Entry Door",,190.80,,,190.80,Sales,"No tax",,,
+117,W4,"12), 13), 14), 25), 27), 28), 30) Nano-Clear® Application to Four Bay Window",,"2,448.60",,,"2,448.60",Sales,"No tax",,,
+117,DB4,"31) Nano-Clear® Application to Four Bay Bifold Door",,699.60,,,699.60,Sales,"15% GST",,,
+118,,"Refurbish & blend paint wall.",,"2,781.00",,,"2,781.00",Sales,"No tax",,,
+119,W3,"1), 7), 8), 10), 11),  Nano-Clear® Application to Three Bay Window",,"1,431.00",,,"1,431.00",Sales,"No tax",,,
+119,W5,"2), 15), 22)  Nano-Clear® Application to Five Bay Window",,"1,240.20",,,"1,240.20",Sales,"No tax",,,
+119,W1,"3), 4), 5), 6),  Nano-Clear® Application to Single Bay Window",,593.60,,,593.60,Sales,"No tax",,,
+119,DF1,"9) Nano-Clear® Application to Double Bay Entry Door",,190.80,,,190.80,Sales,"No tax",,,
+119,W4,"12), 13) Nano-Clear® Application to Four Bay Window",,699.60,,,699.60,Sales,"No tax",,,
+120,,"Breakout existing cupboard & Refurbish",,990.00,,,990.00,Sales,"No tax",,,
+121,,"Render plaster (as per sketch, see below)",,"1,110.00",,,"1,110.00",Sales,"No tax",,,
+121,,"Gib Stopping: walls & ceilings (as per sketch, see below) - 2.4m Stud
+All work done to - AS/NZS 2589:2006",,"1,752.00",,,"1,752.00",Sales,"No tax",,,
+122,,"Supply / Fix / Stop
+Ceiling 5.8m x 5.0m : Walls 3.6 & 3.2 x 2.04m height",,"1,581.00",,,"1,581.00",Sales,"15% GST",,,
+122,,"Square Stopping / Scotia",,332.00,,,332.00,Sales,"No tax",,,
+123,,"Exterior plastering walls on Balcony  Dulux Acratex Full Mesh System",,"7,645.46",,,"7,645.46",Sales,"No tax",,,
+123,,"Exterior  Paint walls and Soffit",,"7,762.95",,,"7,762.95",Sales,"No tax",,,
+123,,"Garage Door, Garage Frame,  Entry Door",,"1,389.38",,,"1,389.38",Sales,"No tax",,,
+123,,"Painting the Interior of the house (includes frames, doors, walls and ceilings)",,"7,492.00",,,"7,492.00",Sales,"No tax",,,
+123,,"Skim - Main wall bedroom",,385.00,,,385.00,Sales,"No tax",,,
+123,,"Strip wallpaper",,80.00,,,80.00,Sales,"No tax",,,
+123,,"Extras as discussed",,"2,915.00",,,"2,915.00",Sales,"No tax",,,
+124,,"To: Supply / Fix / Stop, areas as per measurements by OVI
+2.4m/2.7m & 2.25m-3.0m Stud		
+All work done to - AS/NZS 2589:2006",,"56,045.00",,,"56,045.00",Sales,"15% GST",,,
+124,,"Fire/Sound silicone",,475.00,,,475.00,Sales,"15% GST",,,
+125,,"Skimming the interior of house (includes all interior walls, except garage)",,"7,342.00",,,"7,342.00",Sales,"No tax",,,
+125,,"Painting the Interior of the house (includes frames, doors, ceilings,)",,"9,404.00",,,"9,404.00",Sales,"No tax",,,
+125,,"Garage - Patch / Repair work",,745.00,,,745.00,Sales,"No tax",,,
+126,,"Paint Roof and Guttering, Paint Plaster Walls and soffit, Fixed Plaster Cladding",,"3,730.12",,,"3,730.12",Sales,"15% GST",,,
+128,,"To Plaster pillar",,676.55,,,676.55,Sales,"15% GST",,,Optional
+129,,"Skim 2 x ceiling in Bathroom",,858.09,,,858.09,Sales,"15% GST",,,
+129,,"Painting window frame and doors frame plus ceiling",,"1,184.69",,,"1,184.69",Sales,"15% GST",,,
+130,,"To: Supply / Fix / Stop, Level-4, as per plan
+2.4m / 2.7m Studs		
+All work done to - AS/NZS 2589:2006",,"39,442.00",,,"39,442.00",Sales,"No tax",,,
+130,,"Fire/Sound silicone",,475.00,,,475.00,Sales,"No tax",,,
+132,,"Gib stop 2 x toilets",,475.00,,,475.00,Sales,"No tax",,,
+133,,"Paint Roof",,"2,942.00",,,"2,942.00",Sales,"No tax",,,
+133,,"Paint Fascias",,694.00,,,694.00,Sales,"No tax",,,
+133,,Carport,,250.00,,,250.00,Sales,"No tax",,,
+134,,Rendering,,"25,105.00",,,"25,105.00",Sales,"No tax",,,
+134,"Price direct from P C Headland Builder (see attached)","Building; Units 22 – 25 and 29 – 32",,"11,955.82",,,"11,955.82",Sales,"No tax",,,
+135,,"If you require the two services of painting toilets and ceiling repair and paint we could deduct 15%",,"3,720.00",,15,"3,162.00",Sales,"15% GST",,,Optional
+136,,"Plaster Exterior concrete walls",,"29,176.46",,,"29,176.46",Sales,"15% GST",,,
+137,,"Painting bathroom",,900.00,,,900.00,Sales,"No tax",,,
+138,,"Painting Soffit",,"2,821.13",,,"2,821.13",Sales,"15% GST",,,Optional
+139,,"Re Plaster Exterior walls AcraTex AcraShield Advance Matt on Fibre cement sheet Full mesh system",,"20,000.00",,,"20,000.00",Sales,"15% GST",,,
+140,"Master Bedroom","Refurbish & Painting",,"1,300.00",,,"1,300.00",Sales,"No tax",,,"Optional, selected"
+140,Bathroom,"Refurbish & Painting  (paint on site)",,900.00,,,900.00,Sales,"15% GST",,,"Optional, selected"
+140,"Laundry entrance & Laundry","Refurbish & Painting",,750.00,,,750.00,Sales,"No tax",,,"Optional, selected"
+141,,"Paint Roof",,"3,390.00",,,"3,390.00",Sales,"No tax",,,
+142,,"Stopping bathroom",,"1,740.00",,,"1,740.00",Sales,"No tax",,,
+143,,"water blasting building",,650.00,,,650.00,Sales,"15% GST",,,
+145,,"Paint Roof and Guttering, Paint Plaster Walls and soffit, Fixed Plaster Cladding",,"1,600.00",,,"1,600.00",Sales,"15% GST",,,
+147,,"REMOVE WALL PAPER including masking floor (carpet)",,"2,847.15",,,"2,847.15",Sales,"No tax",,,
+147,,"Apply 1 x coat PIGMENT SEALER",,"2,164.00",,,"2,164.00",Sales,"No tax",,,
+147,,SKIMMING,,"7,202.79",,,"7,202.79",Sales,"No tax",,,
+147,,"Painting the Interior of the house (includes frames, doors, ceilings) Remover all wallpaper on walls",,"12,687.30",,,"12,687.30",Sales,"No tax",,,
+147,,Ballustrade,,"1,590.00",,,"1,590.00",Sales,"15% GST",,,
+147,,Scaffold,,360.00,,,360.00,Sales,"15% GST",,,
+148,,"Dulux Acratex Exsulite EIFS Cladding System",,"5,346.00",,,"5,346.00",Sales,"15% GST",,,Optional
+149,,"Painting painting all the interior of the house
+  (includes frames, doors, ceilings and walls)",,"10,231.63",,,"10,231.63",Sales,"15% GST",,,
+150,,Soffit,,"1,141.00",,,"1,141.00",Sales,"No tax",,,Optional
+150,,Fascia,,"1,527.00",,,"1,527.00",Sales,"No tax",,,Optional
+151,,"Rust Repair",,175.00,,,175.00,Sales,"15% GST",,,
+151,,"Paint Roof",,"3,215.00",,,"3,215.00",Sales,"No tax",,,
+151,,"Paint Fascias",,694.00,,,694.00,Sales,"No tax",,,
+152,,"To Remove Plaster and re Plaster",,"3,680.75",,,"3,680.75",Sales,"15% GST",,,
+153,,"Paint Roof",,"2,890.00",,,"2,890.00",Sales,"No tax",,,
+153,,"Paint Fascias",,674.00,,,674.00,Sales,"No tax",,,
+154,,"REMOVE WALL PAPER / TEXTURED CEILING",,"2,650.00",,,"2,650.00",Sales,"No tax",,,"Optional, selected"
+154,,"PIGMENT SEALER",,"2,164.00",,,"2,164.00",Sales,"No tax",,,"Optional, selected"
+154,,"SKIMMING WALLS (excludes ceilings and cupboards)",,"7,850.00",,,"7,850.00",Sales,"No tax",,,"Optional, selected"
+154,,"Painting the Interior of the house (includes frames, timber doors, ceilings)",,"11,325.30",,,"11,325.30",Sales,"No tax",,,"Optional, selected"
+154,,Laundry,,992.00,,,992.00,Sales,"No tax",,,"Optional, selected"
+155,,"Paint Exterior Plaster Cladding:",,"11,215.67",,,"11,215.67",Sales,"15% GST",,,
+156,,"Roof preparation by NZ Treatments and Spraying",,0.00,,,0.00,Sales,"No tax",,,
+156,,"Paint Roof",,"3,600.00",,,"3,600.00",Sales,"No tax",,,
+158,,"water blaster",,460.00,,,460.00,Sales,"15% GST",,,
+158,,"Crack repair",,"1,867.91",,,"1,867.91",Sales,"15% GST",,,
+158,,Soffit,,"1,446.03",,,"1,446.03",Sales,"15% GST",,,
+158,,"Fascia Board",,"1,706.03",,,"1,706.03",Sales,"15% GST",,,
+158,,"Paint exterior plaster cladding",,"6,766.58",,,"6,766.58",Sales,"15% GST",,,
+159,,"Plaster full mesh on Block wall",,"9,023.00",,,"9,023.00",Sales,"15% GST",,,
+160,,"Seal brick wall",,"6,846.80",,,"6,846.80",Sales,"15% GST",,,
+160,,Fascia,,916.88,,,916.88,Sales,"15% GST",,,
+162,,"Exterior crack repair cladding walls and soffit",,793.00,,,793.00,Sales,"15% GST",,,
+164,,"Preparation, repair, stop and paint - Kitchen",,"1,350.00",,,"1,350.00",Sales,"No tax",,,
+165,,"To: Supply / Fix / Stop, Level-4, 
+3 bedrooms as discussed
+2.4m Stud	
+All work done to - AS/NZS 2589:2006",,"2,883.00",,,"2,883.00",Sales,"No tax",,,
+165,Optional!!,"Painting the Interior of the house",,"2,650.00",,,"2,650.00",Sales,"No tax",,,
+165,,"Pine Trims - Skirting (floors), Scotia (ceiling), Architraves (windows & doors)",,"1,545.00",,,"1,545.00",Sales,"No tax",,,
+166,,"Skim 2 x ceiling in Bathroom",,"2,368.20",,,"2,368.20",Sales,"15% GST",,,
+167,,"Emer-Clad application",,"3,456.00",,,"3,456.00",Sales,"15% GST",,,
+168,,"Remove wallpaper",,880.00,,,880.00,Sales,"No tax",,,
+168,,"Skimming / Pigment sealer / Slimlines",,"3,272.00",,,"3,272.00",Sales,"No tax",,,
+168,,"Painting the Interior of the house (includes frames, doors, ceilings)",,"2,970.00",,,"2,970.00",Sales,"No tax",,,
+169,,"To applied a SystemDulux Acratex Masonry Render and Texture on Fibre cemment sheet",,"5,739.35",,,"5,739.35",Sales,"15% GST",,,
+169,,,,398.00,,,398.00,Sales,"15% GST",,,
+170,,"Emer-Clad application",,6.00,170,,"1,020.00",Sales,"15% GST",,,
+172,,"Painting the Interior of 7 unit plus hall and lift area  (includes frames, doors, windows, ceilings and walls)",,"39,800.00",,,"39,800.00",Sales,"No tax",,,
+173,,"Painting the Interior 3 x bedrooms 3.6m stud (includes frames, doors, window frames)",,"6,210.00",,,"6,210.00",Sales,"No tax",,,
+173,,"Back Deck area",,"1,800.00",,,"1,800.00",Sales,"No tax",,,
+174,,"Roof preparation by NZ Treatments and Spraying",,0.00,,,0.00,Sales,"No tax",,,
+174,,"Paint Roof - Concrete tiles",,"3,200.00",,,"3,200.00",Sales,"No tax",,,
+176,,"Replaster windows",,"3,697.89",,,"3,697.89",Sales,"15% GST",,,
+176,,"Replaster top level walls",,"1,507.04",,,"1,507.04",Sales,"15% GST",,,
+177,,"Painting the Interior ceiling and lounge walls",,"4,750.00",,,"4,750.00",Sales,"No tax",,,
+177,,"Lounge Ceiling - Skimming / Patching Kitchen Ceiling and Skylights (Square Stop)",,"1,680.00",,,"1,680.00",Sales,"No tax",,,
+177,,"Paint Gables x 2",,"1,170.00",,,"1,170.00",Sales,"No tax",,,
+177,,"Garage - Supply/Fix/Stop - Gib, Square stop, Slimlines.",,"3,162.00",,,"3,162.00",Sales,"No tax",,,
+177,,"Paint - Garage Walls & Ceiling",,"4,270.00",,,"4,270.00",Sales,"No tax",,,
+178,,"Paint Roof - Concrete tiles",,"4,574.17",,,"4,574.17",Sales,"No tax",,,Optional
+179,,"Gib-Stop / Slimlines & Arch-bead
+Laundry area",,795.00,,,795.00,Sales,"No tax",,,
+181,,"To applied a full System Putz Thechnik and Texture on polysterene wall",,"1,722.58",,15,"1,464.19",Sales,"15% GST",,,
+182,,"Skimming / Pigment sealer (see attached)",,"1,524.00",,,"1,524.00",Sales,"No tax",,,
+184,,"Gib-Stop / Slimlines & Arch-bead
+Laundry / Kitchen",,795.00,,,795.00,Sales,"No tax",,,
+184,,"Extra - Charge-up work",,195.00,,,195.00,Sales,"No tax",,,
+184,,"Painting Kitchen, Laundry area (inclusive of doors & windows) New door not fitted not included",,"2,415.00",,,"2,415.00",Sales,"No tax",,,Optional
+186,,,,825.00,,,825.00,Sales,"15% GST",,,
+186,,,,"2,305.00",,,"2,305.00",Sales,"15% GST",,,
+187,,,,"1,809.21",,,"1,809.21",Sales,"No tax",,,
+188,,"Gib stop bathroom / slimlines",,"1,205.00",,,"1,205.00",Sales,"No tax",,,
+189,,"* Supply / Fix / Stop-Std. 10mm gib-board (walls / ceiling)
+* Fix / remove clean sand and re-use finishing trims 
+ (skirting, scotia, architraves and ceiling battens)
+* Supply / Fix for fixing insulation (walls)",,"6,853.00",,,"6,853.00",Sales,"No tax",,,
+189,,"Please note:
+After all wall linings are removed please ensure that all surfaces are left de-nailed and free of any previous glue/ adhesives.",,0.00,,,0.00,Sales,"No tax",,,
+190,,"Plaster full mesh on concrete Block wall",,"6,709.62",,,"6,709.62",Sales,"No tax",,,Optional
+190,,,,"4,551.08",,,"4,551.08",Sales,"No tax",,,Optional
+191,,"Plaster full mesh on Concrete Block Fire Place",,"3,097.64",,15,"2,632.99",Sales,"15% GST",,,
+192,,"Painting the Interior Ceilings  
+Walls - Lounge, Bathroom",,"2,065.00",,,"2,065.00",Sales,"No tax",,,
+193,,"Plaster Exterior concrete walls",,135.00,184,,"24,840.00",Sales,"15% GST",,,
+194,,"Plaster full mesh on  Block wall",,"1,173.64",,,"1,173.64",Sales,"15% GST",,,
+194,,"Plaster Exterior walls AcraTex AcraShield Advance Matt on Fibre cement sheet Full mesh system",,856.96,,,856.96,Sales,"15% GST",,,
+195,,"Preparation, repair, stop and paint - 
+Areas as discussed",,"2,574.00",,,"2,574.00",Sales,"No tax",,,
+196,,"Paint - Bathroom / Toilet / Passage walls 1 & bit.
+No - doors
+Paint matching - remove samples or with colour chart",,"1,280.00",,,"1,280.00",Sales,"No tax",,,
+197,,"Paint - Bathroom / Toilet / Passage walls & ceiling.
+ 
+Paint matching - remove samples or with colour chart",,"2,180.00",,,"2,180.00",Sales,"No tax",,,
+198,,"Re Plaster Exterior walls on Fibre cement sheet Full mesh system",,"12,500.00",,,"12,500.00",Sales,"15% GST",,,
+199,,"Skimming / Pigment sealer / Slimlines
+Strip wallpaper - Master bedroom / toilet / small bedroom",,"4,620.00",,,"4,620.00",Sales,"No tax",,,
+199,,"Painting - House Walls (includes window & door frames)",,"4,675.00",,,"4,675.00",Sales,"No tax",,,
+200,,"To: Supply / Fix / Stop / Scotia, Level-4, kitchen ceiling
+      Repair and Patchwork to walls
+2.4m Stud	
+All work done to - AS/NZS 2589:2006",,"1,110.00",,,"1,110.00",Sales,"No tax",,,
+201,,"Exterior crack repair",,"2,257.65",,,"2,257.65",Sales,"15% GST",,,
+201,,"Plaster Fence",,"3,543.00",,8.5,"3,241.85",Sales,"15% GST",,,
+202,,"To applied a full SystemDulux Acratex Masonry Render and Texture Fence Block Wall",,566.96,,,566.96,Sales,"15% GST",,,
+204,"Start date 17th May","Kitchen - Preparation, repair, stop wall & ceiling area above stove, also stop corner  next to stove",,550.00,,,550.00,Sales,"No tax",,,
+205,,"Kitchen/Lounge - Preparation, repair, stop and paint - Areas as discussed",,"2,130.00",,,"2,130.00",Sales,"No tax",,,
+206,,"Paint Roof",,"5,865.15",,,"5,865.15",Sales,"No tax",,,
+207,,"Building Wash",,"1,300.00",,,"1,300.00",Sales,"No tax",,,
+207,,"Plaster concrete walls",,"58,412.00",,,"58,412.00",Sales,"No tax",,,
+208,,"Skimming / Pigment sealer",,"1,480.00",,,"1,480.00",Sales,"No tax",,,
+209,,"Gib-Stop: Walls - Ceilings / Square Stop / Slimline's Ceiling 2,5m",,"5,486.00",,,"5,486.00",Sales,"No tax",,,
+211,,"House Wash",,490.00,,,490.00,Sales,"No tax",,,
+211,"Paint - Stripping (lead based paint)","Paint - Stripping (lead based paint)",,"2,200.00",,,"2,200.00",Sales,"No tax",,,
+211,,"Painting exterior cladding (walls, windows)",,"8,817.00",,,"8,817.00",Sales,"No tax",,,
+211,,"Painting (soffit and fascia boards)",,"1,800.00",,,"1,800.00",Sales,"No tax",,,
+213,,"Fixed - Fixing price",,"2,295.00",,,"2,295.00",Sales,"No tax",,,
+214,,"Paint Exterior Vertical Shiplap Weatherboard,",,"5,110.00",,,"5,110.00",Sales,"No tax",,,
+214,,"Soffit and Fascia.",,"2,295.00",,,"2,295.00",Sales,"No tax",,,
+215,"129m2 as per Lewis lu-Chargeup should actual m2 differ","Hebel cladding 75mm 129m2 x $155.00",,"19,995.00",,,"19,995.00",Sales,"No tax",,,
+215,"129m2 as per Lewis lu-Chargeup should actual m2 differ","Paint - Plaster full mesh plaster on hebel blocks
+129m2 x $100/m2",,"12,900.00",,,"12,900.00",Sales,"No tax",,,
+216,,"Strip / Supply / Fix Skirting, Architraves",,"2,485.00",,,"2,485.00",Sales,"No tax",,,
+217,,"Paint Exterior Vertical Shiplap Weatherboard,",,"3,650.00",,,"3,650.00",Sales,"No tax",,,
+217,,"Soffit and Fascia.",,"2,295.00",,,"2,295.00",Sales,"No tax",,,
+218,,"Painting - Window & Door frames)",,"1,680.00",,,"1,680.00",Sales,"No tax",,,
+219,,"Re Plaster Exterior walls on Fibre cement sheet Full mesh Acratex system & Paint",,"9,920.00",,,"9,920.00",Sales,"No tax",,,Optional
+219,"Plaster system utalised","Plaster and Paint Fibre cement sheet fibre glass mesh  full Acratex System",,0.00,,,0.00,Sales,"No tax",,,
+220,"All work done to - AS/NZS 2589/2007 Gib Standards","To: Supply/Fix/Stop, Level-4, Sq-stop & Slimlines
+Basement & First floor
+2.4m / 3.0m Stud",,"21,532.00",,,"21,532.00",Sales,"No tax",,,
+220,"All work done to  AS/NZS 2589:2006","Painting the entire - Interior of the house. (walls & ceiling)",,"21,798.00",,,"21,798.00",Sales,"No tax",,,
+221,,"To apply a full System Dulux Acratex Masonry Render and Texture on existing block walls",,"6,492.00",,,"6,492.00",Sales,"No tax",,,
+222,,"Painting all the interior Lower section of the house (includes walls, ceilings doors, door and window frames) - As per sketch (attached)
+Painting upstairs - As per sketch (attached)",,"8,640.00",,,"8,640.00",Sales,"No tax",,,
+223,,"Paint Exterior Weatherboard & Plastered Walls",,"5,470.00",,,"5,470.00",Sales,"No tax",,,
+223,,"Painting all the interior of the house (includes walls, ceilings doors, door and window frames)",,"18,325.00",,,"18,325.00",Sales,"No tax",,,
+223,,"Soffit and Fascia.",,"2,275.00",,,"2,275.00",Sales,"15% GST",,,
+224,"All work done to - AS/NZS 2589/2007 Gib Standards","To: Supply/Fix/Stop, Level-4, Sq-stop & Slimlines
+Ground Floor & Upper Floor
+2.4m / 2.755m / 2.95 / 3.5m Stud",,"28,539.00",,,"28,539.00",Sales,"No tax",,,
+224,"All work done to  AS/NZS 2589:2006","Painting the entire - Interior of the house. (walls & ceiling)",,"23,350.00",,,"23,350.00",Sales,"No tax",,,
+225,,"Painting the Exterior of the shop following colour instruction",,"5,474.13",,,"5,474.13",Sales,"15% GST",,,
+226,,"Skimming / Pigment sealer / Slimlines
+- Lounge / Entrance / Kitchen (as discussed)",,"3,998.00",,,"3,998.00",Sales,"No tax",,,
+226,,"Painting - Walls / Ceilings Lounge / Entrance / Kitchen 
+(includes window & door frames)",,"5,988.00",,,"5,988.00",Sales,"No tax",,,
+228,,"Garage Door, Garage Frame",,746.88,,,746.88,Sales,"15% GST",,,
+229,,"Re Plaster Exterior walls on Fibre cement sheet Full mesh system",,"13,780.00",,,"13,780.00",Sales,"15% GST",,,
+230,,"Painting - Interior, Walls / Ceilings 
+(includes window & door frames)",,"4,420.00",,,"4,420.00",Sales,"No tax",,,
+232,,"Paint Roof",,"2,890.00",,,"2,890.00",Sales,"No tax",,,
+233,,"Stopping - Fixing price",,"1,960.00",,,"1,960.00",Sales,"No tax",,,
+235,,"External Repair/Refurbish & Paint wall.",,"3,760.00",,,"3,760.00",Sales,"No tax",,,
+237,,"Painting - Internal Walls / Ceilings 
+(includes window & door frames)",,"22,950.00",,,"22,950.00",Sales,"No tax",,,
+237,,"Paint Timber Cladding",,"7,038.00",,,"7,038.00",Sales,"No tax",,,
+237,,"Soffit and Fascia.",,"2,985.00",,,"2,985.00",Sales,"No tax",,,
+238,,,,"4,071.08",,,"4,071.08",Sales,"15% GST",,,
+239,,"Re Plaster Exterior walls on Fibre cement sheet Full mesh Acratex system & Paint",,"10,070.00",,,"10,070.00",Sales,"No tax",,,
+241,,"To applied a full SystemDulux Acratex Masonry Render and Texture on concrete wall",,"1,703.46",,,"1,703.46",Sales,"No tax",,,
+243,,"External Repair/Refurbish",,950.00,,,950.00,Sales,"No tax",,,
+244,,"External Repair/Refurbish & Paint wall.",,"2,601.10",,,"2,601.10",Sales,"No tax",,,
+244,,,,"7,195.80",,,"7,195.80",Sales,"15% GST",,,
+244,,"Paint Roof",,"3,350.00",,,"3,350.00",Sales,"15% GST",,,
+244,,scaffold,,"3,749.00",,,"3,749.00",Sales,"15% GST",,,
+245,,"Re Plaster Exterior walls AcraTex AcraShield Advance Matt on Fibre cement sheet Full mesh system",,"17,280.00",,,"17,280.00",Sales,"No tax",,,
+245,"Plaster system utalised","Plaster and Paint Fibre cement sheet fibre glass mesh  full Acratex System",,0.00,,,0.00,Sales,"No tax",,,
+246,,"To: Fix / Stop/Sq stop & Slimlines
+(allows for gib already fixed)",,"9,739.13",,,"9,739.13",Sales,"15% GST",,,
+247,,"To: Gib-Stop, Level-4, Sq-stop & Slimlines
+2.3 Stud Where required",,950.00,,,950.00,Sales,"No tax",,,
+248,,"PAINTING Exterior plaster cladding included Fence plaster cladding",,"14,326.02",,15,"12,177.12",Sales,"15% GST",,,
+248,,"Re Stain Cladding Weatherboard, soffit and Garage Door",,"2,840.20",,15,"2,414.17",Sales,"15% GST",,,
+248,,Scaffolding,,"5,250.00",,,"5,250.00",Sales,"15% GST",,,
+249,Resene,"Painting the Interior - Walls / Ceilings",,"6,475.00",,,"6,475.00",Sales,"No tax",,,
+252,,"Ezpanel 50mm AAC Concrete Panel Cladding",,"8,346.73",,,"8,346.73",Sales,"No tax",,,
+253,Resene,"To: Gib-Stop, Level-4, Sq-stop & Slimlines
+2.4m / 3.1mStud Where required",,"4,245.00",,,"4,245.00",Sales,"No tax",,,
+254,,"Re Plaster Exterior walls on Fibre cement sheet Full mesh Acratex system & Paint",,"8,500.00",,,"8,500.00",Sales,"No tax",,,
+254,"Plaster system utalised","Plaster and Paint Fibre cement sheet fibre glass mesh  full Acratex System",,0.00,,,0.00,Sales,"No tax",,,
+255,,"Exterior crack repair soffit",,"1,628.70",,,"1,628.70",Sales,"15% GST",,,
+256,Resene,"To: Gib-Stop, Level-4, Sq-stop / Cove & Slimlines",,"4,639.00",,,"4,639.00",Sales,"No tax",,,
+257,,"Extra crack repair soffit",,500.00,,,500.00,Sales,"15% GST",,,
+258,,,,"1,922.44",,,"1,922.44",Sales,"15% GST",,,
+259,,"Repair damaged corner",,580.00,,,580.00,Sales,"No tax",,,
+260,,"Re Plaster Exterior walls on Fibre cement sheet Full mesh Acratex system & Paint",,"6,560.00",,,"6,560.00",Sales,"No tax",,,
+260,"Plaster system utalised","Plaster and Paint Fibre cement sheet fiberglass mesh  full Acratex System",,0.00,,,0.00,Sales,"No tax",,,
+261,,"Painting the Interior of the house (includes frames, timber doors, ceilings)",,"3,025.00",,,"3,025.00",Sales,"No tax",,,
+261,,"Repair work",,950.00,,,950.00,Sales,"No tax",,,
+262,,"Re Plaster Exterior walls on Fibre cement sheet Full mesh Acratex system & Paint",,"4,176.00",,,"4,176.00",Sales,"No tax",,,Optional
+262,"Plaster system utalised","Plaster and Paint Fibre cement sheet fibre glass mesh  full Acratex System",,0.00,,,0.00,Sales,"No tax",,,
+263,,"Plaster full mesh plaster onto New masonry block walls",,"7,844.00",,,"7,844.00",Sales,"No tax",,,
+263,,"Plaster full mesh plaster onto Existing Exterior ""Spanish"" plaster walls",,"12,068.00",,,"12,068.00",Sales,"No tax",,,
+263,,"Plaster full mesh plaster onto Existing Interior ""Spanish"" plaster walls",,"1,275.00",,,"1,275.00",Sales,"No tax",,,
+264,"All work done to  AS/NZS 2589:2006","Painting the entire - Interior of the house. (walls & ceiling)",,"22,770.00",,,"22,770.00",Sales,"No tax",,,
+265,,"Ground Flr - Plaster full mesh plaster & paint onto - Brick veneer & Integra cladding (follow the Resene, Rockcote Spec)",,"16,170.00",,,"16,170.00",Sales,"No tax",,,
+265,,"First floor - Supply / Fix / Plaster & Paint - Integra cladding system 50mm panels (follow the Resene, Rockcote Spec)",,"16,790.00",,,"16,790.00",Sales,"No tax",,,
+266,,"To: Supply/Fix/Stop, Level-4, Sq-stop & Slimlines
+Ground Floor & Upper Floor
+2.42m / 2.72m Stud + Bulkhead detail",,"17,937.00",,,"17,937.00",Sales,"No tax",,,
+266,,"Painting the entire - Interior of the house. (walls & ceiling)",,"13,174.00",,,"13,174.00",Sales,"No tax",,,
+267,,"Plaster full mesh on Concrete Block Fire Place",,"3,226.00",,,"3,226.00",Sales,"No tax",,,Optional
+268,"All work done to  AS/NZS 2589:2006","Painting the entire - Interior of the house. (walls & ceiling)",,"14,825.00",,,"14,825.00",Sales,"No tax",,,
+269,,"Plaster full mesh on  Fire Place",,"3,438.32",,,"3,438.32",Sales,"No tax",,,
+270,,"To: Supply/Fix/Stop, Level-4, Sq-stop & Slimlines
+Ground Floor & Upper Floor
+2.42m Stud",,"22,566.00",,,"22,566.00",Sales,"No tax",,,
+270,,"Painting the entire - Interior of the house. (walls & ceiling)",,"17,850.00",,,"17,850.00",Sales,"No tax",,,
+271,,"Preparation, repair, stop and paint - 
+ceiling as discussed",,465.00,,,465.00,Sales,"No tax",,,
+271,,"Paint ceiling +-  (5.2m x 5.3m)",,645.00,,,645.00,Sales,"15% GST",,,
+272,,"Plaster full mesh on Concrete Block Front Wall, Pillars",,"5,513.56",,10,"4,962.20",Sales,"No tax",,,
+273,,"Plaster full mesh on Concrete Block Front Wall, Pillars",,"4,980.00",,,"4,980.00",Sales,"No tax",,,
+274,,"Paint Roof & Pointing",,"3,622.00",,,"3,622.00",Sales,"No tax",,,
+275,,"To: Fix/Stop, Level-4, Sq-stop & Slimlines
+* Skylight + (135⁰ & arch-bead) 
+* Recess shelf
+2.45m Stud",,"3,624.00",,,"3,624.00",Sales,"No tax",,,
+276,,"Plaster Around windows",,"1,072.56",,,"1,072.56",Sales,"No tax",,,
+276,,,,"1,809.86",,,"1,809.86",Sales,"15% GST",,,
+276,,,,531.86,,,531.86,Sales,"15% GST",,,
+277,,"Paint Roof",,"3,769.00",,,"3,769.00",Sales,"No tax",,,
+278,,"Repair Exterior Plaster Cladding",,857.29,,,857.29,Sales,"15% GST",,,
+279,,"External Repair/Refurbish",,450.00,,,450.00,Sales,"No tax",,,
+280,,"To: Gib-Stop, Level-4, & Slimlines
+2.4m / 3.2m (raked ceiling-Lounge)",,"5,992.00",,,"5,992.00",Sales,"No tax",,,
+282,,"Stop, Level-4, Sq-stop (+135⁰) & Slimlines, Skylights
+Possible level 5 areas to be discussed on site",,"9,285.00",,,"9,285.00",Sales,"No tax",,,Optional
+282,,"Painting the entire - Interior of the house. (walls & ceiling)",,"15,850.00",,,"15,850.00",Sales,"No tax",,,Optional
+283,,,,"1,092.00",,,"1,092.00",Sales,"No tax",,,
+283,,"a. Cement Reneder walls",,"9,637.00",,,"9,637.00",Sales,"No tax",,,
+283,,"b. Concrete Block wall",,850.00,,,850.00,Sales,"No tax",,,
+283,,"c. Fibre cement: wall, soffit",,"7,030.00",,,"7,030.00",Sales,"No tax",,,
+283,,"d. Timber: Doors, Trims, Framing, fascia, etc",,"4,330.00",,,"4,330.00",Sales,"No tax",,,
+283,,"e. Galv Iron: Roller doors,",,"4,050.00",,,"4,050.00",Sales,"No tax",,,
+283,,"f. Galv Iron: Decorative system",,770.00,,,770.00,Sales,"No tax",,,
+283,,"g. Metal areas: Brackets, Meter Box",,550.00,,,550.00,Sales,"No tax",,,
+283,,"h. PVC: Pipes, guttering, etc",,"1,080.00",,,"1,080.00",Sales,"No tax",,,
+284,,"Quote For Painting Exterior - Includes; Weatherboard Cladding, Soffit, Fascia Board and Pergola",,"13,420.00",,,"13,420.00",Sales,"No tax",,,
+285,"Nick $350","House Wash",,400.00,,,400.00,Sales,"No tax",,,
+285,"to fixed plaster will be $460 plus material around $260","Paint (part) exterior concrete, masonry house",,"8,950.00",,,"8,950.00",Sales,"No tax",,,
+285,"$1,552.90","Repair work to bad plaster",,0.00,,,0.00,Sales,"No tax",,,
+285,"$1,794.02","Re Stain Fascia Board",,0.00,,,0.00,Sales,"No tax",,,
+287,,"Paint all Block Wall Fence Timber and Galv Iron",,"5,555.15",,,"5,555.15",Sales,"15% GST",,,
+288,,"Plaster Around windows",,0.00,,,0.00,Sales,"No tax",,,
+288,,,,"1,809.86",,,"1,809.86",Sales,"No tax",,,
+288,,,,531.86,,,531.86,Sales,"15% GST",,,
+289,,"Plaster full mesh on Concrete Block",,"2,968.05",,,"2,968.05",Sales,"No tax",,,
+290,$106/m2,"Paint/Plaster full mesh plaster onto New masonry block walls North & East side 
+(SEE PLAN ATTACHED)",,"7,844.00",,,"7,844.00",Sales,"No tax",,,
+290,$140/m2,"Plaster full mesh plaster onto Existing Exterior ""Spanish"" plaster walls",,"4,508.00",,,"4,508.00",Sales,"No tax",,,
+290,$25/lm,"Paint handrail. Deck above Garage",,350.00,,,350.00,Sales,"No tax",,,
+290,,"Plaster full mesh plaster onto Existing Interior ""Spanish"" plaster walls",,"1,275.00",,,"1,275.00",Sales,"No tax",,,
+292,"171m2 x $26/m","Paint Roof & Pointing",,"4,936.00",,,"4,936.00",Sales,"No tax",,,
+294,,"Repair Work & Painting - WC / Bathroom - includes frames, timber doors(1 side), ceilings",,"2,375.00",,,"2,375.00",Sales,"No tax",,,
+295,,"Painting - Part-Exterior wall outside Kitchen door / Post kitchen window / Above new windows / Bathroom walls (LH short wall & behind Vanity)",,"1,490.00",,,"1,490.00",Sales,"No tax",,,
+296,"Paint stripper 6 x 33.50 =$201","Paint (part) exterior wall above stained roof.
+Strip stained roof and repaint",,"1,929.00",,,"1,929.00",Sales,"No tax",,,
+296,,"Paint window frames & Archgola frame",,"2,229.00",,,"2,229.00",Sales,"No tax",,,
+297,,"Paint Exterior Windows",,"2,664.25",,,"2,664.25",Sales,"15% GST",,,
+297,,"Guttering and Fascia",,"1,335.00",,,"1,335.00",Sales,"15% GST",,,
+298,,"Painting - Part-Exterior wall outside Kitchen door / Post kitchen window / Above new windows / Bathroom walls (LH short wall & behind Vanity)",,"1,490.00",,,"1,490.00",Sales,"No tax",,,
+299,,"Paint Roof",,"4,993.00",,,"4,993.00",Sales,"No tax",,,
+301,"+-3,5 days","Painting bathroom",,"1,820.00",,,"1,820.00",Sales,"No tax",,,
+302,"Paint - Stripping (lead based paint)","Paint - Stripping (lead based paint) where is necessary 
+
+Painting exterior cladding (Weatherboards, Soffit, Fascia and tile edging, Shingles, Plaster Cladding)",,"34,550.39",,,"34,550.39",Sales,"No tax",,,
+304,,"Painting the exterior of the house (includes frames, doors,) P.S. This proposal includes Professional House & Roof Wash.",,"10,980.00",,,"10,980.00",Sales,"No tax",,,
+304,,"Soffit and Fascia.",,"3,856.00",,,"3,856.00",Sales,"No tax",,,
+304,,"Fence - Cement block and timber",,"3,425.00",,,"3,425.00",Sales,"No tax",,,
+304,"210m2 footprint","Paint Roof",,"6,240.00",,,"6,240.00",Sales,"No tax",,,
+304,,"Group discount of 10% for choosing to accept all works.",,"-2,450.10",,,"-2,450.10",Sales,"No tax",,,"Optional, selected"
+305,,"Paint side brick wall",,"2,131.61",,,"2,131.61",Sales,"No tax",,,
+306,,"Painting the Interior of the house (includes frames, doors, ceilings,)",,"14,400.00",,,"14,400.00",Sales,"No tax",,,
+306,,"Repair work",,0.00,,,0.00,Sales,"No tax",,,
+307,"Prep & Prime only","Primer coat only including all prepwork (cleaning filing, masking and sanding) partial walls, Interior of the house. (walls, doors, window frames & ceiling)
+Excludes - Bedroom 2 / Bathroom / Garage (walls & ceiling)",,"4,015.00",,,"4,015.00",Sales,"No tax",,,
+307,,"Paint Exterior Weatherboard and Soffit (As per plan)",,"2,421.00",,,"2,421.00",Sales,"No tax",,,
+308,,"To: Supply/Fix/Stop, Level-4, Sq-stop & Slimlines
+6.7m / 6.5m Height",,"8,362.00",,,"8,362.00",Sales,"No tax",,,
+308,,"Painting the New Walls Doors & Windows",,"6,700.00",,,"6,700.00",Sales,"No tax",,,
+311,,"Prep & Repair to damaged wall.
+Paint area as shown",,"1,030.00",,,"1,030.00",Sales,"No tax",,,
+312,,"Painting the exterior of the house (includes frames, doors,) P.S. This proposal includes Professional House & Roof Wash.               $10980.00 - 10%",,"10,980.00",,10,"9,882.00",Sales,"No tax",,,
+312,,"Soffit and Fascia.     $3856.00 - 10%",,"3,856.00",,10,"3,470.40",Sales,"No tax",,,
+312,,"Fence - Cement block and timber    $3425.00 - 10%",,"3,425.00",,10,"3,082.50",Sales,"No tax",,,
+312,"210m2 footprint","Paint Roof (this price is separated from total)",,"6,240.00",,10,"5,616.00",Sales,"No tax",,,
+313,359m2,"Paint Roof - Concrete tiles",,"8,975.00",,,"8,975.00",Sales,"No tax",,,
+314,"174m2  Metal","Paint Roof - Metal Roof +- 20⁰",,"4,350.00",,,"4,350.00",Sales,"No tax",,,
+315,$170m2,"Ezpanel: 50mm AAC Concrete Panel Cladding",,"5,000.00",,,"5,000.00",Sales,"No tax",,,
+316,"Plan & worksheet in Private notes +- 2-1/2 weeks delay","50mm System4284DA DULUX ACRATEX EXSULITE EIFS CLADDING SYSTEM",,"2,170.00",,,"2,170.00",Sales,"No tax",,,
+317,,"Plaster full mesh on Concrete Block Stairwell area as per photo & Painted",,"2,436.00",,,"2,436.00",Sales,"No tax",,,
+318,,"Painting the entire - Interior of the house. (walls & ceiling)",,"24,885.00",,,"24,885.00",Sales,"No tax",,,
+318,,"Paint - Exterior Precast Concrete wall / Western Red Cedar 
+            weatherboards 
+P.S. - Deck, Steps, Balustrades,  Decorative Wood panels, Soffit & 
+          Fascia not included",,"3,994.00",,,"3,994.00",Sales,"No tax",,,
+319,"Prep & Prime only","Paint Bathroom: partial walls, ceiling, door(1-side) see plan attached",,700.00,,,700.00,Sales,"No tax",,,
+320,"+-278m2 / 33 windows-doors","Paint (part) exterior Masonry Walls / Windows & Window frames",,"11,900.00",,,"11,900.00",Sales,"No tax",,,Optional
+320,"Faccia 62lm / Soffit 45,5m2","Paint: Fascias / Soffit",,"2,139.10",,,"2,139.10",Sales,"No tax",,,Optional
+321,227m2,"Painting the entire - Interior of the house. (walls & ceiling)",,"5,675.00",,,"5,675.00",Sales,"No tax",,,
+321,223m2,"Paint - Exterior - weatherboards (1st floor only)",,"5,575.00",,,"5,575.00",Sales,"No tax",,,
+321,"Fascia 33lm / Soffit 17m2","Paint: Fascias / Soffit",,"1,040.00",,,"1,040.00",Sales,"No tax",,,
+322,,,,"1,575.11",,,"1,575.11",Sales,"15% GST",,,
+323,"$4/m2 Nick less 25  180m2","Roof Wash",,720.00,,,720.00,Sales,"No tax",,,
+324,126m2,"Paint Roof",,"3,150.00",,,"3,150.00",Sales,"No tax",,,
+325,"+-1,5 days","Painting bathroom",,"1,200.00",,,"1,200.00",Sales,"No tax",,,
+326,"407m2 + 10m2","Paint Exterior Weatherboard and Cement walls",,"10,425.00",,,"10,425.00",Sales,"No tax",,,Optional
+326,"Metal caps Fascia 104lm x $20 = $2080","Soffit and Metal cap-Fascias",,"3,630.00",,,"3,630.00",Sales,"No tax",,,Optional
+327,"$650 Jackie - 11 x 2,6m Obtuse","To: Gib - Stop New gib wall,
+Square / Obtuse stopping - Vertical",,990.00,,,990.00,Sales,"No tax",,,Optional
+328,,"Painting Inside Building Ceiling Roof  and walls",,"18,744.15",,,"18,744.15",Sales,"15% GST",,,
+331,"Prep & Prime & Paint Prev. (Q 307 - Exterior only)","Primer coat including all prepwork (cleaning filing, masking and sanding) & Painting partial walls / ceiling, Interior of the house. (walls, doors, window frames & ceiling)
+Excludes - Bedroom 2 / Bathroom / Garage (walls & ceiling)",,"9,768.00",,,"9,768.00",Sales,"No tax",,,
+332,"Direct to Client from Create Renovations","Primer coat including all prepwork (cleaning filing, masking and sanding) Painting partial walls / ceiling, Interior of the house. (walls, doors, window frames & ceiling)
+Excludes - Bathrooms / Garage (walls & ceiling)",,"9,350.00",,,"9,350.00",Sales,"No tax",,,
+333,,"Stopping - Fixing price",,"5,940.00",,,"5,940.00",Sales,"No tax",,,
+334,,"To: Fix/Stop, Level-4, Sq-stop & Slimlines
+Gib fixing will be $11/m2 off the stack
+Gib stopping $11/m2 
+Slimlines to all external corners $14/lm
+Square-stop Ceiling, Wall junction $12/lm",,0.00,,,0.00,Sales,"No tax",,,
+334,,"Painting the New Walls Ceilings $25/m2",,0.00,,,0.00,Sales,"No tax",,,
+335,"241m2 @ $105/m2","Painting and crack repair",,"10,901.90",,,"10,901.90",Sales,"No tax",,,
+335,"Fascia 95m2 @ $16/lm / Soffit 65m2 @ $$20/m2","Fascia, Soffit",,"2,820.00",,,"2,820.00",Sales,"No tax",,,
+335,"Door $$990 / Steps $980 / Pagoda w/top $980","Garage Door, Pagoda, Timber worktop & Steps",,"2,950.00",,,"2,950.00",Sales,"No tax",,,
+336,,"Plaster 2 x Fence Pillars (no painting)",,700.00,,,700.00,Sales,"No tax",,,
+337,64.15m2,"House only: Re Plaster Exterior walls on Fibre cement sheet Full mesh Acratex system & Paint",,"17,563.00",,10,"15,806.70",Sales,"No tax",,,
+337,"Plaster system utalised","Plaster and Paint Fibre cement sheet fiberglass mesh  full Acratex System",,0.00,,,0.00,Sales,"No tax",,,
+337,"Fascia 34lm @ $17lm / Soffit 56m2 @ $22/m2","Fascia, Soffit",,"1,698.00",,10,"1,528.20",Sales,"No tax",,,
+337,,"Paint Roof-Decramastic Roof tiles",,"5,450.00",,10,"4,905.00",Sales,"No tax",,,
+338,,"Skim 2 x Bedroom walls",,"1,980.00",,,"1,980.00",Sales,"No tax",,,
+338,,"Paint 2 x Bedrooms - Ceiling - Walls, Skirting & Doors, Inclusive of Architraves, Scotia & Window frames",,"2,690.00",,,"2,690.00",Sales,"No tax",,,
+339,"+- 631m2 all up  Sergio Stefanelli  0212535414","Paint: Interior Walls & Ceilings
+Excludes - Cupboards",,"15,775.00",,,"15,775.00",Sales,"No tax",,,
+339,,"Paint - Exterior - all existing walls
+Excludes Garage door, Deck, Balustrades, Stairs
+(includes primer - exterior)
+Price- to be reduced if exterior section is plastered?",,"4,937.00",,,"4,937.00",Sales,"No tax",,,
+339,,"Paint: Fascias / Soffit",,"2,260.00",,,"2,260.00",Sales,"No tax",,,
+340,Decramastic?,"Paint Roof",,"3,888.00",,,"3,888.00",Sales,"No tax",,,
+341,,"exterior plaster included two columns  front house, fence wall and foundation",,"3,631.56",,,"3,631.56",Sales,"15% GST",,,
+342,,"To: Stop, Level-4, Sq-stop & Slimlines",,"9,206.00",,,"9,206.00",Sales,"No tax",,,
+343,"Rolando - checked 2 x day + mat 300","External Repair/Refurbish",,"1,180.00",,,"1,180.00",Sales,"No tax",,,
+344,"245 x $24","Paint Roof",,"5,880.00",,,"5,880.00",Sales,"No tax",,,
+345,"+- 551m2 all up  Sergio Stefanelli  0212535414","Paint: Interior Walls & Ceilings
+Excludes - Cupboards Garage",,"13,775.00",,,"13,775.00",Sales,"No tax",,,
+345,,"Paint - Exterior - all existing walls
+Excludes Garage door, Deck, Balustrades, Stairs
+(includes primer - exterior)
+Price- to be reduced if lower exterior section is plastered?",,"6,455.77",,,"6,455.77",Sales,"No tax",,,
+346,"476 m2","Primer coat including all prepwork (cleaning filing, masking and sanding,) Interior of the house. (walls, doors, window frames & ceiling)",,"11,900.00",,,"11,900.00",Sales,"No tax",,,
+347,,"Stop, Level-4, Sq-stop / Slimlines / Square Stop",,"8,275.00",,,"8,275.00",Sales,"No tax",,,
+348,,"Stop, Level-4, Sq-stop / Slimlines / Square Stop",,"3,456.00",,,"3,456.00",Sales,"No tax",,,
+349,,"To: Fix/Stop, Level-4, Sq-stop & Slimlines
+2.4m Stud",,"6,320.50",,,"6,320.50",Sales,"No tax",,,
+350,"Interior-165m2=$4125 / Exterior 20.5m2 + Fascia 9m =$1369.94","Paint: Interior Walls & Ceilings",,"5,494.94",,,"5,494.94",Sales,"No tax",,,
+351,,"Hebel cladding 75mm",,0.00,,,0.00,Sales,"No tax",,,
+351,"82m2>>84m2 X $270 =","Paint - Plaster full mesh plaster on hebel blocks
+129m2 x $100/m2",,"22,680.00",,,"22,680.00",Sales,"No tax",,,
+353,,"Paint Roof & Pointing",,"5,775.00",,,"5,775.00",Sales,"No tax",,,
+353,,"Painter house",,"6,570.38",,,"6,570.38",Sales,"15% GST",,,
+354,,"Painting the Interior of the house (includes frames, doors, ceilings and walls)",,"10,922.22",,28,"7,864.00",Sales,"15% GST",,,
+355,,"Repair damaged column",,580.00,,,580.00,Sales,"No tax",,,
+356,236m2,"Paint Exterior Cement walls",,"5,912.00",,,"5,912.00",Sales,"No tax",,,
+356,"Fascia 104lm x $20 = $2080","Soffit and Fascias",,"3,630.00",,,"3,630.00",Sales,"No tax",,,
+357,,"To: Paint interior - New Renovation
+2.4m Stud - Including paint",,"5,150.00",,,"5,150.00",Sales,"No tax",,,
+357,,"To: Paint interior - Existing house
+2.4m Stud - excluding paint",,"5,731.50",,,"5,731.50",Sales,"No tax",,,
+358,"287m2 $7188 - $1425=$3237 (+-130m2)","Paint Exterior Weatherboard and Cement walls
+Excluding vertical Shiplap",,"7,188.00",,,"7,188.00",Sales,"No tax",,,
+358,"Metal caps Fascia 104lm x $20 = $2080","Soffit and Metal cap-Fascias",,"3,630.00",,,"3,630.00",Sales,"No tax",,,
+359,"+- 551m2 all up  Sergio Stefanelli  0212535414","Paint: Interior Walls & Ceilings
+Excludes - Cupboards Garage",,"13,775.00",,,"13,775.00",Sales,"No tax",,,
+359,78m2,"Paint - Exterior - all new weatherboard walls
+(includes primer - exterior)",,"2,106.00",,,"2,106.00",Sales,"No tax",,,
+360,,"To: Paint interior - New Renovation
+2.4m Stud",,"7,213.00",,,"7,213.00",Sales,"No tax",,,
+361,,"To: Stop, Level-4, Sq-stop (+135⁰) & Slimlines, Skylights
+New renovation downstairs & partial upstairs. 2.45m Stud",,"3,992.00",,,"3,992.00",Sales,"No tax",,,
+362,,"Paint Exterior Weatherboard",,"9,347.01",,,"9,347.01",Sales,"No tax",,,
+362,"Fascia 42,9x16 - Soffit 24,3x20",Soffit-Fascias,,"1,173.00",,,"1,173.00",Sales,"No tax",,,
+362,,"Painting the entire - Interior of the house - Skim where necessary",,"8,986.25",,,"8,986.25",Sales,"15% GST",,,
+362,,"kitchen Cabinets:",,"1,100.29",,,"1,100.29",Sales,"15% GST",,,
+363,,"Plaster Exterior concrete walls",,"23,816.00",1,,"23,816.00",Sales,"15% GST",,,
+364,,"To: Crack Repair & Stopping
+No - stopping / slimlines
+2.4m / 3.2m (raked ceiling-Lounge & other)",,"1,152.00",,,"1,152.00",Sales,"No tax",,,
+364,,"PAINTING - Walls & Ceilings (as per photos see attached)",,"3,180.00",,,"3,180.00",Sales,"No tax",,,
+365,213m2,"Roof Washing
+We comply with health and safety (see attached)",,390.00,,,390.00,Sales,"No tax",,,
+365,,"Preparation - Rust Repair",,"1,200.00",,,"1,200.00",Sales,"No tax",,,
+365,133m2,"Paint Roof",,"3,325.00",,,"3,325.00",Sales,"No tax",,,
+366,,"PAINTING - Walls & Ceiling Lounge area",,627.13,,,627.13,Sales,"No tax",,,
+367,,"PAINTING - Walls & Ceiling Lounge area",,"3,090.74",,,"3,090.74",Sales,"No tax",,,
+368,,"Pre Paint Prep: Roller Doors, Concete Block wall, Flashing Wall",,715.00,,,715.00,Sales,"No tax",,,
+368,"Wall-235.2m2  Doors-39m2 Flashings-66.6m Was $7761.89","Re-Paint Exterior Block Wall",,"7,761.89",,,"7,761.89",Sales,"No tax",,,
+368,,"Wall, Roller Doors & Flashing Roller Doors / Flashing Coping",,"3,461.79",,,"3,461.79",Sales,"No tax",,,
+368,,"Scissorlift 8m",,"1,336.50",,,"1,336.50",Sales,"No tax",,,
+369,,"Re Plaster Exterior walls on block walls - Full mesh Acratex system & Paint",,"12,486.40",,,"12,486.40",Sales,"No tax",,,
+369,"Plaster system utalised","Plaster and Paint Concrete Block wall fiberglass mesh  full Acratex System",,0.00,,,0.00,Sales,"No tax",,,
+370,,"Villaboard stopping - 1 x coat",,"2,554.87",,,"2,554.87",Sales,"No tax",,,
+371,"Job No JB01101 - attached","House wash.  NZ Treatments & Spraying",,745.00,,,745.00,Sales,"No tax",,,
+371,"See Private notes for calculations","Sanding & re-staining Timber Trusses & Supports",,"7,160.00",,,"7,160.00",Sales,"No tax",,,
+371,,"Exterior Painting Around Garage Walls",,"2,145.38",,,"2,145.38",Sales,"15% GST",,,
+376,"See private notes","install flashing and Re Plaster around windows",,"4,648.91",,,"4,648.91",Sales,"No tax",,,
+376,,"Skimming 4 walls",,"3,045.25",,,"3,045.25",Sales,"No tax",,,
+377,"Prep & Prime & Paint Prev. (Q 307 - Exterior only)","Painting Interior included only ceiling and wall frame door windows ( Bathroom and Hallway )",,"2,522.69",,,"2,522.69",Sales,"No tax",,,
+378,259m2,"Painting the entire - Interior of the Studio - as per plan (attached)",,"6,420.00",,,"6,420.00",Sales,"No tax",,,
+379,"Prep & Prime & Paint Prev. (Q 307 - Exterior only)","Painting Interior included skimming wall and paint",,"2,281.23",,,"2,281.23",Sales,"No tax",,,
+380,"Skim 281m2 (23.3) $6565 / Gibstop 31.5 (15) $472","Skim / Gibstop as per plan (attached)",,"7,037.00",,,"7,037.00",Sales,"No tax",,,Optional
+381,"Walls 1344m2 Ceiling 377m2 - Stud Hs 2,435 / 3,1m / 3,73m","Painting the entire - Interior of the house - Skim where necessary",,"63,168.00",,,"63,168.00",Sales,"No tax",,,
+381,,"Paint Exterior Weatherboard North side wall",,"7,986.71",,,"7,986.71",Sales,"No tax",,,
+382,,"Professional House wash:
+ Roof and Exterior Walls",,780.00,,,780.00,Sales,"No tax",,,
+382,,"Paint Roof",,"4,319.00",,,"4,319.00",Sales,"No tax",,,
+382,243m2,"Painting the Exterior of the house, incl. window frames",,"8,356.00",,,"8,356.00",Sales,"No tax",,,
+382,"Soffit 39m2 / Fascia 76lm",Soffit-Fascias,,"2,230.00",,,"2,230.00",Sales,"No tax",,,
+383,"Main 137m2  -  $3425      Smaller 44m2  $1100 + 100 Petrol","Paint Roof - Metal Roof
+Main House & Garage",,"4,625.00",,,"4,625.00",Sales,"No tax",,,
+384,,"Painting Interior included skimming wall and Paint:  Hallway, 1x Room, 1x bathroom",,"5,656.99",,,"5,656.99",Sales,"No tax",,,
+385,"Skim 82m2 $27.32  Plasterer $1450","Skim / Gibstop as per plan (attached)",,"2,240.00",,,"2,240.00",Sales,"No tax",,,
+385,"C 82m2  x $25","Paint Interior - Ceiling",,"2,050.00",,,"2,050.00",Sales,"No tax",,,
+386,,"To Plaster walls over New fibre cement sheet  l",,"5,687.37",,10,"5,118.63",Sales,"15% GST",,,
+387,,"Preparation, repair, stop and paint - 
+ceiling as discussed",,798.06,,,798.06,Sales,"No tax",,,
+388,870m2,"Painting the - Interior of the house  
+(as discussed see ATTACHED PLAN)
+Ceiling Heights 2,75m / 3,0m / 6,0m",,"24,375.00",,,"24,375.00",Sales,"No tax",,,
+389,,"Plaster full mesh on Concrete Block",,"1,409.77",,,"1,409.77",Sales,"No tax",,,
+390,,"Re install Polystyrene following Putz Technik Spec",,"3,779.45",,,"3,779.45",Sales,"15% GST",,,Optional
+390,,"Supply and install",,"2,644.40",,,"2,644.40",Sales,"15% GST",,,Optional
+391,,"To: Stop, Level-4, 
+Ceiling Heights 2,75m
+(as discussed see ATTACHED PLAN)",,"5,570.00",,,"5,570.00",Sales,"No tax",,,
+391,,"Sq-stop & Slimlines
+Ceiling Heights 2,75m",,"2,558.00",,,"2,558.00",Sales,"No tax",,,
+391,"466m2 x @28 Was $13058","Painting the - Interior of the house - Stage 1a
+(as discussed see ATTACHED PLAN)",,"13,998.00",,,"13,998.00",Sales,"No tax",,,
+392,,"Substrate is 50mm autoclaved aerated concrete. The Coating System is as follows; Rate of $75.00 +GST/m2
+Provisional - 76m2 (to be confirmed)",,"5,700.00",,,"5,700.00",Sales,"No tax",,,
+393,,"To: Fix/Stop, Level-4, Sq-stop & Slimlines
+Gib fixing will be $11/m2  x 92 m2
+Gib Carrying. $70",,"1,082.00",,,"1,082.00",Sales,"No tax",,,
+393,,"Gib stopping $11/m2- 88m2
+Slimlines to all external corners $14/lm- 69 lm
+Square-stop Ceiling, Wall junction $12/lm- 25 lm",,"2,234.00",,,"2,234.00",Sales,"No tax",,,
+393,,"Painting the New Walls and Ceiling",,"2,300.00",,,"2,300.00",Sales,"No tax",,,
+394,"451.5m2 $26/m2","Painting the entire - Interior of the house. (walls & ceiling)  Excluding - Cupboards",,"11,739.00",,,"11,739.00",Sales,"No tax",,,
+395,"See Private notes for calculations","Sanding & re-staining Timber Trusses & Supports",,"2,286.00",,,"2,286.00",Sales,"No tax",,,
+396,,"Painting the Interior of the house ( includes frames, doors, ceilings) Remover all wallpaper on walls",,"1,784.00",,,"1,784.00",Sales,"No tax",,,
+397,"Skim 281m2 (23.3)  / Gibstop 31.5 (15) $472 Was$7037","Skim / Gibstop as per plan (attached)",,"6,330.00",,,"6,330.00",Sales,"No tax",,,Optional
+398,"249.5 (12) Cove 79 lm (16)$4258.14 + Plaster cove xtra $1896","Gib-stop / 75mm Cove (ceilings & walls)
+Fibrous - Plaster Cornice
+Same profile as; Soprano - discontinued by Gib",,"6,154.00",,,"6,154.00",Sales,"No tax",,,
+398,"249.5m2 (26)","Painting the entire - Interior of the house. (walls & ceiling)",,"6,736.27",,,"6,736.27",Sales,"No tax",,,
+398,,"Painting Soffit & Fascia",,"1,350.00",,,"1,350.00",Sales,"No tax",,,
+399,"Stop 1123m2 (26) Sq st 296 lm (11) Slim 51 (15)","Stop, Level-4, Sq-stop (+135⁰) & Slimlines, 
+Possible level 5 areas to be discussed on site",,"15,206.00",,,"15,206.00",Sales,"No tax",,,Optional
+399,"Wall & Ceiling 1123m2 (26)","Painting the entire - Interior of the house. (walls & ceiling)",,"25,000.00",,,"25,000.00",Sales,"No tax",,,Optional
+401,"Walls/Ceiling 475m2(11) / Slim32IM (15) / Sq St 139LM (11)","Stop, Level-4, Sq-stop & Slimlines, 
+Possible level 5 areas to be discussed on site",,"7,266.00",,,"7,266.00",Sales,"No tax",,,
+401,"Wall & Ceiling 556m2 (26)","Painting - Interior of the house. (walls & ceiling)
+As shown on plan ""attached""",,"15,121.00",,,"15,121.00",Sales,"No tax",,,
+401,,"Paint Exterior Weatherboard and Cement walls",,"4,732.00",,,"4,732.00",Sales,"No tax",,,
+401,,"Soffit / Fascias",,"2,178.00",,,"2,178.00",Sales,"No tax",,,
+402,,"Building wash to plaster metal walls",,"1,800.00",,,"1,800.00",Sales,"No tax",,,
+402,,"Paint Exterior Plaster, Metal walls, Metal stairs",,"17,950.00",,,"17,950.00",Sales,"No tax",,,
+402,"Fascia 104lm x $20 = $2080","Soffit and Fascias",,"4,830.00",,,"4,830.00",Sales,"No tax",,,
+403,"Walls/Ceiling 315m2(11) / Slim13.5IM (15) / Sq St 72LM (11)","Stop, Level-4, Sq-stop & Slimlines, 
+Possible level 5 areas to be discussed on site",,"4,526.00",,,"4,526.00",Sales,"No tax",,,
+403,"Wall & Ceiling 387m2 (26)","Painting - Interior of the house. (walls & ceiling)
+As shown on plan ""attached""",,"9,659.00",,,"9,659.00",Sales,"No tax",,,
+403,153m2,"Paint All-Exterior Weatherboards",,"4,284.00",,,"4,284.00",Sales,"No tax",,,
+403,"Soffit 54lm / Fascia 54lm","Soffit / Fascias",,"1,944.00",,,"1,944.00",Sales,"No tax",,,
+404,,"Marking & Painting decorative wall",,570.00,,,570.00,Sales,"No tax",,,
+405,"235.5m2 (28)","Painting partial - Interior of the house. (walls & ceiling)",,"6,594.00",,,"6,594.00",Sales,"No tax",,,
+407,"172m2 $25 =","Paint Roof",,"4,291.00",,,"4,291.00",Sales,"No tax",,,

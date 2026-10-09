@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ConfirmButton } from "@/components/confirm-button";
 import { FilePicker } from "@/components/file-picker";
 import { Label } from "@/components/ui/label";
-import { ACCEPTED_IMAGE_TYPES, type BrandImage } from "./brand-image";
+import { ACCEPTED_IMAGE_TYPES } from "./brand-image";
 import type { SettingsState } from "./actions";
 
 /** The words differ between the two cards; nothing else does. */
@@ -37,6 +37,10 @@ export type BrandImageLabels = {
  * The preview is passed in rather than derived, because the two differ in what
  * "none" looks like: a company with no logo still shows its initials
  * everywhere, and a company with no watermark simply has none.
+ *
+ * `kind` is a plain string rather than `BrandImage`: the user's own avatar
+ * reuses this card too, and it isn't one of the company's two images — only
+ * the form field's id/name, nothing that decides company vs. account.
  */
 export function BrandImageCard({
   kind,
@@ -47,7 +51,7 @@ export function BrandImageCard({
   removeAction,
   labels,
 }: {
-  kind: BrandImage;
+  kind: string;
   preview: ReactNode;
   hasImage: boolean;
   canManage: boolean;

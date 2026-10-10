@@ -15,8 +15,18 @@
  * something under a company's `quotes/` prefix gets uploaded and the row
  * pointing at it never gets created or outlives it.
  *
+ * `--all` instead of `--slug` covers the other way a blob goes orphaned:
+ * the company itself got deleted (`Company` cascades `QuoteAttachment` rows,
+ * never touches Blob storage). Without a slug there's no companyId to scope
+ * the listing to, so this scans the whole `companies/` prefix instead and
+ * compares against every `QuoteAttachment.pathname` that still exists,
+ * across every company — filtered to paths containing `/quotes/` only, so a
+ * company's logo/watermark/terms-document blobs (not tracked by
+ * `QuoteAttachment` at all) are never mistaken for orphans.
+ *
  * Usage:
  *   npx tsx scripts/clean-orphaned-quote-blobs.ts --slug=plasterpro-test [--dry-run]
+ *   npx tsx scripts/clean-orphaned-quote-blobs.ts --all [--dry-run]
  */
 import { config as loadEnv } from "dotenv";
 loadEnv({ path: [".env.local", ".env"], quiet: true });
@@ -41,27 +51,38 @@ const prisma = new PrismaClient({
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const slug = args.slug;
-  if (!slug) {
+  const all = args.all === "true";
+  if (!slug && !all) {
     console.error("Usage: tsx scripts/clean-orphaned-quote-blobs.ts --slug=<company-slug> [--dry-run]");
+    console.error("   or: tsx scripts/clean-orphaned-quote-blobs.ts --all [--dry-run]");
     process.exit(1);
   }
   const dryRun = args["dry-run"] === "true";
 
-  const company = await prisma.company.findUnique({ where: { slug } });
-  if (!company) {
-    console.error(`No company with slug "${slug}".`);
-    process.exit(1);
-  }
+  let prefix: string;
+  let referenced: Set<string>;
 
-  const prefix = `companies/${company.id}/quotes/`;
-  const referenced = new Set(
-    (
-      await prisma.quoteAttachment.findMany({
-        where: { quote: { companyId: company.id } },
-        select: { pathname: true },
-      })
-    ).map((row) => row.pathname),
-  );
+  if (all) {
+    prefix = "companies/";
+    referenced = new Set(
+      (await prisma.quoteAttachment.findMany({ select: { pathname: true } })).map((row) => row.pathname),
+    );
+  } else {
+    const company = await prisma.company.findUnique({ where: { slug } });
+    if (!company) {
+      console.error(`No company with slug "${slug}".`);
+      process.exit(1);
+    }
+    prefix = `companies/${company.id}/quotes/`;
+    referenced = new Set(
+      (
+        await prisma.quoteAttachment.findMany({
+          where: { quote: { companyId: company.id } },
+          select: { pathname: true },
+        })
+      ).map((row) => row.pathname),
+    );
+  }
 
   let cursor: string | undefined;
   let checked = 0;
@@ -73,6 +94,12 @@ async function main() {
     cursor = page.cursor;
 
     for (const blob of page.blobs) {
+      // En modo --all el prefijo es "companies/" entero, que también trae
+      // logos/watermarks/documentos de términos — ninguno de esos pasa por
+      // QuoteAttachment, así que filtrar a solo rutas de quotes evita
+      // marcarlos como huérfanos por error.
+      if (all && !blob.pathname.includes("/quotes/")) continue;
+
       checked += 1;
       if (referenced.has(blob.pathname)) continue;
 

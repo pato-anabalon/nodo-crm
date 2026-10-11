@@ -50,6 +50,7 @@ import {
   TaxDisplayMode,
 } from "@/generated/prisma/enums";
 import { RichTextEditor } from "@/components/rich-text-editor";
+import { canChangeLead } from "./constants";
 import { MoneyInput } from "@/components/money-input";
 import {
   SearchCombobox,
@@ -265,6 +266,8 @@ export function QuoteForm({
 
   useActionToast(state);
   const t = useTranslations("quotes");
+  // A new quote has no status yet, and is as open as a draft.
+  const leadChangeable = !status || canChangeLead(status);
   const tCommon = useTranslations("common");
   const [items, setItems] = useState<QuoteLineDraft[]>(
     defaults.items?.length ? defaults.items : [{ ...EMPTY_LINE }],
@@ -586,7 +589,14 @@ export function QuoteForm({
                   searchPlaceholder={t("form.searchLeads")}
                   emptyLabel={t("form.noLeadsFound")}
                   noneLabel={t("form.noLead")}
+                  disabled={!leadChangeable}
+                  aria-describedby={leadChangeable ? undefined : "leadId-fixed"}
                 />
+                {leadChangeable ? null : (
+                  <p id="leadId-fixed" className="text-xs text-muted-foreground">
+                    {t("form.leadFixedOnceSent")}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">

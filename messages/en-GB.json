@@ -281,6 +281,13 @@
     "showDiscarded": "View discarded",
     "showInbox": "Back to inbox",
     "emptyDiscarded": "No discarded leads.",
+    "attachments": {
+      "title": "{count, plural, one {# attached file} other {# attached files}}",
+      "subtitle": "Sent by the customer with the form.",
+      "pending": "Copying",
+      "failed": "Not copied",
+      "failedHint": "We couldn't copy it; the link opens the original."
+    },
     "submission": {
       "title": "Form received",
       "subtitle": "Exactly as the customer sent it. Not editable.",
@@ -324,6 +331,7 @@
     "notFound": "We couldn't find that quote.",
     "notFoundOrNoAccess": "We couldn't find that quote, or you don't have access to it.",
     "locked": "This quote has already gone out to the customer. To change it, issue a new one.",
+    "leadLocked": "This quote has already been sent, so its lead can no longer change. Duplicate it to quote someone else.",
     "onlyDraftCanBeSent": "Only a draft quote can be sent.",
     "needsLeadToSend": "Link a lead before sending this quote.",
     "onlySentCanBeDecided": "Only a sent quote can be accepted or declined.",
@@ -354,6 +362,7 @@
       "scope": "Scope",
       "lead": "Linked lead",
       "noLead": "No lead",
+      "leadFixedOnceSent": "Fixed once the quote has been sent.",
       "customerCompany": "Company",
       "customerName": "Contact",
       "customerEmail": "Email",

@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDateTime } from "@/lib/format";
+import { isAttachmentKey } from "@/modules/ingest/attachments";
 
 /** Fields already shown in the lead's header; they aren't repeated below. */
 const PROMOTED_FIELDS = new Set([
@@ -94,7 +95,8 @@ export function readableEntries(payload: unknown): Array<[string, string]> {
   if (!payload || typeof payload !== "object" || Array.isArray(payload)) return [];
 
   return Object.entries(payload as Record<string, unknown>)
-    .filter(([key]) => !HIDDEN_FIELDS.has(key) && !PROMOTED_FIELDS.has(key))
+    // Files get a panel of their own instead of a line of JSON here.
+    .filter(([key]) => !HIDDEN_FIELDS.has(key) && !PROMOTED_FIELDS.has(key) && !isAttachmentKey(key))
     .map(([key, value]) => [key, stringify(value)] as [string, string])
     .filter(([, value]) => value !== "");
 }

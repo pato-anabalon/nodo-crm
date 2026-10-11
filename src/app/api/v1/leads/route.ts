@@ -2,7 +2,8 @@ import { after, NextResponse, type NextRequest } from "next/server";
 import { IngestOutcome } from "@/generated/prisma/enums";
 import { readToken } from "@/modules/ingest/keys";
 import { corsHeaders, normalizeOrigin } from "@/modules/ingest/origins";
-import { MAX_BODY_BYTES, clientIp } from "@/modules/ingest/limits";
+import { MAX_BODY_BYTES, clientIp, submitterIp } from "@/modules/ingest/limits";
+import { copyLeadAttachments } from "@/modules/ingest/attachment-copy";
 import { isHoneypotFilled } from "@/modules/ingest/payload";
 import { notifyLeadReceived } from "@/modules/notifications/service";
 import {
@@ -23,7 +24,8 @@ import {
  *   POST /api/v1/leads
  *   Authorization: Bearer nodo_pk_…      (or X-Api-Key)
  *   Idempotency-Key: <optional>
- *   { "name": "...", "email": "...", ... }
+ *   X-Client-Ip: <optional, secret keys only: the visitor's IP>
+ *   { "name": "...", "email": "...", "files": [{ "name", "url", "size", "type" }], ... }
  *
  * Rejections are deliberately opaque: it's never confirmed whether a token exists.
  */
@@ -52,17 +54,19 @@ export async function POST(request: NextRequest) {
   }
 
   const { key } = auth;
+  // From here on, the IP is the visitor's, not whatever server relayed the form.
+  const visitorIp = submitterIp(request.headers, key.type);
   const attempt = (outcome: IngestOutcome, detail?: string) =>
     recordAttempt({
       companyId: key.companyId,
       ingestKeyId: key.id,
       outcome,
       origin,
-      ipAddress: ip,
+      ipAddress: visitorIp,
       detail,
     });
 
-  const rate = await enforceRateLimit(key.id, key.companyId, ip);
+  const rate = await enforceRateLimit(key.id, key.companyId, visitorIp);
   if (rate.limited) {
     await attempt(IngestOutcome.RATE_LIMITED, `Límite alcanzado por ${rate.scope}`);
     return NextResponse.json(
@@ -105,16 +109,31 @@ export async function POST(request: NextRequest) {
     key,
     payload,
     idempotencyKey: request.headers.get("idempotency-key"),
-    ipAddress: ip,
+    ipAddress: visitorIp,
     userAgent,
     fallbackTitle: "Website enquiry",
     currency: company.currency,
   });
 
-  await attempt(result.duplicate ? IngestOutcome.DUPLICATE : IngestOutcome.ACCEPTED);
+  await attempt(
+    result.duplicate ? IngestOutcome.DUPLICATE : IngestOutcome.ACCEPTED,
+    result.rejectedAttachments.length > 0
+      ? `Files left out: ${result.rejectedAttachments.join("; ")}`.slice(0, 500)
+      : undefined,
+  );
 
-  // Notifying the team must not keep the customer's form waiting.
-  if (!result.duplicate) after(() => notifyLeadReceived(result.leadId));
+  // Copying files and notifying the team must not keep the customer's form
+  // waiting. Files go first, so the notification's link opens a complete lead
+  // more often than not.
+  if (!result.duplicate) {
+    after(async () => {
+      try {
+        if (result.pendingAttachments > 0) await copyLeadAttachments(result.leadId);
+      } finally {
+        await notifyLeadReceived(result.leadId);
+      }
+    });
+  }
 
   return NextResponse.json(
     { status: "accepted", id: result.leadId, duplicate: result.duplicate },

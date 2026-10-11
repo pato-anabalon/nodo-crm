@@ -29,10 +29,12 @@ export async function createIngestKeyAction(
   const ctx = await requirePermission("settings.update");
   const t = await getTranslations();
 
+  // `get()` answers null for a field that isn't on the form — the domain list
+  // isn't rendered for a secret key — and the schema only takes it as absent.
   const parsed = createKeySchema.safeParse({
-    name: formData.get("name"),
+    name: formData.get("name") ?? "",
     type: formData.get("type"),
-    origins: formData.get("origins"),
+    origins: formData.get("origins") ?? undefined,
   });
 
   if (!parsed.success) {

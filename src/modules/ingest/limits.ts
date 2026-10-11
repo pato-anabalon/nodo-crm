@@ -1,3 +1,5 @@
+import { isIP } from "node:net";
+
 /**
  * Limits for the ingest API.
  *
@@ -51,4 +53,21 @@ export function clientIp(headers: Headers): string | null {
     if (first) return first;
   }
   return headers.get("x-real-ip")?.trim() || null;
+}
+
+/**
+ * The IP of the person who filled in the form.
+ *
+ * With a public key the browser posts straight to us, so it's the request's own
+ * IP. With a secret key the site's server posts on the person's behalf, and the
+ * request's IP is that server's — the same for every customer, which would trip
+ * the per-IP limit after a handful of enquiries. A server holding a secret key
+ * is trusted to tell us the real one in `X-Client-Ip`; without it, only the
+ * per-key limit applies.
+ */
+export function submitterIp(headers: Headers, keyType: "PUBLIC" | "SECRET"): string | null {
+  if (keyType === "PUBLIC") return clientIp(headers);
+
+  const forwarded = headers.get("x-client-ip")?.trim();
+  return forwarded && isIP(forwarded) !== 0 ? forwarded : null;
 }

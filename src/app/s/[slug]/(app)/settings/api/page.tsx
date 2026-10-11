@@ -3,7 +3,7 @@ import { requirePermission } from "@/lib/auth/session";
 import { listIngestKeys, listRecentRejections } from "@/modules/ingest/service-admin";
 import { IngestKeysManager } from "@/modules/ingest/keys-manager";
 import { RejectionLog } from "@/modules/ingest/rejection-log";
-import { ROOT_DOMAIN } from "@/lib/tenant/host";
+import { ROOT_DOMAIN, rootProtocol } from "@/lib/tenant/host";
 import { SettingsHeader } from "@/modules/settings/settings-header";
 
 export async function generateMetadata() {
@@ -20,8 +20,7 @@ export default async function ApiPage() {
     listRecentRejections(ctx),
   ]);
 
-  const protocol = ROOT_DOMAIN.startsWith("localhost") ? "http" : "https";
-  const endpoint = `${protocol}://${ROOT_DOMAIN}/api/v1/leads`;
+  const endpoint = `${rootProtocol()}://${ROOT_DOMAIN}/api/v1/leads`;
 
   return (
     <div className="space-y-8">

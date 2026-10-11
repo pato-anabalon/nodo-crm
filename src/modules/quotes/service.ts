@@ -4,7 +4,7 @@ import { ActivityType, PricingMode, Prisma, QuoteStatus, type TaxDisplayMode } f
 import { isRichTextEmpty, sanitizeRichText } from "@/lib/rich-text";
 import { calculateQuoteTotals } from "./totals";
 import { resolveSelectedSectionAmounts, type BundleDiscount } from "./section-selection";
-import { canTransition, isQuoteEditable, sectionStatuses } from "./constants";
+import { canChangeLead, canTransition, isQuoteEditable, sectionStatuses } from "./constants";
 import { nextLeadStatus, type LeadEvent } from "@/modules/leads/constants";
 import type { QuoteFilters, QuoteFormValues } from "./schemas";
 import { companyDocumentSelect, quoteDocumentInclude } from "@/modules/portal/service";
@@ -168,19 +168,25 @@ export async function getQuote(ctx: CompanyContext, id: string) {
 }
 
 /**
- * The company's next sequential number.
+ * The company's next sequential number, never below its `quoteNumberStart`.
  *
  * Resolved inside the creation transaction; if two users quote at the same
  * moment the unique index on `[companyId, number]` fails one of them, and
  * `createQuote` retries with the following number.
  */
 async function nextQuoteNumber(tx: Prisma.TransactionClient, companyId: string): Promise<number> {
-  const last = await tx.quote.findFirst({
-    where: { companyId },
-    orderBy: { number: "desc" },
-    select: { number: true },
-  });
-  return (last?.number ?? 0) + 1;
+  const [last, company] = await Promise.all([
+    tx.quote.findFirst({
+      where: { companyId },
+      orderBy: { number: "desc" },
+      select: { number: true },
+    }),
+    tx.company.findUniqueOrThrow({
+      where: { id: companyId },
+      select: { quoteNumberStart: true },
+    }),
+  ]);
+  return Math.max((last?.number ?? 0) + 1, company.quoteNumberStart);
 }
 
 const MAX_NUMBER_RETRIES = 5;
@@ -304,6 +310,34 @@ export async function duplicateQuote(
   } as QuoteFormValues);
 }
 
+const clientSnapshotSelect = {
+  contactName: true,
+  contactEmail: true,
+  contactPhone: true,
+  companyName: true,
+} as const;
+
+type ClientSnapshotSource = {
+  contactName: string | null;
+  contactEmail: string | null;
+  contactPhone: string | null;
+  companyName: string | null;
+} | null;
+
+/**
+ * The customer's details as the quote keeps them, taken from its lead. One
+ * function for creating and for re-linking, so the two can't copy different
+ * fields — and no lead means no customer, not the previous one's details.
+ */
+export function clientSnapshot(lead: ClientSnapshotSource) {
+  return {
+    clientCompanyName: lead?.companyName ?? null,
+    clientName: lead?.contactName ?? null,
+    clientEmail: lead?.contactEmail ?? null,
+    clientPhone: lead?.contactPhone ?? null,
+  };
+}
+
 export async function createQuote(ctx: CompanyContext, values: QuoteFormValues) {
   // Suggested from the company's own setting; the form always sends one once
   // the person has seen the select, so this only matters before that.
@@ -318,7 +352,7 @@ export async function createQuote(ctx: CompanyContext, values: QuoteFormValues) 
     values.leadId
       ? ctx.db.lead.findFirst({
           where: { id: values.leadId },
-          select: { contactName: true, contactEmail: true, contactPhone: true, companyName: true },
+          select: clientSnapshotSelect,
         })
       : null,
     // Only needed as a fallback when the form sends none — a quote created
@@ -348,10 +382,7 @@ export async function createQuote(ctx: CompanyContext, values: QuoteFormValues) 
             status: QuoteStatus.DRAFT,
             pricingMode: values.pricingMode,
 
-            clientCompanyName: lead?.companyName ?? null,
-            clientName: lead?.contactName ?? null,
-            clientEmail: lead?.contactEmail ?? null,
-            clientPhone: lead?.contactPhone ?? null,
+            ...clientSnapshot(lead),
 
             intro: cleanBody(values.intro ?? ctx.company.quoteIntro),
             exclusions: cleanBody(values.exclusions ?? ctx.company.quoteExclusions),
@@ -465,6 +496,21 @@ export async function updateQuote(ctx: CompanyContext, id: string, values: Quote
         .filter((sectionId): sectionId is string => !!sectionId && existingSectionIds.has(sectionId))
     : [];
 
+  // The customer's details were copied from the lead the quote was linked to.
+  // Linking it to a different one has to copy them again — otherwise the
+  // quote names one customer, belongs to another's lead, and a send goes to
+  // the first one's address. Untouched when the lead stays the same, so a
+  // save doesn't silently pick up later edits to the lead.
+  const nextLeadId = values.leadId ?? null;
+  const leadChanged = nextLeadId !== current.leadId;
+  if (leadChanged && !canChangeLead(current.status)) {
+    return { ok: false as const, reason: "lead-locked" as const };
+  }
+  const relinkedLead =
+    leadChanged && nextLeadId
+      ? await ctx.db.lead.findFirst({ where: { id: nextLeadId }, select: clientSnapshotSelect })
+      : null;
+
   // Transaction on the base client: companyId is explicit and controlled
   // here, and `$transaction` doesn't travel through the tenant extension.
   const quote = await prisma.$transaction(async (tx) => {
@@ -472,7 +518,8 @@ export async function updateQuote(ctx: CompanyContext, id: string, values: Quote
       where: { id, companyId: ctx.company.id },
       data: {
         title: values.title,
-        leadId: values.leadId ?? null,
+        leadId: nextLeadId,
+        ...(leadChanged ? clientSnapshot(relinkedLead) : {}),
         termsDocumentId: values.termsDocumentId ?? null,
         pricingMode: values.pricingMode,
         // Editable exactly as long as the rest of the quote is: the customer's

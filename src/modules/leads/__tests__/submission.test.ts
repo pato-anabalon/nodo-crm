@@ -63,3 +63,13 @@ describe("readableEntries", () => {
     expect(readableEntries([1, 2])).toEqual([]);
   });
 });
+
+describe("readableEntries with files", () => {
+  it("leaves the file list to the attachments panel", () => {
+    const entries = readableEntries({
+      suburb: "Ponsonby",
+      files: [{ name: "a.jpg", url: "https://x.test/a.jpg" }],
+    });
+    expect(entries).toEqual([["suburb", "Ponsonby"]]);
+  });
+});

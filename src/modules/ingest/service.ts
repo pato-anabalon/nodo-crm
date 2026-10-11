@@ -6,6 +6,7 @@ import { hashIngestKey, keyTypeFromToken } from "./keys";
 import { isOriginAllowed } from "./origins";
 import { checkRate, windowStart } from "./limits";
 import { buildLeadTitle, normalizeSubmission } from "./payload";
+import { extractAttachments } from "./attachments";
 
 export type AuthResult =
   | { ok: true; key: AuthenticatedKey }
@@ -118,7 +119,14 @@ export async function recordAttempt(input: {
   });
 }
 
-export type IngestedLead = { leadId: string; duplicate: boolean };
+export type IngestedLead = {
+  leadId: string;
+  duplicate: boolean;
+  /** Files waiting to be copied into our store. */
+  pendingAttachments: number;
+  /** Why some listed files were left out, for the attempt log. */
+  rejectedAttachments: string[];
+};
 
 /**
  * Creates the lead and its submission in one transaction.
@@ -143,10 +151,13 @@ export async function createLeadFromSubmission(input: {
       where: { companyId: key.companyId, idempotencyKey },
       select: { leadId: true },
     });
-    if (existing) return { leadId: existing.leadId, duplicate: true };
+    if (existing) {
+      return { leadId: existing.leadId, duplicate: true, pendingAttachments: 0, rejectedAttachments: [] };
+    }
   }
 
   const data = normalizeSubmission(payload);
+  const attachments = extractAttachments(payload);
 
   const lead = await prisma.$transaction(async (tx) => {
     // Who this came from, before the lead exists: a returning customer lands on
@@ -200,6 +211,22 @@ export async function createLeadFromSubmission(input: {
       },
     });
 
+    // Recorded as pending: the copy happens after the response, so a slow file
+    // host never keeps the customer's form waiting.
+    if (attachments.accepted.length > 0) {
+      await tx.leadAttachment.createMany({
+        data: attachments.accepted.map((file, position) => ({
+          companyId: key.companyId,
+          leadId: created.id,
+          name: file.name,
+          contentType: file.contentType,
+          size: file.size,
+          sourceUrl: file.sourceUrl,
+          position,
+        })),
+      });
+    }
+
     await tx.activity.create({
       data: {
         companyId: key.companyId,
@@ -217,7 +244,12 @@ export async function createLeadFromSubmission(input: {
     data: { lastUsedAt: new Date() },
   });
 
-  return { leadId: lead.id, duplicate: false };
+  return {
+    leadId: lead.id,
+    duplicate: false,
+    pendingAttachments: attachments.accepted.length,
+    rejectedAttachments: attachments.rejected,
+  };
 }
 
 export async function companyIngestDefaults(companyId: string) {

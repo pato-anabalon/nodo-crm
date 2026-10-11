@@ -43,6 +43,7 @@ export function SearchCombobox<T extends SearchComboboxItem>({
   noneLabel,
   disabled,
   "aria-label": ariaLabel,
+  "aria-describedby": ariaDescribedBy,
   className,
 }: {
   id?: string;
@@ -62,6 +63,7 @@ export function SearchCombobox<T extends SearchComboboxItem>({
   noneLabel?: string;
   disabled?: boolean;
   "aria-label"?: string;
+  "aria-describedby"?: string;
   className?: string;
 }) {
   const [open, setOpen] = useState(false);
@@ -131,6 +133,7 @@ export function SearchCombobox<T extends SearchComboboxItem>({
           id={id}
           disabled={disabled}
           aria-label={ariaLabel}
+          aria-describedby={ariaDescribedBy}
           className={cn(
             "flex h-9 w-full items-center justify-between gap-2 rounded-md border border-input bg-field px-3 py-1 text-left text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50",
             className,

@@ -76,7 +76,8 @@ export async function updateQuoteAction(
   const t = await getTranslations("quotes");
   const result = await updateQuote(ctx, id, parsed.data);
   if (!result.ok) {
-    return { error: result.reason === "locked" ? t("locked") : t("notFoundOrNoAccess") };
+    const reasons = { locked: "locked", "lead-locked": "leadLocked", "not-found": "notFoundOrNoAccess" } as const;
+    return { error: t(reasons[result.reason]) };
   }
 
   revalidatePath("/quotes");

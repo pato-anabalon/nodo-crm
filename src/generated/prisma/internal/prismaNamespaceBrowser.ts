@@ -70,6 +70,7 @@ export const ModelName = {
   Contact: 'Contact',
   Lead: 'Lead',
   LeadSubmission: 'LeadSubmission',
+  LeadAttachment: 'LeadAttachment',
   IngestKey: 'IngestKey',
   IngestAttempt: 'IngestAttempt',
   Activity: 'Activity',
@@ -131,6 +132,7 @@ export const CompanyScalarFieldEnum = {
   defaultTaxRate: 'defaultTaxRate',
   quotePrefix: 'quotePrefix',
   quoteValidityDays: 'quoteValidityDays',
+  quoteNumberStart: 'quoteNumberStart',
   quoteFooter: 'quoteFooter',
   slogan: 'slogan',
   senderNameStyle: 'senderNameStyle',
@@ -430,6 +432,26 @@ export const LeadSubmissionScalarFieldEnum = {
 } as const
 
 export type LeadSubmissionScalarFieldEnum = (typeof LeadSubmissionScalarFieldEnum)[keyof typeof LeadSubmissionScalarFieldEnum]
+
+
+export const LeadAttachmentScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  leadId: 'leadId',
+  name: 'name',
+  contentType: 'contentType',
+  size: 'size',
+  sourceUrl: 'sourceUrl',
+  url: 'url',
+  pathname: 'pathname',
+  status: 'status',
+  error: 'error',
+  position: 'position',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LeadAttachmentScalarFieldEnum = (typeof LeadAttachmentScalarFieldEnum)[keyof typeof LeadAttachmentScalarFieldEnum]
 
 
 export const IngestKeyScalarFieldEnum = {

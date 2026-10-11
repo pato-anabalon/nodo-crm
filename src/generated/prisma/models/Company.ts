@@ -29,6 +29,7 @@ export type AggregateCompany = {
 export type CompanyAvgAggregateOutputType = {
   defaultTaxRate: runtime.Decimal | null
   quoteValidityDays: number | null
+  quoteNumberStart: number | null
   firstFollowUpDays: number | null
   secondFollowUpDays: number | null
   reviewRequestDays: number | null
@@ -37,6 +38,7 @@ export type CompanyAvgAggregateOutputType = {
 export type CompanySumAggregateOutputType = {
   defaultTaxRate: runtime.Decimal | null
   quoteValidityDays: number | null
+  quoteNumberStart: number | null
   firstFollowUpDays: number | null
   secondFollowUpDays: number | null
   reviewRequestDays: number | null
@@ -64,6 +66,7 @@ export type CompanyMinAggregateOutputType = {
   defaultTaxRate: runtime.Decimal | null
   quotePrefix: string | null
   quoteValidityDays: number | null
+  quoteNumberStart: number | null
   quoteFooter: string | null
   slogan: string | null
   senderNameStyle: $Enums.SenderNameStyle | null
@@ -109,6 +112,7 @@ export type CompanyMaxAggregateOutputType = {
   defaultTaxRate: runtime.Decimal | null
   quotePrefix: string | null
   quoteValidityDays: number | null
+  quoteNumberStart: number | null
   quoteFooter: string | null
   slogan: string | null
   senderNameStyle: $Enums.SenderNameStyle | null
@@ -154,6 +158,7 @@ export type CompanyCountAggregateOutputType = {
   defaultTaxRate: number
   quotePrefix: number
   quoteValidityDays: number
+  quoteNumberStart: number
   quoteFooter: number
   slogan: number
   senderNameStyle: number
@@ -183,6 +188,7 @@ export type CompanyCountAggregateOutputType = {
 export type CompanyAvgAggregateInputType = {
   defaultTaxRate?: true
   quoteValidityDays?: true
+  quoteNumberStart?: true
   firstFollowUpDays?: true
   secondFollowUpDays?: true
   reviewRequestDays?: true
@@ -191,6 +197,7 @@ export type CompanyAvgAggregateInputType = {
 export type CompanySumAggregateInputType = {
   defaultTaxRate?: true
   quoteValidityDays?: true
+  quoteNumberStart?: true
   firstFollowUpDays?: true
   secondFollowUpDays?: true
   reviewRequestDays?: true
@@ -218,6 +225,7 @@ export type CompanyMinAggregateInputType = {
   defaultTaxRate?: true
   quotePrefix?: true
   quoteValidityDays?: true
+  quoteNumberStart?: true
   quoteFooter?: true
   slogan?: true
   senderNameStyle?: true
@@ -263,6 +271,7 @@ export type CompanyMaxAggregateInputType = {
   defaultTaxRate?: true
   quotePrefix?: true
   quoteValidityDays?: true
+  quoteNumberStart?: true
   quoteFooter?: true
   slogan?: true
   senderNameStyle?: true
@@ -308,6 +317,7 @@ export type CompanyCountAggregateInputType = {
   defaultTaxRate?: true
   quotePrefix?: true
   quoteValidityDays?: true
+  quoteNumberStart?: true
   quoteFooter?: true
   slogan?: true
   senderNameStyle?: true
@@ -441,6 +451,7 @@ export type CompanyGroupByOutputType = {
   defaultTaxRate: runtime.Decimal
   quotePrefix: string
   quoteValidityDays: number
+  quoteNumberStart: number
   quoteFooter: string | null
   slogan: string | null
   senderNameStyle: $Enums.SenderNameStyle
@@ -510,6 +521,7 @@ export type CompanyWhereInput = {
   defaultTaxRate?: Prisma.DecimalFilter<"Company"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFilter<"Company"> | string
   quoteValidityDays?: Prisma.IntFilter<"Company"> | number
+  quoteNumberStart?: Prisma.IntFilter<"Company"> | number
   quoteFooter?: Prisma.StringNullableFilter<"Company"> | string | null
   slogan?: Prisma.StringNullableFilter<"Company"> | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFilter<"Company"> | $Enums.SenderNameStyle
@@ -546,6 +558,7 @@ export type CompanyWhereInput = {
   notifications?: Prisma.NotificationListRelationFilter
   activities?: Prisma.ActivityListRelationFilter
   submissions?: Prisma.LeadSubmissionListRelationFilter
+  leadAttachments?: Prisma.LeadAttachmentListRelationFilter
   documents?: Prisma.CompanyDocumentListRelationFilter
   ingestKeys?: Prisma.IngestKeyListRelationFilter
   ingestAttempts?: Prisma.IngestAttemptListRelationFilter
@@ -582,6 +595,7 @@ export type CompanyOrderByWithRelationInput = {
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
   quoteValidityDays?: Prisma.SortOrder
+  quoteNumberStart?: Prisma.SortOrder
   quoteFooter?: Prisma.SortOrderInput | Prisma.SortOrder
   slogan?: Prisma.SortOrderInput | Prisma.SortOrder
   senderNameStyle?: Prisma.SortOrder
@@ -618,6 +632,7 @@ export type CompanyOrderByWithRelationInput = {
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   activities?: Prisma.ActivityOrderByRelationAggregateInput
   submissions?: Prisma.LeadSubmissionOrderByRelationAggregateInput
+  leadAttachments?: Prisma.LeadAttachmentOrderByRelationAggregateInput
   documents?: Prisma.CompanyDocumentOrderByRelationAggregateInput
   ingestKeys?: Prisma.IngestKeyOrderByRelationAggregateInput
   ingestAttempts?: Prisma.IngestAttemptOrderByRelationAggregateInput
@@ -657,6 +672,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   defaultTaxRate?: Prisma.DecimalFilter<"Company"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFilter<"Company"> | string
   quoteValidityDays?: Prisma.IntFilter<"Company"> | number
+  quoteNumberStart?: Prisma.IntFilter<"Company"> | number
   quoteFooter?: Prisma.StringNullableFilter<"Company"> | string | null
   slogan?: Prisma.StringNullableFilter<"Company"> | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFilter<"Company"> | $Enums.SenderNameStyle
@@ -693,6 +709,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   notifications?: Prisma.NotificationListRelationFilter
   activities?: Prisma.ActivityListRelationFilter
   submissions?: Prisma.LeadSubmissionListRelationFilter
+  leadAttachments?: Prisma.LeadAttachmentListRelationFilter
   documents?: Prisma.CompanyDocumentListRelationFilter
   ingestKeys?: Prisma.IngestKeyListRelationFilter
   ingestAttempts?: Prisma.IngestAttemptListRelationFilter
@@ -729,6 +746,7 @@ export type CompanyOrderByWithAggregationInput = {
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
   quoteValidityDays?: Prisma.SortOrder
+  quoteNumberStart?: Prisma.SortOrder
   quoteFooter?: Prisma.SortOrderInput | Prisma.SortOrder
   slogan?: Prisma.SortOrderInput | Prisma.SortOrder
   senderNameStyle?: Prisma.SortOrder
@@ -783,6 +801,7 @@ export type CompanyScalarWhereWithAggregatesInput = {
   defaultTaxRate?: Prisma.DecimalWithAggregatesFilter<"Company"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringWithAggregatesFilter<"Company"> | string
   quoteValidityDays?: Prisma.IntWithAggregatesFilter<"Company"> | number
+  quoteNumberStart?: Prisma.IntWithAggregatesFilter<"Company"> | number
   quoteFooter?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   slogan?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleWithAggregatesFilter<"Company"> | $Enums.SenderNameStyle
@@ -829,6 +848,7 @@ export type CompanyCreateInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -865,6 +885,7 @@ export type CompanyCreateInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -901,6 +922,7 @@ export type CompanyUncheckedCreateInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -937,6 +959,7 @@ export type CompanyUncheckedCreateInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -973,6 +996,7 @@ export type CompanyUpdateInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -1009,6 +1033,7 @@ export type CompanyUpdateInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -1045,6 +1070,7 @@ export type CompanyUncheckedUpdateInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -1081,6 +1107,7 @@ export type CompanyUncheckedUpdateInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1117,6 +1144,7 @@ export type CompanyCreateManyInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -1163,6 +1191,7 @@ export type CompanyUpdateManyMutationInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -1209,6 +1238,7 @@ export type CompanyUncheckedUpdateManyInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -1263,6 +1293,7 @@ export type CompanyCountOrderByAggregateInput = {
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
   quoteValidityDays?: Prisma.SortOrder
+  quoteNumberStart?: Prisma.SortOrder
   quoteFooter?: Prisma.SortOrder
   slogan?: Prisma.SortOrder
   senderNameStyle?: Prisma.SortOrder
@@ -1290,6 +1321,7 @@ export type CompanyCountOrderByAggregateInput = {
 export type CompanyAvgOrderByAggregateInput = {
   defaultTaxRate?: Prisma.SortOrder
   quoteValidityDays?: Prisma.SortOrder
+  quoteNumberStart?: Prisma.SortOrder
   firstFollowUpDays?: Prisma.SortOrder
   secondFollowUpDays?: Prisma.SortOrder
   reviewRequestDays?: Prisma.SortOrder
@@ -1317,6 +1349,7 @@ export type CompanyMaxOrderByAggregateInput = {
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
   quoteValidityDays?: Prisma.SortOrder
+  quoteNumberStart?: Prisma.SortOrder
   quoteFooter?: Prisma.SortOrder
   slogan?: Prisma.SortOrder
   senderNameStyle?: Prisma.SortOrder
@@ -1362,6 +1395,7 @@ export type CompanyMinOrderByAggregateInput = {
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
   quoteValidityDays?: Prisma.SortOrder
+  quoteNumberStart?: Prisma.SortOrder
   quoteFooter?: Prisma.SortOrder
   slogan?: Prisma.SortOrder
   senderNameStyle?: Prisma.SortOrder
@@ -1388,6 +1422,7 @@ export type CompanyMinOrderByAggregateInput = {
 export type CompanySumOrderByAggregateInput = {
   defaultTaxRate?: Prisma.SortOrder
   quoteValidityDays?: Prisma.SortOrder
+  quoteNumberStart?: Prisma.SortOrder
   firstFollowUpDays?: Prisma.SortOrder
   secondFollowUpDays?: Prisma.SortOrder
   reviewRequestDays?: Prisma.SortOrder
@@ -1632,6 +1667,20 @@ export type CompanyUpdateOneRequiredWithoutSubmissionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutSubmissionsInput, Prisma.CompanyUpdateWithoutSubmissionsInput>, Prisma.CompanyUncheckedUpdateWithoutSubmissionsInput>
 }
 
+export type CompanyCreateNestedOneWithoutLeadAttachmentsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLeadAttachmentsInput, Prisma.CompanyUncheckedCreateWithoutLeadAttachmentsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLeadAttachmentsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutLeadAttachmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLeadAttachmentsInput, Prisma.CompanyUncheckedCreateWithoutLeadAttachmentsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLeadAttachmentsInput
+  upsert?: Prisma.CompanyUpsertWithoutLeadAttachmentsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutLeadAttachmentsInput, Prisma.CompanyUpdateWithoutLeadAttachmentsInput>, Prisma.CompanyUncheckedUpdateWithoutLeadAttachmentsInput>
+}
+
 export type CompanyCreateNestedOneWithoutIngestKeysInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutIngestKeysInput, Prisma.CompanyUncheckedCreateWithoutIngestKeysInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutIngestKeysInput
@@ -1852,6 +1901,7 @@ export type CompanyCreateWithoutQuoteTypesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -1888,6 +1938,7 @@ export type CompanyCreateWithoutQuoteTypesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -1923,6 +1974,7 @@ export type CompanyUncheckedCreateWithoutQuoteTypesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -1959,6 +2011,7 @@ export type CompanyUncheckedCreateWithoutQuoteTypesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -2010,6 +2063,7 @@ export type CompanyUpdateWithoutQuoteTypesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -2046,6 +2100,7 @@ export type CompanyUpdateWithoutQuoteTypesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -2081,6 +2136,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTypesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -2117,6 +2173,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTypesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2152,6 +2209,7 @@ export type CompanyCreateWithoutMembershipsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -2187,6 +2245,7 @@ export type CompanyCreateWithoutMembershipsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -2223,6 +2282,7 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -2258,6 +2318,7 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -2310,6 +2371,7 @@ export type CompanyUpdateWithoutMembershipsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -2345,6 +2407,7 @@ export type CompanyUpdateWithoutMembershipsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -2381,6 +2444,7 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -2416,6 +2480,7 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2452,6 +2517,7 @@ export type CompanyCreateWithoutLoginAttemptsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -2487,6 +2553,7 @@ export type CompanyCreateWithoutLoginAttemptsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -2523,6 +2590,7 @@ export type CompanyUncheckedCreateWithoutLoginAttemptsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -2558,6 +2626,7 @@ export type CompanyUncheckedCreateWithoutLoginAttemptsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -2610,6 +2679,7 @@ export type CompanyUpdateWithoutLoginAttemptsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -2645,6 +2715,7 @@ export type CompanyUpdateWithoutLoginAttemptsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -2681,6 +2752,7 @@ export type CompanyUncheckedUpdateWithoutLoginAttemptsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -2716,6 +2788,7 @@ export type CompanyUncheckedUpdateWithoutLoginAttemptsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2752,6 +2825,7 @@ export type CompanyCreateWithoutRolesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -2787,6 +2861,7 @@ export type CompanyCreateWithoutRolesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -2823,6 +2898,7 @@ export type CompanyUncheckedCreateWithoutRolesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -2858,6 +2934,7 @@ export type CompanyUncheckedCreateWithoutRolesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -2910,6 +2987,7 @@ export type CompanyUpdateWithoutRolesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -2945,6 +3023,7 @@ export type CompanyUpdateWithoutRolesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -2981,6 +3060,7 @@ export type CompanyUncheckedUpdateWithoutRolesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -3016,6 +3096,7 @@ export type CompanyUncheckedUpdateWithoutRolesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -3052,6 +3133,7 @@ export type CompanyCreateWithoutInvitationsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -3087,6 +3169,7 @@ export type CompanyCreateWithoutInvitationsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -3123,6 +3206,7 @@ export type CompanyUncheckedCreateWithoutInvitationsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -3158,6 +3242,7 @@ export type CompanyUncheckedCreateWithoutInvitationsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -3210,6 +3295,7 @@ export type CompanyUpdateWithoutInvitationsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -3245,6 +3331,7 @@ export type CompanyUpdateWithoutInvitationsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -3281,6 +3368,7 @@ export type CompanyUncheckedUpdateWithoutInvitationsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -3316,6 +3404,7 @@ export type CompanyUncheckedUpdateWithoutInvitationsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -3352,6 +3441,7 @@ export type CompanyCreateWithoutTasksInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -3387,6 +3477,7 @@ export type CompanyCreateWithoutTasksInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -3423,6 +3514,7 @@ export type CompanyUncheckedCreateWithoutTasksInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -3458,6 +3550,7 @@ export type CompanyUncheckedCreateWithoutTasksInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -3510,6 +3603,7 @@ export type CompanyUpdateWithoutTasksInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -3545,6 +3639,7 @@ export type CompanyUpdateWithoutTasksInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -3581,6 +3676,7 @@ export type CompanyUncheckedUpdateWithoutTasksInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -3616,6 +3712,7 @@ export type CompanyUncheckedUpdateWithoutTasksInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -3652,6 +3749,7 @@ export type CompanyCreateWithoutNotificationsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -3687,6 +3785,7 @@ export type CompanyCreateWithoutNotificationsInput = {
   tasks?: Prisma.TaskCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -3723,6 +3822,7 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -3758,6 +3858,7 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -3810,6 +3911,7 @@ export type CompanyUpdateWithoutNotificationsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -3845,6 +3947,7 @@ export type CompanyUpdateWithoutNotificationsInput = {
   tasks?: Prisma.TaskUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -3881,6 +3984,7 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -3916,6 +4020,7 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -3952,6 +4057,7 @@ export type CompanyCreateWithoutCatalogueInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -3987,6 +4093,7 @@ export type CompanyCreateWithoutCatalogueInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -4023,6 +4130,7 @@ export type CompanyUncheckedCreateWithoutCatalogueInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -4058,6 +4166,7 @@ export type CompanyUncheckedCreateWithoutCatalogueInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -4110,6 +4219,7 @@ export type CompanyUpdateWithoutCatalogueInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -4145,6 +4255,7 @@ export type CompanyUpdateWithoutCatalogueInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -4181,6 +4292,7 @@ export type CompanyUncheckedUpdateWithoutCatalogueInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -4216,6 +4328,7 @@ export type CompanyUncheckedUpdateWithoutCatalogueInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -4252,6 +4365,7 @@ export type CompanyCreateWithoutClientCompaniesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -4287,6 +4401,7 @@ export type CompanyCreateWithoutClientCompaniesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -4323,6 +4438,7 @@ export type CompanyUncheckedCreateWithoutClientCompaniesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -4358,6 +4474,7 @@ export type CompanyUncheckedCreateWithoutClientCompaniesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -4410,6 +4527,7 @@ export type CompanyUpdateWithoutClientCompaniesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -4445,6 +4563,7 @@ export type CompanyUpdateWithoutClientCompaniesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -4481,6 +4600,7 @@ export type CompanyUncheckedUpdateWithoutClientCompaniesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -4516,6 +4636,7 @@ export type CompanyUncheckedUpdateWithoutClientCompaniesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -4552,6 +4673,7 @@ export type CompanyCreateWithoutContactsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -4587,6 +4709,7 @@ export type CompanyCreateWithoutContactsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -4623,6 +4746,7 @@ export type CompanyUncheckedCreateWithoutContactsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -4658,6 +4782,7 @@ export type CompanyUncheckedCreateWithoutContactsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -4710,6 +4835,7 @@ export type CompanyUpdateWithoutContactsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -4745,6 +4871,7 @@ export type CompanyUpdateWithoutContactsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -4781,6 +4908,7 @@ export type CompanyUncheckedUpdateWithoutContactsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -4816,6 +4944,7 @@ export type CompanyUncheckedUpdateWithoutContactsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -4852,6 +4981,7 @@ export type CompanyCreateWithoutLeadsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -4887,6 +5017,7 @@ export type CompanyCreateWithoutLeadsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -4923,6 +5054,7 @@ export type CompanyUncheckedCreateWithoutLeadsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -4958,6 +5090,7 @@ export type CompanyUncheckedCreateWithoutLeadsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -5010,6 +5143,7 @@ export type CompanyUpdateWithoutLeadsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -5045,6 +5179,7 @@ export type CompanyUpdateWithoutLeadsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -5081,6 +5216,7 @@ export type CompanyUncheckedUpdateWithoutLeadsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -5116,6 +5252,7 @@ export type CompanyUncheckedUpdateWithoutLeadsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -5152,6 +5289,7 @@ export type CompanyCreateWithoutSubmissionsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -5187,6 +5325,7 @@ export type CompanyCreateWithoutSubmissionsInput = {
   tasks?: Prisma.TaskCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -5223,6 +5362,7 @@ export type CompanyUncheckedCreateWithoutSubmissionsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -5258,6 +5398,7 @@ export type CompanyUncheckedCreateWithoutSubmissionsInput = {
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -5310,6 +5451,7 @@ export type CompanyUpdateWithoutSubmissionsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -5345,6 +5487,7 @@ export type CompanyUpdateWithoutSubmissionsInput = {
   tasks?: Prisma.TaskUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -5381,6 +5524,7 @@ export type CompanyUncheckedUpdateWithoutSubmissionsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -5416,6 +5560,7 @@ export type CompanyUncheckedUpdateWithoutSubmissionsInput = {
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -5430,7 +5575,7 @@ export type CompanyUncheckedUpdateWithoutSubmissionsInput = {
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
-export type CompanyCreateWithoutIngestKeysInput = {
+export type CompanyCreateWithoutLeadAttachmentsInput = {
   id?: string
   slug: string
   name: string
@@ -5452,6 +5597,7 @@ export type CompanyCreateWithoutIngestKeysInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -5489,6 +5635,7 @@ export type CompanyCreateWithoutIngestKeysInput = {
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
@@ -5501,7 +5648,7 @@ export type CompanyCreateWithoutIngestKeysInput = {
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
 }
 
-export type CompanyUncheckedCreateWithoutIngestKeysInput = {
+export type CompanyUncheckedCreateWithoutLeadAttachmentsInput = {
   id?: string
   slug: string
   name: string
@@ -5523,6 +5670,7 @@ export type CompanyUncheckedCreateWithoutIngestKeysInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -5559,6 +5707,315 @@ export type CompanyUncheckedCreateWithoutIngestKeysInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
+  ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
+  quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
+  acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
+  emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutLeadAttachmentsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLeadAttachmentsInput, Prisma.CompanyUncheckedCreateWithoutLeadAttachmentsInput>
+}
+
+export type CompanyUpsertWithoutLeadAttachmentsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutLeadAttachmentsInput, Prisma.CompanyUncheckedUpdateWithoutLeadAttachmentsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLeadAttachmentsInput, Prisma.CompanyUncheckedCreateWithoutLeadAttachmentsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutLeadAttachmentsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutLeadAttachmentsInput, Prisma.CompanyUncheckedUpdateWithoutLeadAttachmentsInput>
+}
+
+export type CompanyUpdateWithoutLeadAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
+  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
+  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
+  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
+  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
+  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUpdateManyWithoutCompanyNestedInput
+  loginAttempts?: Prisma.LoginAttemptUpdateManyWithoutCompanyNestedInput
+  roles?: Prisma.RoleUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutCompanyNestedInput
+  leads?: Prisma.LeadUpdateManyWithoutCompanyNestedInput
+  quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
+  clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
+  catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
+  quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
+  submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
+  ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
+  quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
+  acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
+  emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
+  reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutLeadAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
+  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
+  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
+  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
+  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
+  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutCompanyNestedInput
+  loginAttempts?: Prisma.LoginAttemptUncheckedUpdateManyWithoutCompanyNestedInput
+  roles?: Prisma.RoleUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  leads?: Prisma.LeadUncheckedUpdateManyWithoutCompanyNestedInput
+  quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
+  clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
+  catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
+  submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
+  ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutIngestKeysInput = {
+  id?: string
+  slug: string
+  name: string
+  legalName?: string | null
+  taxId?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  logoUrl?: string | null
+  watermarkUrl?: string | null
+  primaryColor?: string
+  accentColor?: string
+  defaultLanguage?: $Enums.Language
+  currency?: string
+  formatLocale?: string
+  timezone?: string
+  defaultTaxType?: $Enums.TaxType
+  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: string
+  quoteValidityDays?: number
+  quoteNumberStart?: number
+  quoteFooter?: string | null
+  slogan?: string | null
+  senderNameStyle?: $Enums.SenderNameStyle
+  firstFollowUpDays?: number
+  secondFollowUpDays?: number
+  reviewRequestDays?: number
+  sendQuoteCopy?: boolean
+  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
+  quoteIntro?: string | null
+  quoteNotes?: string | null
+  quoteExclusions?: string | null
+  quoteTerms?: string | null
+  quoteScope?: string | null
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  acceptanceMode?: $Enums.AcceptanceMode
+  acceptanceStatement?: string | null
+  requireSignature?: boolean
+  askAdditionalComments?: boolean
+  askOrderReference?: boolean
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipCreateNestedManyWithoutCompanyInput
+  loginAttempts?: Prisma.LoginAttemptCreateNestedManyWithoutCompanyInput
+  roles?: Prisma.RoleCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutCompanyInput
+  leads?: Prisma.LeadCreateNestedManyWithoutCompanyInput
+  quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
+  clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
+  catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
+  quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
+  submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
+  quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
+  acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
+  emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
+  reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutIngestKeysInput = {
+  id?: string
+  slug: string
+  name: string
+  legalName?: string | null
+  taxId?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  logoUrl?: string | null
+  watermarkUrl?: string | null
+  primaryColor?: string
+  accentColor?: string
+  defaultLanguage?: $Enums.Language
+  currency?: string
+  formatLocale?: string
+  timezone?: string
+  defaultTaxType?: $Enums.TaxType
+  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: string
+  quoteValidityDays?: number
+  quoteNumberStart?: number
+  quoteFooter?: string | null
+  slogan?: string | null
+  senderNameStyle?: $Enums.SenderNameStyle
+  firstFollowUpDays?: number
+  secondFollowUpDays?: number
+  reviewRequestDays?: number
+  sendQuoteCopy?: boolean
+  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
+  quoteIntro?: string | null
+  quoteNotes?: string | null
+  quoteExclusions?: string | null
+  quoteTerms?: string | null
+  quoteScope?: string | null
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  acceptanceMode?: $Enums.AcceptanceMode
+  acceptanceStatement?: string | null
+  requireSignature?: boolean
+  askAdditionalComments?: boolean
+  askOrderReference?: boolean
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutCompanyInput
+  loginAttempts?: Prisma.LoginAttemptUncheckedCreateNestedManyWithoutCompanyInput
+  roles?: Prisma.RoleUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutCompanyInput
+  leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCompanyInput
+  quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
+  clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
+  catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
+  submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
@@ -5610,6 +6067,7 @@ export type CompanyUpdateWithoutIngestKeysInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -5646,6 +6104,7 @@ export type CompanyUpdateWithoutIngestKeysInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
@@ -5681,6 +6140,7 @@ export type CompanyUncheckedUpdateWithoutIngestKeysInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -5717,6 +6177,7 @@ export type CompanyUncheckedUpdateWithoutIngestKeysInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
@@ -5752,6 +6213,7 @@ export type CompanyCreateWithoutIngestAttemptsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -5788,6 +6250,7 @@ export type CompanyCreateWithoutIngestAttemptsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
@@ -5823,6 +6286,7 @@ export type CompanyUncheckedCreateWithoutIngestAttemptsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -5859,6 +6323,7 @@ export type CompanyUncheckedCreateWithoutIngestAttemptsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
@@ -5910,6 +6375,7 @@ export type CompanyUpdateWithoutIngestAttemptsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -5946,6 +6412,7 @@ export type CompanyUpdateWithoutIngestAttemptsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
@@ -5981,6 +6448,7 @@ export type CompanyUncheckedUpdateWithoutIngestAttemptsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -6017,6 +6485,7 @@ export type CompanyUncheckedUpdateWithoutIngestAttemptsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
@@ -6052,6 +6521,7 @@ export type CompanyCreateWithoutActivitiesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -6087,6 +6557,7 @@ export type CompanyCreateWithoutActivitiesInput = {
   tasks?: Prisma.TaskCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -6123,6 +6594,7 @@ export type CompanyUncheckedCreateWithoutActivitiesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -6158,6 +6630,7 @@ export type CompanyUncheckedCreateWithoutActivitiesInput = {
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -6210,6 +6683,7 @@ export type CompanyUpdateWithoutActivitiesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -6245,6 +6719,7 @@ export type CompanyUpdateWithoutActivitiesInput = {
   tasks?: Prisma.TaskUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -6281,6 +6756,7 @@ export type CompanyUncheckedUpdateWithoutActivitiesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -6316,6 +6792,7 @@ export type CompanyUncheckedUpdateWithoutActivitiesInput = {
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -6352,6 +6829,7 @@ export type CompanyCreateWithoutQuoteTemplatesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -6387,6 +6865,7 @@ export type CompanyCreateWithoutQuoteTemplatesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -6423,6 +6902,7 @@ export type CompanyUncheckedCreateWithoutQuoteTemplatesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -6458,6 +6938,7 @@ export type CompanyUncheckedCreateWithoutQuoteTemplatesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -6510,6 +6991,7 @@ export type CompanyUpdateWithoutQuoteTemplatesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -6545,6 +7027,7 @@ export type CompanyUpdateWithoutQuoteTemplatesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -6581,6 +7064,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTemplatesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -6616,6 +7100,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTemplatesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -6652,6 +7137,7 @@ export type CompanyCreateWithoutQuotesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -6687,6 +7173,7 @@ export type CompanyCreateWithoutQuotesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -6723,6 +7210,7 @@ export type CompanyUncheckedCreateWithoutQuotesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -6758,6 +7246,7 @@ export type CompanyUncheckedCreateWithoutQuotesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -6810,6 +7299,7 @@ export type CompanyUpdateWithoutQuotesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -6845,6 +7335,7 @@ export type CompanyUpdateWithoutQuotesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -6881,6 +7372,7 @@ export type CompanyUncheckedUpdateWithoutQuotesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -6916,6 +7408,7 @@ export type CompanyUncheckedUpdateWithoutQuotesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -6952,6 +7445,7 @@ export type CompanyCreateWithoutDocumentsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -6988,6 +7482,7 @@ export type CompanyCreateWithoutDocumentsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
@@ -7023,6 +7518,7 @@ export type CompanyUncheckedCreateWithoutDocumentsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -7059,6 +7555,7 @@ export type CompanyUncheckedCreateWithoutDocumentsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
@@ -7110,6 +7607,7 @@ export type CompanyUpdateWithoutDocumentsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -7146,6 +7644,7 @@ export type CompanyUpdateWithoutDocumentsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
@@ -7181,6 +7680,7 @@ export type CompanyUncheckedUpdateWithoutDocumentsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -7217,6 +7717,7 @@ export type CompanyUncheckedUpdateWithoutDocumentsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
@@ -7252,6 +7753,7 @@ export type CompanyCreateWithoutQuoteSharesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -7288,6 +7790,7 @@ export type CompanyCreateWithoutQuoteSharesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -7323,6 +7826,7 @@ export type CompanyUncheckedCreateWithoutQuoteSharesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -7359,6 +7863,7 @@ export type CompanyUncheckedCreateWithoutQuoteSharesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -7410,6 +7915,7 @@ export type CompanyUpdateWithoutQuoteSharesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -7446,6 +7952,7 @@ export type CompanyUpdateWithoutQuoteSharesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -7481,6 +7988,7 @@ export type CompanyUncheckedUpdateWithoutQuoteSharesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -7517,6 +8025,7 @@ export type CompanyUncheckedUpdateWithoutQuoteSharesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -7552,6 +8061,7 @@ export type CompanyCreateWithoutQuoteEventsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -7588,6 +8098,7 @@ export type CompanyCreateWithoutQuoteEventsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -7623,6 +8134,7 @@ export type CompanyUncheckedCreateWithoutQuoteEventsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -7659,6 +8171,7 @@ export type CompanyUncheckedCreateWithoutQuoteEventsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -7710,6 +8223,7 @@ export type CompanyUpdateWithoutQuoteEventsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -7746,6 +8260,7 @@ export type CompanyUpdateWithoutQuoteEventsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -7781,6 +8296,7 @@ export type CompanyUncheckedUpdateWithoutQuoteEventsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -7817,6 +8333,7 @@ export type CompanyUncheckedUpdateWithoutQuoteEventsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -7852,6 +8369,7 @@ export type CompanyCreateWithoutQuoteMessagesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -7888,6 +8406,7 @@ export type CompanyCreateWithoutQuoteMessagesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -7923,6 +8442,7 @@ export type CompanyUncheckedCreateWithoutQuoteMessagesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -7959,6 +8479,7 @@ export type CompanyUncheckedCreateWithoutQuoteMessagesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -8010,6 +8531,7 @@ export type CompanyUpdateWithoutQuoteMessagesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -8046,6 +8568,7 @@ export type CompanyUpdateWithoutQuoteMessagesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -8081,6 +8604,7 @@ export type CompanyUncheckedUpdateWithoutQuoteMessagesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -8117,6 +8641,7 @@ export type CompanyUncheckedUpdateWithoutQuoteMessagesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -8152,6 +8677,7 @@ export type CompanyCreateWithoutAcceptancesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -8188,6 +8714,7 @@ export type CompanyCreateWithoutAcceptancesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -8223,6 +8750,7 @@ export type CompanyUncheckedCreateWithoutAcceptancesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -8259,6 +8787,7 @@ export type CompanyUncheckedCreateWithoutAcceptancesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -8310,6 +8839,7 @@ export type CompanyUpdateWithoutAcceptancesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -8346,6 +8876,7 @@ export type CompanyUpdateWithoutAcceptancesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -8381,6 +8912,7 @@ export type CompanyUncheckedUpdateWithoutAcceptancesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -8417,6 +8949,7 @@ export type CompanyUncheckedUpdateWithoutAcceptancesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -8452,6 +8985,7 @@ export type CompanyCreateWithoutReviewLinksInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -8488,6 +9022,7 @@ export type CompanyCreateWithoutReviewLinksInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -8523,6 +9058,7 @@ export type CompanyUncheckedCreateWithoutReviewLinksInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -8559,6 +9095,7 @@ export type CompanyUncheckedCreateWithoutReviewLinksInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -8610,6 +9147,7 @@ export type CompanyUpdateWithoutReviewLinksInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -8646,6 +9184,7 @@ export type CompanyUpdateWithoutReviewLinksInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -8681,6 +9220,7 @@ export type CompanyUncheckedUpdateWithoutReviewLinksInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -8717,6 +9257,7 @@ export type CompanyUncheckedUpdateWithoutReviewLinksInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -8752,6 +9293,7 @@ export type CompanyCreateWithoutEmailTemplatesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -8788,6 +9330,7 @@ export type CompanyCreateWithoutEmailTemplatesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -8823,6 +9366,7 @@ export type CompanyUncheckedCreateWithoutEmailTemplatesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -8859,6 +9403,7 @@ export type CompanyUncheckedCreateWithoutEmailTemplatesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -8910,6 +9455,7 @@ export type CompanyUpdateWithoutEmailTemplatesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -8946,6 +9492,7 @@ export type CompanyUpdateWithoutEmailTemplatesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -8981,6 +9528,7 @@ export type CompanyUncheckedUpdateWithoutEmailTemplatesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -9017,6 +9565,7 @@ export type CompanyUncheckedUpdateWithoutEmailTemplatesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -9052,6 +9601,7 @@ export type CompanyCreateWithoutReviewsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -9088,6 +9638,7 @@ export type CompanyCreateWithoutReviewsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -9123,6 +9674,7 @@ export type CompanyUncheckedCreateWithoutReviewsInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -9159,6 +9711,7 @@ export type CompanyUncheckedCreateWithoutReviewsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -9210,6 +9763,7 @@ export type CompanyUpdateWithoutReviewsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -9246,6 +9800,7 @@ export type CompanyUpdateWithoutReviewsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -9281,6 +9836,7 @@ export type CompanyUncheckedUpdateWithoutReviewsInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -9317,6 +9873,7 @@ export type CompanyUncheckedUpdateWithoutReviewsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -9352,6 +9909,7 @@ export type CompanyCreateWithoutNotificationPreferencesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -9388,6 +9946,7 @@ export type CompanyCreateWithoutNotificationPreferencesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
@@ -9423,6 +9982,7 @@ export type CompanyUncheckedCreateWithoutNotificationPreferencesInput = {
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
   quoteValidityDays?: number
+  quoteNumberStart?: number
   quoteFooter?: string | null
   slogan?: string | null
   senderNameStyle?: $Enums.SenderNameStyle
@@ -9459,6 +10019,7 @@ export type CompanyUncheckedCreateWithoutNotificationPreferencesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
   submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
@@ -9510,6 +10071,7 @@ export type CompanyUpdateWithoutNotificationPreferencesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -9546,6 +10108,7 @@ export type CompanyUpdateWithoutNotificationPreferencesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
@@ -9581,6 +10144,7 @@ export type CompanyUncheckedUpdateWithoutNotificationPreferencesInput = {
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
   quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
   quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
@@ -9617,6 +10181,7 @@ export type CompanyUncheckedUpdateWithoutNotificationPreferencesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
   submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
@@ -9650,6 +10215,7 @@ export type CompanyCountOutputType = {
   notifications: number
   activities: number
   submissions: number
+  leadAttachments: number
   documents: number
   ingestKeys: number
   ingestAttempts: number
@@ -9679,6 +10245,7 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   notifications?: boolean | CompanyCountOutputTypeCountNotificationsArgs
   activities?: boolean | CompanyCountOutputTypeCountActivitiesArgs
   submissions?: boolean | CompanyCountOutputTypeCountSubmissionsArgs
+  leadAttachments?: boolean | CompanyCountOutputTypeCountLeadAttachmentsArgs
   documents?: boolean | CompanyCountOutputTypeCountDocumentsArgs
   ingestKeys?: boolean | CompanyCountOutputTypeCountIngestKeysArgs
   ingestAttempts?: boolean | CompanyCountOutputTypeCountIngestAttemptsArgs
@@ -9804,6 +10371,13 @@ export type CompanyCountOutputTypeCountSubmissionsArgs<ExtArgs extends runtime.T
 /**
  * CompanyCountOutputType without action
  */
+export type CompanyCountOutputTypeCountLeadAttachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LeadAttachmentWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
 export type CompanyCountOutputTypeCountDocumentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CompanyDocumentWhereInput
 }
@@ -9908,6 +10482,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   defaultTaxRate?: boolean
   quotePrefix?: boolean
   quoteValidityDays?: boolean
+  quoteNumberStart?: boolean
   quoteFooter?: boolean
   slogan?: boolean
   senderNameStyle?: boolean
@@ -9944,6 +10519,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   notifications?: boolean | Prisma.Company$notificationsArgs<ExtArgs>
   activities?: boolean | Prisma.Company$activitiesArgs<ExtArgs>
   submissions?: boolean | Prisma.Company$submissionsArgs<ExtArgs>
+  leadAttachments?: boolean | Prisma.Company$leadAttachmentsArgs<ExtArgs>
   documents?: boolean | Prisma.Company$documentsArgs<ExtArgs>
   ingestKeys?: boolean | Prisma.Company$ingestKeysArgs<ExtArgs>
   ingestAttempts?: boolean | Prisma.Company$ingestAttemptsArgs<ExtArgs>
@@ -9981,6 +10557,7 @@ export type CompanySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   defaultTaxRate?: boolean
   quotePrefix?: boolean
   quoteValidityDays?: boolean
+  quoteNumberStart?: boolean
   quoteFooter?: boolean
   slogan?: boolean
   senderNameStyle?: boolean
@@ -10027,6 +10604,7 @@ export type CompanySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   defaultTaxRate?: boolean
   quotePrefix?: boolean
   quoteValidityDays?: boolean
+  quoteNumberStart?: boolean
   quoteFooter?: boolean
   slogan?: boolean
   senderNameStyle?: boolean
@@ -10073,6 +10651,7 @@ export type CompanySelectScalar = {
   defaultTaxRate?: boolean
   quotePrefix?: boolean
   quoteValidityDays?: boolean
+  quoteNumberStart?: boolean
   quoteFooter?: boolean
   slogan?: boolean
   senderNameStyle?: boolean
@@ -10097,7 +10676,7 @@ export type CompanySelectScalar = {
   updatedAt?: boolean
 }
 
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "legalName" | "taxId" | "email" | "phone" | "website" | "address" | "logoUrl" | "watermarkUrl" | "primaryColor" | "accentColor" | "defaultLanguage" | "currency" | "formatLocale" | "timezone" | "defaultTaxType" | "defaultTaxRate" | "quotePrefix" | "quoteValidityDays" | "quoteFooter" | "slogan" | "senderNameStyle" | "firstFollowUpDays" | "secondFollowUpDays" | "reviewRequestDays" | "sendQuoteCopy" | "leadNotificationEmails" | "quoteIntro" | "quoteNotes" | "quoteExclusions" | "quoteTerms" | "quoteScope" | "taxDisplayMode" | "acceptanceMode" | "acceptanceStatement" | "requireSignature" | "askAdditionalComments" | "askOrderReference" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "legalName" | "taxId" | "email" | "phone" | "website" | "address" | "logoUrl" | "watermarkUrl" | "primaryColor" | "accentColor" | "defaultLanguage" | "currency" | "formatLocale" | "timezone" | "defaultTaxType" | "defaultTaxRate" | "quotePrefix" | "quoteValidityDays" | "quoteNumberStart" | "quoteFooter" | "slogan" | "senderNameStyle" | "firstFollowUpDays" | "secondFollowUpDays" | "reviewRequestDays" | "sendQuoteCopy" | "leadNotificationEmails" | "quoteIntro" | "quoteNotes" | "quoteExclusions" | "quoteTerms" | "quoteScope" | "taxDisplayMode" | "acceptanceMode" | "acceptanceStatement" | "requireSignature" | "askAdditionalComments" | "askOrderReference" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   memberships?: boolean | Prisma.Company$membershipsArgs<ExtArgs>
   loginAttempts?: boolean | Prisma.Company$loginAttemptsArgs<ExtArgs>
@@ -10113,6 +10692,7 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   notifications?: boolean | Prisma.Company$notificationsArgs<ExtArgs>
   activities?: boolean | Prisma.Company$activitiesArgs<ExtArgs>
   submissions?: boolean | Prisma.Company$submissionsArgs<ExtArgs>
+  leadAttachments?: boolean | Prisma.Company$leadAttachmentsArgs<ExtArgs>
   documents?: boolean | Prisma.Company$documentsArgs<ExtArgs>
   ingestKeys?: boolean | Prisma.Company$ingestKeysArgs<ExtArgs>
   ingestAttempts?: boolean | Prisma.Company$ingestAttemptsArgs<ExtArgs>
@@ -10147,6 +10727,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     activities: Prisma.$ActivityPayload<ExtArgs>[]
     submissions: Prisma.$LeadSubmissionPayload<ExtArgs>[]
+    leadAttachments: Prisma.$LeadAttachmentPayload<ExtArgs>[]
     documents: Prisma.$CompanyDocumentPayload<ExtArgs>[]
     ingestKeys: Prisma.$IngestKeyPayload<ExtArgs>[]
     ingestAttempts: Prisma.$IngestAttemptPayload<ExtArgs>[]
@@ -10188,6 +10769,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     defaultTaxRate: runtime.Decimal
     quotePrefix: string
     quoteValidityDays: number
+    quoteNumberStart: number
     /**
      * *
      *    * Wording shared by every email that leaves the company.
@@ -10676,6 +11258,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   notifications<T extends Prisma.Company$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activities<T extends Prisma.Company$activitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$activitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   submissions<T extends Prisma.Company$submissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$submissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeadSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  leadAttachments<T extends Prisma.Company$leadAttachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$leadAttachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeadAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   documents<T extends Prisma.Company$documentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ingestKeys<T extends Prisma.Company$ingestKeysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$ingestKeysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IngestKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ingestAttempts<T extends Prisma.Company$ingestAttemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$ingestAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IngestAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -10738,6 +11321,7 @@ export interface CompanyFieldRefs {
   readonly defaultTaxRate: Prisma.FieldRef<"Company", 'Decimal'>
   readonly quotePrefix: Prisma.FieldRef<"Company", 'String'>
   readonly quoteValidityDays: Prisma.FieldRef<"Company", 'Int'>
+  readonly quoteNumberStart: Prisma.FieldRef<"Company", 'Int'>
   readonly quoteFooter: Prisma.FieldRef<"Company", 'String'>
   readonly slogan: Prisma.FieldRef<"Company", 'String'>
   readonly senderNameStyle: Prisma.FieldRef<"Company", 'SenderNameStyle'>
@@ -11486,6 +12070,30 @@ export type Company$submissionsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.LeadSubmissionScalarFieldEnum | Prisma.LeadSubmissionScalarFieldEnum[]
+}
+
+/**
+ * Company.leadAttachments
+ */
+export type Company$leadAttachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LeadAttachment
+   */
+  select?: Prisma.LeadAttachmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LeadAttachment
+   */
+  omit?: Prisma.LeadAttachmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LeadAttachmentInclude<ExtArgs> | null
+  where?: Prisma.LeadAttachmentWhereInput
+  orderBy?: Prisma.LeadAttachmentOrderByWithRelationInput | Prisma.LeadAttachmentOrderByWithRelationInput[]
+  cursor?: Prisma.LeadAttachmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LeadAttachmentScalarFieldEnum | Prisma.LeadAttachmentScalarFieldEnum[]
 }
 
 /**

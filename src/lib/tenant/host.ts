@@ -76,3 +76,13 @@ export function companyUrl(slug: string, path = "/", rootDomain: string = ROOT_D
   const protocol = rootDomain.startsWith("localhost") ? "http" : "https";
   return `${protocol}://${slug}.${rootDomain}${path}`;
 }
+
+/**
+ * Protocol a root domain is served on.
+ *
+ * A port in the domain (`192.168.1.33.nip.io:3100`) only happens on a dev
+ * machine, which serves plain http just like `localhost` does.
+ */
+export function rootProtocol(rootDomain: string = ROOT_DOMAIN): "http" | "https" {
+  return rootDomain.startsWith("localhost") || /:\d+$/.test(rootDomain) ? "http" : "https";
+}

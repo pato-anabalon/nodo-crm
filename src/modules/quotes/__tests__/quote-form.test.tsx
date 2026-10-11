@@ -537,3 +537,47 @@ describe("QuoteForm — confirming an edit to a quote already sent", () => {
     expect(submit).toHaveAttribute("type", "submit");
   });
 });
+
+describe("QuoteForm — the linked lead", () => {
+  function renderWithStatus(status: "DRAFT" | "SENT") {
+    const { container } = renderWithIntl(
+      <QuoteForm
+        action={jest.fn(async () => ({}))}
+        searchLeads={async () => []}
+        searchCatalogue={async () => []}
+        documents={[]}
+        currency="NZD"
+        currencies={[{ value: "NZD", label: "NZD — New Zealand Dollar" }]}
+        formatLocale="en-NZ"
+        taxDisplayMode="TAX_EXCLUSIVE_INCLUSIVE_TOTAL"
+        taxLabel="GST"
+        submitLabel="Save changes"
+        status={status}
+        defaults={{ title: "Office network quote", leadId: "lead-1", leadTitle: "Paula Rivas" }}
+      />,
+    );
+    return container;
+  }
+
+  it("can be changed on a draft", () => {
+    renderWithStatus("DRAFT");
+    expect(screen.getByLabelText("Linked lead")).toBeEnabled();
+    expect(screen.queryByText("Fixed once the quote has been sent.")).not.toBeInTheDocument();
+  });
+
+  it("is fixed once sent, and says why", () => {
+    renderWithStatus("SENT");
+    expect(screen.getByLabelText("Linked lead")).toBeDisabled();
+    expect(screen.getByText("Fixed once the quote has been sent.")).toBeInTheDocument();
+  });
+
+  // The server refuses any lead that differs from the stored one on a sent
+  // quote, so a disabled picker that stopped posting its value would turn
+  // every save of a sent quote into that refusal.
+  it("still posts the current lead while fixed", () => {
+    const container = renderWithStatus("SENT");
+    const hidden = container.querySelector<HTMLInputElement>('input[type="hidden"][name="leadId"]');
+    expect(hidden?.value).toBe("lead-1");
+    expect(hidden).not.toBeDisabled();
+  });
+});

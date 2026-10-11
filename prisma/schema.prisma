@@ -252,6 +252,10 @@ model Company {
 
   quotePrefix       String @default("COT")
   quoteValidityDays Int    @default(30)
+  // Floor for the next quote number. Lets a company that brought its history
+  // in from another tool start the quotes made here at a recognisable number
+  // (e.g. 3000); once quotes pass it, numbering simply continues from the last.
+  quoteNumberStart  Int    @default(1)
 
   /**
    * Wording shared by every email that leaves the company.
@@ -349,6 +353,7 @@ model Company {
   notifications           Notification[]
   activities              Activity[]
   submissions             LeadSubmission[]
+  leadAttachments         LeadAttachment[]
   documents               CompanyDocument[]
   ingestKeys              IngestKey[]
   ingestAttempts          IngestAttempt[]
@@ -813,6 +818,7 @@ model Lead {
   owner         User?           @relation("LeadOwner", fields: [ownerId], references: [id], onDelete: SetNull)
   discardedBy   User?           @relation("LeadDiscardedBy", fields: [discardedById], references: [id], onDelete: SetNull)
   submission    LeadSubmission?
+  attachments   LeadAttachment[]
   quotes        Quote[]
   activities    Activity[]
   tasks         Task[]
@@ -894,6 +900,48 @@ model LeadSubmission {
   @@unique([companyId, idempotencyKey])
   @@index([companyId, receivedAt])
   @@index([companyId, email])
+}
+
+/**
+ * A file that came in with a website form.
+ *
+ * The form sends links to files it already hosts; the lead is created straight
+ * away with the rows `PENDING`, and a background step copies each file into our
+ * own store. A copy that fails stays `FAILED` with its `sourceUrl`, so the team
+ * can still open the original instead of losing it.
+ */
+model LeadAttachment {
+  id        String @id @default(cuid())
+  companyId String
+  leadId    String
+
+  name        String
+  contentType String?
+  size        Int?
+  // Where the form said the file was. Never fetched again once stored.
+  sourceUrl   String
+
+  // Our copy, once stored.
+  url      String?
+  pathname String?
+
+  status   LeadAttachmentStatus @default(PENDING)
+  error    String?
+  position Int                  @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  lead    Lead    @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, leadId, position])
+}
+
+enum LeadAttachmentStatus {
+  PENDING
+  STORED
+  FAILED
 }
 
 /**

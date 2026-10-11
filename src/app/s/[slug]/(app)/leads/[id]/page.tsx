@@ -15,6 +15,7 @@ import { LeadNoteForm } from "@/modules/leads/lead-notes";
 import { LeadActionsBar } from "@/modules/leads/lead-actions-bar";
 import { LeadActivityLog } from "@/modules/leads/lead-activity-log";
 import { LeadSubmissionPanel } from "@/modules/leads/lead-submission";
+import { LeadAttachmentsPanel } from "@/modules/leads/lead-attachments";
 import {
   addLeadNoteAction,
   assignLeadAction,
@@ -127,11 +128,15 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
         </TabsList>
 
         {lead.submission ? (
-          <TabsContent value="submission" className="mt-6">
+          <TabsContent value="submission" className="mt-6 space-y-6">
             <LeadSubmissionPanel
               submission={lead.submission}
               formatLocale={ctx.company.formatLocale}
               timezone={ctx.company.timezone}
+            />
+            <LeadAttachmentsPanel
+              attachments={lead.attachments}
+              formatLocale={ctx.company.formatLocale}
             />
           </TabsContent>
         ) : null}

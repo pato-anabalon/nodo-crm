@@ -185,6 +185,17 @@ export type Lead = Prisma.LeadModel
  */
 export type LeadSubmission = Prisma.LeadSubmissionModel
 /**
+ * Model LeadAttachment
+ * *
+ *  * A file that came in with a website form.
+ *  *
+ *  * The form sends links to files it already hosts; the lead is created straight
+ *  * away with the rows `PENDING`, and a background step copies each file into our
+ *  * own store. A copy that fails stays `FAILED` with its `sourceUrl`, so the team
+ *  * can still open the original instead of losing it.
+ */
+export type LeadAttachment = Prisma.LeadAttachmentModel
+/**
  * Model IngestKey
  * *
  *  * A key for the lead ingest API.

@@ -2,6 +2,7 @@ import { QuoteStatus } from "@/generated/prisma/enums";
 import {
   QUOTE_SECTIONS,
   QUOTE_STATUSES,
+  canChangeLead,
   canTransition,
   isQuoteEditable,
   isQuoteSection,
@@ -17,6 +18,24 @@ describe("isQuoteEditable", () => {
   it("locks a quote once the customer has answered, or it ran out", () => {
     for (const status of [QuoteStatus.ACCEPTED, QuoteStatus.REJECTED, QuoteStatus.EXPIRED]) {
       expect(isQuoteEditable(status)).toBe(false);
+    }
+  });
+});
+
+describe("canChangeLead", () => {
+  it("lets a draft be re-pointed at another lead", () => {
+    expect(canChangeLead(QuoteStatus.DRAFT)).toBe(true);
+  });
+
+  it("fixes the lead from the first send on, even while the quote is still editable", () => {
+    expect(isQuoteEditable(QuoteStatus.SENT)).toBe(true);
+    for (const status of [
+      QuoteStatus.SENT,
+      QuoteStatus.ACCEPTED,
+      QuoteStatus.REJECTED,
+      QuoteStatus.EXPIRED,
+    ]) {
+      expect(canChangeLead(status)).toBe(false);
     }
   });
 });

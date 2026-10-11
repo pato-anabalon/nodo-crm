@@ -1,4 +1,4 @@
-import { companySlugFromHost, companyUrl, isValidSlug } from "../host";
+import { companySlugFromHost, companyUrl, isValidSlug, rootProtocol } from "../host";
 
 const ROOT = "nodo-crm.app";
 
@@ -62,5 +62,16 @@ describe("companyUrl", () => {
   it("uses https in production and http locally", () => {
     expect(companyUrl("acme", "/leads", ROOT)).toBe("https://acme.nodo-crm.app/leads");
     expect(companyUrl("acme", "/", "localhost:3000")).toBe("http://acme.localhost:3000/");
+  });
+});
+
+describe("rootProtocol", () => {
+  it("serves production over https", () => {
+    expect(rootProtocol("nodo-crm.app")).toBe("https");
+  });
+
+  it("serves dev domains over http", () => {
+    expect(rootProtocol("localhost:3000")).toBe("http");
+    expect(rootProtocol("192.168.1.33.nip.io:3100")).toBe("http");
   });
 });

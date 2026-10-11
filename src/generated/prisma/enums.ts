@@ -221,6 +221,15 @@ export const LeadSource = {
 export type LeadSource = (typeof LeadSource)[keyof typeof LeadSource]
 
 
+export const LeadAttachmentStatus = {
+  PENDING: 'PENDING',
+  STORED: 'STORED',
+  FAILED: 'FAILED'
+} as const
+
+export type LeadAttachmentStatus = (typeof LeadAttachmentStatus)[keyof typeof LeadAttachmentStatus]
+
+
 export const ActivityType = {
   NOTE: 'NOTE',
   CALL: 'CALL',

@@ -281,6 +281,13 @@
     "showDiscarded": "Ver descartados",
     "showInbox": "Volver a la bandeja",
     "emptyDiscarded": "No hay leads descartados.",
+    "attachments": {
+      "title": "{count, plural, one {# archivo adjunto} other {# archivos adjuntos}}",
+      "subtitle": "Enviados por el cliente junto al formulario.",
+      "pending": "Copiando",
+      "failed": "Sin copiar",
+      "failedHint": "No pudimos copiarlo; el enlace abre el original."
+    },
     "submission": {
       "title": "Formulario recibido",
       "subtitle": "Tal como lo envió el cliente. No se edita.",
@@ -324,6 +331,7 @@
     "notFound": "No encontramos esa cotización.",
     "notFoundOrNoAccess": "No encontramos esa cotización o no tienes acceso a ella.",
     "locked": "Esta cotización ya salió al cliente. Para cambiarla, emite una nueva.",
+    "leadLocked": "Esta cotización ya fue enviada, así que su lead ya no puede cambiar. Duplícala para cotizarle a otra persona.",
     "onlyDraftCanBeSent": "Solo se puede enviar una cotización en borrador.",
     "needsLeadToSend": "Vincula un lead antes de enviar esta cotización.",
     "onlySentCanBeDecided": "Solo una cotización enviada puede aceptarse o rechazarse.",
@@ -354,6 +362,7 @@
       "scope": "Alcance",
       "lead": "Lead asociado",
       "noLead": "Sin lead",
+      "leadFixedOnceSent": "No se puede cambiar una vez enviada la cotización.",
       "customerCompany": "Empresa",
       "customerName": "Contacto",
       "customerEmail": "Correo electrónico",

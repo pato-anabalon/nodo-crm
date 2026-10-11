@@ -89,6 +89,18 @@ export async function getLead(ctx: CompanyContext, id: string) {
       discardedBy: { select: { id: true, name: true, email: true } },
       // What arrived from the form, verbatim: shown without editing.
       submission: true,
+      attachments: {
+        orderBy: { position: "asc" },
+        select: {
+          id: true,
+          name: true,
+          contentType: true,
+          size: true,
+          sourceUrl: true,
+          url: true,
+          status: true,
+        },
+      },
       contact: true,
       quotes: {
         orderBy: { createdAt: "desc" },

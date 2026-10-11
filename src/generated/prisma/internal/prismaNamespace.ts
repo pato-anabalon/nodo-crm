@@ -416,6 +416,7 @@ export const ModelName = {
   Contact: 'Contact',
   Lead: 'Lead',
   LeadSubmission: 'LeadSubmission',
+  LeadAttachment: 'LeadAttachment',
   IngestKey: 'IngestKey',
   IngestAttempt: 'IngestAttempt',
   Activity: 'Activity',
@@ -452,7 +453,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "lead" | "leadSubmission" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem"
+    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1859,6 +1860,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.LeadSubmissionCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.LeadSubmissionCountAggregateOutputType> | number
+        }
+      }
+    }
+    LeadAttachment: {
+      payload: Prisma.$LeadAttachmentPayload<ExtArgs>
+      fields: Prisma.LeadAttachmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LeadAttachmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAttachmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LeadAttachmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAttachmentPayload>
+        }
+        findFirst: {
+          args: Prisma.LeadAttachmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAttachmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LeadAttachmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAttachmentPayload>
+        }
+        findMany: {
+          args: Prisma.LeadAttachmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAttachmentPayload>[]
+        }
+        create: {
+          args: Prisma.LeadAttachmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAttachmentPayload>
+        }
+        createMany: {
+          args: Prisma.LeadAttachmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LeadAttachmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAttachmentPayload>[]
+        }
+        delete: {
+          args: Prisma.LeadAttachmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAttachmentPayload>
+        }
+        update: {
+          args: Prisma.LeadAttachmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAttachmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.LeadAttachmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LeadAttachmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LeadAttachmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAttachmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.LeadAttachmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAttachmentPayload>
+        }
+        aggregate: {
+          args: Prisma.LeadAttachmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLeadAttachment>
+        }
+        groupBy: {
+          args: Prisma.LeadAttachmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LeadAttachmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LeadAttachmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LeadAttachmentCountAggregateOutputType> | number
         }
       }
     }
@@ -3477,6 +3552,7 @@ export const CompanyScalarFieldEnum = {
   defaultTaxRate: 'defaultTaxRate',
   quotePrefix: 'quotePrefix',
   quoteValidityDays: 'quoteValidityDays',
+  quoteNumberStart: 'quoteNumberStart',
   quoteFooter: 'quoteFooter',
   slogan: 'slogan',
   senderNameStyle: 'senderNameStyle',
@@ -3776,6 +3852,26 @@ export const LeadSubmissionScalarFieldEnum = {
 } as const
 
 export type LeadSubmissionScalarFieldEnum = (typeof LeadSubmissionScalarFieldEnum)[keyof typeof LeadSubmissionScalarFieldEnum]
+
+
+export const LeadAttachmentScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  leadId: 'leadId',
+  name: 'name',
+  contentType: 'contentType',
+  size: 'size',
+  sourceUrl: 'sourceUrl',
+  url: 'url',
+  pathname: 'pathname',
+  status: 'status',
+  error: 'error',
+  position: 'position',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LeadAttachmentScalarFieldEnum = (typeof LeadAttachmentScalarFieldEnum)[keyof typeof LeadAttachmentScalarFieldEnum]
 
 
 export const IngestKeyScalarFieldEnum = {
@@ -4398,6 +4494,20 @@ export type ListEnumLeadSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$P
 
 
 /**
+ * Reference to a field of type 'LeadAttachmentStatus'
+ */
+export type EnumLeadAttachmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LeadAttachmentStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'LeadAttachmentStatus[]'
+ */
+export type ListEnumLeadAttachmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LeadAttachmentStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'IngestKeyType'
  */
 export type EnumIngestKeyTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IngestKeyType'>
@@ -4748,6 +4858,7 @@ export type GlobalOmitConfig = {
   contact?: Prisma.ContactOmit
   lead?: Prisma.LeadOmit
   leadSubmission?: Prisma.LeadSubmissionOmit
+  leadAttachment?: Prisma.LeadAttachmentOmit
   ingestKey?: Prisma.IngestKeyOmit
   ingestAttempt?: Prisma.IngestAttemptOmit
   activity?: Prisma.ActivityOmit

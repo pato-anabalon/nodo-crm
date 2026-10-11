@@ -30,6 +30,7 @@ export const DIRECT_TENANT_MODELS = new Set([
   "IngestKey",
   "Invitation",
   "Lead",
+  "LeadAttachment",
   "LeadSubmission",
   "LoginAttempt",
   "Membership",

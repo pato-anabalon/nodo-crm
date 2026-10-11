@@ -658,6 +658,12 @@ freezes. `REJECTED` and `EXPIRED` also stay locked — reviving one is done by
 sending again, which reopens editing along with the link, not by editing a quote
 that's already closed.
 
+**The lead is the exception: it changes only on a draft** (`canChangeLead`).
+The customer's details are copied from the lead, so re-pointing a sent quote
+would show the new customer's name and address to whoever holds the old link.
+On a draft, changing the lead copies the details again (`clientSnapshot`) —
+before that it kept the first lead's, and a send went to the wrong address.
+
 The edit itself leaves a line in the lead's activity (`QUOTE_EDITED`), the same
 way sending and deciding do, so the history says a sent quote changed even
 though the customer's link didn't.

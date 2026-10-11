@@ -25,6 +25,17 @@ export function isQuoteEditable(status: QuoteStatus): boolean {
 }
 
 /**
+ * Narrower than `isQuoteEditable`: the lead decides who the quote is for, and
+ * once it has gone out somebody already holds the link. Re-pointing a sent
+ * quote would show the new customer's details to whoever opened the old one,
+ * so the lead is fixed from the first send. A different customer gets a
+ * different quote — duplicating does exactly that.
+ */
+export function canChangeLead(status: QuoteStatus): boolean {
+  return status === QuoteStatus.DRAFT;
+}
+
+/**
  * The badge colour for each status.
  *
  * Written out one by one rather than built from the status name: Tailwind reads

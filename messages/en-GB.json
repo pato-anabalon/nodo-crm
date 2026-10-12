@@ -806,6 +806,17 @@
       "hint": "It only fills the fields in; everything is still yours to change.",
       "search": "Search templates…",
       "empty": "No templates found"
+    },
+    "view": "View",
+    "detail": {
+      "subtitle": "What a new quote starts with when this template is picked.",
+      "readOnly": "The content comes from the quote it was saved from. To change it, save that quote as a new template.",
+      "use": "Start a quote from it",
+      "suggestedTitle": "Suggested title",
+      "content": "Content",
+      "noContent": "Nothing to fill in here.",
+      "texts": "Texts",
+      "companyDefault": "Not set — a new quote takes the company's own."
     }
   },
   "settings": {
@@ -848,6 +859,28 @@
       "noneChosen": "No file chosen",
       "removeTitle": "Remove the logo?",
       "removeConfirm": "{company} will show its initials instead — in the sidebar, on the sign-in page and on every quote a customer opens. You can upload a new one at any time."
+    },
+    "pdfLogo": {
+      "title": "PDF logo",
+      "subtitle": "Across half the page at the top of the PDF the customer downloads. Without one, the PDF uses the logo.",
+      "upload": "PDF logo file",
+      "hint": "PNG, JPEG or WebP, up to 2 MB. A wide logo, with the company's full name, fits best.",
+      "save": "Upload",
+      "uploading": "Uploading…",
+      "remove": "Remove",
+      "none": "Uses the logo",
+      "uploaded": "PDF logo updated",
+      "removed": "PDF logo removed",
+      "choose": "Choose file",
+      "noneChosen": "No file chosen",
+      "removeTitle": "Remove the PDF logo?",
+      "removeConfirm": "The PDF will go back to using the company's logo, including for quotes the customer downloads again. You can upload a new one at any time.",
+      "errors": {
+        "type": "The PDF logo must be a PNG, JPEG or WebP image.",
+        "size": "The PDF logo must not be larger than {max} MB.",
+        "empty": "Choose a file to upload.",
+        "none": "There is no PDF logo to remove."
+      }
     },
     "watermark": {
       "title": "Watermark",

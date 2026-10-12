@@ -228,6 +228,13 @@ model Company {
   // Visual customisation
   logoUrl      String?
   /**
+   * The logo the downloadable PDF carries instead of `logoUrl`, laid across
+   * half the page width. A separate image because a PDF header has room for
+   * the full lock-up, where the sidebar and the portal want the compact
+   * square. Without one, the PDF falls back to `logoUrl`.
+   */
+  pdfLogoUrl   String?
+  /**
    * Stamped faintly in the bottom corner of the quote the customer reads. A
    * separate image from the logo: this one is seen through the page, so it is
    * usually a mark or a seal rather than the full lock-up.

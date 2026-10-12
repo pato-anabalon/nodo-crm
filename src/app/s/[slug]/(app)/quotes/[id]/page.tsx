@@ -40,8 +40,9 @@ import { EmailTemplateKind, MessageAuthor, PricingMode, QuoteStatus } from "@/ge
 import { Celebrate } from "@/components/celebrate";
 import { acceptedKey } from "@/lib/celebrate";
 import { QuoteTracking } from "@/modules/quotes/quote-tracking";
+import { QuoteLive, QuoteLiveThread } from "@/modules/quotes/quote-live";
+import { livePollSeconds } from "@/modules/quotes/live";
 import { AttachmentsManager } from "@/modules/quotes/attachments-manager";
-import { MessageThread } from "@/modules/portal/message-thread";
 import { formatThread } from "@/modules/portal/thread";
 import { RichText } from "@/components/rich-text";
 import { sendStaffMessageAction } from "@/modules/quotes/actions";
@@ -406,7 +407,20 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
         * a third of a row with nothing beside them.
         */}
       {quote.share ? (
-        <>
+        /*
+          One poll for the whole band: the tracking card and the thread both
+          read from it, instead of each asking on its own every 10s.
+        */
+        <QuoteLive
+          quoteId={quote.id}
+          initialPresence={{
+            shared: true,
+            viewingNow: isViewingNow(quote.share),
+            openCount: quote.share.openCount,
+            lastSeenAt: quote.share.lastSeenAt?.toISOString() ?? null,
+          }}
+          pollSeconds={livePollSeconds(quote.status, quote.share)}
+        >
           {/* No `items-start` here, unlike the row below: letting the grid
               stretch them is what gives the three the same height, and they
               read as one band of controls rather than three loose cards. */}
@@ -437,13 +451,6 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
             />
 
             <QuoteTracking
-              quoteId={quote.id}
-              initial={{
-                shared: true,
-                viewingNow: isViewingNow(quote.share),
-                openCount: quote.share.openCount,
-                lastSeenAt: quote.share.lastSeenAt?.toISOString() ?? null,
-              }}
               formatLocale={ctx.company.formatLocale}
               timezone={ctx.company.timezone}
             />
@@ -475,7 +482,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
             </div>
 
             <div className="lg:col-span-2">
-              <MessageThread
+              <QuoteLiveThread
                 messages={formatThread(quote.messages, {
                   formatLocale: ctx.company.formatLocale,
                   timezone: ctx.company.timezone,
@@ -484,11 +491,10 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
                 side={MessageAuthor.STAFF}
                 companyName={ctx.company.name}
                 action={sendStaffMessageAction.bind(null, quote.id)}
-                feedUrl={`/api/quotes/${quote.id}/messages`}
               />
             </div>
           </div>
-        </>
+        </QuoteLive>
       ) : (
         /*
           No customer link yet, so there is no row of things to do with one.

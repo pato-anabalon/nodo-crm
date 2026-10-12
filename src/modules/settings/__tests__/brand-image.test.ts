@@ -1,4 +1,5 @@
 import {
+  BRAND_IMAGES,
   MAX_IMAGE_BYTES,
   checkBrandImage,
   isStoredImage,
@@ -69,14 +70,20 @@ describe("isStoredImage", () => {
 });
 
 /**
- * Logo and watermark share every rule; only the name in the store differs.
- * Written as a pair because the whole point of the shared module is that a
- * second image can't quietly get its own, weaker, set of checks.
+ * Logo, PDF logo and watermark share every rule; only the name in the store
+ * differs. Walked over `BRAND_IMAGES` rather than spelled out, because the
+ * whole point of the shared module is that another image can't quietly get its
+ * own, weaker, set of checks — and the next one added is covered here without
+ * anybody remembering to add it.
  */
-describe("the two images are treated alike", () => {
+describe("every brand image is treated alike", () => {
   const png = { type: "image/png", size: 40 * 1024, name: "mark.png" };
 
-  it.each(["logo", "watermark"] as const)("%s refuses an SVG", (kind) => {
+  it("covers the three the company uploads", () => {
+    expect([...BRAND_IMAGES]).toEqual(["logo", "pdfLogo", "watermark"]);
+  });
+
+  it.each(BRAND_IMAGES)("%s refuses an SVG", (kind) => {
     expect(brandImagePathname("cmp_1", kind, "image/png")).toBe(`companies/cmp_1/${kind}.png`);
     expect(checkBrandImage({ ...png, type: "image/svg+xml", name: "mark.svg" })).toEqual({
       ok: false,
@@ -84,14 +91,13 @@ describe("the two images are treated alike", () => {
     });
   });
 
-  it("keeps the two in separate files, so one never overwrites the other", () => {
-    expect(brandImagePathname("cmp_1", "logo", "image/png")).not.toBe(
-      brandImagePathname("cmp_1", "watermark", "image/png"),
-    );
+  it("keeps each in its own file, so one never overwrites another", () => {
+    const paths = BRAND_IMAGES.map((kind) => brandImagePathname("cmp_1", kind, "image/png"));
+    expect(new Set(paths).size).toBe(BRAND_IMAGES.length);
   });
 
-  it("puts both under the company's own folder", () => {
-    for (const kind of ["logo", "watermark"] as const) {
+  it("puts all of them under the company's own folder", () => {
+    for (const kind of BRAND_IMAGES) {
       expect(brandImagePathname("cmp_1", kind, "image/webp").startsWith("companies/cmp_1/")).toBe(
         true,
       );

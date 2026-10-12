@@ -114,7 +114,7 @@ against the ground they sit on, not the fill set lightened. The customer's quote
 uses it for the field names — FROM, PHONE, GST NUMBER — which brands the document
 without tinting a single figure anybody has to read.
 
-## The company's two images
+## The company's images
 
 Uploaded as a file, not pasted as an address. It is stored in Vercel Blob under
 `companies/<id>/logo.<ext>` and its URL goes into the same `Company.logoUrl` that
@@ -177,6 +177,24 @@ mark out again at the end says nothing.
 > mark that looks right at full strength and vanishes on the page is the mistake
 > the preview exists to catch — the same reason the logo is previewed through the
 > very `CompanyLogo` the rest of the system uses.
+
+### The PDF's own logo
+
+A third image, `pdfLogoUrl`, used **only** by the downloadable PDF, in place of
+the logo in its header. A PDF header has room for the full lock-up — the mark
+with the company's name beside it — where the sidebar and the portal want the
+compact square; one image can't be right for both.
+
+It is laid across **half the content width**, its height following from the
+image's own proportions (`alignSelf: flex-start`, or the header row stretches
+it to the height of the dates beside it). No box around it, unlike the logo: the
+box exists to give a small square some presence. A square image at that width
+is a quarter of an A4 page tall, which is why the hint asks for a wide one.
+
+Without one the PDF falls back to `logoUrl`, then to the initials — exactly
+what it did before this existed. The web portal never reads it. Same upload
+rules as the other two, from the same module (`BRAND_IMAGES`), and the test
+walks that list, so a fourth image is checked without being added by hand.
 
 ## Uploading a file
 
@@ -784,12 +802,21 @@ snippet handed to each customer is identical except for their token.
   now", which is real. A beat comes from a browser with the page in front of
   somebody. The trade is that a customer with JavaScript off stops being
   counted; they could never have accepted or replied either.
-- **The thread keeps itself up to date** by polling every 10 s while its tab is
-  visible, on both sides: `GET /api/quotes/<id>/messages` for the team and
+- **The thread keeps itself up to date** by polling while its tab is visible,
+  on both sides: `GET /api/quotes/<id>/live` for the team and
   `GET /api/q/<token>/messages` for the customer. Both go through the same
   `formatThread`, so a message that arrives without a reload reads exactly like
   one that was there on first render. The customer's feed answers to the link
   and nothing else — revoking it stops the conversation, not just the page.
+- **The team's panel asks once, not twice.** Presence and the thread were two
+  polls side by side every 10 s; `QuoteLive` asks `/live` for both and the
+  tracking card and the thread read from it. How often is the server's answer
+  (`livePollSeconds`), returned with every poll: 15 s while the quote awaits a
+  decision, 60 s once it is decided or run out, and **not at all once the link
+  is revoked or expired**. A closed quote is not a closed conversation — the
+  customer can still write while the link opens, and somebody who accepted and
+  then asked a question is the last person to leave unanswered — but nothing
+  can change behind a closed link.
 - Sending refreshes the thread as **part of the action**, not in an effect
   watching the result: two sends in a row then behave like one.
 - Acceptance is configured per company (simple statement or with a checkbox,
@@ -1523,7 +1550,7 @@ src/
     api/
       v1/leads/               public lead ingestion API
       q/[token]/ping/         portal heartbeat
-      quotes/[id]/presence/   "viewing now" for the dashboard
+      quotes/[id]/live/       "viewing now" + the thread, for the team's panel
     s/[slug]/                 a company's subdomain
       layout.tsx              applies logo and colours
       login/  no-access/

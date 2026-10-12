@@ -3541,6 +3541,7 @@ export const CompanyScalarFieldEnum = {
   website: 'website',
   address: 'address',
   logoUrl: 'logoUrl',
+  pdfLogoUrl: 'pdfLogoUrl',
   watermarkUrl: 'watermarkUrl',
   primaryColor: 'primaryColor',
   accentColor: 'accentColor',

@@ -67,6 +67,10 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   logoImage: { width: "100%", height: "100%", objectFit: "contain" },
+  // The PDF's own logo: half the content width, its height following from the
+  // image's proportions. `flex-start` keeps the row from stretching it to the
+  // height of the dates beside it.
+  pdfLogo: { width: "50%", alignSelf: "flex-start", objectFit: "contain" },
   logoInitials: { fontSize: 24, fontFamily: "Geist", fontWeight: "bold", color: "#ffffff" },
   metaColumn: { alignItems: "flex-end" },
   metaBlock: { marginBottom: 8, alignItems: "flex-end" },
@@ -438,7 +442,13 @@ function Header({
   const reference = formatQuoteNumber(company.quotePrefix, quote.number);
   return (
     <View style={styles.headerRow}>
-      {company.logoUrl ? (
+      {company.pdfLogoUrl ? (
+        // No box around it, unlike the logo below: the box exists to give a
+        // small square mark some presence, and a lock-up across half the page
+        // already has it.
+        // eslint-disable-next-line jsx-a11y/alt-text
+        <Image src={company.pdfLogoUrl} style={styles.pdfLogo} />
+      ) : company.logoUrl ? (
         <View style={styles.logoBox}>
           {/* eslint-disable-next-line jsx-a11y/alt-text */}
           <Image src={company.logoUrl} style={styles.logoImage} />

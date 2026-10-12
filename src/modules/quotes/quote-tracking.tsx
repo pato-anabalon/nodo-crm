@@ -1,49 +1,30 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Eye, Radio } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-export type Presence = {
-  shared: boolean;
-  viewingNow: boolean;
-  openCount: number;
-  lastSeenAt: string | null;
-};
-
-/**
- * How often the panel asks.
- *
- * Used to be 15s, on the theory that anything shorter was noise — but that
- * held only while presence could merely time out, never actually change on a
- * close. Now that a closed tab flips it the instant it closes (see
- * `markLeft`), the poll is what stands between that write and somebody seeing
- * it; 10s is the same cadence the message thread already polls at.
- */
-const POLL_SECONDS = 10;
+import { useQuoteLive } from "./quote-live";
 
 /**
  * Tracking the customer on a sent quote.
  *
  * It reports live when the customer has it open — the exact moment to call them —
- * and keeps count of how many times they've opened it.
+ * and keeps count of how many times they've opened it. What it shows comes from
+ * `QuoteLive`, the page's one poll, which it shares with the message thread.
  */
 export function QuoteTracking({
-  quoteId,
-  initial,
   formatLocale,
   timezone,
 }: {
-  quoteId: string;
-  initial: Presence;
   /** The format belongs to the company; it's applied on the client here because
    *  the last signal updates through polling, not in the server render. */
   formatLocale: string;
   timezone: string;
 }) {
   const t = useTranslations("quotes.tracking");
-  const [presence, setPresence] = useState(initial);
+  const live = useQuoteLive();
+  if (!live) throw new Error("QuoteTracking must be rendered inside <QuoteLive>");
+  const { presence } = live;
 
   const formatTime = (iso: string) =>
     new Intl.DateTimeFormat(formatLocale, {
@@ -51,34 +32,6 @@ export function QuoteTracking({
       timeStyle: "short",
       timeZone: timezone,
     }).format(new Date(iso));
-
-  useEffect(() => {
-    if (!initial.shared) return;
-
-    const url = `/api/quotes/${encodeURIComponent(quoteId)}/presence`;
-    let cancelled = false;
-
-    const poll = async () => {
-      // With the tab out of sight there's nobody reading the notice.
-      if (document.visibilityState !== "visible") return;
-      try {
-        const response = await fetch(url);
-        if (!response.ok || cancelled) return;
-        setPresence((await response.json()) as Presence);
-      } catch {
-        // A network failure shouldn't break the page; it retries next cycle.
-      }
-    };
-
-    const timer = setInterval(poll, POLL_SECONDS * 1000);
-    document.addEventListener("visibilitychange", poll);
-
-    return () => {
-      cancelled = true;
-      clearInterval(timer);
-      document.removeEventListener("visibilitychange", poll);
-    };
-  }, [quoteId, initial.shared]);
 
   if (!presence.shared) return null;
 

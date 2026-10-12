@@ -33,6 +33,7 @@ export function MessageThread({
   companyName,
   action,
   feedUrl,
+  live,
 }: {
   messages: ThreadMessage[];
   side: MessageAuthor;
@@ -40,6 +41,13 @@ export function MessageThread({
   action: (prev: PortalActionState, formData: FormData) => Promise<PortalActionState>;
   /** Where to ask for new messages. Without it the thread stays as rendered. */
   feedUrl?: string;
+  /**
+   * Messages kept up to date by somebody else's poll, instead of `feedUrl`.
+   * The team's panel asks for presence and the thread in one request
+   * (`QuoteLive`), so the thread there takes what that poll brings rather than
+   * asking a second time.
+   */
+  live?: { messages: ThreadMessage[] | null; refresh: () => Promise<void> };
 }) {
   const t = useTranslations("portal");
   const formRef = useRef<HTMLFormElement>(null);
@@ -50,9 +58,9 @@ export function MessageThread({
    * that. The fetched copy is never staler — it comes from the same database a
    * moment later — so it wins once it exists, and a reload starts over.
    */
-  const messages = fetched ?? rendered;
+  const messages = (live ? live.messages : fetched) ?? rendered;
 
-  const refresh = useCallback(async () => {
+  const pollFeed = useCallback(async () => {
     if (!feedUrl) return;
     try {
       const response = await fetch(feedUrl);
@@ -68,6 +76,9 @@ export function MessageThread({
       // what's already on screen is still valid.
     }
   }, [feedUrl]);
+
+  const refresh = live?.refresh ?? pollFeed;
+  const fedFromOutside = live !== undefined;
 
   /**
    * Clearing the box and pulling the new message are part of sending, not a
@@ -89,11 +100,11 @@ export function MessageThread({
   const [state, formAction, sending] = useActionState<PortalActionState, FormData>(send, {});
 
   useEffect(() => {
-    if (!feedUrl) return;
+    if (!feedUrl || fedFromOutside) return;
 
     const tick = () => {
       // Nobody is reading a tab that isn't on screen.
-      if (document.visibilityState === "visible") void refresh();
+      if (document.visibilityState === "visible") void pollFeed();
     };
 
     const timer = setInterval(tick, POLL_SECONDS * 1000);
@@ -105,7 +116,7 @@ export function MessageThread({
       clearInterval(timer);
       document.removeEventListener("visibilitychange", tick);
     };
-  }, [feedUrl, refresh]);
+  }, [feedUrl, fedFromOutside, pollFeed]);
 
   return (
     <Card>

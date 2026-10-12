@@ -55,6 +55,7 @@ export type CompanyMinAggregateOutputType = {
   website: string | null
   address: string | null
   logoUrl: string | null
+  pdfLogoUrl: string | null
   watermarkUrl: string | null
   primaryColor: string | null
   accentColor: string | null
@@ -101,6 +102,7 @@ export type CompanyMaxAggregateOutputType = {
   website: string | null
   address: string | null
   logoUrl: string | null
+  pdfLogoUrl: string | null
   watermarkUrl: string | null
   primaryColor: string | null
   accentColor: string | null
@@ -147,6 +149,7 @@ export type CompanyCountAggregateOutputType = {
   website: number
   address: number
   logoUrl: number
+  pdfLogoUrl: number
   watermarkUrl: number
   primaryColor: number
   accentColor: number
@@ -214,6 +217,7 @@ export type CompanyMinAggregateInputType = {
   website?: true
   address?: true
   logoUrl?: true
+  pdfLogoUrl?: true
   watermarkUrl?: true
   primaryColor?: true
   accentColor?: true
@@ -260,6 +264,7 @@ export type CompanyMaxAggregateInputType = {
   website?: true
   address?: true
   logoUrl?: true
+  pdfLogoUrl?: true
   watermarkUrl?: true
   primaryColor?: true
   accentColor?: true
@@ -306,6 +311,7 @@ export type CompanyCountAggregateInputType = {
   website?: true
   address?: true
   logoUrl?: true
+  pdfLogoUrl?: true
   watermarkUrl?: true
   primaryColor?: true
   accentColor?: true
@@ -440,6 +446,7 @@ export type CompanyGroupByOutputType = {
   website: string | null
   address: string | null
   logoUrl: string | null
+  pdfLogoUrl: string | null
   watermarkUrl: string | null
   primaryColor: string
   accentColor: string
@@ -510,6 +517,7 @@ export type CompanyWhereInput = {
   website?: Prisma.StringNullableFilter<"Company"> | string | null
   address?: Prisma.StringNullableFilter<"Company"> | string | null
   logoUrl?: Prisma.StringNullableFilter<"Company"> | string | null
+  pdfLogoUrl?: Prisma.StringNullableFilter<"Company"> | string | null
   watermarkUrl?: Prisma.StringNullableFilter<"Company"> | string | null
   primaryColor?: Prisma.StringFilter<"Company"> | string
   accentColor?: Prisma.StringFilter<"Company"> | string
@@ -584,6 +592,7 @@ export type CompanyOrderByWithRelationInput = {
   website?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   logoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  pdfLogoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   watermarkUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   primaryColor?: Prisma.SortOrder
   accentColor?: Prisma.SortOrder
@@ -661,6 +670,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   website?: Prisma.StringNullableFilter<"Company"> | string | null
   address?: Prisma.StringNullableFilter<"Company"> | string | null
   logoUrl?: Prisma.StringNullableFilter<"Company"> | string | null
+  pdfLogoUrl?: Prisma.StringNullableFilter<"Company"> | string | null
   watermarkUrl?: Prisma.StringNullableFilter<"Company"> | string | null
   primaryColor?: Prisma.StringFilter<"Company"> | string
   accentColor?: Prisma.StringFilter<"Company"> | string
@@ -735,6 +745,7 @@ export type CompanyOrderByWithAggregationInput = {
   website?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   logoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  pdfLogoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   watermarkUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   primaryColor?: Prisma.SortOrder
   accentColor?: Prisma.SortOrder
@@ -790,6 +801,7 @@ export type CompanyScalarWhereWithAggregatesInput = {
   website?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   address?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   logoUrl?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
+  pdfLogoUrl?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   watermarkUrl?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   primaryColor?: Prisma.StringWithAggregatesFilter<"Company"> | string
   accentColor?: Prisma.StringWithAggregatesFilter<"Company"> | string
@@ -837,6 +849,7 @@ export type CompanyCreateInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -911,6 +924,7 @@ export type CompanyUncheckedCreateInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -985,6 +999,7 @@ export type CompanyUpdateInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1059,6 +1074,7 @@ export type CompanyUncheckedUpdateInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1133,6 +1149,7 @@ export type CompanyCreateManyInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -1180,6 +1197,7 @@ export type CompanyUpdateManyMutationInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1227,6 +1245,7 @@ export type CompanyUncheckedUpdateManyInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1282,6 +1301,7 @@ export type CompanyCountOrderByAggregateInput = {
   website?: Prisma.SortOrder
   address?: Prisma.SortOrder
   logoUrl?: Prisma.SortOrder
+  pdfLogoUrl?: Prisma.SortOrder
   watermarkUrl?: Prisma.SortOrder
   primaryColor?: Prisma.SortOrder
   accentColor?: Prisma.SortOrder
@@ -1338,6 +1358,7 @@ export type CompanyMaxOrderByAggregateInput = {
   website?: Prisma.SortOrder
   address?: Prisma.SortOrder
   logoUrl?: Prisma.SortOrder
+  pdfLogoUrl?: Prisma.SortOrder
   watermarkUrl?: Prisma.SortOrder
   primaryColor?: Prisma.SortOrder
   accentColor?: Prisma.SortOrder
@@ -1384,6 +1405,7 @@ export type CompanyMinOrderByAggregateInput = {
   website?: Prisma.SortOrder
   address?: Prisma.SortOrder
   logoUrl?: Prisma.SortOrder
+  pdfLogoUrl?: Prisma.SortOrder
   watermarkUrl?: Prisma.SortOrder
   primaryColor?: Prisma.SortOrder
   accentColor?: Prisma.SortOrder
@@ -1890,6 +1912,7 @@ export type CompanyCreateWithoutQuoteTypesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -1963,6 +1986,7 @@ export type CompanyUncheckedCreateWithoutQuoteTypesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -2052,6 +2076,7 @@ export type CompanyUpdateWithoutQuoteTypesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2125,6 +2150,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTypesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2198,6 +2224,7 @@ export type CompanyCreateWithoutMembershipsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -2271,6 +2298,7 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -2360,6 +2388,7 @@ export type CompanyUpdateWithoutMembershipsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2433,6 +2462,7 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2506,6 +2536,7 @@ export type CompanyCreateWithoutLoginAttemptsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -2579,6 +2610,7 @@ export type CompanyUncheckedCreateWithoutLoginAttemptsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -2668,6 +2700,7 @@ export type CompanyUpdateWithoutLoginAttemptsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2741,6 +2774,7 @@ export type CompanyUncheckedUpdateWithoutLoginAttemptsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2814,6 +2848,7 @@ export type CompanyCreateWithoutRolesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -2887,6 +2922,7 @@ export type CompanyUncheckedCreateWithoutRolesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -2976,6 +3012,7 @@ export type CompanyUpdateWithoutRolesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3049,6 +3086,7 @@ export type CompanyUncheckedUpdateWithoutRolesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3122,6 +3160,7 @@ export type CompanyCreateWithoutInvitationsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -3195,6 +3234,7 @@ export type CompanyUncheckedCreateWithoutInvitationsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -3284,6 +3324,7 @@ export type CompanyUpdateWithoutInvitationsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3357,6 +3398,7 @@ export type CompanyUncheckedUpdateWithoutInvitationsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3430,6 +3472,7 @@ export type CompanyCreateWithoutTasksInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -3503,6 +3546,7 @@ export type CompanyUncheckedCreateWithoutTasksInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -3592,6 +3636,7 @@ export type CompanyUpdateWithoutTasksInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3665,6 +3710,7 @@ export type CompanyUncheckedUpdateWithoutTasksInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3738,6 +3784,7 @@ export type CompanyCreateWithoutNotificationsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -3811,6 +3858,7 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -3900,6 +3948,7 @@ export type CompanyUpdateWithoutNotificationsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3973,6 +4022,7 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4046,6 +4096,7 @@ export type CompanyCreateWithoutCatalogueInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -4119,6 +4170,7 @@ export type CompanyUncheckedCreateWithoutCatalogueInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -4208,6 +4260,7 @@ export type CompanyUpdateWithoutCatalogueInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4281,6 +4334,7 @@ export type CompanyUncheckedUpdateWithoutCatalogueInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4354,6 +4408,7 @@ export type CompanyCreateWithoutClientCompaniesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -4427,6 +4482,7 @@ export type CompanyUncheckedCreateWithoutClientCompaniesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -4516,6 +4572,7 @@ export type CompanyUpdateWithoutClientCompaniesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4589,6 +4646,7 @@ export type CompanyUncheckedUpdateWithoutClientCompaniesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4662,6 +4720,7 @@ export type CompanyCreateWithoutContactsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -4735,6 +4794,7 @@ export type CompanyUncheckedCreateWithoutContactsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -4824,6 +4884,7 @@ export type CompanyUpdateWithoutContactsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4897,6 +4958,7 @@ export type CompanyUncheckedUpdateWithoutContactsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4970,6 +5032,7 @@ export type CompanyCreateWithoutLeadsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -5043,6 +5106,7 @@ export type CompanyUncheckedCreateWithoutLeadsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -5132,6 +5196,7 @@ export type CompanyUpdateWithoutLeadsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5205,6 +5270,7 @@ export type CompanyUncheckedUpdateWithoutLeadsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5278,6 +5344,7 @@ export type CompanyCreateWithoutSubmissionsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -5351,6 +5418,7 @@ export type CompanyUncheckedCreateWithoutSubmissionsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -5440,6 +5508,7 @@ export type CompanyUpdateWithoutSubmissionsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5513,6 +5582,7 @@ export type CompanyUncheckedUpdateWithoutSubmissionsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5586,6 +5656,7 @@ export type CompanyCreateWithoutLeadAttachmentsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -5659,6 +5730,7 @@ export type CompanyUncheckedCreateWithoutLeadAttachmentsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -5748,6 +5820,7 @@ export type CompanyUpdateWithoutLeadAttachmentsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5821,6 +5894,7 @@ export type CompanyUncheckedUpdateWithoutLeadAttachmentsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5894,6 +5968,7 @@ export type CompanyCreateWithoutIngestKeysInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -5967,6 +6042,7 @@ export type CompanyUncheckedCreateWithoutIngestKeysInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -6056,6 +6132,7 @@ export type CompanyUpdateWithoutIngestKeysInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6129,6 +6206,7 @@ export type CompanyUncheckedUpdateWithoutIngestKeysInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6202,6 +6280,7 @@ export type CompanyCreateWithoutIngestAttemptsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -6275,6 +6354,7 @@ export type CompanyUncheckedCreateWithoutIngestAttemptsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -6364,6 +6444,7 @@ export type CompanyUpdateWithoutIngestAttemptsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6437,6 +6518,7 @@ export type CompanyUncheckedUpdateWithoutIngestAttemptsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6510,6 +6592,7 @@ export type CompanyCreateWithoutActivitiesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -6583,6 +6666,7 @@ export type CompanyUncheckedCreateWithoutActivitiesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -6672,6 +6756,7 @@ export type CompanyUpdateWithoutActivitiesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6745,6 +6830,7 @@ export type CompanyUncheckedUpdateWithoutActivitiesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6818,6 +6904,7 @@ export type CompanyCreateWithoutQuoteTemplatesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -6891,6 +6978,7 @@ export type CompanyUncheckedCreateWithoutQuoteTemplatesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -6980,6 +7068,7 @@ export type CompanyUpdateWithoutQuoteTemplatesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7053,6 +7142,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTemplatesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7126,6 +7216,7 @@ export type CompanyCreateWithoutQuotesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -7199,6 +7290,7 @@ export type CompanyUncheckedCreateWithoutQuotesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -7288,6 +7380,7 @@ export type CompanyUpdateWithoutQuotesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7361,6 +7454,7 @@ export type CompanyUncheckedUpdateWithoutQuotesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7434,6 +7528,7 @@ export type CompanyCreateWithoutDocumentsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -7507,6 +7602,7 @@ export type CompanyUncheckedCreateWithoutDocumentsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -7596,6 +7692,7 @@ export type CompanyUpdateWithoutDocumentsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7669,6 +7766,7 @@ export type CompanyUncheckedUpdateWithoutDocumentsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7742,6 +7840,7 @@ export type CompanyCreateWithoutQuoteSharesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -7815,6 +7914,7 @@ export type CompanyUncheckedCreateWithoutQuoteSharesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -7904,6 +8004,7 @@ export type CompanyUpdateWithoutQuoteSharesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7977,6 +8078,7 @@ export type CompanyUncheckedUpdateWithoutQuoteSharesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8050,6 +8152,7 @@ export type CompanyCreateWithoutQuoteEventsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -8123,6 +8226,7 @@ export type CompanyUncheckedCreateWithoutQuoteEventsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -8212,6 +8316,7 @@ export type CompanyUpdateWithoutQuoteEventsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8285,6 +8390,7 @@ export type CompanyUncheckedUpdateWithoutQuoteEventsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8358,6 +8464,7 @@ export type CompanyCreateWithoutQuoteMessagesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -8431,6 +8538,7 @@ export type CompanyUncheckedCreateWithoutQuoteMessagesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -8520,6 +8628,7 @@ export type CompanyUpdateWithoutQuoteMessagesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8593,6 +8702,7 @@ export type CompanyUncheckedUpdateWithoutQuoteMessagesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8666,6 +8776,7 @@ export type CompanyCreateWithoutAcceptancesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -8739,6 +8850,7 @@ export type CompanyUncheckedCreateWithoutAcceptancesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -8828,6 +8940,7 @@ export type CompanyUpdateWithoutAcceptancesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8901,6 +9014,7 @@ export type CompanyUncheckedUpdateWithoutAcceptancesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8974,6 +9088,7 @@ export type CompanyCreateWithoutReviewLinksInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -9047,6 +9162,7 @@ export type CompanyUncheckedCreateWithoutReviewLinksInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -9136,6 +9252,7 @@ export type CompanyUpdateWithoutReviewLinksInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9209,6 +9326,7 @@ export type CompanyUncheckedUpdateWithoutReviewLinksInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9282,6 +9400,7 @@ export type CompanyCreateWithoutEmailTemplatesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -9355,6 +9474,7 @@ export type CompanyUncheckedCreateWithoutEmailTemplatesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -9444,6 +9564,7 @@ export type CompanyUpdateWithoutEmailTemplatesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9517,6 +9638,7 @@ export type CompanyUncheckedUpdateWithoutEmailTemplatesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9590,6 +9712,7 @@ export type CompanyCreateWithoutReviewsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -9663,6 +9786,7 @@ export type CompanyUncheckedCreateWithoutReviewsInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -9752,6 +9876,7 @@ export type CompanyUpdateWithoutReviewsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9825,6 +9950,7 @@ export type CompanyUncheckedUpdateWithoutReviewsInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9898,6 +10024,7 @@ export type CompanyCreateWithoutNotificationPreferencesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -9971,6 +10098,7 @@ export type CompanyUncheckedCreateWithoutNotificationPreferencesInput = {
   website?: string | null
   address?: string | null
   logoUrl?: string | null
+  pdfLogoUrl?: string | null
   watermarkUrl?: string | null
   primaryColor?: string
   accentColor?: string
@@ -10060,6 +10188,7 @@ export type CompanyUpdateWithoutNotificationPreferencesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10133,6 +10262,7 @@ export type CompanyUncheckedUpdateWithoutNotificationPreferencesInput = {
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
   accentColor?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10471,6 +10601,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   website?: boolean
   address?: boolean
   logoUrl?: boolean
+  pdfLogoUrl?: boolean
   watermarkUrl?: boolean
   primaryColor?: boolean
   accentColor?: boolean
@@ -10546,6 +10677,7 @@ export type CompanySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   website?: boolean
   address?: boolean
   logoUrl?: boolean
+  pdfLogoUrl?: boolean
   watermarkUrl?: boolean
   primaryColor?: boolean
   accentColor?: boolean
@@ -10593,6 +10725,7 @@ export type CompanySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   website?: boolean
   address?: boolean
   logoUrl?: boolean
+  pdfLogoUrl?: boolean
   watermarkUrl?: boolean
   primaryColor?: boolean
   accentColor?: boolean
@@ -10640,6 +10773,7 @@ export type CompanySelectScalar = {
   website?: boolean
   address?: boolean
   logoUrl?: boolean
+  pdfLogoUrl?: boolean
   watermarkUrl?: boolean
   primaryColor?: boolean
   accentColor?: boolean
@@ -10676,7 +10810,7 @@ export type CompanySelectScalar = {
   updatedAt?: boolean
 }
 
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "legalName" | "taxId" | "email" | "phone" | "website" | "address" | "logoUrl" | "watermarkUrl" | "primaryColor" | "accentColor" | "defaultLanguage" | "currency" | "formatLocale" | "timezone" | "defaultTaxType" | "defaultTaxRate" | "quotePrefix" | "quoteValidityDays" | "quoteNumberStart" | "quoteFooter" | "slogan" | "senderNameStyle" | "firstFollowUpDays" | "secondFollowUpDays" | "reviewRequestDays" | "sendQuoteCopy" | "leadNotificationEmails" | "quoteIntro" | "quoteNotes" | "quoteExclusions" | "quoteTerms" | "quoteScope" | "taxDisplayMode" | "acceptanceMode" | "acceptanceStatement" | "requireSignature" | "askAdditionalComments" | "askOrderReference" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "legalName" | "taxId" | "email" | "phone" | "website" | "address" | "logoUrl" | "pdfLogoUrl" | "watermarkUrl" | "primaryColor" | "accentColor" | "defaultLanguage" | "currency" | "formatLocale" | "timezone" | "defaultTaxType" | "defaultTaxRate" | "quotePrefix" | "quoteValidityDays" | "quoteNumberStart" | "quoteFooter" | "slogan" | "senderNameStyle" | "firstFollowUpDays" | "secondFollowUpDays" | "reviewRequestDays" | "sendQuoteCopy" | "leadNotificationEmails" | "quoteIntro" | "quoteNotes" | "quoteExclusions" | "quoteTerms" | "quoteScope" | "taxDisplayMode" | "acceptanceMode" | "acceptanceStatement" | "requireSignature" | "askAdditionalComments" | "askOrderReference" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   memberships?: boolean | Prisma.Company$membershipsArgs<ExtArgs>
   loginAttempts?: boolean | Prisma.Company$loginAttemptsArgs<ExtArgs>
@@ -10752,6 +10886,14 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     website: string | null
     address: string | null
     logoUrl: string | null
+    /**
+     * *
+     *    * The logo the downloadable PDF carries instead of `logoUrl`, laid across
+     *    * half the page width. A separate image because a PDF header has room for
+     *    * the full lock-up, where the sidebar and the portal want the compact
+     *    * square. Without one, the PDF falls back to `logoUrl`.
+     */
+    pdfLogoUrl: string | null
     /**
      * *
      *    * Stamped faintly in the bottom corner of the quote the customer reads. A
@@ -11310,6 +11452,7 @@ export interface CompanyFieldRefs {
   readonly website: Prisma.FieldRef<"Company", 'String'>
   readonly address: Prisma.FieldRef<"Company", 'String'>
   readonly logoUrl: Prisma.FieldRef<"Company", 'String'>
+  readonly pdfLogoUrl: Prisma.FieldRef<"Company", 'String'>
   readonly watermarkUrl: Prisma.FieldRef<"Company", 'String'>
   readonly primaryColor: Prisma.FieldRef<"Company", 'String'>
   readonly accentColor: Prisma.FieldRef<"Company", 'String'>

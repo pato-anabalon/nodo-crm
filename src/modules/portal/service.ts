@@ -33,6 +33,7 @@ export const companyDocumentSelect = {
   website: true,
   address: true,
   logoUrl: true,
+  pdfLogoUrl: true,
   watermarkUrl: true,
   primaryColor: true,
   accentColor: true,

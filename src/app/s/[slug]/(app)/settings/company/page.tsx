@@ -23,6 +23,7 @@ import {
   saveQuoteSettingsAction,
 } from "@/modules/settings/actions";
 import { LogoManager } from "@/modules/settings/logo-manager";
+import { PdfLogoManager } from "@/modules/settings/pdf-logo-manager";
 import { WatermarkManager } from "@/modules/settings/watermark-manager";
 import { QuoteTypesManager } from "@/modules/settings/quote-types-manager";
 import { SettingsHeader } from "@/modules/settings/settings-header";
@@ -56,11 +57,19 @@ export default async function CompanySettingsPage() {
       <SettingsHeader title={t("profile.title")} subtitle={t("profile.subtitle")} />
 
       {/* Side by side: they are the same decision about how the company looks
-          to its customer, and each card is narrow enough to share the row. */}
-      <div className="grid gap-6 lg:grid-cols-2">
+          to its customer, and each card is narrow enough to share the row. The
+          PDF's logo sits between the two it relates to — the logo it replaces
+          on paper, and the other image the PDF prints. */}
+      <div className="grid gap-6 lg:grid-cols-3">
         <LogoManager
           companyName={company.name}
           logoUrl={company.logoUrl}
+          canManage={can(ctx, "settings.update")}
+        />
+
+        <PdfLogoManager
+          companyName={company.name}
+          pdfLogoUrl={company.pdfLogoUrl}
           canManage={can(ctx, "settings.update")}
         />
 

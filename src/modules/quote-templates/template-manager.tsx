@@ -1,9 +1,10 @@
 "use client";
 
 import { useActionState, useEffect, useState, useTransition } from "react";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { Archive, Pencil, RotateCcw, Trash2, X } from "lucide-react";
+import { Archive, Eye, Pencil, RotateCcw, Trash2, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -30,7 +31,8 @@ export type TemplateRow = {
  * Only the name and the description are editable here. The content comes from
  * the quote it was saved off, and changing it means saving a new one — which
  * keeps this list a short catalogue of kinds of work rather than a second quote
- * editor to maintain.
+ * editor to maintain. The content can still be *read*, on the template's own
+ * page: a template you can't look inside is one you can only pick by its name.
  */
 export function TemplateManager({ templates, canEdit }: { templates: TemplateRow[]; canEdit: boolean }) {
   const t = useTranslations("quoteTemplates");
@@ -80,7 +82,9 @@ export function TemplateManager({ templates, canEdit }: { templates: TemplateRow
             >
               <div className="min-w-0 flex-1">
                 <p className="flex flex-wrap items-center gap-2 font-medium">
-                  {template.name}
+                  <Link href={`/settings/templates/${template.id}`} className="hover:underline">
+                    {template.name}
+                  </Link>
                   {!template.active ? <Badge variant="secondary">{t("retiredBadge")}</Badge> : null}
                 </p>
                 {template.description ? (
@@ -89,32 +93,40 @@ export function TemplateManager({ templates, canEdit }: { templates: TemplateRow
                 <p className="text-xs text-muted-foreground">{template.summary}</p>
               </div>
 
-              {canEdit ? (
-                <div className="flex flex-wrap gap-1">
-                  <Button variant="ghost" size="sm" onClick={() => setEditing(template.id)}>
-                    <Pencil className="size-4" />
-                    {t("rename")}
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    disabled={pending}
-                    onClick={() => run(() => setQuoteTemplateActiveAction(template.id, !template.active))}
-                  >
-                    {template.active ? <Archive className="size-4" /> : <RotateCcw className="size-4" />}
-                    {template.active ? t("retire") : t("restore")}
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    disabled={pending}
-                    onClick={() => run(() => deleteQuoteTemplateAction(template.id))}
-                  >
-                    <Trash2 className="size-4" />
-                    {t("delete")}
-                  </Button>
-                </div>
-              ) : null}
+              <div className="flex flex-wrap gap-1">
+                <Button asChild variant="ghost" size="sm">
+                  <Link href={`/settings/templates/${template.id}`}>
+                    <Eye className="size-4" />
+                    {t("view")}
+                  </Link>
+                </Button>
+                {canEdit ? (
+                  <>
+                    <Button variant="ghost" size="sm" onClick={() => setEditing(template.id)}>
+                      <Pencil className="size-4" />
+                      {t("rename")}
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      disabled={pending}
+                      onClick={() => run(() => setQuoteTemplateActiveAction(template.id, !template.active))}
+                    >
+                      {template.active ? <Archive className="size-4" /> : <RotateCcw className="size-4" />}
+                      {template.active ? t("retire") : t("restore")}
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      disabled={pending}
+                      onClick={() => run(() => deleteQuoteTemplateAction(template.id))}
+                    >
+                      <Trash2 className="size-4" />
+                      {t("delete")}
+                    </Button>
+                  </>
+                ) : null}
+              </div>
             </div>
           ),
         )}

@@ -1,10 +1,13 @@
 "use client";
 
 import {
+  startTransition,
   useActionState,
+  useEffect,
   useMemo,
   useRef,
   useState,
+  type FormEvent,
   type ReactNode,
 } from "react";
 import { useTranslations } from "next-intl";
@@ -13,6 +16,7 @@ import {
   ChevronsDownUp,
   ChevronsUpDown,
   ChevronUp,
+  CircleAlert,
   GripVertical,
   Plus,
   Trash2,
@@ -34,6 +38,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -265,6 +270,27 @@ export function QuoteForm({
   const formRef = useRef<HTMLFormElement>(null);
 
   useActionToast(state);
+
+  /*
+   * Submitted by hand rather than through `action={formAction}`, and that is
+   * the whole point of this handler.
+   *
+   * A form given a function as its `action` is reset by React every time the
+   * action settles — refused or not. Everything in Details is uncontrolled
+   * (`defaultValue`), so forgetting a section's title wiped the quote type,
+   * the title, the address, the scope and the date already typed, and only the
+   * lead survived because it lives in state. Dispatching from `onSubmit` skips
+   * that reset: a refusal leaves the form exactly as it was, and a successful
+   * save either navigates away (create) or already shows what was saved (edit).
+   *
+   * `action` stays on the element so the form still posts with JavaScript off.
+   */
+  function submitWithoutReset(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    startTransition(() => formAction(formData));
+  }
+
   const t = useTranslations("quotes");
   // A new quote has no status yet, and is as open as a draft.
   const leadChangeable = !status || canChangeLead(status);
@@ -506,6 +532,7 @@ export function QuoteForm({
     <form
       ref={formRef}
       action={formAction}
+      onSubmit={submitWithoutReset}
       className="grid gap-6 lg:grid-cols-3"
     >
       <div className="space-y-6 lg:col-span-2">
@@ -670,9 +697,7 @@ export function QuoteForm({
 
           <CardContent className="space-y-4">
             {state.fieldErrors?.sections ? (
-              <p className="text-sm text-destructive">
-                {state.fieldErrors.sections[0]}
-              </p>
+              <ListError state={state} message={state.fieldErrors.sections[0]} />
             ) : null}
 
             <div className="space-y-3 rounded-lg border border-primary/20 bg-primary/5 p-3">
@@ -1078,9 +1103,7 @@ export function QuoteForm({
           </CardHeader>
           <CardContent className="space-y-4">
             {state.fieldErrors?.items ? (
-              <p className="text-sm text-destructive">
-                {state.fieldErrors.items[0]}
-              </p>
+              <ListError state={state} message={state.fieldErrors.items[0]} />
             ) : null}
 
             {hasCatalogue ? (
@@ -1431,6 +1454,37 @@ export function QuoteForm({
         </Card>
       </div>
     </form>
+  );
+}
+
+/**
+ * "Add at least one line/section" — the one refusal that isn't about a field
+ * you can see. It sits in a card the person may have scrolled past on the way
+ * to the button, so plain red text went unnoticed: a bordered, tinted box with
+ * an icon reads as something stopping the save, and it is brought into view
+ * when it appears.
+ *
+ * Keyed on the action's `state` so a second refusal scrolls again, while
+ * typing elsewhere (which re-renders but doesn't change `state`) leaves the
+ * page where it is.
+ */
+function ListError({ state, message }: { state: QuoteActionState; message: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    ref.current?.scrollIntoView?.({ block: "center", behavior: reduce ? "auto" : "smooth" });
+  }, [state]);
+
+  return (
+    <Alert
+      ref={ref}
+      variant="destructive"
+      className="border-destructive/50 bg-destructive/10"
+    >
+      <CircleAlert />
+      <AlertDescription className="font-medium">{message}</AlertDescription>
+    </Alert>
   );
 }
 

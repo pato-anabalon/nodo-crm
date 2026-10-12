@@ -56,14 +56,14 @@ export async function saveCompanyProfileAction(
  * without knowing where it came from.
  */
 /**
- * Upload and removal for both brand images, written once.
+ * Upload and removal for every brand image, written once.
  *
- * Logo and watermark differ only in which column they land in and which texts
- * are shown; everything that is easy to get wrong — the random suffix, the
- * order of write and delete, refusing to delete somebody else's file — is the
- * same for both and should only exist once.
+ * Logo, PDF logo and watermark differ only in which column they land in and
+ * which texts are shown; everything that is easy to get wrong — the random
+ * suffix, the order of write and delete, refusing to delete somebody else's
+ * file — is the same for all three and should only exist once.
  */
-const COLUMN = { logo: "logoUrl", watermark: "watermarkUrl" } as const;
+const COLUMN = { logo: "logoUrl", pdfLogo: "pdfLogoUrl", watermark: "watermarkUrl" } as const;
 
 async function uploadBrandImage(
   kind: BrandImage,
@@ -139,6 +139,18 @@ export async function uploadLogoAction(
 /** Removes the logo and falls back to the initials. */
 export async function removeLogoAction(): Promise<SettingsState> {
   return removeBrandImage("logo");
+}
+
+export async function uploadPdfLogoAction(
+  _prev: SettingsState,
+  formData: FormData,
+): Promise<SettingsState> {
+  return uploadBrandImage("pdfLogo", formData);
+}
+
+/** Removes the PDF's own logo; the PDF goes back to the company's logo. */
+export async function removePdfLogoAction(): Promise<SettingsState> {
+  return removeBrandImage("pdfLogo");
 }
 
 export async function uploadWatermarkAction(

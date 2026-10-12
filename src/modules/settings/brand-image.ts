@@ -1,7 +1,8 @@
 /**
- * The two images a company uploads: its logo and its watermark.
+ * The images a company uploads: its logo, the logo its PDF carries, and its
+ * watermark.
  *
- * Both are raster only, both live under the company's own folder, and both are
+ * All are raster only, all live under the company's own folder, and all are
  * shown to the end customer — so they share these rules rather than each
  * carrying its own copy of them.
  */
@@ -20,8 +21,8 @@ export const ACCEPTED_IMAGE_TYPES = ["image/png", "image/jpeg", "image/webp"] as
 /** 2 MB. Above that it is a photograph someone uploaded by mistake. */
 export const MAX_IMAGE_BYTES = 2 * 1024 * 1024;
 
-/** The two, named once so a typo can't invent a third folder. */
-export const BRAND_IMAGES = ["logo", "watermark"] as const;
+/** Named once so a typo can't invent another file in the store. */
+export const BRAND_IMAGES = ["logo", "pdfLogo", "watermark"] as const;
 export type BrandImage = (typeof BRAND_IMAGES)[number];
 
 export type ImageCheck = { ok: true } | { ok: false; reason: "type" | "size" | "empty" };

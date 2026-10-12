@@ -22,6 +22,7 @@ export type CompanyContext = {
     slug: string;
     name: string;
     logoUrl: string | null;
+    pdfLogoUrl: string | null;
     watermarkUrl: string | null;
     primaryColor: string;
     accentColor: string;
@@ -111,6 +112,7 @@ export const getCompanyContext = cache(async (): Promise<CompanyContext | null> 
       slug: company.slug,
       name: company.name,
       logoUrl: company.logoUrl,
+      pdfLogoUrl: company.pdfLogoUrl,
       watermarkUrl: company.watermarkUrl,
       primaryColor: company.primaryColor,
       accentColor: company.accentColor,

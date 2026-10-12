@@ -69,7 +69,16 @@ export default async function NewQuotePage({
         search={searchTemplatesAction}
       />
 
+      {/*
+        Keyed on the template because picking one is a navigation to this same
+        route, which re-renders the form rather than mounting it again — and
+        the lines, the sections, the pricing mode and the rich-text editors
+        all read their defaults only on mount. Without the key only the plain
+        inputs followed (the title did, so it looked like a template carried a
+        title and nothing else).
+      */}
       <QuoteForm
+        key={fromTemplate ? template : "blank"}
         hasCatalogue={catalogueAvailable}
         searchLeads={searchLeadsAction}
         searchCatalogue={searchCatalogueAction}

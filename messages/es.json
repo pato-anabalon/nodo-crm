@@ -806,6 +806,17 @@
       "hint": "Solo rellena los campos; todo sigue siendo tuyo para cambiar.",
       "search": "Buscar plantillas…",
       "empty": "No se encontraron plantillas"
+    },
+    "view": "Ver",
+    "detail": {
+      "subtitle": "Con qué parte una cotización nueva cuando se elige esta plantilla.",
+      "readOnly": "El contenido viene de la cotización desde la que se guardó. Para cambiarlo, guarda esa cotización como una plantilla nueva.",
+      "use": "Crear una cotización con ella",
+      "suggestedTitle": "Título sugerido",
+      "content": "Contenido",
+      "noContent": "No hay nada que rellenar aquí.",
+      "texts": "Textos",
+      "companyDefault": "Sin definir — una cotización nueva toma el de la empresa."
     }
   },
   "settings": {
@@ -848,6 +859,28 @@
       "noneChosen": "Ningún archivo elegido",
       "removeTitle": "¿Quitar el logo?",
       "removeConfirm": "{company} mostrará sus iniciales en su lugar: en el menú lateral, en la pantalla de acceso y en cada cotización que abra un cliente. Puedes subir otro cuando quieras."
+    },
+    "pdfLogo": {
+      "title": "Logo del PDF",
+      "subtitle": "Ocupa la mitad del ancho arriba del PDF que descarga el cliente. Sin él, el PDF usa el logo.",
+      "upload": "Archivo del logo del PDF",
+      "hint": "PNG, JPEG o WebP, hasta 2 MB. Lo que mejor queda es un logo ancho, con el nombre completo de la empresa.",
+      "save": "Subir",
+      "uploading": "Subiendo…",
+      "remove": "Quitar",
+      "none": "Usa el logo",
+      "uploaded": "Logo del PDF actualizado",
+      "removed": "Logo del PDF quitado",
+      "choose": "Elegir archivo",
+      "noneChosen": "Ningún archivo elegido",
+      "removeTitle": "¿Quitar el logo del PDF?",
+      "removeConfirm": "El PDF volverá a usar el logo de la empresa, también en las cotizaciones que el cliente descargue de nuevo. Puedes subir otro cuando quieras.",
+      "errors": {
+        "type": "El logo del PDF debe ser una imagen PNG, JPEG o WebP.",
+        "size": "El logo del PDF no puede pesar más de {max} MB.",
+        "empty": "Elige un archivo para subir.",
+        "none": "No hay un logo del PDF que quitar."
+      }
     },
     "watermark": {
       "title": "Marca de agua",

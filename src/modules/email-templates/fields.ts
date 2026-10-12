@@ -13,7 +13,14 @@
  * their interface language.
  */
 
-export const EMAIL_FIELDS = ["customer", "reference", "company"] as const;
+/**
+ * `author` is whoever created the quote — not whoever pressed Send. The two can
+ * differ (one person prepares it, another sends it), and "has prepared this
+ * quote" is about the first. It is also the only person there is for what the
+ * nightly sweep sends, where nobody presses anything. A quote with no author
+ * (imported, or its author removed) leaves it empty, like any other field.
+ */
+export const EMAIL_FIELDS = ["customer", "reference", "company", "author"] as const;
 
 export type EmailField = (typeof EMAIL_FIELDS)[number];
 

@@ -974,6 +974,35 @@
         "OTHER": "Otra"
       }
     },
+    "reviewPlatforms": {
+      "title": "Dónde te reseñan",
+      "subtitle": "Una fila por plataforma, con dos links. Deja vacío el que esa plataforma no necesite.",
+      "empty": "Todavía no hay plataformas. Las cotizaciones no enlazarán a más reseñas y el correo que pide reseñas no se enviará.",
+      "platform": "Plataforma",
+      "name": "Nombre de la plataforma",
+      "namePlaceholder": "Builderscrack",
+      "readUrl": "Link para leer reseñas",
+      "readUrlHint": "Aparece bajo las reseñas en cada cotización y PDF.",
+      "leaveUrl": "Link para dejar una reseña",
+      "leaveUrlHint": "Es el que envía el correo que pide reseñas.",
+      "read": "Leer",
+      "leave": "Dejar",
+      "notSet": "Sin definir",
+      "add": "Agregar plataforma",
+      "save": "Guardar cambios",
+      "cancel": "Cancelar",
+      "edit": "Editar",
+      "remove": "Quitar",
+      "removeTitle": "¿Quitar {platform}?",
+      "removeConfirm": "Las cotizaciones y los PDF dejarán de enlazarla, y el correo que pide reseñas dejará de enviar clientes ahí.",
+      "allListed": "Todas las plataformas ya están en la lista. Edita una para cambiar sus links.",
+      "sources": {
+        "GOOGLE": "Google",
+        "NOCOWBOYS": "NoCowboys",
+        "FACEBOOK": "Facebook",
+        "OTHER": "Otro sitio"
+      }
+    },
     "errors": {
       "nameRequired": "El nombre no puede quedar vacío",
       "invalidColor": "Usa un color hexadecimal, como #14615e",
@@ -984,7 +1013,9 @@
       "unknownCurrency": "Elige una moneda de la lista",
       "unknownFormatLocale": "Elige un formato de números y fechas de la lista",
       "unknownTimezone": "Elige una zona horaria de la lista",
-      "quoteTypeExists": "Ese tipo ya existe"
+      "quoteTypeExists": "Ese tipo ya existe",
+      "platformNameRequired": "Ponle nombre a la plataforma",
+      "oneLinkRequired": "Agrega al menos uno de los dos links"
     },
     "groups": {
       "company": "Tu empresa",
@@ -1247,6 +1278,7 @@
     "reviews": "Reseñas",
     "seeAllReviews": "Ver todas",
     "reviewBy": "por {author}",
+    "readMoreReviews": "Lee más reseñas en {platform}",
     "totalExcluding": "Total {currency} sin {tax}",
     "totalIncluding": "Total {currency} con {tax} incluido",
     "totalPlain": "Total {currency}",
@@ -1470,7 +1502,8 @@
     "fields": {
       "customer": "el nombre del contacto",
       "reference": "la referencia de la cotización",
-      "company": "el nombre de tu empresa"
+      "company": "el nombre de tu empresa",
+      "author": "quien preparó la cotización"
     },
     "errors": {
       "unknownFields": "No existe ningún campo con ese nombre.",
@@ -1514,20 +1547,10 @@
       "reviewRequestDays": "Pedir reseña (días)",
       "daysHint": "Los dos seguimientos cuentan desde el día en que se envió la cotización; la reseña desde el día en que se aceptó. Sólo salen si los enciendes abajo."
     },
-    "reviewLinks": {
-      "title": "Dónde dejar una reseña",
-      "subtitle": "Se le envía al cliente unos días después de aceptar. Añade un enlace por plataforma.",
-      "empty": "Todavía no hay enlaces, así que el correo de reseña no sale.",
-      "platform": "Plataforma",
-      "url": "Enlace",
-      "add": "Añadir enlace",
-      "remove": "Quitar el enlace de {source}",
-      "sources": {
-        "GOOGLE": "Google",
-        "NOCOWBOYS": "NoCowboys",
-        "FACEBOOK": "Facebook",
-        "OTHER": "Otro sitio"
-      }
+    "reviewLinksMoved": {
+      "some": "El correo que pide reseñas envía a los clientes a {platforms}.",
+      "none": "El correo que pide reseñas todavía no tiene adónde enviar a los clientes, así que no se envía.",
+      "link": "Configúralos en Reseñas"
     },
     "sentTitle": "Correos enviados"
   },

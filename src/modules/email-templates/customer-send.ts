@@ -8,6 +8,7 @@ import { sanitizeRichText } from "@/lib/rich-text";
 import { issueShare } from "@/modules/portal/service";
 import { shareUrl } from "@/modules/portal/share";
 import { ROOT_DOMAIN } from "@/lib/tenant/host";
+import { leaveLinks, type PlatformLink } from "@/modules/settings/review-platforms";
 import { renderCustomerEmail } from "./customer-email";
 import { isEnabled } from "./kinds";
 import { renderTemplate } from "./render";
@@ -63,7 +64,10 @@ export async function sendToCustomer(
           quoteFooter: true,
           slogan: true,
           senderNameStyle: true,
-          reviewLinks: { orderBy: { position: "asc" }, select: { source: true, url: true } },
+          reviewLinks: {
+            orderBy: { position: "asc" },
+            select: { source: true, label: true, readUrl: true, leaveUrl: true },
+          },
         },
       },
     },
@@ -82,7 +86,10 @@ export async function sendToCustomer(
 
   // Asking for a review with nowhere to leave one is an email that wastes
   // somebody's goodwill, which is the one thing it was sent to collect.
-  if (kind === EmailTemplateKind.REVIEW_REQUEST && quote.company.reviewLinks.length === 0) {
+  // Only the platforms with somewhere to *leave* a review: a page that only
+  // shows other people's reviews is no place to send somebody asked for one.
+  const reviewLinks = leaveLinks(quote.company.reviewLinks);
+  if (kind === EmailTemplateKind.REVIEW_REQUEST && reviewLinks.length === 0) {
     return false;
   }
 
@@ -101,7 +108,12 @@ export async function sendToCustomer(
       subject: tEmail(keys.subject),
       body: tEmail(keys.body, { customer: quote.clientName ?? "" }),
     },
-    values: { customer: quote.clientName ?? "", reference, company: quote.company.name },
+    values: {
+      customer: quote.clientName ?? "",
+      reference,
+      company: quote.company.name,
+      author: quote.createdBy?.name ?? "",
+    },
     reference,
   });
 
@@ -142,7 +154,7 @@ export async function sendToCustomer(
     to,
     subject,
     html: renderCustomerEmail({
-      bodyHtml: withReviewLinks(bodyHtml, kind, quote.company.reviewLinks),
+      bodyHtml: withReviewLinks(bodyHtml, kind, reviewLinks),
       primaryColor: quote.company.primaryColor,
       companyName: quote.company.name,
       logoUrl: quote.company.logoUrl,
@@ -193,23 +205,24 @@ export async function logCustomerEmail(input: {
 function withReviewLinks(
   bodyHtml: string,
   kind: EmailTemplateKind,
-  links: Array<{ source: string; url: string }>,
+  links: PlatformLink[],
 ): string {
   if (kind !== EmailTemplateKind.REVIEW_REQUEST || links.length === 0) return bodyHtml;
 
   const items = links
     .map(
       (link) =>
-        `<li style="margin:4px 0"><a href="${escapeAttribute(link.url)}">${labelFor(link.source)}</a></li>`,
+        `<li style="margin:4px 0"><a href="${escapeAttribute(link.url)}">${escapeText(link.name)}</a></li>`,
     )
     .join("");
 
   return `${bodyHtml}<ul style="padding-left:18px;margin:12px 0">${items}</ul>`;
 }
 
-/** Platform names are proper nouns, so they are not translated. */
-function labelFor(source: string): string {
-  return { GOOGLE: "Google", NOCOWBOYS: "NoCowboys", FACEBOOK: "Facebook" }[source] ?? "Web";
+/** A platform's name can be typed by the company now ("Builderscrack"), so
+ * it is escaped like any other text going into the HTML. */
+function escapeText(value: string): string {
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 function escapeAttribute(value: string): string {

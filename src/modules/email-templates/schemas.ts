@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { EmailTemplateKind, ReviewSource, SenderNameStyle } from "@/generated/prisma/enums";
+import { EmailTemplateKind, SenderNameStyle } from "@/generated/prisma/enums";
 import { unknownFields } from "./fields";
 
 /**
@@ -64,23 +64,3 @@ export const emailSettingsSchema = z.object({
 });
 
 export type EmailSettingsValues = z.infer<typeof emailSettingsSchema>;
-
-/** One place to be reviewed. Added one at a time, so each can be checked. */
-export const reviewLinkSchema = z.object({
-  source: z.nativeEnum(ReviewSource),
-  url: z
-    .string()
-    .trim()
-    .min(1, "settings.errors.invalidUrl")
-    .refine((v) => /^https?:\/\//i.test(v), "settings.errors.invalidUrl")
-    .refine((v) => {
-      try {
-        new URL(v);
-        return true;
-      } catch {
-        return false;
-      }
-    }, "settings.errors.invalidUrl"),
-});
-
-export type ReviewLinkValues = z.infer<typeof reviewLinkSchema>;

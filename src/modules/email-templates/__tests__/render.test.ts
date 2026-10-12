@@ -1,6 +1,11 @@
 import { renderTemplate } from "../render";
 
-const values = { customer: "Paula Rivas", reference: "COT-000001", company: "Acme Ltd" };
+const values = {
+  customer: "Paula Rivas",
+  reference: "COT-000001",
+  company: "Acme Ltd",
+  author: "Rolando Reveco",
+};
 const fallback = { subject: "Your quote", body: "Hello {{customer}},\nHere is your quote." };
 const base = { fallback, values, reference: "COT-000001" };
 

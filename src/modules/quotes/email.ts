@@ -83,6 +83,7 @@ export async function sendQuoteEmail(ctx: CompanyContext, quoteId: string): Prom
       customer: quote.lead?.contactName ?? "",
       reference,
       company: ctx.company.name,
+      author: quote.createdBy?.name ?? "",
     },
     reference,
   });

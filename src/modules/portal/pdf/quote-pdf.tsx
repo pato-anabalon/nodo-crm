@@ -29,6 +29,7 @@ import {
 import { companyDocumentSelect, quoteDocumentInclude } from "@/modules/portal/service";
 import { bundleFrom } from "@/modules/quotes/service";
 import { ensureFontsRegistered } from "./fonts";
+import { readLinks } from "@/modules/settings/review-platforms";
 import { RichTextPdf } from "./rich-text";
 
 export type PdfCompany = Prisma.CompanyGetPayload<{ select: typeof companyDocumentSelect }>;
@@ -158,6 +159,10 @@ const styles = StyleSheet.create({
   star: { marginRight: 2 },
   reviewBody: { color: MUTED, marginBottom: 4 },
   reviewAuthor: { fontStyle: "italic" },
+  reviewLinks: { flexDirection: "row", flexWrap: "wrap", marginTop: 6 },
+  // Text, not an arrow glyph after it: a symbol outside what Geist covers
+  // comes out as the wrong one.
+  reviewLink: { marginRight: 18, marginBottom: 4, fontWeight: "bold", textDecoration: "underline" },
   watermark: {
     position: "absolute",
     width: 154, // 220 * 0.7 — 30% smaller.
@@ -201,6 +206,7 @@ export async function buildQuotePdfDocument({
   const t = await getTranslations({ locale, namespace: "portal" });
   const money = (value: number) => formatMoney(value, quote.currency, company.formatLocale);
   const ink = brandInk(company.primaryColor);
+  const reviewLinks = readLinks(company.reviewLinks);
   const taxLabel = quote.taxType;
   const showTaxBreakdown = taxIsInTotal(quote.taxDisplayMode);
   const hasSelectableSections =
@@ -393,20 +399,35 @@ export async function buildQuotePdfDocument({
           </Block>
         ) : null}
 
-        {company.reviews.length > 0 ? (
+        {company.reviews.length > 0 || reviewLinks.length > 0 ? (
           <View style={styles.block} wrap={false}>
             <Text style={styles.blockTitle}>{t("reviews")}</Text>
-            <View style={styles.reviewsGrid}>
-              {company.reviews.map((review) => (
-                <View key={review.id} style={styles.reviewCard}>
-                  <Stars rating={review.rating} ink={ink} />
-                  <Text style={styles.reviewBody}>{review.body}</Text>
-                  <Text style={styles.reviewAuthor}>
-                    {t("reviewBy", { author: review.author })}
-                  </Text>
-                </View>
-              ))}
-            </View>
+            {company.reviews.length > 0 ? (
+              <View style={styles.reviewsGrid}>
+                {company.reviews.map((review) => (
+                  <View key={review.id} style={styles.reviewCard}>
+                    <Stars rating={review.rating} ink={ink} />
+                    <Text style={styles.reviewBody}>{review.body}</Text>
+                    <Text style={styles.reviewAuthor}>
+                      {t("reviewBy", { author: review.author })}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            ) : null}
+
+            {/* Same list the portal shows under its reviews, and clickable
+                here too: a PDF is opened on a screen at least as often as it
+                is printed. */}
+            {reviewLinks.length > 0 ? (
+              <View style={styles.reviewLinks}>
+                {reviewLinks.map((link) => (
+                  <Link key={link.url} src={link.url} style={[styles.reviewLink, { color: ink }]}>
+                    {t("readMoreReviews", { platform: link.name })}
+                  </Link>
+                ))}
+              </View>
+            ) : null}
           </View>
         ) : null}
 

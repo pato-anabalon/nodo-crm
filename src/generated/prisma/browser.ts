@@ -317,6 +317,14 @@ export type QuoteAttachment = Prisma.QuoteAttachmentModel
  *  * A row per platform rather than a list of URLs in one field: added one at a
  *  * time it can be validated on the way in, and a typo in the third link of a
  *  * comma-separated box is invisible until somebody notices nobody reviews them.
+ * *
+ *  * One platform the company is reviewed on, and its two addresses there.
+ *  *
+ *  * Reading the reviews and leaving one are different pages more often than not
+ *  * — Google's write link opens the form, its listing shows what others said;
+ *  * NoCowboys anchors the same page at `#rate` or `#ratings` — so each is its own
+ *  * field and neither stands in for the other. Either may be missing; a row has
+ *  * at least one.
  */
 export type ReviewLink = Prisma.ReviewLinkModel
 /**

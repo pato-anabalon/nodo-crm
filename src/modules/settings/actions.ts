@@ -12,6 +12,7 @@ import {
   companyProfileSchema,
   quoteSettingsSchema,
   quoteTypeSchema,
+  reviewPlatformSchema,
   reviewSchema,
 } from "./schemas";
 import {
@@ -310,4 +311,50 @@ export async function deleteReviewAction(id: string): Promise<SettingsState> {
     return { error: t("errors.reviewNotFound") };
   }
   return {};
+}
+
+/**
+ * Adds a platform, or corrects one already listed.
+ *
+ * One row per platform: a second Google entry is a fix to the first, not
+ * another place to send people — which is also what makes editing a row the
+ * same call as adding it.
+ */
+export async function saveReviewPlatformAction(
+  _prev: SettingsState,
+  formData: FormData,
+): Promise<SettingsState> {
+  const ctx = await requirePermission("settings.update");
+  const t = await getTranslations();
+
+  const parsed = reviewPlatformSchema.safeParse({
+    source: formData.get("source"),
+    label: formData.get("label") ?? "",
+    readUrl: formData.get("readUrl") ?? "",
+    leaveUrl: formData.get("leaveUrl") ?? "",
+  });
+  if (!parsed.success) {
+    return { fieldErrors: translateFieldErrors(parsed.error.flatten().fieldErrors, t) };
+  }
+
+  const count = await ctx.db.reviewLink.count();
+  await ctx.db.reviewLink.upsert({
+    where: { companyId_source: { companyId: ctx.company.id, source: parsed.data.source } },
+    create: { companyId: ctx.company.id, ...parsed.data, position: count },
+    update: parsed.data,
+  });
+
+  // The emails screen says whether the review request has anywhere to send.
+  revalidatePath("/settings/reviews");
+  revalidatePath("/settings/emails");
+  return saved();
+}
+
+export async function removeReviewPlatformAction(id: string): Promise<SettingsState> {
+  const ctx = await requirePermission("settings.update");
+  await ctx.db.reviewLink.deleteMany({ where: { id } });
+
+  revalidatePath("/settings/reviews");
+  revalidatePath("/settings/emails");
+  return saved();
 }

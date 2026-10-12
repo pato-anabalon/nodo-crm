@@ -974,6 +974,35 @@
         "OTHER": "Other"
       }
     },
+    "reviewPlatforms": {
+      "title": "Where you're reviewed",
+      "subtitle": "One row per platform, with two links. Leave either empty if that platform doesn't need it.",
+      "empty": "No platforms yet. Quotes won't link to more reviews, and the review request email won't go out.",
+      "platform": "Platform",
+      "name": "Platform name",
+      "namePlaceholder": "Builderscrack",
+      "readUrl": "Link to read reviews",
+      "readUrlHint": "Listed under the reviews on every quote and PDF.",
+      "leaveUrl": "Link to leave a review",
+      "leaveUrlHint": "What the review request email sends.",
+      "read": "Read",
+      "leave": "Leave",
+      "notSet": "Not set",
+      "add": "Add platform",
+      "save": "Save changes",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "remove": "Remove",
+      "removeTitle": "Remove {platform}?",
+      "removeConfirm": "Quotes and PDFs stop linking to it, and the review request email stops sending customers there.",
+      "allListed": "Every platform is already listed. Edit one to change its links.",
+      "sources": {
+        "GOOGLE": "Google",
+        "NOCOWBOYS": "NoCowboys",
+        "FACEBOOK": "Facebook",
+        "OTHER": "Somewhere else"
+      }
+    },
     "errors": {
       "nameRequired": "The name can't be empty",
       "invalidColor": "Use a hex colour, like #14615e",
@@ -984,7 +1013,9 @@
       "unknownCurrency": "Pick a currency from the list",
       "unknownFormatLocale": "Pick a number and date format from the list",
       "unknownTimezone": "Pick a timezone from the list",
-      "quoteTypeExists": "That type already exists"
+      "quoteTypeExists": "That type already exists",
+      "platformNameRequired": "Name the platform",
+      "oneLinkRequired": "Add at least one of the two links"
     },
     "groups": {
       "company": "Your company",
@@ -1247,6 +1278,7 @@
     "reviews": "Reviews",
     "seeAllReviews": "See all reviews",
     "reviewBy": "by {author}",
+    "readMoreReviews": "Read more reviews on {platform}",
     "totalExcluding": "Total {currency} excluding {tax}",
     "totalIncluding": "Total {currency} including {tax}",
     "totalPlain": "Total {currency}",
@@ -1470,7 +1502,8 @@
     "fields": {
       "customer": "the contact's name",
       "reference": "the quote's reference",
-      "company": "your company's name"
+      "company": "your company's name",
+      "author": "who prepared the quote"
     },
     "errors": {
       "unknownFields": "There is no field by that name.",
@@ -1514,20 +1547,10 @@
       "reviewRequestDays": "Ask for a review (days)",
       "daysHint": "Both follow-ups count from the day the quote was sent; the review from the day it was accepted. They only go out if you switch them on below."
     },
-    "reviewLinks": {
-      "title": "Where to leave a review",
-      "subtitle": "Sent to a customer a few days after they accept. Add one link per platform.",
-      "empty": "No links yet, so the review email won't go out.",
-      "platform": "Platform",
-      "url": "Link",
-      "add": "Add link",
-      "remove": "Remove the {source} link",
-      "sources": {
-        "GOOGLE": "Google",
-        "NOCOWBOYS": "NoCowboys",
-        "FACEBOOK": "Facebook",
-        "OTHER": "Somewhere else"
-      }
+    "reviewLinksMoved": {
+      "some": "The review request sends customers to {platforms}.",
+      "none": "The review request has nowhere to send customers yet, so it won't go out.",
+      "link": "Set them up in Reviews"
     },
     "sentTitle": "Emails sent"
   },

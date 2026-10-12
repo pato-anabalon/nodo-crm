@@ -18,6 +18,7 @@ import { PrintButton } from "./print-button";
 import { PresenceHeartbeat } from "./heartbeat";
 import { QuoteHeader } from "./quote-header";
 import { CompanyReviews } from "./company-reviews";
+import { readLinks } from "@/modules/settings/review-platforms";
 import { AcceptPanel } from "./accept-panel";
 import { SectionSelector } from "./section-selector";
 import { SectionAttachments } from "./section-attachments";
@@ -86,6 +87,7 @@ export async function QuoteDocument({
   const open = live && canClientRespond(quote.status);
   const taxLabel = quote.taxType;
   const showTaxBreakdown = taxIsInTotal(quote.taxDisplayMode);
+  const reviewLinks = readLinks(company.reviewLinks);
   const hasSelectableSections =
     quote.pricingMode === PricingMode.SECTIONS &&
     quote.sections.some((section) => section.kind !== "INDEPENDENT");
@@ -460,11 +462,11 @@ export async function QuoteDocument({
               />
 
               <div className="relative">
-                <CompanyReviews reviews={company.reviews} locale={locale} />
+                <CompanyReviews reviews={company.reviews} links={reviewLinks} locale={locale} />
               </div>
             </div>
           ) : (
-            <CompanyReviews reviews={company.reviews} locale={locale} />
+            <CompanyReviews reviews={company.reviews} links={reviewLinks} locale={locale} />
           )}
         </main>
       </div>

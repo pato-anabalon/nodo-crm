@@ -39,6 +39,14 @@ import type * as Prisma from "../internal/prismaNamespace"
  *  * A row per platform rather than a list of URLs in one field: added one at a
  *  * time it can be validated on the way in, and a typo in the third link of a
  *  * comma-separated box is invisible until somebody notices nobody reviews them.
+ * *
+ *  * One platform the company is reviewed on, and its two addresses there.
+ *  *
+ *  * Reading the reviews and leaving one are different pages more often than not
+ *  * — Google's write link opens the form, its listing shows what others said;
+ *  * NoCowboys anchors the same page at `#rate` or `#ratings` — so each is its own
+ *  * field and neither stands in for the other. Either may be missing; a row has
+ *  * at least one.
  */
 export type ReviewLinkModel = runtime.Types.Result.DefaultSelection<Prisma.$ReviewLinkPayload>
 
@@ -62,7 +70,9 @@ export type ReviewLinkMinAggregateOutputType = {
   id: string | null
   companyId: string | null
   source: $Enums.ReviewSource | null
-  url: string | null
+  label: string | null
+  readUrl: string | null
+  leaveUrl: string | null
   position: number | null
   createdAt: Date | null
 }
@@ -71,7 +81,9 @@ export type ReviewLinkMaxAggregateOutputType = {
   id: string | null
   companyId: string | null
   source: $Enums.ReviewSource | null
-  url: string | null
+  label: string | null
+  readUrl: string | null
+  leaveUrl: string | null
   position: number | null
   createdAt: Date | null
 }
@@ -80,7 +92,9 @@ export type ReviewLinkCountAggregateOutputType = {
   id: number
   companyId: number
   source: number
-  url: number
+  label: number
+  readUrl: number
+  leaveUrl: number
   position: number
   createdAt: number
   _all: number
@@ -99,7 +113,9 @@ export type ReviewLinkMinAggregateInputType = {
   id?: true
   companyId?: true
   source?: true
-  url?: true
+  label?: true
+  readUrl?: true
+  leaveUrl?: true
   position?: true
   createdAt?: true
 }
@@ -108,7 +124,9 @@ export type ReviewLinkMaxAggregateInputType = {
   id?: true
   companyId?: true
   source?: true
-  url?: true
+  label?: true
+  readUrl?: true
+  leaveUrl?: true
   position?: true
   createdAt?: true
 }
@@ -117,7 +135,9 @@ export type ReviewLinkCountAggregateInputType = {
   id?: true
   companyId?: true
   source?: true
-  url?: true
+  label?: true
+  readUrl?: true
+  leaveUrl?: true
   position?: true
   createdAt?: true
   _all?: true
@@ -213,7 +233,9 @@ export type ReviewLinkGroupByOutputType = {
   id: string
   companyId: string
   source: $Enums.ReviewSource
-  url: string
+  label: string | null
+  readUrl: string | null
+  leaveUrl: string | null
   position: number
   createdAt: Date
   _count: ReviewLinkCountAggregateOutputType | null
@@ -245,7 +267,9 @@ export type ReviewLinkWhereInput = {
   id?: Prisma.StringFilter<"ReviewLink"> | string
   companyId?: Prisma.StringFilter<"ReviewLink"> | string
   source?: Prisma.EnumReviewSourceFilter<"ReviewLink"> | $Enums.ReviewSource
-  url?: Prisma.StringFilter<"ReviewLink"> | string
+  label?: Prisma.StringNullableFilter<"ReviewLink"> | string | null
+  readUrl?: Prisma.StringNullableFilter<"ReviewLink"> | string | null
+  leaveUrl?: Prisma.StringNullableFilter<"ReviewLink"> | string | null
   position?: Prisma.IntFilter<"ReviewLink"> | number
   createdAt?: Prisma.DateTimeFilter<"ReviewLink"> | Date | string
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
@@ -255,7 +279,9 @@ export type ReviewLinkOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
   source?: Prisma.SortOrder
-  url?: Prisma.SortOrder
+  label?: Prisma.SortOrderInput | Prisma.SortOrder
+  readUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  leaveUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   position?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   company?: Prisma.CompanyOrderByWithRelationInput
@@ -269,7 +295,9 @@ export type ReviewLinkWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ReviewLinkWhereInput | Prisma.ReviewLinkWhereInput[]
   companyId?: Prisma.StringFilter<"ReviewLink"> | string
   source?: Prisma.EnumReviewSourceFilter<"ReviewLink"> | $Enums.ReviewSource
-  url?: Prisma.StringFilter<"ReviewLink"> | string
+  label?: Prisma.StringNullableFilter<"ReviewLink"> | string | null
+  readUrl?: Prisma.StringNullableFilter<"ReviewLink"> | string | null
+  leaveUrl?: Prisma.StringNullableFilter<"ReviewLink"> | string | null
   position?: Prisma.IntFilter<"ReviewLink"> | number
   createdAt?: Prisma.DateTimeFilter<"ReviewLink"> | Date | string
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
@@ -279,7 +307,9 @@ export type ReviewLinkOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
   source?: Prisma.SortOrder
-  url?: Prisma.SortOrder
+  label?: Prisma.SortOrderInput | Prisma.SortOrder
+  readUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  leaveUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   position?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.ReviewLinkCountOrderByAggregateInput
@@ -296,7 +326,9 @@ export type ReviewLinkScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"ReviewLink"> | string
   companyId?: Prisma.StringWithAggregatesFilter<"ReviewLink"> | string
   source?: Prisma.EnumReviewSourceWithAggregatesFilter<"ReviewLink"> | $Enums.ReviewSource
-  url?: Prisma.StringWithAggregatesFilter<"ReviewLink"> | string
+  label?: Prisma.StringNullableWithAggregatesFilter<"ReviewLink"> | string | null
+  readUrl?: Prisma.StringNullableWithAggregatesFilter<"ReviewLink"> | string | null
+  leaveUrl?: Prisma.StringNullableWithAggregatesFilter<"ReviewLink"> | string | null
   position?: Prisma.IntWithAggregatesFilter<"ReviewLink"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ReviewLink"> | Date | string
 }
@@ -304,7 +336,9 @@ export type ReviewLinkScalarWhereWithAggregatesInput = {
 export type ReviewLinkCreateInput = {
   id?: string
   source: $Enums.ReviewSource
-  url: string
+  label?: string | null
+  readUrl?: string | null
+  leaveUrl?: string | null
   position?: number
   createdAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutReviewLinksInput
@@ -314,7 +348,9 @@ export type ReviewLinkUncheckedCreateInput = {
   id?: string
   companyId: string
   source: $Enums.ReviewSource
-  url: string
+  label?: string | null
+  readUrl?: string | null
+  leaveUrl?: string | null
   position?: number
   createdAt?: Date | string
 }
@@ -322,7 +358,9 @@ export type ReviewLinkUncheckedCreateInput = {
 export type ReviewLinkUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumReviewSourceFieldUpdateOperationsInput | $Enums.ReviewSource
-  url?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  leaveUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutReviewLinksNestedInput
@@ -332,7 +370,9 @@ export type ReviewLinkUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumReviewSourceFieldUpdateOperationsInput | $Enums.ReviewSource
-  url?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  leaveUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -341,7 +381,9 @@ export type ReviewLinkCreateManyInput = {
   id?: string
   companyId: string
   source: $Enums.ReviewSource
-  url: string
+  label?: string | null
+  readUrl?: string | null
+  leaveUrl?: string | null
   position?: number
   createdAt?: Date | string
 }
@@ -349,7 +391,9 @@ export type ReviewLinkCreateManyInput = {
 export type ReviewLinkUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumReviewSourceFieldUpdateOperationsInput | $Enums.ReviewSource
-  url?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  leaveUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -358,7 +402,9 @@ export type ReviewLinkUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumReviewSourceFieldUpdateOperationsInput | $Enums.ReviewSource
-  url?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  leaveUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -382,7 +428,9 @@ export type ReviewLinkCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
   source?: Prisma.SortOrder
-  url?: Prisma.SortOrder
+  label?: Prisma.SortOrder
+  readUrl?: Prisma.SortOrder
+  leaveUrl?: Prisma.SortOrder
   position?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -395,7 +443,9 @@ export type ReviewLinkMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
   source?: Prisma.SortOrder
-  url?: Prisma.SortOrder
+  label?: Prisma.SortOrder
+  readUrl?: Prisma.SortOrder
+  leaveUrl?: Prisma.SortOrder
   position?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -404,7 +454,9 @@ export type ReviewLinkMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
   source?: Prisma.SortOrder
-  url?: Prisma.SortOrder
+  label?: Prisma.SortOrder
+  readUrl?: Prisma.SortOrder
+  leaveUrl?: Prisma.SortOrder
   position?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -462,7 +514,9 @@ export type EnumReviewSourceFieldUpdateOperationsInput = {
 export type ReviewLinkCreateWithoutCompanyInput = {
   id?: string
   source: $Enums.ReviewSource
-  url: string
+  label?: string | null
+  readUrl?: string | null
+  leaveUrl?: string | null
   position?: number
   createdAt?: Date | string
 }
@@ -470,7 +524,9 @@ export type ReviewLinkCreateWithoutCompanyInput = {
 export type ReviewLinkUncheckedCreateWithoutCompanyInput = {
   id?: string
   source: $Enums.ReviewSource
-  url: string
+  label?: string | null
+  readUrl?: string | null
+  leaveUrl?: string | null
   position?: number
   createdAt?: Date | string
 }
@@ -508,7 +564,9 @@ export type ReviewLinkScalarWhereInput = {
   id?: Prisma.StringFilter<"ReviewLink"> | string
   companyId?: Prisma.StringFilter<"ReviewLink"> | string
   source?: Prisma.EnumReviewSourceFilter<"ReviewLink"> | $Enums.ReviewSource
-  url?: Prisma.StringFilter<"ReviewLink"> | string
+  label?: Prisma.StringNullableFilter<"ReviewLink"> | string | null
+  readUrl?: Prisma.StringNullableFilter<"ReviewLink"> | string | null
+  leaveUrl?: Prisma.StringNullableFilter<"ReviewLink"> | string | null
   position?: Prisma.IntFilter<"ReviewLink"> | number
   createdAt?: Prisma.DateTimeFilter<"ReviewLink"> | Date | string
 }
@@ -516,7 +574,9 @@ export type ReviewLinkScalarWhereInput = {
 export type ReviewLinkCreateManyCompanyInput = {
   id?: string
   source: $Enums.ReviewSource
-  url: string
+  label?: string | null
+  readUrl?: string | null
+  leaveUrl?: string | null
   position?: number
   createdAt?: Date | string
 }
@@ -524,7 +584,9 @@ export type ReviewLinkCreateManyCompanyInput = {
 export type ReviewLinkUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumReviewSourceFieldUpdateOperationsInput | $Enums.ReviewSource
-  url?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  leaveUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -532,7 +594,9 @@ export type ReviewLinkUpdateWithoutCompanyInput = {
 export type ReviewLinkUncheckedUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumReviewSourceFieldUpdateOperationsInput | $Enums.ReviewSource
-  url?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  leaveUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -540,7 +604,9 @@ export type ReviewLinkUncheckedUpdateWithoutCompanyInput = {
 export type ReviewLinkUncheckedUpdateManyWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumReviewSourceFieldUpdateOperationsInput | $Enums.ReviewSource
-  url?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  leaveUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -551,7 +617,9 @@ export type ReviewLinkSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   id?: boolean
   companyId?: boolean
   source?: boolean
-  url?: boolean
+  label?: boolean
+  readUrl?: boolean
+  leaveUrl?: boolean
   position?: boolean
   createdAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -561,7 +629,9 @@ export type ReviewLinkSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   companyId?: boolean
   source?: boolean
-  url?: boolean
+  label?: boolean
+  readUrl?: boolean
+  leaveUrl?: boolean
   position?: boolean
   createdAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -571,7 +641,9 @@ export type ReviewLinkSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   companyId?: boolean
   source?: boolean
-  url?: boolean
+  label?: boolean
+  readUrl?: boolean
+  leaveUrl?: boolean
   position?: boolean
   createdAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -581,12 +653,14 @@ export type ReviewLinkSelectScalar = {
   id?: boolean
   companyId?: boolean
   source?: boolean
-  url?: boolean
+  label?: boolean
+  readUrl?: boolean
+  leaveUrl?: boolean
   position?: boolean
   createdAt?: boolean
 }
 
-export type ReviewLinkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "source" | "url" | "position" | "createdAt", ExtArgs["result"]["reviewLink"]>
+export type ReviewLinkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "source" | "label" | "readUrl" | "leaveUrl" | "position" | "createdAt", ExtArgs["result"]["reviewLink"]>
 export type ReviewLinkInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
 }
@@ -606,10 +680,30 @@ export type $ReviewLinkPayload<ExtArgs extends runtime.Types.Extensions.Internal
     id: string
     companyId: string
     source: $Enums.ReviewSource
-    url: string
     /**
      * *
-     *    * The order they appear in the email.
+     *    * Names the platform when `source` is `OTHER` — "Builderscrack" — so the
+     *    * customer doesn't read "more reviews on somewhere else". Null otherwise:
+     *    * the known platforms are named from `source`.
+     */
+    label: string | null
+    /**
+     * *
+     *    * Where the customer goes to see what others said: listed under the reviews
+     *    * on the quote and in the PDF.
+     */
+    readUrl: string | null
+    /**
+     * *
+     *    * Where the customer goes to leave a review: what the review-request email
+     *    * hands over. Mapped onto the column's original name — it was the only link
+     *    * before `readUrl` existed — so the migration only adds, and code still
+     *    * reading `url` keeps working against the migrated table.
+     */
+    leaveUrl: string | null
+    /**
+     * *
+     *    * The order they appear in, on the quote and in the email alike.
      */
     position: number
     createdAt: Date
@@ -1040,7 +1134,9 @@ export interface ReviewLinkFieldRefs {
   readonly id: Prisma.FieldRef<"ReviewLink", 'String'>
   readonly companyId: Prisma.FieldRef<"ReviewLink", 'String'>
   readonly source: Prisma.FieldRef<"ReviewLink", 'ReviewSource'>
-  readonly url: Prisma.FieldRef<"ReviewLink", 'String'>
+  readonly label: Prisma.FieldRef<"ReviewLink", 'String'>
+  readonly readUrl: Prisma.FieldRef<"ReviewLink", 'String'>
+  readonly leaveUrl: Prisma.FieldRef<"ReviewLink", 'String'>
   readonly position: Prisma.FieldRef<"ReviewLink", 'Int'>
   readonly createdAt: Prisma.FieldRef<"ReviewLink", 'DateTime'>
 }

@@ -6,7 +6,7 @@ import { requirePermission } from "@/lib/auth/session";
 import { translateFieldErrors } from "@/lib/i18n-errors";
 import { sanitizeRichText } from "@/lib/rich-text";
 import { checkbox } from "@/modules/settings/schemas";
-import { emailSettingsSchema, emailTemplateSchema, reviewLinkSchema } from "./schemas";
+import { emailSettingsSchema, emailTemplateSchema } from "./schemas";
 import { saveTemplate } from "./service";
 
 export type EmailTemplateState = {
@@ -84,48 +84,5 @@ export async function saveEmailSettingsAction(
 
   revalidatePath("/settings/emails");
   revalidatePath("/settings", "layout");
-  return saved();
-}
-
-/**
- * Adds one place to be reviewed.
- *
- * One at a time so each can be checked on the way in. A box of URLs separated by
- * commas hides a typo in the third one until somebody notices nobody reviews
- * them, which is months.
- */
-export async function addReviewLinkAction(
-  _prev: EmailTemplateState,
-  formData: FormData,
-): Promise<EmailTemplateState> {
-  const ctx = await requirePermission("settings.update");
-  const t = await getTranslations();
-
-  const parsed = reviewLinkSchema.safeParse({
-    source: formData.get("source"),
-    url: formData.get("url"),
-  });
-  if (!parsed.success) {
-    return { fieldErrors: translateFieldErrors(parsed.error.flatten().fieldErrors, t) };
-  }
-
-  const count = await ctx.db.reviewLink.count();
-  await ctx.db.reviewLink.upsert({
-    where: { companyId_source: { companyId: ctx.company.id, source: parsed.data.source } },
-    create: { companyId: ctx.company.id, ...parsed.data, position: count },
-    // One link per platform: a second Google link is a corrected one, not
-    // another place to send people.
-    update: { url: parsed.data.url },
-  });
-
-  revalidatePath("/settings/emails");
-  return saved();
-}
-
-export async function removeReviewLinkAction(id: string): Promise<EmailTemplateState> {
-  const ctx = await requirePermission("settings.update");
-  await ctx.db.reviewLink.deleteMany({ where: { id } });
-
-  revalidatePath("/settings/emails");
   return saved();
 }

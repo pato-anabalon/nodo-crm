@@ -1,5 +1,11 @@
 import { z } from "zod";
-import { AcceptanceMode, Language, TaxDisplayMode, TaxType } from "@/generated/prisma/enums";
+import {
+  AcceptanceMode,
+  Language,
+  ReviewSource,
+  TaxDisplayMode,
+  TaxType,
+} from "@/generated/prisma/enums";
 import {
   isSupportedCurrency,
   isSupportedFormatLocale,
@@ -98,6 +104,50 @@ export const reviewSchema = z.object({
   ),
   featured: z.coerce.boolean(),
 });
+
+const optionalUrl = optionalText(1000).refine((v) => {
+  if (!v) return true;
+  if (!/^https?:\/\//i.test(v)) return false;
+  try {
+    new URL(v);
+    return true;
+  } catch {
+    return false;
+  }
+}, "settings.errors.invalidUrl");
+
+/**
+ * One platform the company is reviewed on, with its two addresses.
+ *
+ * Either link may be left out — a platform can be somewhere to read reviews
+ * without being somewhere to ask for one — but not both, or the row says
+ * nothing. "Somewhere else" has to be named: it is what the customer reads.
+ */
+export const reviewPlatformSchema = z
+  .object({
+    source: z.nativeEnum(ReviewSource),
+    label: optionalText(60),
+    readUrl: optionalUrl,
+    leaveUrl: optionalUrl,
+  })
+  .superRefine((values, issue) => {
+    if (values.source === ReviewSource.OTHER && !values.label) {
+      issue.addIssue({ code: "custom", path: ["label"], message: "settings.errors.platformNameRequired" });
+    }
+    if (!values.readUrl && !values.leaveUrl) {
+      issue.addIssue({ code: "custom", path: ["readUrl"], message: "settings.errors.oneLinkRequired" });
+    }
+  })
+  // A known platform is named by its source; a label posted alongside one is
+  // a leftover from switching the select, not a name.
+  .transform((values) => ({
+    ...values,
+    label: values.source === ReviewSource.OTHER ? (values.label ?? null) : null,
+    readUrl: values.readUrl ?? null,
+    leaveUrl: values.leaveUrl ?? null,
+  }));
+
+export type ReviewPlatformValues = z.infer<typeof reviewPlatformSchema>;
 
 /** An unticked checkbox isn't sent in the FormData: absent means false. */
 export function checkbox(formData: FormData, name: string): boolean {

@@ -50,6 +50,15 @@ export const companyDocumentSelect = {
     orderBy: [{ position: "asc" }, { createdAt: "desc" }],
     take: 3,
   },
+  // Where to read more of them, listed under the ones above. Only the
+  // platforms with a reading link: the link to *leave* one belongs to the
+  // review request email, and sending somebody who is still deciding to a
+  // "write your review" form would be the wrong door.
+  reviewLinks: {
+    where: { readUrl: { not: null } },
+    orderBy: { position: "asc" },
+    select: { source: true, label: true, readUrl: true, leaveUrl: true },
+  },
 } satisfies Prisma.CompanySelect;
 
 /** What the quote document needs about the quote itself. */

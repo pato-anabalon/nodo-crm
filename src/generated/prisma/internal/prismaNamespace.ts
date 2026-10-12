@@ -4138,7 +4138,9 @@ export const ReviewLinkScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
   source: 'source',
-  url: 'url',
+  label: 'label',
+  readUrl: 'readUrl',
+  leaveUrl: 'leaveUrl',
   position: 'position',
   createdAt: 'createdAt'
 } as const

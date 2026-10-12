@@ -1570,15 +1570,41 @@ model QuoteAttachment {
  * time it can be validated on the way in, and a typo in the third link of a
  * comma-separated box is invisible until somebody notices nobody reviews them.
  */
+/**
+ * One platform the company is reviewed on, and its two addresses there.
+ *
+ * Reading the reviews and leaving one are different pages more often than not
+ * — Google's write link opens the form, its listing shows what others said;
+ * NoCowboys anchors the same page at `#rate` or `#ratings` — so each is its own
+ * field and neither stands in for the other. Either may be missing; a row has
+ * at least one.
+ */
 model ReviewLink {
   id        String  @id @default(cuid())
   companyId String
   company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
 
   source   ReviewSource
-  url      String
   /**
-   * The order they appear in the email.
+   * Names the platform when `source` is `OTHER` — "Builderscrack" — so the
+   * customer doesn't read "more reviews on somewhere else". Null otherwise:
+   * the known platforms are named from `source`.
+   */
+  label    String?
+  /**
+   * Where the customer goes to see what others said: listed under the reviews
+   * on the quote and in the PDF.
+   */
+  readUrl  String?
+  /**
+   * Where the customer goes to leave a review: what the review-request email
+   * hands over. Mapped onto the column's original name — it was the only link
+   * before `readUrl` existed — so the migration only adds, and code still
+   * reading `url` keeps working against the migrated table.
+   */
+  leaveUrl String?      @map("url")
+  /**
+   * The order they appear in, on the quote and in the email alike.
    */
   position Int          @default(0)
 

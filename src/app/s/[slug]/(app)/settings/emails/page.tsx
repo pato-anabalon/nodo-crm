@@ -1,17 +1,18 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { requirePermission } from "@/lib/auth/session";
 import { prisma } from "@/lib/db/prisma";
 import { EmailTemplateKind, SenderNameStyle } from "@/generated/prisma/enums";
 import {
-  AreaField,
   CheckField,
   FieldRow,
+  RichAreaField,
   SelectField,
   SettingsForm,
   TextField,
 } from "@/modules/settings/settings-form";
-import { ReviewLinks } from "@/modules/email-templates/review-links";
-import { can } from "@/lib/auth/session";
+import { leaveLinks } from "@/modules/settings/review-platforms";
 import { saveEmailSettingsAction } from "@/modules/email-templates/actions";
 import { EmailTemplateForm } from "@/modules/email-templates/templates-manager";
 import { IMPLEMENTED_KINDS, isOptional, isEnabled, TEMPLATE_ORDER } from "@/modules/email-templates/kinds";
@@ -31,14 +32,15 @@ export default async function EmailSettingsPage() {
     getTranslations("quotes.email"),
   ]);
 
-  const [company, stored, reviewLinks] = await Promise.all([
+  const [company, stored, platforms] = await Promise.all([
     prisma.company.findUniqueOrThrow({ where: { id: ctx.company.id } }),
     templatesFor(ctx),
     ctx.db.reviewLink.findMany({
       orderBy: { position: "asc" },
-      select: { id: true, source: true, url: true },
+      select: { source: true, label: true, readUrl: true, leaveUrl: true },
     }),
   ]);
+  const reviewPlatforms = leaveLinks(platforms);
 
   // Shown as real examples rather than as enum names: nobody picks "USER_AND_COMPANY",
   // they pick the one that reads like how they answer the phone.
@@ -90,10 +92,12 @@ export default async function EmailSettingsPage() {
             hint={t("shared.sloganHint")}
           />
 
-          <AreaField
+          {/* The same editor as the quote's own texts: the footer is stored
+              and sent as HTML, and a plain textarea showed that HTML back as
+              tags — so did the email, once somebody typed around them. */}
+          <RichAreaField
             label={t("shared.footer")}
             name="quoteFooter"
-            rows={4}
             defaultValue={company.quoteFooter}
             hint={t("shared.footerHint")}
           />
@@ -131,7 +135,24 @@ export default async function EmailSettingsPage() {
         </>
       </SettingsForm>
 
-      <ReviewLinks links={reviewLinks} canManage={can(ctx, "settings.update")} />
+      {/* The links themselves live with the reviews, one row per platform
+          holding both the address to read reviews and the one to leave one.
+          This screen only says where the review request will send people —
+          or that it has nowhere to, which is when it doesn't go out. */}
+      <p className="flex flex-wrap items-center gap-x-2 gap-y-1 rounded-md bg-muted/50 p-3 text-sm text-muted-foreground">
+        {reviewPlatforms.length > 0
+          ? t("reviewLinksMoved.some", {
+              platforms: reviewPlatforms.map((link) => link.name).join(", "),
+            })
+          : t("reviewLinksMoved.none")}
+        <Link
+          href="/settings/reviews"
+          className="inline-flex items-center gap-1 font-medium text-foreground underline underline-offset-2"
+        >
+          {t("reviewLinksMoved.link")}
+          <ArrowRight className="size-3.5" />
+        </Link>
+      </p>
 
       <div className="space-y-4">
         {TEMPLATE_ORDER.map((kind) => {

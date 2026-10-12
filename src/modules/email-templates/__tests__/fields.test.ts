@@ -1,6 +1,11 @@
 import { applyFields, isEmailField, unknownFields } from "../fields";
 
-const values = { customer: "Paula Rivas", reference: "COT-000001", company: "Acme Ltd" };
+const values = {
+  customer: "Paula Rivas",
+  reference: "COT-000001",
+  company: "Acme Ltd",
+  author: "Rolando Reveco",
+};
 
 describe("unknownFields", () => {
   it("accepts the catalogue", () => {
@@ -26,6 +31,26 @@ describe("unknownFields", () => {
 
   it("is quiet about text with no fields at all", () => {
     expect(unknownFields("Adjunto la cotización.")).toEqual([]);
+  });
+});
+
+describe("author", () => {
+  it("is in the catalogue, so a template using it saves", () => {
+    expect(isEmailField("author")).toBe(true);
+    expect(unknownFields("{{author}} of {{company}} has prepared this quote")).toEqual([]);
+  });
+
+  it("names whoever prepared the quote", () => {
+    expect(applyFields("{{author}} of {{company}} has prepared this quote", values)).toBe(
+      "Rolando Reveco of Acme Ltd has prepared this quote",
+    );
+  });
+
+  /** An imported quote, or one whose author was removed: empty, like any field. */
+  it("stays empty when the quote has no author", () => {
+    expect(applyFields("Kind regards, {{author}}", { ...values, author: "" })).toBe(
+      "Kind regards, ",
+    );
   });
 });
 

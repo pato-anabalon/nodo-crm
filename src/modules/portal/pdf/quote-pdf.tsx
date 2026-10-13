@@ -14,7 +14,12 @@ import { getTranslations } from "next-intl/server";
 import type { Prisma } from "@/generated/prisma/client";
 import { PricingMode, QuoteStatus } from "@/generated/prisma/enums";
 import type { Locale } from "@/i18n/config";
-import { formatDate, formatDateTime, formatMoney, formatQuoteNumber } from "@/lib/format";
+import {
+  formatDate,
+  formatDateTime,
+  formatMoney,
+  formatQuoteNumber,
+} from "@/lib/format";
 import { hexToOklch, inkOn, oklchToHex } from "@/lib/theme/color";
 import { initials } from "@/components/company-logo";
 import {
@@ -26,16 +31,32 @@ import {
   sectionNetAmount,
   taxIsInTotal,
 } from "@/modules/quotes/totals";
-import { companyDocumentSelect, quoteDocumentInclude } from "@/modules/portal/service";
+import {
+  companyDocumentSelect,
+  quoteDocumentInclude,
+} from "@/modules/portal/service";
 import { bundleFrom } from "@/modules/quotes/service";
 import { ensureFontsRegistered } from "./fonts";
 import { readLinks } from "@/modules/settings/review-platforms";
 import { RichTextPdf } from "./rich-text";
 
-export type PdfCompany = Prisma.CompanyGetPayload<{ select: typeof companyDocumentSelect }>;
-export type PdfQuote = Prisma.QuoteGetPayload<{ include: typeof quoteDocumentInclude }>;
+export type PdfCompany = Prisma.CompanyGetPayload<{
+  select: typeof companyDocumentSelect;
+}>;
+export type PdfQuote = Prisma.QuoteGetPayload<{
+  include: typeof quoteDocumentInclude;
+}>;
 
 const FOREGROUND = "#111827";
+// How much of a block has to fit on the page it starts on, or it starts on the
+// next one — so a heading never sits alone at the foot of a page with its text
+// overleaf. A section asks for more: its title, the price beside it and a few
+// lines of the scope, or the box opens on its own heading and reads as empty.
+// Reviews too: the grid opens 20pt under the heading and a review is a few
+// lines tall.
+const MIN_PRESENCE = 60;
+const SECTION_MIN_PRESENCE = 140;
+const REVIEWS_MIN_PRESENCE = 110;
 const MUTED = "#6b7280";
 const BORDER = "#e5e7eb";
 
@@ -54,7 +75,11 @@ const styles = StyleSheet.create({
     // letter its own glyph; it reads identically; it just no longer drops one.
     fontFeatureSettings: { liga: false },
   },
-  headerRow: { flexDirection: "row", justifyContent: "space-between", marginBottom: 24 },
+  headerRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 24,
+  },
   logoBox: {
     width: 90,
     height: 90,
@@ -72,10 +97,20 @@ const styles = StyleSheet.create({
   // image's proportions. `flex-start` keeps the row from stretching it to the
   // height of the dates beside it.
   pdfLogo: { width: "50%", alignSelf: "flex-start", objectFit: "contain" },
-  logoInitials: { fontSize: 24, fontFamily: "Geist", fontWeight: "bold", color: "#ffffff" },
+  logoInitials: {
+    fontSize: 24,
+    fontFamily: "Geist",
+    fontWeight: "bold",
+    color: "#ffffff",
+  },
   metaColumn: { alignItems: "flex-end" },
   metaBlock: { marginBottom: 8, alignItems: "flex-end" },
-  label: { fontSize: 8, fontFamily: "Geist", fontWeight: "bold", letterSpacing: 0.5 },
+  label: {
+    fontSize: 8,
+    fontFamily: "Geist",
+    fontWeight: "bold",
+    letterSpacing: 0.5,
+  },
   value: { fontSize: 10, color: MUTED, marginTop: 1 },
   partyRow: { flexDirection: "row", gap: 16, marginBottom: 20 },
   partyCard: {
@@ -88,29 +123,55 @@ const styles = StyleSheet.create({
   },
   strong: { fontFamily: "Geist", fontWeight: "bold" },
   fieldSpacer: { marginTop: 6 },
-  title: { fontSize: 20, fontFamily: "Geist", fontWeight: "bold", lineHeight: 1.3, marginBottom: 12 },
-  introSection: { marginBottom: 16 },
+  title: {
+    fontSize: 20,
+    fontFamily: "Geist",
+    fontWeight: "bold",
+    lineHeight: 1.3,
+    marginBottom: 12,
+  },
+  // Padding, not margin, for the space under anything that can run to the foot
+  // of a page. React PDF counts a bottom margin as content that has to fit: a
+  // block that fits with 10pt to spare and carries a 16pt margin is moved to
+  // the next page whole instead of staying — or splitting — where it is.
+  introSection: { paddingBottom: 16 },
   sectionBox: {
     flexDirection: "row",
     borderWidth: 1,
     borderStyle: "solid",
     borderRadius: 10,
-    marginBottom: 14,
     overflow: "hidden",
   },
   sectionBoxExcluded: { opacity: 0.5 },
   sectionBody: { flex: 1, padding: 12, color: "#000000" },
-  sectionTitle: { fontSize: 12, fontFamily: "Geist", fontWeight: "bold", marginBottom: 6 },
+  sectionTitle: {
+    fontSize: 12,
+    fontFamily: "Geist",
+    fontWeight: "bold",
+    marginBottom: 6,
+  },
+  // Top, not centred as on the web: a section is allowed to run onto the next
+  // page, and a price centred on the whole box lands wherever the middle of it
+  // happens to fall — often the page after the title it belongs to. Level with
+  // the title it always sits beside it.
   sectionPriceCol: {
     width: 110,
     backgroundColor: "#e5e7eb",
     alignItems: "flex-end",
-    justifyContent: "center",
-    padding: 10,
+    padding: 12,
   },
   sectionPrice: { fontSize: 12, fontFamily: "Geist", fontWeight: "bold" },
-  sectionPriceWas: { fontSize: 8, color: MUTED, textDecoration: "line-through" },
-  sectionTag: { fontSize: 7, color: MUTED, marginTop: 4, textTransform: "uppercase" },
+  sectionPriceWas: {
+    fontSize: 8,
+    color: MUTED,
+    textDecoration: "line-through",
+  },
+  sectionTag: {
+    fontSize: 7,
+    color: MUTED,
+    marginTop: 4,
+    textTransform: "uppercase",
+  },
   itemRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -121,7 +182,11 @@ const styles = StyleSheet.create({
   },
   itemDescription: { flex: 1, paddingRight: 8 },
   totals: { alignSelf: "flex-end", width: 220, marginTop: 10 },
-  totalsRow: { flexDirection: "row", justifyContent: "space-between", marginBottom: 3 },
+  totalsRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 3,
+  },
   totalsLabel: { color: MUTED },
   totalsValue: {},
   grandTotalRow: {
@@ -133,8 +198,18 @@ const styles = StyleSheet.create({
   grandTotalLabel: { fontFamily: "Geist", fontWeight: "bold", fontSize: 11 },
   grandTotalValue: { fontFamily: "Geist", fontWeight: "bold", fontSize: 11 },
   block: { marginTop: 18 },
-  blockTitle: { fontSize: 11, fontFamily: "Geist", fontWeight: "bold", marginBottom: 6 },
-  attachmentsList: { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 4 },
+  blockTitle: {
+    fontSize: 11,
+    fontFamily: "Geist",
+    fontWeight: "bold",
+    marginBottom: 6,
+  },
+  attachmentsList: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 6,
+    marginTop: 4,
+  },
   attachmentChip: {
     fontSize: 9,
     color: "#2563eb",
@@ -162,13 +237,20 @@ const styles = StyleSheet.create({
   reviewLinks: { flexDirection: "row", flexWrap: "wrap", marginTop: 6 },
   // Text, not an arrow glyph after it: a symbol outside what Geist covers
   // comes out as the wrong one.
-  reviewLink: { marginRight: 18, marginBottom: 4, fontWeight: "bold", textDecoration: "underline" },
+  reviewLink: {
+    marginRight: 18,
+    marginBottom: 4,
+    fontWeight: "bold",
+    textDecoration: "underline",
+  },
   watermark: {
     position: "absolute",
-    width: 154, // 220 * 0.7 — 30% smaller.
-    opacity: 0.12,
-    right: 48,
-    bottom: 48,
+    width: 170,
+    opacity: 0.09,
+    // Tucked into the bottom-right corner, over the page's own margins rather
+    // than inside the content's.
+    right: -1,
+    bottom: 5,
   },
 });
 
@@ -180,6 +262,18 @@ function brandInk(primaryColor: string): string {
   const oklch = hexToOklch(primaryColor);
   if (!oklch) return primaryColor;
   return oklchToHex(inkOn(oklch, "#ffffff")) ?? primaryColor;
+}
+
+/** The company's colour as a line: the fill value rather than the ink, since a
+ * border is decoration and not something anybody reads, softened with alpha so
+ * the two cards frame their contents instead of competing with them. Expands
+ * `#abc` — the settings accept it — because alpha only appends to six digits. */
+function brandBorder(primaryColor: string): string {
+  const hex = primaryColor.trim();
+  const six = /^#[0-9a-f]{3}$/i.test(hex)
+    ? `#${hex[1]}${hex[1]}${hex[2]}${hex[2]}${hex[3]}${hex[3]}`
+    : hex;
+  return /^#[0-9a-f]{6}$/i.test(six) ? `${six}8f` : BORDER;
 }
 
 /**
@@ -204,8 +298,10 @@ export async function buildQuotePdfDocument({
 }) {
   ensureFontsRegistered();
   const t = await getTranslations({ locale, namespace: "portal" });
-  const money = (value: number) => formatMoney(value, quote.currency, company.formatLocale);
+  const money = (value: number) =>
+    formatMoney(value, quote.currency, company.formatLocale);
   const ink = brandInk(company.primaryColor);
+  const border = brandBorder(company.primaryColor);
   const reviewLinks = readLinks(company.reviewLinks);
   const taxLabel = quote.taxType;
   const showTaxBreakdown = taxIsInTotal(quote.taxDisplayMode);
@@ -214,7 +310,8 @@ export async function buildQuotePdfDocument({
     quote.sections.some((section) => section.kind !== "INDEPENDENT");
 
   const totalLabel = (() => {
-    if (quote.taxDisplayMode === "NO_TAX") return t("totalPlain", { currency: quote.currency });
+    if (quote.taxDisplayMode === "NO_TAX")
+      return t("totalPlain", { currency: quote.currency });
     return showTaxBreakdown
       ? t("totalIncluding", { currency: quote.currency, tax: taxLabel })
       : t("totalExcluding", { currency: quote.currency, tax: taxLabel });
@@ -250,7 +347,9 @@ export async function buildQuotePdfDocument({
       optionalDiscountThreshold: quote.optionalDiscountThreshold,
       optionalDiscountType: quote.optionalDiscountType,
       optionalDiscountValue:
-        quote.optionalDiscountValue === null ? null : Number(quote.optionalDiscountValue),
+        quote.optionalDiscountValue === null
+          ? null
+          : Number(quote.optionalDiscountValue),
     });
     const resolved = resolveSelectedSectionAmounts(sections, selection, bundle);
     includedSectionIds = new Set(resolved.included.map((s) => s.id));
@@ -272,10 +371,12 @@ export async function buildQuotePdfDocument({
   }
 
   return (
-    <Document title={`${formatQuoteNumber(company.quotePrefix, quote.number)} — ${quote.title}`}>
+    <Document
+      title={`${formatQuoteNumber(company.quotePrefix, quote.number)} — ${quote.title}`}
+    >
       <Page size="A4" style={styles.page} wrap>
         <Header company={company} quote={quote} t={t} ink={ink} />
-        <Parties company={company} quote={quote} t={t} ink={ink} />
+        <Parties company={company} quote={quote} t={t} ink={ink} border={border} />
 
         <Text style={styles.title}>
           {quote.quoteType ? `${quote.quoteType}: ` : ""}
@@ -297,26 +398,33 @@ export async function buildQuotePdfDocument({
           <RichTextPdf html={quote.intro} />
         </View>
 
+        {/* A fragment, not a wrapping view: the page has to see each section
+            as its own child for the spacer above it to move it to the next page. */}
         {quote.pricingMode === PricingMode.SECTIONS ? (
-          <View>
-            {quote.sections.map((section) => (
+          <>
+            {quote.sections.map((section, index) => (
               <SectionBox
                 key={section.id}
+                first={index === 0}
                 section={section}
                 money={money}
                 t={t}
-                included={includedSectionIds ? includedSectionIds.has(section.id) : true}
+                included={
+                  includedSectionIds ? includedSectionIds.has(section.id) : true
+                }
                 showStatus={hasSelectableSections}
               />
             ))}
-          </View>
+          </>
         ) : (
           <View>
             {quote.items.map((item) => (
               <View key={item.id} style={styles.itemRow}>
                 <Text style={styles.itemDescription}>
                   {item.description}{" "}
-                  <Text style={{ color: MUTED }}>× {Number(item.quantity)}</Text>
+                  <Text style={{ color: MUTED }}>
+                    × {Number(item.quantity)}
+                  </Text>
                 </Text>
                 <Text>{money(Number(item.total))}</Text>
               </View>
@@ -329,7 +437,10 @@ export async function buildQuotePdfDocument({
         ) : null}
 
         <View style={styles.totals}>
-          <TotalsRow label={t("subtotal")} value={money(resolvedTotals.subtotal)} />
+          <TotalsRow
+            label={t("subtotal")}
+            value={money(resolvedTotals.subtotal)}
+          />
           {bundleDiscountApplied > 0 ? (
             <TotalsRow
               label={t("bundleDiscount")}
@@ -337,7 +448,10 @@ export async function buildQuotePdfDocument({
             />
           ) : null}
           {resolvedTotals.discount > 0 ? (
-            <TotalsRow label={t("discount")} value={`− ${money(resolvedTotals.discount)}`} />
+            <TotalsRow
+              label={t("discount")}
+              value={`− ${money(resolvedTotals.discount)}`}
+            />
           ) : null}
           {showTaxBreakdown ? (
             <TotalsRow
@@ -347,7 +461,9 @@ export async function buildQuotePdfDocument({
           ) : null}
           <View style={styles.grandTotalRow}>
             <Text style={styles.grandTotalLabel}>{totalLabel}</Text>
-            <Text style={styles.grandTotalValue}>{money(resolvedTotals.total)}</Text>
+            <Text style={styles.grandTotalValue}>
+              {money(resolvedTotals.total)}
+            </Text>
           </View>
         </View>
 
@@ -369,7 +485,11 @@ export async function buildQuotePdfDocument({
             <Text>
               {t("declined", {
                 date: quote.decidedAt
-                  ? formatDateTime(quote.decidedAt, company.formatLocale, company.timezone)
+                  ? formatDateTime(
+                      quote.decidedAt,
+                      company.formatLocale,
+                      company.timezone,
+                    )
                   : "",
               })}
             </Text>
@@ -400,12 +520,15 @@ export async function buildQuotePdfDocument({
         ) : null}
 
         {company.reviews.length > 0 || reviewLinks.length > 0 ? (
-          <View style={styles.block} wrap={false}>
+          <KeepTogether presence={REVIEWS_MIN_PRESENCE} />
+        ) : null}
+        {company.reviews.length > 0 || reviewLinks.length > 0 ? (
+          <View style={styles.block}>
             <Text style={styles.blockTitle}>{t("reviews")}</Text>
             {company.reviews.length > 0 ? (
               <View style={styles.reviewsGrid}>
                 {company.reviews.map((review) => (
-                  <View key={review.id} style={styles.reviewCard}>
+                  <View key={review.id} style={styles.reviewCard} wrap={false}>
                     <Stars rating={review.rating} ink={ink} />
                     <Text style={styles.reviewBody}>{review.body}</Text>
                     <Text style={styles.reviewAuthor}>
@@ -422,7 +545,11 @@ export async function buildQuotePdfDocument({
             {reviewLinks.length > 0 ? (
               <View style={styles.reviewLinks}>
                 {reviewLinks.map((link) => (
-                  <Link key={link.url} src={link.url} style={[styles.reviewLink, { color: ink }]}>
+                  <Link
+                    key={link.url}
+                    src={link.url}
+                    style={[styles.reviewLink, { color: ink }]}
+                  >
                     {t("readMoreReviews", { platform: link.name })}
                   </Link>
                 ))}
@@ -475,7 +602,12 @@ function Header({
           <Image src={company.logoUrl} style={styles.logoImage} />
         </View>
       ) : (
-        <View style={[styles.logoBox, { backgroundColor: company.primaryColor, borderWidth: 0 }]}>
+        <View
+          style={[
+            styles.logoBox,
+            { backgroundColor: company.primaryColor, borderWidth: 0 },
+          ]}
+        >
           <Text style={styles.logoInitials}>{initials(company.name)}</Text>
         </View>
       )}
@@ -497,9 +629,15 @@ function Header({
         </View>
         {quote.validUntil ? (
           <View style={styles.metaBlock}>
-            <Text style={[styles.label, { color: ink }]}>{t("expiryDate")}</Text>
+            <Text style={[styles.label, { color: ink }]}>
+              {t("expiryDate")}
+            </Text>
             <Text style={styles.value}>
-              {formatDateTime(quote.validUntil, company.formatLocale, company.timezone)}
+              {formatDateTime(
+                quote.validUntil,
+                company.formatLocale,
+                company.timezone,
+              )}
             </Text>
           </View>
         ) : null}
@@ -513,22 +651,34 @@ function Parties({
   quote,
   t,
   ink,
+  border,
 }: {
   company: PdfCompany;
   quote: PdfQuote;
   t: Awaited<ReturnType<typeof getTranslations>>;
   ink: string;
+  border: string;
 }) {
   const issuer = quote.createdBy;
   return (
     <View style={styles.partyRow}>
-      <View style={styles.partyCard}>
+      <View style={[styles.partyCard, { borderColor: border }]}>
         <Text style={[styles.label, { color: ink }]}>{t("from")}</Text>
-        {issuer?.name ? <Text style={[styles.strong, styles.fieldSpacer]}>{issuer.name}</Text> : null}
-        {issuer?.jobTitle ? <Text style={{ color: MUTED }}>{issuer.jobTitle}</Text> : null}
-        <Text style={[styles.strong, styles.fieldSpacer]}>{company.legalName ?? company.name}</Text>
-        {company.address ? <Text style={{ color: MUTED }}>{company.address}</Text> : null}
-        {company.website ? <Text style={{ color: MUTED }}>{company.website}</Text> : null}
+        {issuer?.name ? (
+          <Text style={[styles.strong, styles.fieldSpacer]}>{issuer.name}</Text>
+        ) : null}
+        {issuer?.jobTitle ? (
+          <Text style={{ color: MUTED }}>{issuer.jobTitle}</Text>
+        ) : null}
+        <Text style={[styles.strong, styles.fieldSpacer]}>
+          {company.legalName ?? company.name}
+        </Text>
+        {company.address ? (
+          <Text style={{ color: MUTED }}>{company.address}</Text>
+        ) : null}
+        {company.website ? (
+          <Text style={{ color: MUTED }}>{company.website}</Text>
+        ) : null}
         {company.phone ? (
           <Field label={t("phone")} ink={ink}>
             {company.phone}
@@ -541,12 +691,16 @@ function Parties({
         ) : null}
       </View>
 
-      <View style={styles.partyCard}>
+      <View style={[styles.partyCard, { borderColor: border }]}>
         <Text style={[styles.label, { color: ink }]}>{t("for")}</Text>
         {quote.clientCompanyName ? (
-          <Text style={[styles.strong, styles.fieldSpacer]}>{quote.clientCompanyName}</Text>
+          <Text style={[styles.strong, styles.fieldSpacer]}>
+            {quote.clientCompanyName}
+          </Text>
         ) : quote.clientName ? (
-          <Text style={[styles.strong, styles.fieldSpacer]}>{quote.clientName}</Text>
+          <Text style={[styles.strong, styles.fieldSpacer]}>
+            {quote.clientName}
+          </Text>
         ) : null}
         {quote.clientName && quote.clientCompanyName ? (
           <Field label={t("to")} ink={ink}>
@@ -591,12 +745,14 @@ function SectionBox({
   t,
   included,
   showStatus,
+  first,
 }: {
   section: PdfQuote["sections"][number];
   money: (value: number) => string;
   t: Awaited<ReturnType<typeof getTranslations>>;
   included: boolean;
   showStatus: boolean;
+  first: boolean;
 }) {
   const gross = Number(section.amount);
   const discountValue = Number(section.discountValue);
@@ -611,31 +767,47 @@ function SectionBox({
       : t("sectionDiscountOff", { amount: money(discountValue) });
 
   return (
-    <View
-      style={[styles.sectionBox, included ? undefined : styles.sectionBoxExcluded]}
-      wrap={false}
-    >
-      <View style={styles.sectionBody}>
-        <Text style={styles.sectionTitle}>{section.title}</Text>
-        <RichTextPdf html={section.body} />
+    // Wraps, like everything that holds the company's prose. `wrap={false}` on
+    // a box taller than a page doesn't move it to a page of its own — React PDF
+    // keeps it, squeezes it into the one page with every line drawn over the
+    // next, and pushes all that follows onto fresh pages. A scope of work is
+    // exactly the text that grows past a page.
+    //
+    // The gap between boxes goes above each one rather than below (see
+    // `introSection`), carried by the same view that keeps a box from starting
+    // in the last few lines of a page.
+    <>
+      <KeepTogether presence={SECTION_MIN_PRESENCE} gap={first ? 0 : 14} />
+      <View
+        style={[
+          styles.sectionBox,
+          included ? undefined : styles.sectionBoxExcluded,
+        ]}
+      >
+        <View style={styles.sectionBody}>
+          <Text style={styles.sectionTitle}>{section.title}</Text>
+          <RichTextPdf html={section.body} />
+        </View>
+        <View style={styles.sectionPriceCol}>
+          {discountValue > 0 ? (
+            <Text style={styles.sectionPriceWas}>{money(gross)}</Text>
+          ) : null}
+          {discountValue > 0 ? (
+            <Text style={{ fontSize: 8, marginTop: 2 }}>{discountLabel}</Text>
+          ) : null}
+          <Text style={styles.sectionPrice}>{money(net)}</Text>
+          {showStatus ? (
+            <Text style={styles.sectionTag}>
+              {included
+                ? section.kind === "MULTIPLE_CHOICE"
+                  ? "Chosen"
+                  : "Included"
+                : "Not included"}
+            </Text>
+          ) : null}
+        </View>
       </View>
-      <View style={styles.sectionPriceCol}>
-        {discountValue > 0 ? (
-          <Text style={styles.sectionPriceWas}>{money(gross)}</Text>
-        ) : null}
-        {discountValue > 0 ? <Text style={{ fontSize: 8, marginTop: 2 }}>{discountLabel}</Text> : null}
-        <Text style={styles.sectionPrice}>{money(net)}</Text>
-        {showStatus ? (
-          <Text style={styles.sectionTag}>
-            {included
-              ? section.kind === "MULTIPLE_CHOICE"
-                ? "Chosen"
-                : "Included"
-              : "Not included"}
-          </Text>
-        ) : null}
-      </View>
-    </View>
+    </>
   );
 }
 
@@ -653,7 +825,11 @@ function Attachments({
       <Text style={[styles.label, { color: ink }]}>{t("attachments")}</Text>
       <View style={styles.attachmentsList}>
         {attachments.map((attachment) => (
-          <Link key={attachment.id} src={attachment.url} style={styles.attachmentChip}>
+          <Link
+            key={attachment.id}
+            src={attachment.url}
+            style={styles.attachmentChip}
+          >
             {attachment.name}
           </Link>
         ))}
@@ -671,13 +847,43 @@ function TotalsRow({ label, value }: { label: string; value: string }) {
   );
 }
 
-function Block({ title, children }: { title: string; children: React.ReactNode }) {
+function Block({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
-    <View style={styles.block} wrap={false}>
-      <Text style={styles.blockTitle}>{title}</Text>
-      {children}
-    </View>
+    <>
+      <KeepTogether presence={MIN_PRESENCE} />
+      <View style={styles.block}>
+        <Text style={styles.blockTitle}>{title}</Text>
+        {children}
+      </View>
+    </>
   );
+}
+
+/**
+ * An empty view that moves what follows it to the next page unless `presence`
+ * points of it fit on this one.
+ *
+ * Its own node, at page level, because `minPresenceAhead` on the heading
+ * itself does nothing: React PDF only honours it on a node with a sibling
+ * before it in the same parent, and a heading is its block's first child. It
+ * goes before the block rather than on it, because the prop measures the
+ * siblings that follow, not the node's own content. Must be a direct child of
+ * the page — inside a view it would be its first child, with the same problem.
+ */
+function KeepTogether({
+  presence,
+  gap = 0,
+}: {
+  presence: number;
+  gap?: number;
+}) {
+  return <View minPresenceAhead={presence} style={{ height: gap }} />;
 }
 
 // The same outline lucide-react's `Star` draws on the web (`lucide-react/icons/star`),
@@ -690,7 +896,13 @@ function Stars({ rating, ink }: { rating: number; ink: string }) {
   return (
     <View style={styles.stars}>
       {Array.from({ length: 5 }, (_, index) => (
-        <Svg key={index} width={11} height={11} viewBox="0 0 24 24" style={styles.star}>
+        <Svg
+          key={index}
+          width={11}
+          height={11}
+          viewBox="0 0 24 24"
+          style={styles.star}
+        >
           <Path d={STAR_PATH} fill={index < filled ? ink : "#e5e7eb"} />
         </Svg>
       ))}

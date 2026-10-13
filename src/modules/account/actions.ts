@@ -13,7 +13,7 @@ import { avatarPathname } from "./avatar";
 import { profileSchema } from "./schemas";
 
 /**
- * The signed-in person's own data — name, photo, password. Guarded by
+ * The signed-in person's own data — name, job title, phone, photo, password. Guarded by
  * `requireCompanyContext()` for the session, same as everything else in the
  * app, but the writes go through `prisma` rather than `ctx.db`: a `User` row
  * belongs to no company (the same one can hold memberships in several), so
@@ -27,12 +27,20 @@ export async function updateProfileAction(_prev: AccountState, formData: FormDat
   const ctx = await requireCompanyContext();
   const t = await getTranslations();
 
-  const parsed = profileSchema.safeParse({ name: formData.get("name") });
+  const parsed = profileSchema.safeParse({
+    name: formData.get("name"),
+    jobTitle: formData.get("jobTitle") ?? "",
+    phone: formData.get("phone") ?? "",
+  });
   if (!parsed.success) {
     return { fieldErrors: translateFieldErrors(parsed.error.flatten().fieldErrors, t) };
   }
 
-  await prisma.user.update({ where: { id: ctx.user.id }, data: { name: parsed.data.name } });
+  const { name, jobTitle, phone } = parsed.data;
+  await prisma.user.update({
+    where: { id: ctx.user.id },
+    data: { name, jobTitle: jobTitle ?? null, phone: phone ?? null },
+  });
 
   revalidatePath("/settings", "layout");
   const ts = await getTranslations("settings");

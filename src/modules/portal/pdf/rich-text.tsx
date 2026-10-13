@@ -81,8 +81,10 @@ function renderBlocks(nodes: ChildNode[], key: string): ReactElement[] {
         );
         break;
       case "h3":
+        // A heading at the foot of a page with its text on the next one reads
+        // as a heading for nothing: it moves over unless a few lines follow it.
         out.push(
-          <Text key={blockKey} style={styles.heading}>
+          <Text key={blockKey} style={styles.heading} minPresenceAhead={56}>
             {renderInline(children, blockKey)}
           </Text>,
         );

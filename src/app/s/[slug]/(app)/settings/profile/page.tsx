@@ -12,7 +12,7 @@ export async function generateMetadata() {
 }
 
 /**
- * The signed-in person's own name, photo and password. No permission
+ * The signed-in person's own name, job title, phone, photo and password. No permission
  * required, same reasoning as `/settings/notifications`: these belong to
  * whoever is signed in, not to something the company decides for them —
  * which is also what closes the gap a freshly-invited user hits today, where
@@ -25,7 +25,7 @@ export default async function ProfilePage() {
 
   const user = await prisma.user.findUniqueOrThrow({
     where: { id: ctx.user.id },
-    select: { passwordHash: true },
+    select: { passwordHash: true, jobTitle: true, phone: true },
   });
 
   // Reached from the sidebar's own Settings for an owner or admin, but from
@@ -41,7 +41,7 @@ export default async function ProfilePage() {
       <SettingsHeader title={t("title")} subtitle={t("subtitle")} back={back} />
 
       <AvatarManager name={ctx.user.name ?? ctx.user.email} image={ctx.user.image} />
-      <ProfileForm name={ctx.user.name} />
+      <ProfileForm name={ctx.user.name} jobTitle={user.jobTitle} phone={user.phone} />
       <ChangePasswordForm hasPassword={Boolean(user.passwordHash)} />
     </div>
   );

@@ -1043,9 +1043,14 @@
   "account": {
     "title": "Mi perfil",
     "subtitle": "Tu nombre, foto y contraseña — algo tuyo, no algo que la empresa decide por ti.",
-    "nameTitle": "Nombre",
-    "nameSubtitle": "Se muestra en toda la app en vez de tu correo.",
+    "detailsTitle": "Tus datos",
+    "detailsSubtitle": "Tu nombre en toda la app, y cómo apareces en los quotes que escribes.",
     "nameLabel": "Nombre",
+    "jobTitleLabel": "Cargo",
+    "jobTitlePlaceholder": "Gerente general",
+    "jobTitleHint": "Se muestra bajo tu nombre en tus quotes. Déjalo vacío para ocultarlo.",
+    "phoneLabel": "Teléfono",
+    "phoneHint": "Queda guardado en tu perfil; todavía no aparece en los quotes.",
     "save": "Guardar",
     "saving": "Guardando…",
     "avatar": {

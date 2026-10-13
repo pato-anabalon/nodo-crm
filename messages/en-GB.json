@@ -1043,9 +1043,14 @@
   "account": {
     "title": "My profile",
     "subtitle": "Your own name, photo and password — not something the company manages for you.",
-    "nameTitle": "Name",
-    "nameSubtitle": "Shown across the app instead of your email.",
+    "detailsTitle": "Your details",
+    "detailsSubtitle": "Your name across the app, and how you appear on the quotes you write.",
     "nameLabel": "Name",
+    "jobTitleLabel": "Job title",
+    "jobTitlePlaceholder": "Managing Director",
+    "jobTitleHint": "Shown under your name on your quotes. Leave it empty to hide it.",
+    "phoneLabel": "Phone",
+    "phoneHint": "Kept on your profile; not shown on quotes yet.",
     "save": "Save",
     "saving": "Saving…",
     "avatar": {

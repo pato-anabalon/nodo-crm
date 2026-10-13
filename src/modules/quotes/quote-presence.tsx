@@ -96,6 +96,14 @@ export function ViewingNow({ quoteId }: { quoteId: string }) {
  * for a few seconds. The phrase itself is worked out on the server and handed
  * over already written, because the wording needs a locale and a timezone and a
  * client component cannot be given the function that knows them.
+ *
+ * **Only for a quote with a Nodo link.** "Unopened" is a claim — there was a
+ * link and the customer didn't follow it — and without one there is nothing
+ * to claim: a draft never went out, a quote marked as sent reached the
+ * customer some other way, an imported one was opened in whatever system sent
+ * it. Saying "Unopened" under "Accepted" is how it read before. The test is
+ * the presence row, the same one `OpenCount` reads to show its dash, so the
+ * two columns can't disagree about whether a link exists.
  */
 export function QuoteSeen({
   quoteId,
@@ -107,8 +115,10 @@ export function QuoteSeen({
 }) {
   const presence = useContext(PresenceContext);
   const t = useTranslations("quotes.tracking");
+  const row = presence[quoteId];
 
-  if (presence[quoteId]?.viewingNow) return <ViewingNow quoteId={quoteId} />;
+  if (!row) return null;
+  if (row.viewingNow) return <ViewingNow quoteId={quoteId} />;
   if (!seenLabel) return <span className="text-muted-foreground italic">{t("neverOpened")}</span>;
 
   return <span className="text-muted-foreground">{t("seenAgo", { when: seenLabel })}</span>;

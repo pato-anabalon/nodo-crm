@@ -1378,7 +1378,8 @@
       "ingestKeys": "{count, plural, =0 {Not connected} one {# key in use} other {# keys in use}}",
       "notices": "{count, plural, =0 {You get every notice} one {# notice turned off} other {# notices turned off}}",
       "profileNoName": "No name set yet",
-      "trades": "{count, plural, =0 {No trades yet} one {# trade} other {# trades}}"
+      "trades": "{count, plural, =0 {No trades yet} one {# trade} other {# trades}}",
+      "postCategories": "{count, plural, =0 {No categories} one {# category} other {# categories}}"
     },
     "back": "Back to {section}"
   },
@@ -1713,7 +1714,9 @@
       "TASK_DUE": "Task overdue: {title}",
       "QUOTE_EXPIRING": "Quote {reference} is about to run out",
       "INGEST_FAILING": "Your web form rejected {count} enquiries and let none through",
-      "JOB_ADDED": "{by} added you to {job}"
+      "JOB_ADDED": "{by} added you to {job}",
+      "JOB_POST": "{by} posted {title} on {job}",
+      "JOB_COMMENT": "{by} commented on {title} ({job})"
     },
     "quoteExpiring": {
       "subject": "Quote {reference} is about to run out",
@@ -1827,7 +1830,39 @@
     "orderedList": "Numbered list",
     "link": "Link",
     "unlink": "Remove link",
-    "linkPrompt": "Link address"
+    "linkPrompt": "Link address",
+    "undo": "Undo",
+    "redo": "Redo",
+    "heading2": "Heading",
+    "heading3": "Subheading",
+    "underline": "Underline",
+    "strike": "Strikethrough",
+    "textColor": "Text colour",
+    "noColor": "No colour",
+    "highlight": "Highlight",
+    "noHighlight": "No highlight",
+    "colors": {
+      "red": "Red",
+      "orange": "Orange",
+      "yellow": "Yellow",
+      "green": "Green",
+      "blue": "Blue",
+      "purple": "Purple",
+      "gray": "Grey",
+      "pink": "Pink"
+    },
+    "alignLeft": "Align left",
+    "alignCenter": "Centre",
+    "alignRight": "Align right",
+    "quote": "Quote",
+    "code": "Code block",
+    "table": "Table",
+    "insertTable": "Insert table",
+    "addRow": "Add row below",
+    "addColumn": "Add column to the right",
+    "deleteRow": "Delete row",
+    "deleteColumn": "Delete column",
+    "deleteTable": "Delete table"
   },
   "notificationSettings": {
     "title": "My notifications",
@@ -1852,7 +1887,11 @@
       "INGEST_FAILING": "The web form stops working",
       "INGEST_FAILING_hint": "Once a day while enquiries are being rejected and none get through.",
       "JOB_ADDED": "I'm added to a job",
-      "JOB_ADDED_hint": "When somebody puts you on a job."
+      "JOB_ADDED_hint": "When somebody puts you on a job.",
+      "JOB_POST": "A message is posted on my job",
+      "JOB_POST_hint": "When somebody posts on the Message Board of a job you follow, or picks you to hear about it.",
+      "JOB_COMMENT": "A reply in a conversation I am in",
+      "JOB_COMMENT_hint": "When somebody comments on a post you wrote or commented on."
     },
     "indexSubtitle": "Choose which emails you want to receive.",
     "recipients": {
@@ -2064,7 +2103,9 @@
       "DATES_CHANGED": "{actor} set the dates to {dates}",
       "DATES_CLEARED": "{actor} cleared the dates",
       "FILES_UPLOADED": "{actor} uploaded {count, plural, one {a file} other {# files}}",
-      "FOLDER_CREATED": "{actor} created the folder {name}"
+      "FOLDER_CREATED": "{actor} created the folder {name}",
+      "POST_PUBLISHED": "{actor} posted a message: {title}",
+      "COMMENT_ADDED": "{actor} commented on {title}"
     },
     "files": {
       "title": "Docs & Files",
@@ -2135,6 +2176,92 @@
         "grid": "Grid",
         "list": "List"
       }
+    },
+    "board": {
+      "title": "Message Board",
+      "backToJob": "Back to {name}",
+      "backToBoard": "Back to the Message Board",
+      "backToPost": "Back to the post",
+      "newPost": "New message",
+      "yourDrafts": "{count, plural, one {Your draft} other {Your # drafts}}",
+      "draftSaved": "saved {when}",
+      "filterLabel": "Filter by category",
+      "allCategories": "All",
+      "someone": "Someone",
+      "empty": "Nothing has been posted on this job yet.",
+      "emptyCanPost": "Nothing posted yet. A message is the place for the day’s report, an announcement or a question for the team.",
+      "emptyCategory": "Nothing posted in this category yet.",
+      "categories": {
+        "ANNOUNCEMENT": "Announcement",
+        "FYI": "FYI",
+        "HEARTBEAT": "Heartbeat",
+        "PITCH": "Pitch",
+        "QUESTION": "Question"
+      },
+      "category": "Category",
+      "noCategory": "No category",
+      "postTitle": "Title",
+      "titlePlaceholder": "Type a title…",
+      "body": "Message",
+      "bodyPlaceholder": "Write away…",
+      "notifyLegend": "When I post this, notify…",
+      "notify": {
+        "followers": "Everybody following this job",
+        "followers_hint": "The people on the job who haven’t turned its notices off.",
+        "selected": "Only the people I select",
+        "selected_hint": "Pick them below.",
+        "nobody": "Nobody",
+        "nobody_hint": "It goes on the board and the timeline, without a notice."
+      },
+      "nobodyElse": "Nobody else is on this job yet.",
+      "publish": "Post this message",
+      "saveDraft": "Save as a draft",
+      "saveChanges": "Save changes",
+      "attach": "Attach files",
+      "attachHint": "Photos, videos, PDFs and documents. Photos are made smaller before they go up.",
+      "removeAttachment": "Remove {name}",
+      "stillUploading": "Wait until the files finish uploading.",
+      "comment": "Comment",
+      "commentPlaceholder": "Add a comment…",
+      "addComment": "Add this comment",
+      "saveComment": "Save comment",
+      "editComment": "Edit comment",
+      "deleteComment": "Delete comment",
+      "deleteCommentTitle": "Delete this comment?",
+      "deleteCommentBody": "The comment and its files are deleted. This can’t be undone.",
+      "deletePost": "Delete",
+      "deletePostTitle": "Delete “{title}”?",
+      "deletePostBody": "The post, every comment on it and all their files are deleted, and it leaves the timeline. This can’t be undone.",
+      "draftNotice": "This is a draft. Only you can see it until you post it.",
+      "edited": "edited",
+      "editPost": "Edit",
+      "editDraft": "Edit draft",
+      "comments": "{count, plural, =0 {Comments} one {# comment} other {# comments}}",
+      "notAllowed": "You can’t do that with this post.",
+      "filesRefused": "One of the files couldn’t be attached. Try uploading it again.",
+      "commentEmpty": "Write something or attach a file.",
+      "commented": "Comment added",
+      "commentSaved": "Comment saved",
+      "commentDeleted": "Comment deleted",
+      "count": "{count, plural, =0 {No posts} one {# post} other {# posts}}",
+      "cardEmpty": "No messages yet.",
+      "commentCount": "{count, plural, one {# comment} other {# comments}}"
     }
+  },
+  "postCategories": {
+    "title": "Message categories",
+    "subtitle": "The kinds of post on a job’s Message Board — Announcement, Question, your own. Each with an emoji, for a board you can scan.",
+    "emoji": "Emoji",
+    "name": "Name",
+    "namePlaceholder": "e.g. Site report",
+    "add": "Add category",
+    "added": "Category added.",
+    "deleted": "Category removed.",
+    "duplicate": "There is already a category with that name.",
+    "empty": "No categories. Posts can still go out without one.",
+    "posts": "{count, plural, =0 {No posts} one {# post} other {# posts}}",
+    "deleteTitle": "Remove {name}?",
+    "deleteBody": "{count, plural, =0 {No post uses it.} one {The post that uses it stays, without a category.} other {The # posts that use it stay, without a category.}}",
+    "delete": "Remove"
   }
 }

@@ -2,6 +2,7 @@ import type { PrismaClient } from "@/generated/prisma/client";
 import { RoleKey } from "@/generated/prisma/enums";
 import { ALL_PERMISSIONS, isPermission, permissionModule, type Permission } from "@/lib/auth/permissions";
 import { ROLE_TEMPLATES, templatePermissions } from "@/lib/auth/role-templates";
+import { STANDARD_POST_CATEGORIES } from "@/modules/jobs/categories";
 
 type Db = Pick<PrismaClient, "permission" | "company" | "role" | "rolePermission" | "membership" | "user">;
 
@@ -82,6 +83,10 @@ export async function createCompanyWithOwner(
 
     await tx.membership.create({
       data: { userId: input.ownerUserId, companyId: company.id, roleId: ownerRoleId },
+    });
+
+    await tx.jobPostCategory.createMany({
+      data: STANDARD_POST_CATEGORIES.map((category, position) => ({ companyId: company.id, ...category, position })),
     });
 
     return company;

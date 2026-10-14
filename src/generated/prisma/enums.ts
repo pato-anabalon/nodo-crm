@@ -161,7 +161,9 @@ export const NotificationKind = {
   TASK_DUE: 'TASK_DUE',
   QUOTE_EXPIRING: 'QUOTE_EXPIRING',
   INGEST_FAILING: 'INGEST_FAILING',
-  JOB_ADDED: 'JOB_ADDED'
+  JOB_ADDED: 'JOB_ADDED',
+  JOB_POST: 'JOB_POST',
+  JOB_COMMENT: 'JOB_COMMENT'
 } as const
 
 export type NotificationKind = (typeof NotificationKind)[keyof typeof NotificationKind]
@@ -291,7 +293,9 @@ export const JobActivityType = {
   STATUS_CHANGED: 'STATUS_CHANGED',
   DATES_CHANGED: 'DATES_CHANGED',
   FILES_UPLOADED: 'FILES_UPLOADED',
-  FOLDER_CREATED: 'FOLDER_CREATED'
+  FOLDER_CREATED: 'FOLDER_CREATED',
+  POST_PUBLISHED: 'POST_PUBLISHED',
+  COMMENT_ADDED: 'COMMENT_ADDED'
 } as const
 
 export type JobActivityType = (typeof JobActivityType)[keyof typeof JobActivityType]

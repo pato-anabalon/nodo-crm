@@ -264,7 +264,7 @@ export function FileBrowser({
  * everybody — and plans in slate. The extension is written large beside it,
  * so the colour is never the only thing saying what the file is.
  */
-function DocumentTile({ kind, extension }: { kind: FileKind; extension: string }) {
+export function DocumentTile({ kind, extension }: { kind: FileKind; extension: string }) {
   const tone = documentTone(kind, extension);
   // A video already carries the play button in the middle; the dark ground is enough.
   if (kind === "video") return <span className={cn("size-full", tone.tile)} />;
@@ -286,7 +286,7 @@ const TONES = {
   other: "bg-muted text-muted-foreground",
 } as const;
 
-function documentTone(kind: FileKind, extension: string): { tile: string } {
+export function documentTone(kind: FileKind, extension: string): { tile: string } {
   if (kind === "video") return { tile: TONES.video };
   if (kind === "pdf") return { tile: TONES.pdf };
   if (["doc", "docx"].includes(extension)) return { tile: TONES.word };

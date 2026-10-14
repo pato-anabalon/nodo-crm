@@ -15,6 +15,12 @@ import { logJobActivity } from "./service";
 
 const uploaderSelect = { id: true, name: true, email: true, image: true } as const;
 
+/**
+ * Docs & Files shows what was filed there. A post's or a comment's attachments
+ * are the same table but live with what they were attached to.
+ */
+const filed = { postId: null, commentId: null } as const;
+
 export const jobFileSelect = {
   id: true,
   folderId: true,
@@ -53,7 +59,7 @@ export async function folderContents(ctx: CompanyContext, jobId: string, folderI
       },
     }),
     ctx.db.jobFile.findMany({
-      where: { jobId, folderId },
+      where: { jobId, folderId, ...filed },
       orderBy: { createdAt: "desc" },
       select: jobFileSelect,
     }),
@@ -63,7 +69,7 @@ export async function folderContents(ctx: CompanyContext, jobId: string, folderI
 
 /** Every file on the job, wherever it sits — what a filter by kind searches. */
 export async function allJobFiles(ctx: CompanyContext, jobId: string) {
-  return ctx.db.jobFile.findMany({ where: { jobId }, orderBy: { createdAt: "desc" }, select: jobFileSelect });
+  return ctx.db.jobFile.findMany({ where: { jobId, ...filed }, orderBy: { createdAt: "desc" }, select: jobFileSelect });
 }
 
 export type JobFileRow = Awaited<ReturnType<typeof folderContents>>["files"][number];
@@ -71,10 +77,10 @@ export type JobFileRow = Awaited<ReturnType<typeof folderContents>>["files"][num
 /** How many files, and the latest photos — the Docs & Files card on the job's page. */
 export async function filesSummary(ctx: CompanyContext, jobId: string) {
   const [count, images] = await Promise.all([
-    ctx.db.jobFile.count({ where: { jobId } }),
+    ctx.db.jobFile.count({ where: { jobId, ...filed } }),
     ctx.db.jobFile.findMany({
       // A PDF has a cover too, but this card promises photos.
-      where: { jobId, thumbnailUrl: { not: null }, contentType: { startsWith: "image/" } },
+      where: { jobId, ...filed, thumbnailUrl: { not: null }, contentType: { startsWith: "image/" } },
       orderBy: { createdAt: "desc" },
       take: 6,
       select: { id: true, name: true, thumbnailUrl: true },
@@ -93,9 +99,10 @@ export async function findFolder(ctx: CompanyContext, folderId: string) {
   return ctx.db.jobFolder.findFirst({ where: { id: folderId }, select: { id: true, jobId: true, name: true, createdById: true } });
 }
 
+/** A file filed in Docs — the only kind Docs' rename, move and delete reach. */
 export async function findFile(ctx: CompanyContext, fileId: string) {
   return ctx.db.jobFile.findFirst({
-    where: { id: fileId },
+    where: { id: fileId, ...filed },
     select: { id: true, jobId: true, name: true, uploadedById: true, url: true, thumbnailUrl: true },
   });
 }
@@ -153,8 +160,24 @@ export type UploadedFile = {
 
 export type RegisterOutcome = { ok: true; count: number } | { ok: false; reason: "folder" | "file" };
 
+type VerifiedRow = {
+  companyId: string;
+  jobId: string;
+  name: string;
+  url: string;
+  pathname: string;
+  contentType: string;
+  size: number;
+  width: number | null;
+  height: number | null;
+  thumbnailUrl: string | null;
+  thumbnailPathname: string | null;
+  uploadedById: string;
+};
+
 /**
- * Writes the rows for files the browser has just put in the store.
+ * Turns what the browser says it just put in the store into rows ready to
+ * write — or null, if any of it fails.
  *
  * Nothing the browser says about a file is taken on its word. The path must be
  * under this job's prefix and the URL must be the store's own for that path;
@@ -162,31 +185,28 @@ export type RegisterOutcome = { ok: true; count: number } | { ok: false; reason:
  * request. A file that fails any of it fails the whole batch — a half-written
  * upload is harder to reason about than a refused one.
  */
-export async function registerFiles(
+export async function verifyUploads(
   ctx: CompanyContext,
   jobId: string,
-  folderId: string | null,
   uploads: UploadedFile[],
-): Promise<RegisterOutcome> {
-  if (!(await folderOfJob(ctx, jobId, folderId))) return { ok: false, reason: "folder" };
+): Promise<VerifiedRow[] | null> {
   const prefix = jobUploadPrefix(ctx.company.id, jobId);
 
-  const verified = [];
+  const verified: VerifiedRow[] = [];
   for (const upload of uploads) {
     const pathOk = isUnderPrefix(upload.pathname, prefix) && isBlobUrlFor(upload.url, upload.pathname);
     const thumbOk =
       !upload.thumbnail ||
       (isUnderPrefix(upload.thumbnail.pathname, `${prefix}thumbnails/`) &&
         isBlobUrlFor(upload.thumbnail.url, upload.thumbnail.pathname));
-    if (!pathOk || !thumbOk || !fileRule(upload.pathname)) return { ok: false, reason: "file" };
+    if (!pathOk || !thumbOk || !fileRule(upload.pathname)) return null;
 
     const stored = await head(upload.url).catch(() => null);
-    if (!stored) return { ok: false, reason: "file" };
+    if (!stored) return null;
 
     verified.push({
       companyId: ctx.company.id,
       jobId,
-      folderId,
       name: upload.name.trim().slice(0, 255) || upload.pathname.split("/").pop()!,
       url: stored.url,
       pathname: stored.pathname,
@@ -199,15 +219,66 @@ export async function registerFiles(
       uploadedById: ctx.user.id,
     });
   }
-  if (verified.length === 0) return { ok: false, reason: "file" };
+  return verified;
+}
 
-  const created = await ctx.db.jobFile.createManyAndReturn({ data: verified, select: { id: true } });
+/** Writes the rows for files the browser has just put in the store, filed into Docs. */
+export async function registerFiles(
+  ctx: CompanyContext,
+  jobId: string,
+  folderId: string | null,
+  uploads: UploadedFile[],
+): Promise<RegisterOutcome> {
+  if (!(await folderOfJob(ctx, jobId, folderId))) return { ok: false, reason: "folder" };
+  const verified = await verifyUploads(ctx, jobId, uploads);
+  if (!verified || verified.length === 0) return { ok: false, reason: "file" };
+
+  const created = await ctx.db.jobFile.createManyAndReturn({
+    data: verified.map((row) => ({ ...row, folderId })),
+    select: { id: true },
+  });
   await logJobActivity(ctx, jobId, JobActivityType.FILES_UPLOADED, {
     count: created.length,
     fileIds: created.slice(0, 8).map((file) => file.id),
     folderId,
   });
   return { ok: true, count: created.length };
+}
+
+/**
+ * Attaches files to a post or a comment. No timeline line of its own: the
+ * post or comment going out is the news, and its line says so.
+ */
+export async function attachFiles(
+  ctx: CompanyContext,
+  jobId: string,
+  home: { postId: string } | { commentId: string },
+  uploads: UploadedFile[],
+): Promise<boolean> {
+  if (uploads.length === 0) return true;
+  const verified = await verifyUploads(ctx, jobId, uploads);
+  if (!verified) return false;
+  await ctx.db.jobFile.createMany({ data: verified.map((row) => ({ ...row, ...home })) });
+  return true;
+}
+
+/**
+ * Takes attachments off a post or a comment: only ones that are really its own,
+ * whatever ids the form sent. Rows first, stored files after.
+ */
+export async function detachFiles(
+  ctx: CompanyContext,
+  home: { postId: string } | { commentId: string },
+  fileIds: string[],
+): Promise<void> {
+  if (fileIds.length === 0) return;
+  const files = await ctx.db.jobFile.findMany({
+    where: { id: { in: fileIds }, ...home },
+    select: { id: true, url: true, thumbnailUrl: true },
+  });
+  if (files.length === 0) return;
+  await ctx.db.jobFile.deleteMany({ where: { id: { in: files.map((file) => file.id) } } });
+  await deleteStored(files);
 }
 
 export async function renameFile(ctx: CompanyContext, jobId: string, fileId: string, name: string) {

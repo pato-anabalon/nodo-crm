@@ -30,7 +30,6 @@ export type Company = Prisma.CompanyModel
  *  * every company drew up this list differently, same reason `CatalogueItem`
  *  * and `ReviewLink` aren't enums either — added one at a time, each checked on
  *  * the way in (`@@unique([companyId, label])`).
- *  *
  *  * A quote never points back here by id. It freezes the label text itself at
  *  * creation, the same way it freezes `currency`/`taxType` — so deleting a type
  *  * later can't change what a quote already issued is shown as, and there is no
@@ -51,7 +50,6 @@ export type Membership = Prisma.MembershipModel
  * Model LoginAttempt
  * *
  *  * One row per magic-link request, kept only to rate-limit by IP.
- *  *
  *  * The limit is deliberately global — not scoped per company the way the
  *  * ingest API's is — because what it protects is Resend's own account-wide
  *  * daily send cap, shared across every company on this instance. An attacker
@@ -164,7 +162,6 @@ export type LeadSubmission = Prisma.LeadSubmissionModel
  * Model LeadAttachment
  * *
  *  * A file that came in with a website form.
- *  *
  *  * The form sends links to files it already hosts; the lead is created straight
  *  * away with the rows `PENDING`, and a background step copies each file into our
  *  * own store. A copy that fails stays `FAILED` with its `sourceUrl`, so the team
@@ -309,7 +306,6 @@ export type QuoteSection = Prisma.QuoteSectionModel
  * Model QuoteAttachment
  * *
  *  * Files that travel with the quote: drawings, spec sheets, markups.
- *  *
  *  * `sectionId` is optional — null for a file attached to the quote as a whole,
  *  * set for one attached to a single section. Both share this table rather than
  *  * two, because they're the same thing with a narrower scope: same upload
@@ -345,7 +341,6 @@ export type QuoteAttachment = Prisma.QuoteAttachmentModel
  *  * comma-separated box is invisible until somebody notices nobody reviews them.
  * *
  *  * One platform the company is reviewed on, and its two addresses there.
- *  *
  *  * Reading the reviews and leaving one are different pages more often than not
  *  * — Google's write link opens the form, its listing shows what others said;
  *  * NoCowboys anchors the same page at `#rate` or `#ratings` — so each is its own
@@ -431,12 +426,34 @@ export type JobFolder = Prisma.JobFolderModel
  *  * straight to Blob — a Vercel function's body stops at 4.5 MB — and registered
  *  * here afterwards, once the server has checked it landed under this job's
  *  * prefix.
- *  *
  *  * One table for every place a file can hang off (a folder now; a post, a
  *  * comment, a to-do, a chat message as those arrive), the same way
  *  * `QuoteAttachment` carries an optional `sectionId` rather than a second table.
  */
 export type JobFile = Prisma.JobFileModel
+/**
+ * Model JobPostCategory
+ * *
+ *  * The Message Board's kinds of post, per company. The standard five are
+ *  * stored by `key` with no name and translated on the way out, the same as a
+ *  * standard profile; a company's own carry their `name`.
+ */
+export type JobPostCategory = Prisma.JobPostCategoryModel
+/**
+ * Model JobPost
+ * *
+ *  * A Message Board post. `publishedAt` null is a draft, which only its author
+ *  * sees; publishing is what writes the timeline line and raises the notices.
+ */
+export type JobPost = Prisma.JobPostModel
+/**
+ * Model JobComment
+ * *
+ *  * A comment on something inside a job. One nullable key per thing that can be
+ *  * commented on — a post now, to-dos and events as they arrive — and a check in
+ *  * the migration that exactly one is set.
+ */
+export type JobComment = Prisma.JobCommentModel
 /**
  * Model Trade
  * *

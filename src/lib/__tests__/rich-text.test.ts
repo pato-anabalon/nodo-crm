@@ -49,6 +49,58 @@ describe("sanitizeRichText", () => {
   });
 });
 
+describe("sanitizeRichText, full profile", () => {
+  const full = (html: string) => sanitizeRichText(html, "full");
+
+  it("keeps headings, tables, alignment and the palette's colours", () => {
+    const html =
+      '<h2 style="text-align:center">Day 3</h2>' +
+      '<p>Walls <span style="color:#c92a2a">not dry</span>, <mark style="background-color:#fff3bf">check Monday</mark></p>' +
+      '<table><tbody><tr><th colspan="2">Room</th></tr><tr><td>Lounge</td><td>Done</td></tr></tbody></table>';
+    const result = full(html);
+    expect(result).toContain('<h2 style="text-align:center">');
+    expect(result).toContain('<span style="color:#c92a2a">');
+    expect(result).toContain('<mark style="background-color:#fff3bf">');
+    expect(result).toContain('<th colspan="2">');
+  });
+
+  it("accepts a palette colour the way a browser writes it back", () => {
+    expect(full('<p><span style="color: rgb(201, 42, 42)">x</span></p>')).toContain("rgb(201, 42, 42)");
+  });
+
+  it("drops a colour that isn't in the palette, and every other property", () => {
+    const result = full(
+      '<p style="position:fixed;text-align:left"><span style="color:#00ff00;background:url(https://evil.example/x.png)">x</span></p>',
+    );
+    expect(result).not.toContain("#00ff00");
+    expect(result).not.toContain("url(");
+    expect(result).not.toContain("position");
+    expect(result).toContain("text-align:left");
+  });
+
+  it("keeps the highlight's text dark by dropping the editor's colour: inherit", () => {
+    expect(full('<mark style="background-color:#fff3bf;color:inherit">x</mark>')).toBe(
+      '<mark style="background-color:#fff3bf">x</mark>',
+    );
+  });
+
+  it("refuses a cell span that would blow the table out", () => {
+    const result = full('<table><tbody><tr><td colspan="5000" rowspan="2">x</td></tr></tbody></table>');
+    expect(result).not.toContain("5000");
+    expect(result).toContain('rowspan="2"');
+  });
+
+  it("still refuses images, scripts and handlers", () => {
+    const result = full('<p onclick="x()">a</p><img src="a.png"><script>alert(1)</script>');
+    expect(result).toBe("<p>a</p>");
+  });
+
+  it("leaves the quote's profile exactly as it was", () => {
+    const html = '<h2>x</h2><p style="text-align:center"><span style="color:#c92a2a">y</span></p><table><tr><td>z</td></tr></table>';
+    expect(sanitizeRichText(html)).toBe("x<p>y</p>z");
+  });
+});
+
 describe("isRichTextEmpty", () => {
   it("an empty paragraph from the editor counts as empty", () => {
     expect(isRichTextEmpty("<p></p>")).toBe(true);

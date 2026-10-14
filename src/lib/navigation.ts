@@ -3,8 +3,28 @@ import type { Permission } from "@/lib/auth/permissions";
 export type NavItem = {
   href: string;
   /** Key under `nav.*` in the message file; the text is translated on render. */
-  labelKey: "dashboard" | "leads" | "quotes" | "contacts" | "clients" | "tasks" | "reports" | "settings";
-  icon: "gauge" | "users" | "file-text" | "contact" | "building" | "check" | "chart" | "settings";
+  labelKey:
+    | "dashboard"
+    | "leads"
+    | "quotes"
+    | "jobs"
+    | "lineup"
+    | "contacts"
+    | "clients"
+    | "tasks"
+    | "reports"
+    | "settings";
+  icon:
+    | "gauge"
+    | "users"
+    | "file-text"
+    | "briefcase"
+    | "calendar-range"
+    | "contact"
+    | "building"
+    | "check"
+    | "chart"
+    | "settings";
   /** Minimum permission for the item to appear in the menu. */
   permission?: Permission;
   /**
@@ -18,6 +38,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: "/", labelKey: "dashboard", icon: "gauge" },
   { href: "/leads", labelKey: "leads", icon: "users", permission: "leads.read" },
   { href: "/quotes", labelKey: "quotes", icon: "file-text", permission: "quotes.read" },
+  { href: "/jobs", labelKey: "jobs", icon: "briefcase", permission: "jobs.read" },
   { href: "/contacts", labelKey: "contacts", icon: "contact", permission: "contacts.read" },
   { href: "/clients", labelKey: "clients", icon: "building", permission: "contacts.read" },
   { href: "/tasks", labelKey: "tasks", icon: "check", permission: "leads.read" },

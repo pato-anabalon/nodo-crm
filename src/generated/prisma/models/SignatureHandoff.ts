@@ -1102,7 +1102,7 @@ export type $SignatureHandoffPayload<ExtArgs extends runtime.Types.Extensions.In
     recipientId: string | null
     hashedToken: string
     /**
-     * * Strokes in the 600×130 signature box (`portal/signature.ts`).
+     * * Strokes in the 600×250 signature box (`portal/signature.ts`).
      */
     paths: string
     version: number

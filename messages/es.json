@@ -32,7 +32,9 @@
     "reports": "Reportes",
     "clients": "Empresas cliente",
     "tasks": "Tareas",
-    "openMenu": "Abrir menú"
+    "openMenu": "Abrir menú",
+    "jobs": "Trabajos",
+    "lineup": "Lineup"
   },
   "theme": {
     "toDark": "Cambiar a oscuro",
@@ -343,7 +345,8 @@
     "min": "Mínimo {min}",
     "max": "Máximo {max}",
     "writeSomething": "Escribe algo",
-    "maxChars": "Máximo {max} caracteres"
+    "maxChars": "Máximo {max} caracteres",
+    "invalidDate": "Ingresa una fecha válida"
   },
   "roles": {
     "OWNER": {
@@ -365,6 +368,22 @@
     "VIEWER": {
       "name": "Solo lectura",
       "description": "Consulta la información de la empresa sin poder modificarla."
+    },
+    "PROJECT_LEAD": {
+      "name": "Jefe de proyecto",
+      "description": "Lleva los trabajos de punta a punta: los abre, arma el equipo y fija las fechas."
+    },
+    "TEAM_LEAD": {
+      "name": "Jefe de cuadrilla",
+      "description": "Dirige una cuadrilla en obra: organiza los to-dos y la agenda de sus trabajos."
+    },
+    "WORKER": {
+      "name": "Trabajador",
+      "description": "Ejecuta el trabajo: reporta avance, sube fotos y marca lo hecho."
+    },
+    "COLLABORATOR": {
+      "name": "Colaborador externo",
+      "description": "Externo a la empresa: lee, comenta y aporta archivos en los trabajos donde está, sin tocar la planificación."
     }
   },
   "permissionModules": {
@@ -374,7 +393,15 @@
     "settings": "Configuración",
     "users": "Usuarios",
     "roles": "Perfiles",
-    "reports": "Reportes"
+    "reports": "Reportes",
+    "jobs": "Trabajos",
+    "messages": "Trabajos › Mensajes",
+    "comments": "Trabajos › Comentarios",
+    "todos": "Trabajos › To-dos",
+    "files": "Trabajos › Documentos y archivos",
+    "schedule": "Trabajos › Agenda",
+    "chat": "Trabajos › Chat",
+    "lineup": "Trabajos › Lineup"
   },
   "permissions": {
     "leads_read": "Ver leads",
@@ -403,7 +430,39 @@
     "users_remove": "Quitar usuarios de la empresa",
     "roles_read": "Ver perfiles y sus funcionalidades",
     "roles_update": "Asignar funcionalidades a los perfiles",
-    "reports_read": "Ver reportes y métricas"
+    "reports_read": "Ver reportes y métricas",
+    "jobs_read": "Ver los trabajos donde participa",
+    "jobs_read_all": "Ver todos los trabajos de la empresa, no solo donde participa",
+    "jobs_create": "Iniciar trabajos desde cotizaciones aceptadas y crear trabajos sueltos",
+    "jobs_update": "Editar nombre, descripción, dirección y estado de un trabajo",
+    "jobs_dates": "Cambiar las fechas de inicio y término de un trabajo",
+    "jobs_members": "Agregar y quitar personas de un trabajo",
+    "jobs_delete": "Eliminar trabajos",
+    "jobs_moderate": "Editar y eliminar lo que escribieron o subieron otras personas",
+    "messages_read": "Ver el tablero de mensajes",
+    "messages_create": "Publicar mensajes",
+    "messages_update": "Editar sus propios mensajes",
+    "messages_delete": "Eliminar sus propios mensajes",
+    "comments_create": "Comentar",
+    "comments_update": "Editar sus propios comentarios",
+    "comments_delete": "Eliminar sus propios comentarios",
+    "todos_read": "Ver to-dos",
+    "todos_create": "Agregar listas y to-dos",
+    "todos_update": "Editar to-dos: título, notas, fechas, responsables y orden",
+    "todos_complete": "Marcar y desmarcar to-dos",
+    "todos_delete": "Eliminar listas y to-dos",
+    "files_read": "Ver documentos y archivos",
+    "files_create": "Subir archivos y crear carpetas",
+    "files_update": "Renombrar y mover sus propios archivos",
+    "files_delete": "Eliminar sus propios archivos",
+    "schedule_read": "Ver la agenda",
+    "schedule_create": "Agregar eventos",
+    "schedule_update": "Editar eventos, incluidas sus fechas",
+    "schedule_delete": "Eliminar eventos",
+    "chat_read": "Leer el chat",
+    "chat_create": "Escribir en el chat",
+    "chat_delete": "Eliminar sus propios mensajes del chat",
+    "lineup_read": "Ver el lineup de todos los trabajos que puede ver"
   },
   "dashboard": {
     "title": "Resumen",
@@ -548,7 +607,8 @@
       "RESTORED": "Lead restaurado",
       "CONVERTED": "Cotización {reference} creada",
       "QUOTE_DECIDED": "La cotización #{reference} fue {status, select, ACCEPTED {aceptada} REJECTED {rechazada} EXPIRED {dejada vencer} other {respondida}}",
-      "QUOTE_EDITED": "Cotización #{reference} editada después de enviada"
+      "QUOTE_EDITED": "Cotización #{reference} editada después de enviada",
+      "JOB_STARTED": "Trabajo iniciado desde la cotización #{reference}"
     },
     "ownerSaved": "Responsable actualizado.",
     "ownerCleared": "Responsable quitado."
@@ -705,7 +765,10 @@
       "send": "Enviar al cliente",
       "sending": "Enviando…",
       "accept": "Marcar aceptada",
-      "reject": "Marcar rechazada"
+      "reject": "Marcar rechazada",
+      "startJob": "Iniciar trabajo",
+      "startingJob": "Iniciando…",
+      "openJob": "Abrir trabajo"
     },
     "detail": "Detalle",
     "amountHidden": "Oculto",
@@ -1314,7 +1377,8 @@
       "reviews": "{count, plural, =0 {Sin reseñas todavía} one {# reseña} other {# reseñas}}",
       "ingestKeys": "{count, plural, =0 {Sin conectar} one {# clave en uso} other {# claves en uso}}",
       "notices": "{count, plural, =0 {Recibes todos los avisos} one {# aviso desactivado} other {# avisos desactivados}}",
-      "profileNoName": "Todavía sin nombre"
+      "profileNoName": "Todavía sin nombre",
+      "trades": "{count, plural, =0 {Sin oficios aún} one {# oficio} other {# oficios}}"
     },
     "back": "Volver a {section}"
   },
@@ -1383,7 +1447,8 @@
       "person": "Persona",
       "role": "Perfil",
       "status": "Estado",
-      "actions": "Acciones"
+      "actions": "Acciones",
+      "trades": "Oficios"
     },
     "status": {
       "ACTIVE": "Activo",
@@ -1647,7 +1712,8 @@
       "TASK_ASSIGNED": "{by} te dejó la tarea «{title}»",
       "TASK_DUE": "Tarea atrasada: {title}",
       "QUOTE_EXPIRING": "La cotización {reference} está por vencer",
-      "INGEST_FAILING": "Tu formulario web rechazó {count} consultas y no dejó pasar ninguna"
+      "INGEST_FAILING": "Tu formulario web rechazó {count} consultas y no dejó pasar ninguna",
+      "JOB_ADDED": "{by} te agregó a {job}"
     },
     "quoteExpiring": {
       "subject": "La cotización {reference} está por vencer",
@@ -1784,7 +1850,9 @@
       "QUOTE_EXPIRING": "Una cotización mía está por vencer",
       "QUOTE_EXPIRING_hint": "Una vez, cuando una cotización enviada se acerca a su vencimiento sin respuesta.",
       "INGEST_FAILING": "El formulario web deja de funcionar",
-      "INGEST_FAILING_hint": "Una vez al día mientras se rechacen consultas y no entre ninguna."
+      "INGEST_FAILING_hint": "Una vez al día mientras se rechacen consultas y no entre ninguna.",
+      "JOB_ADDED": "Me agregan a un trabajo",
+      "JOB_ADDED_hint": "Cuando alguien te suma a un trabajo."
     },
     "indexSubtitle": "Elige qué correos quieres recibir.",
     "recipients": {
@@ -1892,5 +1960,181 @@
     "activated": "Empresa activada",
     "suspended": "Empresa suspendida",
     "empty": "Todavía no hay empresas registradas."
+  },
+  "trades": {
+    "title": "Oficios",
+    "subtitle": "Lo que hace tu gente — Yeso, Pintura, Marketing. Se muestra junto a cada persona en un trabajo.",
+    "name": "Oficio",
+    "namePlaceholder": "p. ej. Yeso",
+    "add": "Agregar oficio",
+    "added": "Oficio agregado.",
+    "deleted": "Oficio eliminado.",
+    "duplicate": "Ya existe un oficio con ese nombre.",
+    "empty": "Aún no hay oficios. Agrega el primero arriba.",
+    "people": "{count, plural, =0 {Nadie} one {# persona} other {# personas}}",
+    "deleteTitle": "¿Eliminar {name}?",
+    "deleteBody": "Nadie quedará marcado como {name}. Las personas se quedan; solo se va la etiqueta.",
+    "delete": "Eliminar",
+    "member": "Oficios",
+    "memberNone": "Sin oficios",
+    "memberEdit": "Editar oficios",
+    "memberSaved": "Oficios guardados.",
+    "noneConfigured": "La empresa aún no tiene oficios. Agrégalos en Configuración › Oficios."
+  },
+  "jobs": {
+    "title": "Trabajos",
+    "subtitle": "El trabajo después de que el cliente dijo que sí.",
+    "noAccess": "No tienes acceso a los trabajos.",
+    "new": "Nuevo trabajo",
+    "newSubtitle": "Un trabajo sin cotización detrás — una oficina, trámites, cualquier cosa en la que trabaje el equipo.",
+    "backToJobs": "Volver a Trabajos",
+    "show": {
+      "active": "En curso",
+      "done": "Terminados"
+    },
+    "empty": "Aún no hay trabajos aquí. Nacen de una cotización aceptada, con Iniciar trabajo.",
+    "emptyDone": "Aún no hay trabajos terminados.",
+    "recentActivity": "Actividad reciente",
+    "noRecentActivity": "Aún no ha pasado nada en tus trabajos.",
+    "fromQuote": "Cotización {reference}",
+    "saved": "Trabajo guardado.",
+    "datesSaved": "Fechas guardadas.",
+    "statusSaved": "Estado cambiado.",
+    "invalidStatus": "Ese estado no existe.",
+    "create": "Crear trabajo",
+    "creating": "Creando…",
+    "edit": "Editar trabajo",
+    "fields": {
+      "name": "Nombre",
+      "description": "Descripción",
+      "address": "Dirección",
+      "startsOn": "Inicio",
+      "endsOn": "Término",
+      "status": "Estado"
+    },
+    "dates": "Fechas",
+    "noDates": "Sin fechas",
+    "dateRange": "{start} – {end}",
+    "startsOnly": "Desde {start}",
+    "endsOnly": "Hasta {end}",
+    "status": {
+      "ACTIVE": "En curso",
+      "ON_HOLD": "En pausa",
+      "COMPLETED": "Terminado",
+      "ARCHIVED": "Archivado"
+    },
+    "validation": {
+      "endBeforeStart": "El término no puede ser antes del inicio"
+    },
+    "startErrors": {
+      "not-found": "Esa cotización no existe.",
+      "not-accepted": "Solo una cotización aceptada puede convertirse en trabajo.",
+      "already-started": "Esta cotización ya tiene un trabajo."
+    },
+    "delete": "Eliminar trabajo",
+    "deleteTitle": "¿Eliminar {name}?",
+    "deleteBody": "Se van con él su gente, su historial y todo lo que contiene. La cotización se queda.",
+    "people": {
+      "title": "Personas",
+      "add": "Agregar personas",
+      "addSelected": "Agregar seleccionadas",
+      "pickSomebody": "Elige al menos una persona.",
+      "nobodyLeft": "Todas las personas de la empresa ya están en este trabajo.",
+      "added": "{count, plural, =0 {No había nadie nuevo que agregar.} one {# persona agregada.} other {# personas agregadas.}}",
+      "removed": "Quitado del trabajo.",
+      "remove": "Quitar",
+      "removeTitle": "¿Quitar a {name} de este trabajo?",
+      "removeBody": "Deja de verlo, salvo que su perfil vea todos los trabajos. Lo que escribió se queda.",
+      "you": "tú",
+      "follow": "Avisarme",
+      "unfollow": "No avisarme",
+      "following": "Recibirás avisos de este trabajo.",
+      "notFollowing": "No recibirás avisos de este trabajo."
+    },
+    "timeline": {
+      "title": "Última actividad",
+      "empty": "Aún nada.",
+      "quiet": "{days, plural, one {Sin actividad durante un día} other {Sin actividad durante # días}}",
+      "someone": "Alguien",
+      "CREATED": "{actor} creó este trabajo",
+      "CREATED_fromQuote": "{actor} inició este trabajo desde la cotización {reference}",
+      "MEMBERS_ADDED": "{actor} agregó a {names} al trabajo",
+      "MEMBER_REMOVED": "{actor} quitó a {name} del trabajo",
+      "STATUS_CHANGED": "{actor} marcó el trabajo como {to}",
+      "DATES_CHANGED": "{actor} fijó las fechas: {dates}",
+      "DATES_CLEARED": "{actor} quitó las fechas",
+      "FILES_UPLOADED": "{actor} subió {count, plural, one {un archivo} other {# archivos}}",
+      "FOLDER_CREATED": "{actor} creó la carpeta {name}"
+    },
+    "files": {
+      "title": "Docs y archivos",
+      "backToJob": "Volver a {name}",
+      "breadcrumb": "Carpetas",
+      "count": "{count, plural, =0 {Nada aún} one {# archivo} other {# archivos}}",
+      "cardEmpty": "Planos, fotos y documentos de este trabajo.",
+      "cardNoPhotos": "Aún no hay fotos.",
+      "upload": "Subir archivos",
+      "uploading": "Subiendo…",
+      "preparing": "Preparando…",
+      "dropTitle": "Arrastra y suelta <hl>fotos</hl>, <hl>videos</hl> o <hl>documentos</hl>",
+      "dropBrowse": "o <browse>busca archivos</browse> en tu dispositivo",
+      "dropHint": "Las fotos se achican antes de subir.",
+      "retry": "Reintentar",
+      "uploaded": "{count, plural, one {Archivo subido} other {# archivos subidos}}",
+      "uploadErrors": {
+        "empty": "Este archivo está vacío.",
+        "type": "Este tipo de archivo no se puede subir.",
+        "heic": "Las fotos HEIC no se pueden subir desde aquí. Súbela desde el celular, que la convierte, o expórtala como JPEG.",
+        "size": "Este archivo es demasiado grande.",
+        "network": "La subida no terminó. Revisa la conexión y vuelve a intentarlo."
+      },
+      "registerErrors": {
+        "folder": "Esa carpeta ya no está en este trabajo.",
+        "file": "No se pudo verificar la subida, así que no se guardó. Vuelve a intentarlo."
+      },
+      "newFolder": "Nueva carpeta",
+      "folderCreated": "Carpeta creada",
+      "name": "Nombre",
+      "rename": "Renombrar",
+      "renamed": "Renombrado",
+      "move": "Mover",
+      "moveTo": "Mover a",
+      "moving": "Moviendo…",
+      "moved": "Movido",
+      "topLevel": "Docs y archivos (raíz)",
+      "download": "Descargar",
+      "openInTab": "Abrir en otra pestaña",
+      "delete": "Eliminar",
+      "deleted": "Archivo eliminado",
+      "folderDeleted": "Carpeta eliminada",
+      "notAllowed": "No puedes cambiar esto.",
+      "deleteFileTitle": "¿Eliminar {name}?",
+      "deleteFileBody": "Se quita del trabajo para todos y no se puede recuperar.",
+      "deleteFolderTitle": "¿Eliminar la carpeta {name}?",
+      "deleteFolderBody": "Se va también todo lo que contiene ({contents}), para todos, y no se puede recuperar.",
+      "contents": "{files, plural, one {# archivo} other {# archivos}} · {folders, plural, one {# carpeta} other {# carpetas}}",
+      "actionsFor": "Acciones para {name}",
+      "empty": "Aún no hay nada aquí.",
+      "emptyCanUpload": "Aún no hay nada aquí. Sube archivos o arrástralos a esta página.",
+      "emptyFiltered": "No hay archivos de este tipo en el trabajo.",
+      "uploadedBy": "Subido por",
+      "date": "Fecha",
+      "size": "Tamaño",
+      "position": "{current} de {total}",
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "filterLabel": "Mostrar",
+      "filter": {
+        "all": "Todo",
+        "images": "Fotos",
+        "videos": "Videos",
+        "documents": "Documentos"
+      },
+      "viewLabel": "Vista",
+      "view": {
+        "grid": "Cuadrícula",
+        "list": "Lista"
+      }
+    }
   }
 }

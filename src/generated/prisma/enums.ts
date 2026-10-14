@@ -160,7 +160,8 @@ export const NotificationKind = {
   TASK_ASSIGNED: 'TASK_ASSIGNED',
   TASK_DUE: 'TASK_DUE',
   QUOTE_EXPIRING: 'QUOTE_EXPIRING',
-  INGEST_FAILING: 'INGEST_FAILING'
+  INGEST_FAILING: 'INGEST_FAILING',
+  JOB_ADDED: 'JOB_ADDED'
 } as const
 
 export type NotificationKind = (typeof NotificationKind)[keyof typeof NotificationKind]
@@ -187,7 +188,11 @@ export const RoleKey = {
   ADMIN: 'ADMIN',
   MANAGER: 'MANAGER',
   SALES: 'SALES',
-  VIEWER: 'VIEWER'
+  VIEWER: 'VIEWER',
+  PROJECT_LEAD: 'PROJECT_LEAD',
+  TEAM_LEAD: 'TEAM_LEAD',
+  WORKER: 'WORKER',
+  COLLABORATOR: 'COLLABORATOR'
 } as const
 
 export type RoleKey = (typeof RoleKey)[keyof typeof RoleKey]
@@ -251,7 +256,8 @@ export const ActivityType = {
   ASSIGNED: 'ASSIGNED',
   DISCARDED: 'DISCARDED',
   RESTORED: 'RESTORED',
-  CONVERTED: 'CONVERTED'
+  CONVERTED: 'CONVERTED',
+  JOB_STARTED: 'JOB_STARTED'
 } as const
 
 export type ActivityType = (typeof ActivityType)[keyof typeof ActivityType]
@@ -266,3 +272,26 @@ export const QuoteStatus = {
 } as const
 
 export type QuoteStatus = (typeof QuoteStatus)[keyof typeof QuoteStatus]
+
+
+export const JobStatus = {
+  ACTIVE: 'ACTIVE',
+  ON_HOLD: 'ON_HOLD',
+  COMPLETED: 'COMPLETED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type JobStatus = (typeof JobStatus)[keyof typeof JobStatus]
+
+
+export const JobActivityType = {
+  CREATED: 'CREATED',
+  MEMBERS_ADDED: 'MEMBERS_ADDED',
+  MEMBER_REMOVED: 'MEMBER_REMOVED',
+  STATUS_CHANGED: 'STATUS_CHANGED',
+  DATES_CHANGED: 'DATES_CHANGED',
+  FILES_UPLOADED: 'FILES_UPLOADED',
+  FOLDER_CREATED: 'FOLDER_CREATED'
+} as const
+
+export type JobActivityType = (typeof JobActivityType)[keyof typeof JobActivityType]

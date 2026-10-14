@@ -209,6 +209,7 @@ enum NotificationKind {
   TASK_DUE
   QUOTE_EXPIRING
   INGEST_FAILING
+  JOB_ADDED
 }
 
 /**
@@ -385,6 +386,12 @@ model Company {
   emailTemplates          EmailTemplate[]
   reviewLinks             ReviewLink[]
   quoteTypes              CompanyQuoteType[]
+  jobs                    Job[]
+  jobMembers              JobMember[]
+  jobActivities           JobActivity[]
+  jobFolders              JobFolder[]
+  jobFiles                JobFile[]
+  trades                  Trade[]
 
   @@index([isActive])
 }
@@ -450,6 +457,12 @@ model User {
   discardedLeads          Lead[]                   @relation("LeadDiscardedBy")
   createdQuotes           Quote[]                  @relation("QuoteCreatedBy")
   activities              Activity[]
+  jobsCreated             Job[]                    @relation("JobCreatedBy")
+  jobMemberships          JobMember[]              @relation("JobMemberUser")
+  jobMembersAdded         JobMember[]              @relation("JobMemberAddedBy")
+  jobActivities           JobActivity[]
+  jobFoldersCreated       JobFolder[]              @relation("JobFolderCreatedBy")
+  jobFilesUploaded        JobFile[]                @relation("JobFileUploadedBy")
 }
 
 // A user can belong to several companies, with a different profile in each.
@@ -462,9 +475,10 @@ model Membership {
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
 
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  role    Role    @relation(fields: [roleId], references: [id])
+  user    User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  role    Role              @relation(fields: [roleId], references: [id])
+  trades  MembershipTrade[]
 
   @@unique([userId, companyId])
   @@index([companyId, status])
@@ -529,6 +543,12 @@ enum RoleKey {
   MANAGER
   SALES
   VIEWER
+  // The people who carry out the work once a quote is accepted (module Jobs).
+  // They see only the jobs they were added to, unless granted `jobs.read.all`.
+  PROJECT_LEAD
+  TEAM_LEAD
+  WORKER
+  COLLABORATOR
 }
 
 // The catalogue lives in src/lib/auth/permissions.ts, which is the source of
@@ -842,6 +862,7 @@ model Lead {
   quotes        Quote[]
   activities    Activity[]
   tasks         Task[]
+  jobs          Job[]
 
   @@index([companyId, status])
   @@index([companyId, ownerId])
@@ -1080,6 +1101,10 @@ enum ActivityType {
   DISCARDED
   RESTORED
   CONVERTED
+  /**
+   * An accepted quote on this lead became a job. Content is the quote's number.
+   */
+  JOB_STARTED
 }
 
 // ---------------------------------------------------------------------------
@@ -1274,6 +1299,7 @@ model Quote {
   emailsSent    QuoteEmail[]
   recipients    QuoteRecipient[]
   signatureHandoffs SignatureHandoff[]
+  job           Job?
 
   @@unique([companyId, number])
   @@index([companyId, status])
@@ -1866,4 +1892,234 @@ model QuoteItem {
   quote Quote @relation(fields: [quoteId], references: [id], onDelete: Cascade)
 
   @@index([quoteId])
+}
+
+// ---------------------------------------------------------------------------
+// Module: Jobs — the work after the customer said yes
+// ---------------------------------------------------------------------------
+
+/**
+ * A piece of work being carried out: usually an accepted quote, sometimes
+ * something standing on its own (an office "HQ", paperwork for the IRD).
+ * Who may act on a job is two questions with two answers. *Where* is
+ * membership (`JobMember`) or `jobs.read.all`; *what* is the profile's
+ * permissions, per tool and per verb. Being a member grants nothing by itself.
+ */
+model Job {
+  id          String    @id @default(cuid())
+  companyId   String
+  /**
+   * From a quote: `<address or title> - <quote reference>`, written once and
+   * then the job's own text. A later change of `quotePrefix` must not rename
+   * work already under way, whose reference is the one the customer holds.
+   */
+  name        String
+  description String?
+  address     String?
+  // One job per quote: a double click on "Start job" can't make two.
+  quoteId     String?   @unique
+  leadId      String?
+  status      JobStatus @default(ACTIVE)
+  // The job's bar on the Lineup.
+  startsOn    DateTime? @db.Date
+  endsOn      DateTime? @db.Date
+  color       String?
+  createdById String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  company    Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  quote      Quote?        @relation(fields: [quoteId], references: [id], onDelete: SetNull)
+  lead       Lead?         @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  createdBy  User?         @relation("JobCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  members    JobMember[]
+  activities JobActivity[]
+  folders    JobFolder[]
+  files      JobFile[]
+
+  @@index([companyId, status])
+}
+
+enum JobStatus {
+  ACTIVE
+  ON_HOLD
+  COMPLETED
+  ARCHIVED
+}
+
+/**
+ * Somebody working on a job. `companyId` is carried directly rather than
+ * inherited through the job, because "which jobs am I on" is asked on every
+ * page a worker opens.
+ */
+model JobMember {
+  id        String   @id @default(cuid())
+  companyId String
+  jobId     String
+  userId    String
+  // Receives the job's notices. Off is somebody who is on the job but asked
+  // to be left alone, not somebody removed from it.
+  following Boolean  @default(true)
+  addedById String?
+  createdAt DateTime @default(now())
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  job     Job     @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  user    User    @relation("JobMemberUser", fields: [userId], references: [id], onDelete: Cascade)
+  addedBy User?   @relation("JobMemberAddedBy", fields: [addedById], references: [id], onDelete: SetNull)
+
+  @@unique([jobId, userId])
+  @@index([companyId, userId])
+}
+
+/**
+ * The job's timeline. Stores a type and its parameters, never a sentence —
+ * the same reason `Notification` does: each reader sees it in their own
+ * language, and that can change after it was written.
+ */
+model JobActivity {
+  id        String          @id @default(cuid())
+  companyId String
+  jobId     String
+  actorId   String?
+  type      JobActivityType
+  params    Json            @default("{}")
+  createdAt DateTime        @default(now())
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  job     Job     @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  actor   User?   @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([companyId, jobId, createdAt])
+  @@index([companyId, createdAt])
+}
+
+enum JobActivityType {
+  /**
+   * params: `{ quoteNumber? }` — present when the job came from a quote.
+   */
+  CREATED
+  /**
+   * params: `{ userIds: string[] }`
+   */
+  MEMBERS_ADDED
+  /**
+   * params: `{ userId }`
+   */
+  MEMBER_REMOVED
+  /**
+   * params: `{ from, to }`, both JobStatus.
+   */
+  STATUS_CHANGED
+  /**
+   * params: `{ startsOn, endsOn }`, as `YYYY-MM-DD` or null.
+   */
+  DATES_CHANGED
+  /**
+   * params: `{ count, fileIds: string[], folderId? }` — one row per batch, so
+   * twenty photos from site are one line with their thumbnails, not twenty.
+   * `fileIds` keeps at most a handful; a file deleted since simply drops out.
+   */
+  FILES_UPLOADED
+  /**
+   * params: `{ folderId, name }`
+   */
+  FOLDER_CREATED
+}
+
+/**
+ * A folder in a job's Docs & Files. Nested through `parentId`; deleting one
+ * takes what is inside it with it, which the screen says before it happens.
+ */
+model JobFolder {
+  id          String   @id @default(cuid())
+  companyId   String
+  jobId       String
+  parentId    String?
+  name        String
+  createdById String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  company   Company     @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  job       Job         @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  parent    JobFolder?  @relation("JobFolderTree", fields: [parentId], references: [id], onDelete: Cascade)
+  children  JobFolder[] @relation("JobFolderTree")
+  createdBy User?       @relation("JobFolderCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  files     JobFile[]
+
+  @@index([companyId, jobId, parentId])
+}
+
+/**
+ * A file on a job: a photo from site, a plan, a video. Uploaded by the browser
+ * straight to Blob — a Vercel function's body stops at 4.5 MB — and registered
+ * here afterwards, once the server has checked it landed under this job's
+ * prefix.
+ *
+ * One table for every place a file can hang off (a folder now; a post, a
+ * comment, a to-do, a chat message as those arrive), the same way
+ * `QuoteAttachment` carries an optional `sectionId` rather than a second table.
+ */
+model JobFile {
+  id                String   @id @default(cuid())
+  companyId         String
+  jobId             String
+  folderId          String?
+  name              String
+  url               String
+  pathname          String
+  contentType       String
+  size              Int
+  // Images only: so a gallery can reserve the space before the picture arrives.
+  width             Int?
+  height            Int?
+  // A small copy made in the browser at upload, so a gallery never downloads
+  // the originals.
+  thumbnailUrl      String?
+  thumbnailPathname String?
+  uploadedById      String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  company    Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  job        Job        @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  folder     JobFolder? @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  uploadedBy User?      @relation("JobFileUploadedBy", fields: [uploadedById], references: [id], onDelete: SetNull)
+
+  @@index([companyId, jobId, folderId])
+}
+
+/**
+ * A trade a company works in — Plaster, Painting, Marketing. A list per
+ * company, since every company names its own.
+ */
+model Trade {
+  id        String   @id @default(cuid())
+  companyId String
+  name      String
+  position  Int      @default(0)
+  createdAt DateTime @default(now())
+
+  company     Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  memberships MembershipTrade[]
+
+  @@unique([companyId, name])
+  @@index([companyId, position])
+}
+
+/**
+ * A person's trades **at this company**: on the membership rather than the
+ * user, because the same person can be a plasterer at one company and do the
+ * marketing at another.
+ */
+model MembershipTrade {
+  membershipId String
+  tradeId      String
+
+  membership Membership @relation(fields: [membershipId], references: [id], onDelete: Cascade)
+  trade      Trade      @relation(fields: [tradeId], references: [id], onDelete: Cascade)
+
+  @@id([membershipId, tradeId])
+  @@index([tradeId])
 }

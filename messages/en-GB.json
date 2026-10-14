@@ -32,7 +32,9 @@
     "reports": "Reports",
     "clients": "Client companies",
     "tasks": "Tasks",
-    "openMenu": "Open menu"
+    "openMenu": "Open menu",
+    "jobs": "Jobs",
+    "lineup": "Lineup"
   },
   "theme": {
     "toDark": "Switch to dark",
@@ -343,7 +345,8 @@
     "min": "Minimum {min}",
     "max": "Maximum {max}",
     "writeSomething": "Write something",
-    "maxChars": "Maximum {max} characters"
+    "maxChars": "Maximum {max} characters",
+    "invalidDate": "Enter a valid date"
   },
   "roles": {
     "OWNER": {
@@ -365,6 +368,22 @@
     "VIEWER": {
       "name": "Read only",
       "description": "Views the company's information without being able to change it."
+    },
+    "PROJECT_LEAD": {
+      "name": "Project lead",
+      "description": "Runs jobs end to end: opens them, puts the team together and sets the dates."
+    },
+    "TEAM_LEAD": {
+      "name": "Team lead",
+      "description": "Leads a crew on site: organises the to-dos and the schedule of their jobs."
+    },
+    "WORKER": {
+      "name": "Worker",
+      "description": "Carries out the work: reports progress, uploads photos and ticks off what is done."
+    },
+    "COLLABORATOR": {
+      "name": "Outside collaborator",
+      "description": "From outside the company: reads, comments and adds files on the jobs they are on, without touching the plan."
     }
   },
   "permissionModules": {
@@ -374,7 +393,15 @@
     "settings": "Settings",
     "users": "Users",
     "roles": "Profiles",
-    "reports": "Reports"
+    "reports": "Reports",
+    "jobs": "Jobs",
+    "messages": "Jobs › Message board",
+    "comments": "Jobs › Comments",
+    "todos": "Jobs › To-dos",
+    "files": "Jobs › Docs & files",
+    "schedule": "Jobs › Schedule",
+    "chat": "Jobs › Chat",
+    "lineup": "Jobs › Lineup"
   },
   "permissions": {
     "leads_read": "View leads",
@@ -403,7 +430,39 @@
     "users_remove": "Remove users from the company",
     "roles_read": "View profiles and their features",
     "roles_update": "Assign features to profiles",
-    "reports_read": "View reports and metrics"
+    "reports_read": "View reports and metrics",
+    "jobs_read": "View the jobs they are on",
+    "jobs_read_all": "View every job in the company, not just the ones they are on",
+    "jobs_create": "Start jobs from accepted quotes and create standalone jobs",
+    "jobs_update": "Edit a job's name, description, address and status",
+    "jobs_dates": "Change a job's start and end dates",
+    "jobs_members": "Add and remove people on a job",
+    "jobs_delete": "Delete jobs",
+    "jobs_moderate": "Edit and delete what other people wrote or uploaded",
+    "messages_read": "View the message board",
+    "messages_create": "Post messages",
+    "messages_update": "Edit their own messages",
+    "messages_delete": "Delete their own messages",
+    "comments_create": "Comment",
+    "comments_update": "Edit their own comments",
+    "comments_delete": "Delete their own comments",
+    "todos_read": "View to-dos",
+    "todos_create": "Add to-do lists and to-dos",
+    "todos_update": "Edit to-dos: title, notes, dates, assignees and order",
+    "todos_complete": "Tick off and reopen to-dos",
+    "todos_delete": "Delete to-do lists and to-dos",
+    "files_read": "View docs and files",
+    "files_create": "Upload files and create folders",
+    "files_update": "Rename and move their own files",
+    "files_delete": "Delete their own files",
+    "schedule_read": "View the schedule",
+    "schedule_create": "Add events",
+    "schedule_update": "Edit events, including their dates",
+    "schedule_delete": "Delete events",
+    "chat_read": "Read the chat",
+    "chat_create": "Write in the chat",
+    "chat_delete": "Delete their own chat messages",
+    "lineup_read": "View the lineup of every job they can see"
   },
   "dashboard": {
     "title": "Overview",
@@ -548,7 +607,8 @@
       "RESTORED": "Lead restored",
       "CONVERTED": "Quote {reference} created",
       "QUOTE_DECIDED": "Quote #{reference} was {status, select, ACCEPTED {accepted} REJECTED {declined} EXPIRED {left to expire} other {answered}}",
-      "QUOTE_EDITED": "Quote #{reference} edited after being sent"
+      "QUOTE_EDITED": "Quote #{reference} edited after being sent",
+      "JOB_STARTED": "Job started from quote #{reference}"
     },
     "ownerSaved": "Owner updated.",
     "ownerCleared": "Owner removed."
@@ -705,7 +765,10 @@
       "send": "Send to customer",
       "sending": "Sending…",
       "accept": "Mark as accepted",
-      "reject": "Mark as declined"
+      "reject": "Mark as declined",
+      "startJob": "Start job",
+      "startingJob": "Starting…",
+      "openJob": "Open job"
     },
     "detail": "Details",
     "amountHidden": "Hidden",
@@ -1314,7 +1377,8 @@
       "reviews": "{count, plural, =0 {No reviews yet} one {# review} other {# reviews}}",
       "ingestKeys": "{count, plural, =0 {Not connected} one {# key in use} other {# keys in use}}",
       "notices": "{count, plural, =0 {You get every notice} one {# notice turned off} other {# notices turned off}}",
-      "profileNoName": "No name set yet"
+      "profileNoName": "No name set yet",
+      "trades": "{count, plural, =0 {No trades yet} one {# trade} other {# trades}}"
     },
     "back": "Back to {section}"
   },
@@ -1383,7 +1447,8 @@
       "person": "Person",
       "role": "Profile",
       "status": "Status",
-      "actions": "Actions"
+      "actions": "Actions",
+      "trades": "Trades"
     },
     "status": {
       "ACTIVE": "Active",
@@ -1647,7 +1712,8 @@
       "TASK_ASSIGNED": "{by} gave you the task “{title}”",
       "TASK_DUE": "Task overdue: {title}",
       "QUOTE_EXPIRING": "Quote {reference} is about to run out",
-      "INGEST_FAILING": "Your web form rejected {count} enquiries and let none through"
+      "INGEST_FAILING": "Your web form rejected {count} enquiries and let none through",
+      "JOB_ADDED": "{by} added you to {job}"
     },
     "quoteExpiring": {
       "subject": "Quote {reference} is about to run out",
@@ -1784,7 +1850,9 @@
       "QUOTE_EXPIRING": "A quote of mine is about to run out",
       "QUOTE_EXPIRING_hint": "Once, when a sent quote nears its expiry without an answer.",
       "INGEST_FAILING": "The web form stops working",
-      "INGEST_FAILING_hint": "Once a day while enquiries are being rejected and none get through."
+      "INGEST_FAILING_hint": "Once a day while enquiries are being rejected and none get through.",
+      "JOB_ADDED": "I'm added to a job",
+      "JOB_ADDED_hint": "When somebody puts you on a job."
     },
     "indexSubtitle": "Choose which emails you want to receive.",
     "recipients": {
@@ -1892,5 +1960,181 @@
     "activated": "Company activated",
     "suspended": "Company suspended",
     "empty": "No companies registered yet."
+  },
+  "trades": {
+    "title": "Trades",
+    "subtitle": "What your people do — Plaster, Painting, Marketing. Shown beside each person on a job.",
+    "name": "Trade",
+    "namePlaceholder": "e.g. Plaster",
+    "add": "Add trade",
+    "added": "Trade added.",
+    "deleted": "Trade removed.",
+    "duplicate": "There is already a trade with that name.",
+    "empty": "No trades yet. Add the first one above.",
+    "people": "{count, plural, =0 {Nobody} one {# person} other {# people}}",
+    "deleteTitle": "Remove {name}?",
+    "deleteBody": "Nobody will be marked as {name} any more. The people stay; only the label goes.",
+    "delete": "Remove",
+    "member": "Trades",
+    "memberNone": "No trades",
+    "memberEdit": "Edit trades",
+    "memberSaved": "Trades saved.",
+    "noneConfigured": "The company has no trades yet. Add them in Settings › Trades."
+  },
+  "jobs": {
+    "title": "Jobs",
+    "subtitle": "The work after the customer said yes.",
+    "noAccess": "You don't have access to jobs.",
+    "new": "New job",
+    "newSubtitle": "A job with no quote behind it — an office, paperwork, anything the team works on.",
+    "backToJobs": "Back to Jobs",
+    "show": {
+      "active": "In progress",
+      "done": "Finished"
+    },
+    "empty": "No jobs here yet. They start from an accepted quote, with Start job.",
+    "emptyDone": "No finished jobs yet.",
+    "recentActivity": "Most recent activity",
+    "noRecentActivity": "Nothing has happened on your jobs yet.",
+    "fromQuote": "Quote {reference}",
+    "saved": "Job saved.",
+    "datesSaved": "Dates saved.",
+    "statusSaved": "Status changed.",
+    "invalidStatus": "That status doesn't exist.",
+    "create": "Create job",
+    "creating": "Creating…",
+    "edit": "Edit job",
+    "fields": {
+      "name": "Name",
+      "description": "Description",
+      "address": "Address",
+      "startsOn": "Starts",
+      "endsOn": "Ends",
+      "status": "Status"
+    },
+    "dates": "Dates",
+    "noDates": "No dates set",
+    "dateRange": "{start} – {end}",
+    "startsOnly": "From {start}",
+    "endsOnly": "Until {end}",
+    "status": {
+      "ACTIVE": "In progress",
+      "ON_HOLD": "On hold",
+      "COMPLETED": "Completed",
+      "ARCHIVED": "Archived"
+    },
+    "validation": {
+      "endBeforeStart": "The end can't be before the start"
+    },
+    "startErrors": {
+      "not-found": "That quote doesn't exist.",
+      "not-accepted": "Only an accepted quote can become a job.",
+      "already-started": "This quote already has a job."
+    },
+    "delete": "Delete job",
+    "deleteTitle": "Delete {name}?",
+    "deleteBody": "Its people, timeline and everything on it go with it. The quote stays.",
+    "people": {
+      "title": "People",
+      "add": "Add people",
+      "addSelected": "Add selected",
+      "pickSomebody": "Pick at least one person.",
+      "nobodyLeft": "Everybody in the company is already on this job.",
+      "added": "{count, plural, =0 {Nobody new to add.} one {# person added.} other {# people added.}}",
+      "removed": "Removed from the job.",
+      "remove": "Remove",
+      "removeTitle": "Remove {name} from this job?",
+      "removeBody": "They stop seeing it unless their profile sees every job. What they wrote stays.",
+      "you": "you",
+      "follow": "Notify me",
+      "unfollow": "Don't notify me",
+      "following": "You'll be notified about this job.",
+      "notFollowing": "You won't be notified about this job."
+    },
+    "timeline": {
+      "title": "Latest activity",
+      "empty": "Nothing yet.",
+      "quiet": "{days, plural, one {No activity for a day} other {No activity for # days}}",
+      "someone": "Somebody",
+      "CREATED": "{actor} created this job",
+      "CREATED_fromQuote": "{actor} started this job from quote {reference}",
+      "MEMBERS_ADDED": "{actor} added {names} to the job",
+      "MEMBER_REMOVED": "{actor} removed {name} from the job",
+      "STATUS_CHANGED": "{actor} marked the job {to}",
+      "DATES_CHANGED": "{actor} set the dates to {dates}",
+      "DATES_CLEARED": "{actor} cleared the dates",
+      "FILES_UPLOADED": "{actor} uploaded {count, plural, one {a file} other {# files}}",
+      "FOLDER_CREATED": "{actor} created the folder {name}"
+    },
+    "files": {
+      "title": "Docs & Files",
+      "backToJob": "Back to {name}",
+      "breadcrumb": "Folders",
+      "count": "{count, plural, =0 {Nothing yet} one {# file} other {# files}}",
+      "cardEmpty": "Plans, photos and documents for this job.",
+      "cardNoPhotos": "No photos yet.",
+      "upload": "Upload files",
+      "uploading": "Uploading…",
+      "preparing": "Preparing…",
+      "dropTitle": "Drag & drop <hl>photos</hl>, <hl>videos</hl> or <hl>documents</hl>",
+      "dropBrowse": "or <browse>browse files</browse> on your device",
+      "dropHint": "Photos are made smaller before they go up.",
+      "retry": "Try again",
+      "uploaded": "{count, plural, one {File uploaded} other {# files uploaded}}",
+      "uploadErrors": {
+        "empty": "This file is empty.",
+        "type": "This kind of file can't be uploaded.",
+        "heic": "HEIC photos can't be uploaded from here. Upload it from the phone, which converts it, or export it as JPEG.",
+        "size": "This file is too large.",
+        "network": "The upload didn't finish. Check the connection and try again."
+      },
+      "registerErrors": {
+        "folder": "That folder isn't on this job any more.",
+        "file": "The upload couldn't be checked, so it wasn't saved. Try again."
+      },
+      "newFolder": "New folder",
+      "folderCreated": "Folder created",
+      "name": "Name",
+      "rename": "Rename",
+      "renamed": "Renamed",
+      "move": "Move",
+      "moveTo": "Move to",
+      "moving": "Moving…",
+      "moved": "Moved",
+      "topLevel": "Docs & Files (top level)",
+      "download": "Download",
+      "openInTab": "Open in a new tab",
+      "delete": "Delete",
+      "deleted": "File deleted",
+      "folderDeleted": "Folder deleted",
+      "notAllowed": "You can't change this.",
+      "deleteFileTitle": "Delete {name}?",
+      "deleteFileBody": "It is removed from the job for everyone, and can't be recovered.",
+      "deleteFolderTitle": "Delete the folder {name}?",
+      "deleteFolderBody": "Everything inside it goes too ({contents}), for everyone, and can't be recovered.",
+      "contents": "{files, plural, one {# file} other {# files}} · {folders, plural, one {# folder} other {# folders}}",
+      "actionsFor": "Actions for {name}",
+      "empty": "Nothing here yet.",
+      "emptyCanUpload": "Nothing here yet. Upload files or drop them on this page.",
+      "emptyFiltered": "No files of this kind on the job.",
+      "uploadedBy": "Uploaded by",
+      "date": "Date",
+      "size": "Size",
+      "position": "{current} of {total}",
+      "previous": "Previous",
+      "next": "Next",
+      "filterLabel": "Show",
+      "filter": {
+        "all": "All",
+        "images": "Photos",
+        "videos": "Videos",
+        "documents": "Documents"
+      },
+      "viewLabel": "View",
+      "view": {
+        "grid": "Grid",
+        "list": "List"
+      }
+    }
   }
 }

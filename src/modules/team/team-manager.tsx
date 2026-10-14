@@ -19,6 +19,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { MembershipStatus, RoleKey } from "@/generated/prisma/enums";
+import { MemberTrades } from "@/modules/jobs/member-trades";
+import type { JobActionState } from "@/modules/jobs/actions";
 import {
   changeMemberRoleAction,
   inviteMemberAction,
@@ -36,6 +38,7 @@ export type MemberRow = {
   roleKey: RoleKey;
   status: MembershipStatus;
   isSelf: boolean;
+  tradeIds: string[];
 };
 
 export type InvitationRow = {
@@ -61,6 +64,8 @@ export function TeamManager({
   canInvite,
   canUpdate,
   canRemove,
+  trades,
+  onSetTrades,
 }: {
   members: MemberRow[];
   invitations: InvitationRow[];
@@ -68,6 +73,9 @@ export function TeamManager({
   canInvite: boolean;
   canUpdate: boolean;
   canRemove: boolean;
+  /** The company's trades, in their own order. */
+  trades: { id: string; name: string }[];
+  onSetTrades: (userId: string, state: JobActionState, formData: FormData) => Promise<JobActionState>;
 }) {
   const t = useTranslations("team");
   const tRoles = useTranslations("roles");
@@ -141,6 +149,7 @@ export function TeamManager({
                 <TableRow>
                   <TableHead>{t("columns.person")}</TableHead>
                   <TableHead>{t("columns.role")}</TableHead>
+                  <TableHead>{t("columns.trades")}</TableHead>
                   <TableHead>{t("columns.status")}</TableHead>
                   <TableHead className="text-right">
                     {/* Named for screen readers, blank for everyone else: the
@@ -180,6 +189,18 @@ export function TeamManager({
                         ) : (
                           <span className="text-sm">{tRoles(`${member.roleKey}.name`)}</span>
                         )}
+                      </TableCell>
+
+                      <TableCell>
+                        {/* Unlike the profile, a person's trades are theirs to
+                            have edited by anyone with users.update — their own
+                            row included: saying what you do locks nobody out. */}
+                        <MemberTrades
+                          trades={trades}
+                          selected={member.tradeIds}
+                          canEdit={canUpdate}
+                          action={onSetTrades.bind(null, member.userId)}
+                        />
                       </TableCell>
 
                       <TableCell>

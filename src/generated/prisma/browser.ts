@@ -365,3 +365,64 @@ export type NotificationPreference = Prisma.NotificationPreferenceModel
  * 
  */
 export type QuoteItem = Prisma.QuoteItemModel
+/**
+ * Model Job
+ * *
+ *  * A piece of work being carried out: usually an accepted quote, sometimes
+ *  * something standing on its own (an office "HQ", paperwork for the IRD).
+ *  * Who may act on a job is two questions with two answers. *Where* is
+ *  * membership (`JobMember`) or `jobs.read.all`; *what* is the profile's
+ *  * permissions, per tool and per verb. Being a member grants nothing by itself.
+ */
+export type Job = Prisma.JobModel
+/**
+ * Model JobMember
+ * *
+ *  * Somebody working on a job. `companyId` is carried directly rather than
+ *  * inherited through the job, because "which jobs am I on" is asked on every
+ *  * page a worker opens.
+ */
+export type JobMember = Prisma.JobMemberModel
+/**
+ * Model JobActivity
+ * *
+ *  * The job's timeline. Stores a type and its parameters, never a sentence —
+ *  * the same reason `Notification` does: each reader sees it in their own
+ *  * language, and that can change after it was written.
+ */
+export type JobActivity = Prisma.JobActivityModel
+/**
+ * Model JobFolder
+ * *
+ *  * A folder in a job's Docs & Files. Nested through `parentId`; deleting one
+ *  * takes what is inside it with it, which the screen says before it happens.
+ */
+export type JobFolder = Prisma.JobFolderModel
+/**
+ * Model JobFile
+ * *
+ *  * A file on a job: a photo from site, a plan, a video. Uploaded by the browser
+ *  * straight to Blob — a Vercel function's body stops at 4.5 MB — and registered
+ *  * here afterwards, once the server has checked it landed under this job's
+ *  * prefix.
+ *  *
+ *  * One table for every place a file can hang off (a folder now; a post, a
+ *  * comment, a to-do, a chat message as those arrive), the same way
+ *  * `QuoteAttachment` carries an optional `sectionId` rather than a second table.
+ */
+export type JobFile = Prisma.JobFileModel
+/**
+ * Model Trade
+ * *
+ *  * A trade a company works in — Plaster, Painting, Marketing. A list per
+ *  * company, since every company names its own.
+ */
+export type Trade = Prisma.TradeModel
+/**
+ * Model MembershipTrade
+ * *
+ *  * A person's trades **at this company**: on the membership rather than the
+ *  * user, because the same person can be a plasterer at one company and do the
+ *  * marketing at another.
+ */
+export type MembershipTrade = Prisma.MembershipTradeModel

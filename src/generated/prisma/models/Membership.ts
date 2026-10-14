@@ -201,6 +201,7 @@ export type MembershipWhereInput = {
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
+  trades?: Prisma.MembershipTradeListRelationFilter
 }
 
 export type MembershipOrderByWithRelationInput = {
@@ -214,6 +215,7 @@ export type MembershipOrderByWithRelationInput = {
   user?: Prisma.UserOrderByWithRelationInput
   company?: Prisma.CompanyOrderByWithRelationInput
   role?: Prisma.RoleOrderByWithRelationInput
+  trades?: Prisma.MembershipTradeOrderByRelationAggregateInput
 }
 
 export type MembershipWhereUniqueInput = Prisma.AtLeast<{
@@ -231,6 +233,7 @@ export type MembershipWhereUniqueInput = Prisma.AtLeast<{
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
+  trades?: Prisma.MembershipTradeListRelationFilter
 }, "id" | "userId_companyId">
 
 export type MembershipOrderByWithAggregationInput = {
@@ -267,6 +270,7 @@ export type MembershipCreateInput = {
   user: Prisma.UserCreateNestedOneWithoutMembershipsInput
   company: Prisma.CompanyCreateNestedOneWithoutMembershipsInput
   role: Prisma.RoleCreateNestedOneWithoutMembershipsInput
+  trades?: Prisma.MembershipTradeCreateNestedManyWithoutMembershipInput
 }
 
 export type MembershipUncheckedCreateInput = {
@@ -277,6 +281,7 @@ export type MembershipUncheckedCreateInput = {
   status?: $Enums.MembershipStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  trades?: Prisma.MembershipTradeUncheckedCreateNestedManyWithoutMembershipInput
 }
 
 export type MembershipUpdateInput = {
@@ -287,6 +292,7 @@ export type MembershipUpdateInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
   company?: Prisma.CompanyUpdateOneRequiredWithoutMembershipsNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutMembershipsNestedInput
+  trades?: Prisma.MembershipTradeUpdateManyWithoutMembershipNestedInput
 }
 
 export type MembershipUncheckedUpdateInput = {
@@ -297,6 +303,7 @@ export type MembershipUncheckedUpdateInput = {
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trades?: Prisma.MembershipTradeUncheckedUpdateManyWithoutMembershipNestedInput
 }
 
 export type MembershipCreateManyInput = {
@@ -369,6 +376,11 @@ export type MembershipMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type MembershipScalarRelationFilter = {
+  is?: Prisma.MembershipWhereInput
+  isNot?: Prisma.MembershipWhereInput
 }
 
 export type MembershipCreateNestedManyWithoutCompanyInput = {
@@ -501,6 +513,20 @@ export type MembershipUncheckedUpdateManyWithoutRoleNestedInput = {
   deleteMany?: Prisma.MembershipScalarWhereInput | Prisma.MembershipScalarWhereInput[]
 }
 
+export type MembershipCreateNestedOneWithoutTradesInput = {
+  create?: Prisma.XOR<Prisma.MembershipCreateWithoutTradesInput, Prisma.MembershipUncheckedCreateWithoutTradesInput>
+  connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutTradesInput
+  connect?: Prisma.MembershipWhereUniqueInput
+}
+
+export type MembershipUpdateOneRequiredWithoutTradesNestedInput = {
+  create?: Prisma.XOR<Prisma.MembershipCreateWithoutTradesInput, Prisma.MembershipUncheckedCreateWithoutTradesInput>
+  connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutTradesInput
+  upsert?: Prisma.MembershipUpsertWithoutTradesInput
+  connect?: Prisma.MembershipWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MembershipUpdateToOneWithWhereWithoutTradesInput, Prisma.MembershipUpdateWithoutTradesInput>, Prisma.MembershipUncheckedUpdateWithoutTradesInput>
+}
+
 export type MembershipCreateWithoutCompanyInput = {
   id?: string
   status?: $Enums.MembershipStatus
@@ -508,6 +534,7 @@ export type MembershipCreateWithoutCompanyInput = {
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMembershipsInput
   role: Prisma.RoleCreateNestedOneWithoutMembershipsInput
+  trades?: Prisma.MembershipTradeCreateNestedManyWithoutMembershipInput
 }
 
 export type MembershipUncheckedCreateWithoutCompanyInput = {
@@ -517,6 +544,7 @@ export type MembershipUncheckedCreateWithoutCompanyInput = {
   status?: $Enums.MembershipStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  trades?: Prisma.MembershipTradeUncheckedCreateNestedManyWithoutMembershipInput
 }
 
 export type MembershipCreateOrConnectWithoutCompanyInput = {
@@ -565,6 +593,7 @@ export type MembershipCreateWithoutUserInput = {
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutMembershipsInput
   role: Prisma.RoleCreateNestedOneWithoutMembershipsInput
+  trades?: Prisma.MembershipTradeCreateNestedManyWithoutMembershipInput
 }
 
 export type MembershipUncheckedCreateWithoutUserInput = {
@@ -574,6 +603,7 @@ export type MembershipUncheckedCreateWithoutUserInput = {
   status?: $Enums.MembershipStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  trades?: Prisma.MembershipTradeUncheckedCreateNestedManyWithoutMembershipInput
 }
 
 export type MembershipCreateOrConnectWithoutUserInput = {
@@ -609,6 +639,7 @@ export type MembershipCreateWithoutRoleInput = {
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMembershipsInput
   company: Prisma.CompanyCreateNestedOneWithoutMembershipsInput
+  trades?: Prisma.MembershipTradeCreateNestedManyWithoutMembershipInput
 }
 
 export type MembershipUncheckedCreateWithoutRoleInput = {
@@ -618,6 +649,7 @@ export type MembershipUncheckedCreateWithoutRoleInput = {
   status?: $Enums.MembershipStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  trades?: Prisma.MembershipTradeUncheckedCreateNestedManyWithoutMembershipInput
 }
 
 export type MembershipCreateOrConnectWithoutRoleInput = {
@@ -646,6 +678,62 @@ export type MembershipUpdateManyWithWhereWithoutRoleInput = {
   data: Prisma.XOR<Prisma.MembershipUpdateManyMutationInput, Prisma.MembershipUncheckedUpdateManyWithoutRoleInput>
 }
 
+export type MembershipCreateWithoutTradesInput = {
+  id?: string
+  status?: $Enums.MembershipStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutMembershipsInput
+  company: Prisma.CompanyCreateNestedOneWithoutMembershipsInput
+  role: Prisma.RoleCreateNestedOneWithoutMembershipsInput
+}
+
+export type MembershipUncheckedCreateWithoutTradesInput = {
+  id?: string
+  userId: string
+  companyId: string
+  roleId: string
+  status?: $Enums.MembershipStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type MembershipCreateOrConnectWithoutTradesInput = {
+  where: Prisma.MembershipWhereUniqueInput
+  create: Prisma.XOR<Prisma.MembershipCreateWithoutTradesInput, Prisma.MembershipUncheckedCreateWithoutTradesInput>
+}
+
+export type MembershipUpsertWithoutTradesInput = {
+  update: Prisma.XOR<Prisma.MembershipUpdateWithoutTradesInput, Prisma.MembershipUncheckedUpdateWithoutTradesInput>
+  create: Prisma.XOR<Prisma.MembershipCreateWithoutTradesInput, Prisma.MembershipUncheckedCreateWithoutTradesInput>
+  where?: Prisma.MembershipWhereInput
+}
+
+export type MembershipUpdateToOneWithWhereWithoutTradesInput = {
+  where?: Prisma.MembershipWhereInput
+  data: Prisma.XOR<Prisma.MembershipUpdateWithoutTradesInput, Prisma.MembershipUncheckedUpdateWithoutTradesInput>
+}
+
+export type MembershipUpdateWithoutTradesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
+  company?: Prisma.CompanyUpdateOneRequiredWithoutMembershipsNestedInput
+  role?: Prisma.RoleUpdateOneRequiredWithoutMembershipsNestedInput
+}
+
+export type MembershipUncheckedUpdateWithoutTradesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  roleId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type MembershipCreateManyCompanyInput = {
   id?: string
   userId: string
@@ -662,6 +750,7 @@ export type MembershipUpdateWithoutCompanyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutMembershipsNestedInput
+  trades?: Prisma.MembershipTradeUpdateManyWithoutMembershipNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutCompanyInput = {
@@ -671,6 +760,7 @@ export type MembershipUncheckedUpdateWithoutCompanyInput = {
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trades?: Prisma.MembershipTradeUncheckedUpdateManyWithoutMembershipNestedInput
 }
 
 export type MembershipUncheckedUpdateManyWithoutCompanyInput = {
@@ -698,6 +788,7 @@ export type MembershipUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutMembershipsNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutMembershipsNestedInput
+  trades?: Prisma.MembershipTradeUpdateManyWithoutMembershipNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutUserInput = {
@@ -707,6 +798,7 @@ export type MembershipUncheckedUpdateWithoutUserInput = {
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trades?: Prisma.MembershipTradeUncheckedUpdateManyWithoutMembershipNestedInput
 }
 
 export type MembershipUncheckedUpdateManyWithoutUserInput = {
@@ -734,6 +826,7 @@ export type MembershipUpdateWithoutRoleInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
   company?: Prisma.CompanyUpdateOneRequiredWithoutMembershipsNestedInput
+  trades?: Prisma.MembershipTradeUpdateManyWithoutMembershipNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutRoleInput = {
@@ -743,6 +836,7 @@ export type MembershipUncheckedUpdateWithoutRoleInput = {
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trades?: Prisma.MembershipTradeUncheckedUpdateManyWithoutMembershipNestedInput
 }
 
 export type MembershipUncheckedUpdateManyWithoutRoleInput = {
@@ -754,6 +848,35 @@ export type MembershipUncheckedUpdateManyWithoutRoleInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type MembershipCountOutputType
+ */
+
+export type MembershipCountOutputType = {
+  trades: number
+}
+
+export type MembershipCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  trades?: boolean | MembershipCountOutputTypeCountTradesArgs
+}
+
+/**
+ * MembershipCountOutputType without action
+ */
+export type MembershipCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MembershipCountOutputType
+   */
+  select?: Prisma.MembershipCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * MembershipCountOutputType without action
+ */
+export type MembershipCountOutputTypeCountTradesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MembershipTradeWhereInput
+}
 
 
 export type MembershipSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -767,6 +890,8 @@ export type MembershipSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
+  trades?: boolean | Prisma.Membership$tradesArgs<ExtArgs>
+  _count?: boolean | Prisma.MembershipCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["membership"]>
 
 export type MembershipSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -810,6 +935,8 @@ export type MembershipInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
+  trades?: boolean | Prisma.Membership$tradesArgs<ExtArgs>
+  _count?: boolean | Prisma.MembershipCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MembershipIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -828,6 +955,7 @@ export type $MembershipPayload<ExtArgs extends runtime.Types.Extensions.Internal
     user: Prisma.$UserPayload<ExtArgs>
     company: Prisma.$CompanyPayload<ExtArgs>
     role: Prisma.$RolePayload<ExtArgs>
+    trades: Prisma.$MembershipTradePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1234,6 +1362,7 @@ export interface Prisma__MembershipClient<T, Null = never, ExtArgs extends runti
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   company<T extends Prisma.CompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   role<T extends Prisma.RoleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RoleDefaultArgs<ExtArgs>>): Prisma.Prisma__RoleClient<runtime.Types.Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  trades<T extends Prisma.Membership$tradesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Membership$tradesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MembershipTradePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1668,6 +1797,30 @@ export type MembershipDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many Memberships to delete.
    */
   limit?: number
+}
+
+/**
+ * Membership.trades
+ */
+export type Membership$tradesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MembershipTrade
+   */
+  select?: Prisma.MembershipTradeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MembershipTrade
+   */
+  omit?: Prisma.MembershipTradeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MembershipTradeInclude<ExtArgs> | null
+  where?: Prisma.MembershipTradeWhereInput
+  orderBy?: Prisma.MembershipTradeOrderByWithRelationInput | Prisma.MembershipTradeOrderByWithRelationInput[]
+  cursor?: Prisma.MembershipTradeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MembershipTradeScalarFieldEnum | Prisma.MembershipTradeScalarFieldEnum[]
 }
 
 /**

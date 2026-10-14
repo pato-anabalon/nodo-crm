@@ -746,6 +746,96 @@ On the customer's own document, an image gets a small preview; anything else
 already use — one component, `modules/portal/section-attachments.tsx`, shared
 by both the static section list and the interactive selector.
 
+## Jobs: the work after the customer said yes
+
+What used to happen in Basecamp once a quote was accepted. "Start job" on an
+`ACCEPTED` quote creates a `Job` (`startJobFromQuote`), and a job can also stand
+on its own — an office, paperwork — from `/jobs/new`.
+
+**Where and what are two questions with two answers.** *Where* somebody may act
+is membership of the job (`JobMember`) or `jobs.read.all`. *What* they may do
+there is their profile's permissions, **per tool and per verb** — `todos.update`,
+`schedule.delete`, `jobs.dates`. Being a member grants nothing by itself: an
+outside collaborator on a job still can't move its dates. Four profiles carry the
+work out (`PROJECT_LEAD`, `TEAM_LEAD`, `WORKER`, `COLLABORATOR`); none of them
+reaches leads, quotes, contacts or reports, and `/` sends them to `/jobs`.
+
+- **Ticking a to-do off is not editing it.** `todos.complete` is apart from
+  `todos.update`, and on the server they are two actions — a hand-crafted POST
+  carrying a due date can't come in through the "complete" door.
+- **Own and somebody else's.** On authored content (posts, comments, chat,
+  files) `*.update`/`*.delete` reach what the person wrote; anybody else's needs
+  `jobs.moderate` too. `canTouch` in `jobs/rules.ts` is the one place that says so.
+- **`requireJobContext(jobId, permission)`** is the guard every job page and
+  action goes through: the job exists in this company, this person may be on it,
+  and their profile holds the permission. `ctx.db` draws the line between
+  companies; this draws the line between jobs. Something inside a job is acted on
+  through the `jobId` read from its row, never the one the form sent.
+
+**The name carries the quote's reference**: `<address or title> - COT-000123`,
+written once and then the job's own text. A later change of `quotePrefix` doesn't
+rename work under way, whose reference is the one on the customer's quote. That
+is also why `Job` has no number of its own.
+
+`JobActivity` is the timeline, and like `Notification` it stores a type and its
+parameters, never a sentence. The day headings are drawn in the company's
+timezone (`groupByDay`), and the silence between them is said out loud — "No
+activity for 176 days" is information about a job.
+
+**Trades** (Plaster, Painting…) sit on the membership, not the user: the same
+person can plaster for one company and do the marketing for another.
+
+> **Adding profiles reaches existing companies only through a script.**
+> `db:seed` syncs the catalogue and never touches grants. After the
+> `jobs_base` migration, `scripts/provision-job-roles.ts` creates the new
+> profiles in every company and grants the existing ones their job
+> permissions. It leaves alone any profile that already holds a job permission,
+> so running it twice — or after a company trimmed a profile — changes nothing.
+
+### Files go straight to the store
+
+A Vercel function's body stops at **4.5 MB**, whatever `bodySizeLimit` says, and
+a phone photo is 5–12 MB, a site video hundreds. So a job's files never pass
+through a function: the browser uploads to Blob directly (`upload()` from
+`@vercel/blob/client`), and `/api/jobs/<id>/upload` only decides whether to hand
+it a token — the same `jobAccess` questions as every job page, a path under
+`companies/<companyId>/jobs/<jobId>/`, and the type and cap that
+`jobs/files.ts` allows for that extension. Blob enforces the token: a different
+path or content type is refused by the store, not by us.
+
+- **The type comes from the extension**, from one table read on both sides.
+  Browsers report nothing for a `.dwg` and something different for a `.mov` on
+  each platform; the extension is the one thing every side agrees on.
+- **Registering is a second, separate check.** `registerJobFilesAction` writes
+  the rows afterwards and trusts nothing the browser reports: the path must be
+  under the prefix, the URL must be the store's own for that path, and size and
+  type are read back with `head()`. Blob's `onUploadCompleted` callback is not
+  used — it can't reach localhost, and a check that only runs in production is
+  a check nobody has seen run.
+- **Photos are compressed in the browser** (`browser-image-compression`, loaded
+  only when somebody uploads one): 2560 px on the long edge, JPEG stays JPEG and
+  PNG becomes WebP so transparency survives. A 480 px WebP copy goes up beside
+  it, and every gallery shows that — the originals are only fetched in the
+  lightbox. Videos and documents go as they are. HEIC is refused by name: the
+  `accept` lists the image types, which is what makes iOS hand over a JPEG.
+- **A PDF's first page is drawn in the browser too** (`pdfjs-dist`, its worker
+  bundled rather than fetched from a CDN) and goes up as the same kind of
+  thumbnail, so a plan shows its cover sheet on the tile. A PDF that can't be
+  drawn goes up without one — the picture is a courtesy, never a reason to
+  refuse the file. Word, Excel and PowerPoint get no preview: nothing light
+  draws them in a browser, and the free Office viewer would mean handing a
+  customer's documents to Microsoft. They get a tile in their program's colour
+  with the extension written on it instead.
+- **One timeline line per batch** (`FILES_UPLOADED`, with a handful of
+  `fileIds` for thumbnails), not one per photo.
+- **Rows are deleted before the stored files**: a
+  file left in the store costs kilobytes, a row pointing at a deleted file is a
+  broken thumbnail. Deleting a folder takes its subtree; deleting the job clears
+  its files from the store too.
+- **A tool taken away takes its lines off the timeline.** `activityPermission`
+  maps each `JobActivityType` to the permission that reads it, so a profile
+  without `files.read` sees neither the files nor their thumbnails.
+
 ## The three security contexts
 
 Everything built before answered a single question: "does this user belong to

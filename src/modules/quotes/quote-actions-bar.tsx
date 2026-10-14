@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { ExternalLink } from "lucide-react";
+import { Briefcase, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QuoteStatus } from "@/generated/prisma/enums";
 import { acceptedKey, celebrate, originOf } from "@/lib/celebrate";
@@ -23,6 +23,8 @@ export function QuoteActionsBar({
   onSend,
   onDecide,
   previewHref,
+  job,
+  onStartJob,
 }: {
   quoteId: string;
   status: QuoteStatus;
@@ -40,6 +42,13 @@ export function QuoteActionsBar({
    * out for a decision, the share card below has its own preview link.
    */
   previewHref?: string;
+  /** The job this quote became, once it has one. */
+  job?: { href: string } | null;
+  /**
+   * Turns the accepted quote into a job. Only passed when the profile holds
+   * `jobs.create`; the action redirects to the new job on success.
+   */
+  onStartJob?: () => Promise<QuoteActionState>;
 }) {
   const [pending, startTransition] = useTransition();
   const [busy, setBusy] = useState<string | null>(null);
@@ -65,8 +74,11 @@ export function QuoteActionsBar({
 
   const showSend = canSend && status === QuoteStatus.DRAFT;
   const showDecision = canDecide && status === QuoteStatus.SENT;
+  const accepted = status === QuoteStatus.ACCEPTED;
+  const showOpenJob = accepted && Boolean(job);
+  const showStartJob = accepted && !job && Boolean(onStartJob);
 
-  if (!showSend && !showDecision) return null;
+  if (!showSend && !showDecision && !showOpenJob && !showStartJob) return null;
 
   return (
     <div className="flex flex-wrap gap-2">
@@ -122,6 +134,22 @@ export function QuoteActionsBar({
             {busy === "reject" ? tCommon("saving") : t("actions.reject")}
           </Button>
         </>
+      ) : null}
+
+      {showOpenJob && job ? (
+        <Button asChild variant="outline">
+          <Link href={job.href}>
+            <Briefcase className="size-4" />
+            {t("actions.openJob")}
+          </Link>
+        </Button>
+      ) : null}
+
+      {showStartJob && onStartJob ? (
+        <Button onClick={() => run("startJob", onStartJob)} disabled={pending}>
+          <Briefcase className="size-4" />
+          {busy === "startJob" ? t("actions.startingJob") : t("actions.startJob")}
+        </Button>
       ) : null}
     </div>
   );

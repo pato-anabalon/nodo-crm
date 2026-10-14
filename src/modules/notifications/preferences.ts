@@ -25,6 +25,7 @@ export const NOTIFICATION_KINDS: readonly NotificationKind[] = [
   NotificationKind.TASK_DUE,
   NotificationKind.QUOTE_EXPIRING,
   NotificationKind.INGEST_FAILING,
+  NotificationKind.JOB_ADDED,
 ];
 
 export type PreferenceRow = { kind: NotificationKind; enabled: boolean };

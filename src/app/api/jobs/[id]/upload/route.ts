@@ -1,8 +1,11 @@
 import { NextResponse } from "next/server";
 import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
-import { getCompanyContext } from "@/lib/auth/session";
+import type { Permission } from "@/lib/auth/permissions";
+import { can, getCompanyContext } from "@/lib/auth/session";
 import { jobAccess } from "@/modules/jobs/access";
 import { jobUploadPrefix, uploadAllowance } from "@/modules/jobs/files";
+
+const UPLOAD_PERMISSIONS: Permission[] = ["files.create", "messages.create", "comments.create"];
 
 /**
  * Hands the browser a token to upload one file straight to Blob.
@@ -13,16 +16,21 @@ import { jobUploadPrefix, uploadAllowance } from "@/modules/jobs/files";
  * every job page (`jobAccess`), a path under this job's own prefix, and the
  * type and size the rules table allows for that extension.
  *
- * The upload is registered afterwards by `registerJobFilesAction`, not by
- * Blob calling back here: the callback can't reach localhost, and the action
- * checks the path all over again before a row is written.
+ * The upload is registered afterwards — by `registerJobFilesAction` into Docs,
+ * or with the post or comment it is attached to — not by Blob calling back
+ * here: the callback can't reach localhost, and registering checks the path
+ * all over again before a row is written.
  */
 export async function POST(request: Request, context: { params: Promise<{ id: string }> }) {
   const ctx = await getCompanyContext();
   if (!ctx) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
 
   const { id } = await context.params;
-  const job = await jobAccess(ctx, id, "files.create");
+  // Somebody filing into Docs, posting or commenting: any of the three is a
+  // reason to put a file in this job's store. Which one it was is checked
+  // again when the file is registered, against the thing it is attached to.
+  const permission = UPLOAD_PERMISSIONS.find((key) => can(ctx, key));
+  const job = permission ? await jobAccess(ctx, id, permission) : null;
   if (!job) return NextResponse.json({ error: "not-found" }, { status: 404 });
 
   const prefix = jobUploadPrefix(ctx.company.id, job.id);

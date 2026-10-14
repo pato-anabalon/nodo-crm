@@ -1,5 +1,5 @@
 import { JobActivityType } from "@/generated/prisma/enums";
-import { activityFileIds, activityPermission, dayIn, describeJobActivity, groupByDay } from "../timeline";
+import { activityFileIds, activityHref, activityPermission, dayIn, describeJobActivity, groupByDay } from "../timeline";
 
 const at = (iso: string) => ({ createdAt: new Date(iso) });
 
@@ -97,5 +97,43 @@ describe("file lines", () => {
   it("reads the thumbnails' ids defensively", () => {
     expect(activityFileIds({ fileIds: ["a", 3, "b"] })).toEqual(["a", "b"]);
     expect(activityFileIds(null)).toEqual([]);
+  });
+});
+
+describe("Message Board lines", () => {
+  const t = (key: string, values?: Record<string, string | number>) =>
+    `${key}${values ? JSON.stringify(values) : ""}`;
+  const helpers = { nameOf: () => "?", list: (names: string[]) => names.join(), formatDay: (day: string) => day };
+
+  it("names the post a line is about, by the title it went out under", () => {
+    expect(
+      describeJobActivity({ type: JobActivityType.POST_PUBLISHED, params: { postId: "p1", title: "Day 3" }, actorName: "Ana" }, t, helpers),
+    ).toBe('POST_PUBLISHED{"actor":"Ana","title":"Day 3"}');
+    expect(
+      describeJobActivity({ type: JobActivityType.COMMENT_ADDED, params: { postId: "p1", commentId: "c1", title: "Day 3" }, actorName: "Bo" }, t, helpers),
+    ).toBe('COMMENT_ADDED{"actor":"Bo","title":"Day 3"}');
+  });
+
+  it("belongs to the Message Board, so a profile without it doesn't see the lines", () => {
+    expect(activityPermission(JobActivityType.POST_PUBLISHED)).toBe("messages.read");
+    expect(activityPermission(JobActivityType.COMMENT_ADDED)).toBe("messages.read");
+  });
+
+  it("leads to the post, and to the comment on it", () => {
+    expect(activityHref("j1", JobActivityType.POST_PUBLISHED, { postId: "p1" })).toBe("/jobs/j1/messages/p1");
+    expect(activityHref("j1", JobActivityType.COMMENT_ADDED, { postId: "p1", commentId: "c1" })).toBe(
+      "/jobs/j1/messages/p1#comment-c1",
+    );
+  });
+
+  it("leads files to their folder, and the job's own lines nowhere", () => {
+    expect(activityHref("j1", JobActivityType.FILES_UPLOADED, { folderId: "f1" })).toBe("/jobs/j1/files?folder=f1");
+    expect(activityHref("j1", JobActivityType.FILES_UPLOADED, { folderId: null })).toBe("/jobs/j1/files");
+    expect(activityHref("j1", JobActivityType.STATUS_CHANGED, { to: "COMPLETED" })).toBeNull();
+  });
+
+  it("leads nowhere when the params are broken, rather than to /undefined", () => {
+    expect(activityHref("j1", JobActivityType.POST_PUBLISHED, null)).toBeNull();
+    expect(activityHref("j1", JobActivityType.COMMENT_ADDED, { postId: 7 })).toBeNull();
   });
 });

@@ -41,7 +41,6 @@ import type * as Prisma from "../internal/prismaNamespace"
  *  * comma-separated box is invisible until somebody notices nobody reviews them.
  * *
  *  * One platform the company is reviewed on, and its two addresses there.
- *  *
  *  * Reading the reviews and leaving one are different pages more often than not
  *  * — Google's write link opens the form, its listing shows what others said;
  *  * NoCowboys anchors the same page at `#rate` or `#ratings` — so each is its own

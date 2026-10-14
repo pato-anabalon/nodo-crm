@@ -200,6 +200,8 @@ enum NotificationKind {
   QUOTE_EXPIRING
   INGEST_FAILING
   JOB_ADDED
+  JOB_POST
+  JOB_COMMENT
 }
 
 /**
@@ -379,6 +381,9 @@ model Company {
   jobActivities           JobActivity[]
   jobFolders              JobFolder[]
   jobFiles                JobFile[]
+  jobPostCategories       JobPostCategory[]
+  jobPosts                JobPost[]
+  jobComments             JobComment[]
   trades                  Trade[]
 
   @@index([isActive])
@@ -390,7 +395,6 @@ model Company {
  * every company drew up this list differently, same reason `CatalogueItem`
  * and `ReviewLink` aren't enums either — added one at a time, each checked on
  * the way in (`@@unique([companyId, label])`).
- *
  * A quote never points back here by id. It freezes the label text itself at
  * creation, the same way it freezes `currency`/`taxType` — so deleting a type
  * later can't change what a quote already issued is shown as, and there is no
@@ -400,7 +404,7 @@ model CompanyQuoteType {
   id        String @id @default(cuid())
   companyId String
 
-  label String
+  label    String
   // The order it's offered in the picker — same reason `ReviewLink.position`
   // exists.
   position Int    @default(0)
@@ -451,6 +455,8 @@ model User {
   jobActivities           JobActivity[]
   jobFoldersCreated       JobFolder[]              @relation("JobFolderCreatedBy")
   jobFilesUploaded        JobFile[]                @relation("JobFileUploadedBy")
+  jobPostsWritten         JobPost[]                @relation("JobPostAuthor")
+  jobCommentsWritten      JobComment[]             @relation("JobCommentAuthor")
 }
 
 // A user can belong to several companies, with a different profile in each.
@@ -474,7 +480,6 @@ model Membership {
 
 /**
  * One row per magic-link request, kept only to rate-limit by IP.
- *
  * The limit is deliberately global — not scoped per company the way the
  * ingest API's is — because what it protects is Resend's own account-wide
  * daily send cap, shared across every company on this instance. An attacker
@@ -839,11 +844,11 @@ model Lead {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  company       Company         @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  contact       Contact?        @relation(fields: [contactId], references: [id], onDelete: SetNull)
-  clientCompany ClientCompany?  @relation(fields: [clientCompanyId], references: [id], onDelete: SetNull)
-  owner         User?           @relation("LeadOwner", fields: [ownerId], references: [id], onDelete: SetNull)
-  discardedBy   User?           @relation("LeadDiscardedBy", fields: [discardedById], references: [id], onDelete: SetNull)
+  company       Company          @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  contact       Contact?         @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  clientCompany ClientCompany?   @relation(fields: [clientCompanyId], references: [id], onDelete: SetNull)
+  owner         User?            @relation("LeadOwner", fields: [ownerId], references: [id], onDelete: SetNull)
+  discardedBy   User?            @relation("LeadDiscardedBy", fields: [discardedById], references: [id], onDelete: SetNull)
   submission    LeadSubmission?
   attachments   LeadAttachment[]
   quotes        Quote[]
@@ -932,7 +937,6 @@ model LeadSubmission {
 
 /**
  * A file that came in with a website form.
- *
  * The form sends links to files it already hosts; the lead is created straight
  * away with the rows `PENDING`, and a background step copies each file into our
  * own store. A copy that fails stays `FAILED` with its `sourceUrl`, so the team
@@ -1158,7 +1162,7 @@ model QuoteTemplateSection {
 
   title  String
   body   String?
-  amount Decimal @default(0) @db.Decimal(14, 2)
+  amount Decimal          @default(0) @db.Decimal(14, 2)
   // The section's behaviour is shape, reused across jobs, same as the rest of
   // the template — unlike its discount or who it's pre-selected for, which
   // are negotiated per job and stay off the template (see `QuoteSection`).
@@ -1211,7 +1215,7 @@ model Quote {
    * must not change what this quote already shows. Null only for a quote made
    * while the company had no types configured at all.
    */
-  quoteType String?
+  quoteType      String?
   // Where the work happens — not necessarily the lead's own address, and not
   // carried into a duplicate or a template: it belongs to this one job.
   projectAddress String?
@@ -1244,8 +1248,8 @@ model Quote {
    * the original intent ("10%"), not the amount that intent happened to
    * produce against the gross that existed at send time.
    */
-  discountType  DiscountType   @default(FIXED)
-  discountValue Decimal        @default(0) @db.Decimal(14, 2)
+  discountType   DiscountType   @default(FIXED)
+  discountValue  Decimal        @default(0) @db.Decimal(14, 2)
 
   /**
    * A single-threshold volume discount for sections marked `OPTIONAL`: once
@@ -1536,7 +1540,6 @@ model QuoteSection {
 
 /**
  * Files that travel with the quote: drawings, spec sheets, markups.
- *
  * `sectionId` is optional — null for a file attached to the quote as a whole,
  * set for one attached to a single section. Both share this table rather than
  * two, because they're the same thing with a narrower scope: same upload
@@ -1557,7 +1560,7 @@ model QuoteAttachment {
   uploadedById String?
   createdAt    DateTime @default(now())
 
-  quote   Quote        @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  quote   Quote         @relation(fields: [quoteId], references: [id], onDelete: Cascade)
   // A section's own attachments go with it: `updateQuote` keeps a section's
   // identity across an edit precisely so this relation survives editing the
   // quote around it, and removing the section is what's meant to take its
@@ -1598,7 +1601,6 @@ model QuoteAttachment {
  */
 /**
  * One platform the company is reviewed on, and its two addresses there.
- *
  * Reading the reviews and leaving one are different pages more often than not
  * — Google's write link opens the form, its listing shows what others said;
  * NoCowboys anchors the same page at `#rate` or `#ratings` — so each is its own
@@ -1806,6 +1808,8 @@ model Job {
   activities JobActivity[]
   folders    JobFolder[]
   files      JobFile[]
+  posts      JobPost[]
+  comments   JobComment[]
 
   @@index([companyId, status])
 }
@@ -1895,6 +1899,15 @@ enum JobActivityType {
    * params: `{ folderId, name }`
    */
   FOLDER_CREATED
+  /**
+   * params: `{ postId, title }` — written when a post goes out, not when a
+   * draft is saved. The title is the one it was published under.
+   */
+  POST_PUBLISHED
+  /**
+   * params: `{ postId, commentId, title }` — `title` is the post's.
+   */
+  COMMENT_ADDED
 }
 
 /**
@@ -1926,7 +1939,6 @@ model JobFolder {
  * straight to Blob — a Vercel function's body stops at 4.5 MB — and registered
  * here afterwards, once the server has checked it landed under this job's
  * prefix.
- *
  * One table for every place a file can hang off (a folder now; a post, a
  * comment, a to-do, a chat message as those arrive), the same way
  * `QuoteAttachment` carries an optional `sectionId` rather than a second table.
@@ -1936,6 +1948,10 @@ model JobFile {
   companyId         String
   jobId             String
   folderId          String?
+  // Attached to a post or a comment rather than filed in Docs & Files. At
+  // most one of the three is set; none means the top of Docs & Files.
+  postId            String?
+  commentId         String?
   name              String
   url               String
   pathname          String
@@ -1952,12 +1968,91 @@ model JobFile {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
-  company    Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  job        Job        @relation(fields: [jobId], references: [id], onDelete: Cascade)
-  folder     JobFolder? @relation(fields: [folderId], references: [id], onDelete: Cascade)
-  uploadedBy User?      @relation("JobFileUploadedBy", fields: [uploadedById], references: [id], onDelete: SetNull)
+  company    Company     @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  job        Job         @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  folder     JobFolder?  @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  post       JobPost?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  comment    JobComment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  uploadedBy User?       @relation("JobFileUploadedBy", fields: [uploadedById], references: [id], onDelete: SetNull)
 
   @@index([companyId, jobId, folderId])
+  @@index([postId])
+  @@index([commentId])
+}
+
+/**
+ * The Message Board's kinds of post, per company. The standard five are
+ * stored by `key` with no name and translated on the way out, the same as a
+ * standard profile; a company's own carry their `name`.
+ */
+model JobPostCategory {
+  id        String   @id @default(cuid())
+  companyId String
+  key       String?
+  name      String?
+  emoji     String
+  position  Int      @default(0)
+  createdAt DateTime @default(now())
+
+  company Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  posts   JobPost[]
+
+  @@unique([companyId, key])
+  @@index([companyId, position])
+}
+
+/**
+ * A Message Board post. `publishedAt` null is a draft, which only its author
+ * sees; publishing is what writes the timeline line and raises the notices.
+ */
+model JobPost {
+  id          String    @id @default(cuid())
+  companyId   String
+  jobId       String
+  categoryId  String?
+  title       String
+  // Sanitised HTML, the "full" profile.
+  body        String
+  authorId    String?
+  publishedAt DateTime?
+  editedAt    DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  company  Company          @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  job      Job              @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  category JobPostCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  author   User?            @relation("JobPostAuthor", fields: [authorId], references: [id], onDelete: SetNull)
+  comments JobComment[]
+  files    JobFile[]
+
+  @@index([companyId, jobId, publishedAt])
+}
+
+/**
+ * A comment on something inside a job. One nullable key per thing that can be
+ * commented on — a post now, to-dos and events as they arrive — and a check in
+ * the migration that exactly one is set.
+ */
+model JobComment {
+  id        String    @id @default(cuid())
+  companyId String
+  jobId     String
+  postId    String?
+  // Sanitised HTML, the "full" profile.
+  body      String
+  authorId  String?
+  editedAt  DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  company Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  job     Job       @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  post    JobPost?  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author  User?     @relation("JobCommentAuthor", fields: [authorId], references: [id], onDelete: SetNull)
+  files   JobFile[]
+
+  @@index([companyId, postId, createdAt])
 }
 
 /**

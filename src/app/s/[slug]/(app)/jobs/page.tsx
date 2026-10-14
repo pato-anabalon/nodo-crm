@@ -9,6 +9,7 @@ import { jobListFilterFromParams } from "@/modules/jobs/schemas";
 import { listJobs, recentJobActivity } from "@/modules/jobs/service";
 import { AvatarStack, PersonAvatar } from "@/modules/jobs/avatars";
 import { activityDescriber } from "@/modules/jobs/activity-feed";
+import { activityHref } from "@/modules/jobs/timeline";
 
 export async function generateMetadata() {
   const t = await getTranslations("jobs");
@@ -98,7 +99,15 @@ export default async function JobsPage({
                     {row.actor ? <PersonAvatar person={row.actor} size="sm" /> : <span className="size-6 shrink-0" />}
                     <div className="min-w-0 space-y-0.5">
                       <p className="text-xs text-muted-foreground">{ago(row.createdAt)}</p>
-                      <p className="leading-snug">{describe(row)}</p>
+                      <p className="leading-snug">
+                        {activityHref(row.job.id, row.type, row.params) ? (
+                          <Link href={activityHref(row.job.id, row.type, row.params)!} className="hover:underline">
+                            {describe(row)}
+                          </Link>
+                        ) : (
+                          describe(row)
+                        )}
+                      </p>
                       <Link href={`/jobs/${row.job.id}`} className="line-clamp-1 text-xs text-muted-foreground hover:underline">
                         {row.job.name}
                       </Link>

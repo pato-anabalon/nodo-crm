@@ -836,6 +836,39 @@ path or content type is refused by the store, not by us.
   maps each `JobActivityType` to the permission that reads it, so a profile
   without `files.read` sees neither the files nor their thumbnails.
 
+### The Message Board
+
+Posts with a title, a body in the **full** editor, attachments and comments
+(`modules/jobs/board/`). Basecamp's shape, because that is what the people
+moving over already know.
+
+- **A draft is its author's alone.** `publishedAt` null is a draft, and
+  `visiblePosts` lets only its author see it — not a moderator either: a draft
+  is somebody still deciding what to say. Publishing is what writes the
+  timeline line and raises the notices, and only the first publish counts
+  (`updateMany … where publishedAt is null`), so a double press is one line.
+- **An edit is a correction, not news.** A published post that changes is
+  marked `editedAt` and notifies nobody again.
+- **Who hears about a post is the author's choice**: everybody following the
+  job, only the people ticked, or nobody. A comment is heard about by whoever
+  is already in the conversation — the post's author and everybody who
+  commented — not the whole job. Either way the list is cut to people still
+  on the job whose profile reads the board (`canRead`): a notice is a link,
+  and a link that answers 404 is noise.
+- **Attachments are `JobFile` rows** with `postId` or `commentId`, through the
+  same pipeline as Docs (`useUploadQueue`, `verifyUploads`). They go up while
+  the post is being written and travel with the form as JSON; the action
+  checks them the way Docs registration does and, if one is refused, takes
+  the half-made post back out. Docs & Files lists only what was filed there
+  (`postId` and `commentId` null). A check in the migration holds a file to
+  one home and a comment to one subject.
+- **Deleting a post takes its lines off the timeline**, matched on
+  `params.postId`. A line that leads to a 404 is worse than no line.
+- **Categories are the company's** (`JobPostCategory`), the standard five
+  stored by `key` and translated like a standard profile. The migration seeded
+  them for every company already there; `createCompanyWithOwner` seeds each
+  new one; a test holds the two lists together.
+
 ## The three security contexts
 
 Everything built before answered a single question: "does this user belong to
@@ -1219,6 +1252,15 @@ Each section's scope is written with **Tiptap** (MIT; what they charge for is
 their cloud, which we don't use). The mark set is short on purpose — bold,
 italic, lists and links — because that content goes out in an email and in print,
 where tables, colours and images look broken.
+
+**The Message Board has a second profile, `full`** (`sanitizeRichText(html,
+"full")`, `RichTextEditor variant="full"`, `RichText profile="full"`): headings,
+tables, alignment, colour and highlight — what a team writes for itself and
+reads on a screen. `style` survives only as `text-align`, and as colours from
+the one palette in `lib/rich-text-palette.ts` that both the toolbar and the
+sanitiser read, in hex and in the `rgb()` a browser writes back. Images stay
+out of the HTML there too; they are attachments. The quote's profile is
+unchanged and a test pins it.
 
 > **The HTML is sanitised on the server, always.** `sanitizeRichText()` runs on
 > save and again on display. Sanitising in the browser protects nothing: the

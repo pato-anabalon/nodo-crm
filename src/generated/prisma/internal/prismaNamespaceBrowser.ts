@@ -97,6 +97,9 @@ export const ModelName = {
   JobActivity: 'JobActivity',
   JobFolder: 'JobFolder',
   JobFile: 'JobFile',
+  JobPostCategory: 'JobPostCategory',
+  JobPost: 'JobPost',
+  JobComment: 'JobComment',
   Trade: 'Trade',
   MembershipTrade: 'MembershipTrade'
 } as const
@@ -871,6 +874,8 @@ export const JobFileScalarFieldEnum = {
   companyId: 'companyId',
   jobId: 'jobId',
   folderId: 'folderId',
+  postId: 'postId',
+  commentId: 'commentId',
   name: 'name',
   url: 'url',
   pathname: 'pathname',
@@ -886,6 +891,51 @@ export const JobFileScalarFieldEnum = {
 } as const
 
 export type JobFileScalarFieldEnum = (typeof JobFileScalarFieldEnum)[keyof typeof JobFileScalarFieldEnum]
+
+
+export const JobPostCategoryScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  key: 'key',
+  name: 'name',
+  emoji: 'emoji',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type JobPostCategoryScalarFieldEnum = (typeof JobPostCategoryScalarFieldEnum)[keyof typeof JobPostCategoryScalarFieldEnum]
+
+
+export const JobPostScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  jobId: 'jobId',
+  categoryId: 'categoryId',
+  title: 'title',
+  body: 'body',
+  authorId: 'authorId',
+  publishedAt: 'publishedAt',
+  editedAt: 'editedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JobPostScalarFieldEnum = (typeof JobPostScalarFieldEnum)[keyof typeof JobPostScalarFieldEnum]
+
+
+export const JobCommentScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  jobId: 'jobId',
+  postId: 'postId',
+  body: 'body',
+  authorId: 'authorId',
+  editedAt: 'editedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JobCommentScalarFieldEnum = (typeof JobCommentScalarFieldEnum)[keyof typeof JobCommentScalarFieldEnum]
 
 
 export const TradeScalarFieldEnum = {

@@ -105,6 +105,10 @@ export function describeJobActivity(
     }
     case JobActivityType.FOLDER_CREATED:
       return t("FOLDER_CREATED", { actor, name: str("name") ?? "" });
+    case JobActivityType.POST_PUBLISHED:
+      return t("POST_PUBLISHED", { actor, title: str("title") ?? "" });
+    case JobActivityType.COMMENT_ADDED:
+      return t("COMMENT_ADDED", { actor, title: str("title") ?? "" });
     default:
       return String(line.type);
   }
@@ -133,6 +137,9 @@ export function activityPermission(type: JobActivityType): Permission {
     case JobActivityType.FILES_UPLOADED:
     case JobActivityType.FOLDER_CREATED:
       return "files.read";
+    case JobActivityType.POST_PUBLISHED:
+    case JobActivityType.COMMENT_ADDED:
+      return "messages.read";
     default:
       return "jobs.read";
   }
@@ -142,4 +149,28 @@ export function activityPermission(type: JobActivityType): Permission {
 export function activityFileIds(params: unknown): string[] {
   const ids = params && typeof params === "object" ? (params as Record<string, unknown>).fileIds : null;
   return Array.isArray(ids) ? ids.filter((id): id is string => typeof id === "string") : [];
+}
+
+/**
+ * Where a timeline line leads, if anywhere: a post line opens the post, a
+ * comment line the comment on it. Lines about the job itself lead nowhere —
+ * the reader is already on it.
+ */
+export function activityHref(jobId: string, type: JobActivityType, params: unknown): string | null {
+  const p = params && typeof params === "object" ? (params as Record<string, unknown>) : {};
+  const postId = typeof p.postId === "string" ? p.postId : null;
+  switch (type) {
+    case JobActivityType.POST_PUBLISHED:
+      return postId ? `/jobs/${jobId}/messages/${postId}` : null;
+    case JobActivityType.COMMENT_ADDED:
+      if (!postId) return null;
+      return typeof p.commentId === "string"
+        ? `/jobs/${jobId}/messages/${postId}#comment-${p.commentId}`
+        : `/jobs/${jobId}/messages/${postId}`;
+    case JobActivityType.FILES_UPLOADED:
+    case JobActivityType.FOLDER_CREATED:
+      return typeof p.folderId === "string" ? `/jobs/${jobId}/files?folder=${p.folderId}` : `/jobs/${jobId}/files`;
+    default:
+      return null;
+  }
 }

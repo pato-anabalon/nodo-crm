@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, FileText, FolderOpen, MapPin } from "lucide-react";
+import { ArrowLeft, FileText, FolderOpen, MapPin, MessagesSquare } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { can, requireCompanyContext } from "@/lib/auth/session";
 import { Button } from "@/components/ui/button";
@@ -17,8 +17,11 @@ import {
   updateJobAction,
 } from "@/modules/jobs/actions";
 import { dayKey } from "@/modules/jobs/schemas";
-import { activityFileIds, dateRange, groupByDay } from "@/modules/jobs/timeline";
+import { activityFileIds, activityHref, dateRange, groupByDay } from "@/modules/jobs/timeline";
 import { filesByIds, filesSummary } from "@/modules/jobs/files-service";
+import { latestPosts } from "@/modules/jobs/board/service";
+import { postCategoryName } from "@/modules/jobs/categories";
+import { personName } from "@/modules/jobs/avatars";
 import { activityDescriber } from "@/modules/jobs/activity-feed";
 import { PersonAvatar } from "@/modules/jobs/avatars";
 import { JobPeople, type JobPerson } from "@/modules/jobs/job-people";
@@ -41,13 +44,15 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
 
   const canMembers = can(ctx, "jobs.members");
   const canFiles = can(ctx, "files.read");
-  const [t, tRoles, activity, candidates, trades, files] = await Promise.all([
+  const canBoard = can(ctx, "messages.read");
+  const [t, tRoles, activity, candidates, trades, files, board] = await Promise.all([
     getTranslations("jobs"),
     getTranslations("roles"),
     jobActivity(ctx, job.id),
     canMembers ? memberCandidates(ctx, job.id) : Promise.resolve([]),
     tradesByUser(ctx, job.members.map((m) => m.userId)),
     canFiles ? filesSummary(ctx, job.id) : Promise.resolve(null),
+    canBoard ? latestPosts(ctx, job.id) : Promise.resolve(null),
   ]);
   const [describe, mentionedFiles] = await Promise.all([
     activityDescriber(ctx, activity),
@@ -61,6 +66,8 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
     activityFileIds(row.params)
       .flatMap((fileId) => thumbnails.get(fileId) ?? [])
       .slice(0, 6);
+
+  const hrefOf = (row: (typeof activity)[number]) => activityHref(job.id, row.type, row.params);
 
   const { formatLocale, timezone } = ctx.company;
   const formatDay = (day: string) => formatDate(new Date(`${day}T00:00:00Z`), formatLocale, "UTC");
@@ -171,38 +178,73 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
         }}
       />
 
-      {files ? (
+      {board || files ? (
         <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <Link
-            href={`/jobs/${jobId}/files`}
-            className="group flex flex-col gap-3 rounded-xl border bg-card p-4 transition-colors hover:bg-accent/40"
-          >
-            <span className="flex items-center gap-2 font-semibold">
-              <FolderOpen className="size-5 text-muted-foreground" />
-              {t("files.title")}
-              <span className="ml-auto text-xs font-normal text-muted-foreground">
-                {t("files.count", { count: files.count })}
+          {board ? (
+            <Link
+              href={`/jobs/${jobId}/messages`}
+              className="group flex flex-col gap-3 rounded-xl border bg-card p-4 transition-colors hover:bg-accent/40"
+            >
+              <span className="flex items-center gap-2 font-semibold">
+                <MessagesSquare className="size-5 text-muted-foreground" />
+                {t("board.title")}
+                <span className="ml-auto text-xs font-normal text-muted-foreground">
+                  {t("board.count", { count: board.count })}
+                </span>
               </span>
-            </span>
-            {files.images.length > 0 ? (
-              <span className="grid grid-cols-3 gap-1.5">
-                {files.images.map((image) => (
-                  // eslint-disable-next-line @next/next/no-img-element -- a small copy made at upload.
-                  <img
-                    key={image.id}
-                    src={image.thumbnailUrl ?? undefined}
-                    alt=""
-                    loading="lazy"
-                    className="aspect-square w-full rounded object-cover"
-                  />
-                ))}
+              {board.posts.length > 0 ? (
+                <ul className="space-y-2">
+                  {board.posts.map((post) => (
+                    <li key={post.id} className="min-w-0 text-sm">
+                      <span className="block truncate font-medium">
+                        {post.category ? `${post.category.emoji} ` : null}
+                        {post.title}
+                      </span>
+                      <span className="block truncate text-xs text-muted-foreground">
+                        {post.author ? personName(post.author) : t("board.someone")}
+                        {post.category ? ` · ${postCategoryName(post.category, (key) => t(`board.${key}`))}` : null}
+                        {post._count.comments > 0 ? ` · ${t("board.commentCount", { count: post._count.comments })}` : null}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <span className="text-sm italic text-muted-foreground">{t("board.cardEmpty")}</span>
+              )}
+            </Link>
+          ) : null}
+          {files ? (
+            <Link
+              href={`/jobs/${jobId}/files`}
+              className="group flex flex-col gap-3 rounded-xl border bg-card p-4 transition-colors hover:bg-accent/40"
+            >
+              <span className="flex items-center gap-2 font-semibold">
+                <FolderOpen className="size-5 text-muted-foreground" />
+                {t("files.title")}
+                <span className="ml-auto text-xs font-normal text-muted-foreground">
+                  {t("files.count", { count: files.count })}
+                </span>
               </span>
-            ) : (
-              <span className="text-sm italic text-muted-foreground">
-                {files.count === 0 ? t("files.cardEmpty") : t("files.cardNoPhotos")}
-              </span>
-            )}
-          </Link>
+              {files.images.length > 0 ? (
+                <span className="grid grid-cols-3 gap-1.5">
+                  {files.images.map((image) => (
+                    // eslint-disable-next-line @next/next/no-img-element -- a small copy made at upload.
+                    <img
+                      key={image.id}
+                      src={image.thumbnailUrl ?? undefined}
+                      alt=""
+                      loading="lazy"
+                      className="aspect-square w-full rounded object-cover"
+                    />
+                  ))}
+                </span>
+              ) : (
+                <span className="text-sm italic text-muted-foreground">
+                  {files.count === 0 ? t("files.cardEmpty") : t("files.cardNoPhotos")}
+                </span>
+              )}
+            </Link>
+          ) : null}
         </section>
       ) : null}
 
@@ -229,7 +271,15 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
                       <span className="w-16 shrink-0 pt-1 text-xs text-muted-foreground">{time.format(row.createdAt)}</span>
                       {row.actor ? <PersonAvatar person={row.actor} size="sm" /> : null}
                       <div className="min-w-0 space-y-2 pt-0.5">
-                        <p className="font-medium">{describe(row)}</p>
+                        <p className="font-medium">
+                          {hrefOf(row) ? (
+                            <Link href={hrefOf(row)!} className="hover:underline">
+                              {describe(row)}
+                            </Link>
+                          ) : (
+                            describe(row)
+                          )}
+                        </p>
                         {photosOf(row).length > 0 ? (
                           <Link href={`/jobs/${jobId}/files`} className="flex flex-wrap gap-1.5">
                             {photosOf(row).map((src) => (

@@ -1100,7 +1100,8 @@
       "ingestKeys": "{count, plural, =0 {Sin conectar} one {# clave en uso} other {# claves en uso}}",
       "notices": "{count, plural, =0 {Recibes todos los avisos} one {# aviso desactivado} other {# avisos desactivados}}",
       "profileNoName": "Todavía sin nombre",
-      "trades": "{count, plural, =0 {Sin oficios aún} one {# oficio} other {# oficios}}"
+      "trades": "{count, plural, =0 {Sin oficios aún} one {# oficio} other {# oficios}}",
+      "postCategories": "{count, plural, =0 {Sin categorías} one {# categoría} other {# categorías}}"
     },
     "back": "Volver a {section}"
   },
@@ -1400,7 +1401,9 @@
       "TASK_DUE": "Tarea atrasada: {title}",
       "QUOTE_EXPIRING": "La cotización {reference} está por vencer",
       "INGEST_FAILING": "Tu formulario web rechazó {count} consultas y no dejó pasar ninguna",
-      "JOB_ADDED": "{by} te agregó a {job}"
+      "JOB_ADDED": "{by} te agregó a {job}",
+      "JOB_POST": "{by} publicó {title} en {job}",
+      "JOB_COMMENT": "{by} comentó en {title} ({job})"
     },
     "quoteExpiring": {
       "subject": "La cotización {reference} está por vencer",
@@ -1514,7 +1517,39 @@
     "orderedList": "Lista numerada",
     "link": "Enlace",
     "unlink": "Quitar enlace",
-    "linkPrompt": "Dirección del enlace"
+    "linkPrompt": "Dirección del enlace",
+    "undo": "Deshacer",
+    "redo": "Rehacer",
+    "heading2": "Título",
+    "heading3": "Subtítulo",
+    "underline": "Subrayado",
+    "strike": "Tachado",
+    "textColor": "Color del texto",
+    "noColor": "Sin color",
+    "highlight": "Resaltado",
+    "noHighlight": "Sin resaltado",
+    "colors": {
+      "red": "Rojo",
+      "orange": "Naranja",
+      "yellow": "Amarillo",
+      "green": "Verde",
+      "blue": "Azul",
+      "purple": "Morado",
+      "gray": "Gris",
+      "pink": "Rosado"
+    },
+    "alignLeft": "Alinear a la izquierda",
+    "alignCenter": "Centrar",
+    "alignRight": "Alinear a la derecha",
+    "quote": "Cita",
+    "code": "Bloque de código",
+    "table": "Tabla",
+    "insertTable": "Insertar tabla",
+    "addRow": "Agregar fila abajo",
+    "addColumn": "Agregar columna a la derecha",
+    "deleteRow": "Eliminar fila",
+    "deleteColumn": "Eliminar columna",
+    "deleteTable": "Eliminar tabla"
   },
   "notificationSettings": {
     "title": "Mis notificaciones",
@@ -1539,7 +1574,11 @@
       "INGEST_FAILING": "El formulario web deja de funcionar",
       "INGEST_FAILING_hint": "Una vez al día mientras se rechacen consultas y no entre ninguna.",
       "JOB_ADDED": "Me agregan a un trabajo",
-      "JOB_ADDED_hint": "Cuando alguien te suma a un trabajo."
+      "JOB_ADDED_hint": "Cuando alguien te suma a un trabajo.",
+      "JOB_POST": "Se publica un mensaje en mi trabajo",
+      "JOB_POST_hint": "Cuando alguien publica en el Message Board de un trabajo que sigues, o te elige para avisarte.",
+      "JOB_COMMENT": "Una respuesta en una conversación donde participo",
+      "JOB_COMMENT_hint": "Cuando alguien comenta un post que escribiste o comentaste."
     },
     "indexSubtitle": "Elige qué correos quieres recibir.",
     "recipients": {
@@ -1751,7 +1790,9 @@
       "DATES_CHANGED": "{actor} fijó las fechas: {dates}",
       "DATES_CLEARED": "{actor} quitó las fechas",
       "FILES_UPLOADED": "{actor} subió {count, plural, one {un archivo} other {# archivos}}",
-      "FOLDER_CREATED": "{actor} creó la carpeta {name}"
+      "FOLDER_CREATED": "{actor} creó la carpeta {name}",
+      "POST_PUBLISHED": "{actor} publicó un mensaje: {title}",
+      "COMMENT_ADDED": "{actor} comentó en {title}"
     },
     "files": {
       "title": "Docs y archivos",
@@ -1822,6 +1863,92 @@
         "grid": "Cuadrícula",
         "list": "Lista"
       }
+    },
+    "board": {
+      "title": "Message Board",
+      "backToJob": "Volver a {name}",
+      "backToBoard": "Volver al Message Board",
+      "backToPost": "Volver al post",
+      "newPost": "Nuevo mensaje",
+      "yourDrafts": "{count, plural, one {Tu borrador} other {Tus # borradores}}",
+      "draftSaved": "guardado {when}",
+      "filterLabel": "Filtrar por categoría",
+      "allCategories": "Todas",
+      "someone": "Alguien",
+      "empty": "Todavía no se ha publicado nada en este trabajo.",
+      "emptyCanPost": "Todavía no hay mensajes. Aquí va el reporte del día, un anuncio o una pregunta para el equipo.",
+      "emptyCategory": "Todavía no hay mensajes en esta categoría.",
+      "categories": {
+        "ANNOUNCEMENT": "Anuncio",
+        "FYI": "Para tu información",
+        "HEARTBEAT": "Pulso",
+        "PITCH": "Propuesta",
+        "QUESTION": "Pregunta"
+      },
+      "category": "Categoría",
+      "noCategory": "Sin categoría",
+      "postTitle": "Título",
+      "titlePlaceholder": "Escribe un título…",
+      "body": "Mensaje",
+      "bodyPlaceholder": "Escribe aquí…",
+      "notifyLegend": "Cuando publique esto, avisar a…",
+      "notify": {
+        "followers": "Todos los que siguen este trabajo",
+        "followers_hint": "La gente del trabajo que no apagó sus avisos.",
+        "selected": "Solo a quienes elija",
+        "selected_hint": "Elígelos abajo.",
+        "nobody": "Nadie",
+        "nobody_hint": "Queda en el board y en el timeline, sin aviso."
+      },
+      "nobodyElse": "Todavía no hay nadie más en este trabajo.",
+      "publish": "Publicar este mensaje",
+      "saveDraft": "Guardar como borrador",
+      "saveChanges": "Guardar cambios",
+      "attach": "Adjuntar archivos",
+      "attachHint": "Fotos, videos, PDF y documentos. Las fotos se achican antes de subir.",
+      "removeAttachment": "Quitar {name}",
+      "stillUploading": "Espera a que terminen de subir los archivos.",
+      "comment": "Comentario",
+      "commentPlaceholder": "Agrega un comentario…",
+      "addComment": "Agregar este comentario",
+      "saveComment": "Guardar comentario",
+      "editComment": "Editar comentario",
+      "deleteComment": "Eliminar comentario",
+      "deleteCommentTitle": "¿Eliminar este comentario?",
+      "deleteCommentBody": "Se eliminan el comentario y sus archivos. No se puede deshacer.",
+      "deletePost": "Eliminar",
+      "deletePostTitle": "¿Eliminar «{title}»?",
+      "deletePostBody": "Se eliminan el post, todos sus comentarios y sus archivos, y sale del timeline. No se puede deshacer.",
+      "draftNotice": "Esto es un borrador. Solo tú lo ves hasta que lo publiques.",
+      "edited": "editado",
+      "editPost": "Editar",
+      "editDraft": "Editar borrador",
+      "comments": "{count, plural, =0 {Comentarios} one {# comentario} other {# comentarios}}",
+      "notAllowed": "No puedes hacer eso con este post.",
+      "filesRefused": "Uno de los archivos no se pudo adjuntar. Vuelve a subirlo.",
+      "commentEmpty": "Escribe algo o adjunta un archivo.",
+      "commented": "Comentario agregado",
+      "commentSaved": "Comentario guardado",
+      "commentDeleted": "Comentario eliminado",
+      "count": "{count, plural, =0 {Sin mensajes} one {# mensaje} other {# mensajes}}",
+      "cardEmpty": "Todavía no hay mensajes.",
+      "commentCount": "{count, plural, one {# comentario} other {# comentarios}}"
     }
+  },
+  "postCategories": {
+    "title": "Categorías de mensajes",
+    "subtitle": "Los tipos de post del Message Board de cada trabajo — Anuncio, Pregunta, los suyos. Cada uno con un emoji, para recorrer el board de un vistazo.",
+    "emoji": "Emoji",
+    "name": "Nombre",
+    "namePlaceholder": "p. ej. Reporte de obra",
+    "add": "Agregar categoría",
+    "added": "Categoría agregada.",
+    "deleted": "Categoría eliminada.",
+    "duplicate": "Ya hay una categoría con ese nombre.",
+    "empty": "No hay categorías. Igual se puede publicar sin una.",
+    "posts": "{count, plural, =0 {Sin mensajes} one {# mensaje} other {# mensajes}}",
+    "deleteTitle": "¿Eliminar {name}?",
+    "deleteBody": "{count, plural, =0 {Ningún mensaje la usa.} one {El mensaje que la usa se queda, sin categoría.} other {Los # mensajes que la usan se quedan, sin categoría.}}",
+    "delete": "Eliminar"
   }
 }

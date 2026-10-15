@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, FileText, FolderOpen, MapPin, MessagesSquare } from "lucide-react";
+import { ArrowLeft, FileText, FolderOpen, ListChecks, MapPin, MessagesSquare } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { can, requireCompanyContext } from "@/lib/auth/session";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,7 @@ import { dayKey } from "@/modules/jobs/schemas";
 import { activityFileIds, activityHref, dateRange, groupByDay } from "@/modules/jobs/timeline";
 import { filesByIds, filesSummary } from "@/modules/jobs/files-service";
 import { latestPosts } from "@/modules/jobs/board/service";
+import { todosSummary } from "@/modules/jobs/todos/service";
 import { postCategoryName } from "@/modules/jobs/categories";
 import { personName } from "@/modules/jobs/avatars";
 import { activityDescriber } from "@/modules/jobs/activity-feed";
@@ -45,7 +46,8 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
   const canMembers = can(ctx, "jobs.members");
   const canFiles = can(ctx, "files.read");
   const canBoard = can(ctx, "messages.read");
-  const [t, tRoles, activity, candidates, trades, files, board] = await Promise.all([
+  const canTodos = can(ctx, "todos.read");
+  const [t, tRoles, activity, candidates, trades, files, board, todos] = await Promise.all([
     getTranslations("jobs"),
     getTranslations("roles"),
     jobActivity(ctx, job.id),
@@ -53,6 +55,7 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
     tradesByUser(ctx, job.members.map((m) => m.userId)),
     canFiles ? filesSummary(ctx, job.id) : Promise.resolve(null),
     canBoard ? latestPosts(ctx, job.id) : Promise.resolve(null),
+    canTodos ? todosSummary(ctx, job.id) : Promise.resolve(null),
   ]);
   const [describe, mentionedFiles] = await Promise.all([
     activityDescriber(ctx, activity),
@@ -178,7 +181,7 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
         }}
       />
 
-      {board || files ? (
+      {board || todos || files ? (
         <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {board ? (
             <Link
@@ -210,6 +213,47 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
                 </ul>
               ) : (
                 <span className="text-sm italic text-muted-foreground">{t("board.cardEmpty")}</span>
+              )}
+            </Link>
+          ) : null}
+          {todos ? (
+            <Link
+              href={`/jobs/${jobId}/todos`}
+              className="group flex flex-col gap-3 rounded-xl border bg-card p-4 transition-colors hover:bg-accent/40"
+            >
+              <span className="flex items-center gap-2 font-semibold">
+                <ListChecks className="size-5 text-muted-foreground" />
+                {t("todos.title")}
+                <span className="ml-auto text-xs font-normal text-muted-foreground">
+                  {t("todos.openCount", { count: todos.open })}
+                </span>
+              </span>
+              {todos.lists.length > 0 ? (
+                <ul className="space-y-2.5">
+                  {todos.lists.map((list) => (
+                    <li key={list.id} className="min-w-0 space-y-1 text-sm">
+                      <span className="flex items-baseline justify-between gap-2">
+                        <span className="truncate font-medium">{list.name}</span>
+                        <span className="shrink-0 text-xs text-muted-foreground">
+                          {t("todos.progress", { done: list.done, total: list.total })}
+                        </span>
+                      </span>
+                      <span className="block h-1 overflow-hidden rounded-full bg-muted" aria-hidden>
+                        <span
+                          className="block h-full rounded-full bg-primary"
+                          style={{ width: list.total > 0 ? `${Math.round((list.done / list.total) * 100)}%` : "0%" }}
+                        />
+                      </span>
+                    </li>
+                  ))}
+                  {todos.listCount > todos.lists.length ? (
+                    <li className="text-xs text-muted-foreground">
+                      {t("todos.moreLists", { count: todos.listCount - todos.lists.length })}
+                    </li>
+                  ) : null}
+                </ul>
+              ) : (
+                <span className="text-sm italic text-muted-foreground">{t("todos.cardEmpty")}</span>
               )}
             </Link>
           ) : null}

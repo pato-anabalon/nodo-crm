@@ -869,6 +869,44 @@ moving over already know.
   them for every company already there; `createCompanyWithOwner` seeds each
   new one; a test holds the two lists together.
 
+### To-dos
+
+Lists of steps, each with people, days, notes, files and its own comments
+(`modules/jobs/todos/`). A list is a stage of the work and the order of both
+lists and to-dos is somebody's plan, so they are ordered by hand (`position`),
+dragged with the same dnd-kit the quote's sections use.
+
+- **Ticking off is its own door.** `setTodoCompletedAction` reaches only
+  `completedAt`/`completedById`, behind `todos.complete`; everything else is
+  `updateTodoAction`, behind `todos.update`. A Worker can say something is done
+  without being able to move when it was due.
+- **Each tick is history.** Completing and reopening each write a line, and only
+  a real change counts (`updateMany … where completedAt is null`), so a double
+  press is one line. Finishing a to-do tells whoever wrote it down.
+- **People are the job's people.** Assignees are cut to `JobMember`s on the
+  way in; only the newly assigned hear about it, so moving a date doesn't
+  re-notify anybody.
+- **A reorder is all or nothing.** `isPermutationOf` accepts the ids only as a
+  rearrangement of exactly what is there — an id from another list, one
+  missing, one twice is a stale screen or a forged post. Done to-dos sit below,
+  most recently finished first, and keep their position for if they are
+  reopened. The screen moves first (`useOptimistic`) and goes back by itself if
+  the server says no.
+- **Every to-do line carries `listId`**, so deleting a list takes all of its
+  lines off the timeline with it; moving a to-do rewrites its lines' `listId`.
+
+### Comments, wherever they are
+
+`JobComment` hangs off one thing — a post, a to-do or a list — and a check in
+the database holds it to exactly one. `comments/subject.ts` turns those keys
+into the answers every caller needs: which tool's read permission it also takes
+(a profile that doesn't read to-dos doesn't reach their comments through the
+comment), and which page it lives on. Writing, editing and deleting one, and who
+hears about a reply, are written once (`comments/service.ts`,
+`comments/actions.ts`), and `CommentThread` draws every conversation. A test
+reads the schema and the migrations and fails if a fourth commentable thing is
+added to one and not the other.
+
 ## The three security contexts
 
 Everything built before answered a single question: "does this user belong to

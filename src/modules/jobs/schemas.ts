@@ -14,7 +14,7 @@ const optional = (max: number) =>
  * A job's start and end are days, not moments: stored as a `@db.Date`, so
  * midnight UTC on the day typed carries no timezone to drift by.
  */
-const day = z.preprocess((value) => {
+export const daySchema = z.preprocess((value) => {
   if (typeof value !== "string" || value.trim() === "") return null;
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value.trim())) return undefined;
   const parsed = new Date(`${value.trim()}T00:00:00.000Z`);
@@ -30,7 +30,7 @@ export const jobFormSchema = z.object({
 export type JobFormValues = z.infer<typeof jobFormSchema>;
 
 export const jobDatesSchema = z
-  .object({ startsOn: day, endsOn: day })
+  .object({ startsOn: daySchema, endsOn: daySchema })
   .refine((v) => !v.startsOn || !v.endsOn || v.endsOn >= v.startsOn, {
     path: ["endsOn"],
     message: "jobs.validation.endBeforeStart",

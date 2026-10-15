@@ -16,10 +16,10 @@ import { logJobActivity } from "./service";
 const uploaderSelect = { id: true, name: true, email: true, image: true } as const;
 
 /**
- * Docs & Files shows what was filed there. A post's or a comment's attachments
- * are the same table but live with what they were attached to.
+ * Docs & Files shows what was filed there. A post's, a comment's or a to-do's
+ * attachments are the same table but live with what they were attached to.
  */
-const filed = { postId: null, commentId: null } as const;
+const filed = { postId: null, commentId: null, todoId: null } as const;
 
 export const jobFileSelect = {
   id: true,
@@ -245,14 +245,17 @@ export async function registerFiles(
   return { ok: true, count: created.length };
 }
 
+/** Where an attachment lives: the thing it was attached to. */
+export type AttachmentHome = { postId: string } | { commentId: string } | { todoId: string };
+
 /**
- * Attaches files to a post or a comment. No timeline line of its own: the
- * post or comment going out is the news, and its line says so.
+ * Attaches files to a post, a comment or a to-do. No timeline line of its own:
+ * the thing going out is the news, and its line says so.
  */
 export async function attachFiles(
   ctx: CompanyContext,
   jobId: string,
-  home: { postId: string } | { commentId: string },
+  home: AttachmentHome,
   uploads: UploadedFile[],
 ): Promise<boolean> {
   if (uploads.length === 0) return true;
@@ -263,12 +266,12 @@ export async function attachFiles(
 }
 
 /**
- * Takes attachments off a post or a comment: only ones that are really its own,
- * whatever ids the form sent. Rows first, stored files after.
+ * Takes attachments off what they were attached to: only ones that are really
+ * its own, whatever ids the form sent. Rows first, stored files after.
  */
 export async function detachFiles(
   ctx: CompanyContext,
-  home: { postId: string } | { commentId: string },
+  home: AttachmentHome,
   fileIds: string[],
 ): Promise<void> {
   if (fileIds.length === 0) return;

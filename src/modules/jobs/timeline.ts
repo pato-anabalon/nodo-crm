@@ -109,6 +109,13 @@ export function describeJobActivity(
       return t("POST_PUBLISHED", { actor, title: str("title") ?? "" });
     case JobActivityType.COMMENT_ADDED:
       return t("COMMENT_ADDED", { actor, title: str("title") ?? "" });
+    case JobActivityType.TODO_LIST_CREATED:
+      return t("TODO_LIST_CREATED", { actor, name: str("name") ?? "" });
+    case JobActivityType.TODO_ADDED:
+    case JobActivityType.TODO_COMPLETED:
+    case JobActivityType.TODO_REOPENED:
+    case JobActivityType.TODO_COMMENTED:
+      return t(line.type, { actor, title: str("title") ?? "" });
     default:
       return String(line.type);
   }
@@ -140,6 +147,12 @@ export function activityPermission(type: JobActivityType): Permission {
     case JobActivityType.POST_PUBLISHED:
     case JobActivityType.COMMENT_ADDED:
       return "messages.read";
+    case JobActivityType.TODO_LIST_CREATED:
+    case JobActivityType.TODO_ADDED:
+    case JobActivityType.TODO_COMPLETED:
+    case JobActivityType.TODO_REOPENED:
+    case JobActivityType.TODO_COMMENTED:
+      return "todos.read";
     default:
       return "jobs.read";
   }
@@ -153,12 +166,15 @@ export function activityFileIds(params: unknown): string[] {
 
 /**
  * Where a timeline line leads, if anywhere: a post line opens the post, a
- * comment line the comment on it. Lines about the job itself lead nowhere —
- * the reader is already on it.
+ * to-do line the to-do, a comment line the comment itself. Lines about the
+ * job itself lead nowhere — the reader is already on it.
  */
 export function activityHref(jobId: string, type: JobActivityType, params: unknown): string | null {
   const p = params && typeof params === "object" ? (params as Record<string, unknown>) : {};
   const postId = typeof p.postId === "string" ? p.postId : null;
+  const todoId = typeof p.todoId === "string" ? p.todoId : null;
+  const listId = typeof p.listId === "string" ? p.listId : null;
+  const commentAnchor = typeof p.commentId === "string" ? `#comment-${p.commentId}` : "";
   switch (type) {
     case JobActivityType.POST_PUBLISHED:
       return postId ? `/jobs/${jobId}/messages/${postId}` : null;
@@ -170,6 +186,15 @@ export function activityHref(jobId: string, type: JobActivityType, params: unkno
     case JobActivityType.FILES_UPLOADED:
     case JobActivityType.FOLDER_CREATED:
       return typeof p.folderId === "string" ? `/jobs/${jobId}/files?folder=${p.folderId}` : `/jobs/${jobId}/files`;
+    case JobActivityType.TODO_LIST_CREATED:
+      return listId ? `/jobs/${jobId}/todos/lists/${listId}` : null;
+    case JobActivityType.TODO_ADDED:
+    case JobActivityType.TODO_COMPLETED:
+    case JobActivityType.TODO_REOPENED:
+      return todoId ? `/jobs/${jobId}/todos/${todoId}` : null;
+    case JobActivityType.TODO_COMMENTED:
+      if (todoId) return `/jobs/${jobId}/todos/${todoId}${commentAnchor}`;
+      return listId ? `/jobs/${jobId}/todos/lists/${listId}${commentAnchor}` : null;
     default:
       return null;
   }

@@ -574,7 +574,8 @@
         "type": "The file must be a PDF or an image.",
         "size": "The file is larger than {max} MB.",
         "tooMany": "You've reached the maximum of {max} files.",
-        "empty": "Choose a file."
+        "empty": "Choose a file.",
+        "failed": "The file couldn't be uploaded. Check your connection and try again."
       },
       "choose": "Choose file",
       "noneChosen": "No file chosen",

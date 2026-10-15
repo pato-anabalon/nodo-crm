@@ -8,6 +8,7 @@ import { prisma } from "@/lib/db/prisma";
 import { credentialsSchema } from "@/lib/auth/schemas";
 import { canRequestMagicLink } from "@/lib/auth/magic-link-gate";
 import { companySlugFromHost } from "@/lib/tenant/host";
+import { sessionCookieName } from "@/lib/auth/session-cookie";
 
 /**
  * Auth.js resolves *who* the user is, not *which company* they're in: the company
@@ -37,7 +38,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   cookies: shareAcrossSubdomains
     ? {
         sessionToken: {
-          name: isSecureContext ? "__Secure-authjs.session-token" : "authjs.session-token",
+          // Distinct per instance, or production's cookie reaches test too.
+          name: sessionCookieName(isSecureContext, process.env.AUTH_COOKIE_SUFFIX),
           options: {
             httpOnly: true,
             sameSite: "lax",

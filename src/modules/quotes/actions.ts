@@ -15,12 +15,15 @@ import { logLeadConverted } from "@/modules/leads/service";
 import { MessageAuthor } from "@/generated/prisma/enums";
 import { clientMessageSchema } from "@/modules/portal/schemas";
 import { formatQuoteNumber } from "@/lib/format";
-import { put, del } from "@vercel/blob";
+import { del, head } from "@vercel/blob";
+import { generateClientTokenFromReadWriteToken } from "@vercel/blob/client";
 import {
   MAX_ATTACHMENTS_PER_QUOTE,
   MAX_ATTACHMENT_BYTES,
   attachmentPathname,
   checkAttachment,
+  isAttachmentPathOf,
+  type AttachmentCheck,
 } from "./attachments";
 import { sendQuoteEmail } from "./email";
 
@@ -30,7 +33,7 @@ export type QuoteActionState = {
   fieldErrors?: Record<string, string[]>;
   /** Set by actions whose form has to clear itself once it went through. */
   done?: boolean;
-  /** Set by `uploadQuoteAttachmentAction` on success — the manager appends it
+  /** Set by `registerQuoteAttachmentAction` on success — the manager appends it
    * to its own list directly rather than waiting on a page revalidation to
    * reach a client component that's already mounted with its own state. */
   attachment?: { id: string; name: string; url: string; size: number; contentType: string };
@@ -220,17 +223,35 @@ export async function sendStaffMessageAction(
  * given. Both share this one action — same checks, same storage path, same
  * table — rather than a copy of it for the section case.
  */
-export async function uploadQuoteAttachmentAction(
+/** What the browser says about the file it is about to upload — only ever
+ * a claim, re-read from the store itself once the file is there. */
+export type AttachmentFileInfo = { name: string; size: number; type: string };
+
+export type AttachmentUploadTicket = {
+  error?: string;
+  pathname?: string;
+  /** Lets the browser write exactly one file, at `pathname`, of that type and
+   * up to the size limit — Blob enforces all three, not this code. */
+  token?: string;
+};
+
+/** How long the browser has to start sending once it was allowed to. A large
+ * file goes up in parts, each one presenting the same token. */
+const UPLOAD_TOKEN_TTL_MS = 15 * 60 * 1000;
+
+/**
+ * Whether the person may add a file to this quote (or to this section of it),
+ * and how many are already there. Asked twice per upload — before the token
+ * is issued and again before the row is written — because those are two
+ * separate requests and the second can't take the first's word for it.
+ */
+async function attachmentTarget(
+  ctx: Awaited<ReturnType<typeof requirePermission>>,
   quoteId: string,
   sectionId: string | null,
-  _prev: QuoteActionState,
-  formData: FormData,
-): Promise<QuoteActionState> {
-  const ctx = await requirePermission("quotes.update");
-  const t = await getTranslations("quotes.attachments");
-
+): Promise<{ existingCount: number } | null> {
   const quote = await ctx.db.quote.findFirst({ where: { id: quoteId }, select: { id: true } });
-  if (!quote) return { error: t("notFound") };
+  if (!quote) return null;
 
   // The `quoteId` in the where is what stops attaching to a section of
   // another quote — `ctx.db` alone only guards the tenant, not the quote.
@@ -239,7 +260,7 @@ export async function uploadQuoteAttachmentAction(
       where: { id: sectionId, quoteId },
       select: { id: true },
     });
-    if (!section) return { error: t("notFound") };
+    if (!section) return null;
   }
 
   // Each section counts against its own cap, separate from the quote's own
@@ -247,40 +268,113 @@ export async function uploadQuoteAttachmentAction(
   const existingCount = await ctx.db.quoteAttachment.count({
     where: sectionId ? { sectionId } : { quoteId, sectionId: null },
   });
+  return { existingCount };
+}
 
-  const file = formData.get("file");
-  if (!(file instanceof File)) return { error: t("errors.empty") };
+async function attachmentCheckError(check: AttachmentCheck): Promise<string | undefined> {
+  if (check.ok) return undefined;
+  const t = await getTranslations("quotes.attachments");
+  return check.reason === "type"
+    ? t("errors.type")
+    : check.reason === "size"
+      ? t("errors.size", { max: MAX_ATTACHMENT_BYTES / (1024 * 1024) })
+      : check.reason === "too-many"
+        ? t("errors.tooMany", { max: MAX_ATTACHMENTS_PER_QUOTE })
+        : t("errors.empty");
+}
 
-  const check = checkAttachment(file, existingCount);
-  if (!check.ok) {
-    return {
-      error:
-        check.reason === "type"
-          ? t("errors.type")
-          : check.reason === "size"
-            ? t("errors.size", { max: MAX_ATTACHMENT_BYTES / (1024 * 1024) })
-            : check.reason === "too-many"
-              ? t("errors.tooMany", { max: MAX_ATTACHMENTS_PER_QUOTE })
-              : t("errors.empty"),
-    };
+/**
+ * Step one of an upload: everything the old single action checked, then a
+ * token instead of the file.
+ *
+ * The file itself goes from the browser straight to Blob. Through a Server
+ * Action it travelled inside a Vercel Function's request body, which the
+ * platform caps at 4.5 MB before any of this code runs — so in production
+ * the 20 MB limit was really 4.5, and anything above it came back as a bare
+ * `FUNCTION_PAYLOAD_TOO_LARGE`. `bodySizeLimit` in `next.config.ts` only
+ * moves Next's own cap, never the platform's.
+ */
+export async function prepareQuoteAttachmentUploadAction(
+  quoteId: string,
+  sectionId: string | null,
+  file: AttachmentFileInfo,
+): Promise<AttachmentUploadTicket> {
+  const ctx = await requirePermission("quotes.update");
+  const t = await getTranslations("quotes.attachments");
+
+  const target = await attachmentTarget(ctx, quoteId, sectionId);
+  if (!target) return { error: t("notFound") };
+
+  const error = await attachmentCheckError(checkAttachment(file, target.existingCount));
+  if (error) return { error };
+
+  // The path is the server's, never the browser's: the token is bound to it,
+  // so this is what keeps the file inside this company's and this quote's
+  // folder whatever the request claims.
+  const pathname = attachmentPathname(ctx.company.id, quoteId, file.name);
+  const token = await generateClientTokenFromReadWriteToken({
+    pathname,
+    allowedContentTypes: [file.type],
+    maximumSizeInBytes: MAX_ATTACHMENT_BYTES,
+    addRandomSuffix: true,
+    allowOverwrite: false,
+    validUntil: Date.now() + UPLOAD_TOKEN_TTL_MS,
+  });
+
+  return { pathname, token };
+}
+
+/**
+ * Step two: the file is in the store, and the browser says where.
+ *
+ * Nothing in that claim is trusted. The path has to sit in this quote's own
+ * folder, the store is asked whether the file is really there, and the size
+ * and type written to the row are the store's answer, not the browser's.
+ */
+export async function registerQuoteAttachmentAction(
+  quoteId: string,
+  sectionId: string | null,
+  upload: { pathname: string; name: string },
+): Promise<QuoteActionState> {
+  const ctx = await requirePermission("quotes.update");
+  const t = await getTranslations("quotes.attachments");
+
+  const target = await attachmentTarget(ctx, quoteId, sectionId);
+  if (!target) return { error: t("notFound") };
+
+  if (!isAttachmentPathOf(ctx.company.id, quoteId, upload.pathname)) {
+    return { error: t("notFound") };
   }
 
-  const blob = await put(attachmentPathname(ctx.company.id, quoteId, file.name), file, {
-    access: "public",
-    addRandomSuffix: true,
-    contentType: file.type,
-  });
+  const stored = await head(upload.pathname).catch(() => null);
+  if (!stored) return { error: t("notFound") };
+
+  // One file, one row: a second row on the same blob would leave the first
+  // pointing at nothing the moment either was deleted.
+  const taken = await ctx.db.quoteAttachment.count({ where: { pathname: stored.pathname } });
+  if (taken > 0) return { error: t("notFound") };
+
+  const name = upload.name.trim().slice(0, 255) || stored.pathname.split("/").pop()!;
+  const error = await attachmentCheckError(
+    checkAttachment({ name, size: stored.size, type: stored.contentType }, target.existingCount),
+  );
+  if (error) {
+    // Uploaded but refused — most likely the cap filled up between the two
+    // steps. Nothing will ever point at the file, so it goes.
+    await del(stored.url).catch(() => undefined);
+    return { error };
+  }
 
   const attachment = await ctx.db.quoteAttachment.create({
     data: {
       quoteId,
       sectionId,
-      name: file.name,
-      url: blob.url,
-      pathname: blob.pathname,
-      contentType: file.type,
-      size: file.size,
-      position: existingCount,
+      name,
+      url: stored.url,
+      pathname: stored.pathname,
+      contentType: stored.contentType,
+      size: stored.size,
+      position: target.existingCount,
       uploadedById: ctx.user.id,
     },
   });

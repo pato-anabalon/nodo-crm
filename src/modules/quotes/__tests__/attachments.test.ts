@@ -3,6 +3,7 @@ import {
   MAX_ATTACHMENT_BYTES,
   attachmentPathname,
   checkAttachment,
+  isAttachmentPathOf,
 } from "../attachments";
 
 const pdf = { type: "application/pdf", size: 2048, name: "markups.pdf" };
@@ -52,5 +53,40 @@ describe("attachmentPathname", () => {
     const path = attachmentPathname("cmp_1", "q_1", "../../otra/secreto.pdf");
     expect(path.startsWith("companies/cmp_1/quotes/q_1/")).toBe(true);
     expect(path).not.toContain("..");
+  });
+});
+
+describe("isAttachmentPathOf", () => {
+  it("accepts what an upload to this quote produces, random suffix included", () => {
+    const path = attachmentPathname("cmp_1", "q_1", "26 Pacific Cliffs Drive - Markups.pdf");
+    expect(isAttachmentPathOf("cmp_1", "q_1", path)).toBe(true);
+    expect(
+      isAttachmentPathOf("cmp_1", "q_1", path.replace(/\.pdf$/, "-Xk3pQ9aZ7bL2mN4vR8sT1uW5yC0dEf.pdf")),
+    ).toBe(true);
+  });
+
+  it("refuses another company's file", () => {
+    expect(isAttachmentPathOf("cmp_1", "q_1", "companies/cmp_2/quotes/q_1/markups.pdf")).toBe(false);
+  });
+
+  it("refuses another quote's file in the same company", () => {
+    expect(isAttachmentPathOf("cmp_1", "q_1", "companies/cmp_1/quotes/q_2/markups.pdf")).toBe(false);
+  });
+
+  it("refuses a quote whose id merely starts the same", () => {
+    expect(isAttachmentPathOf("cmp_1", "q_1", "companies/cmp_1/quotes/q_10/markups.pdf")).toBe(false);
+  });
+
+  it("refuses anything that climbs out or reaches deeper", () => {
+    expect(isAttachmentPathOf("cmp_1", "q_1", "companies/cmp_1/quotes/q_1/../q_2/x.pdf")).toBe(false);
+    expect(isAttachmentPathOf("cmp_1", "q_1", "companies/cmp_1/quotes/q_1/sub/x.pdf")).toBe(false);
+    expect(isAttachmentPathOf("cmp_1", "q_1", "companies/cmp_1/logo.png")).toBe(false);
+  });
+
+  it("refuses the bare folder and a full URL", () => {
+    expect(isAttachmentPathOf("cmp_1", "q_1", "companies/cmp_1/quotes/q_1/")).toBe(false);
+    expect(
+      isAttachmentPathOf("cmp_1", "q_1", "https://evil.example/companies/cmp_1/quotes/q_1/x.pdf"),
+    ).toBe(false);
   });
 });

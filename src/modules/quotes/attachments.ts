@@ -34,6 +34,11 @@ export function checkAttachment(
   return { ok: true };
 }
 
+/** The folder every file of one quote lives in. */
+export function attachmentFolder(companyId: string, quoteId: string): string {
+  return `companies/${companyId}/quotes/${quoteId}/`;
+}
+
 /** Path inside the store, always under the company and the quote. */
 export function attachmentPathname(
   companyId: string,
@@ -47,5 +52,22 @@ export function attachmentPathname(
     .replace(/\.{2,}/g, ".")
     .replace(/^[-.]+|[-.]+$/g, "")
     .slice(0, 80);
-  return `companies/${companyId}/quotes/${quoteId}/${safe || "attachment"}`;
+  return `${attachmentFolder(companyId, quoteId)}${safe || "attachment"}`;
+}
+
+/**
+ * Whether a path in the store is one this quote's own upload could have
+ * produced — straight inside its folder, in the alphabet `attachmentPathname`
+ * leaves behind (the random suffix Blob appends is drawn from it too).
+ *
+ * The browser uploads the file itself and then tells the server where it
+ * went, so this is what stands between that claim and a row: without it,
+ * a hand-crafted request could register another company's file, or another
+ * quote's, as an attachment of this one.
+ */
+export function isAttachmentPathOf(companyId: string, quoteId: string, pathname: string): boolean {
+  const folder = attachmentFolder(companyId, quoteId);
+  if (!pathname.startsWith(folder)) return false;
+  const name = pathname.slice(folder.length);
+  return /^[a-zA-Z0-9.-]+$/.test(name) && !name.includes("..");
 }

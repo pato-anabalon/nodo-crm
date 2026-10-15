@@ -28,7 +28,8 @@ import {
   revokeShareAction,
   sendQuoteAction,
   updateQuoteAction,
-  uploadQuoteAttachmentAction,
+  prepareQuoteAttachmentUploadAction,
+  registerQuoteAttachmentAction,
 } from "@/modules/quotes/actions";
 import { ShareCard } from "@/modules/quotes/share-card";
 import { QuoteReuseCard } from "@/modules/quote-templates/quote-actions";
@@ -93,6 +94,10 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
   // Named because they appear in both arrangements below, and a copy in each
   // branch is how the two quietly drift apart.
   const reuseCard = <QuoteReuseCard quoteId={quote.id} canEdit={can(ctx, "quotes.create")} />;
+  const attachmentUpload = {
+    prepare: prepareQuoteAttachmentUploadAction,
+    register: registerQuoteAttachmentAction,
+  };
   const attachmentsCard = (
     <AttachmentsManager
       quoteId={quote.id}
@@ -105,7 +110,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
       }))}
       canManage={editable}
       formatLocale={ctx.company.formatLocale}
-      uploadAction={uploadQuoteAttachmentAction}
+      uploadActions={attachmentUpload}
       deleteAction={deleteQuoteAttachmentAction}
     />
   );
@@ -166,7 +171,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
           hasCatalogue={catalogueAvailable}
           searchLeads={searchLeadsAction}
           searchCatalogue={searchCatalogueAction}
-          uploadAttachment={uploadQuoteAttachmentAction}
+          uploadAttachment={attachmentUpload}
           deleteAttachment={deleteQuoteAttachmentAction}
           action={updateAction}
           status={quote.status}

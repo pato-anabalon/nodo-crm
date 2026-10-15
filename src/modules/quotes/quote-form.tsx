@@ -63,7 +63,11 @@ import {
 } from "@/components/search-combobox";
 import { richTextToPlain, toRichTextHtml } from "@/lib/rich-text";
 import type { CatalogueSearchItem } from "@/modules/catalogue/actions";
-import { AttachmentsManager, type AttachmentRow } from "./attachments-manager";
+import {
+  AttachmentsManager,
+  type AttachmentRow,
+  type AttachmentUploadActions,
+} from "./attachments-manager";
 import { calculateQuoteTotals, sectionNetAmount, taxIsInTotal } from "./totals";
 import { resolveSelectedSectionAmounts } from "./section-selection";
 import { formatMoney } from "@/lib/format";
@@ -219,12 +223,7 @@ export function QuoteForm({
   quoteId?: string;
   /** Required alongside `quoteId` — a section's attachments manager needs
    * both to render at all. */
-  uploadAttachment?: (
-    quoteId: string,
-    sectionId: string | null,
-    prev: QuoteActionState,
-    formData: FormData,
-  ) => Promise<QuoteActionState>;
+  uploadAttachment?: AttachmentUploadActions;
   deleteAttachment?: (quoteId: string, attachmentId: string) => Promise<QuoteActionState>;
   /** Whether the company has any price-list line at all — the "From
    * catalogue" picker searches the server instead of holding the list, so
@@ -1074,7 +1073,7 @@ export function QuoteForm({
                           canManage
                           formatLocale={formatLocale}
                           compact
-                          uploadAction={uploadAttachment}
+                          uploadActions={uploadAttachment}
                           deleteAction={deleteAttachment}
                         />
                       ) : null}

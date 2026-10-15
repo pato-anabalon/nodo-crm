@@ -269,6 +269,8 @@ export type JobWhereInput = {
   files?: Prisma.JobFileListRelationFilter
   posts?: Prisma.JobPostListRelationFilter
   comments?: Prisma.JobCommentListRelationFilter
+  todoLists?: Prisma.JobTodoListListRelationFilter
+  todos?: Prisma.JobTodoListRelationFilter
 }
 
 export type JobOrderByWithRelationInput = {
@@ -296,6 +298,8 @@ export type JobOrderByWithRelationInput = {
   files?: Prisma.JobFileOrderByRelationAggregateInput
   posts?: Prisma.JobPostOrderByRelationAggregateInput
   comments?: Prisma.JobCommentOrderByRelationAggregateInput
+  todoLists?: Prisma.JobTodoListOrderByRelationAggregateInput
+  todos?: Prisma.JobTodoOrderByRelationAggregateInput
 }
 
 export type JobWhereUniqueInput = Prisma.AtLeast<{
@@ -326,6 +330,8 @@ export type JobWhereUniqueInput = Prisma.AtLeast<{
   files?: Prisma.JobFileListRelationFilter
   posts?: Prisma.JobPostListRelationFilter
   comments?: Prisma.JobCommentListRelationFilter
+  todoLists?: Prisma.JobTodoListListRelationFilter
+  todos?: Prisma.JobTodoListRelationFilter
 }, "id" | "quoteId">
 
 export type JobOrderByWithAggregationInput = {
@@ -389,6 +395,8 @@ export type JobCreateInput = {
   files?: Prisma.JobFileCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoCreateNestedManyWithoutJobInput
 }
 
 export type JobUncheckedCreateInput = {
@@ -412,6 +420,8 @@ export type JobUncheckedCreateInput = {
   files?: Prisma.JobFileUncheckedCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostUncheckedCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutJobInput
 }
 
 export type JobUpdateInput = {
@@ -435,6 +445,8 @@ export type JobUpdateInput = {
   files?: Prisma.JobFileUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUpdateManyWithoutJobNestedInput
 }
 
 export type JobUncheckedUpdateInput = {
@@ -458,6 +470,8 @@ export type JobUncheckedUpdateInput = {
   files?: Prisma.JobFileUncheckedUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUncheckedUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUncheckedUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUncheckedUpdateManyWithoutJobNestedInput
 }
 
 export type JobCreateManyInput = {
@@ -824,6 +838,34 @@ export type JobUpdateOneRequiredWithoutCommentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.JobUpdateToOneWithWhereWithoutCommentsInput, Prisma.JobUpdateWithoutCommentsInput>, Prisma.JobUncheckedUpdateWithoutCommentsInput>
 }
 
+export type JobCreateNestedOneWithoutTodoListsInput = {
+  create?: Prisma.XOR<Prisma.JobCreateWithoutTodoListsInput, Prisma.JobUncheckedCreateWithoutTodoListsInput>
+  connectOrCreate?: Prisma.JobCreateOrConnectWithoutTodoListsInput
+  connect?: Prisma.JobWhereUniqueInput
+}
+
+export type JobUpdateOneRequiredWithoutTodoListsNestedInput = {
+  create?: Prisma.XOR<Prisma.JobCreateWithoutTodoListsInput, Prisma.JobUncheckedCreateWithoutTodoListsInput>
+  connectOrCreate?: Prisma.JobCreateOrConnectWithoutTodoListsInput
+  upsert?: Prisma.JobUpsertWithoutTodoListsInput
+  connect?: Prisma.JobWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.JobUpdateToOneWithWhereWithoutTodoListsInput, Prisma.JobUpdateWithoutTodoListsInput>, Prisma.JobUncheckedUpdateWithoutTodoListsInput>
+}
+
+export type JobCreateNestedOneWithoutTodosInput = {
+  create?: Prisma.XOR<Prisma.JobCreateWithoutTodosInput, Prisma.JobUncheckedCreateWithoutTodosInput>
+  connectOrCreate?: Prisma.JobCreateOrConnectWithoutTodosInput
+  connect?: Prisma.JobWhereUniqueInput
+}
+
+export type JobUpdateOneRequiredWithoutTodosNestedInput = {
+  create?: Prisma.XOR<Prisma.JobCreateWithoutTodosInput, Prisma.JobUncheckedCreateWithoutTodosInput>
+  connectOrCreate?: Prisma.JobCreateOrConnectWithoutTodosInput
+  upsert?: Prisma.JobUpsertWithoutTodosInput
+  connect?: Prisma.JobWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.JobUpdateToOneWithWhereWithoutTodosInput, Prisma.JobUpdateWithoutTodosInput>, Prisma.JobUncheckedUpdateWithoutTodosInput>
+}
+
 export type JobCreateWithoutCompanyInput = {
   id?: string
   name: string
@@ -844,6 +886,8 @@ export type JobCreateWithoutCompanyInput = {
   files?: Prisma.JobFileCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoCreateNestedManyWithoutJobInput
 }
 
 export type JobUncheckedCreateWithoutCompanyInput = {
@@ -866,6 +910,8 @@ export type JobUncheckedCreateWithoutCompanyInput = {
   files?: Prisma.JobFileUncheckedCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostUncheckedCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutJobInput
 }
 
 export type JobCreateOrConnectWithoutCompanyInput = {
@@ -934,6 +980,8 @@ export type JobCreateWithoutCreatedByInput = {
   files?: Prisma.JobFileCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoCreateNestedManyWithoutJobInput
 }
 
 export type JobUncheckedCreateWithoutCreatedByInput = {
@@ -956,6 +1004,8 @@ export type JobUncheckedCreateWithoutCreatedByInput = {
   files?: Prisma.JobFileUncheckedCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostUncheckedCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutJobInput
 }
 
 export type JobCreateOrConnectWithoutCreatedByInput = {
@@ -1004,6 +1054,8 @@ export type JobCreateWithoutLeadInput = {
   files?: Prisma.JobFileCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoCreateNestedManyWithoutJobInput
 }
 
 export type JobUncheckedCreateWithoutLeadInput = {
@@ -1026,6 +1078,8 @@ export type JobUncheckedCreateWithoutLeadInput = {
   files?: Prisma.JobFileUncheckedCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostUncheckedCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutJobInput
 }
 
 export type JobCreateOrConnectWithoutLeadInput = {
@@ -1074,6 +1128,8 @@ export type JobCreateWithoutQuoteInput = {
   files?: Prisma.JobFileCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoCreateNestedManyWithoutJobInput
 }
 
 export type JobUncheckedCreateWithoutQuoteInput = {
@@ -1096,6 +1152,8 @@ export type JobUncheckedCreateWithoutQuoteInput = {
   files?: Prisma.JobFileUncheckedCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostUncheckedCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutJobInput
 }
 
 export type JobCreateOrConnectWithoutQuoteInput = {
@@ -1134,6 +1192,8 @@ export type JobUpdateWithoutQuoteInput = {
   files?: Prisma.JobFileUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUpdateManyWithoutJobNestedInput
 }
 
 export type JobUncheckedUpdateWithoutQuoteInput = {
@@ -1156,6 +1216,8 @@ export type JobUncheckedUpdateWithoutQuoteInput = {
   files?: Prisma.JobFileUncheckedUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUncheckedUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUncheckedUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUncheckedUpdateManyWithoutJobNestedInput
 }
 
 export type JobCreateWithoutMembersInput = {
@@ -1178,6 +1240,8 @@ export type JobCreateWithoutMembersInput = {
   files?: Prisma.JobFileCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoCreateNestedManyWithoutJobInput
 }
 
 export type JobUncheckedCreateWithoutMembersInput = {
@@ -1200,6 +1264,8 @@ export type JobUncheckedCreateWithoutMembersInput = {
   files?: Prisma.JobFileUncheckedCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostUncheckedCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutJobInput
 }
 
 export type JobCreateOrConnectWithoutMembersInput = {
@@ -1238,6 +1304,8 @@ export type JobUpdateWithoutMembersInput = {
   files?: Prisma.JobFileUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUpdateManyWithoutJobNestedInput
 }
 
 export type JobUncheckedUpdateWithoutMembersInput = {
@@ -1260,6 +1328,8 @@ export type JobUncheckedUpdateWithoutMembersInput = {
   files?: Prisma.JobFileUncheckedUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUncheckedUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUncheckedUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUncheckedUpdateManyWithoutJobNestedInput
 }
 
 export type JobCreateWithoutActivitiesInput = {
@@ -1282,6 +1352,8 @@ export type JobCreateWithoutActivitiesInput = {
   files?: Prisma.JobFileCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoCreateNestedManyWithoutJobInput
 }
 
 export type JobUncheckedCreateWithoutActivitiesInput = {
@@ -1304,6 +1376,8 @@ export type JobUncheckedCreateWithoutActivitiesInput = {
   files?: Prisma.JobFileUncheckedCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostUncheckedCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutJobInput
 }
 
 export type JobCreateOrConnectWithoutActivitiesInput = {
@@ -1342,6 +1416,8 @@ export type JobUpdateWithoutActivitiesInput = {
   files?: Prisma.JobFileUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUpdateManyWithoutJobNestedInput
 }
 
 export type JobUncheckedUpdateWithoutActivitiesInput = {
@@ -1364,6 +1440,8 @@ export type JobUncheckedUpdateWithoutActivitiesInput = {
   files?: Prisma.JobFileUncheckedUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUncheckedUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUncheckedUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUncheckedUpdateManyWithoutJobNestedInput
 }
 
 export type JobCreateWithoutFoldersInput = {
@@ -1386,6 +1464,8 @@ export type JobCreateWithoutFoldersInput = {
   files?: Prisma.JobFileCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoCreateNestedManyWithoutJobInput
 }
 
 export type JobUncheckedCreateWithoutFoldersInput = {
@@ -1408,6 +1488,8 @@ export type JobUncheckedCreateWithoutFoldersInput = {
   files?: Prisma.JobFileUncheckedCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostUncheckedCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutJobInput
 }
 
 export type JobCreateOrConnectWithoutFoldersInput = {
@@ -1446,6 +1528,8 @@ export type JobUpdateWithoutFoldersInput = {
   files?: Prisma.JobFileUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUpdateManyWithoutJobNestedInput
 }
 
 export type JobUncheckedUpdateWithoutFoldersInput = {
@@ -1468,6 +1552,8 @@ export type JobUncheckedUpdateWithoutFoldersInput = {
   files?: Prisma.JobFileUncheckedUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUncheckedUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUncheckedUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUncheckedUpdateManyWithoutJobNestedInput
 }
 
 export type JobCreateWithoutFilesInput = {
@@ -1490,6 +1576,8 @@ export type JobCreateWithoutFilesInput = {
   folders?: Prisma.JobFolderCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoCreateNestedManyWithoutJobInput
 }
 
 export type JobUncheckedCreateWithoutFilesInput = {
@@ -1512,6 +1600,8 @@ export type JobUncheckedCreateWithoutFilesInput = {
   folders?: Prisma.JobFolderUncheckedCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostUncheckedCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutJobInput
 }
 
 export type JobCreateOrConnectWithoutFilesInput = {
@@ -1550,6 +1640,8 @@ export type JobUpdateWithoutFilesInput = {
   folders?: Prisma.JobFolderUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUpdateManyWithoutJobNestedInput
 }
 
 export type JobUncheckedUpdateWithoutFilesInput = {
@@ -1572,6 +1664,8 @@ export type JobUncheckedUpdateWithoutFilesInput = {
   folders?: Prisma.JobFolderUncheckedUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUncheckedUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUncheckedUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUncheckedUpdateManyWithoutJobNestedInput
 }
 
 export type JobCreateWithoutPostsInput = {
@@ -1594,6 +1688,8 @@ export type JobCreateWithoutPostsInput = {
   folders?: Prisma.JobFolderCreateNestedManyWithoutJobInput
   files?: Prisma.JobFileCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoCreateNestedManyWithoutJobInput
 }
 
 export type JobUncheckedCreateWithoutPostsInput = {
@@ -1616,6 +1712,8 @@ export type JobUncheckedCreateWithoutPostsInput = {
   folders?: Prisma.JobFolderUncheckedCreateNestedManyWithoutJobInput
   files?: Prisma.JobFileUncheckedCreateNestedManyWithoutJobInput
   comments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutJobInput
 }
 
 export type JobCreateOrConnectWithoutPostsInput = {
@@ -1654,6 +1752,8 @@ export type JobUpdateWithoutPostsInput = {
   folders?: Prisma.JobFolderUpdateManyWithoutJobNestedInput
   files?: Prisma.JobFileUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUpdateManyWithoutJobNestedInput
 }
 
 export type JobUncheckedUpdateWithoutPostsInput = {
@@ -1676,6 +1776,8 @@ export type JobUncheckedUpdateWithoutPostsInput = {
   folders?: Prisma.JobFolderUncheckedUpdateManyWithoutJobNestedInput
   files?: Prisma.JobFileUncheckedUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUncheckedUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUncheckedUpdateManyWithoutJobNestedInput
 }
 
 export type JobCreateWithoutCommentsInput = {
@@ -1698,6 +1800,8 @@ export type JobCreateWithoutCommentsInput = {
   folders?: Prisma.JobFolderCreateNestedManyWithoutJobInput
   files?: Prisma.JobFileCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoCreateNestedManyWithoutJobInput
 }
 
 export type JobUncheckedCreateWithoutCommentsInput = {
@@ -1720,6 +1824,8 @@ export type JobUncheckedCreateWithoutCommentsInput = {
   folders?: Prisma.JobFolderUncheckedCreateNestedManyWithoutJobInput
   files?: Prisma.JobFileUncheckedCreateNestedManyWithoutJobInput
   posts?: Prisma.JobPostUncheckedCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutJobInput
 }
 
 export type JobCreateOrConnectWithoutCommentsInput = {
@@ -1758,6 +1864,8 @@ export type JobUpdateWithoutCommentsInput = {
   folders?: Prisma.JobFolderUpdateManyWithoutJobNestedInput
   files?: Prisma.JobFileUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUpdateManyWithoutJobNestedInput
 }
 
 export type JobUncheckedUpdateWithoutCommentsInput = {
@@ -1780,6 +1888,232 @@ export type JobUncheckedUpdateWithoutCommentsInput = {
   folders?: Prisma.JobFolderUncheckedUpdateManyWithoutJobNestedInput
   files?: Prisma.JobFileUncheckedUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUncheckedUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUncheckedUpdateManyWithoutJobNestedInput
+}
+
+export type JobCreateWithoutTodoListsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  address?: string | null
+  status?: $Enums.JobStatus
+  startsOn?: Date | string | null
+  endsOn?: Date | string | null
+  color?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutJobsInput
+  quote?: Prisma.QuoteCreateNestedOneWithoutJobInput
+  lead?: Prisma.LeadCreateNestedOneWithoutJobsInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutJobsCreatedInput
+  members?: Prisma.JobMemberCreateNestedManyWithoutJobInput
+  activities?: Prisma.JobActivityCreateNestedManyWithoutJobInput
+  folders?: Prisma.JobFolderCreateNestedManyWithoutJobInput
+  files?: Prisma.JobFileCreateNestedManyWithoutJobInput
+  posts?: Prisma.JobPostCreateNestedManyWithoutJobInput
+  comments?: Prisma.JobCommentCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoCreateNestedManyWithoutJobInput
+}
+
+export type JobUncheckedCreateWithoutTodoListsInput = {
+  id?: string
+  companyId: string
+  name: string
+  description?: string | null
+  address?: string | null
+  quoteId?: string | null
+  leadId?: string | null
+  status?: $Enums.JobStatus
+  startsOn?: Date | string | null
+  endsOn?: Date | string | null
+  color?: string | null
+  createdById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  members?: Prisma.JobMemberUncheckedCreateNestedManyWithoutJobInput
+  activities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutJobInput
+  folders?: Prisma.JobFolderUncheckedCreateNestedManyWithoutJobInput
+  files?: Prisma.JobFileUncheckedCreateNestedManyWithoutJobInput
+  posts?: Prisma.JobPostUncheckedCreateNestedManyWithoutJobInput
+  comments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutJobInput
+}
+
+export type JobCreateOrConnectWithoutTodoListsInput = {
+  where: Prisma.JobWhereUniqueInput
+  create: Prisma.XOR<Prisma.JobCreateWithoutTodoListsInput, Prisma.JobUncheckedCreateWithoutTodoListsInput>
+}
+
+export type JobUpsertWithoutTodoListsInput = {
+  update: Prisma.XOR<Prisma.JobUpdateWithoutTodoListsInput, Prisma.JobUncheckedUpdateWithoutTodoListsInput>
+  create: Prisma.XOR<Prisma.JobCreateWithoutTodoListsInput, Prisma.JobUncheckedCreateWithoutTodoListsInput>
+  where?: Prisma.JobWhereInput
+}
+
+export type JobUpdateToOneWithWhereWithoutTodoListsInput = {
+  where?: Prisma.JobWhereInput
+  data: Prisma.XOR<Prisma.JobUpdateWithoutTodoListsInput, Prisma.JobUncheckedUpdateWithoutTodoListsInput>
+}
+
+export type JobUpdateWithoutTodoListsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+  startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
+  quote?: Prisma.QuoteUpdateOneWithoutJobNestedInput
+  lead?: Prisma.LeadUpdateOneWithoutJobsNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutJobsCreatedNestedInput
+  members?: Prisma.JobMemberUpdateManyWithoutJobNestedInput
+  activities?: Prisma.JobActivityUpdateManyWithoutJobNestedInput
+  folders?: Prisma.JobFolderUpdateManyWithoutJobNestedInput
+  files?: Prisma.JobFileUpdateManyWithoutJobNestedInput
+  posts?: Prisma.JobPostUpdateManyWithoutJobNestedInput
+  comments?: Prisma.JobCommentUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUpdateManyWithoutJobNestedInput
+}
+
+export type JobUncheckedUpdateWithoutTodoListsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+  startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  members?: Prisma.JobMemberUncheckedUpdateManyWithoutJobNestedInput
+  activities?: Prisma.JobActivityUncheckedUpdateManyWithoutJobNestedInput
+  folders?: Prisma.JobFolderUncheckedUpdateManyWithoutJobNestedInput
+  files?: Prisma.JobFileUncheckedUpdateManyWithoutJobNestedInput
+  posts?: Prisma.JobPostUncheckedUpdateManyWithoutJobNestedInput
+  comments?: Prisma.JobCommentUncheckedUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUncheckedUpdateManyWithoutJobNestedInput
+}
+
+export type JobCreateWithoutTodosInput = {
+  id?: string
+  name: string
+  description?: string | null
+  address?: string | null
+  status?: $Enums.JobStatus
+  startsOn?: Date | string | null
+  endsOn?: Date | string | null
+  color?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutJobsInput
+  quote?: Prisma.QuoteCreateNestedOneWithoutJobInput
+  lead?: Prisma.LeadCreateNestedOneWithoutJobsInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutJobsCreatedInput
+  members?: Prisma.JobMemberCreateNestedManyWithoutJobInput
+  activities?: Prisma.JobActivityCreateNestedManyWithoutJobInput
+  folders?: Prisma.JobFolderCreateNestedManyWithoutJobInput
+  files?: Prisma.JobFileCreateNestedManyWithoutJobInput
+  posts?: Prisma.JobPostCreateNestedManyWithoutJobInput
+  comments?: Prisma.JobCommentCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListCreateNestedManyWithoutJobInput
+}
+
+export type JobUncheckedCreateWithoutTodosInput = {
+  id?: string
+  companyId: string
+  name: string
+  description?: string | null
+  address?: string | null
+  quoteId?: string | null
+  leadId?: string | null
+  status?: $Enums.JobStatus
+  startsOn?: Date | string | null
+  endsOn?: Date | string | null
+  color?: string | null
+  createdById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  members?: Prisma.JobMemberUncheckedCreateNestedManyWithoutJobInput
+  activities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutJobInput
+  folders?: Prisma.JobFolderUncheckedCreateNestedManyWithoutJobInput
+  files?: Prisma.JobFileUncheckedCreateNestedManyWithoutJobInput
+  posts?: Prisma.JobPostUncheckedCreateNestedManyWithoutJobInput
+  comments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutJobInput
+}
+
+export type JobCreateOrConnectWithoutTodosInput = {
+  where: Prisma.JobWhereUniqueInput
+  create: Prisma.XOR<Prisma.JobCreateWithoutTodosInput, Prisma.JobUncheckedCreateWithoutTodosInput>
+}
+
+export type JobUpsertWithoutTodosInput = {
+  update: Prisma.XOR<Prisma.JobUpdateWithoutTodosInput, Prisma.JobUncheckedUpdateWithoutTodosInput>
+  create: Prisma.XOR<Prisma.JobCreateWithoutTodosInput, Prisma.JobUncheckedCreateWithoutTodosInput>
+  where?: Prisma.JobWhereInput
+}
+
+export type JobUpdateToOneWithWhereWithoutTodosInput = {
+  where?: Prisma.JobWhereInput
+  data: Prisma.XOR<Prisma.JobUpdateWithoutTodosInput, Prisma.JobUncheckedUpdateWithoutTodosInput>
+}
+
+export type JobUpdateWithoutTodosInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+  startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
+  quote?: Prisma.QuoteUpdateOneWithoutJobNestedInput
+  lead?: Prisma.LeadUpdateOneWithoutJobsNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutJobsCreatedNestedInput
+  members?: Prisma.JobMemberUpdateManyWithoutJobNestedInput
+  activities?: Prisma.JobActivityUpdateManyWithoutJobNestedInput
+  folders?: Prisma.JobFolderUpdateManyWithoutJobNestedInput
+  files?: Prisma.JobFileUpdateManyWithoutJobNestedInput
+  posts?: Prisma.JobPostUpdateManyWithoutJobNestedInput
+  comments?: Prisma.JobCommentUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUpdateManyWithoutJobNestedInput
+}
+
+export type JobUncheckedUpdateWithoutTodosInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+  startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  members?: Prisma.JobMemberUncheckedUpdateManyWithoutJobNestedInput
+  activities?: Prisma.JobActivityUncheckedUpdateManyWithoutJobNestedInput
+  folders?: Prisma.JobFolderUncheckedUpdateManyWithoutJobNestedInput
+  files?: Prisma.JobFileUncheckedUpdateManyWithoutJobNestedInput
+  posts?: Prisma.JobPostUncheckedUpdateManyWithoutJobNestedInput
+  comments?: Prisma.JobCommentUncheckedUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutJobNestedInput
 }
 
 export type JobCreateManyCompanyInput = {
@@ -1818,6 +2152,8 @@ export type JobUpdateWithoutCompanyInput = {
   files?: Prisma.JobFileUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUpdateManyWithoutJobNestedInput
 }
 
 export type JobUncheckedUpdateWithoutCompanyInput = {
@@ -1840,6 +2176,8 @@ export type JobUncheckedUpdateWithoutCompanyInput = {
   files?: Prisma.JobFileUncheckedUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUncheckedUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUncheckedUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUncheckedUpdateManyWithoutJobNestedInput
 }
 
 export type JobUncheckedUpdateManyWithoutCompanyInput = {
@@ -1894,6 +2232,8 @@ export type JobUpdateWithoutCreatedByInput = {
   files?: Prisma.JobFileUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUpdateManyWithoutJobNestedInput
 }
 
 export type JobUncheckedUpdateWithoutCreatedByInput = {
@@ -1916,6 +2256,8 @@ export type JobUncheckedUpdateWithoutCreatedByInput = {
   files?: Prisma.JobFileUncheckedUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUncheckedUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUncheckedUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUncheckedUpdateManyWithoutJobNestedInput
 }
 
 export type JobUncheckedUpdateManyWithoutCreatedByInput = {
@@ -1970,6 +2312,8 @@ export type JobUpdateWithoutLeadInput = {
   files?: Prisma.JobFileUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUpdateManyWithoutJobNestedInput
 }
 
 export type JobUncheckedUpdateWithoutLeadInput = {
@@ -1992,6 +2336,8 @@ export type JobUncheckedUpdateWithoutLeadInput = {
   files?: Prisma.JobFileUncheckedUpdateManyWithoutJobNestedInput
   posts?: Prisma.JobPostUncheckedUpdateManyWithoutJobNestedInput
   comments?: Prisma.JobCommentUncheckedUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUncheckedUpdateManyWithoutJobNestedInput
 }
 
 export type JobUncheckedUpdateManyWithoutLeadInput = {
@@ -2022,6 +2368,8 @@ export type JobCountOutputType = {
   files: number
   posts: number
   comments: number
+  todoLists: number
+  todos: number
 }
 
 export type JobCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2031,6 +2379,8 @@ export type JobCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.In
   files?: boolean | JobCountOutputTypeCountFilesArgs
   posts?: boolean | JobCountOutputTypeCountPostsArgs
   comments?: boolean | JobCountOutputTypeCountCommentsArgs
+  todoLists?: boolean | JobCountOutputTypeCountTodoListsArgs
+  todos?: boolean | JobCountOutputTypeCountTodosArgs
 }
 
 /**
@@ -2085,6 +2435,20 @@ export type JobCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.JobCommentWhereInput
 }
 
+/**
+ * JobCountOutputType without action
+ */
+export type JobCountOutputTypeCountTodoListsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JobTodoListWhereInput
+}
+
+/**
+ * JobCountOutputType without action
+ */
+export type JobCountOutputTypeCountTodosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JobTodoWhereInput
+}
+
 
 export type JobSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2111,6 +2475,8 @@ export type JobSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   files?: boolean | Prisma.Job$filesArgs<ExtArgs>
   posts?: boolean | Prisma.Job$postsArgs<ExtArgs>
   comments?: boolean | Prisma.Job$commentsArgs<ExtArgs>
+  todoLists?: boolean | Prisma.Job$todoListsArgs<ExtArgs>
+  todos?: boolean | Prisma.Job$todosArgs<ExtArgs>
   _count?: boolean | Prisma.JobCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["job"]>
 
@@ -2185,6 +2551,8 @@ export type JobInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   files?: boolean | Prisma.Job$filesArgs<ExtArgs>
   posts?: boolean | Prisma.Job$postsArgs<ExtArgs>
   comments?: boolean | Prisma.Job$commentsArgs<ExtArgs>
+  todoLists?: boolean | Prisma.Job$todoListsArgs<ExtArgs>
+  todos?: boolean | Prisma.Job$todosArgs<ExtArgs>
   _count?: boolean | Prisma.JobCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type JobIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2213,6 +2581,8 @@ export type $JobPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     files: Prisma.$JobFilePayload<ExtArgs>[]
     posts: Prisma.$JobPostPayload<ExtArgs>[]
     comments: Prisma.$JobCommentPayload<ExtArgs>[]
+    todoLists: Prisma.$JobTodoListPayload<ExtArgs>[]
+    todos: Prisma.$JobTodoPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2639,6 +3009,8 @@ export interface Prisma__JobClient<T, Null = never, ExtArgs extends runtime.Type
   files<T extends Prisma.Job$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Job$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   posts<T extends Prisma.Job$postsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Job$postsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   comments<T extends Prisma.Job$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Job$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  todoLists<T extends Prisma.Job$todoListsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Job$todoListsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobTodoListPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  todos<T extends Prisma.Job$todosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Job$todosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobTodoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3281,6 +3653,54 @@ export type Job$commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.JobCommentScalarFieldEnum | Prisma.JobCommentScalarFieldEnum[]
+}
+
+/**
+ * Job.todoLists
+ */
+export type Job$todoListsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JobTodoList
+   */
+  select?: Prisma.JobTodoListSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JobTodoList
+   */
+  omit?: Prisma.JobTodoListOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobTodoListInclude<ExtArgs> | null
+  where?: Prisma.JobTodoListWhereInput
+  orderBy?: Prisma.JobTodoListOrderByWithRelationInput | Prisma.JobTodoListOrderByWithRelationInput[]
+  cursor?: Prisma.JobTodoListWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JobTodoListScalarFieldEnum | Prisma.JobTodoListScalarFieldEnum[]
+}
+
+/**
+ * Job.todos
+ */
+export type Job$todosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JobTodo
+   */
+  select?: Prisma.JobTodoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JobTodo
+   */
+  omit?: Prisma.JobTodoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobTodoInclude<ExtArgs> | null
+  where?: Prisma.JobTodoWhereInput
+  orderBy?: Prisma.JobTodoOrderByWithRelationInput | Prisma.JobTodoOrderByWithRelationInput[]
+  cursor?: Prisma.JobTodoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JobTodoScalarFieldEnum | Prisma.JobTodoScalarFieldEnum[]
 }
 
 /**

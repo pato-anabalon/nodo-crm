@@ -10,16 +10,10 @@ import { requireJobContext } from "@/modules/jobs/access";
 import { canTouch } from "@/modules/jobs/rules";
 import { PersonAvatar, personName } from "@/modules/jobs/avatars";
 import { postCategoryName } from "@/modules/jobs/categories";
-import { jobUploadPrefix } from "@/modules/jobs/files";
 import { getPost } from "@/modules/jobs/board/service";
-import {
-  createCommentAction,
-  deleteCommentAction,
-  deletePostAction,
-  updateCommentAction,
-} from "@/modules/jobs/board/actions";
+import { createCommentAction, deletePostAction } from "@/modules/jobs/board/actions";
 import { AttachmentGallery } from "@/modules/jobs/board/attachments";
-import { CommentForm, CommentItem } from "@/modules/jobs/board/comments";
+import { CommentThread } from "@/modules/jobs/comments/thread";
 import { DeletePostButton } from "@/modules/jobs/board/post-controls";
 import { toAttachment } from "@/modules/jobs/board/view";
 
@@ -39,7 +33,6 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
 
   const { formatLocale, timezone } = ctx.company;
   const when = (date: Date) => formatDateTime(date, formatLocale, timezone);
-  const prefix = jobUploadPrefix(ctx.company.id, job.id);
   const me = ctx.user.id;
   const mayEdit = canTouch(me, ctx.permissions, "messages.update", post.authorId);
   const mayDelete = canTouch(me, ctx.permissions, "messages.delete", post.authorId);
@@ -114,62 +107,12 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
       </article>
 
       {post.publishedAt ? (
-        <section className="space-y-4">
-          <h2 className="text-lg font-semibold">{t("comments", { count: post.comments.length })}</h2>
-          {post.comments.length > 0 ? (
-            <ol className="space-y-5">
-              {post.comments.map((comment) => {
-                const files = comment.files.map((file) => toAttachment(file, formatLocale));
-                const commentId = comment.id;
-                return (
-                  <li key={comment.id} id={`comment-${comment.id}`} className="flex scroll-mt-20 gap-3">
-                    {comment.author ? <PersonAvatar person={comment.author} /> : null}
-                    <CommentItem
-                      header={
-                        <p className="text-sm">
-                          <span className="font-semibold">{comment.author ? personName(comment.author) : t("someone")}</span>{" "}
-                          <span className="text-muted-foreground">
-                            {when(comment.createdAt)}
-                            {comment.editedAt ? ` · ${t("edited")}` : null}
-                          </span>
-                        </p>
-                      }
-                      edit={
-                        canTouch(me, ctx.permissions, "comments.update", comment.authorId)
-                          ? { action: updateCommentAction.bind(null, commentId), jobId: job.id, prefix, body: comment.body, files }
-                          : null
-                      }
-                      onDelete={
-                        canTouch(me, ctx.permissions, "comments.delete", comment.authorId)
-                          ? async () => {
-                              "use server";
-                              return deleteCommentAction(commentId);
-                            }
-                          : null
-                      }
-                    >
-                      <div className="space-y-3">
-                        <RichText html={comment.body} profile="full" className="text-sm" />
-                        <AttachmentGallery files={files} />
-                      </div>
-                    </CommentItem>
-                  </li>
-                );
-              })}
-            </ol>
-          ) : null}
-
-          {mayComment ? (
-            <div className="rounded-xl border bg-card p-4">
-              <CommentForm
-                action={createCommentAction.bind(null, post.id)}
-                jobId={job.id}
-                prefix={prefix}
-                submitLabel={t("addComment")}
-              />
-            </div>
-          ) : null}
-        </section>
+        <CommentThread
+          ctx={ctx}
+          jobId={job.id}
+          comments={post.comments}
+          onCreate={mayComment ? createCommentAction.bind(null, post.id) : null}
+        />
       ) : null}
     </div>
   );

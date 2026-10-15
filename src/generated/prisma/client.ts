@@ -448,10 +448,32 @@ export type JobPost = Prisma.JobPostModel
  * Model JobComment
  * *
  *  * A comment on something inside a job. One nullable key per thing that can be
- *  * commented on — a post now, to-dos and events as they arrive — and a check in
- *  * the migration that exactly one is set.
+ *  * commented on — a post, a to-do, a to-do list; events as they arrive — and a
+ *  * check in the migration that exactly one is set.
  */
 export type JobComment = Prisma.JobCommentModel
+/**
+ * Model JobTodoList
+ * *
+ *  * A to-do list on a job. Ordered by hand (`position`), the way Basecamp's
+ *  * are: the order is the plan, not the date it was written down.
+ */
+export type JobTodoList = Prisma.JobTodoListModel
+/**
+ * Model JobTodo
+ * *
+ *  * One thing to do. `completedAt` null is open; ticking it off records who and
+ *  * when, and ticking it back on clears both — the timeline keeps the history.
+ *  * `jobId` is carried as well as `listId` so every guard can read the job off
+ *  * the row itself.
+ */
+export type JobTodo = Prisma.JobTodoModel
+/**
+ * Model JobTodoAssignee
+ * *
+ *  * Somebody a to-do is assigned to. Several per to-do, as in Basecamp.
+ */
+export type JobTodoAssignee = Prisma.JobTodoAssigneeModel
 /**
  * Model Trade
  * *

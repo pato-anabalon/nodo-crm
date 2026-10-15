@@ -10,7 +10,7 @@ import { RichTextEditor } from "@/components/rich-text-editor";
 import { useActionToast } from "@/lib/use-action-toast";
 import type { JobActionState } from "../actions";
 import type { FormAction } from "../docs/name-dialogs";
-import { AttachmentField, type Attachment } from "./attachments";
+import { AttachmentField, type Attachment } from "../board/attachments";
 
 /**
  * The box under a post, and the same box when a comment is being edited.

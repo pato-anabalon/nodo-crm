@@ -100,6 +100,9 @@ export const ModelName = {
   JobPostCategory: 'JobPostCategory',
   JobPost: 'JobPost',
   JobComment: 'JobComment',
+  JobTodoList: 'JobTodoList',
+  JobTodo: 'JobTodo',
+  JobTodoAssignee: 'JobTodoAssignee',
   Trade: 'Trade',
   MembershipTrade: 'MembershipTrade'
 } as const
@@ -876,6 +879,7 @@ export const JobFileScalarFieldEnum = {
   folderId: 'folderId',
   postId: 'postId',
   commentId: 'commentId',
+  todoId: 'todoId',
   name: 'name',
   url: 'url',
   pathname: 'pathname',
@@ -928,6 +932,8 @@ export const JobCommentScalarFieldEnum = {
   companyId: 'companyId',
   jobId: 'jobId',
   postId: 'postId',
+  todoId: 'todoId',
+  todoListId: 'todoListId',
   body: 'body',
   authorId: 'authorId',
   editedAt: 'editedAt',
@@ -936,6 +942,52 @@ export const JobCommentScalarFieldEnum = {
 } as const
 
 export type JobCommentScalarFieldEnum = (typeof JobCommentScalarFieldEnum)[keyof typeof JobCommentScalarFieldEnum]
+
+
+export const JobTodoListScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  jobId: 'jobId',
+  name: 'name',
+  description: 'description',
+  position: 'position',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JobTodoListScalarFieldEnum = (typeof JobTodoListScalarFieldEnum)[keyof typeof JobTodoListScalarFieldEnum]
+
+
+export const JobTodoScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  jobId: 'jobId',
+  listId: 'listId',
+  title: 'title',
+  notes: 'notes',
+  startsOn: 'startsOn',
+  dueOn: 'dueOn',
+  completedAt: 'completedAt',
+  completedById: 'completedById',
+  createdById: 'createdById',
+  position: 'position',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JobTodoScalarFieldEnum = (typeof JobTodoScalarFieldEnum)[keyof typeof JobTodoScalarFieldEnum]
+
+
+export const JobTodoAssigneeScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  todoId: 'todoId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type JobTodoAssigneeScalarFieldEnum = (typeof JobTodoAssigneeScalarFieldEnum)[keyof typeof JobTodoAssigneeScalarFieldEnum]
 
 
 export const TradeScalarFieldEnum = {

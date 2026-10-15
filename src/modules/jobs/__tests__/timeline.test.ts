@@ -137,3 +137,48 @@ describe("Message Board lines", () => {
     expect(activityHref("j1", JobActivityType.COMMENT_ADDED, { postId: 7 })).toBeNull();
   });
 });
+
+describe("To-do lines", () => {
+  const t = (key: string, values?: Record<string, string | number>) =>
+    `${key}${values ? JSON.stringify(values) : ""}`;
+  const helpers = { nameOf: () => "?", list: (names: string[]) => names.join(), formatDay: (day: string) => day };
+  const todoTypes = [
+    JobActivityType.TODO_ADDED,
+    JobActivityType.TODO_COMPLETED,
+    JobActivityType.TODO_REOPENED,
+    JobActivityType.TODO_COMMENTED,
+  ];
+
+  it("names the to-do, and says which way it was ticked", () => {
+    for (const type of todoTypes) {
+      expect(
+        describeJobActivity({ type, params: { listId: "l1", todoId: "t1", title: "Sand walls" }, actorName: "Ana" }, t, helpers),
+      ).toBe(`${type}{"actor":"Ana","title":"Sand walls"}`);
+    }
+    expect(
+      describeJobActivity({ type: JobActivityType.TODO_LIST_CREATED, params: { listId: "l1", name: "Prep" }, actorName: "Ana" }, t, helpers),
+    ).toBe('TODO_LIST_CREATED{"actor":"Ana","name":"Prep"}');
+  });
+
+  it("belongs to the to-dos, so a profile without them doesn't see the lines", () => {
+    for (const type of [...todoTypes, JobActivityType.TODO_LIST_CREATED]) {
+      expect(activityPermission(type)).toBe("todos.read");
+    }
+  });
+
+  it("leads to the to-do, the list, or the comment on either", () => {
+    expect(activityHref("j1", JobActivityType.TODO_COMPLETED, { listId: "l1", todoId: "t1" })).toBe("/jobs/j1/todos/t1");
+    expect(activityHref("j1", JobActivityType.TODO_LIST_CREATED, { listId: "l1" })).toBe("/jobs/j1/todos/lists/l1");
+    expect(activityHref("j1", JobActivityType.TODO_COMMENTED, { listId: "l1", todoId: "t1", commentId: "c1" })).toBe(
+      "/jobs/j1/todos/t1#comment-c1",
+    );
+    expect(activityHref("j1", JobActivityType.TODO_COMMENTED, { listId: "l1", commentId: "c1" })).toBe(
+      "/jobs/j1/todos/lists/l1#comment-c1",
+    );
+  });
+
+  it("leads nowhere when the params are broken", () => {
+    expect(activityHref("j1", JobActivityType.TODO_ADDED, { listId: "l1" })).toBeNull();
+    expect(activityHref("j1", JobActivityType.TODO_COMMENTED, {})).toBeNull();
+  });
+});

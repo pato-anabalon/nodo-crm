@@ -1,9 +1,11 @@
 import type { CompanyContext } from "@/lib/auth/session";
-import type { Permission } from "@/lib/auth/permissions";
-import { JobActivityType, MembershipStatus, NotificationKind } from "@/generated/prisma/client";
+import { JobActivityType, NotificationKind } from "@/generated/prisma/client";
 import { notifyEach } from "@/modules/notifications/inbox";
 import { attachFiles, deleteStored, detachFiles, jobFileSelect, type UploadedFile } from "../files-service";
 import { logJobActivity } from "../service";
+import { jobName, readersAmong } from "../recipients";
+import { addComment, commenters, commentThreadArgs, notifyConversation, type CommentOutcome } from "../comments/service";
+import { commentHref } from "../comments/subject";
 import { excerptOf } from "./excerpt";
 import type { NotifyMode, PostValues } from "./schemas";
 
@@ -95,18 +97,7 @@ export async function getPost(ctx: CompanyContext, jobId: string, postId: string
       author: { select: personSelect },
       category: { select: categorySelect },
       files: { orderBy: { createdAt: "asc" }, select: jobFileSelect },
-      comments: {
-        orderBy: { createdAt: "asc" },
-        select: {
-          id: true,
-          body: true,
-          authorId: true,
-          createdAt: true,
-          editedAt: true,
-          author: { select: personSelect },
-          files: { orderBy: { createdAt: "asc" }, select: jobFileSelect },
-        },
-      },
+      comments: commentThreadArgs,
     },
   });
 }
@@ -118,13 +109,6 @@ export async function findPost(ctx: CompanyContext, postId: string) {
   return ctx.db.jobPost.findFirst({
     where: { id: postId, ...visiblePosts(ctx) },
     select: { id: true, jobId: true, authorId: true, title: true, publishedAt: true },
-  });
-}
-
-export async function findComment(ctx: CompanyContext, commentId: string) {
-  return ctx.db.jobComment.findFirst({
-    where: { id: commentId },
-    select: { id: true, jobId: true, postId: true, authorId: true },
   });
 }
 
@@ -219,18 +203,17 @@ async function publish(
     },
     select: { userId: true },
   });
-  const recipients = await canRead(
+  const recipients = await readersAmong(
     ctx,
     members.map((member) => member.userId).filter((id) => id !== ctx.user.id),
     "messages.read",
   );
   if (recipients.length === 0) return;
 
-  const job = await ctx.db.job.findFirst({ where: { id: jobId }, select: { name: true } });
   await notifyEach(recipients, {
     companyId: ctx.company.id,
     kind: NotificationKind.JOB_POST,
-    params: { by: ctx.user.name ?? ctx.user.email, job: job?.name ?? "", title },
+    params: { by: ctx.user.name ?? ctx.user.email, job: await jobName(ctx, jobId), title },
     href: `/jobs/${jobId}/messages/${postId}`,
   });
 }
@@ -250,8 +233,6 @@ export async function deletePost(ctx: CompanyContext, jobId: string, postId: str
   await deleteStored(files);
 }
 
-export type CommentOutcome = { ok: true; commentId: string } | { ok: false; reason: "files" | "empty" };
-
 /**
  * A comment on a published post. Heard about by whoever is already in the
  * conversation — the post's author and everybody who has commented — not by
@@ -263,97 +244,22 @@ export async function createComment(
   body: string,
   uploads: UploadedFile[],
 ): Promise<CommentOutcome> {
-  if (!body && uploads.length === 0) return { ok: false, reason: "empty" };
-
-  const comment = await ctx.db.jobComment.create({
-    data: { companyId: ctx.company.id, jobId: post.jobId, postId: post.id, body, authorId: ctx.user.id },
-    select: { id: true },
-  });
-  if (!(await attachFiles(ctx, post.jobId, { commentId: comment.id }, uploads))) {
-    await ctx.db.jobComment.deleteMany({ where: { id: comment.id } });
-    return { ok: false, reason: "files" };
-  }
+  const outcome = await addComment(ctx, post.jobId, { postId: post.id }, body, uploads);
+  if (!outcome.ok) return outcome;
 
   await logJobActivity(ctx, post.jobId, JobActivityType.COMMENT_ADDED, {
     postId: post.id,
-    commentId: comment.id,
+    commentId: outcome.commentId,
     title: post.title,
   });
-
-  const earlier = await ctx.db.jobComment.findMany({
-    where: { postId: post.id, authorId: { not: null } },
-    select: { authorId: true },
+  await notifyConversation(ctx, {
+    jobId: post.jobId,
+    people: [post.authorId, ...(await commenters(ctx, { postId: post.id }))],
+    permission: "messages.read",
+    title: post.title,
+    href: commentHref(post.jobId, { kind: "post", id: post.id }, outcome.commentId),
   });
-  const talking = [post.authorId, ...earlier.map((c) => c.authorId)].filter(
-    (id): id is string => Boolean(id) && id !== ctx.user.id,
-  );
-  // Still on the job and still able to read the board: somebody taken off it
-  // since they commented shouldn't be pulled back in by a notice.
-  const onJob = await ctx.db.jobMember.findMany({
-    where: { jobId: post.jobId, userId: { in: [...new Set(talking)] } },
-    select: { userId: true },
-  });
-  const recipients = await canRead(ctx, onJob.map((m) => m.userId), "messages.read");
-  if (recipients.length > 0) {
-    const job = await ctx.db.job.findFirst({ where: { id: post.jobId }, select: { name: true } });
-    await notifyEach(recipients, {
-      companyId: ctx.company.id,
-      kind: NotificationKind.JOB_COMMENT,
-      params: { by: ctx.user.name ?? ctx.user.email, job: job?.name ?? "", title: post.title },
-      href: `/jobs/${post.jobId}/messages/${post.id}#comment-${comment.id}`,
-    });
-  }
-  return { ok: true, commentId: comment.id };
-}
-
-export async function updateComment(
-  ctx: CompanyContext,
-  comment: { id: string; jobId: string },
-  body: string,
-  uploads: UploadedFile[],
-  removeFileIds: string[],
-): Promise<CommentOutcome> {
-  const kept = await ctx.db.jobFile.count({ where: { commentId: comment.id, id: { notIn: removeFileIds } } });
-  if (!body && uploads.length === 0 && kept === 0) return { ok: false, reason: "empty" };
-
-  if (!(await attachFiles(ctx, comment.jobId, { commentId: comment.id }, uploads))) return { ok: false, reason: "files" };
-  await detachFiles(ctx, { commentId: comment.id }, removeFileIds);
-  await ctx.db.jobComment.update({ where: { id: comment.id }, data: { body, editedAt: new Date() } });
-  return { ok: true, commentId: comment.id };
-}
-
-export async function deleteComment(ctx: CompanyContext, jobId: string, commentId: string): Promise<void> {
-  const files = await ctx.db.jobFile.findMany({ where: { commentId }, select: { url: true, thumbnailUrl: true } });
-  await ctx.db.jobComment.deleteMany({ where: { id: commentId, jobId } });
-  await ctx.db.jobActivity.deleteMany({ where: { jobId, params: { path: ["commentId"], equals: commentId } } });
-  await deleteStored(files);
-}
-
-/**
- * The people among these whose profile here reads the tool, and who are
- * still active in the company. A notice is a link; a link to a page that
- * answers 404 is noise.
- */
-async function canRead(ctx: CompanyContext, userIds: string[], permission: Permission): Promise<string[]> {
-  if (userIds.length === 0) return [];
-  const memberships = await ctx.db.membership.findMany({
-    where: {
-      userId: { in: [...new Set(userIds)] },
-      status: MembershipStatus.ACTIVE,
-      role: {
-        permissions: {
-          some: { permission: { key: { in: [permission, "jobs.read"] } } },
-        },
-      },
-    },
-    select: { userId: true, role: { select: { permissions: { select: { permission: { select: { key: true } } } } } } },
-  });
-  return memberships
-    .filter((m) => {
-      const keys = new Set(m.role.permissions.map((p) => p.permission.key));
-      return keys.has(permission) && keys.has("jobs.read");
-    })
-    .map((m) => m.userId);
+  return outcome;
 }
 
 /** Everybody on the job but the person writing — who "only the people I pick" picks from. */

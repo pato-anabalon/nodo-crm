@@ -10,7 +10,7 @@ import { ConfirmButton } from "@/components/confirm-button";
 import { FilePicker } from "@/components/file-picker";
 import { Label } from "@/components/ui/label";
 import { formatBytes } from "@/modules/documents/constants";
-import type { QuoteActionState } from "./actions";
+import type { AttachmentFileInfo, AttachmentUploadTicket, QuoteActionState } from "./actions";
 
 export type AttachmentRow = {
   id: string;
@@ -21,6 +21,25 @@ export type AttachmentRow = {
 };
 
 const ACCEPT = "application/pdf,image/jpeg,image/png,image/webp";
+
+/** Above this, the file goes up in parts that retry on their own — a 20 MB
+ * drawing on site wifi is where a single request gives up. */
+const MULTIPART_FROM_BYTES = 5 * 1024 * 1024;
+
+/** The two halves of an upload that need the server; the file itself goes
+ * from the browser straight to the store between them. */
+export type AttachmentUploadActions = {
+  prepare: (
+    quoteId: string,
+    sectionId: string | null,
+    file: AttachmentFileInfo,
+  ) => Promise<AttachmentUploadTicket>;
+  register: (
+    quoteId: string,
+    sectionId: string | null,
+    upload: { pathname: string; name: string },
+  ) => Promise<QuoteActionState>;
+};
 
 /** Which icon stands for a file — scoped to what `ACCEPT` above actually
  * offers today, plus a generic fallback rather than icons for formats
@@ -57,7 +76,7 @@ export function AttachmentsManager({
   canManage,
   formatLocale,
   compact = false,
-  uploadAction,
+  uploadActions,
   deleteAction,
 }: {
   quoteId: string;
@@ -74,17 +93,51 @@ export function AttachmentsManager({
    * stub), but it breaks this component's Jest tests, which don't have that
    * build step to erase the server-only code behind it.
    */
-  uploadAction: (
-    quoteId: string,
-    sectionId: string | null,
-    prev: QuoteActionState,
-    formData: FormData,
-  ) => Promise<QuoteActionState>;
+  uploadActions: AttachmentUploadActions;
   deleteAction: (quoteId: string, attachmentId: string) => Promise<QuoteActionState>;
 }) {
   const t = useTranslations("quotes.attachments");
+
+  /**
+   * Ask, send, record. The file never passes through a Vercel Function —
+   * their request body stops at 4.5 MB, well short of what a scanned drawing
+   * weighs — so the server only ever sees its name, size and type, and then
+   * where the store put it.
+   */
+  async function sendFile(file: File): Promise<QuoteActionState> {
+    const ticket = await uploadActions.prepare(quoteId, sectionId, {
+      name: file.name,
+      size: file.size,
+      type: file.type,
+    });
+    if (ticket.error || !ticket.pathname || !ticket.token) {
+      return { error: ticket.error ?? t("errors.failed") };
+    }
+
+    let stored: { pathname: string };
+    try {
+      // Imported here rather than at the top: only somebody actually sending
+      // a file needs the SDK, and the editor around this has plenty to load.
+      const { put } = await import("@vercel/blob/client");
+      stored = await put(ticket.pathname, file, {
+        access: "public",
+        token: ticket.token,
+        contentType: file.type,
+        multipart: file.size > MULTIPART_FROM_BYTES,
+      });
+    } catch {
+      return { error: t("errors.failed") };
+    }
+
+    return uploadActions.register(quoteId, sectionId, { pathname: stored.pathname, name: file.name });
+  }
+
   const [state, formAction, formUploading] = useActionState<QuoteActionState, FormData>(
-    (prev, formData) => uploadAction(quoteId, sectionId, prev, formData),
+    async (_prev, formData) => {
+      const file = formData.get("file");
+      if (!(file instanceof File) || file.size === 0) return { error: t("errors.empty") };
+      return sendFile(file);
+    },
     {},
   );
   const [pending, startTransition] = useTransition();
@@ -125,9 +178,7 @@ export function AttachmentsManager({
   // directly instead of going through `formAction` — see `CompactUpload`.
   function onCompactUpload(file: File) {
     startTransition(async () => {
-      const formData = new FormData();
-      formData.set("file", file);
-      const result = await uploadAction(quoteId, sectionId, {}, formData);
+      const result = await sendFile(file);
       if (result.error) toast.error(result.error);
       else {
         if (result.message) toast.success(result.message);
@@ -316,7 +367,7 @@ export function AttachmentsManager({
  * the submit event between the two.
  *
  * Same look and the same two-step "choose, then send" shape as `FilePicker`,
- * but the second step calls the Server Action directly instead of relying on
+ * but the second step runs the upload directly instead of relying on
  * a `<form>` to carry it, so there's no HTML to misnest. The cost is the one
  * thing `FilePicker` gets for free from being a real form: it has to clear
  * the chosen file itself, imperatively, rather than on a native `reset`

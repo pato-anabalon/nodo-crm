@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { JobStatus } from "@/generated/prisma/enums";
+import { isJobColour } from "./colours";
 
 const optional = (max: number) =>
   z
@@ -25,6 +26,11 @@ export const jobFormSchema = z.object({
   name: z.string().trim().min(2, "validation.required").max(200),
   description: optional(2000),
   address: optional(300),
+  // One of the palette, or none — anything else is a forged post and reads as none.
+  color: z
+    .unknown()
+    .transform((v) => (isJobColour(v) ? v : null))
+    .optional(),
 });
 
 export type JobFormValues = z.infer<typeof jobFormSchema>;

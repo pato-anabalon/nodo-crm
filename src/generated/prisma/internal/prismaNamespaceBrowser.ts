@@ -102,11 +102,14 @@ export const ModelName = {
   JobPostCategory: 'JobPostCategory',
   JobPost: 'JobPost',
   JobComment: 'JobComment',
+  JobEvent: 'JobEvent',
+  JobEventParticipant: 'JobEventParticipant',
   JobTodoList: 'JobTodoList',
   JobTodo: 'JobTodo',
   JobTodoAssignee: 'JobTodoAssignee',
   Trade: 'Trade',
-  MembershipTrade: 'MembershipTrade'
+  MembershipTrade: 'MembershipTrade',
+  JobChatMessage: 'JobChatMessage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -925,6 +928,7 @@ export const JobFileScalarFieldEnum = {
   postId: 'postId',
   commentId: 'commentId',
   todoId: 'todoId',
+  chatMessageId: 'chatMessageId',
   name: 'name',
   url: 'url',
   pathname: 'pathname',
@@ -979,6 +983,7 @@ export const JobCommentScalarFieldEnum = {
   postId: 'postId',
   todoId: 'todoId',
   todoListId: 'todoListId',
+  eventId: 'eventId',
   body: 'body',
   authorId: 'authorId',
   editedAt: 'editedAt',
@@ -987,6 +992,37 @@ export const JobCommentScalarFieldEnum = {
 } as const
 
 export type JobCommentScalarFieldEnum = (typeof JobCommentScalarFieldEnum)[keyof typeof JobCommentScalarFieldEnum]
+
+
+export const JobEventScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  jobId: 'jobId',
+  title: 'title',
+  notes: 'notes',
+  allDay: 'allDay',
+  startsOn: 'startsOn',
+  endsOn: 'endsOn',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  isMilestone: 'isMilestone',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JobEventScalarFieldEnum = (typeof JobEventScalarFieldEnum)[keyof typeof JobEventScalarFieldEnum]
+
+
+export const JobEventParticipantScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  eventId: 'eventId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type JobEventParticipantScalarFieldEnum = (typeof JobEventParticipantScalarFieldEnum)[keyof typeof JobEventParticipantScalarFieldEnum]
 
 
 export const JobTodoListScalarFieldEnum = {
@@ -1052,6 +1088,19 @@ export const MembershipTradeScalarFieldEnum = {
 } as const
 
 export type MembershipTradeScalarFieldEnum = (typeof MembershipTradeScalarFieldEnum)[keyof typeof MembershipTradeScalarFieldEnum]
+
+
+export const JobChatMessageScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  jobId: 'jobId',
+  body: 'body',
+  mentionIds: 'mentionIds',
+  authorId: 'authorId',
+  createdAt: 'createdAt'
+} as const
+
+export type JobChatMessageScalarFieldEnum = (typeof JobChatMessageScalarFieldEnum)[keyof typeof JobChatMessageScalarFieldEnum]
 
 
 export const SortOrder = {

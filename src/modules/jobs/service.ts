@@ -269,6 +269,7 @@ export async function createJob(ctx: CompanyContext, values: JobFormValues & Job
         name: values.name,
         description: values.description ?? null,
         address: values.address ?? null,
+        color: values.color ?? null,
         startsOn: values.startsOn,
         endsOn: values.endsOn,
         createdById: ctx.user.id,
@@ -287,7 +288,12 @@ export async function createJob(ctx: CompanyContext, values: JobFormValues & Job
 export async function updateJob(ctx: CompanyContext, jobId: string, values: JobFormValues): Promise<void> {
   await ctx.db.job.update({
     where: { id: jobId },
-    data: { name: values.name, description: values.description ?? null, address: values.address ?? null },
+    data: {
+      name: values.name,
+      description: values.description ?? null,
+      address: values.address ?? null,
+      color: values.color ?? null,
+    },
   });
 }
 

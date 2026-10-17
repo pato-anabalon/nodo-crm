@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, FileText, FolderOpen, ListChecks, MapPin, MessagesSquare } from "lucide-react";
+import { ArrowLeft, CalendarDays, FileText, Flag, FolderOpen, ListChecks, MapPin, MessageCircle, MessagesSquare, Paperclip } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { can, requireCompanyContext } from "@/lib/auth/session";
 import { Button } from "@/components/ui/button";
@@ -17,10 +17,14 @@ import {
   updateJobAction,
 } from "@/modules/jobs/actions";
 import { dayKey } from "@/modules/jobs/schemas";
-import { activityFileIds, activityHref, dateRange, groupByDay } from "@/modules/jobs/timeline";
+import { activityFileIds, activityHref, dateRange, dayIn, groupByDay } from "@/modules/jobs/timeline";
 import { filesByIds, filesSummary } from "@/modules/jobs/files-service";
 import { latestPosts } from "@/modules/jobs/board/service";
 import { todosSummary } from "@/modules/jobs/todos/service";
+import { upcomingEvents } from "@/modules/jobs/schedule/service";
+import { chatSummary } from "@/modules/jobs/chat/service";
+import { chatExcerpt } from "@/modules/jobs/chat/text";
+import { scheduleFormatters } from "@/modules/jobs/schedule/view";
 import { postCategoryName } from "@/modules/jobs/categories";
 import { personName } from "@/modules/jobs/avatars";
 import { activityDescriber } from "@/modules/jobs/activity-feed";
@@ -47,7 +51,10 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
   const canFiles = can(ctx, "files.read");
   const canBoard = can(ctx, "messages.read");
   const canTodos = can(ctx, "todos.read");
-  const [t, tRoles, activity, candidates, trades, files, board, todos] = await Promise.all([
+  const canSchedule = can(ctx, "schedule.read");
+  const canChat = can(ctx, "chat.read");
+  const today = dayIn(new Date(), ctx.company.timezone);
+  const [t, tRoles, activity, candidates, trades, files, board, todos, schedule, chat] = await Promise.all([
     getTranslations("jobs"),
     getTranslations("roles"),
     jobActivity(ctx, job.id),
@@ -56,6 +63,8 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
     canFiles ? filesSummary(ctx, job.id) : Promise.resolve(null),
     canBoard ? latestPosts(ctx, job.id) : Promise.resolve(null),
     canTodos ? todosSummary(ctx, job.id) : Promise.resolve(null),
+    canSchedule ? upcomingEvents(ctx, job.id, today) : Promise.resolve(null),
+    canChat ? chatSummary(ctx, job.id) : Promise.resolve(null),
   ]);
   const [describe, mentionedFiles] = await Promise.all([
     activityDescriber(ctx, activity),
@@ -73,6 +82,7 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
   const hrefOf = (row: (typeof activity)[number]) => activityHref(job.id, row.type, row.params);
 
   const { formatLocale, timezone } = ctx.company;
+  const scheduleFormat = scheduleFormatters(formatLocale, timezone);
   const formatDay = (day: string) => formatDate(new Date(`${day}T00:00:00Z`), formatLocale, "UTC");
   const tDates = (key: string, values?: Record<string, string | number>) => t(key, values);
   const datesLabel = dateRange(dayKey(job.startsOn), dayKey(job.endsOn), tDates, formatDay);
@@ -149,7 +159,7 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
           {can(ctx, "jobs.update") ? (
             <EditJobButton
               action={updateJobAction.bind(null, jobId)}
-              defaults={{ name: job.name, description: job.description, address: job.address }}
+              defaults={{ name: job.name, description: job.description, address: job.address, color: job.color }}
             />
           ) : null}
           {can(ctx, "jobs.delete") ? (
@@ -181,7 +191,7 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
         }}
       />
 
-      {board || todos || files ? (
+      {board || todos || schedule || chat || files ? (
         <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {board ? (
             <Link
@@ -254,6 +264,76 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
                 </ul>
               ) : (
                 <span className="text-sm italic text-muted-foreground">{t("todos.cardEmpty")}</span>
+              )}
+            </Link>
+          ) : null}
+          {schedule ? (
+            <Link
+              href={`/jobs/${jobId}/schedule`}
+              className="group flex flex-col gap-3 rounded-xl border bg-card p-4 transition-colors hover:bg-accent/40"
+            >
+              <span className="flex items-center gap-2 font-semibold">
+                <CalendarDays className="size-5 text-muted-foreground" />
+                {t("schedule.title")}
+                <span className="ml-auto text-xs font-normal text-muted-foreground">
+                  {t("schedule.upcomingCount", { count: schedule.count })}
+                </span>
+              </span>
+              {schedule.events.length > 0 ? (
+                <ul className="space-y-2">
+                  {schedule.events.map((event) => (
+                    <li key={event.id} className="flex min-w-0 items-start gap-2 text-sm">
+                      {event.isMilestone ? <Flag className="mt-0.5 size-3.5 shrink-0 text-amber-600" /> : null}
+                      <span className="min-w-0">
+                        <span className="block truncate font-medium">{event.title}</span>
+                        <span className="block truncate text-xs text-muted-foreground">
+                          {scheduleFormat.day(dayKey(event.startsOn)!)}
+                          {!event.allDay && event.startsAt ? `, ${scheduleFormat.time(event.startsAt)}` : null}
+                        </span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <span className="text-sm italic text-muted-foreground">{t("schedule.cardEmpty")}</span>
+              )}
+            </Link>
+          ) : null}
+          {chat ? (
+            <Link
+              href={`/jobs/${jobId}/chat`}
+              className="group flex flex-col gap-3 rounded-xl border bg-card p-4 transition-colors hover:bg-accent/40"
+            >
+              <span className="flex items-center gap-2 font-semibold">
+                <MessageCircle className="size-5 text-muted-foreground" />
+                {t("chat.title")}
+                <span className="ml-auto text-xs font-normal text-muted-foreground">
+                  {t("chat.count", { count: chat.count })}
+                </span>
+              </span>
+              {chat.latest.length > 0 ? (
+                <ul className="space-y-2">
+                  {chat.latest.map((message) => (
+                    <li key={message.id} className="flex min-w-0 items-start gap-2 text-sm">
+                      {message.author ? <PersonAvatar person={message.author} size="sm" /> : null}
+                      <span className="min-w-0">
+                        <span className="block truncate text-xs text-muted-foreground">
+                          {message.author ? personName(message.author) : t("chat.someone")}
+                        </span>
+                        <span className="flex min-w-0 items-center gap-1">
+                          {message._count.files > 0 ? <Paperclip className="size-3.5 shrink-0 text-muted-foreground" /> : null}
+                          <span className="truncate">
+                            {message.body
+                              ? chatExcerpt(message.body, 80)
+                              : t("chat.attachmentsOnly", { count: message._count.files })}
+                          </span>
+                        </span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <span className="text-sm italic text-muted-foreground">{t("chat.cardEmpty")}</span>
               )}
             </Link>
           ) : null}

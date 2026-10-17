@@ -3,7 +3,7 @@ import { JobActivityType, NotificationKind } from "@/generated/prisma/client";
 import { notifyEach } from "@/modules/notifications/inbox";
 import { attachFiles, deleteStored, detachFiles, jobFileSelect, type UploadedFile } from "../files-service";
 import { logJobActivity } from "../service";
-import { jobName, recipientsOnJob } from "../recipients";
+import { jobName, membersAmong, recipientsOnJob } from "../recipients";
 import { addComment, commenters, commentThreadArgs, notifyConversation, type CommentOutcome } from "../comments/service";
 import { commentHref } from "../comments/subject";
 import { isPermutationOf, newlyAssigned } from "./rules";
@@ -170,20 +170,6 @@ export async function assignableMembers(ctx: CompanyContext, jobId: string) {
   return members.map((member) => member.user);
 }
 
-/**
- * The ids from a form that really are people on this job. Somebody who isn't
- * on it can't be handed its work — they couldn't open the to-do to read it.
- */
-async function onlyMembers(ctx: CompanyContext, jobId: string, userIds: string[]): Promise<string[]> {
-  if (userIds.length === 0) return [];
-  const members = await ctx.db.jobMember.findMany({
-    where: { jobId, userId: { in: userIds } },
-    select: { userId: true },
-  });
-  const allowed = new Set(members.map((member) => member.userId));
-  return userIds.filter((id) => allowed.has(id));
-}
-
 // ---------------------------------------------------------------------------
 // Lists
 // ---------------------------------------------------------------------------
@@ -264,7 +250,7 @@ export async function createTodo(
   values: TodoValues,
   options: { assigneeIds: string[]; uploads: UploadedFile[] },
 ): Promise<TodoOutcome> {
-  const assigneeIds = await onlyMembers(ctx, list.jobId, options.assigneeIds);
+  const assigneeIds = await membersAmong(ctx, list.jobId, options.assigneeIds);
   const todo = await ctx.db.jobTodo.create({
     data: {
       companyId: ctx.company.id,
@@ -316,7 +302,7 @@ export async function updateTodo(
   if (!(await attachFiles(ctx, todo.jobId, { todoId: todo.id }, options.uploads))) return { ok: false, reason: "files" };
   await detachFiles(ctx, { todoId: todo.id }, options.removeFileIds);
 
-  const assigneeIds = await onlyMembers(ctx, todo.jobId, options.assigneeIds);
+  const assigneeIds = await membersAmong(ctx, todo.jobId, options.assigneeIds);
   const before = await ctx.db.jobTodoAssignee.findMany({ where: { todoId: todo.id }, select: { userId: true } });
   const beforeIds = before.map((row) => row.userId);
   const added = newlyAssigned(beforeIds, assigneeIds);

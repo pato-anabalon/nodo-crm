@@ -4,23 +4,18 @@ import Link from "next/link";
 import { useActionState, useState } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { Plus, UserPlus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { NativeSelect } from "@/components/ui/native-select";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { RichTextEditor } from "@/components/rich-text-editor";
 import { useActionToast } from "@/lib/use-action-toast";
 import type { Option } from "@/lib/intl/options";
 import type { JobActionState } from "../actions";
 import type { FormAction } from "../docs/name-dialogs";
-import { AvatarStack, PersonAvatar, personName, type Person } from "../avatars";
+import type { Person } from "../avatars";
+import { PeoplePicker } from "../people-picker";
 import { AttachmentField, type Attachment } from "../board/attachments";
 
 export type TodoDefaults = {
@@ -31,65 +26,6 @@ export type TodoDefaults = {
   assigneeIds: string[];
   listId: string;
 };
-
-/**
- * Who a to-do is for. A menu of the people on the job, ticked in place; what
- * is ticked travels with the form as hidden fields, since the menu's own
- * items are gone from the page once it closes.
- */
-export function AssigneePicker({ people, defaultIds = [] }: { people: Person[]; defaultIds?: string[] }) {
-  const t = useTranslations("jobs.todos");
-  const [chosen, setChosen] = useState<string[]>(defaultIds);
-  const picked = people.filter((person) => chosen.includes(person.id));
-
-  return (
-    <div className="space-y-2">
-      <Label>{t("assignees")}</Label>
-      {chosen.map((id) => (
-        <input key={id} type="hidden" name="assigneeId" value={id} />
-      ))}
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button type="button" variant="outline" className="h-auto min-h-9 w-full justify-start gap-2 font-normal sm:w-auto">
-            {picked.length > 0 ? (
-              <>
-                <AvatarStack people={picked} max={5} />
-                <span className="truncate">{picked.map(personName).join(", ")}</span>
-              </>
-            ) : (
-              <>
-                <UserPlus className="size-4 text-muted-foreground" />
-                <span className="text-muted-foreground">{t("unassigned")}</span>
-              </>
-            )}
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="start" className="max-h-72 w-64 overflow-y-auto">
-          {people.length === 0 ? (
-            <p className="px-2 py-1.5 text-sm italic text-muted-foreground">{t("nobodyOnJob")}</p>
-          ) : (
-            people.map((person) => (
-              <DropdownMenuCheckboxItem
-                key={person.id}
-                checked={chosen.includes(person.id)}
-                // Stay open: assigning three people is three ticks, not three trips.
-                onSelect={(event) => event.preventDefault()}
-                onCheckedChange={(checked) =>
-                  setChosen((current) =>
-                    checked ? [...current, person.id] : current.filter((id) => id !== person.id),
-                  )
-                }
-              >
-                <PersonAvatar person={person} size="sm" />
-                <span className="truncate">{personName(person)}</span>
-              </DropdownMenuCheckboxItem>
-            ))
-          )}
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
-  );
-}
 
 /** The fields a to-do is made of — the same when adding one and when editing it. */
 function TodoFields({
@@ -138,7 +74,13 @@ function TodoFields({
         </div>
       ) : null}
 
-      <AssigneePicker people={people} defaultIds={defaults?.assigneeIds} />
+      <PeoplePicker
+        name="assigneeId"
+        label={t("assignees")}
+        emptyLabel={t("unassigned")}
+        people={people}
+        defaultIds={defaults?.assigneeIds}
+      />
 
       <div className="grid gap-3 sm:max-w-md sm:grid-cols-2">
         <div className="space-y-2">

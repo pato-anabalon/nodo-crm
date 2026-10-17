@@ -1718,7 +1718,9 @@
       "JOB_POST": "{by} posted {title} on {job}",
       "JOB_COMMENT": "{by} commented on {title} ({job})",
       "JOB_TODO_ASSIGNED": "{by} assigned you {title} ({job})",
-      "JOB_TODO_COMPLETED": "{by} completed {title} ({job})"
+      "JOB_TODO_COMPLETED": "{by} completed {title} ({job})",
+      "JOB_EVENT": "{by} added you to {title} ({job})",
+      "JOB_CHAT_MENTION": "{by} mentioned you in the chat of {job}: “{excerpt}”"
     },
     "quoteExpiring": {
       "subject": "Quote {reference} is about to run out",
@@ -1893,11 +1895,15 @@
       "JOB_POST": "A message is posted on my job",
       "JOB_POST_hint": "When somebody posts on the Message Board of a job you follow, or picks you to hear about it.",
       "JOB_COMMENT": "A reply in a conversation I am in",
-      "JOB_COMMENT_hint": "When somebody comments on a post or a to-do you are part of.",
+      "JOB_COMMENT_hint": "When somebody comments on a post, a to-do or an event you are part of.",
       "JOB_TODO_ASSIGNED": "A to-do is assigned to me",
       "JOB_TODO_ASSIGNED_hint": "When somebody puts you on a to-do in one of your jobs.",
       "JOB_TODO_COMPLETED": "A to-do I added is completed",
-      "JOB_TODO_COMPLETED_hint": "When somebody ticks off a to-do you wrote down."
+      "JOB_TODO_COMPLETED_hint": "When somebody ticks off a to-do you wrote down.",
+      "JOB_EVENT": "I’m put on an event",
+      "JOB_EVENT_hint": "When somebody adds you to an event on a job’s schedule.",
+      "JOB_CHAT_MENTION": "I’m mentioned in a chat",
+      "JOB_CHAT_MENTION_hint": "When somebody names you with @ in the chat of one of your jobs."
     },
     "indexSubtitle": "Choose which emails you want to receive.",
     "recipients": {
@@ -2033,6 +2039,10 @@
     "new": "New job",
     "newSubtitle": "A job with no quote behind it — an office, paperwork, anything the team works on.",
     "backToJobs": "Back to Jobs",
+    "loading": {
+      "title": "Preparing your job",
+      "subtitle": "Setting up your job data…"
+    },
     "show": {
       "active": "In progress",
       "done": "Finished"
@@ -2055,7 +2065,10 @@
       "address": "Address",
       "startsOn": "Starts",
       "endsOn": "Ends",
-      "status": "Status"
+      "status": "Status",
+      "colour": "Colour on the Lineup",
+      "colourAuto": "Automatic",
+      "colourOption": "Colour {n}"
     },
     "dates": "Dates",
     "noDates": "No dates set",
@@ -2116,7 +2129,11 @@
       "TODO_ADDED": "{actor} added a to-do: {title}",
       "TODO_COMPLETED": "{actor} completed {title}",
       "TODO_REOPENED": "{actor} re-opened {title}",
-      "TODO_COMMENTED": "{actor} commented on {title}"
+      "TODO_COMMENTED": "{actor} commented on {title}",
+      "EVENT_CREATED": "{actor} scheduled {title} for {date}",
+      "EVENT_CREATED_undated": "{actor} scheduled {title}",
+      "EVENT_COMMENTED": "{actor} commented on {title}",
+      "CHAT_MESSAGES": "{actor} sent {count, plural, one {a message} other {# messages}} in the chat"
     },
     "files": {
       "title": "Docs & Files",
@@ -2320,6 +2337,106 @@
         "due": "Due {date}",
         "starts": "Starts {date}"
       }
+    },
+    "schedule": {
+      "title": "Schedule",
+      "upcomingCount": "{count, plural, =0 {Nothing coming up} one {# coming up} other {# coming up}}",
+      "cardEmpty": "Nothing scheduled.",
+      "backToJob": "Back to {name}",
+      "backToSchedule": "Back to the schedule",
+      "backToEvent": "Back to the event",
+      "newEvent": "New event",
+      "addEvent": "Add this event",
+      "saveEvent": "Save changes",
+      "editEvent": "Edit event",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteTitle": "Delete “{title}”?",
+      "deleteBody": "The event and its comments are deleted, and it leaves the timeline. This can’t be undone.",
+      "earlier": "Earlier",
+      "later": "Later",
+      "today": "Today",
+      "viewLabel": "View",
+      "views": {
+        "calendar": "Calendar",
+        "agenda": "Agenda"
+      },
+      "addOn": "Add an event on {date}",
+      "agendaEmpty": "Nothing scheduled between {range}.",
+      "allDay": "All day",
+      "commentCount": "{count, plural, one {# comment} other {# comments}}",
+      "todoDue": "To-do due",
+      "milestone": "Milestone",
+      "milestoneHint": "Also shown on the Lineup, over this job’s bar.",
+      "when": "When",
+      "participants": "Who’s involved",
+      "noParticipants": "Nobody in particular",
+      "notes": "Notes",
+      "notesPlaceholder": "Add details — the address, what to bring, who to ask for…",
+      "addedBy": "Added by {name} on {when}",
+      "someone": "Somebody",
+      "eventTitle": "Event",
+      "eventTitlePlaceholder": "e.g. Scaffold goes up",
+      "startsOn": "Starts",
+      "endsOn": "Ends",
+      "startTime": "Start time",
+      "endTime": "End time",
+      "endHint": "Leave the end day blank for a one-day event.",
+      "notAllowed": "You can’t do that with this event.",
+      "validation": {
+        "time": "Enter a time"
+      }
+    },
+    "chat": {
+      "title": "Chat",
+      "count": "{count, plural, =0 {No messages} one {# message} other {# messages}}",
+      "cardEmpty": "Nobody has said anything yet.",
+      "backToJob": "Back to {name}",
+      "empty": "No messages yet. Say hello to the people on this job.",
+      "placeholder": "Write a message… Type @ to mention somebody.",
+      "message": "Message",
+      "send": "Send",
+      "sending": "Sending…",
+      "hint": "Enter sends, Shift + Enter starts a new line.",
+      "hintTouch": "Use the send button to send.",
+      "loadEarlier": "Show earlier messages",
+      "loading": "Loading…",
+      "deleteMessage": "Delete message",
+      "deleteTitle": "Delete this message?",
+      "deleteBody": "It disappears for everybody on the job, with any files attached to it.",
+      "deleted": "Message deleted.",
+      "emptyMessage": "Write something or attach a file.",
+      "notAllowed": "You can’t do that in this chat.",
+      "someone": "Somebody",
+      "mentionList": "People on this job",
+      "readOnly": "You can read this chat but not write in it.",
+      "attachmentsOnly": "{count, plural, one {# file} other {# files}}",
+      "sent": "Message sent."
+    }
+  },
+  "lineup": {
+    "title": "Lineup",
+    "subtitle": "Every job on one timeline, with its milestones.",
+    "earlier": "Earlier",
+    "later": "Later",
+    "today": "Today",
+    "empty": "No jobs with dates in these weeks.",
+    "dragHint": "Drag a bar to move a job, or an end to stretch it. With the keyboard: arrows move it, Shift + arrows move the end, Alt + arrows the start.",
+    "undated": "{count, plural, one {# job without dates} other {# jobs without dates}}",
+    "undatedHint": "They aren’t on the plan yet. Set their dates on the job.",
+    "moved": "{name}: dates saved",
+    "notSaved": "The dates couldn’t be saved.",
+    "bar": "{name}, {start} to {end}",
+    "barEditable": "{name}, {start} to {end}. Arrow keys move it.",
+    "milestone": "Milestone: {title}",
+    "filters": {
+      "status": "Status",
+      "active": "Active and on hold",
+      "all": "All jobs",
+      "member": "Person",
+      "anyone": "Anyone",
+      "trade": "Trade",
+      "anyTrade": "Any trade"
     }
   },
   "postCategories": {

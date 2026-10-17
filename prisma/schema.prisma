@@ -204,6 +204,8 @@ enum NotificationKind {
   JOB_COMMENT
   JOB_TODO_ASSIGNED
   JOB_TODO_COMPLETED
+  JOB_EVENT
+  JOB_CHAT_MENTION
 }
 
 /**
@@ -389,6 +391,9 @@ model Company {
   jobTodoLists            JobTodoList[]
   jobTodos                JobTodo[]
   jobTodoAssignees        JobTodoAssignee[]
+  jobEvents               JobEvent[]
+  jobEventParticipants    JobEventParticipant[]
+  jobChatMessages         JobChatMessage[]
   trades                  Trade[]
 
   @@index([isActive])
@@ -466,6 +471,9 @@ model User {
   jobTodosCreated         JobTodo[]                @relation("JobTodoCreatedBy")
   jobTodosCompleted       JobTodo[]                @relation("JobTodoCompletedBy")
   jobTodoAssignments      JobTodoAssignee[]        @relation("JobTodoAssigneeUser")
+  jobEventsCreated        JobEvent[]               @relation("JobEventCreatedBy")
+  jobEventParticipations  JobEventParticipant[]    @relation("JobEventParticipantUser")
+  jobChatMessages         JobChatMessage[]         @relation("JobChatMessageAuthor")
 }
 
 // A user can belong to several companies, with a different profile in each.
@@ -1804,23 +1812,26 @@ model Job {
   // The job's bar on the Lineup.
   startsOn    DateTime? @db.Date
   endsOn      DateTime? @db.Date
+  // One of `JOB_COLOURS`, or null for the one derived from the id: the bar on the Lineup.
   color       String?
   createdById String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
-  company    Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  quote      Quote?        @relation(fields: [quoteId], references: [id], onDelete: SetNull)
-  lead       Lead?         @relation(fields: [leadId], references: [id], onDelete: SetNull)
-  createdBy  User?         @relation("JobCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
-  members    JobMember[]
-  activities JobActivity[]
-  folders    JobFolder[]
-  files      JobFile[]
-  posts      JobPost[]
-  comments   JobComment[]
-  todoLists  JobTodoList[]
-  todos      JobTodo[]
+  company      Company          @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  quote        Quote?           @relation(fields: [quoteId], references: [id], onDelete: SetNull)
+  lead         Lead?            @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  createdBy    User?            @relation("JobCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  members      JobMember[]
+  activities   JobActivity[]
+  folders      JobFolder[]
+  files        JobFile[]
+  posts        JobPost[]
+  comments     JobComment[]
+  todoLists    JobTodoList[]
+  todos        JobTodo[]
+  events       JobEvent[]
+  chatMessages JobChatMessage[]
 
   @@index([companyId, status])
 }
@@ -1942,6 +1953,20 @@ enum JobActivityType {
    * is set, on the list itself when not; `title` is the one commented on.
    */
   TODO_COMMENTED
+  /**
+   * params: `{ eventId, title, startsOn }` — `startsOn` as `YYYY-MM-DD`.
+   */
+  EVENT_CREATED
+  /**
+   * params: `{ eventId, commentId, title }`
+   */
+  EVENT_COMMENTED
+  /**
+   * params: `{ day, count }` — one line per person per day of chat, not one
+   * per message: `day` is `YYYY-MM-DD` in the company's timezone, and `count`
+   * is recounted from the messages on every send and delete.
+   */
+  CHAT_MESSAGES
 }
 
 /**
@@ -1982,11 +2007,13 @@ model JobFile {
   companyId         String
   jobId             String
   folderId          String?
-  // Attached to a post, a comment or a to-do rather than filed in Docs &
-  // Files. At most one of the four is set; none means the top of Docs & Files.
+  // Attached to a post, a comment, a to-do or a chat message rather than
+  // filed in Docs & Files. At most one of the five is set; none means the top
+  // of Docs & Files.
   postId            String?
   commentId         String?
   todoId            String?
+  chatMessageId     String?
   name              String
   url               String
   pathname          String
@@ -2003,18 +2030,20 @@ model JobFile {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
-  company    Company     @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  job        Job         @relation(fields: [jobId], references: [id], onDelete: Cascade)
-  folder     JobFolder?  @relation(fields: [folderId], references: [id], onDelete: Cascade)
-  post       JobPost?    @relation(fields: [postId], references: [id], onDelete: Cascade)
-  comment    JobComment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
-  todo       JobTodo?    @relation(fields: [todoId], references: [id], onDelete: Cascade)
-  uploadedBy User?       @relation("JobFileUploadedBy", fields: [uploadedById], references: [id], onDelete: SetNull)
+  company     Company         @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  job         Job             @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  folder      JobFolder?      @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  post        JobPost?        @relation(fields: [postId], references: [id], onDelete: Cascade)
+  comment     JobComment?     @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  todo        JobTodo?        @relation(fields: [todoId], references: [id], onDelete: Cascade)
+  chatMessage JobChatMessage? @relation(fields: [chatMessageId], references: [id], onDelete: Cascade)
+  uploadedBy  User?           @relation("JobFileUploadedBy", fields: [uploadedById], references: [id], onDelete: SetNull)
 
   @@index([companyId, jobId, folderId])
   @@index([postId])
   @@index([commentId])
   @@index([todoId])
+  @@index([chatMessageId])
 }
 
 /**
@@ -2068,8 +2097,8 @@ model JobPost {
 
 /**
  * A comment on something inside a job. One nullable key per thing that can be
- * commented on — a post, a to-do, a to-do list; events as they arrive — and a
- * check in the migration that exactly one is set.
+ * commented on — a post, a to-do, a to-do list, an event — and a check in the
+ * migration that exactly one is set.
  */
 model JobComment {
   id         String    @id @default(cuid())
@@ -2078,6 +2107,7 @@ model JobComment {
   postId     String?
   todoId     String?
   todoListId String?
+  eventId    String?
   // Sanitised HTML, the "full" profile.
   body       String
   authorId   String?
@@ -2090,12 +2120,67 @@ model JobComment {
   post     JobPost?     @relation(fields: [postId], references: [id], onDelete: Cascade)
   todo     JobTodo?     @relation(fields: [todoId], references: [id], onDelete: Cascade)
   todoList JobTodoList? @relation(fields: [todoListId], references: [id], onDelete: Cascade)
+  event    JobEvent?    @relation(fields: [eventId], references: [id], onDelete: Cascade)
   author   User?        @relation("JobCommentAuthor", fields: [authorId], references: [id], onDelete: SetNull)
   files    JobFile[]
 
   @@index([companyId, postId, createdAt])
   @@index([todoId])
   @@index([todoListId])
+  @@index([eventId])
+}
+
+/**
+ * Something on a job's Schedule: a delivery, an inspection, the days the
+ * scaffold is up.
+ * `startsOn`/`endsOn` are the days it covers, in the company's timezone, and
+ * they are what every calendar places it by — a day is a day wherever the
+ * server runs. A timed event also keeps its two instants; an all-day one has
+ * none. A milestone is also drawn on the Lineup, over its job's bar.
+ */
+model JobEvent {
+  id          String    @id @default(cuid())
+  companyId   String
+  jobId       String
+  title       String
+  // Sanitised HTML, the "full" profile.
+  notes       String?
+  allDay      Boolean   @default(true)
+  startsOn    DateTime  @db.Date
+  endsOn      DateTime  @db.Date
+  startsAt    DateTime?
+  endsAt      DateTime?
+  isMilestone Boolean   @default(false)
+  createdById String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  company      Company               @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  job          Job                   @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  createdBy    User?                 @relation("JobEventCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  participants JobEventParticipant[]
+  comments     JobComment[]
+
+  @@index([companyId, jobId, startsOn])
+  @@index([companyId, isMilestone, startsOn])
+}
+
+/**
+ * Somebody taking part in an event.
+ */
+model JobEventParticipant {
+  id        String   @id @default(cuid())
+  companyId String
+  eventId   String
+  userId    String
+  createdAt DateTime @default(now())
+
+  company Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  event   JobEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user    User     @relation("JobEventParticipantUser", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, userId])
+  @@index([companyId, userId])
 }
 
 /**
@@ -2210,4 +2295,29 @@ model MembershipTrade {
 
   @@id([membershipId, tradeId])
   @@index([tradeId])
+}
+
+/**
+ * The job's Chat: quick talk, unlike the Message Board's titled posts. Plain
+ * text — line breaks and links, nothing else — because it is typed in a hurry
+ * on a phone.
+ */
+model JobChatMessage {
+  id         String   @id @default(cuid())
+  companyId  String
+  jobId      String
+  body       String
+  // The people the message names with `@`, worked out on the server from the
+  // job's members when it is sent. Kept so the names can be drawn as mentions
+  // later, and so a mention is a fact rather than a guess at render time.
+  mentionIds String[] @default([])
+  authorId   String?
+  createdAt  DateTime @default(now())
+
+  company Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  job     Job       @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  author  User?     @relation("JobChatMessageAuthor", fields: [authorId], references: [id], onDelete: SetNull)
+  files   JobFile[]
+
+  @@index([companyId, jobId, createdAt])
 }

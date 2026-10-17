@@ -446,11 +446,14 @@ export const ModelName = {
   JobPostCategory: 'JobPostCategory',
   JobPost: 'JobPost',
   JobComment: 'JobComment',
+  JobEvent: 'JobEvent',
+  JobEventParticipant: 'JobEventParticipant',
   JobTodoList: 'JobTodoList',
   JobTodo: 'JobTodo',
   JobTodoAssignee: 'JobTodoAssignee',
   Trade: 'Trade',
-  MembershipTrade: 'MembershipTrade'
+  MembershipTrade: 'MembershipTrade',
+  JobChatMessage: 'JobChatMessage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -466,7 +469,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem" | "job" | "jobMember" | "jobActivity" | "jobFolder" | "jobFile" | "jobPostCategory" | "jobPost" | "jobComment" | "jobTodoList" | "jobTodo" | "jobTodoAssignee" | "trade" | "membershipTrade"
+    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem" | "job" | "jobMember" | "jobActivity" | "jobFolder" | "jobFile" | "jobPostCategory" | "jobPost" | "jobComment" | "jobEvent" | "jobEventParticipant" | "jobTodoList" | "jobTodo" | "jobTodoAssignee" | "trade" | "membershipTrade" | "jobChatMessage"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -4096,6 +4099,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    JobEvent: {
+      payload: Prisma.$JobEventPayload<ExtArgs>
+      fields: Prisma.JobEventFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JobEventFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JobEventFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventPayload>
+        }
+        findFirst: {
+          args: Prisma.JobEventFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JobEventFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventPayload>
+        }
+        findMany: {
+          args: Prisma.JobEventFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventPayload>[]
+        }
+        create: {
+          args: Prisma.JobEventCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventPayload>
+        }
+        createMany: {
+          args: Prisma.JobEventCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JobEventCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventPayload>[]
+        }
+        delete: {
+          args: Prisma.JobEventDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventPayload>
+        }
+        update: {
+          args: Prisma.JobEventUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventPayload>
+        }
+        deleteMany: {
+          args: Prisma.JobEventDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JobEventUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JobEventUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventPayload>[]
+        }
+        upsert: {
+          args: Prisma.JobEventUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventPayload>
+        }
+        aggregate: {
+          args: Prisma.JobEventAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJobEvent>
+        }
+        groupBy: {
+          args: Prisma.JobEventGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobEventGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JobEventCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobEventCountAggregateOutputType> | number
+        }
+      }
+    }
+    JobEventParticipant: {
+      payload: Prisma.$JobEventParticipantPayload<ExtArgs>
+      fields: Prisma.JobEventParticipantFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JobEventParticipantFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventParticipantPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JobEventParticipantFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventParticipantPayload>
+        }
+        findFirst: {
+          args: Prisma.JobEventParticipantFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventParticipantPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JobEventParticipantFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventParticipantPayload>
+        }
+        findMany: {
+          args: Prisma.JobEventParticipantFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventParticipantPayload>[]
+        }
+        create: {
+          args: Prisma.JobEventParticipantCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventParticipantPayload>
+        }
+        createMany: {
+          args: Prisma.JobEventParticipantCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JobEventParticipantCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventParticipantPayload>[]
+        }
+        delete: {
+          args: Prisma.JobEventParticipantDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventParticipantPayload>
+        }
+        update: {
+          args: Prisma.JobEventParticipantUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventParticipantPayload>
+        }
+        deleteMany: {
+          args: Prisma.JobEventParticipantDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JobEventParticipantUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JobEventParticipantUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventParticipantPayload>[]
+        }
+        upsert: {
+          args: Prisma.JobEventParticipantUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEventParticipantPayload>
+        }
+        aggregate: {
+          args: Prisma.JobEventParticipantAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJobEventParticipant>
+        }
+        groupBy: {
+          args: Prisma.JobEventParticipantGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobEventParticipantGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JobEventParticipantCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobEventParticipantCountAggregateOutputType> | number
+        }
+      }
+    }
     JobTodoList: {
       payload: Prisma.$JobTodoListPayload<ExtArgs>
       fields: Prisma.JobTodoListFieldRefs
@@ -4463,6 +4614,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.MembershipTradeCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.MembershipTradeCountAggregateOutputType> | number
+        }
+      }
+    }
+    JobChatMessage: {
+      payload: Prisma.$JobChatMessagePayload<ExtArgs>
+      fields: Prisma.JobChatMessageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JobChatMessageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobChatMessagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JobChatMessageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobChatMessagePayload>
+        }
+        findFirst: {
+          args: Prisma.JobChatMessageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobChatMessagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JobChatMessageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobChatMessagePayload>
+        }
+        findMany: {
+          args: Prisma.JobChatMessageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobChatMessagePayload>[]
+        }
+        create: {
+          args: Prisma.JobChatMessageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobChatMessagePayload>
+        }
+        createMany: {
+          args: Prisma.JobChatMessageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JobChatMessageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobChatMessagePayload>[]
+        }
+        delete: {
+          args: Prisma.JobChatMessageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobChatMessagePayload>
+        }
+        update: {
+          args: Prisma.JobChatMessageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobChatMessagePayload>
+        }
+        deleteMany: {
+          args: Prisma.JobChatMessageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JobChatMessageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JobChatMessageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobChatMessagePayload>[]
+        }
+        upsert: {
+          args: Prisma.JobChatMessageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobChatMessagePayload>
+        }
+        aggregate: {
+          args: Prisma.JobChatMessageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJobChatMessage>
+        }
+        groupBy: {
+          args: Prisma.JobChatMessageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobChatMessageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JobChatMessageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobChatMessageCountAggregateOutputType> | number
         }
       }
     }
@@ -5262,6 +5487,7 @@ export const JobFileScalarFieldEnum = {
   postId: 'postId',
   commentId: 'commentId',
   todoId: 'todoId',
+  chatMessageId: 'chatMessageId',
   name: 'name',
   url: 'url',
   pathname: 'pathname',
@@ -5316,6 +5542,7 @@ export const JobCommentScalarFieldEnum = {
   postId: 'postId',
   todoId: 'todoId',
   todoListId: 'todoListId',
+  eventId: 'eventId',
   body: 'body',
   authorId: 'authorId',
   editedAt: 'editedAt',
@@ -5324,6 +5551,37 @@ export const JobCommentScalarFieldEnum = {
 } as const
 
 export type JobCommentScalarFieldEnum = (typeof JobCommentScalarFieldEnum)[keyof typeof JobCommentScalarFieldEnum]
+
+
+export const JobEventScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  jobId: 'jobId',
+  title: 'title',
+  notes: 'notes',
+  allDay: 'allDay',
+  startsOn: 'startsOn',
+  endsOn: 'endsOn',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  isMilestone: 'isMilestone',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JobEventScalarFieldEnum = (typeof JobEventScalarFieldEnum)[keyof typeof JobEventScalarFieldEnum]
+
+
+export const JobEventParticipantScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  eventId: 'eventId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type JobEventParticipantScalarFieldEnum = (typeof JobEventParticipantScalarFieldEnum)[keyof typeof JobEventParticipantScalarFieldEnum]
 
 
 export const JobTodoListScalarFieldEnum = {
@@ -5389,6 +5647,19 @@ export const MembershipTradeScalarFieldEnum = {
 } as const
 
 export type MembershipTradeScalarFieldEnum = (typeof MembershipTradeScalarFieldEnum)[keyof typeof MembershipTradeScalarFieldEnum]
+
+
+export const JobChatMessageScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  jobId: 'jobId',
+  body: 'body',
+  mentionIds: 'mentionIds',
+  authorId: 'authorId',
+  createdAt: 'createdAt'
+} as const
+
+export type JobChatMessageScalarFieldEnum = (typeof JobChatMessageScalarFieldEnum)[keyof typeof JobChatMessageScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -6091,11 +6362,14 @@ export type GlobalOmitConfig = {
   jobPostCategory?: Prisma.JobPostCategoryOmit
   jobPost?: Prisma.JobPostOmit
   jobComment?: Prisma.JobCommentOmit
+  jobEvent?: Prisma.JobEventOmit
+  jobEventParticipant?: Prisma.JobEventParticipantOmit
   jobTodoList?: Prisma.JobTodoListOmit
   jobTodo?: Prisma.JobTodoOmit
   jobTodoAssignee?: Prisma.JobTodoAssigneeOmit
   trade?: Prisma.TradeOmit
   membershipTrade?: Prisma.MembershipTradeOmit
+  jobChatMessage?: Prisma.JobChatMessageOmit
 }
 
 /* Types for Logging */

@@ -30,7 +30,8 @@ async function commentGuard(commentId: string, permission: "comments.update" | "
 function refresh(jobId: string, subject: CommentSubject) {
   revalidatePath(`/jobs/${jobId}`);
   revalidatePath(subjectPath(jobId, subject));
-  if (subject.kind !== "post") revalidatePath(`/jobs/${jobId}/todos`);
+  if (subject.kind === "todo" || subject.kind === "list") revalidatePath(`/jobs/${jobId}/todos`);
+  if (subject.kind === "event") revalidatePath(`/jobs/${jobId}/schedule`);
 }
 
 export async function updateCommentAction(

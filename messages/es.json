@@ -1405,7 +1405,9 @@
       "JOB_POST": "{by} publicó {title} en {job}",
       "JOB_COMMENT": "{by} comentó en {title} ({job})",
       "JOB_TODO_ASSIGNED": "{by} te asignó {title} ({job})",
-      "JOB_TODO_COMPLETED": "{by} completó {title} ({job})"
+      "JOB_TODO_COMPLETED": "{by} completó {title} ({job})",
+      "JOB_EVENT": "{by} te sumó a {title} ({job})",
+      "JOB_CHAT_MENTION": "{by} te mencionó en el chat de {job}: “{excerpt}”"
     },
     "quoteExpiring": {
       "subject": "La cotización {reference} está por vencer",
@@ -1580,11 +1582,15 @@
       "JOB_POST": "Se publica un mensaje en mi trabajo",
       "JOB_POST_hint": "Cuando alguien publica en el Message Board de un trabajo que sigues, o te elige para avisarte.",
       "JOB_COMMENT": "Una respuesta en una conversación donde participo",
-      "JOB_COMMENT_hint": "Cuando alguien comenta un post o un to-do en el que participas.",
+      "JOB_COMMENT_hint": "Cuando alguien comenta un post, un to-do o un evento en el que participas.",
       "JOB_TODO_ASSIGNED": "Me asignan un to-do",
       "JOB_TODO_ASSIGNED_hint": "Cuando alguien te asigna un to-do en uno de tus trabajos.",
       "JOB_TODO_COMPLETED": "Se completa un to-do que agregué",
-      "JOB_TODO_COMPLETED_hint": "Cuando alguien marca como hecho un to-do que tú anotaste."
+      "JOB_TODO_COMPLETED_hint": "Cuando alguien marca como hecho un to-do que tú anotaste.",
+      "JOB_EVENT": "Me suman a un evento",
+      "JOB_EVENT_hint": "Cuando alguien te agrega a un evento en el schedule de un trabajo.",
+      "JOB_CHAT_MENTION": "Me mencionan en un chat",
+      "JOB_CHAT_MENTION_hint": "Cuando alguien te nombra con @ en el chat de uno de tus trabajos."
     },
     "indexSubtitle": "Elige qué correos quieres recibir.",
     "recipients": {
@@ -1720,6 +1726,10 @@
     "new": "Nuevo trabajo",
     "newSubtitle": "Un trabajo sin cotización detrás — una oficina, trámites, cualquier cosa en la que trabaje el equipo.",
     "backToJobs": "Volver a Trabajos",
+    "loading": {
+      "title": "Preparando tu trabajo",
+      "subtitle": "Cargando los datos del trabajo…"
+    },
     "show": {
       "active": "En curso",
       "done": "Terminados"
@@ -1742,7 +1752,10 @@
       "address": "Dirección",
       "startsOn": "Inicio",
       "endsOn": "Término",
-      "status": "Estado"
+      "status": "Estado",
+      "colour": "Color en el Lineup",
+      "colourAuto": "Automático",
+      "colourOption": "Color {n}"
     },
     "dates": "Fechas",
     "noDates": "Sin fechas",
@@ -1803,7 +1816,11 @@
       "TODO_ADDED": "{actor} agregó un to-do: {title}",
       "TODO_COMPLETED": "{actor} completó {title}",
       "TODO_REOPENED": "{actor} reabrió {title}",
-      "TODO_COMMENTED": "{actor} comentó en {title}"
+      "TODO_COMMENTED": "{actor} comentó en {title}",
+      "EVENT_CREATED": "{actor} agendó {title} para el {date}",
+      "EVENT_CREATED_undated": "{actor} agendó {title}",
+      "EVENT_COMMENTED": "{actor} comentó en {title}",
+      "CHAT_MESSAGES": "{actor} envió {count, plural, one {un mensaje} other {# mensajes}} en el chat"
     },
     "files": {
       "title": "Docs y archivos",
@@ -2007,6 +2024,106 @@
         "due": "Vence {date}",
         "starts": "Empieza {date}"
       }
+    },
+    "schedule": {
+      "title": "Schedule",
+      "upcomingCount": "{count, plural, =0 {Nada próximo} one {# próximo} other {# próximos}}",
+      "cardEmpty": "Nada agendado.",
+      "backToJob": "Volver a {name}",
+      "backToSchedule": "Volver al schedule",
+      "backToEvent": "Volver al evento",
+      "newEvent": "Nuevo evento",
+      "addEvent": "Agregar este evento",
+      "saveEvent": "Guardar cambios",
+      "editEvent": "Editar evento",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "deleteTitle": "¿Eliminar “{title}”?",
+      "deleteBody": "Se eliminan el evento y sus comentarios, y sale del timeline. No se puede deshacer.",
+      "earlier": "Antes",
+      "later": "Después",
+      "today": "Hoy",
+      "viewLabel": "Vista",
+      "views": {
+        "calendar": "Calendario",
+        "agenda": "Agenda"
+      },
+      "addOn": "Agregar un evento el {date}",
+      "agendaEmpty": "Nada agendado entre {range}.",
+      "allDay": "Todo el día",
+      "commentCount": "{count, plural, one {# comentario} other {# comentarios}}",
+      "todoDue": "Vence un to-do",
+      "milestone": "Hito",
+      "milestoneHint": "También se muestra en el Lineup, sobre la barra de este trabajo.",
+      "when": "Cuándo",
+      "participants": "Participan",
+      "noParticipants": "Nadie en particular",
+      "notes": "Notas",
+      "notesPlaceholder": "Agrega detalles: la dirección, qué llevar, por quién preguntar…",
+      "addedBy": "Agregado por {name} el {when}",
+      "someone": "Alguien",
+      "eventTitle": "Evento",
+      "eventTitlePlaceholder": "p. ej. Se arma el andamio",
+      "startsOn": "Empieza",
+      "endsOn": "Termina",
+      "startTime": "Hora de inicio",
+      "endTime": "Hora de término",
+      "endHint": "Deja vacío el día de término si dura un solo día.",
+      "notAllowed": "No puedes hacer eso con este evento.",
+      "validation": {
+        "time": "Ingresa una hora"
+      }
+    },
+    "chat": {
+      "title": "Chat",
+      "count": "{count, plural, =0 {Sin mensajes} one {# mensaje} other {# mensajes}}",
+      "cardEmpty": "Nadie ha escrito todavía.",
+      "backToJob": "Volver a {name}",
+      "empty": "Todavía no hay mensajes. Saluda a la gente de este trabajo.",
+      "placeholder": "Escribe un mensaje… Usa @ para mencionar a alguien.",
+      "message": "Mensaje",
+      "send": "Enviar",
+      "sending": "Enviando…",
+      "hint": "Enter envía; Shift + Enter hace un salto de línea.",
+      "hintTouch": "Usa el botón para enviar.",
+      "loadEarlier": "Ver mensajes anteriores",
+      "loading": "Cargando…",
+      "deleteMessage": "Borrar mensaje",
+      "deleteTitle": "¿Borrar este mensaje?",
+      "deleteBody": "Desaparece para todos en el trabajo, junto con los archivos que tenga.",
+      "deleted": "Mensaje borrado.",
+      "emptyMessage": "Escribe algo o adjunta un archivo.",
+      "notAllowed": "No puedes hacer eso en este chat.",
+      "someone": "Alguien",
+      "mentionList": "Gente de este trabajo",
+      "readOnly": "Puedes leer este chat, pero no escribir en él.",
+      "attachmentsOnly": "{count, plural, one {# archivo} other {# archivos}}",
+      "sent": "Mensaje enviado."
+    }
+  },
+  "lineup": {
+    "title": "Lineup",
+    "subtitle": "Todos los trabajos en una línea de tiempo, con sus hitos.",
+    "earlier": "Antes",
+    "later": "Después",
+    "today": "Hoy",
+    "empty": "No hay trabajos con fechas en estas semanas.",
+    "dragHint": "Arrastra una barra para mover un trabajo, o un extremo para estirarlo. Con el teclado: las flechas lo mueven, Shift + flechas mueven el término, Alt + flechas el inicio.",
+    "undated": "{count, plural, one {# trabajo sin fechas} other {# trabajos sin fechas}}",
+    "undatedHint": "Todavía no están en el plan. Fija sus fechas en el trabajo.",
+    "moved": "{name}: fechas guardadas",
+    "notSaved": "No se pudieron guardar las fechas.",
+    "bar": "{name}, del {start} al {end}",
+    "barEditable": "{name}, del {start} al {end}. Las flechas lo mueven.",
+    "milestone": "Hito: {title}",
+    "filters": {
+      "status": "Estado",
+      "active": "Activos y en pausa",
+      "all": "Todos los trabajos",
+      "member": "Persona",
+      "anyone": "Cualquiera",
+      "trade": "Oficio",
+      "anyTrade": "Cualquier oficio"
     }
   },
   "postCategories": {

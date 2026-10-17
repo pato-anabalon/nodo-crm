@@ -157,7 +157,9 @@ export const NotificationKind = {
   JOB_POST: 'JOB_POST',
   JOB_COMMENT: 'JOB_COMMENT',
   JOB_TODO_ASSIGNED: 'JOB_TODO_ASSIGNED',
-  JOB_TODO_COMPLETED: 'JOB_TODO_COMPLETED'
+  JOB_TODO_COMPLETED: 'JOB_TODO_COMPLETED',
+  JOB_EVENT: 'JOB_EVENT',
+  JOB_CHAT_MENTION: 'JOB_CHAT_MENTION'
 } as const
 
 export type NotificationKind = (typeof NotificationKind)[keyof typeof NotificationKind]
@@ -294,7 +296,10 @@ export const JobActivityType = {
   TODO_ADDED: 'TODO_ADDED',
   TODO_COMPLETED: 'TODO_COMPLETED',
   TODO_REOPENED: 'TODO_REOPENED',
-  TODO_COMMENTED: 'TODO_COMMENTED'
+  TODO_COMMENTED: 'TODO_COMMENTED',
+  EVENT_CREATED: 'EVENT_CREATED',
+  EVENT_COMMENTED: 'EVENT_COMMENTED',
+  CHAT_MESSAGES: 'CHAT_MESSAGES'
 } as const
 
 export type JobActivityType = (typeof JobActivityType)[keyof typeof JobActivityType]

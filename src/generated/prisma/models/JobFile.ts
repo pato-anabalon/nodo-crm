@@ -53,6 +53,7 @@ export type JobFileMinAggregateOutputType = {
   postId: string | null
   commentId: string | null
   todoId: string | null
+  chatMessageId: string | null
   name: string | null
   url: string | null
   pathname: string | null
@@ -75,6 +76,7 @@ export type JobFileMaxAggregateOutputType = {
   postId: string | null
   commentId: string | null
   todoId: string | null
+  chatMessageId: string | null
   name: string | null
   url: string | null
   pathname: string | null
@@ -97,6 +99,7 @@ export type JobFileCountAggregateOutputType = {
   postId: number
   commentId: number
   todoId: number
+  chatMessageId: number
   name: number
   url: number
   pathname: number
@@ -133,6 +136,7 @@ export type JobFileMinAggregateInputType = {
   postId?: true
   commentId?: true
   todoId?: true
+  chatMessageId?: true
   name?: true
   url?: true
   pathname?: true
@@ -155,6 +159,7 @@ export type JobFileMaxAggregateInputType = {
   postId?: true
   commentId?: true
   todoId?: true
+  chatMessageId?: true
   name?: true
   url?: true
   pathname?: true
@@ -177,6 +182,7 @@ export type JobFileCountAggregateInputType = {
   postId?: true
   commentId?: true
   todoId?: true
+  chatMessageId?: true
   name?: true
   url?: true
   pathname?: true
@@ -286,6 +292,7 @@ export type JobFileGroupByOutputType = {
   postId: string | null
   commentId: string | null
   todoId: string | null
+  chatMessageId: string | null
   name: string
   url: string
   pathname: string
@@ -331,6 +338,7 @@ export type JobFileWhereInput = {
   postId?: Prisma.StringNullableFilter<"JobFile"> | string | null
   commentId?: Prisma.StringNullableFilter<"JobFile"> | string | null
   todoId?: Prisma.StringNullableFilter<"JobFile"> | string | null
+  chatMessageId?: Prisma.StringNullableFilter<"JobFile"> | string | null
   name?: Prisma.StringFilter<"JobFile"> | string
   url?: Prisma.StringFilter<"JobFile"> | string
   pathname?: Prisma.StringFilter<"JobFile"> | string
@@ -349,6 +357,7 @@ export type JobFileWhereInput = {
   post?: Prisma.XOR<Prisma.JobPostNullableScalarRelationFilter, Prisma.JobPostWhereInput> | null
   comment?: Prisma.XOR<Prisma.JobCommentNullableScalarRelationFilter, Prisma.JobCommentWhereInput> | null
   todo?: Prisma.XOR<Prisma.JobTodoNullableScalarRelationFilter, Prisma.JobTodoWhereInput> | null
+  chatMessage?: Prisma.XOR<Prisma.JobChatMessageNullableScalarRelationFilter, Prisma.JobChatMessageWhereInput> | null
   uploadedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
@@ -360,6 +369,7 @@ export type JobFileOrderByWithRelationInput = {
   postId?: Prisma.SortOrderInput | Prisma.SortOrder
   commentId?: Prisma.SortOrderInput | Prisma.SortOrder
   todoId?: Prisma.SortOrderInput | Prisma.SortOrder
+  chatMessageId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   url?: Prisma.SortOrder
   pathname?: Prisma.SortOrder
@@ -378,6 +388,7 @@ export type JobFileOrderByWithRelationInput = {
   post?: Prisma.JobPostOrderByWithRelationInput
   comment?: Prisma.JobCommentOrderByWithRelationInput
   todo?: Prisma.JobTodoOrderByWithRelationInput
+  chatMessage?: Prisma.JobChatMessageOrderByWithRelationInput
   uploadedBy?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -392,6 +403,7 @@ export type JobFileWhereUniqueInput = Prisma.AtLeast<{
   postId?: Prisma.StringNullableFilter<"JobFile"> | string | null
   commentId?: Prisma.StringNullableFilter<"JobFile"> | string | null
   todoId?: Prisma.StringNullableFilter<"JobFile"> | string | null
+  chatMessageId?: Prisma.StringNullableFilter<"JobFile"> | string | null
   name?: Prisma.StringFilter<"JobFile"> | string
   url?: Prisma.StringFilter<"JobFile"> | string
   pathname?: Prisma.StringFilter<"JobFile"> | string
@@ -410,6 +422,7 @@ export type JobFileWhereUniqueInput = Prisma.AtLeast<{
   post?: Prisma.XOR<Prisma.JobPostNullableScalarRelationFilter, Prisma.JobPostWhereInput> | null
   comment?: Prisma.XOR<Prisma.JobCommentNullableScalarRelationFilter, Prisma.JobCommentWhereInput> | null
   todo?: Prisma.XOR<Prisma.JobTodoNullableScalarRelationFilter, Prisma.JobTodoWhereInput> | null
+  chatMessage?: Prisma.XOR<Prisma.JobChatMessageNullableScalarRelationFilter, Prisma.JobChatMessageWhereInput> | null
   uploadedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
@@ -421,6 +434,7 @@ export type JobFileOrderByWithAggregationInput = {
   postId?: Prisma.SortOrderInput | Prisma.SortOrder
   commentId?: Prisma.SortOrderInput | Prisma.SortOrder
   todoId?: Prisma.SortOrderInput | Prisma.SortOrder
+  chatMessageId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   url?: Prisma.SortOrder
   pathname?: Prisma.SortOrder
@@ -451,6 +465,7 @@ export type JobFileScalarWhereWithAggregatesInput = {
   postId?: Prisma.StringNullableWithAggregatesFilter<"JobFile"> | string | null
   commentId?: Prisma.StringNullableWithAggregatesFilter<"JobFile"> | string | null
   todoId?: Prisma.StringNullableWithAggregatesFilter<"JobFile"> | string | null
+  chatMessageId?: Prisma.StringNullableWithAggregatesFilter<"JobFile"> | string | null
   name?: Prisma.StringWithAggregatesFilter<"JobFile"> | string
   url?: Prisma.StringWithAggregatesFilter<"JobFile"> | string
   pathname?: Prisma.StringWithAggregatesFilter<"JobFile"> | string
@@ -484,6 +499,7 @@ export type JobFileCreateInput = {
   post?: Prisma.JobPostCreateNestedOneWithoutFilesInput
   comment?: Prisma.JobCommentCreateNestedOneWithoutFilesInput
   todo?: Prisma.JobTodoCreateNestedOneWithoutFilesInput
+  chatMessage?: Prisma.JobChatMessageCreateNestedOneWithoutFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutJobFilesUploadedInput
 }
 
@@ -495,6 +511,7 @@ export type JobFileUncheckedCreateInput = {
   postId?: string | null
   commentId?: string | null
   todoId?: string | null
+  chatMessageId?: string | null
   name: string
   url: string
   pathname: string
@@ -528,6 +545,7 @@ export type JobFileUpdateInput = {
   post?: Prisma.JobPostUpdateOneWithoutFilesNestedInput
   comment?: Prisma.JobCommentUpdateOneWithoutFilesNestedInput
   todo?: Prisma.JobTodoUpdateOneWithoutFilesNestedInput
+  chatMessage?: Prisma.JobChatMessageUpdateOneWithoutFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutJobFilesUploadedNestedInput
 }
 
@@ -539,6 +557,7 @@ export type JobFileUncheckedUpdateInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chatMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -561,6 +580,7 @@ export type JobFileCreateManyInput = {
   postId?: string | null
   commentId?: string | null
   todoId?: string | null
+  chatMessageId?: string | null
   name: string
   url: string
   pathname: string
@@ -598,6 +618,7 @@ export type JobFileUncheckedUpdateManyInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chatMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -630,6 +651,7 @@ export type JobFileCountOrderByAggregateInput = {
   postId?: Prisma.SortOrder
   commentId?: Prisma.SortOrder
   todoId?: Prisma.SortOrder
+  chatMessageId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   url?: Prisma.SortOrder
   pathname?: Prisma.SortOrder
@@ -658,6 +680,7 @@ export type JobFileMaxOrderByAggregateInput = {
   postId?: Prisma.SortOrder
   commentId?: Prisma.SortOrder
   todoId?: Prisma.SortOrder
+  chatMessageId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   url?: Prisma.SortOrder
   pathname?: Prisma.SortOrder
@@ -680,6 +703,7 @@ export type JobFileMinOrderByAggregateInput = {
   postId?: Prisma.SortOrder
   commentId?: Prisma.SortOrder
   todoId?: Prisma.SortOrder
+  chatMessageId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   url?: Prisma.SortOrder
   pathname?: Prisma.SortOrder
@@ -994,6 +1018,48 @@ export type JobFileUncheckedUpdateManyWithoutTodoNestedInput = {
   deleteMany?: Prisma.JobFileScalarWhereInput | Prisma.JobFileScalarWhereInput[]
 }
 
+export type JobFileCreateNestedManyWithoutChatMessageInput = {
+  create?: Prisma.XOR<Prisma.JobFileCreateWithoutChatMessageInput, Prisma.JobFileUncheckedCreateWithoutChatMessageInput> | Prisma.JobFileCreateWithoutChatMessageInput[] | Prisma.JobFileUncheckedCreateWithoutChatMessageInput[]
+  connectOrCreate?: Prisma.JobFileCreateOrConnectWithoutChatMessageInput | Prisma.JobFileCreateOrConnectWithoutChatMessageInput[]
+  createMany?: Prisma.JobFileCreateManyChatMessageInputEnvelope
+  connect?: Prisma.JobFileWhereUniqueInput | Prisma.JobFileWhereUniqueInput[]
+}
+
+export type JobFileUncheckedCreateNestedManyWithoutChatMessageInput = {
+  create?: Prisma.XOR<Prisma.JobFileCreateWithoutChatMessageInput, Prisma.JobFileUncheckedCreateWithoutChatMessageInput> | Prisma.JobFileCreateWithoutChatMessageInput[] | Prisma.JobFileUncheckedCreateWithoutChatMessageInput[]
+  connectOrCreate?: Prisma.JobFileCreateOrConnectWithoutChatMessageInput | Prisma.JobFileCreateOrConnectWithoutChatMessageInput[]
+  createMany?: Prisma.JobFileCreateManyChatMessageInputEnvelope
+  connect?: Prisma.JobFileWhereUniqueInput | Prisma.JobFileWhereUniqueInput[]
+}
+
+export type JobFileUpdateManyWithoutChatMessageNestedInput = {
+  create?: Prisma.XOR<Prisma.JobFileCreateWithoutChatMessageInput, Prisma.JobFileUncheckedCreateWithoutChatMessageInput> | Prisma.JobFileCreateWithoutChatMessageInput[] | Prisma.JobFileUncheckedCreateWithoutChatMessageInput[]
+  connectOrCreate?: Prisma.JobFileCreateOrConnectWithoutChatMessageInput | Prisma.JobFileCreateOrConnectWithoutChatMessageInput[]
+  upsert?: Prisma.JobFileUpsertWithWhereUniqueWithoutChatMessageInput | Prisma.JobFileUpsertWithWhereUniqueWithoutChatMessageInput[]
+  createMany?: Prisma.JobFileCreateManyChatMessageInputEnvelope
+  set?: Prisma.JobFileWhereUniqueInput | Prisma.JobFileWhereUniqueInput[]
+  disconnect?: Prisma.JobFileWhereUniqueInput | Prisma.JobFileWhereUniqueInput[]
+  delete?: Prisma.JobFileWhereUniqueInput | Prisma.JobFileWhereUniqueInput[]
+  connect?: Prisma.JobFileWhereUniqueInput | Prisma.JobFileWhereUniqueInput[]
+  update?: Prisma.JobFileUpdateWithWhereUniqueWithoutChatMessageInput | Prisma.JobFileUpdateWithWhereUniqueWithoutChatMessageInput[]
+  updateMany?: Prisma.JobFileUpdateManyWithWhereWithoutChatMessageInput | Prisma.JobFileUpdateManyWithWhereWithoutChatMessageInput[]
+  deleteMany?: Prisma.JobFileScalarWhereInput | Prisma.JobFileScalarWhereInput[]
+}
+
+export type JobFileUncheckedUpdateManyWithoutChatMessageNestedInput = {
+  create?: Prisma.XOR<Prisma.JobFileCreateWithoutChatMessageInput, Prisma.JobFileUncheckedCreateWithoutChatMessageInput> | Prisma.JobFileCreateWithoutChatMessageInput[] | Prisma.JobFileUncheckedCreateWithoutChatMessageInput[]
+  connectOrCreate?: Prisma.JobFileCreateOrConnectWithoutChatMessageInput | Prisma.JobFileCreateOrConnectWithoutChatMessageInput[]
+  upsert?: Prisma.JobFileUpsertWithWhereUniqueWithoutChatMessageInput | Prisma.JobFileUpsertWithWhereUniqueWithoutChatMessageInput[]
+  createMany?: Prisma.JobFileCreateManyChatMessageInputEnvelope
+  set?: Prisma.JobFileWhereUniqueInput | Prisma.JobFileWhereUniqueInput[]
+  disconnect?: Prisma.JobFileWhereUniqueInput | Prisma.JobFileWhereUniqueInput[]
+  delete?: Prisma.JobFileWhereUniqueInput | Prisma.JobFileWhereUniqueInput[]
+  connect?: Prisma.JobFileWhereUniqueInput | Prisma.JobFileWhereUniqueInput[]
+  update?: Prisma.JobFileUpdateWithWhereUniqueWithoutChatMessageInput | Prisma.JobFileUpdateWithWhereUniqueWithoutChatMessageInput[]
+  updateMany?: Prisma.JobFileUpdateManyWithWhereWithoutChatMessageInput | Prisma.JobFileUpdateManyWithWhereWithoutChatMessageInput[]
+  deleteMany?: Prisma.JobFileScalarWhereInput | Prisma.JobFileScalarWhereInput[]
+}
+
 export type JobFileCreateWithoutCompanyInput = {
   id?: string
   name: string
@@ -1012,6 +1078,7 @@ export type JobFileCreateWithoutCompanyInput = {
   post?: Prisma.JobPostCreateNestedOneWithoutFilesInput
   comment?: Prisma.JobCommentCreateNestedOneWithoutFilesInput
   todo?: Prisma.JobTodoCreateNestedOneWithoutFilesInput
+  chatMessage?: Prisma.JobChatMessageCreateNestedOneWithoutFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutJobFilesUploadedInput
 }
 
@@ -1022,6 +1089,7 @@ export type JobFileUncheckedCreateWithoutCompanyInput = {
   postId?: string | null
   commentId?: string | null
   todoId?: string | null
+  chatMessageId?: string | null
   name: string
   url: string
   pathname: string
@@ -1073,6 +1141,7 @@ export type JobFileScalarWhereInput = {
   postId?: Prisma.StringNullableFilter<"JobFile"> | string | null
   commentId?: Prisma.StringNullableFilter<"JobFile"> | string | null
   todoId?: Prisma.StringNullableFilter<"JobFile"> | string | null
+  chatMessageId?: Prisma.StringNullableFilter<"JobFile"> | string | null
   name?: Prisma.StringFilter<"JobFile"> | string
   url?: Prisma.StringFilter<"JobFile"> | string
   pathname?: Prisma.StringFilter<"JobFile"> | string
@@ -1106,6 +1175,7 @@ export type JobFileCreateWithoutUploadedByInput = {
   post?: Prisma.JobPostCreateNestedOneWithoutFilesInput
   comment?: Prisma.JobCommentCreateNestedOneWithoutFilesInput
   todo?: Prisma.JobTodoCreateNestedOneWithoutFilesInput
+  chatMessage?: Prisma.JobChatMessageCreateNestedOneWithoutFilesInput
 }
 
 export type JobFileUncheckedCreateWithoutUploadedByInput = {
@@ -1116,6 +1186,7 @@ export type JobFileUncheckedCreateWithoutUploadedByInput = {
   postId?: string | null
   commentId?: string | null
   todoId?: string | null
+  chatMessageId?: string | null
   name: string
   url: string
   pathname: string
@@ -1173,6 +1244,7 @@ export type JobFileCreateWithoutJobInput = {
   post?: Prisma.JobPostCreateNestedOneWithoutFilesInput
   comment?: Prisma.JobCommentCreateNestedOneWithoutFilesInput
   todo?: Prisma.JobTodoCreateNestedOneWithoutFilesInput
+  chatMessage?: Prisma.JobChatMessageCreateNestedOneWithoutFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutJobFilesUploadedInput
 }
 
@@ -1183,6 +1255,7 @@ export type JobFileUncheckedCreateWithoutJobInput = {
   postId?: string | null
   commentId?: string | null
   todoId?: string | null
+  chatMessageId?: string | null
   name: string
   url: string
   pathname: string
@@ -1241,6 +1314,7 @@ export type JobFileCreateWithoutFolderInput = {
   post?: Prisma.JobPostCreateNestedOneWithoutFilesInput
   comment?: Prisma.JobCommentCreateNestedOneWithoutFilesInput
   todo?: Prisma.JobTodoCreateNestedOneWithoutFilesInput
+  chatMessage?: Prisma.JobChatMessageCreateNestedOneWithoutFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutJobFilesUploadedInput
 }
 
@@ -1251,6 +1325,7 @@ export type JobFileUncheckedCreateWithoutFolderInput = {
   postId?: string | null
   commentId?: string | null
   todoId?: string | null
+  chatMessageId?: string | null
   name: string
   url: string
   pathname: string
@@ -1309,6 +1384,7 @@ export type JobFileCreateWithoutPostInput = {
   folder?: Prisma.JobFolderCreateNestedOneWithoutFilesInput
   comment?: Prisma.JobCommentCreateNestedOneWithoutFilesInput
   todo?: Prisma.JobTodoCreateNestedOneWithoutFilesInput
+  chatMessage?: Prisma.JobChatMessageCreateNestedOneWithoutFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutJobFilesUploadedInput
 }
 
@@ -1319,6 +1395,7 @@ export type JobFileUncheckedCreateWithoutPostInput = {
   folderId?: string | null
   commentId?: string | null
   todoId?: string | null
+  chatMessageId?: string | null
   name: string
   url: string
   pathname: string
@@ -1377,6 +1454,7 @@ export type JobFileCreateWithoutCommentInput = {
   folder?: Prisma.JobFolderCreateNestedOneWithoutFilesInput
   post?: Prisma.JobPostCreateNestedOneWithoutFilesInput
   todo?: Prisma.JobTodoCreateNestedOneWithoutFilesInput
+  chatMessage?: Prisma.JobChatMessageCreateNestedOneWithoutFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutJobFilesUploadedInput
 }
 
@@ -1387,6 +1465,7 @@ export type JobFileUncheckedCreateWithoutCommentInput = {
   folderId?: string | null
   postId?: string | null
   todoId?: string | null
+  chatMessageId?: string | null
   name: string
   url: string
   pathname: string
@@ -1445,6 +1524,7 @@ export type JobFileCreateWithoutTodoInput = {
   folder?: Prisma.JobFolderCreateNestedOneWithoutFilesInput
   post?: Prisma.JobPostCreateNestedOneWithoutFilesInput
   comment?: Prisma.JobCommentCreateNestedOneWithoutFilesInput
+  chatMessage?: Prisma.JobChatMessageCreateNestedOneWithoutFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutJobFilesUploadedInput
 }
 
@@ -1455,6 +1535,7 @@ export type JobFileUncheckedCreateWithoutTodoInput = {
   folderId?: string | null
   postId?: string | null
   commentId?: string | null
+  chatMessageId?: string | null
   name: string
   url: string
   pathname: string
@@ -1495,6 +1576,76 @@ export type JobFileUpdateManyWithWhereWithoutTodoInput = {
   data: Prisma.XOR<Prisma.JobFileUpdateManyMutationInput, Prisma.JobFileUncheckedUpdateManyWithoutTodoInput>
 }
 
+export type JobFileCreateWithoutChatMessageInput = {
+  id?: string
+  name: string
+  url: string
+  pathname: string
+  contentType: string
+  size: number
+  width?: number | null
+  height?: number | null
+  thumbnailUrl?: string | null
+  thumbnailPathname?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutJobFilesInput
+  job: Prisma.JobCreateNestedOneWithoutFilesInput
+  folder?: Prisma.JobFolderCreateNestedOneWithoutFilesInput
+  post?: Prisma.JobPostCreateNestedOneWithoutFilesInput
+  comment?: Prisma.JobCommentCreateNestedOneWithoutFilesInput
+  todo?: Prisma.JobTodoCreateNestedOneWithoutFilesInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutJobFilesUploadedInput
+}
+
+export type JobFileUncheckedCreateWithoutChatMessageInput = {
+  id?: string
+  companyId: string
+  jobId: string
+  folderId?: string | null
+  postId?: string | null
+  commentId?: string | null
+  todoId?: string | null
+  name: string
+  url: string
+  pathname: string
+  contentType: string
+  size: number
+  width?: number | null
+  height?: number | null
+  thumbnailUrl?: string | null
+  thumbnailPathname?: string | null
+  uploadedById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type JobFileCreateOrConnectWithoutChatMessageInput = {
+  where: Prisma.JobFileWhereUniqueInput
+  create: Prisma.XOR<Prisma.JobFileCreateWithoutChatMessageInput, Prisma.JobFileUncheckedCreateWithoutChatMessageInput>
+}
+
+export type JobFileCreateManyChatMessageInputEnvelope = {
+  data: Prisma.JobFileCreateManyChatMessageInput | Prisma.JobFileCreateManyChatMessageInput[]
+  skipDuplicates?: boolean
+}
+
+export type JobFileUpsertWithWhereUniqueWithoutChatMessageInput = {
+  where: Prisma.JobFileWhereUniqueInput
+  update: Prisma.XOR<Prisma.JobFileUpdateWithoutChatMessageInput, Prisma.JobFileUncheckedUpdateWithoutChatMessageInput>
+  create: Prisma.XOR<Prisma.JobFileCreateWithoutChatMessageInput, Prisma.JobFileUncheckedCreateWithoutChatMessageInput>
+}
+
+export type JobFileUpdateWithWhereUniqueWithoutChatMessageInput = {
+  where: Prisma.JobFileWhereUniqueInput
+  data: Prisma.XOR<Prisma.JobFileUpdateWithoutChatMessageInput, Prisma.JobFileUncheckedUpdateWithoutChatMessageInput>
+}
+
+export type JobFileUpdateManyWithWhereWithoutChatMessageInput = {
+  where: Prisma.JobFileScalarWhereInput
+  data: Prisma.XOR<Prisma.JobFileUpdateManyMutationInput, Prisma.JobFileUncheckedUpdateManyWithoutChatMessageInput>
+}
+
 export type JobFileCreateManyCompanyInput = {
   id?: string
   jobId: string
@@ -1502,6 +1653,7 @@ export type JobFileCreateManyCompanyInput = {
   postId?: string | null
   commentId?: string | null
   todoId?: string | null
+  chatMessageId?: string | null
   name: string
   url: string
   pathname: string
@@ -1534,6 +1686,7 @@ export type JobFileUpdateWithoutCompanyInput = {
   post?: Prisma.JobPostUpdateOneWithoutFilesNestedInput
   comment?: Prisma.JobCommentUpdateOneWithoutFilesNestedInput
   todo?: Prisma.JobTodoUpdateOneWithoutFilesNestedInput
+  chatMessage?: Prisma.JobChatMessageUpdateOneWithoutFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutJobFilesUploadedNestedInput
 }
 
@@ -1544,6 +1697,7 @@ export type JobFileUncheckedUpdateWithoutCompanyInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chatMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1565,6 +1719,7 @@ export type JobFileUncheckedUpdateManyWithoutCompanyInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chatMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1587,6 +1742,7 @@ export type JobFileCreateManyUploadedByInput = {
   postId?: string | null
   commentId?: string | null
   todoId?: string | null
+  chatMessageId?: string | null
   name: string
   url: string
   pathname: string
@@ -1619,6 +1775,7 @@ export type JobFileUpdateWithoutUploadedByInput = {
   post?: Prisma.JobPostUpdateOneWithoutFilesNestedInput
   comment?: Prisma.JobCommentUpdateOneWithoutFilesNestedInput
   todo?: Prisma.JobTodoUpdateOneWithoutFilesNestedInput
+  chatMessage?: Prisma.JobChatMessageUpdateOneWithoutFilesNestedInput
 }
 
 export type JobFileUncheckedUpdateWithoutUploadedByInput = {
@@ -1629,6 +1786,7 @@ export type JobFileUncheckedUpdateWithoutUploadedByInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chatMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1650,6 +1808,7 @@ export type JobFileUncheckedUpdateManyWithoutUploadedByInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chatMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1670,6 +1829,7 @@ export type JobFileCreateManyJobInput = {
   postId?: string | null
   commentId?: string | null
   todoId?: string | null
+  chatMessageId?: string | null
   name: string
   url: string
   pathname: string
@@ -1702,6 +1862,7 @@ export type JobFileUpdateWithoutJobInput = {
   post?: Prisma.JobPostUpdateOneWithoutFilesNestedInput
   comment?: Prisma.JobCommentUpdateOneWithoutFilesNestedInput
   todo?: Prisma.JobTodoUpdateOneWithoutFilesNestedInput
+  chatMessage?: Prisma.JobChatMessageUpdateOneWithoutFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutJobFilesUploadedNestedInput
 }
 
@@ -1712,6 +1873,7 @@ export type JobFileUncheckedUpdateWithoutJobInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chatMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1733,6 +1895,7 @@ export type JobFileUncheckedUpdateManyWithoutJobInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chatMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1754,6 +1917,7 @@ export type JobFileCreateManyFolderInput = {
   postId?: string | null
   commentId?: string | null
   todoId?: string | null
+  chatMessageId?: string | null
   name: string
   url: string
   pathname: string
@@ -1786,6 +1950,7 @@ export type JobFileUpdateWithoutFolderInput = {
   post?: Prisma.JobPostUpdateOneWithoutFilesNestedInput
   comment?: Prisma.JobCommentUpdateOneWithoutFilesNestedInput
   todo?: Prisma.JobTodoUpdateOneWithoutFilesNestedInput
+  chatMessage?: Prisma.JobChatMessageUpdateOneWithoutFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutJobFilesUploadedNestedInput
 }
 
@@ -1796,6 +1961,7 @@ export type JobFileUncheckedUpdateWithoutFolderInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chatMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1817,6 +1983,7 @@ export type JobFileUncheckedUpdateManyWithoutFolderInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chatMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1838,6 +2005,7 @@ export type JobFileCreateManyPostInput = {
   folderId?: string | null
   commentId?: string | null
   todoId?: string | null
+  chatMessageId?: string | null
   name: string
   url: string
   pathname: string
@@ -1870,6 +2038,7 @@ export type JobFileUpdateWithoutPostInput = {
   folder?: Prisma.JobFolderUpdateOneWithoutFilesNestedInput
   comment?: Prisma.JobCommentUpdateOneWithoutFilesNestedInput
   todo?: Prisma.JobTodoUpdateOneWithoutFilesNestedInput
+  chatMessage?: Prisma.JobChatMessageUpdateOneWithoutFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutJobFilesUploadedNestedInput
 }
 
@@ -1880,6 +2049,7 @@ export type JobFileUncheckedUpdateWithoutPostInput = {
   folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chatMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1901,6 +2071,7 @@ export type JobFileUncheckedUpdateManyWithoutPostInput = {
   folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chatMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1922,6 +2093,7 @@ export type JobFileCreateManyCommentInput = {
   folderId?: string | null
   postId?: string | null
   todoId?: string | null
+  chatMessageId?: string | null
   name: string
   url: string
   pathname: string
@@ -1954,6 +2126,7 @@ export type JobFileUpdateWithoutCommentInput = {
   folder?: Prisma.JobFolderUpdateOneWithoutFilesNestedInput
   post?: Prisma.JobPostUpdateOneWithoutFilesNestedInput
   todo?: Prisma.JobTodoUpdateOneWithoutFilesNestedInput
+  chatMessage?: Prisma.JobChatMessageUpdateOneWithoutFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutJobFilesUploadedNestedInput
 }
 
@@ -1964,6 +2137,7 @@ export type JobFileUncheckedUpdateWithoutCommentInput = {
   folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chatMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1985,6 +2159,7 @@ export type JobFileUncheckedUpdateManyWithoutCommentInput = {
   folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chatMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2006,6 +2181,7 @@ export type JobFileCreateManyTodoInput = {
   folderId?: string | null
   postId?: string | null
   commentId?: string | null
+  chatMessageId?: string | null
   name: string
   url: string
   pathname: string
@@ -2038,6 +2214,7 @@ export type JobFileUpdateWithoutTodoInput = {
   folder?: Prisma.JobFolderUpdateOneWithoutFilesNestedInput
   post?: Prisma.JobPostUpdateOneWithoutFilesNestedInput
   comment?: Prisma.JobCommentUpdateOneWithoutFilesNestedInput
+  chatMessage?: Prisma.JobChatMessageUpdateOneWithoutFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutJobFilesUploadedNestedInput
 }
 
@@ -2048,6 +2225,7 @@ export type JobFileUncheckedUpdateWithoutTodoInput = {
   folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chatMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2069,6 +2247,95 @@ export type JobFileUncheckedUpdateManyWithoutTodoInput = {
   folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chatMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  pathname?: Prisma.StringFieldUpdateOperationsInput | string
+  contentType?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type JobFileCreateManyChatMessageInput = {
+  id?: string
+  companyId: string
+  jobId: string
+  folderId?: string | null
+  postId?: string | null
+  commentId?: string | null
+  todoId?: string | null
+  name: string
+  url: string
+  pathname: string
+  contentType: string
+  size: number
+  width?: number | null
+  height?: number | null
+  thumbnailUrl?: string | null
+  thumbnailPathname?: string | null
+  uploadedById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type JobFileUpdateWithoutChatMessageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  pathname?: Prisma.StringFieldUpdateOperationsInput | string
+  contentType?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutJobFilesNestedInput
+  job?: Prisma.JobUpdateOneRequiredWithoutFilesNestedInput
+  folder?: Prisma.JobFolderUpdateOneWithoutFilesNestedInput
+  post?: Prisma.JobPostUpdateOneWithoutFilesNestedInput
+  comment?: Prisma.JobCommentUpdateOneWithoutFilesNestedInput
+  todo?: Prisma.JobTodoUpdateOneWithoutFilesNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutJobFilesUploadedNestedInput
+}
+
+export type JobFileUncheckedUpdateWithoutChatMessageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  pathname?: Prisma.StringFieldUpdateOperationsInput | string
+  contentType?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailPathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type JobFileUncheckedUpdateManyWithoutChatMessageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  folderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   pathname?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2093,6 +2360,7 @@ export type JobFileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   postId?: boolean
   commentId?: boolean
   todoId?: boolean
+  chatMessageId?: boolean
   name?: boolean
   url?: boolean
   pathname?: boolean
@@ -2111,6 +2379,7 @@ export type JobFileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   post?: boolean | Prisma.JobFile$postArgs<ExtArgs>
   comment?: boolean | Prisma.JobFile$commentArgs<ExtArgs>
   todo?: boolean | Prisma.JobFile$todoArgs<ExtArgs>
+  chatMessage?: boolean | Prisma.JobFile$chatMessageArgs<ExtArgs>
   uploadedBy?: boolean | Prisma.JobFile$uploadedByArgs<ExtArgs>
 }, ExtArgs["result"]["jobFile"]>
 
@@ -2122,6 +2391,7 @@ export type JobFileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   postId?: boolean
   commentId?: boolean
   todoId?: boolean
+  chatMessageId?: boolean
   name?: boolean
   url?: boolean
   pathname?: boolean
@@ -2140,6 +2410,7 @@ export type JobFileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   post?: boolean | Prisma.JobFile$postArgs<ExtArgs>
   comment?: boolean | Prisma.JobFile$commentArgs<ExtArgs>
   todo?: boolean | Prisma.JobFile$todoArgs<ExtArgs>
+  chatMessage?: boolean | Prisma.JobFile$chatMessageArgs<ExtArgs>
   uploadedBy?: boolean | Prisma.JobFile$uploadedByArgs<ExtArgs>
 }, ExtArgs["result"]["jobFile"]>
 
@@ -2151,6 +2422,7 @@ export type JobFileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   postId?: boolean
   commentId?: boolean
   todoId?: boolean
+  chatMessageId?: boolean
   name?: boolean
   url?: boolean
   pathname?: boolean
@@ -2169,6 +2441,7 @@ export type JobFileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   post?: boolean | Prisma.JobFile$postArgs<ExtArgs>
   comment?: boolean | Prisma.JobFile$commentArgs<ExtArgs>
   todo?: boolean | Prisma.JobFile$todoArgs<ExtArgs>
+  chatMessage?: boolean | Prisma.JobFile$chatMessageArgs<ExtArgs>
   uploadedBy?: boolean | Prisma.JobFile$uploadedByArgs<ExtArgs>
 }, ExtArgs["result"]["jobFile"]>
 
@@ -2180,6 +2453,7 @@ export type JobFileSelectScalar = {
   postId?: boolean
   commentId?: boolean
   todoId?: boolean
+  chatMessageId?: boolean
   name?: boolean
   url?: boolean
   pathname?: boolean
@@ -2194,7 +2468,7 @@ export type JobFileSelectScalar = {
   updatedAt?: boolean
 }
 
-export type JobFileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "jobId" | "folderId" | "postId" | "commentId" | "todoId" | "name" | "url" | "pathname" | "contentType" | "size" | "width" | "height" | "thumbnailUrl" | "thumbnailPathname" | "uploadedById" | "createdAt" | "updatedAt", ExtArgs["result"]["jobFile"]>
+export type JobFileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "jobId" | "folderId" | "postId" | "commentId" | "todoId" | "chatMessageId" | "name" | "url" | "pathname" | "contentType" | "size" | "width" | "height" | "thumbnailUrl" | "thumbnailPathname" | "uploadedById" | "createdAt" | "updatedAt", ExtArgs["result"]["jobFile"]>
 export type JobFileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
@@ -2202,6 +2476,7 @@ export type JobFileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   post?: boolean | Prisma.JobFile$postArgs<ExtArgs>
   comment?: boolean | Prisma.JobFile$commentArgs<ExtArgs>
   todo?: boolean | Prisma.JobFile$todoArgs<ExtArgs>
+  chatMessage?: boolean | Prisma.JobFile$chatMessageArgs<ExtArgs>
   uploadedBy?: boolean | Prisma.JobFile$uploadedByArgs<ExtArgs>
 }
 export type JobFileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2211,6 +2486,7 @@ export type JobFileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   post?: boolean | Prisma.JobFile$postArgs<ExtArgs>
   comment?: boolean | Prisma.JobFile$commentArgs<ExtArgs>
   todo?: boolean | Prisma.JobFile$todoArgs<ExtArgs>
+  chatMessage?: boolean | Prisma.JobFile$chatMessageArgs<ExtArgs>
   uploadedBy?: boolean | Prisma.JobFile$uploadedByArgs<ExtArgs>
 }
 export type JobFileIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2220,6 +2496,7 @@ export type JobFileIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   post?: boolean | Prisma.JobFile$postArgs<ExtArgs>
   comment?: boolean | Prisma.JobFile$commentArgs<ExtArgs>
   todo?: boolean | Prisma.JobFile$todoArgs<ExtArgs>
+  chatMessage?: boolean | Prisma.JobFile$chatMessageArgs<ExtArgs>
   uploadedBy?: boolean | Prisma.JobFile$uploadedByArgs<ExtArgs>
 }
 
@@ -2232,6 +2509,7 @@ export type $JobFilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     post: Prisma.$JobPostPayload<ExtArgs> | null
     comment: Prisma.$JobCommentPayload<ExtArgs> | null
     todo: Prisma.$JobTodoPayload<ExtArgs> | null
+    chatMessage: Prisma.$JobChatMessagePayload<ExtArgs> | null
     uploadedBy: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -2242,6 +2520,7 @@ export type $JobFilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     postId: string | null
     commentId: string | null
     todoId: string | null
+    chatMessageId: string | null
     name: string
     url: string
     pathname: string
@@ -2654,6 +2933,7 @@ export interface Prisma__JobFileClient<T, Null = never, ExtArgs extends runtime.
   post<T extends Prisma.JobFile$postArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobFile$postArgs<ExtArgs>>): Prisma.Prisma__JobPostClient<runtime.Types.Result.GetResult<Prisma.$JobPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   comment<T extends Prisma.JobFile$commentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobFile$commentArgs<ExtArgs>>): Prisma.Prisma__JobCommentClient<runtime.Types.Result.GetResult<Prisma.$JobCommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   todo<T extends Prisma.JobFile$todoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobFile$todoArgs<ExtArgs>>): Prisma.Prisma__JobTodoClient<runtime.Types.Result.GetResult<Prisma.$JobTodoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  chatMessage<T extends Prisma.JobFile$chatMessageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobFile$chatMessageArgs<ExtArgs>>): Prisma.Prisma__JobChatMessageClient<runtime.Types.Result.GetResult<Prisma.$JobChatMessagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   uploadedBy<T extends Prisma.JobFile$uploadedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobFile$uploadedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2691,6 +2971,7 @@ export interface JobFileFieldRefs {
   readonly postId: Prisma.FieldRef<"JobFile", 'String'>
   readonly commentId: Prisma.FieldRef<"JobFile", 'String'>
   readonly todoId: Prisma.FieldRef<"JobFile", 'String'>
+  readonly chatMessageId: Prisma.FieldRef<"JobFile", 'String'>
   readonly name: Prisma.FieldRef<"JobFile", 'String'>
   readonly url: Prisma.FieldRef<"JobFile", 'String'>
   readonly pathname: Prisma.FieldRef<"JobFile", 'String'>
@@ -3177,6 +3458,25 @@ export type JobFile$todoArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   include?: Prisma.JobTodoInclude<ExtArgs> | null
   where?: Prisma.JobTodoWhereInput
+}
+
+/**
+ * JobFile.chatMessage
+ */
+export type JobFile$chatMessageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JobChatMessage
+   */
+  select?: Prisma.JobChatMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JobChatMessage
+   */
+  omit?: Prisma.JobChatMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobChatMessageInclude<ExtArgs> | null
+  where?: Prisma.JobChatMessageWhereInput
 }
 
 /**

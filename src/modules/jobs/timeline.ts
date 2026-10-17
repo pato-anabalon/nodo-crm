@@ -116,6 +116,16 @@ export function describeJobActivity(
     case JobActivityType.TODO_REOPENED:
     case JobActivityType.TODO_COMMENTED:
       return t(line.type, { actor, title: str("title") ?? "" });
+    case JobActivityType.EVENT_CREATED: {
+      const day = str("startsOn");
+      return day
+        ? t("EVENT_CREATED", { actor, title: str("title") ?? "", date: helpers.formatDay(day) })
+        : t("EVENT_CREATED_undated", { actor, title: str("title") ?? "" });
+    }
+    case JobActivityType.EVENT_COMMENTED:
+      return t("EVENT_COMMENTED", { actor, title: str("title") ?? "" });
+    case JobActivityType.CHAT_MESSAGES:
+      return t("CHAT_MESSAGES", { actor, count: typeof params.count === "number" ? params.count : 1 });
     default:
       return String(line.type);
   }
@@ -153,6 +163,11 @@ export function activityPermission(type: JobActivityType): Permission {
     case JobActivityType.TODO_REOPENED:
     case JobActivityType.TODO_COMMENTED:
       return "todos.read";
+    case JobActivityType.EVENT_CREATED:
+    case JobActivityType.EVENT_COMMENTED:
+      return "schedule.read";
+    case JobActivityType.CHAT_MESSAGES:
+      return "chat.read";
     default:
       return "jobs.read";
   }
@@ -174,6 +189,7 @@ export function activityHref(jobId: string, type: JobActivityType, params: unkno
   const postId = typeof p.postId === "string" ? p.postId : null;
   const todoId = typeof p.todoId === "string" ? p.todoId : null;
   const listId = typeof p.listId === "string" ? p.listId : null;
+  const eventId = typeof p.eventId === "string" ? p.eventId : null;
   const commentAnchor = typeof p.commentId === "string" ? `#comment-${p.commentId}` : "";
   switch (type) {
     case JobActivityType.POST_PUBLISHED:
@@ -195,6 +211,11 @@ export function activityHref(jobId: string, type: JobActivityType, params: unkno
     case JobActivityType.TODO_COMMENTED:
       if (todoId) return `/jobs/${jobId}/todos/${todoId}${commentAnchor}`;
       return listId ? `/jobs/${jobId}/todos/lists/${listId}${commentAnchor}` : null;
+    case JobActivityType.EVENT_CREATED:
+    case JobActivityType.EVENT_COMMENTED:
+      return eventId ? `/jobs/${jobId}/schedule/${eventId}${commentAnchor}` : null;
+    case JobActivityType.CHAT_MESSAGES:
+      return `/jobs/${jobId}/chat`;
     default:
       return null;
   }

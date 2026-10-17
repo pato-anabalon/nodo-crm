@@ -39,6 +39,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: "/leads", labelKey: "leads", icon: "users", permission: "leads.read" },
   { href: "/quotes", labelKey: "quotes", icon: "file-text", permission: "quotes.read" },
   { href: "/jobs", labelKey: "jobs", icon: "briefcase", permission: "jobs.read" },
+  { href: "/lineup", labelKey: "lineup", icon: "calendar-range", permission: "lineup.read" },
   { href: "/contacts", labelKey: "contacts", icon: "contact", permission: "contacts.read" },
   { href: "/clients", labelKey: "clients", icon: "building", permission: "contacts.read" },
   { href: "/tasks", labelKey: "tasks", icon: "check", permission: "leads.read" },

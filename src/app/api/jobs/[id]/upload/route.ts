@@ -11,6 +11,7 @@ const UPLOAD_PERMISSIONS: Permission[] = [
   "comments.create",
   "todos.create",
   "todos.update",
+  "chat.create",
 ];
 
 /**
@@ -23,18 +24,19 @@ const UPLOAD_PERMISSIONS: Permission[] = [
  * type and size the rules table allows for that extension.
  *
  * The upload is registered afterwards — by `registerJobFilesAction` into Docs,
- * or with the post, comment or to-do it is attached to — not by Blob calling back
- * here: the callback can't reach localhost, and registering checks the path
- * all over again before a row is written.
+ * or with the post, comment, to-do or chat message it is attached to — not by
+ * Blob calling back here: the callback can't reach localhost, and registering
+ * checks the path all over again before a row is written.
  */
 export async function POST(request: Request, context: { params: Promise<{ id: string }> }) {
   const ctx = await getCompanyContext();
   if (!ctx) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
 
   const { id } = await context.params;
-  // Somebody filing into Docs, posting, commenting or writing a to-do: any of
-  // them is a reason to put a file in this job's store. Which one it was is checked
-  // again when the file is registered, against the thing it is attached to.
+  // Somebody filing into Docs, posting, commenting, writing a to-do or chatting:
+  // any of them is a reason to put a file in this job's store. Which one it was
+  // is checked again when the file is registered, against the thing it is
+  // attached to.
   const permission = UPLOAD_PERMISSIONS.find((key) => can(ctx, key));
   const job = permission ? await jobAccess(ctx, id, permission) : null;
   if (!job) return NextResponse.json({ error: "not-found" }, { status: 404 });

@@ -16,10 +16,11 @@ import { logJobActivity } from "./service";
 const uploaderSelect = { id: true, name: true, email: true, image: true } as const;
 
 /**
- * Docs & Files shows what was filed there. A post's, a comment's or a to-do's
- * attachments are the same table but live with what they were attached to.
+ * Docs & Files shows what was filed there. A post's, a comment's, a to-do's or
+ * a chat message's attachments are the same table but live with what they
+ * were attached to.
  */
-const filed = { postId: null, commentId: null, todoId: null } as const;
+const filed = { postId: null, commentId: null, todoId: null, chatMessageId: null } as const;
 
 export const jobFileSelect = {
   id: true,
@@ -246,10 +247,10 @@ export async function registerFiles(
 }
 
 /** Where an attachment lives: the thing it was attached to. */
-export type AttachmentHome = { postId: string } | { commentId: string } | { todoId: string };
+export type AttachmentHome = { postId: string } | { commentId: string } | { todoId: string } | { chatMessageId: string };
 
 /**
- * Attaches files to a post, a comment or a to-do. No timeline line of its own:
+ * Attaches files to a post, a comment, a to-do or a chat message. No timeline line of its own:
  * the thing going out is the news, and its line says so.
  */
 export async function attachFiles(

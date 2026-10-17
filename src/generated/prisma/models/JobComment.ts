@@ -16,8 +16,8 @@ import type * as Prisma from "../internal/prismaNamespace"
  * Model JobComment
  * *
  *  * A comment on something inside a job. One nullable key per thing that can be
- *  * commented on — a post, a to-do, a to-do list; events as they arrive — and a
- *  * check in the migration that exactly one is set.
+ *  * commented on — a post, a to-do, a to-do list, an event — and a check in the
+ *  * migration that exactly one is set.
  */
 export type JobCommentModel = runtime.Types.Result.DefaultSelection<Prisma.$JobCommentPayload>
 
@@ -34,6 +34,7 @@ export type JobCommentMinAggregateOutputType = {
   postId: string | null
   todoId: string | null
   todoListId: string | null
+  eventId: string | null
   body: string | null
   authorId: string | null
   editedAt: Date | null
@@ -48,6 +49,7 @@ export type JobCommentMaxAggregateOutputType = {
   postId: string | null
   todoId: string | null
   todoListId: string | null
+  eventId: string | null
   body: string | null
   authorId: string | null
   editedAt: Date | null
@@ -62,6 +64,7 @@ export type JobCommentCountAggregateOutputType = {
   postId: number
   todoId: number
   todoListId: number
+  eventId: number
   body: number
   authorId: number
   editedAt: number
@@ -78,6 +81,7 @@ export type JobCommentMinAggregateInputType = {
   postId?: true
   todoId?: true
   todoListId?: true
+  eventId?: true
   body?: true
   authorId?: true
   editedAt?: true
@@ -92,6 +96,7 @@ export type JobCommentMaxAggregateInputType = {
   postId?: true
   todoId?: true
   todoListId?: true
+  eventId?: true
   body?: true
   authorId?: true
   editedAt?: true
@@ -106,6 +111,7 @@ export type JobCommentCountAggregateInputType = {
   postId?: true
   todoId?: true
   todoListId?: true
+  eventId?: true
   body?: true
   authorId?: true
   editedAt?: true
@@ -193,6 +199,7 @@ export type JobCommentGroupByOutputType = {
   postId: string | null
   todoId: string | null
   todoListId: string | null
+  eventId: string | null
   body: string
   authorId: string | null
   editedAt: Date | null
@@ -228,6 +235,7 @@ export type JobCommentWhereInput = {
   postId?: Prisma.StringNullableFilter<"JobComment"> | string | null
   todoId?: Prisma.StringNullableFilter<"JobComment"> | string | null
   todoListId?: Prisma.StringNullableFilter<"JobComment"> | string | null
+  eventId?: Prisma.StringNullableFilter<"JobComment"> | string | null
   body?: Prisma.StringFilter<"JobComment"> | string
   authorId?: Prisma.StringNullableFilter<"JobComment"> | string | null
   editedAt?: Prisma.DateTimeNullableFilter<"JobComment"> | Date | string | null
@@ -238,6 +246,7 @@ export type JobCommentWhereInput = {
   post?: Prisma.XOR<Prisma.JobPostNullableScalarRelationFilter, Prisma.JobPostWhereInput> | null
   todo?: Prisma.XOR<Prisma.JobTodoNullableScalarRelationFilter, Prisma.JobTodoWhereInput> | null
   todoList?: Prisma.XOR<Prisma.JobTodoListNullableScalarRelationFilter, Prisma.JobTodoListWhereInput> | null
+  event?: Prisma.XOR<Prisma.JobEventNullableScalarRelationFilter, Prisma.JobEventWhereInput> | null
   author?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   files?: Prisma.JobFileListRelationFilter
 }
@@ -249,6 +258,7 @@ export type JobCommentOrderByWithRelationInput = {
   postId?: Prisma.SortOrderInput | Prisma.SortOrder
   todoId?: Prisma.SortOrderInput | Prisma.SortOrder
   todoListId?: Prisma.SortOrderInput | Prisma.SortOrder
+  eventId?: Prisma.SortOrderInput | Prisma.SortOrder
   body?: Prisma.SortOrder
   authorId?: Prisma.SortOrderInput | Prisma.SortOrder
   editedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -259,6 +269,7 @@ export type JobCommentOrderByWithRelationInput = {
   post?: Prisma.JobPostOrderByWithRelationInput
   todo?: Prisma.JobTodoOrderByWithRelationInput
   todoList?: Prisma.JobTodoListOrderByWithRelationInput
+  event?: Prisma.JobEventOrderByWithRelationInput
   author?: Prisma.UserOrderByWithRelationInput
   files?: Prisma.JobFileOrderByRelationAggregateInput
 }
@@ -273,6 +284,7 @@ export type JobCommentWhereUniqueInput = Prisma.AtLeast<{
   postId?: Prisma.StringNullableFilter<"JobComment"> | string | null
   todoId?: Prisma.StringNullableFilter<"JobComment"> | string | null
   todoListId?: Prisma.StringNullableFilter<"JobComment"> | string | null
+  eventId?: Prisma.StringNullableFilter<"JobComment"> | string | null
   body?: Prisma.StringFilter<"JobComment"> | string
   authorId?: Prisma.StringNullableFilter<"JobComment"> | string | null
   editedAt?: Prisma.DateTimeNullableFilter<"JobComment"> | Date | string | null
@@ -283,6 +295,7 @@ export type JobCommentWhereUniqueInput = Prisma.AtLeast<{
   post?: Prisma.XOR<Prisma.JobPostNullableScalarRelationFilter, Prisma.JobPostWhereInput> | null
   todo?: Prisma.XOR<Prisma.JobTodoNullableScalarRelationFilter, Prisma.JobTodoWhereInput> | null
   todoList?: Prisma.XOR<Prisma.JobTodoListNullableScalarRelationFilter, Prisma.JobTodoListWhereInput> | null
+  event?: Prisma.XOR<Prisma.JobEventNullableScalarRelationFilter, Prisma.JobEventWhereInput> | null
   author?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   files?: Prisma.JobFileListRelationFilter
 }, "id">
@@ -294,6 +307,7 @@ export type JobCommentOrderByWithAggregationInput = {
   postId?: Prisma.SortOrderInput | Prisma.SortOrder
   todoId?: Prisma.SortOrderInput | Prisma.SortOrder
   todoListId?: Prisma.SortOrderInput | Prisma.SortOrder
+  eventId?: Prisma.SortOrderInput | Prisma.SortOrder
   body?: Prisma.SortOrder
   authorId?: Prisma.SortOrderInput | Prisma.SortOrder
   editedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -314,6 +328,7 @@ export type JobCommentScalarWhereWithAggregatesInput = {
   postId?: Prisma.StringNullableWithAggregatesFilter<"JobComment"> | string | null
   todoId?: Prisma.StringNullableWithAggregatesFilter<"JobComment"> | string | null
   todoListId?: Prisma.StringNullableWithAggregatesFilter<"JobComment"> | string | null
+  eventId?: Prisma.StringNullableWithAggregatesFilter<"JobComment"> | string | null
   body?: Prisma.StringWithAggregatesFilter<"JobComment"> | string
   authorId?: Prisma.StringNullableWithAggregatesFilter<"JobComment"> | string | null
   editedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"JobComment"> | Date | string | null
@@ -332,6 +347,7 @@ export type JobCommentCreateInput = {
   post?: Prisma.JobPostCreateNestedOneWithoutCommentsInput
   todo?: Prisma.JobTodoCreateNestedOneWithoutCommentsInput
   todoList?: Prisma.JobTodoListCreateNestedOneWithoutCommentsInput
+  event?: Prisma.JobEventCreateNestedOneWithoutCommentsInput
   author?: Prisma.UserCreateNestedOneWithoutJobCommentsWrittenInput
   files?: Prisma.JobFileCreateNestedManyWithoutCommentInput
 }
@@ -343,6 +359,7 @@ export type JobCommentUncheckedCreateInput = {
   postId?: string | null
   todoId?: string | null
   todoListId?: string | null
+  eventId?: string | null
   body: string
   authorId?: string | null
   editedAt?: Date | string | null
@@ -362,6 +379,7 @@ export type JobCommentUpdateInput = {
   post?: Prisma.JobPostUpdateOneWithoutCommentsNestedInput
   todo?: Prisma.JobTodoUpdateOneWithoutCommentsNestedInput
   todoList?: Prisma.JobTodoListUpdateOneWithoutCommentsNestedInput
+  event?: Prisma.JobEventUpdateOneWithoutCommentsNestedInput
   author?: Prisma.UserUpdateOneWithoutJobCommentsWrittenNestedInput
   files?: Prisma.JobFileUpdateManyWithoutCommentNestedInput
 }
@@ -373,6 +391,7 @@ export type JobCommentUncheckedUpdateInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -388,6 +407,7 @@ export type JobCommentCreateManyInput = {
   postId?: string | null
   todoId?: string | null
   todoListId?: string | null
+  eventId?: string | null
   body: string
   authorId?: string | null
   editedAt?: Date | string | null
@@ -410,6 +430,7 @@ export type JobCommentUncheckedUpdateManyInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -439,6 +460,7 @@ export type JobCommentCountOrderByAggregateInput = {
   postId?: Prisma.SortOrder
   todoId?: Prisma.SortOrder
   todoListId?: Prisma.SortOrder
+  eventId?: Prisma.SortOrder
   body?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   editedAt?: Prisma.SortOrder
@@ -453,6 +475,7 @@ export type JobCommentMaxOrderByAggregateInput = {
   postId?: Prisma.SortOrder
   todoId?: Prisma.SortOrder
   todoListId?: Prisma.SortOrder
+  eventId?: Prisma.SortOrder
   body?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   editedAt?: Prisma.SortOrder
@@ -467,6 +490,7 @@ export type JobCommentMinOrderByAggregateInput = {
   postId?: Prisma.SortOrder
   todoId?: Prisma.SortOrder
   todoListId?: Prisma.SortOrder
+  eventId?: Prisma.SortOrder
   body?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   editedAt?: Prisma.SortOrder
@@ -658,6 +682,48 @@ export type JobCommentUncheckedUpdateManyWithoutPostNestedInput = {
   deleteMany?: Prisma.JobCommentScalarWhereInput | Prisma.JobCommentScalarWhereInput[]
 }
 
+export type JobCommentCreateNestedManyWithoutEventInput = {
+  create?: Prisma.XOR<Prisma.JobCommentCreateWithoutEventInput, Prisma.JobCommentUncheckedCreateWithoutEventInput> | Prisma.JobCommentCreateWithoutEventInput[] | Prisma.JobCommentUncheckedCreateWithoutEventInput[]
+  connectOrCreate?: Prisma.JobCommentCreateOrConnectWithoutEventInput | Prisma.JobCommentCreateOrConnectWithoutEventInput[]
+  createMany?: Prisma.JobCommentCreateManyEventInputEnvelope
+  connect?: Prisma.JobCommentWhereUniqueInput | Prisma.JobCommentWhereUniqueInput[]
+}
+
+export type JobCommentUncheckedCreateNestedManyWithoutEventInput = {
+  create?: Prisma.XOR<Prisma.JobCommentCreateWithoutEventInput, Prisma.JobCommentUncheckedCreateWithoutEventInput> | Prisma.JobCommentCreateWithoutEventInput[] | Prisma.JobCommentUncheckedCreateWithoutEventInput[]
+  connectOrCreate?: Prisma.JobCommentCreateOrConnectWithoutEventInput | Prisma.JobCommentCreateOrConnectWithoutEventInput[]
+  createMany?: Prisma.JobCommentCreateManyEventInputEnvelope
+  connect?: Prisma.JobCommentWhereUniqueInput | Prisma.JobCommentWhereUniqueInput[]
+}
+
+export type JobCommentUpdateManyWithoutEventNestedInput = {
+  create?: Prisma.XOR<Prisma.JobCommentCreateWithoutEventInput, Prisma.JobCommentUncheckedCreateWithoutEventInput> | Prisma.JobCommentCreateWithoutEventInput[] | Prisma.JobCommentUncheckedCreateWithoutEventInput[]
+  connectOrCreate?: Prisma.JobCommentCreateOrConnectWithoutEventInput | Prisma.JobCommentCreateOrConnectWithoutEventInput[]
+  upsert?: Prisma.JobCommentUpsertWithWhereUniqueWithoutEventInput | Prisma.JobCommentUpsertWithWhereUniqueWithoutEventInput[]
+  createMany?: Prisma.JobCommentCreateManyEventInputEnvelope
+  set?: Prisma.JobCommentWhereUniqueInput | Prisma.JobCommentWhereUniqueInput[]
+  disconnect?: Prisma.JobCommentWhereUniqueInput | Prisma.JobCommentWhereUniqueInput[]
+  delete?: Prisma.JobCommentWhereUniqueInput | Prisma.JobCommentWhereUniqueInput[]
+  connect?: Prisma.JobCommentWhereUniqueInput | Prisma.JobCommentWhereUniqueInput[]
+  update?: Prisma.JobCommentUpdateWithWhereUniqueWithoutEventInput | Prisma.JobCommentUpdateWithWhereUniqueWithoutEventInput[]
+  updateMany?: Prisma.JobCommentUpdateManyWithWhereWithoutEventInput | Prisma.JobCommentUpdateManyWithWhereWithoutEventInput[]
+  deleteMany?: Prisma.JobCommentScalarWhereInput | Prisma.JobCommentScalarWhereInput[]
+}
+
+export type JobCommentUncheckedUpdateManyWithoutEventNestedInput = {
+  create?: Prisma.XOR<Prisma.JobCommentCreateWithoutEventInput, Prisma.JobCommentUncheckedCreateWithoutEventInput> | Prisma.JobCommentCreateWithoutEventInput[] | Prisma.JobCommentUncheckedCreateWithoutEventInput[]
+  connectOrCreate?: Prisma.JobCommentCreateOrConnectWithoutEventInput | Prisma.JobCommentCreateOrConnectWithoutEventInput[]
+  upsert?: Prisma.JobCommentUpsertWithWhereUniqueWithoutEventInput | Prisma.JobCommentUpsertWithWhereUniqueWithoutEventInput[]
+  createMany?: Prisma.JobCommentCreateManyEventInputEnvelope
+  set?: Prisma.JobCommentWhereUniqueInput | Prisma.JobCommentWhereUniqueInput[]
+  disconnect?: Prisma.JobCommentWhereUniqueInput | Prisma.JobCommentWhereUniqueInput[]
+  delete?: Prisma.JobCommentWhereUniqueInput | Prisma.JobCommentWhereUniqueInput[]
+  connect?: Prisma.JobCommentWhereUniqueInput | Prisma.JobCommentWhereUniqueInput[]
+  update?: Prisma.JobCommentUpdateWithWhereUniqueWithoutEventInput | Prisma.JobCommentUpdateWithWhereUniqueWithoutEventInput[]
+  updateMany?: Prisma.JobCommentUpdateManyWithWhereWithoutEventInput | Prisma.JobCommentUpdateManyWithWhereWithoutEventInput[]
+  deleteMany?: Prisma.JobCommentScalarWhereInput | Prisma.JobCommentScalarWhereInput[]
+}
+
 export type JobCommentCreateNestedManyWithoutTodoListInput = {
   create?: Prisma.XOR<Prisma.JobCommentCreateWithoutTodoListInput, Prisma.JobCommentUncheckedCreateWithoutTodoListInput> | Prisma.JobCommentCreateWithoutTodoListInput[] | Prisma.JobCommentUncheckedCreateWithoutTodoListInput[]
   connectOrCreate?: Prisma.JobCommentCreateOrConnectWithoutTodoListInput | Prisma.JobCommentCreateOrConnectWithoutTodoListInput[]
@@ -752,6 +818,7 @@ export type JobCommentCreateWithoutCompanyInput = {
   post?: Prisma.JobPostCreateNestedOneWithoutCommentsInput
   todo?: Prisma.JobTodoCreateNestedOneWithoutCommentsInput
   todoList?: Prisma.JobTodoListCreateNestedOneWithoutCommentsInput
+  event?: Prisma.JobEventCreateNestedOneWithoutCommentsInput
   author?: Prisma.UserCreateNestedOneWithoutJobCommentsWrittenInput
   files?: Prisma.JobFileCreateNestedManyWithoutCommentInput
 }
@@ -762,6 +829,7 @@ export type JobCommentUncheckedCreateWithoutCompanyInput = {
   postId?: string | null
   todoId?: string | null
   todoListId?: string | null
+  eventId?: string | null
   body: string
   authorId?: string | null
   editedAt?: Date | string | null
@@ -806,6 +874,7 @@ export type JobCommentScalarWhereInput = {
   postId?: Prisma.StringNullableFilter<"JobComment"> | string | null
   todoId?: Prisma.StringNullableFilter<"JobComment"> | string | null
   todoListId?: Prisma.StringNullableFilter<"JobComment"> | string | null
+  eventId?: Prisma.StringNullableFilter<"JobComment"> | string | null
   body?: Prisma.StringFilter<"JobComment"> | string
   authorId?: Prisma.StringNullableFilter<"JobComment"> | string | null
   editedAt?: Prisma.DateTimeNullableFilter<"JobComment"> | Date | string | null
@@ -824,6 +893,7 @@ export type JobCommentCreateWithoutAuthorInput = {
   post?: Prisma.JobPostCreateNestedOneWithoutCommentsInput
   todo?: Prisma.JobTodoCreateNestedOneWithoutCommentsInput
   todoList?: Prisma.JobTodoListCreateNestedOneWithoutCommentsInput
+  event?: Prisma.JobEventCreateNestedOneWithoutCommentsInput
   files?: Prisma.JobFileCreateNestedManyWithoutCommentInput
 }
 
@@ -834,6 +904,7 @@ export type JobCommentUncheckedCreateWithoutAuthorInput = {
   postId?: string | null
   todoId?: string | null
   todoListId?: string | null
+  eventId?: string | null
   body: string
   editedAt?: Date | string | null
   createdAt?: Date | string
@@ -877,6 +948,7 @@ export type JobCommentCreateWithoutJobInput = {
   post?: Prisma.JobPostCreateNestedOneWithoutCommentsInput
   todo?: Prisma.JobTodoCreateNestedOneWithoutCommentsInput
   todoList?: Prisma.JobTodoListCreateNestedOneWithoutCommentsInput
+  event?: Prisma.JobEventCreateNestedOneWithoutCommentsInput
   author?: Prisma.UserCreateNestedOneWithoutJobCommentsWrittenInput
   files?: Prisma.JobFileCreateNestedManyWithoutCommentInput
 }
@@ -887,6 +959,7 @@ export type JobCommentUncheckedCreateWithoutJobInput = {
   postId?: string | null
   todoId?: string | null
   todoListId?: string | null
+  eventId?: string | null
   body: string
   authorId?: string | null
   editedAt?: Date | string | null
@@ -932,6 +1005,7 @@ export type JobCommentCreateWithoutFilesInput = {
   post?: Prisma.JobPostCreateNestedOneWithoutCommentsInput
   todo?: Prisma.JobTodoCreateNestedOneWithoutCommentsInput
   todoList?: Prisma.JobTodoListCreateNestedOneWithoutCommentsInput
+  event?: Prisma.JobEventCreateNestedOneWithoutCommentsInput
   author?: Prisma.UserCreateNestedOneWithoutJobCommentsWrittenInput
 }
 
@@ -942,6 +1016,7 @@ export type JobCommentUncheckedCreateWithoutFilesInput = {
   postId?: string | null
   todoId?: string | null
   todoListId?: string | null
+  eventId?: string | null
   body: string
   authorId?: string | null
   editedAt?: Date | string | null
@@ -976,6 +1051,7 @@ export type JobCommentUpdateWithoutFilesInput = {
   post?: Prisma.JobPostUpdateOneWithoutCommentsNestedInput
   todo?: Prisma.JobTodoUpdateOneWithoutCommentsNestedInput
   todoList?: Prisma.JobTodoListUpdateOneWithoutCommentsNestedInput
+  event?: Prisma.JobEventUpdateOneWithoutCommentsNestedInput
   author?: Prisma.UserUpdateOneWithoutJobCommentsWrittenNestedInput
 }
 
@@ -986,6 +1062,7 @@ export type JobCommentUncheckedUpdateWithoutFilesInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1003,6 +1080,7 @@ export type JobCommentCreateWithoutPostInput = {
   job: Prisma.JobCreateNestedOneWithoutCommentsInput
   todo?: Prisma.JobTodoCreateNestedOneWithoutCommentsInput
   todoList?: Prisma.JobTodoListCreateNestedOneWithoutCommentsInput
+  event?: Prisma.JobEventCreateNestedOneWithoutCommentsInput
   author?: Prisma.UserCreateNestedOneWithoutJobCommentsWrittenInput
   files?: Prisma.JobFileCreateNestedManyWithoutCommentInput
 }
@@ -1013,6 +1091,7 @@ export type JobCommentUncheckedCreateWithoutPostInput = {
   jobId: string
   todoId?: string | null
   todoListId?: string | null
+  eventId?: string | null
   body: string
   authorId?: string | null
   editedAt?: Date | string | null
@@ -1047,6 +1126,62 @@ export type JobCommentUpdateManyWithWhereWithoutPostInput = {
   data: Prisma.XOR<Prisma.JobCommentUpdateManyMutationInput, Prisma.JobCommentUncheckedUpdateManyWithoutPostInput>
 }
 
+export type JobCommentCreateWithoutEventInput = {
+  id?: string
+  body: string
+  editedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutJobCommentsInput
+  job: Prisma.JobCreateNestedOneWithoutCommentsInput
+  post?: Prisma.JobPostCreateNestedOneWithoutCommentsInput
+  todo?: Prisma.JobTodoCreateNestedOneWithoutCommentsInput
+  todoList?: Prisma.JobTodoListCreateNestedOneWithoutCommentsInput
+  author?: Prisma.UserCreateNestedOneWithoutJobCommentsWrittenInput
+  files?: Prisma.JobFileCreateNestedManyWithoutCommentInput
+}
+
+export type JobCommentUncheckedCreateWithoutEventInput = {
+  id?: string
+  companyId: string
+  jobId: string
+  postId?: string | null
+  todoId?: string | null
+  todoListId?: string | null
+  body: string
+  authorId?: string | null
+  editedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  files?: Prisma.JobFileUncheckedCreateNestedManyWithoutCommentInput
+}
+
+export type JobCommentCreateOrConnectWithoutEventInput = {
+  where: Prisma.JobCommentWhereUniqueInput
+  create: Prisma.XOR<Prisma.JobCommentCreateWithoutEventInput, Prisma.JobCommentUncheckedCreateWithoutEventInput>
+}
+
+export type JobCommentCreateManyEventInputEnvelope = {
+  data: Prisma.JobCommentCreateManyEventInput | Prisma.JobCommentCreateManyEventInput[]
+  skipDuplicates?: boolean
+}
+
+export type JobCommentUpsertWithWhereUniqueWithoutEventInput = {
+  where: Prisma.JobCommentWhereUniqueInput
+  update: Prisma.XOR<Prisma.JobCommentUpdateWithoutEventInput, Prisma.JobCommentUncheckedUpdateWithoutEventInput>
+  create: Prisma.XOR<Prisma.JobCommentCreateWithoutEventInput, Prisma.JobCommentUncheckedCreateWithoutEventInput>
+}
+
+export type JobCommentUpdateWithWhereUniqueWithoutEventInput = {
+  where: Prisma.JobCommentWhereUniqueInput
+  data: Prisma.XOR<Prisma.JobCommentUpdateWithoutEventInput, Prisma.JobCommentUncheckedUpdateWithoutEventInput>
+}
+
+export type JobCommentUpdateManyWithWhereWithoutEventInput = {
+  where: Prisma.JobCommentScalarWhereInput
+  data: Prisma.XOR<Prisma.JobCommentUpdateManyMutationInput, Prisma.JobCommentUncheckedUpdateManyWithoutEventInput>
+}
+
 export type JobCommentCreateWithoutTodoListInput = {
   id?: string
   body: string
@@ -1057,6 +1192,7 @@ export type JobCommentCreateWithoutTodoListInput = {
   job: Prisma.JobCreateNestedOneWithoutCommentsInput
   post?: Prisma.JobPostCreateNestedOneWithoutCommentsInput
   todo?: Prisma.JobTodoCreateNestedOneWithoutCommentsInput
+  event?: Prisma.JobEventCreateNestedOneWithoutCommentsInput
   author?: Prisma.UserCreateNestedOneWithoutJobCommentsWrittenInput
   files?: Prisma.JobFileCreateNestedManyWithoutCommentInput
 }
@@ -1067,6 +1203,7 @@ export type JobCommentUncheckedCreateWithoutTodoListInput = {
   jobId: string
   postId?: string | null
   todoId?: string | null
+  eventId?: string | null
   body: string
   authorId?: string | null
   editedAt?: Date | string | null
@@ -1111,6 +1248,7 @@ export type JobCommentCreateWithoutTodoInput = {
   job: Prisma.JobCreateNestedOneWithoutCommentsInput
   post?: Prisma.JobPostCreateNestedOneWithoutCommentsInput
   todoList?: Prisma.JobTodoListCreateNestedOneWithoutCommentsInput
+  event?: Prisma.JobEventCreateNestedOneWithoutCommentsInput
   author?: Prisma.UserCreateNestedOneWithoutJobCommentsWrittenInput
   files?: Prisma.JobFileCreateNestedManyWithoutCommentInput
 }
@@ -1121,6 +1259,7 @@ export type JobCommentUncheckedCreateWithoutTodoInput = {
   jobId: string
   postId?: string | null
   todoListId?: string | null
+  eventId?: string | null
   body: string
   authorId?: string | null
   editedAt?: Date | string | null
@@ -1161,6 +1300,7 @@ export type JobCommentCreateManyCompanyInput = {
   postId?: string | null
   todoId?: string | null
   todoListId?: string | null
+  eventId?: string | null
   body: string
   authorId?: string | null
   editedAt?: Date | string | null
@@ -1178,6 +1318,7 @@ export type JobCommentUpdateWithoutCompanyInput = {
   post?: Prisma.JobPostUpdateOneWithoutCommentsNestedInput
   todo?: Prisma.JobTodoUpdateOneWithoutCommentsNestedInput
   todoList?: Prisma.JobTodoListUpdateOneWithoutCommentsNestedInput
+  event?: Prisma.JobEventUpdateOneWithoutCommentsNestedInput
   author?: Prisma.UserUpdateOneWithoutJobCommentsWrittenNestedInput
   files?: Prisma.JobFileUpdateManyWithoutCommentNestedInput
 }
@@ -1188,6 +1329,7 @@ export type JobCommentUncheckedUpdateWithoutCompanyInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1202,6 +1344,7 @@ export type JobCommentUncheckedUpdateManyWithoutCompanyInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1216,6 +1359,7 @@ export type JobCommentCreateManyAuthorInput = {
   postId?: string | null
   todoId?: string | null
   todoListId?: string | null
+  eventId?: string | null
   body: string
   editedAt?: Date | string | null
   createdAt?: Date | string
@@ -1233,6 +1377,7 @@ export type JobCommentUpdateWithoutAuthorInput = {
   post?: Prisma.JobPostUpdateOneWithoutCommentsNestedInput
   todo?: Prisma.JobTodoUpdateOneWithoutCommentsNestedInput
   todoList?: Prisma.JobTodoListUpdateOneWithoutCommentsNestedInput
+  event?: Prisma.JobEventUpdateOneWithoutCommentsNestedInput
   files?: Prisma.JobFileUpdateManyWithoutCommentNestedInput
 }
 
@@ -1243,6 +1388,7 @@ export type JobCommentUncheckedUpdateWithoutAuthorInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1257,6 +1403,7 @@ export type JobCommentUncheckedUpdateManyWithoutAuthorInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1269,6 +1416,7 @@ export type JobCommentCreateManyJobInput = {
   postId?: string | null
   todoId?: string | null
   todoListId?: string | null
+  eventId?: string | null
   body: string
   authorId?: string | null
   editedAt?: Date | string | null
@@ -1286,6 +1434,7 @@ export type JobCommentUpdateWithoutJobInput = {
   post?: Prisma.JobPostUpdateOneWithoutCommentsNestedInput
   todo?: Prisma.JobTodoUpdateOneWithoutCommentsNestedInput
   todoList?: Prisma.JobTodoListUpdateOneWithoutCommentsNestedInput
+  event?: Prisma.JobEventUpdateOneWithoutCommentsNestedInput
   author?: Prisma.UserUpdateOneWithoutJobCommentsWrittenNestedInput
   files?: Prisma.JobFileUpdateManyWithoutCommentNestedInput
 }
@@ -1296,6 +1445,7 @@ export type JobCommentUncheckedUpdateWithoutJobInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1310,6 +1460,7 @@ export type JobCommentUncheckedUpdateManyWithoutJobInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1323,6 +1474,7 @@ export type JobCommentCreateManyPostInput = {
   jobId: string
   todoId?: string | null
   todoListId?: string | null
+  eventId?: string | null
   body: string
   authorId?: string | null
   editedAt?: Date | string | null
@@ -1340,6 +1492,7 @@ export type JobCommentUpdateWithoutPostInput = {
   job?: Prisma.JobUpdateOneRequiredWithoutCommentsNestedInput
   todo?: Prisma.JobTodoUpdateOneWithoutCommentsNestedInput
   todoList?: Prisma.JobTodoListUpdateOneWithoutCommentsNestedInput
+  event?: Prisma.JobEventUpdateOneWithoutCommentsNestedInput
   author?: Prisma.UserUpdateOneWithoutJobCommentsWrittenNestedInput
   files?: Prisma.JobFileUpdateManyWithoutCommentNestedInput
 }
@@ -1350,6 +1503,7 @@ export type JobCommentUncheckedUpdateWithoutPostInput = {
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1362,6 +1516,65 @@ export type JobCommentUncheckedUpdateManyWithoutPostInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  todoListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type JobCommentCreateManyEventInput = {
+  id?: string
+  companyId: string
+  jobId: string
+  postId?: string | null
+  todoId?: string | null
+  todoListId?: string | null
+  body: string
+  authorId?: string | null
+  editedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type JobCommentUpdateWithoutEventInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutJobCommentsNestedInput
+  job?: Prisma.JobUpdateOneRequiredWithoutCommentsNestedInput
+  post?: Prisma.JobPostUpdateOneWithoutCommentsNestedInput
+  todo?: Prisma.JobTodoUpdateOneWithoutCommentsNestedInput
+  todoList?: Prisma.JobTodoListUpdateOneWithoutCommentsNestedInput
+  author?: Prisma.UserUpdateOneWithoutJobCommentsWrittenNestedInput
+  files?: Prisma.JobFileUpdateManyWithoutCommentNestedInput
+}
+
+export type JobCommentUncheckedUpdateWithoutEventInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  todoListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  files?: Prisma.JobFileUncheckedUpdateManyWithoutCommentNestedInput
+}
+
+export type JobCommentUncheckedUpdateManyWithoutEventInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1377,6 +1590,7 @@ export type JobCommentCreateManyTodoListInput = {
   jobId: string
   postId?: string | null
   todoId?: string | null
+  eventId?: string | null
   body: string
   authorId?: string | null
   editedAt?: Date | string | null
@@ -1394,6 +1608,7 @@ export type JobCommentUpdateWithoutTodoListInput = {
   job?: Prisma.JobUpdateOneRequiredWithoutCommentsNestedInput
   post?: Prisma.JobPostUpdateOneWithoutCommentsNestedInput
   todo?: Prisma.JobTodoUpdateOneWithoutCommentsNestedInput
+  event?: Prisma.JobEventUpdateOneWithoutCommentsNestedInput
   author?: Prisma.UserUpdateOneWithoutJobCommentsWrittenNestedInput
   files?: Prisma.JobFileUpdateManyWithoutCommentNestedInput
 }
@@ -1404,6 +1619,7 @@ export type JobCommentUncheckedUpdateWithoutTodoListInput = {
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1418,6 +1634,7 @@ export type JobCommentUncheckedUpdateManyWithoutTodoListInput = {
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1431,6 +1648,7 @@ export type JobCommentCreateManyTodoInput = {
   jobId: string
   postId?: string | null
   todoListId?: string | null
+  eventId?: string | null
   body: string
   authorId?: string | null
   editedAt?: Date | string | null
@@ -1448,6 +1666,7 @@ export type JobCommentUpdateWithoutTodoInput = {
   job?: Prisma.JobUpdateOneRequiredWithoutCommentsNestedInput
   post?: Prisma.JobPostUpdateOneWithoutCommentsNestedInput
   todoList?: Prisma.JobTodoListUpdateOneWithoutCommentsNestedInput
+  event?: Prisma.JobEventUpdateOneWithoutCommentsNestedInput
   author?: Prisma.UserUpdateOneWithoutJobCommentsWrittenNestedInput
   files?: Prisma.JobFileUpdateManyWithoutCommentNestedInput
 }
@@ -1458,6 +1677,7 @@ export type JobCommentUncheckedUpdateWithoutTodoInput = {
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1472,6 +1692,7 @@ export type JobCommentUncheckedUpdateManyWithoutTodoInput = {
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1517,6 +1738,7 @@ export type JobCommentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   postId?: boolean
   todoId?: boolean
   todoListId?: boolean
+  eventId?: boolean
   body?: boolean
   authorId?: boolean
   editedAt?: boolean
@@ -1527,6 +1749,7 @@ export type JobCommentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   post?: boolean | Prisma.JobComment$postArgs<ExtArgs>
   todo?: boolean | Prisma.JobComment$todoArgs<ExtArgs>
   todoList?: boolean | Prisma.JobComment$todoListArgs<ExtArgs>
+  event?: boolean | Prisma.JobComment$eventArgs<ExtArgs>
   author?: boolean | Prisma.JobComment$authorArgs<ExtArgs>
   files?: boolean | Prisma.JobComment$filesArgs<ExtArgs>
   _count?: boolean | Prisma.JobCommentCountOutputTypeDefaultArgs<ExtArgs>
@@ -1539,6 +1762,7 @@ export type JobCommentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   postId?: boolean
   todoId?: boolean
   todoListId?: boolean
+  eventId?: boolean
   body?: boolean
   authorId?: boolean
   editedAt?: boolean
@@ -1549,6 +1773,7 @@ export type JobCommentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   post?: boolean | Prisma.JobComment$postArgs<ExtArgs>
   todo?: boolean | Prisma.JobComment$todoArgs<ExtArgs>
   todoList?: boolean | Prisma.JobComment$todoListArgs<ExtArgs>
+  event?: boolean | Prisma.JobComment$eventArgs<ExtArgs>
   author?: boolean | Prisma.JobComment$authorArgs<ExtArgs>
 }, ExtArgs["result"]["jobComment"]>
 
@@ -1559,6 +1784,7 @@ export type JobCommentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   postId?: boolean
   todoId?: boolean
   todoListId?: boolean
+  eventId?: boolean
   body?: boolean
   authorId?: boolean
   editedAt?: boolean
@@ -1569,6 +1795,7 @@ export type JobCommentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   post?: boolean | Prisma.JobComment$postArgs<ExtArgs>
   todo?: boolean | Prisma.JobComment$todoArgs<ExtArgs>
   todoList?: boolean | Prisma.JobComment$todoListArgs<ExtArgs>
+  event?: boolean | Prisma.JobComment$eventArgs<ExtArgs>
   author?: boolean | Prisma.JobComment$authorArgs<ExtArgs>
 }, ExtArgs["result"]["jobComment"]>
 
@@ -1579,6 +1806,7 @@ export type JobCommentSelectScalar = {
   postId?: boolean
   todoId?: boolean
   todoListId?: boolean
+  eventId?: boolean
   body?: boolean
   authorId?: boolean
   editedAt?: boolean
@@ -1586,13 +1814,14 @@ export type JobCommentSelectScalar = {
   updatedAt?: boolean
 }
 
-export type JobCommentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "jobId" | "postId" | "todoId" | "todoListId" | "body" | "authorId" | "editedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["jobComment"]>
+export type JobCommentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "jobId" | "postId" | "todoId" | "todoListId" | "eventId" | "body" | "authorId" | "editedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["jobComment"]>
 export type JobCommentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
   post?: boolean | Prisma.JobComment$postArgs<ExtArgs>
   todo?: boolean | Prisma.JobComment$todoArgs<ExtArgs>
   todoList?: boolean | Prisma.JobComment$todoListArgs<ExtArgs>
+  event?: boolean | Prisma.JobComment$eventArgs<ExtArgs>
   author?: boolean | Prisma.JobComment$authorArgs<ExtArgs>
   files?: boolean | Prisma.JobComment$filesArgs<ExtArgs>
   _count?: boolean | Prisma.JobCommentCountOutputTypeDefaultArgs<ExtArgs>
@@ -1603,6 +1832,7 @@ export type JobCommentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.E
   post?: boolean | Prisma.JobComment$postArgs<ExtArgs>
   todo?: boolean | Prisma.JobComment$todoArgs<ExtArgs>
   todoList?: boolean | Prisma.JobComment$todoListArgs<ExtArgs>
+  event?: boolean | Prisma.JobComment$eventArgs<ExtArgs>
   author?: boolean | Prisma.JobComment$authorArgs<ExtArgs>
 }
 export type JobCommentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1611,6 +1841,7 @@ export type JobCommentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   post?: boolean | Prisma.JobComment$postArgs<ExtArgs>
   todo?: boolean | Prisma.JobComment$todoArgs<ExtArgs>
   todoList?: boolean | Prisma.JobComment$todoListArgs<ExtArgs>
+  event?: boolean | Prisma.JobComment$eventArgs<ExtArgs>
   author?: boolean | Prisma.JobComment$authorArgs<ExtArgs>
 }
 
@@ -1622,6 +1853,7 @@ export type $JobCommentPayload<ExtArgs extends runtime.Types.Extensions.Internal
     post: Prisma.$JobPostPayload<ExtArgs> | null
     todo: Prisma.$JobTodoPayload<ExtArgs> | null
     todoList: Prisma.$JobTodoListPayload<ExtArgs> | null
+    event: Prisma.$JobEventPayload<ExtArgs> | null
     author: Prisma.$UserPayload<ExtArgs> | null
     files: Prisma.$JobFilePayload<ExtArgs>[]
   }
@@ -1632,6 +1864,7 @@ export type $JobCommentPayload<ExtArgs extends runtime.Types.Extensions.Internal
     postId: string | null
     todoId: string | null
     todoListId: string | null
+    eventId: string | null
     body: string
     authorId: string | null
     editedAt: Date | null
@@ -2036,6 +2269,7 @@ export interface Prisma__JobCommentClient<T, Null = never, ExtArgs extends runti
   post<T extends Prisma.JobComment$postArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobComment$postArgs<ExtArgs>>): Prisma.Prisma__JobPostClient<runtime.Types.Result.GetResult<Prisma.$JobPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   todo<T extends Prisma.JobComment$todoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobComment$todoArgs<ExtArgs>>): Prisma.Prisma__JobTodoClient<runtime.Types.Result.GetResult<Prisma.$JobTodoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   todoList<T extends Prisma.JobComment$todoListArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobComment$todoListArgs<ExtArgs>>): Prisma.Prisma__JobTodoListClient<runtime.Types.Result.GetResult<Prisma.$JobTodoListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  event<T extends Prisma.JobComment$eventArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobComment$eventArgs<ExtArgs>>): Prisma.Prisma__JobEventClient<runtime.Types.Result.GetResult<Prisma.$JobEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   author<T extends Prisma.JobComment$authorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobComment$authorArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   files<T extends Prisma.JobComment$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobComment$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -2073,6 +2307,7 @@ export interface JobCommentFieldRefs {
   readonly postId: Prisma.FieldRef<"JobComment", 'String'>
   readonly todoId: Prisma.FieldRef<"JobComment", 'String'>
   readonly todoListId: Prisma.FieldRef<"JobComment", 'String'>
+  readonly eventId: Prisma.FieldRef<"JobComment", 'String'>
   readonly body: Prisma.FieldRef<"JobComment", 'String'>
   readonly authorId: Prisma.FieldRef<"JobComment", 'String'>
   readonly editedAt: Prisma.FieldRef<"JobComment", 'DateTime'>
@@ -2533,6 +2768,25 @@ export type JobComment$todoListArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   include?: Prisma.JobTodoListInclude<ExtArgs> | null
   where?: Prisma.JobTodoListWhereInput
+}
+
+/**
+ * JobComment.event
+ */
+export type JobComment$eventArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JobEvent
+   */
+  select?: Prisma.JobEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JobEvent
+   */
+  omit?: Prisma.JobEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobEventInclude<ExtArgs> | null
+  where?: Prisma.JobEventWhereInput
 }
 
 /**

@@ -448,10 +448,27 @@ export type JobPost = Prisma.JobPostModel
  * Model JobComment
  * *
  *  * A comment on something inside a job. One nullable key per thing that can be
- *  * commented on — a post, a to-do, a to-do list; events as they arrive — and a
- *  * check in the migration that exactly one is set.
+ *  * commented on — a post, a to-do, a to-do list, an event — and a check in the
+ *  * migration that exactly one is set.
  */
 export type JobComment = Prisma.JobCommentModel
+/**
+ * Model JobEvent
+ * *
+ *  * Something on a job's Schedule: a delivery, an inspection, the days the
+ *  * scaffold is up.
+ *  * `startsOn`/`endsOn` are the days it covers, in the company's timezone, and
+ *  * they are what every calendar places it by — a day is a day wherever the
+ *  * server runs. A timed event also keeps its two instants; an all-day one has
+ *  * none. A milestone is also drawn on the Lineup, over its job's bar.
+ */
+export type JobEvent = Prisma.JobEventModel
+/**
+ * Model JobEventParticipant
+ * *
+ *  * Somebody taking part in an event.
+ */
+export type JobEventParticipant = Prisma.JobEventParticipantModel
 /**
  * Model JobTodoList
  * *
@@ -489,3 +506,11 @@ export type Trade = Prisma.TradeModel
  *  * marketing at another.
  */
 export type MembershipTrade = Prisma.MembershipTradeModel
+/**
+ * Model JobChatMessage
+ * *
+ *  * The job's Chat: quick talk, unlike the Message Board's titled posts. Plain
+ *  * text — line breaks and links, nothing else — because it is typed in a hurry
+ *  * on a phone.
+ */
+export type JobChatMessage = Prisma.JobChatMessageModel

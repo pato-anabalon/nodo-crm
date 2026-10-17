@@ -54,3 +54,18 @@ export async function jobName(ctx: CompanyContext, jobId: string): Promise<strin
   const job = await ctx.db.job.findFirst({ where: { id: jobId }, select: { name: true } });
   return job?.name ?? "";
 }
+
+/**
+ * The ids from a form that really are people on this job. Somebody who isn't
+ * on it can't be handed its work or put on its events — they couldn't open
+ * the page to read it.
+ */
+export async function membersAmong(ctx: CompanyContext, jobId: string, userIds: string[]): Promise<string[]> {
+  if (userIds.length === 0) return [];
+  const members = await ctx.db.jobMember.findMany({
+    where: { jobId, userId: { in: userIds } },
+    select: { userId: true },
+  });
+  const allowed = new Set(members.map((member) => member.userId));
+  return userIds.filter((id) => allowed.has(id));
+}

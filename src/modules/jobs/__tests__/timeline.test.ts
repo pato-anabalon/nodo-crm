@@ -182,3 +182,43 @@ describe("To-do lines", () => {
     expect(activityHref("j1", JobActivityType.TODO_COMMENTED, {})).toBeNull();
   });
 });
+
+describe("Schedule lines", () => {
+  const t = (key: string, values?: Record<string, string | number>) =>
+    `${key}${values ? JSON.stringify(values) : ""}`;
+  const helpers = { nameOf: () => "?", list: (names: string[]) => names.join(), formatDay: (day: string) => `<${day}>` };
+
+  it("names the event and the day it is for", () => {
+    expect(
+      describeJobActivity({ type: JobActivityType.EVENT_CREATED, params: { eventId: "e1", title: "Scaffold", startsOn: "2026-10-20" }, actorName: "Ana" }, t, helpers),
+    ).toBe('EVENT_CREATED{"actor":"Ana","title":"Scaffold","date":"<2026-10-20>"}');
+    expect(
+      describeJobActivity({ type: JobActivityType.EVENT_CREATED, params: { eventId: "e1", title: "Scaffold" }, actorName: "Ana" }, t, helpers),
+    ).toBe('EVENT_CREATED_undated{"actor":"Ana","title":"Scaffold"}');
+  });
+
+  it("belongs to the Schedule, and leads to the event or the comment on it", () => {
+    expect(activityPermission(JobActivityType.EVENT_CREATED)).toBe("schedule.read");
+    expect(activityPermission(JobActivityType.EVENT_COMMENTED)).toBe("schedule.read");
+    expect(activityHref("j1", JobActivityType.EVENT_CREATED, { eventId: "e1" })).toBe("/jobs/j1/schedule/e1");
+    expect(activityHref("j1", JobActivityType.EVENT_COMMENTED, { eventId: "e1", commentId: "c1" })).toBe("/jobs/j1/schedule/e1#comment-c1");
+    expect(activityHref("j1", JobActivityType.EVENT_CREATED, {})).toBeNull();
+  });
+});
+
+describe("Chat lines", () => {
+  const t = (key: string, values?: Record<string, string | number>) =>
+    `${key}${values ? JSON.stringify(values) : ""}`;
+  const helpers = { nameOf: () => "?", list: (names: string[]) => names.join(), formatDay: (day: string) => day };
+
+  it("counts a person's messages for the day in one line", () => {
+    expect(
+      describeJobActivity({ type: JobActivityType.CHAT_MESSAGES, params: { day: "2026-10-15", count: 12 }, actorName: "Ana" }, t, helpers),
+    ).toBe('CHAT_MESSAGES{"actor":"Ana","count":12}');
+  });
+
+  it("belongs to the Chat, and leads to it", () => {
+    expect(activityPermission(JobActivityType.CHAT_MESSAGES)).toBe("chat.read");
+    expect(activityHref("j1", JobActivityType.CHAT_MESSAGES, { day: "2026-10-15", count: 1 })).toBe("/jobs/j1/chat");
+  });
+});

@@ -97,10 +97,13 @@ export function AttachmentField({
   jobId,
   prefix,
   existing = [],
+  hint,
 }: {
   jobId: string;
   prefix: string;
   existing?: Attachment[];
+  /** What the line beside the button says, in place of the usual hint. */
+  hint?: string;
 }) {
   const t = useTranslations("jobs.board");
   const tFiles = useTranslations("jobs.files");
@@ -201,7 +204,7 @@ export function AttachmentField({
           {queue.busy ? <Loader2 className="size-4 animate-spin" /> : <Paperclip className="size-4" />}
           {queue.busy ? tFiles("uploading") : t("attach")}
         </Button>
-        <span className="text-xs text-muted-foreground">{t("attachHint")}</span>
+        <span className="text-xs text-muted-foreground">{hint ?? t("attachHint")}</span>
       </div>
     </div>
   );

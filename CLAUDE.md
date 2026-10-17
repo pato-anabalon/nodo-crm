@@ -895,16 +895,77 @@ dragged with the same dnd-kit the quote's sections use.
 - **Every to-do line carries `listId`**, so deleting a list takes all of its
   lines off the timeline with it; moving a to-do rewrites its lines' `listId`.
 
+### The Schedule and the Lineup
+
+Events on a job (`modules/jobs/schedule/`), and every job on one timeline
+(`/lineup`).
+
+- **An event is placed by its days, not its instants.** `startsOn`/`endsOn`
+  are the days it covers on the company's own calendar, and every view lays it
+  out by them; a timed event also keeps `startsAt`/`endsAt`. The form sends days
+  and wall-clock times and the server turns them into instants in the company's
+  timezone (`lib/zoned-time.ts`, which asks `Intl` rather than doing offset
+  arithmetic — the tests cross a daylight-saving change). A day is then the same
+  day wherever the server runs, and the calendar never needs a timezone at all.
+  Two checks in the migration hold the shape: the end isn't before the start,
+  and a timed event has both instants while an all-day one has neither.
+- **The geometry is pure** (`schedule/calendar.ts`): which weeks a view shows
+  (weeks start on Monday), which row of a week each event takes so that
+  something running several days is one bar rather than a copy per cell, where
+  a job's bar sits in the Lineup's window, and what dragging an end does. Days
+  are `YYYY-MM-DD` strings throughout.
+- **The Schedule shows to-dos falling due** beside the events, read-only, for
+  whoever reads to-dos: a due date is a date on the job's calendar.
+- **A milestone is an event with a flag**, and it is what the Lineup draws over
+  the job's bar.
+- **The Lineup moves a job's dates by dragging**, through the very
+  `setJobDatesAction` the job's own dates dialog uses — `jobs.dates`, checked on
+  the server. The bar moves first (`useOptimistic`) and goes back if refused;
+  the arrow keys do the same without a pointer. It sees what `jobVisibilityWhere`
+  lets the person see, so a Worker gets the bars of their own jobs.
+- **A job's colour is one of `JOB_COLOURS`** — chosen to carry white text — or,
+  with none chosen, one derived from its id, so it is the same colour every time
+  it is drawn. Anything else posted reads as none.
+
+### The Chat
+
+Quick talk on a job (`modules/jobs/chat/`), beside the Message Board's titled
+posts. **Plain text** — line breaks and links, nothing else — because it is
+typed in a hurry on a phone; files go through the same attachment pipeline as
+everything else (`JobFile.chatMessageId`, a fifth home in `JobFile_one_home`).
+
+- **Polling, not a socket.** The screen asks `/api/jobs/<id>/chat` every few
+  seconds while its tab is visible, the same shape as the quote's thread. The
+  route and the page draw through one `chatFeed`, so a message that arrives by
+  poll reads exactly like one rendered. Older messages come a page at a time
+  with `?before=<id>`.
+- **Written and deleted, never edited** — the catalogue has no `chat.update`.
+  Deleting is `canTouch`: own with `chat.delete`, anybody's with `jobs.moderate`
+  too. Whether each message may be deleted is worked out on the server and sent
+  as a flag, since a client component can't be handed the rule.
+- **A mention is a fact, not a rendering.** `mentionedIn` finds `@Name` against
+  the job's members when the message is sent and stores the ids
+  (`mentionIds`); only those are drawn as mentions later. The longest name wins
+  at each `@`, a name must end at a word boundary, and an `@` after a letter
+  (an email address) is not one. **Only a mention rings the bell**
+  (`JOB_CHAT_MENTION`) — a notice per message would be a bell nobody reads.
+- **One timeline line per person per day** (`CHAT_MESSAGES`), not per message.
+  Its count is recounted from the messages on every send and delete rather than
+  incremented, so a deletion can't leave it wrong; the last message of the day
+  going takes the line with it.
+- **Enter sends, Shift + Enter is a new line** — except on a touch screen, which
+  has no Shift + Enter, where Enter is a new line and the button sends.
+
 ### Comments, wherever they are
 
-`JobComment` hangs off one thing — a post, a to-do or a list — and a check in
+`JobComment` hangs off one thing — a post, a to-do, a list or an event — and a check in
 the database holds it to exactly one. `comments/subject.ts` turns those keys
 into the answers every caller needs: which tool's read permission it also takes
 (a profile that doesn't read to-dos doesn't reach their comments through the
 comment), and which page it lives on. Writing, editing and deleting one, and who
 hears about a reply, are written once (`comments/service.ts`,
 `comments/actions.ts`), and `CommentThread` draws every conversation. A test
-reads the schema and the migrations and fails if a fourth commentable thing is
+reads the schema and the migrations and fails if another commentable thing is
 added to one and not the other.
 
 ## The three security contexts

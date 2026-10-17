@@ -12,7 +12,7 @@ import { jobName, recipientsOnJob } from "../recipients";
  */
 
 /** The key a comment hangs off, as the row stores it. */
-export type CommentHome = { postId: string } | { todoId: string } | { todoListId: string };
+export type CommentHome = { postId: string } | { todoId: string } | { todoListId: string } | { eventId: string };
 
 export type CommentOutcome = { ok: true; commentId: string } | { ok: false; reason: "files" | "empty" };
 
@@ -20,7 +20,7 @@ export type CommentOutcome = { ok: true; commentId: string } | { ok: false; reas
 export async function findComment(ctx: CompanyContext, commentId: string) {
   return ctx.db.jobComment.findFirst({
     where: { id: commentId },
-    select: { id: true, jobId: true, postId: true, todoId: true, todoListId: true, authorId: true },
+    select: { id: true, jobId: true, postId: true, todoId: true, todoListId: true, eventId: true, authorId: true },
   });
 }
 

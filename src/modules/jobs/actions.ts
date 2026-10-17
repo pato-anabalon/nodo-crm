@@ -30,6 +30,7 @@ export type JobActionState = {
 };
 
 function refresh(jobId?: string) {
+  revalidatePath("/lineup");
   revalidatePath("/jobs");
   if (jobId) revalidatePath(`/jobs/${jobId}`);
 }
@@ -61,6 +62,7 @@ export async function createJobAction(_prev: JobActionState, formData: FormData)
     name: formData.get("name"),
     description: formData.get("description"),
     address: formData.get("address"),
+    color: formData.get("color"),
   });
   const dates = jobDatesSchema.safeParse({ startsOn: formData.get("startsOn"), endsOn: formData.get("endsOn") });
   if (!details.success || !dates.success) {
@@ -92,6 +94,7 @@ export async function updateJobAction(
     name: formData.get("name"),
     description: formData.get("description"),
     address: formData.get("address"),
+    color: formData.get("color"),
   });
   if (!parsed.success) {
     return { fieldErrors: translateFieldErrors(parsed.error.flatten().fieldErrors, t) };

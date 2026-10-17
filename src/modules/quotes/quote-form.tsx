@@ -215,6 +215,7 @@ export function QuoteForm({
   taxLabel,
   submitLabel,
   status,
+  afterDetails,
 }: {
   /** Present only on the edit form — a section can only manage its own
    * attachments once the quote (and the section) actually exist on the
@@ -257,6 +258,12 @@ export function QuoteForm({
   /** The company's tax name (GST, VAT…), to label the breakdown. */
   taxLabel: string;
   submitLabel: string;
+  /**
+   * Rendered right under the Details card — the quote's recipients, which act
+   * on their own rather than through this form's Save. Whatever goes here must
+   * not post fields of its own: it sits inside this `<form>`.
+   */
+  afterDetails?: React.ReactNode;
   /** Present only on the edit form — gates the "you're about to change a
    * quote the customer already has" confirmation below. A new quote is
    * never `SENT`, so `quotes/new/page.tsx` doesn't pass this. */
@@ -637,6 +644,8 @@ export function QuoteForm({
             </div>
           </CardContent>
         </Card>
+
+        {afterDetails}
 
         <Card>
           <CardHeader>

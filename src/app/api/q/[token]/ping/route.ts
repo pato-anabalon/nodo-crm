@@ -28,9 +28,9 @@ import { notifyQuoteOpened } from "@/modules/notifications/service";
  */
 export async function POST(request: Request, context: { params: Promise<{ token: string }> }) {
   const { token } = await context.params;
-  const { status, share } = await resolveShare(token);
+  const { status, share, viewer } = await resolveShare(token);
 
-  if (status !== "ok" || !share) {
+  if (status !== "ok" || !share || !viewer) {
     return new NextResponse(null, { status: 204 });
   }
 
@@ -47,10 +47,11 @@ export async function POST(request: Request, context: { params: Promise<{ token:
         shareId: share.id,
         companyId: share.companyId,
         quoteId: share.quoteId,
+        viewer,
         ipAddress: headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null,
         userAgent: headers.get("user-agent"),
       });
-      await notifyQuoteOpened(share.quoteId);
+      await notifyQuoteOpened(share.quoteId, viewer.name);
     });
   } else {
     await touchPresence(share.id);

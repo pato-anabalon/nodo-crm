@@ -143,6 +143,14 @@ export const SignatureType = {
 export type SignatureType = (typeof SignatureType)[keyof typeof SignatureType]
 
 
+export const SignatureDevice = {
+  THIS_DEVICE: 'THIS_DEVICE',
+  TOUCH_DEVICE: 'TOUCH_DEVICE'
+} as const
+
+export type SignatureDevice = (typeof SignatureDevice)[keyof typeof SignatureDevice]
+
+
 export const NotificationKind = {
   LEAD_RECEIVED: 'LEAD_RECEIVED',
   LEAD_ASSIGNED: 'LEAD_ASSIGNED',

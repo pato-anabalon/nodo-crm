@@ -20,6 +20,7 @@ import { QuoteHeader } from "./quote-header";
 import { CompanyReviews } from "./company-reviews";
 import { readLinks } from "@/modules/settings/review-platforms";
 import { AcceptPanel } from "./accept-panel";
+import { AcceptanceFingerprint } from "./acceptance-fingerprint";
 import { SectionSelector } from "./section-selector";
 import { SectionAttachments } from "./section-attachments";
 import { Celebrate } from "@/components/celebrate";
@@ -35,6 +36,7 @@ import {
   acceptQuoteAction,
   declineQuoteAction,
   sendClientMessageAction,
+  startSignatureHandoffAction,
   updateSectionSelectionAction,
 } from "./actions";
 
@@ -67,11 +69,14 @@ export async function QuoteDocument({
   quote,
   locale,
   token,
+  viewerName = null,
 }: {
   company: DocumentCompany;
   quote: DocumentQuote;
   locale: Locale;
   token: string | null;
+  /** Whoever holds the link, by the token — what the acceptance is signed as. */
+  viewerName?: string | null;
 }) {
   const [t, allMessages] = await Promise.all([
     getTranslations({ locale, namespace: "portal" }),
@@ -155,6 +160,7 @@ export async function QuoteDocument({
               name: quote.clientName,
               email: quote.clientEmail,
               phone: quote.clientPhone,
+              copyTo: quote.recipients.map((recipient) => recipient.email),
             }}
             quote={quote}
             locale={locale}
@@ -175,15 +181,23 @@ export async function QuoteDocument({
           ) : null}
 
           {quote.status === QuoteStatus.ACCEPTED && quote.acceptance ? (
-            <Banner icon="accepted">
-              {t("accepted", {
-                date: formatDateTime(
-                  quote.acceptance.acceptedAt,
-                  company.formatLocale,
-                  company.timezone,
-                ),
-              })}
-            </Banner>
+            <div className="space-y-3">
+              <Banner icon="accepted">
+                {t("accepted", {
+                  date: formatDateTime(
+                    quote.acceptance.acceptedAt,
+                    company.formatLocale,
+                    company.timezone,
+                  ),
+                })}
+              </Banner>
+              <AcceptanceFingerprint
+                acceptance={quote.acceptance}
+                locale={locale}
+                formatLocale={company.formatLocale}
+                timezone={company.timezone}
+              />
+            </div>
           ) : null}
 
           {quote.status === QuoteStatus.REJECTED ? (
@@ -403,7 +417,12 @@ export async function QuoteDocument({
                   askAdditionalComments: company.askAdditionalComments,
                   askOrderReference: company.askOrderReference,
                 }}
+                viewerName={viewerName ?? quote.clientName ?? ""}
                 acceptAction={acceptQuoteAction.bind(null, token)}
+                signatureHandoff={{
+                  start: startSignatureHandoffAction.bind(null, token),
+                  pollBase: `/api/q/${encodeURIComponent(token)}/signature`,
+                }}
                 declineAction={declineQuoteAction.bind(null, token)}
               />
             </section>

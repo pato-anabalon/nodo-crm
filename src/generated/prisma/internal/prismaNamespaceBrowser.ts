@@ -81,6 +81,8 @@ export const ModelName = {
   CompanyDocument: 'CompanyDocument',
   QuoteShare: 'QuoteShare',
   QuoteShareToken: 'QuoteShareToken',
+  QuoteRecipient: 'QuoteRecipient',
+  SignatureHandoff: 'SignatureHandoff',
   QuoteEvent: 'QuoteEvent',
   QuoteMessage: 'QuoteMessage',
   QuoteAcceptance: 'QuoteAcceptance',
@@ -628,10 +630,44 @@ export const QuoteShareTokenScalarFieldEnum = {
   shareId: 'shareId',
   hashedToken: 'hashedToken',
   createdAt: 'createdAt',
+  recipientId: 'recipientId',
   revokedAt: 'revokedAt'
 } as const
 
 export type QuoteShareTokenScalarFieldEnum = (typeof QuoteShareTokenScalarFieldEnum)[keyof typeof QuoteShareTokenScalarFieldEnum]
+
+
+export const QuoteRecipientScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  quoteId: 'quoteId',
+  contactId: 'contactId',
+  name: 'name',
+  email: 'email',
+  isPrimary: 'isPrimary',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type QuoteRecipientScalarFieldEnum = (typeof QuoteRecipientScalarFieldEnum)[keyof typeof QuoteRecipientScalarFieldEnum]
+
+
+export const SignatureHandoffScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  quoteId: 'quoteId',
+  recipientId: 'recipientId',
+  hashedToken: 'hashedToken',
+  paths: 'paths',
+  version: 'version',
+  expiresAt: 'expiresAt',
+  deviceUserAgent: 'deviceUserAgent',
+  deviceIp: 'deviceIp',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SignatureHandoffScalarFieldEnum = (typeof SignatureHandoffScalarFieldEnum)[keyof typeof SignatureHandoffScalarFieldEnum]
 
 
 export const QuoteEventScalarFieldEnum = {
@@ -641,6 +677,8 @@ export const QuoteEventScalarFieldEnum = {
   type: 'type',
   ipAddress: 'ipAddress',
   userAgent: 'userAgent',
+  recipientName: 'recipientName',
+  recipientEmail: 'recipientEmail',
   createdAt: 'createdAt'
 } as const
 
@@ -653,6 +691,7 @@ export const QuoteMessageScalarFieldEnum = {
   quoteId: 'quoteId',
   author: 'author',
   authorUserId: 'authorUserId',
+  authorName: 'authorName',
   body: 'body',
   readAt: 'readAt',
   createdAt: 'createdAt'
@@ -674,6 +713,12 @@ export const QuoteAcceptanceScalarFieldEnum = {
   orderReference: 'orderReference',
   ipAddress: 'ipAddress',
   userAgent: 'userAgent',
+  verifiedEmail: 'verifiedEmail',
+  signatureDigest: 'signatureDigest',
+  signatureDevice: 'signatureDevice',
+  signatureDeviceUserAgent: 'signatureDeviceUserAgent',
+  signatureDeviceIp: 'signatureDeviceIp',
+  recordDigest: 'recordDigest',
   acceptedAt: 'acceptedAt'
 } as const
 

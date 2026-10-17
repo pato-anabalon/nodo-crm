@@ -6,6 +6,7 @@ import {
   isViewingNow,
   shareStatus,
   shareUrl,
+  viewerFor,
 } from "../share";
 
 describe("generateShareToken", () => {
@@ -115,5 +116,29 @@ describe("shareUrl", () => {
 
   it("uses http locally", () => {
     expect(shareUrl("acme", "T", "localhost:3100")).toBe("http://acme.localhost:3100/q/T");
+  });
+});
+
+describe("viewerFor", () => {
+  const quote = { clientName: "Paula Rivas", clientEmail: "paula@example.com" };
+
+  it("is the person the link was sent to, not the quote's primary", () => {
+    expect(viewerFor({ id: "r2", name: "Bruno Díaz", email: "bruno@example.com" }, quote)).toEqual({
+      recipientId: "r2",
+      name: "Bruno Díaz",
+      email: "bruno@example.com",
+    });
+  });
+
+  it("falls back to the primary for a link issued before recipients existed", () => {
+    expect(viewerFor(null, quote)).toEqual({
+      recipientId: null,
+      name: "Paula Rivas",
+      email: "paula@example.com",
+    });
+  });
+
+  it("names an old link by its address when the quote kept no name", () => {
+    expect(viewerFor(null, { clientName: null, clientEmail: "ops@site.nz" }).name).toBe("ops@site.nz");
   });
 });

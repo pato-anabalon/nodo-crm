@@ -275,6 +275,32 @@ export type QuoteShare = Prisma.QuoteShareModel
  */
 export type QuoteShareToken = Prisma.QuoteShareTokenModel
 /**
+ * Model QuoteRecipient
+ * *
+ *  * Somebody a quote is sent to. One is the primary — the "For" on the
+ *  * document, mirrored into `Quote.clientName/clientEmail/clientPhone` so every
+ *  * reader of those keeps working — and any others are copies.
+ *  *
+ *  * Name and address are frozen, the same as the quote's own client fields: the
+ *  * contact can change afterwards, and this is who was written to. Each one gets
+ *  * their own email and their own link, so the portal knows which of them is
+ *  * reading. One primary per quote is enforced by a partial unique index written
+ *  * by hand in the migration (Prisma has no way to say it here).
+ */
+export type QuoteRecipient = Prisma.QuoteRecipientModel
+/**
+ * Model SignatureHandoff
+ * *
+ *  * Signing on a phone for a quote open on a computer.
+ *  *
+ *  * The portal shows a QR; the phone opens `/sign/<token>` and sends its strokes
+ *  * each time a finger lifts, replacing what it sent before; the portal polls
+ *  * for a newer `version` and redraws. One way only. The token is its own, not
+ *  * the quote's link: whoever scans it can draw and nothing else — accepting
+ *  * still happens on the screen holding the real link. Only the hash is stored.
+ */
+export type SignatureHandoff = Prisma.SignatureHandoffModel
+/**
  * Model QuoteEvent
  * *
  *  * A log of what the customer does with their quote.

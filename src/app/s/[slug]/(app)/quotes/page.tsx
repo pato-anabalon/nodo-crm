@@ -39,7 +39,7 @@ export async function generateMetadata() {
 }
 
 /** How much of a title a row shows before it starts eliding. */
-const TITLE_MAX = 50;
+const TITLE_MAX = 70;
 
 export default async function QuotesPage({
   searchParams,
@@ -55,7 +55,12 @@ export default async function QuotesPage({
 
   /** The company's own formats; the phrase is written here, not in the client. */
   const ago = (date: Date) =>
-    elapsedLabel(date, tElapsed, ctx.company.formatLocale, ctx.company.timezone);
+    elapsedLabel(
+      date,
+      tElapsed,
+      ctx.company.formatLocale,
+      ctx.company.timezone,
+    );
 
   if (!can(ctx, "quotes.read")) {
     return <p className="text-sm text-muted-foreground">{t("noAccess")}</p>;
@@ -66,8 +71,13 @@ export default async function QuotesPage({
   const raw = await searchParams;
   const filters = quoteFiltersSchema.parse({
     q: typeof raw.q === "string" ? raw.q : undefined,
-    status: typeof raw.status === "string" && raw.status !== "" ? raw.status : undefined,
-    section: isQuoteSection(typeof raw.section === "string" ? raw.section : undefined)
+    status:
+      typeof raw.status === "string" && raw.status !== ""
+        ? raw.status
+        : undefined,
+    section: isQuoteSection(
+      typeof raw.section === "string" ? raw.section : undefined,
+    )
       ? raw.section
       : "all",
     page: typeof raw.page === "string" ? raw.page : 1,
@@ -79,8 +89,12 @@ export default async function QuotesPage({
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">{t("title")}</h1>
-          <p className="text-sm text-muted-foreground">{t("count", { count: total })}</p>
+          <h1 className="text-2xl font-semibold tracking-tight">
+            {t("title")}
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            {t("count", { count: total })}
+          </p>
         </div>
 
         {can(ctx, "quotes.create") ? (
@@ -99,7 +113,9 @@ export default async function QuotesPage({
           return (
             <Link
               key={section}
-              href={section === "all" ? "/quotes" : `/quotes?section=${section}`}
+              href={
+                section === "all" ? "/quotes" : `/quotes?section=${section}`
+              }
               aria-current={active ? "page" : undefined}
               className={`-mb-px border-b-2 px-3 py-2 text-sm font-medium transition-colors ${
                 active
@@ -152,22 +168,29 @@ export default async function QuotesPage({
         )}
       >
         <TableCard>
-            <Table>
+          <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>{t("columns.quote")}</TableHead>
                 <TableHead>{t("columns.customer")}</TableHead>
                 <TableHead>{t("columns.status")}</TableHead>
                 <TableHead>{t("columns.sent")}</TableHead>
-                <TableHead className="text-right">{t("columns.opens")}</TableHead>
-                <TableHead className="text-right">{t("columns.total")}</TableHead>
+                <TableHead className="text-right">
+                  {t("columns.opens")}
+                </TableHead>
+                <TableHead className="text-right">
+                  {t("columns.total")}
+                </TableHead>
                 <TableHead className="w-10" />
               </TableRow>
             </TableHeader>
             <TableBody>
               {items.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={7} className="py-10 text-center text-sm text-muted-foreground">
+                  <TableCell
+                    colSpan={7}
+                    className="py-10 text-center text-sm text-muted-foreground"
+                  >
                     {t("empty")}
                   </TableCell>
                 </TableRow>
@@ -190,7 +213,10 @@ export default async function QuotesPage({
                         {truncate(quote.title, TITLE_MAX)}
                       </Link>
                       <div className="mt-0.5 font-mono text-xs text-muted-foreground">
-                        {formatQuoteNumber(ctx.company.quotePrefix, quote.number)}
+                        {formatQuoteNumber(
+                          ctx.company.quotePrefix,
+                          quote.number,
+                        )}
                       </div>
                     </TableCell>
 
@@ -207,26 +233,32 @@ export default async function QuotesPage({
                         </div>
                       ) : null}
                       {!quote.clientName && !quote.clientCompanyName ? (
-                        <span className="text-muted-foreground">{tCommon("none")}</span>
+                        <span className="text-muted-foreground">
+                          {tCommon("none")}
+                        </span>
                       ) : null}
                     </TableCell>
 
                     <TableCell>
-                      <div className={`font-medium ${QUOTE_STATUS_TEXT_CLASS[quote.status]}`}>
+                      <div
+                        className={`font-medium ${QUOTE_STATUS_TEXT_CLASS[quote.status]}`}
+                      >
                         {t(`status.${quote.status}`)}
                       </div>
                       <div className="mt-0.5 text-xs">
                         <QuoteSeen
                           quoteId={quote.id}
-                          seenLabel={quote.share?.lastSeenAt ? ago(quote.share.lastSeenAt) : null}
+                          seenLabel={
+                            quote.share?.lastSeenAt
+                              ? ago(quote.share.lastSeenAt)
+                              : null
+                          }
                         />
                       </div>
                     </TableCell>
 
                     <TableCell className="text-sm whitespace-nowrap text-muted-foreground">
-                      {quote.sentAt
-                        ? ago(quote.sentAt)
-                        : "—"}
+                      {quote.sentAt ? ago(quote.sentAt) : "—"}
                     </TableCell>
 
                     <TableCell className="text-right text-sm">
@@ -235,7 +267,11 @@ export default async function QuotesPage({
 
                     <TableCell className="text-right tabular-nums whitespace-nowrap">
                       {canSeeAmounts ? (
-                        formatMoney(Number(quote.total), quote.currency, ctx.company.formatLocale)
+                        formatMoney(
+                          Number(quote.total),
+                          quote.currency,
+                          ctx.company.formatLocale,
+                        )
                       ) : (
                         <HiddenAmount />
                       )}
@@ -248,7 +284,7 @@ export default async function QuotesPage({
                 ))
               )}
             </TableBody>
-            </Table>
+          </Table>
         </TableCard>
       </QuotePresenceProvider>
 
@@ -260,12 +296,16 @@ export default async function QuotesPage({
           <div className="flex gap-2">
             {page > 1 ? (
               <Button asChild variant="outline" size="sm">
-                <Link href={pageHref(filters.section, page - 1)}>{tCommon("previous")}</Link>
+                <Link href={pageHref(filters.section, page - 1)}>
+                  {tCommon("previous")}
+                </Link>
               </Button>
             ) : null}
             {page < pageCount ? (
               <Button asChild variant="outline" size="sm">
-                <Link href={pageHref(filters.section, page + 1)}>{tCommon("next")}</Link>
+                <Link href={pageHref(filters.section, page + 1)}>
+                  {tCommon("next")}
+                </Link>
               </Button>
             ) : null}
           </div>

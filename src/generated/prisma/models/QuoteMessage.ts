@@ -31,6 +31,7 @@ export type QuoteMessageMinAggregateOutputType = {
   quoteId: string | null
   author: $Enums.MessageAuthor | null
   authorUserId: string | null
+  authorName: string | null
   body: string | null
   readAt: Date | null
   createdAt: Date | null
@@ -42,6 +43,7 @@ export type QuoteMessageMaxAggregateOutputType = {
   quoteId: string | null
   author: $Enums.MessageAuthor | null
   authorUserId: string | null
+  authorName: string | null
   body: string | null
   readAt: Date | null
   createdAt: Date | null
@@ -53,6 +55,7 @@ export type QuoteMessageCountAggregateOutputType = {
   quoteId: number
   author: number
   authorUserId: number
+  authorName: number
   body: number
   readAt: number
   createdAt: number
@@ -66,6 +69,7 @@ export type QuoteMessageMinAggregateInputType = {
   quoteId?: true
   author?: true
   authorUserId?: true
+  authorName?: true
   body?: true
   readAt?: true
   createdAt?: true
@@ -77,6 +81,7 @@ export type QuoteMessageMaxAggregateInputType = {
   quoteId?: true
   author?: true
   authorUserId?: true
+  authorName?: true
   body?: true
   readAt?: true
   createdAt?: true
@@ -88,6 +93,7 @@ export type QuoteMessageCountAggregateInputType = {
   quoteId?: true
   author?: true
   authorUserId?: true
+  authorName?: true
   body?: true
   readAt?: true
   createdAt?: true
@@ -172,6 +178,7 @@ export type QuoteMessageGroupByOutputType = {
   quoteId: string
   author: $Enums.MessageAuthor
   authorUserId: string | null
+  authorName: string | null
   body: string
   readAt: Date | null
   createdAt: Date
@@ -204,6 +211,7 @@ export type QuoteMessageWhereInput = {
   quoteId?: Prisma.StringFilter<"QuoteMessage"> | string
   author?: Prisma.EnumMessageAuthorFilter<"QuoteMessage"> | $Enums.MessageAuthor
   authorUserId?: Prisma.StringNullableFilter<"QuoteMessage"> | string | null
+  authorName?: Prisma.StringNullableFilter<"QuoteMessage"> | string | null
   body?: Prisma.StringFilter<"QuoteMessage"> | string
   readAt?: Prisma.DateTimeNullableFilter<"QuoteMessage"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"QuoteMessage"> | Date | string
@@ -218,6 +226,7 @@ export type QuoteMessageOrderByWithRelationInput = {
   quoteId?: Prisma.SortOrder
   author?: Prisma.SortOrder
   authorUserId?: Prisma.SortOrderInput | Prisma.SortOrder
+  authorName?: Prisma.SortOrderInput | Prisma.SortOrder
   body?: Prisma.SortOrder
   readAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -235,6 +244,7 @@ export type QuoteMessageWhereUniqueInput = Prisma.AtLeast<{
   quoteId?: Prisma.StringFilter<"QuoteMessage"> | string
   author?: Prisma.EnumMessageAuthorFilter<"QuoteMessage"> | $Enums.MessageAuthor
   authorUserId?: Prisma.StringNullableFilter<"QuoteMessage"> | string | null
+  authorName?: Prisma.StringNullableFilter<"QuoteMessage"> | string | null
   body?: Prisma.StringFilter<"QuoteMessage"> | string
   readAt?: Prisma.DateTimeNullableFilter<"QuoteMessage"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"QuoteMessage"> | Date | string
@@ -249,6 +259,7 @@ export type QuoteMessageOrderByWithAggregationInput = {
   quoteId?: Prisma.SortOrder
   author?: Prisma.SortOrder
   authorUserId?: Prisma.SortOrderInput | Prisma.SortOrder
+  authorName?: Prisma.SortOrderInput | Prisma.SortOrder
   body?: Prisma.SortOrder
   readAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -266,6 +277,7 @@ export type QuoteMessageScalarWhereWithAggregatesInput = {
   quoteId?: Prisma.StringWithAggregatesFilter<"QuoteMessage"> | string
   author?: Prisma.EnumMessageAuthorWithAggregatesFilter<"QuoteMessage"> | $Enums.MessageAuthor
   authorUserId?: Prisma.StringNullableWithAggregatesFilter<"QuoteMessage"> | string | null
+  authorName?: Prisma.StringNullableWithAggregatesFilter<"QuoteMessage"> | string | null
   body?: Prisma.StringWithAggregatesFilter<"QuoteMessage"> | string
   readAt?: Prisma.DateTimeNullableWithAggregatesFilter<"QuoteMessage"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"QuoteMessage"> | Date | string
@@ -274,6 +286,7 @@ export type QuoteMessageScalarWhereWithAggregatesInput = {
 export type QuoteMessageCreateInput = {
   id?: string
   author: $Enums.MessageAuthor
+  authorName?: string | null
   body: string
   readAt?: Date | string | null
   createdAt?: Date | string
@@ -288,6 +301,7 @@ export type QuoteMessageUncheckedCreateInput = {
   quoteId: string
   author: $Enums.MessageAuthor
   authorUserId?: string | null
+  authorName?: string | null
   body: string
   readAt?: Date | string | null
   createdAt?: Date | string
@@ -296,6 +310,7 @@ export type QuoteMessageUncheckedCreateInput = {
 export type QuoteMessageUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.EnumMessageAuthorFieldUpdateOperationsInput | $Enums.MessageAuthor
+  authorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -310,6 +325,7 @@ export type QuoteMessageUncheckedUpdateInput = {
   quoteId?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.EnumMessageAuthorFieldUpdateOperationsInput | $Enums.MessageAuthor
   authorUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -321,6 +337,7 @@ export type QuoteMessageCreateManyInput = {
   quoteId: string
   author: $Enums.MessageAuthor
   authorUserId?: string | null
+  authorName?: string | null
   body: string
   readAt?: Date | string | null
   createdAt?: Date | string
@@ -329,6 +346,7 @@ export type QuoteMessageCreateManyInput = {
 export type QuoteMessageUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.EnumMessageAuthorFieldUpdateOperationsInput | $Enums.MessageAuthor
+  authorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -340,6 +358,7 @@ export type QuoteMessageUncheckedUpdateManyInput = {
   quoteId?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.EnumMessageAuthorFieldUpdateOperationsInput | $Enums.MessageAuthor
   authorUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -361,6 +380,7 @@ export type QuoteMessageCountOrderByAggregateInput = {
   quoteId?: Prisma.SortOrder
   author?: Prisma.SortOrder
   authorUserId?: Prisma.SortOrder
+  authorName?: Prisma.SortOrder
   body?: Prisma.SortOrder
   readAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -372,6 +392,7 @@ export type QuoteMessageMaxOrderByAggregateInput = {
   quoteId?: Prisma.SortOrder
   author?: Prisma.SortOrder
   authorUserId?: Prisma.SortOrder
+  authorName?: Prisma.SortOrder
   body?: Prisma.SortOrder
   readAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -383,6 +404,7 @@ export type QuoteMessageMinOrderByAggregateInput = {
   quoteId?: Prisma.SortOrder
   author?: Prisma.SortOrder
   authorUserId?: Prisma.SortOrder
+  authorName?: Prisma.SortOrder
   body?: Prisma.SortOrder
   readAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -521,6 +543,7 @@ export type EnumMessageAuthorFieldUpdateOperationsInput = {
 export type QuoteMessageCreateWithoutCompanyInput = {
   id?: string
   author: $Enums.MessageAuthor
+  authorName?: string | null
   body: string
   readAt?: Date | string | null
   createdAt?: Date | string
@@ -533,6 +556,7 @@ export type QuoteMessageUncheckedCreateWithoutCompanyInput = {
   quoteId: string
   author: $Enums.MessageAuthor
   authorUserId?: string | null
+  authorName?: string | null
   body: string
   readAt?: Date | string | null
   createdAt?: Date | string
@@ -573,6 +597,7 @@ export type QuoteMessageScalarWhereInput = {
   quoteId?: Prisma.StringFilter<"QuoteMessage"> | string
   author?: Prisma.EnumMessageAuthorFilter<"QuoteMessage"> | $Enums.MessageAuthor
   authorUserId?: Prisma.StringNullableFilter<"QuoteMessage"> | string | null
+  authorName?: Prisma.StringNullableFilter<"QuoteMessage"> | string | null
   body?: Prisma.StringFilter<"QuoteMessage"> | string
   readAt?: Prisma.DateTimeNullableFilter<"QuoteMessage"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"QuoteMessage"> | Date | string
@@ -581,6 +606,7 @@ export type QuoteMessageScalarWhereInput = {
 export type QuoteMessageCreateWithoutAuthorUserInput = {
   id?: string
   author: $Enums.MessageAuthor
+  authorName?: string | null
   body: string
   readAt?: Date | string | null
   createdAt?: Date | string
@@ -593,6 +619,7 @@ export type QuoteMessageUncheckedCreateWithoutAuthorUserInput = {
   companyId: string
   quoteId: string
   author: $Enums.MessageAuthor
+  authorName?: string | null
   body: string
   readAt?: Date | string | null
   createdAt?: Date | string
@@ -627,6 +654,7 @@ export type QuoteMessageUpdateManyWithWhereWithoutAuthorUserInput = {
 export type QuoteMessageCreateWithoutQuoteInput = {
   id?: string
   author: $Enums.MessageAuthor
+  authorName?: string | null
   body: string
   readAt?: Date | string | null
   createdAt?: Date | string
@@ -639,6 +667,7 @@ export type QuoteMessageUncheckedCreateWithoutQuoteInput = {
   companyId: string
   author: $Enums.MessageAuthor
   authorUserId?: string | null
+  authorName?: string | null
   body: string
   readAt?: Date | string | null
   createdAt?: Date | string
@@ -675,6 +704,7 @@ export type QuoteMessageCreateManyCompanyInput = {
   quoteId: string
   author: $Enums.MessageAuthor
   authorUserId?: string | null
+  authorName?: string | null
   body: string
   readAt?: Date | string | null
   createdAt?: Date | string
@@ -683,6 +713,7 @@ export type QuoteMessageCreateManyCompanyInput = {
 export type QuoteMessageUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.EnumMessageAuthorFieldUpdateOperationsInput | $Enums.MessageAuthor
+  authorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -695,6 +726,7 @@ export type QuoteMessageUncheckedUpdateWithoutCompanyInput = {
   quoteId?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.EnumMessageAuthorFieldUpdateOperationsInput | $Enums.MessageAuthor
   authorUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -705,6 +737,7 @@ export type QuoteMessageUncheckedUpdateManyWithoutCompanyInput = {
   quoteId?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.EnumMessageAuthorFieldUpdateOperationsInput | $Enums.MessageAuthor
   authorUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -715,6 +748,7 @@ export type QuoteMessageCreateManyAuthorUserInput = {
   companyId: string
   quoteId: string
   author: $Enums.MessageAuthor
+  authorName?: string | null
   body: string
   readAt?: Date | string | null
   createdAt?: Date | string
@@ -723,6 +757,7 @@ export type QuoteMessageCreateManyAuthorUserInput = {
 export type QuoteMessageUpdateWithoutAuthorUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.EnumMessageAuthorFieldUpdateOperationsInput | $Enums.MessageAuthor
+  authorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -735,6 +770,7 @@ export type QuoteMessageUncheckedUpdateWithoutAuthorUserInput = {
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   quoteId?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.EnumMessageAuthorFieldUpdateOperationsInput | $Enums.MessageAuthor
+  authorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -745,6 +781,7 @@ export type QuoteMessageUncheckedUpdateManyWithoutAuthorUserInput = {
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   quoteId?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.EnumMessageAuthorFieldUpdateOperationsInput | $Enums.MessageAuthor
+  authorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -755,6 +792,7 @@ export type QuoteMessageCreateManyQuoteInput = {
   companyId: string
   author: $Enums.MessageAuthor
   authorUserId?: string | null
+  authorName?: string | null
   body: string
   readAt?: Date | string | null
   createdAt?: Date | string
@@ -763,6 +801,7 @@ export type QuoteMessageCreateManyQuoteInput = {
 export type QuoteMessageUpdateWithoutQuoteInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.EnumMessageAuthorFieldUpdateOperationsInput | $Enums.MessageAuthor
+  authorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -775,6 +814,7 @@ export type QuoteMessageUncheckedUpdateWithoutQuoteInput = {
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.EnumMessageAuthorFieldUpdateOperationsInput | $Enums.MessageAuthor
   authorUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -785,6 +825,7 @@ export type QuoteMessageUncheckedUpdateManyWithoutQuoteInput = {
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   author?: Prisma.EnumMessageAuthorFieldUpdateOperationsInput | $Enums.MessageAuthor
   authorUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -798,6 +839,7 @@ export type QuoteMessageSelect<ExtArgs extends runtime.Types.Extensions.Internal
   quoteId?: boolean
   author?: boolean
   authorUserId?: boolean
+  authorName?: boolean
   body?: boolean
   readAt?: boolean
   createdAt?: boolean
@@ -812,6 +854,7 @@ export type QuoteMessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   quoteId?: boolean
   author?: boolean
   authorUserId?: boolean
+  authorName?: boolean
   body?: boolean
   readAt?: boolean
   createdAt?: boolean
@@ -826,6 +869,7 @@ export type QuoteMessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   quoteId?: boolean
   author?: boolean
   authorUserId?: boolean
+  authorName?: boolean
   body?: boolean
   readAt?: boolean
   createdAt?: boolean
@@ -840,12 +884,13 @@ export type QuoteMessageSelectScalar = {
   quoteId?: boolean
   author?: boolean
   authorUserId?: boolean
+  authorName?: boolean
   body?: boolean
   readAt?: boolean
   createdAt?: boolean
 }
 
-export type QuoteMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "quoteId" | "author" | "authorUserId" | "body" | "readAt" | "createdAt", ExtArgs["result"]["quoteMessage"]>
+export type QuoteMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "quoteId" | "author" | "authorUserId" | "authorName" | "body" | "readAt" | "createdAt", ExtArgs["result"]["quoteMessage"]>
 export type QuoteMessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
@@ -879,6 +924,12 @@ export type $QuoteMessagePayload<ExtArgs extends runtime.Types.Extensions.Intern
      *    * Null cuando escribe el cliente, que no tiene cuenta.
      */
     authorUserId: string | null
+    /**
+     * *
+     *    * Which recipient wrote it, frozen, for a message from the customer side:
+     *    * with several people on a quote, "the customer" no longer says who.
+     */
+    authorName: string | null
     body: string
     /**
      * *
@@ -1317,6 +1368,7 @@ export interface QuoteMessageFieldRefs {
   readonly quoteId: Prisma.FieldRef<"QuoteMessage", 'String'>
   readonly author: Prisma.FieldRef<"QuoteMessage", 'MessageAuthor'>
   readonly authorUserId: Prisma.FieldRef<"QuoteMessage", 'String'>
+  readonly authorName: Prisma.FieldRef<"QuoteMessage", 'String'>
   readonly body: Prisma.FieldRef<"QuoteMessage", 'String'>
   readonly readAt: Prisma.FieldRef<"QuoteMessage", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"QuoteMessage", 'DateTime'>

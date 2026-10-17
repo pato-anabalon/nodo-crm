@@ -508,11 +508,12 @@
       "copyIntro": "Ésta es la copia para tus registros. El cliente recibió un enlace, no estas cifras.",
       "copyViewQuote": "Abrirla en el panel",
       "acceptedSubject": "Gracias por aceptar",
-      "acceptedBody": "Hola {customer},\n\nRecibimos tu aceptación, gracias. Nos pondremos en contacto en breve para coordinar el trabajo.",
+      "acceptedBody": "Hola {customer},\n\nRecibimos la aceptación de {acceptedBy}, gracias. Nos pondremos en contacto en breve para coordinar el trabajo.",
       "followUpSubject": "Un recordatorio",
       "followUpBody": "Hola {customer},\n\nQueríamos saber si alcanzaste a ver la cotización que te enviamos. Si hay algo que ajustar o prefieres conversarlo, respóndenos por aquí y lo vemos.",
       "reviewSubject": "¿Cómo lo hicimos?",
-      "reviewBody": "Hola {customer},\n\nGracias de nuevo por confiar en nosotros. Si quedaste conforme con el trabajo, una reseña breve nos ayuda mucho: es como nos encuentra la mayoría de nuestros clientes."
+      "reviewBody": "Hola {customer},\n\nGracias de nuevo por confiar en nosotros. Si quedaste conforme con el trabajo, una reseña breve nos ayuda mucho: es como nos encuentra la mayoría de nuestros clientes.",
+      "notDelivered": "No llegó a {emails}."
     },
     "sections": {
       "all": "Todas",
@@ -534,6 +535,12 @@
         "ACCEPTED": "Aceptó la cotización",
         "DECLINED": "Rechazó la cotización",
         "MESSAGE_SENT": "Envió un mensaje"
+      },
+      "eventBy": {
+        "OPENED": "Abierta por {name}",
+        "ACCEPTED": "Aceptada por {name}",
+        "DECLINED": "Rechazada por {name}",
+        "MESSAGE_SENT": "Mensaje de {name}"
       },
       "acceptedBy": "Aceptada por {name}",
       "acceptanceStatement": "Declaración aceptada",
@@ -587,6 +594,38 @@
       "open": "Acciones de {title}",
       "duplicate": "Duplicar",
       "preview": "Ver como cliente"
+    },
+    "recipients": {
+      "title": "Para",
+      "primary": "Principal",
+      "copyTo": "Copia a",
+      "none": "Todavía no hay a quién enviarla. Agrega un destinatario o ponle correo al contacto del lead.",
+      "add": "Agregar destinatario",
+      "searchPlaceholder": "Busca un contacto o escribe un correo",
+      "empty": "Ningún contacto con correo coincide",
+      "addContact": "Agregar {email} como contacto nuevo",
+      "addContactHint": "Todavía no está en tus contactos",
+      "newContactTitle": "Contacto nuevo",
+      "newContactDescription": "Se guarda en tus contactos y se agrega a esta cotización. Recibirá su propio correo y su propio link la próxima vez que se envíe.",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo",
+      "save": "Agregar contacto",
+      "makePrimary": "Hacer principal",
+      "remove": "Quitar a {name}",
+      "removeTitle": "¿Quitar a {name}?",
+      "removeDescription": "{name} deja de recibir esta cotización, y el link que ya se le envió deja de funcionar.",
+      "removeConfirm": "Quitar",
+      "added": "Destinatario agregado",
+      "removed": "Destinatario quitado",
+      "madePrimary": "Destinatario principal cambiado",
+      "errors": {
+        "notFound": "Ese destinatario o contacto no existe.",
+        "locked": "Esta cotización ya fue decidida, así que sus destinatarios no cambian.",
+        "duplicate": "Ya recibe esta cotización.",
+        "noEmail": "Ese contacto no tiene correo, así que no hay a dónde enviarle.",
+        "primary": "Haz principal a otra persona antes de quitarla."
+      }
     }
   },
   "tasks": {
@@ -1232,9 +1271,6 @@
     "decline": "Rechazar",
     "declining": "Rechazando…",
     "acceptTitle": "Aceptar esta cotización",
-    "yourName": "Tu nombre",
-    "yourNameHint": "Queda registrado junto con la aceptación.",
-    "yourEmail": "Tu correo (opcional)",
     "statementCheckbox": "Sí, {name} acepto esta cotización y sus términos.",
     "statementSimple": "Al hacer clic en Aceptar cotización, {name} acepto esta cotización y sus términos.",
     "defaultStatement": "acepto esta cotización y las condiciones indicadas en ella.",
@@ -1243,6 +1279,7 @@
     "signatureDraw": "Dibujar",
     "signatureType": "Escribir",
     "signatureClear": "Borrar",
+    "signHere": "Firma aquí",
     "signaturePlaceholder": "Escribe tu nombre",
     "additionalComments": "Comentarios (opcional)",
     "orderReference": "Número de orden de compra (opcional)",
@@ -1257,7 +1294,6 @@
     "noMessages": "Todavía no hay mensajes.",
     "you": "Tú",
     "errors": {
-      "nameRequired": "Escribe tu nombre para aceptar",
       "statementRequired": "Debes marcar la casilla para aceptar",
       "signatureRequired": "Firma para poder aceptar",
       "notAvailable": "Esta cotización ya no admite respuesta.",
@@ -1273,6 +1309,7 @@
     "downloadPdf": "Descargar PDF",
     "email": "Correo",
     "mobile": "Móvil",
+    "copyTo": "Copia a",
     "phone": "Teléfono",
     "gstNumber": "GST",
     "projectAddress": "Dirección del proyecto",
@@ -1295,7 +1332,44 @@
     "bundleProgress": "Selecciona {count, plural, one {# ítem opcional más} other {# ítems opcionales más}} para desbloquear {amount} de descuento",
     "bundleUnlocked": "Descuento de {amount} desbloqueado",
     "chooseOne": "Elige una de las siguientes opciones",
-    "questionsAndAnswers": "Preguntas y respuestas"
+    "questionsAndAnswers": "Preguntas y respuestas",
+    "handoff": {
+      "open": "Firmar desde un dispositivo táctil",
+      "qrLabel": "Código QR para firmar en tu teléfono",
+      "title": "Escanea el código QR",
+      "step1": "Abre la cámara de tu teléfono y apúntala al código.",
+      "step2": "Toca el enlace que aparece.",
+      "step3": "Firma con el dedo en el recuadro que se abre.",
+      "autoUpdate": "Esta pantalla se actualiza sola cuando hayas firmado.",
+      "cancel": "Cancelar",
+      "mirroring": "Mostrando lo que dibujas en tu teléfono.",
+      "stop": "Detener",
+      "phoneTitle": "Firma aquí",
+      "phoneUnavailableTitle": "Este código ya no funciona",
+      "phoneUnavailableBody": "Vuelve a la cotización en tu otra pantalla y elige “Firmar desde un dispositivo táctil” otra vez.",
+      "rotate": "Gira el teléfono para tener más espacio al firmar.",
+      "ready": "Listo para aceptar en tu otra pantalla",
+      "failed": "No llegó a tu otra pantalla. Levanta el dedo otra vez para reintentar.",
+      "drawHere": "Dibuja tu firma en el recuadro",
+      "clear": "Borrar"
+    },
+    "fingerprint": {
+      "show": "Ver huella digital",
+      "hide": "Ocultar huella digital",
+      "timestamp": "Fecha y hora",
+      "verifiedEmail": "Verificado por correo",
+      "email": "Correo",
+      "verifiedEmailHint": "Aceptada a través de un enlace único enviado solo a esta dirección.",
+      "ipAddress": "Dirección IP",
+      "signatureDigest": "Huella de la firma (SHA-256)",
+      "signatureDigestHint": "Cambiar un solo punto de la firma cambia este valor.",
+      "signedOn": "Firmada en",
+      "touchDevice": "Un dispositivo táctil",
+      "thisDevice": "El mismo dispositivo que aceptó",
+      "userAgent": "Navegador que aceptó",
+      "recordDigest": "Sello del registro (SHA-256)",
+      "recordDigestHint": "Cubre todo lo anterior, el total aceptado y la declaración. Cualquier cambio posterior al registro deja de coincidir."
+    }
   },
   "notifications": {
     "leadReceived": {

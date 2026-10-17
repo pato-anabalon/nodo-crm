@@ -17,6 +17,19 @@ import {
 import { getQuote } from "@/modules/quotes/service";
 import { listCompanyDocuments } from "@/modules/documents/service";
 import { QuoteForm } from "@/modules/quotes/quote-form";
+import { QuoteRecipients } from "@/modules/quotes/quote-recipients";
+import { signatureViewBox } from "@/modules/portal/signature";
+import {
+  AcceptanceFingerprint,
+  type FingerprintAcceptance,
+} from "@/modules/portal/acceptance-fingerprint";
+import {
+  addContactRecipientAction,
+  addNewRecipientAction,
+  makePrimaryRecipientAction,
+  removeRecipientAction,
+  searchRecipientContactsAction,
+} from "@/modules/quotes/recipient-actions";
 import { hasActiveCatalogue } from "@/modules/catalogue/service";
 import { searchCatalogueAction } from "@/modules/catalogue/actions";
 import { searchLeadsAction } from "@/modules/leads/actions";
@@ -115,6 +128,26 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
     />
   );
 
+  // Who the quote goes to. Under Details on both views: inside the edit form,
+  // and under the read-only Details once the quote can no longer change.
+  const recipientsCard =
+    editable || quote.recipients.length > 0 ? (
+      <QuoteRecipients
+        recipients={quote.recipients.map((recipient) => ({
+          id: recipient.id,
+          name: recipient.name,
+          email: recipient.email,
+          isPrimary: recipient.isPrimary,
+        }))}
+        editable={editable}
+        search={searchRecipientContactsAction}
+        addContact={addContactRecipientAction.bind(null, quote.id)}
+        addNew={addNewRecipientAction.bind(null, quote.id)}
+        remove={removeRecipientAction.bind(null, quote.id)}
+        makePrimary={makePrimaryRecipientAction.bind(null, quote.id)}
+      />
+    ) : null;
+
   return (
     <div className="space-y-6">
       {/* The team is never watching when the customer accepts — they find out
@@ -183,6 +216,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
           taxDisplayMode={ctx.company.taxDisplayMode}
           taxLabel={t(`taxType.${quote.taxType}`)}
           submitLabel={tCommon("saveChanges")}
+          afterDetails={recipientsCard}
           defaults={{
             title: quote.title,
             quoteType: quote.quoteType,
@@ -269,8 +303,9 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
             </Card>
           ) : null}
 
-          <div className="grid gap-6 lg:grid-cols-3">
-            <Card className="lg:col-span-2">
+          <div className="grid items-start gap-6 lg:grid-cols-3">
+            <div className="space-y-6 lg:col-span-2">
+            <Card>
               <CardHeader>
                 <CardTitle className="text-base">{t("detail")}</CardTitle>
               </CardHeader>
@@ -314,6 +349,9 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
                 </CardContent>
               )}
             </Card>
+
+            {recipientsCard}
+            </div>
 
             <Card className="h-fit">
               <CardHeader>
@@ -563,7 +601,7 @@ async function QuoteEvents({
   formatLocale,
   timezone,
 }: {
-  events: Array<{ id: string; type: string; createdAt: Date }>;
+  events: Array<{ id: string; type: string; createdAt: Date; recipientName: string | null }>;
   formatLocale: string;
   timezone: string;
 }) {
@@ -581,7 +619,14 @@ async function QuoteEvents({
           <ol className="space-y-2 text-sm">
             {events.map((event) => (
               <li key={event.id} className="flex flex-wrap justify-between gap-2">
-                <span>{t(`eventTypes.${event.type}`)}</span>
+                {/* Who did it, when the event knows: with several people on a
+                    quote, "opened" alone doesn't say which of them is looking.
+                    Events from before then carry no name and read as they did. */}
+                <span>
+                  {event.recipientName
+                    ? t(`eventBy.${event.type}`, { name: event.recipientName })
+                    : t(`eventTypes.${event.type}`)}
+                </span>
                 <time
                   dateTime={event.createdAt.toISOString()}
                   className="text-xs text-muted-foreground tabular-nums"
@@ -603,16 +648,13 @@ async function AcceptanceCard({
   formatLocale,
   timezone,
 }: {
-  acceptance: {
+  acceptance: FingerprintAcceptance & {
     acceptedByName: string;
-    acceptedByEmail: string | null;
     statementText: string;
     signatureType: string;
     signatureData: string | null;
     additionalComments: string | null;
     orderReference: string | null;
-    ipAddress: string | null;
-    acceptedAt: Date;
   };
   formatLocale: string;
   timezone: string;
@@ -641,12 +683,21 @@ async function AcceptanceCard({
         </div>
 
         {acceptance.signatureData && acceptance.signatureType === "DRAWN" ? (
-          <svg viewBox="0 0 600 130" className="h-20 w-full" role="img" aria-label={t("signature")}>
+          <svg
+            viewBox={signatureViewBox(acceptance.signatureData)}
+            preserveAspectRatio="xMinYMid meet"
+            className="h-20 w-full"
+            role="img"
+            aria-label={t("signature")}
+          >
             <path
               d={acceptance.signatureData}
               fill="none"
               stroke="currentColor"
               strokeWidth={2}
+              // Framed by its own strokes, so the zoom varies: the line keeps
+              // its weight in pixels rather than thickening with it.
+              vectorEffect="non-scaling-stroke"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
@@ -671,6 +722,13 @@ async function AcceptanceCard({
             <p className="text-xs whitespace-pre-wrap">{acceptance.additionalComments}</p>
           </div>
         ) : null}
+
+        <AcceptanceFingerprint
+          acceptance={acceptance}
+          locale={await getLocale()}
+          formatLocale={formatLocale}
+          timezone={timezone}
+        />
       </CardContent>
     </Card>
   );

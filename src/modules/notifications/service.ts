@@ -120,7 +120,11 @@ export async function notifyLeadReceived(leadId: string): Promise<void> {
   }
 }
 
-export async function notifyQuoteOpened(quoteId: string): Promise<void> {
+/**
+ * `viewer` is whoever opened it — with several recipients on a quote, the
+ * lead's own contact is no longer necessarily the person reading.
+ */
+export async function notifyQuoteOpened(quoteId: string, viewer?: string): Promise<void> {
   const quote = await prisma.quote.findUnique({
     where: { id: quoteId },
     include: {
@@ -152,7 +156,7 @@ export async function notifyQuoteOpened(quoteId: string): Promise<void> {
   await notifyEach(recipients.map((to) => to.id), {
     companyId: quote.companyId,
     kind: NotificationKind.QUOTE_OPENED,
-    params: { reference, customer: quote.lead?.contactName ?? "" },
+    params: { reference, customer: viewer || quote.clientName || quote.lead?.contactName || "" },
     href: `/quotes/${quote.id}`,
   });
 
@@ -166,7 +170,9 @@ export async function notifyQuoteOpened(quoteId: string): Promise<void> {
       to,
       companyName: quote.company.name,
       subject: t("quoteOpened.subject", { reference }),
-      heading: t("quoteOpened.heading", { client: quote.lead?.contactName ?? "" }),
+      heading: t("quoteOpened.heading", {
+        client: viewer || quote.clientName || quote.lead?.contactName || "",
+      }),
       lines: [`${reference} · ${quote.title}`],
     });
   }
@@ -175,6 +181,8 @@ export async function notifyQuoteOpened(quoteId: string): Promise<void> {
 export async function notifyQuoteDecided(
   quoteId: string,
   decision: "accepted" | "declined",
+  /** Which recipient decided, from the link they used. */
+  by?: string,
 ): Promise<void> {
   const quote = await prisma.quote.findUnique({
     where: { id: quoteId },
@@ -212,8 +220,9 @@ export async function notifyQuoteDecided(
     });
 
     const lines = [`${reference} · ${quote.title}`];
-    if (quote.acceptance?.acceptedByName) {
-      lines.push(t("quoteDecided.by", { name: quote.acceptance.acceptedByName }));
+    const decidedBy = by || quote.acceptance?.acceptedByName;
+    if (decidedBy) {
+      lines.push(t("quoteDecided.by", { name: decidedBy }));
     }
     if (quote.acceptance?.orderReference) {
       lines.push(t("quoteDecided.reference", { reference: quote.acceptance.orderReference }));
@@ -229,7 +238,12 @@ export async function notifyQuoteDecided(
   }
 }
 
-export async function notifyClientMessage(quoteId: string, preview: string): Promise<void> {
+export async function notifyClientMessage(
+  quoteId: string,
+  preview: string,
+  /** Which recipient wrote, from the link they used. */
+  author?: string,
+): Promise<void> {
   const quote = await prisma.quote.findUnique({
     where: { id: quoteId },
     include: {
@@ -251,7 +265,7 @@ export async function notifyClientMessage(quoteId: string, preview: string): Pro
   await notifyEach(recipients.map((to) => to.id), {
     companyId: quote.companyId,
     kind: NotificationKind.CLIENT_MESSAGE,
-    params: { reference, customer: quote.lead?.contactName ?? "" },
+    params: { reference, customer: author || quote.clientName || quote.lead?.contactName || "" },
     href: `/quotes/${quote.id}`,
   });
 
@@ -265,7 +279,9 @@ export async function notifyClientMessage(quoteId: string, preview: string): Pro
       to,
       companyName: quote.company.name,
       subject: t("clientMessage.subject", { reference }),
-      heading: t("clientMessage.heading", { client: quote.lead?.contactName ?? "" }),
+      heading: t("clientMessage.heading", {
+        client: author || quote.clientName || quote.lead?.contactName || "",
+      }),
       lines: [preview.slice(0, 300)],
     });
   }

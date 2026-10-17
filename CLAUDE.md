@@ -858,6 +858,87 @@ that was sent.
 - The four email notices go out with `after()`, outside the response. The open
   one only notifies the first time each day.
 
+### Several people, one quote
+
+A quote goes to a **primary** — the "For" on the document — and any number of
+copies (`QuoteRecipient`). The primary starts as the lead's person; copies are
+added on the quote, from the contacts or by typing an address, which creates
+the contact when there isn't one (matched on the email alone, the same rule a
+web enquiry uses). A copy can be made primary or taken off.
+
+- **The primary is mirrored into `Quote.clientName/clientEmail/clientPhone`**,
+  in the same transaction as any change to it. Everything that already read
+  those — the document, the PDF, the lists — keeps reading them and knows
+  nothing about recipients.
+- **Each recipient gets their own email and their own link.** `to:` carries one
+  address, never a Cc, and `{{customer}}` names all of them (`joinNames`, in the
+  quote's language: "Ana, Bruno and Carla"). The follow-ups, the review request
+  and the acceptance confirmation go to all of them the same way.
+- **The token is who is reading.** `QuoteShareToken.recipientId` is what the
+  portal signs an acceptance with and what the log names — "Opened by Bruno".
+  The acceptance form asks for **no name and no email**: a typed name is
+  whoever the person holding the link says they are, and the server ignores
+  one if it is posted. A link issued before recipients existed belongs to the
+  primary (`viewerFor`).
+- **Taking somebody off revokes their links**, only theirs. Taking somebody off
+  a quote has to mean they can no longer accept it.
+- **The log freezes names, not ids** (`QuoteEvent.recipientName`,
+  `QuoteMessage.authorName`): it must go on saying who opened it after that
+  person is taken off the quote.
+- **One primary per quote** is a partial unique index written by hand in the
+  migration — Prisma can't declare one — so the swap clears before it sets.
+
+The recipients card sits outside the quote's own `<form>` and acts
+immediately; on `/quotes/new` it doesn't exist yet, and the primary comes from
+the lead on the first save. "Viewing now" is still the share's, not a person's.
+
+### Signing from a phone
+
+Drawing a signature with a mouse is hard; with a finger it isn't. "Sign from a
+touch device" shows a QR; the phone opens `/sign/<token>`, and each time a
+finger lifts it posts **all** its strokes, replacing the last send — a retry
+changes nothing and Clear is an empty send. The portal polls for a newer
+`version` every 1.5 s while the QR or the mirroring is live, and redraws. One
+way only, as in Quotient: drawing on the computer doesn't go back.
+
+- **Polling, not a socket.** The phone only sends on lift, so a second of delay
+  is invisible, and a WebSocket on Vercel would need a Redis behind it for the
+  two ends to meet across instances. Same reasoning as presence and the thread.
+- **The QR carries its own token, never the quote's link** (`SignatureHandoff`,
+  hash only, 15 minutes). Whoever scans it can draw and nothing else; accepting
+  happens on the screen holding the real link. It closes when the quote is
+  decided or its link stops opening, and opens only on its company's subdomain.
+- **Strokes live in a fixed 600×250 box** (`portal/signature.ts`), whatever the
+  canvas — a signature drawn on a phone held sideways has to land in the same
+  place on the computer. Older signatures were drawn in 600×130 and nothing
+  converts them: a stored signature is always **framed by its own strokes**
+  (`signatureViewBox`), so the box it came from doesn't matter where it is
+  shown, and a small one fills its frame instead of hiding in a corner. The
+  phone suggests turning sideways for the room; upright still works.
+- **"Sign here" and the line are drawn behind the canvas** (`SignatureGuide`),
+  never on it, so neither is ever part of what is stored or sent.
+- **`isSignaturePath`** allows `M`/`L` and numbers only: the strokes end up in
+  an SVG `d` on the team's screen, and the phone's endpoint can be hand-crafted.
+
+### The acceptance's fingerprint
+
+What backs an acceptance beyond the signature, shown folded under it on the
+customer's page and the team's card (`AcceptanceFingerprint`, one component
+for both). Time in UTC and the company's zone, the address, IP, browser, and:
+
+- **"Verified by email" only when it is true** — the accepting link belonged to
+  a recipient, so that token only ever travelled in the email to that address.
+  An older link with no recipient shows the address without the claim.
+- **Signed on a touch device** only when the strokes accepted are exactly what
+  the phone sent (`signatureDeviceFor`), checked against the handoff of *this*
+  quote. Drawing over them on the computer makes it this device's signature.
+- **Two SHA-256s.** The signature's, which changes with a single point; and a
+  record seal over every field in a fixed order (`acceptanceDigest`), with the
+  time fixed in the action rather than by the column default, so an edited row
+  stops matching. Our strokes carry no timing, so nothing claims to replay how
+  the signature was written — Quotient's "as it's written in time" would not
+  be true here.
+
 ## The emails the customer gets
 
 Sending a quote produces **two emails, to two audiences**.

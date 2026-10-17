@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AcceptanceMode } from "@/generated/prisma/enums";
-import { SignaturePad } from "./signature-pad";
+import { SignaturePad, type HandoffStarter } from "./signature-pad";
 import type { PortalActionState } from "./actions";
 
 export type AcceptanceSettings = {
@@ -32,6 +32,7 @@ export function AcceptPanel({
   viewerName,
   acceptAction,
   declineAction,
+  signatureHandoff,
 }: {
   settings: AcceptanceSettings;
   /**
@@ -42,6 +43,8 @@ export function AcceptPanel({
   viewerName: string;
   acceptAction: (prev: PortalActionState, formData: FormData) => Promise<PortalActionState>;
   declineAction: (prev: PortalActionState, formData: FormData) => Promise<PortalActionState>;
+  /** "Sign from a touch device": opens the QR, and where to ask for strokes. */
+  signatureHandoff?: { start: HandoffStarter; pollBase: string };
 }) {
   const t = useTranslations("portal");
   const [accept, acceptFormAction, accepting] = useActionState<PortalActionState, FormData>(
@@ -74,7 +77,7 @@ export function AcceptPanel({
               </Alert>
             ) : null}
 
-            {settings.requireSignature ? <SignaturePad required /> : null}
+            {settings.requireSignature ? <SignaturePad required handoff={signatureHandoff} /> : null}
             {accept.fieldErrors?.signatureData ? (
               <p className="text-sm text-destructive">{accept.fieldErrors.signatureData[0]}</p>
             ) : null}

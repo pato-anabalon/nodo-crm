@@ -187,6 +187,16 @@ enum SignatureType {
 }
 
 /**
+ * Where a drawn signature was drawn. `TOUCH_DEVICE` only when the strokes the
+ * customer accepted with are exactly the ones their phone sent: drawing over
+ * them on the computer makes it this device's signature again.
+ */
+enum SignatureDevice {
+  THIS_DEVICE
+  TOUCH_DEVICE
+}
+
+/**
  * The notices a person can receive about their company's work.
  */
 enum NotificationKind {
@@ -354,6 +364,7 @@ model Company {
   quotes                  Quote[]
   contacts                Contact[]
   quoteRecipients         QuoteRecipient[]
+  signatureHandoffs       SignatureHandoff[]
   clientCompanies         ClientCompany[]
   catalogue               CatalogueItem[]
   quoteTemplates          QuoteTemplate[]
@@ -1262,6 +1273,7 @@ model Quote {
   acceptance    QuoteAcceptance?
   emailsSent    QuoteEmail[]
   recipients    QuoteRecipient[]
+  signatureHandoffs SignatureHandoff[]
 
   @@unique([companyId, number])
   @@index([companyId, status])
@@ -1419,10 +1431,47 @@ model QuoteRecipient {
   quote   Quote             @relation(fields: [quoteId], references: [id], onDelete: Cascade)
   contact Contact?          @relation(fields: [contactId], references: [id], onDelete: SetNull)
   tokens  QuoteShareToken[]
+  signatureHandoffs SignatureHandoff[]
 
   @@unique([quoteId, email])
   @@index([companyId])
   @@index([contactId])
+}
+
+/**
+ * Signing on a phone for a quote open on a computer.
+ *
+ * The portal shows a QR; the phone opens `/sign/<token>` and sends its strokes
+ * each time a finger lifts, replacing what it sent before; the portal polls
+ * for a newer `version` and redraws. One way only. The token is its own, not
+ * the quote's link: whoever scans it can draw and nothing else — accepting
+ * still happens on the screen holding the real link. Only the hash is stored.
+ */
+model SignatureHandoff {
+  id          String  @id @default(cuid())
+  companyId   String
+  quoteId     String
+  recipientId String?
+
+  hashedToken String   @unique
+  /** Strokes in the 600×250 signature box (`portal/signature.ts`). */
+  paths       String   @default("")
+  version     Int      @default(0)
+  expiresAt   DateTime
+
+  /** The phone, as of its last send — what the fingerprint names. */
+  deviceUserAgent String?
+  deviceIp        String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  company   Company         @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  quote     Quote           @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  recipient QuoteRecipient? @relation(fields: [recipientId], references: [id], onDelete: SetNull)
+
+  @@index([companyId])
+  @@index([quoteId])
 }
 
 /**
@@ -1516,6 +1565,27 @@ model QuoteAcceptance {
 
   ipAddress String?
   userAgent String?
+
+  /**
+   * The digital fingerprint: what backs the acceptance beyond the signature
+   * itself. All nullable — acceptances from before it existed keep what they
+   * had and show only that.
+   *
+   * `verifiedEmail` is true when the link that accepted belonged to a
+   * recipient: that token only ever travelled in the email to that address.
+   */
+  verifiedEmail            Boolean?
+  /** SHA-256 of `signatureData`: any change to the strokes changes it. */
+  signatureDigest          String?
+  signatureDevice          SignatureDevice?
+  /** The phone's, when the signature was drawn there. */
+  signatureDeviceUserAgent String?
+  signatureDeviceIp        String?
+  /**
+   * SHA-256 over everything above, the frozen total and the time, in a fixed
+   * order (`acceptanceDigest`). Editing the row afterwards stops it matching.
+   */
+  recordDigest             String?
 
   acceptedAt DateTime @default(now())
 

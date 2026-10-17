@@ -560,6 +560,7 @@ export type CompanyWhereInput = {
   quotes?: Prisma.QuoteListRelationFilter
   contacts?: Prisma.ContactListRelationFilter
   quoteRecipients?: Prisma.QuoteRecipientListRelationFilter
+  signatureHandoffs?: Prisma.SignatureHandoffListRelationFilter
   clientCompanies?: Prisma.ClientCompanyListRelationFilter
   catalogue?: Prisma.CatalogueItemListRelationFilter
   quoteTemplates?: Prisma.QuoteTemplateListRelationFilter
@@ -636,6 +637,7 @@ export type CompanyOrderByWithRelationInput = {
   quotes?: Prisma.QuoteOrderByRelationAggregateInput
   contacts?: Prisma.ContactOrderByRelationAggregateInput
   quoteRecipients?: Prisma.QuoteRecipientOrderByRelationAggregateInput
+  signatureHandoffs?: Prisma.SignatureHandoffOrderByRelationAggregateInput
   clientCompanies?: Prisma.ClientCompanyOrderByRelationAggregateInput
   catalogue?: Prisma.CatalogueItemOrderByRelationAggregateInput
   quoteTemplates?: Prisma.QuoteTemplateOrderByRelationAggregateInput
@@ -715,6 +717,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   quotes?: Prisma.QuoteListRelationFilter
   contacts?: Prisma.ContactListRelationFilter
   quoteRecipients?: Prisma.QuoteRecipientListRelationFilter
+  signatureHandoffs?: Prisma.SignatureHandoffListRelationFilter
   clientCompanies?: Prisma.ClientCompanyListRelationFilter
   catalogue?: Prisma.CatalogueItemListRelationFilter
   quoteTemplates?: Prisma.QuoteTemplateListRelationFilter
@@ -895,6 +898,7 @@ export type CompanyCreateInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -971,6 +975,7 @@ export type CompanyUncheckedCreateInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -1047,6 +1052,7 @@ export type CompanyUpdateInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -1123,6 +1129,7 @@ export type CompanyUncheckedUpdateInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1824,6 +1831,20 @@ export type CompanyUpdateOneRequiredWithoutQuoteRecipientsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutQuoteRecipientsInput, Prisma.CompanyUpdateWithoutQuoteRecipientsInput>, Prisma.CompanyUncheckedUpdateWithoutQuoteRecipientsInput>
 }
 
+export type CompanyCreateNestedOneWithoutSignatureHandoffsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutSignatureHandoffsInput, Prisma.CompanyUncheckedCreateWithoutSignatureHandoffsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutSignatureHandoffsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutSignatureHandoffsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutSignatureHandoffsInput, Prisma.CompanyUncheckedCreateWithoutSignatureHandoffsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutSignatureHandoffsInput
+  upsert?: Prisma.CompanyUpsertWithoutSignatureHandoffsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutSignatureHandoffsInput, Prisma.CompanyUpdateWithoutSignatureHandoffsInput>, Prisma.CompanyUncheckedUpdateWithoutSignatureHandoffsInput>
+}
+
 export type CompanyCreateNestedOneWithoutQuoteEventsInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutQuoteEventsInput, Prisma.CompanyUncheckedCreateWithoutQuoteEventsInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutQuoteEventsInput
@@ -1976,6 +1997,7 @@ export type CompanyCreateWithoutQuoteTypesInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -2051,6 +2073,7 @@ export type CompanyUncheckedCreateWithoutQuoteTypesInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -2142,6 +2165,7 @@ export type CompanyUpdateWithoutQuoteTypesInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -2217,6 +2241,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTypesInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2291,6 +2316,7 @@ export type CompanyCreateWithoutMembershipsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -2366,6 +2392,7 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -2457,6 +2484,7 @@ export type CompanyUpdateWithoutMembershipsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -2532,6 +2560,7 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2607,6 +2636,7 @@ export type CompanyCreateWithoutLoginAttemptsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -2682,6 +2712,7 @@ export type CompanyUncheckedCreateWithoutLoginAttemptsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -2773,6 +2804,7 @@ export type CompanyUpdateWithoutLoginAttemptsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -2848,6 +2880,7 @@ export type CompanyUncheckedUpdateWithoutLoginAttemptsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2923,6 +2956,7 @@ export type CompanyCreateWithoutRolesInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -2998,6 +3032,7 @@ export type CompanyUncheckedCreateWithoutRolesInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -3089,6 +3124,7 @@ export type CompanyUpdateWithoutRolesInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -3164,6 +3200,7 @@ export type CompanyUncheckedUpdateWithoutRolesInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -3239,6 +3276,7 @@ export type CompanyCreateWithoutInvitationsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -3314,6 +3352,7 @@ export type CompanyUncheckedCreateWithoutInvitationsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -3405,6 +3444,7 @@ export type CompanyUpdateWithoutInvitationsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -3480,6 +3520,7 @@ export type CompanyUncheckedUpdateWithoutInvitationsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -3556,6 +3597,7 @@ export type CompanyCreateWithoutTasksInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -3631,6 +3673,7 @@ export type CompanyUncheckedCreateWithoutTasksInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -3722,6 +3765,7 @@ export type CompanyUpdateWithoutTasksInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -3797,6 +3841,7 @@ export type CompanyUncheckedUpdateWithoutTasksInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -3872,6 +3917,7 @@ export type CompanyCreateWithoutNotificationsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -3947,6 +3993,7 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -4038,6 +4085,7 @@ export type CompanyUpdateWithoutNotificationsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -4113,6 +4161,7 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -4188,6 +4237,7 @@ export type CompanyCreateWithoutCatalogueInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
   tasks?: Prisma.TaskCreateNestedManyWithoutCompanyInput
@@ -4263,6 +4313,7 @@ export type CompanyUncheckedCreateWithoutCatalogueInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCompanyInput
@@ -4354,6 +4405,7 @@ export type CompanyUpdateWithoutCatalogueInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutCompanyNestedInput
@@ -4429,6 +4481,7 @@ export type CompanyUncheckedUpdateWithoutCatalogueInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutCompanyNestedInput
@@ -4504,6 +4557,7 @@ export type CompanyCreateWithoutClientCompaniesInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
   tasks?: Prisma.TaskCreateNestedManyWithoutCompanyInput
@@ -4579,6 +4633,7 @@ export type CompanyUncheckedCreateWithoutClientCompaniesInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCompanyInput
@@ -4670,6 +4725,7 @@ export type CompanyUpdateWithoutClientCompaniesInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutCompanyNestedInput
@@ -4745,6 +4801,7 @@ export type CompanyUncheckedUpdateWithoutClientCompaniesInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutCompanyNestedInput
@@ -4819,6 +4876,7 @@ export type CompanyCreateWithoutContactsInput = {
   leads?: Prisma.LeadCreateNestedManyWithoutCompanyInput
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -4894,6 +4952,7 @@ export type CompanyUncheckedCreateWithoutContactsInput = {
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCompanyInput
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -4985,6 +5044,7 @@ export type CompanyUpdateWithoutContactsInput = {
   leads?: Prisma.LeadUpdateManyWithoutCompanyNestedInput
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -5060,6 +5120,7 @@ export type CompanyUncheckedUpdateWithoutContactsInput = {
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCompanyNestedInput
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -5135,6 +5196,7 @@ export type CompanyCreateWithoutLeadsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -5210,6 +5272,7 @@ export type CompanyUncheckedCreateWithoutLeadsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -5301,6 +5364,7 @@ export type CompanyUpdateWithoutLeadsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -5376,6 +5440,7 @@ export type CompanyUncheckedUpdateWithoutLeadsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -5452,6 +5517,7 @@ export type CompanyCreateWithoutSubmissionsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -5527,6 +5593,7 @@ export type CompanyUncheckedCreateWithoutSubmissionsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -5618,6 +5685,7 @@ export type CompanyUpdateWithoutSubmissionsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -5693,6 +5761,7 @@ export type CompanyUncheckedUpdateWithoutSubmissionsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -5768,6 +5837,7 @@ export type CompanyCreateWithoutLeadAttachmentsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -5843,6 +5913,7 @@ export type CompanyUncheckedCreateWithoutLeadAttachmentsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -5934,6 +6005,7 @@ export type CompanyUpdateWithoutLeadAttachmentsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -6009,6 +6081,7 @@ export type CompanyUncheckedUpdateWithoutLeadAttachmentsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -6084,6 +6157,7 @@ export type CompanyCreateWithoutIngestKeysInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -6159,6 +6233,7 @@ export type CompanyUncheckedCreateWithoutIngestKeysInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -6250,6 +6325,7 @@ export type CompanyUpdateWithoutIngestKeysInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -6325,6 +6401,7 @@ export type CompanyUncheckedUpdateWithoutIngestKeysInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -6400,6 +6477,7 @@ export type CompanyCreateWithoutIngestAttemptsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -6475,6 +6553,7 @@ export type CompanyUncheckedCreateWithoutIngestAttemptsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -6566,6 +6645,7 @@ export type CompanyUpdateWithoutIngestAttemptsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -6641,6 +6721,7 @@ export type CompanyUncheckedUpdateWithoutIngestAttemptsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -6716,6 +6797,7 @@ export type CompanyCreateWithoutActivitiesInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -6791,6 +6873,7 @@ export type CompanyUncheckedCreateWithoutActivitiesInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -6882,6 +6965,7 @@ export type CompanyUpdateWithoutActivitiesInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -6957,6 +7041,7 @@ export type CompanyUncheckedUpdateWithoutActivitiesInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -7032,6 +7117,7 @@ export type CompanyCreateWithoutQuoteTemplatesInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   tasks?: Prisma.TaskCreateNestedManyWithoutCompanyInput
@@ -7107,6 +7193,7 @@ export type CompanyUncheckedCreateWithoutQuoteTemplatesInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCompanyInput
@@ -7198,6 +7285,7 @@ export type CompanyUpdateWithoutQuoteTemplatesInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutCompanyNestedInput
@@ -7273,6 +7361,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTemplatesInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutCompanyNestedInput
@@ -7347,6 +7436,7 @@ export type CompanyCreateWithoutQuotesInput = {
   leads?: Prisma.LeadCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -7422,6 +7512,7 @@ export type CompanyUncheckedCreateWithoutQuotesInput = {
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -7513,6 +7604,7 @@ export type CompanyUpdateWithoutQuotesInput = {
   leads?: Prisma.LeadUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -7588,6 +7680,7 @@ export type CompanyUncheckedUpdateWithoutQuotesInput = {
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -7664,6 +7757,7 @@ export type CompanyCreateWithoutDocumentsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -7739,6 +7833,7 @@ export type CompanyUncheckedCreateWithoutDocumentsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -7830,6 +7925,7 @@ export type CompanyUpdateWithoutDocumentsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -7905,6 +8001,7 @@ export type CompanyUncheckedUpdateWithoutDocumentsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -7980,6 +8077,7 @@ export type CompanyCreateWithoutQuoteSharesInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -8055,6 +8153,7 @@ export type CompanyUncheckedCreateWithoutQuoteSharesInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -8146,6 +8245,7 @@ export type CompanyUpdateWithoutQuoteSharesInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -8221,6 +8321,7 @@ export type CompanyUncheckedUpdateWithoutQuoteSharesInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -8295,6 +8396,7 @@ export type CompanyCreateWithoutQuoteRecipientsInput = {
   leads?: Prisma.LeadCreateNestedManyWithoutCompanyInput
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -8370,6 +8472,7 @@ export type CompanyUncheckedCreateWithoutQuoteRecipientsInput = {
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCompanyInput
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -8461,6 +8564,7 @@ export type CompanyUpdateWithoutQuoteRecipientsInput = {
   leads?: Prisma.LeadUpdateManyWithoutCompanyNestedInput
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -8536,6 +8640,327 @@ export type CompanyUncheckedUpdateWithoutQuoteRecipientsInput = {
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCompanyNestedInput
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
+  clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
+  catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
+  submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
+  ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutSignatureHandoffsInput = {
+  id?: string
+  slug: string
+  name: string
+  legalName?: string | null
+  taxId?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  logoUrl?: string | null
+  pdfLogoUrl?: string | null
+  watermarkUrl?: string | null
+  primaryColor?: string
+  accentColor?: string
+  defaultLanguage?: $Enums.Language
+  currency?: string
+  formatLocale?: string
+  timezone?: string
+  defaultTaxType?: $Enums.TaxType
+  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: string
+  quoteValidityDays?: number
+  quoteNumberStart?: number
+  quoteFooter?: string | null
+  slogan?: string | null
+  senderNameStyle?: $Enums.SenderNameStyle
+  firstFollowUpDays?: number
+  secondFollowUpDays?: number
+  reviewRequestDays?: number
+  sendQuoteCopy?: boolean
+  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
+  quoteIntro?: string | null
+  quoteNotes?: string | null
+  quoteExclusions?: string | null
+  quoteTerms?: string | null
+  quoteScope?: string | null
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  acceptanceMode?: $Enums.AcceptanceMode
+  acceptanceStatement?: string | null
+  requireSignature?: boolean
+  askAdditionalComments?: boolean
+  askOrderReference?: boolean
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipCreateNestedManyWithoutCompanyInput
+  loginAttempts?: Prisma.LoginAttemptCreateNestedManyWithoutCompanyInput
+  roles?: Prisma.RoleCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutCompanyInput
+  leads?: Prisma.LeadCreateNestedManyWithoutCompanyInput
+  quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
+  quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
+  catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
+  quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
+  submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
+  ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
+  quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
+  acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
+  emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
+  reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutSignatureHandoffsInput = {
+  id?: string
+  slug: string
+  name: string
+  legalName?: string | null
+  taxId?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  logoUrl?: string | null
+  pdfLogoUrl?: string | null
+  watermarkUrl?: string | null
+  primaryColor?: string
+  accentColor?: string
+  defaultLanguage?: $Enums.Language
+  currency?: string
+  formatLocale?: string
+  timezone?: string
+  defaultTaxType?: $Enums.TaxType
+  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: string
+  quoteValidityDays?: number
+  quoteNumberStart?: number
+  quoteFooter?: string | null
+  slogan?: string | null
+  senderNameStyle?: $Enums.SenderNameStyle
+  firstFollowUpDays?: number
+  secondFollowUpDays?: number
+  reviewRequestDays?: number
+  sendQuoteCopy?: boolean
+  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
+  quoteIntro?: string | null
+  quoteNotes?: string | null
+  quoteExclusions?: string | null
+  quoteTerms?: string | null
+  quoteScope?: string | null
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  acceptanceMode?: $Enums.AcceptanceMode
+  acceptanceStatement?: string | null
+  requireSignature?: boolean
+  askAdditionalComments?: boolean
+  askOrderReference?: boolean
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutCompanyInput
+  loginAttempts?: Prisma.LoginAttemptUncheckedCreateNestedManyWithoutCompanyInput
+  roles?: Prisma.RoleUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutCompanyInput
+  leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCompanyInput
+  quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
+  quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
+  catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
+  submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
+  ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
+  quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
+  acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
+  emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutSignatureHandoffsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutSignatureHandoffsInput, Prisma.CompanyUncheckedCreateWithoutSignatureHandoffsInput>
+}
+
+export type CompanyUpsertWithoutSignatureHandoffsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutSignatureHandoffsInput, Prisma.CompanyUncheckedUpdateWithoutSignatureHandoffsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutSignatureHandoffsInput, Prisma.CompanyUncheckedCreateWithoutSignatureHandoffsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutSignatureHandoffsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutSignatureHandoffsInput, Prisma.CompanyUncheckedUpdateWithoutSignatureHandoffsInput>
+}
+
+export type CompanyUpdateWithoutSignatureHandoffsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
+  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
+  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
+  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
+  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
+  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUpdateManyWithoutCompanyNestedInput
+  loginAttempts?: Prisma.LoginAttemptUpdateManyWithoutCompanyNestedInput
+  roles?: Prisma.RoleUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutCompanyNestedInput
+  leads?: Prisma.LeadUpdateManyWithoutCompanyNestedInput
+  quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
+  quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
+  catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
+  quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
+  submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
+  ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
+  quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
+  acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
+  emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
+  reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutSignatureHandoffsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
+  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
+  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
+  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
+  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
+  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutCompanyNestedInput
+  loginAttempts?: Prisma.LoginAttemptUncheckedUpdateManyWithoutCompanyNestedInput
+  roles?: Prisma.RoleUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  leads?: Prisma.LeadUncheckedUpdateManyWithoutCompanyNestedInput
+  quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -8612,6 +9037,7 @@ export type CompanyCreateWithoutQuoteEventsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -8687,6 +9113,7 @@ export type CompanyUncheckedCreateWithoutQuoteEventsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -8778,6 +9205,7 @@ export type CompanyUpdateWithoutQuoteEventsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -8853,6 +9281,7 @@ export type CompanyUncheckedUpdateWithoutQuoteEventsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -8928,6 +9357,7 @@ export type CompanyCreateWithoutQuoteMessagesInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -9003,6 +9433,7 @@ export type CompanyUncheckedCreateWithoutQuoteMessagesInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -9094,6 +9525,7 @@ export type CompanyUpdateWithoutQuoteMessagesInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -9169,6 +9601,7 @@ export type CompanyUncheckedUpdateWithoutQuoteMessagesInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -9244,6 +9677,7 @@ export type CompanyCreateWithoutAcceptancesInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -9319,6 +9753,7 @@ export type CompanyUncheckedCreateWithoutAcceptancesInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -9410,6 +9845,7 @@ export type CompanyUpdateWithoutAcceptancesInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -9485,6 +9921,7 @@ export type CompanyUncheckedUpdateWithoutAcceptancesInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -9560,6 +9997,7 @@ export type CompanyCreateWithoutReviewLinksInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -9635,6 +10073,7 @@ export type CompanyUncheckedCreateWithoutReviewLinksInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -9726,6 +10165,7 @@ export type CompanyUpdateWithoutReviewLinksInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -9801,6 +10241,7 @@ export type CompanyUncheckedUpdateWithoutReviewLinksInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -9876,6 +10317,7 @@ export type CompanyCreateWithoutEmailTemplatesInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -9951,6 +10393,7 @@ export type CompanyUncheckedCreateWithoutEmailTemplatesInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -10042,6 +10485,7 @@ export type CompanyUpdateWithoutEmailTemplatesInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -10117,6 +10561,7 @@ export type CompanyUncheckedUpdateWithoutEmailTemplatesInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -10192,6 +10637,7 @@ export type CompanyCreateWithoutReviewsInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -10267,6 +10713,7 @@ export type CompanyUncheckedCreateWithoutReviewsInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -10358,6 +10805,7 @@ export type CompanyUpdateWithoutReviewsInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -10433,6 +10881,7 @@ export type CompanyUncheckedUpdateWithoutReviewsInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -10508,6 +10957,7 @@ export type CompanyCreateWithoutNotificationPreferencesInput = {
   quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
@@ -10583,6 +11033,7 @@ export type CompanyUncheckedCreateWithoutNotificationPreferencesInput = {
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
   contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
   clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
   catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -10674,6 +11125,7 @@ export type CompanyUpdateWithoutNotificationPreferencesInput = {
   quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
@@ -10749,6 +11201,7 @@ export type CompanyUncheckedUpdateWithoutNotificationPreferencesInput = {
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
   contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
   quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
   clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
   catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -10784,6 +11237,7 @@ export type CompanyCountOutputType = {
   quotes: number
   contacts: number
   quoteRecipients: number
+  signatureHandoffs: number
   clientCompanies: number
   catalogue: number
   quoteTemplates: number
@@ -10815,6 +11269,7 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   quotes?: boolean | CompanyCountOutputTypeCountQuotesArgs
   contacts?: boolean | CompanyCountOutputTypeCountContactsArgs
   quoteRecipients?: boolean | CompanyCountOutputTypeCountQuoteRecipientsArgs
+  signatureHandoffs?: boolean | CompanyCountOutputTypeCountSignatureHandoffsArgs
   clientCompanies?: boolean | CompanyCountOutputTypeCountClientCompaniesArgs
   catalogue?: boolean | CompanyCountOutputTypeCountCatalogueArgs
   quoteTemplates?: boolean | CompanyCountOutputTypeCountQuoteTemplatesArgs
@@ -10901,6 +11356,13 @@ export type CompanyCountOutputTypeCountContactsArgs<ExtArgs extends runtime.Type
  */
 export type CompanyCountOutputTypeCountQuoteRecipientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.QuoteRecipientWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountSignatureHandoffsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SignatureHandoffWhereInput
 }
 
 /**
@@ -11098,6 +11560,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   quotes?: boolean | Prisma.Company$quotesArgs<ExtArgs>
   contacts?: boolean | Prisma.Company$contactsArgs<ExtArgs>
   quoteRecipients?: boolean | Prisma.Company$quoteRecipientsArgs<ExtArgs>
+  signatureHandoffs?: boolean | Prisma.Company$signatureHandoffsArgs<ExtArgs>
   clientCompanies?: boolean | Prisma.Company$clientCompaniesArgs<ExtArgs>
   catalogue?: boolean | Prisma.Company$catalogueArgs<ExtArgs>
   quoteTemplates?: boolean | Prisma.Company$quoteTemplatesArgs<ExtArgs>
@@ -11275,6 +11738,7 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   quotes?: boolean | Prisma.Company$quotesArgs<ExtArgs>
   contacts?: boolean | Prisma.Company$contactsArgs<ExtArgs>
   quoteRecipients?: boolean | Prisma.Company$quoteRecipientsArgs<ExtArgs>
+  signatureHandoffs?: boolean | Prisma.Company$signatureHandoffsArgs<ExtArgs>
   clientCompanies?: boolean | Prisma.Company$clientCompaniesArgs<ExtArgs>
   catalogue?: boolean | Prisma.Company$catalogueArgs<ExtArgs>
   quoteTemplates?: boolean | Prisma.Company$quoteTemplatesArgs<ExtArgs>
@@ -11311,6 +11775,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     quotes: Prisma.$QuotePayload<ExtArgs>[]
     contacts: Prisma.$ContactPayload<ExtArgs>[]
     quoteRecipients: Prisma.$QuoteRecipientPayload<ExtArgs>[]
+    signatureHandoffs: Prisma.$SignatureHandoffPayload<ExtArgs>[]
     clientCompanies: Prisma.$ClientCompanyPayload<ExtArgs>[]
     catalogue: Prisma.$CatalogueItemPayload<ExtArgs>[]
     quoteTemplates: Prisma.$QuoteTemplatePayload<ExtArgs>[]
@@ -11851,6 +12316,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   quotes<T extends Prisma.Company$quotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$quotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   contacts<T extends Prisma.Company$contactsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$contactsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   quoteRecipients<T extends Prisma.Company$quoteRecipientsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$quoteRecipientsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuoteRecipientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  signatureHandoffs<T extends Prisma.Company$signatureHandoffsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$signatureHandoffsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SignatureHandoffPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   clientCompanies<T extends Prisma.Company$clientCompaniesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$clientCompaniesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientCompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   catalogue<T extends Prisma.Company$catalogueArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$catalogueArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CatalogueItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   quoteTemplates<T extends Prisma.Company$quoteTemplatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$quoteTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuoteTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -12527,6 +12993,30 @@ export type Company$quoteRecipientsArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.QuoteRecipientScalarFieldEnum | Prisma.QuoteRecipientScalarFieldEnum[]
+}
+
+/**
+ * Company.signatureHandoffs
+ */
+export type Company$signatureHandoffsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SignatureHandoff
+   */
+  select?: Prisma.SignatureHandoffSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SignatureHandoff
+   */
+  omit?: Prisma.SignatureHandoffOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SignatureHandoffInclude<ExtArgs> | null
+  where?: Prisma.SignatureHandoffWhereInput
+  orderBy?: Prisma.SignatureHandoffOrderByWithRelationInput | Prisma.SignatureHandoffOrderByWithRelationInput[]
+  cursor?: Prisma.SignatureHandoffWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SignatureHandoffScalarFieldEnum | Prisma.SignatureHandoffScalarFieldEnum[]
 }
 
 /**

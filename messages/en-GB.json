@@ -1279,6 +1279,7 @@
     "signatureDraw": "Draw",
     "signatureType": "Type",
     "signatureClear": "Clear",
+    "signHere": "Sign here",
     "signaturePlaceholder": "Type your name",
     "additionalComments": "Comments (optional)",
     "orderReference": "Order or reference number (optional)",
@@ -1331,7 +1332,44 @@
     "bundleProgress": "Select {count, plural, one {# more optional item} other {# more optional items}} to unlock {amount} off",
     "bundleUnlocked": "{amount} discount unlocked",
     "chooseOne": "Choose one of the following",
-    "questionsAndAnswers": "Questions & answers"
+    "questionsAndAnswers": "Questions & answers",
+    "handoff": {
+      "open": "Sign from a touch device",
+      "qrLabel": "QR code to sign on your phone",
+      "title": "Scan the QR code",
+      "step1": "Open your phone's camera and point it at the code.",
+      "step2": "Tap the link that appears.",
+      "step3": "Sign with your finger on the box that opens.",
+      "autoUpdate": "This screen updates by itself once you've signed.",
+      "cancel": "Cancel",
+      "mirroring": "Showing what you draw on your phone.",
+      "stop": "Stop",
+      "phoneTitle": "Sign here",
+      "phoneUnavailableTitle": "This code no longer works",
+      "phoneUnavailableBody": "Go back to the quote on your other screen and choose “Sign from a touch device” again.",
+      "rotate": "Turn your phone sideways for more room to sign.",
+      "ready": "Ready to accept on your other screen",
+      "failed": "That didn't reach your other screen. Lift your finger again to retry.",
+      "drawHere": "Draw your signature in the box",
+      "clear": "Clear"
+    },
+    "fingerprint": {
+      "show": "Show digital fingerprint",
+      "hide": "Hide digital fingerprint",
+      "timestamp": "Timestamp",
+      "verifiedEmail": "Verified by email",
+      "email": "Email",
+      "verifiedEmailHint": "Accepted through a unique link sent only to this address.",
+      "ipAddress": "IP address",
+      "signatureDigest": "Signature fingerprint (SHA-256)",
+      "signatureDigestHint": "Changing a single point of the signature changes this value.",
+      "signedOn": "Signed on",
+      "touchDevice": "A touch device",
+      "thisDevice": "The same device that accepted",
+      "userAgent": "Browser that accepted",
+      "recordDigest": "Record seal (SHA-256)",
+      "recordDigestHint": "Covers everything above, the accepted total and the statement. Any later change to the record stops it matching."
+    }
   },
   "notifications": {
     "leadReceived": {

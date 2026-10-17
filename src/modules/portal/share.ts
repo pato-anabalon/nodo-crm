@@ -1,3 +1,4 @@
+import { companyUrl } from "@/lib/tenant/host";
 import { createHash, randomBytes } from "node:crypto";
 
 /**
@@ -77,6 +78,5 @@ export function viewerFor(
 
 /** The URL sent to the customer. It lives on their supplier's subdomain. */
 export function shareUrl(slug: string, token: string, rootDomain: string): string {
-  const protocol = rootDomain.startsWith("localhost") ? "http" : "https";
-  return `${protocol}://${slug}.${rootDomain}/q/${token}`;
+  return companyUrl(slug, `/q/${token}`, rootDomain);
 }

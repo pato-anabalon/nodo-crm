@@ -1279,6 +1279,7 @@
     "signatureDraw": "Dibujar",
     "signatureType": "Escribir",
     "signatureClear": "Borrar",
+    "signHere": "Firma aquí",
     "signaturePlaceholder": "Escribe tu nombre",
     "additionalComments": "Comentarios (opcional)",
     "orderReference": "Número de orden de compra (opcional)",
@@ -1331,7 +1332,44 @@
     "bundleProgress": "Selecciona {count, plural, one {# ítem opcional más} other {# ítems opcionales más}} para desbloquear {amount} de descuento",
     "bundleUnlocked": "Descuento de {amount} desbloqueado",
     "chooseOne": "Elige una de las siguientes opciones",
-    "questionsAndAnswers": "Preguntas y respuestas"
+    "questionsAndAnswers": "Preguntas y respuestas",
+    "handoff": {
+      "open": "Firmar desde un dispositivo táctil",
+      "qrLabel": "Código QR para firmar en tu teléfono",
+      "title": "Escanea el código QR",
+      "step1": "Abre la cámara de tu teléfono y apúntala al código.",
+      "step2": "Toca el enlace que aparece.",
+      "step3": "Firma con el dedo en el recuadro que se abre.",
+      "autoUpdate": "Esta pantalla se actualiza sola cuando hayas firmado.",
+      "cancel": "Cancelar",
+      "mirroring": "Mostrando lo que dibujas en tu teléfono.",
+      "stop": "Detener",
+      "phoneTitle": "Firma aquí",
+      "phoneUnavailableTitle": "Este código ya no funciona",
+      "phoneUnavailableBody": "Vuelve a la cotización en tu otra pantalla y elige “Firmar desde un dispositivo táctil” otra vez.",
+      "rotate": "Gira el teléfono para tener más espacio al firmar.",
+      "ready": "Listo para aceptar en tu otra pantalla",
+      "failed": "No llegó a tu otra pantalla. Levanta el dedo otra vez para reintentar.",
+      "drawHere": "Dibuja tu firma en el recuadro",
+      "clear": "Borrar"
+    },
+    "fingerprint": {
+      "show": "Ver huella digital",
+      "hide": "Ocultar huella digital",
+      "timestamp": "Fecha y hora",
+      "verifiedEmail": "Verificado por correo",
+      "email": "Correo",
+      "verifiedEmailHint": "Aceptada a través de un enlace único enviado solo a esta dirección.",
+      "ipAddress": "Dirección IP",
+      "signatureDigest": "Huella de la firma (SHA-256)",
+      "signatureDigestHint": "Cambiar un solo punto de la firma cambia este valor.",
+      "signedOn": "Firmada en",
+      "touchDevice": "Un dispositivo táctil",
+      "thisDevice": "El mismo dispositivo que aceptó",
+      "userAgent": "Navegador que aceptó",
+      "recordDigest": "Sello del registro (SHA-256)",
+      "recordDigestHint": "Cubre todo lo anterior, el total aceptado y la declaración. Cualquier cambio posterior al registro deja de coincidir."
+    }
   },
   "notifications": {
     "leadReceived": {

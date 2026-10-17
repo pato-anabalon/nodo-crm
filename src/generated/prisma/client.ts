@@ -289,6 +289,18 @@ export type QuoteShareToken = Prisma.QuoteShareTokenModel
  */
 export type QuoteRecipient = Prisma.QuoteRecipientModel
 /**
+ * Model SignatureHandoff
+ * *
+ *  * Signing on a phone for a quote open on a computer.
+ *  *
+ *  * The portal shows a QR; the phone opens `/sign/<token>` and sends its strokes
+ *  * each time a finger lifts, replacing what it sent before; the portal polls
+ *  * for a newer `version` and redraws. One way only. The token is its own, not
+ *  * the quote's link: whoever scans it can draw and nothing else — accepting
+ *  * still happens on the screen holding the real link. Only the hash is stored.
+ */
+export type SignatureHandoff = Prisma.SignatureHandoffModel
+/**
  * Model QuoteEvent
  * *
  *  * A log of what the customer does with their quote.

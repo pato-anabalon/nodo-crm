@@ -892,6 +892,53 @@ The recipients card sits outside the quote's own `<form>` and acts
 immediately; on `/quotes/new` it doesn't exist yet, and the primary comes from
 the lead on the first save. "Viewing now" is still the share's, not a person's.
 
+### Signing from a phone
+
+Drawing a signature with a mouse is hard; with a finger it isn't. "Sign from a
+touch device" shows a QR; the phone opens `/sign/<token>`, and each time a
+finger lifts it posts **all** its strokes, replacing the last send — a retry
+changes nothing and Clear is an empty send. The portal polls for a newer
+`version` every 1.5 s while the QR or the mirroring is live, and redraws. One
+way only, as in Quotient: drawing on the computer doesn't go back.
+
+- **Polling, not a socket.** The phone only sends on lift, so a second of delay
+  is invisible, and a WebSocket on Vercel would need a Redis behind it for the
+  two ends to meet across instances. Same reasoning as presence and the thread.
+- **The QR carries its own token, never the quote's link** (`SignatureHandoff`,
+  hash only, 15 minutes). Whoever scans it can draw and nothing else; accepting
+  happens on the screen holding the real link. It closes when the quote is
+  decided or its link stops opening, and opens only on its company's subdomain.
+- **Strokes live in a fixed 600×250 box** (`portal/signature.ts`), whatever the
+  canvas — a signature drawn on a phone held sideways has to land in the same
+  place on the computer. Older signatures were drawn in 600×130 and nothing
+  converts them: a stored signature is always **framed by its own strokes**
+  (`signatureViewBox`), so the box it came from doesn't matter where it is
+  shown, and a small one fills its frame instead of hiding in a corner. The
+  phone suggests turning sideways for the room; upright still works.
+- **"Sign here" and the line are drawn behind the canvas** (`SignatureGuide`),
+  never on it, so neither is ever part of what is stored or sent.
+- **`isSignaturePath`** allows `M`/`L` and numbers only: the strokes end up in
+  an SVG `d` on the team's screen, and the phone's endpoint can be hand-crafted.
+
+### The acceptance's fingerprint
+
+What backs an acceptance beyond the signature, shown folded under it on the
+customer's page and the team's card (`AcceptanceFingerprint`, one component
+for both). Time in UTC and the company's zone, the address, IP, browser, and:
+
+- **"Verified by email" only when it is true** — the accepting link belonged to
+  a recipient, so that token only ever travelled in the email to that address.
+  An older link with no recipient shows the address without the claim.
+- **Signed on a touch device** only when the strokes accepted are exactly what
+  the phone sent (`signatureDeviceFor`), checked against the handoff of *this*
+  quote. Drawing over them on the computer makes it this device's signature.
+- **Two SHA-256s.** The signature's, which changes with a single point; and a
+  record seal over every field in a fixed order (`acceptanceDigest`), with the
+  time fixed in the action rather than by the column default, so an edited row
+  stops matching. Our strokes carry no timing, so nothing claims to replay how
+  the signature was written — Quotient's "as it's written in time" would not
+  be true here.
+
 ## The emails the customer gets
 
 Sending a quote produces **two emails, to two audiences**.

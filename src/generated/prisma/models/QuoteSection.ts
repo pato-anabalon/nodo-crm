@@ -563,10 +563,6 @@ export type QuoteSectionUncheckedUpdateManyWithoutQuoteNestedInput = {
   deleteMany?: Prisma.QuoteSectionScalarWhereInput | Prisma.QuoteSectionScalarWhereInput[]
 }
 
-export type NullableBoolFieldUpdateOperationsInput = {
-  set?: boolean | null
-}
-
 export type QuoteSectionCreateNestedOneWithoutAttachmentsInput = {
   create?: Prisma.XOR<Prisma.QuoteSectionCreateWithoutAttachmentsInput, Prisma.QuoteSectionUncheckedCreateWithoutAttachmentsInput>
   connectOrCreate?: Prisma.QuoteSectionCreateOrConnectWithoutAttachmentsInput

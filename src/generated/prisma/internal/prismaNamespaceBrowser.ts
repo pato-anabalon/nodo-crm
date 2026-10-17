@@ -82,6 +82,7 @@ export const ModelName = {
   QuoteShare: 'QuoteShare',
   QuoteShareToken: 'QuoteShareToken',
   QuoteRecipient: 'QuoteRecipient',
+  SignatureHandoff: 'SignatureHandoff',
   QuoteEvent: 'QuoteEvent',
   QuoteMessage: 'QuoteMessage',
   QuoteAcceptance: 'QuoteAcceptance',
@@ -651,6 +652,24 @@ export const QuoteRecipientScalarFieldEnum = {
 export type QuoteRecipientScalarFieldEnum = (typeof QuoteRecipientScalarFieldEnum)[keyof typeof QuoteRecipientScalarFieldEnum]
 
 
+export const SignatureHandoffScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  quoteId: 'quoteId',
+  recipientId: 'recipientId',
+  hashedToken: 'hashedToken',
+  paths: 'paths',
+  version: 'version',
+  expiresAt: 'expiresAt',
+  deviceUserAgent: 'deviceUserAgent',
+  deviceIp: 'deviceIp',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SignatureHandoffScalarFieldEnum = (typeof SignatureHandoffScalarFieldEnum)[keyof typeof SignatureHandoffScalarFieldEnum]
+
+
 export const QuoteEventScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
@@ -694,6 +713,12 @@ export const QuoteAcceptanceScalarFieldEnum = {
   orderReference: 'orderReference',
   ipAddress: 'ipAddress',
   userAgent: 'userAgent',
+  verifiedEmail: 'verifiedEmail',
+  signatureDigest: 'signatureDigest',
+  signatureDevice: 'signatureDevice',
+  signatureDeviceUserAgent: 'signatureDeviceUserAgent',
+  signatureDeviceIp: 'signatureDeviceIp',
+  recordDigest: 'recordDigest',
   acceptedAt: 'acceptedAt'
 } as const
 

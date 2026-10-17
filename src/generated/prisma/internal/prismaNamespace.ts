@@ -428,6 +428,7 @@ export const ModelName = {
   QuoteShare: 'QuoteShare',
   QuoteShareToken: 'QuoteShareToken',
   QuoteRecipient: 'QuoteRecipient',
+  SignatureHandoff: 'SignatureHandoff',
   QuoteEvent: 'QuoteEvent',
   QuoteMessage: 'QuoteMessage',
   QuoteAcceptance: 'QuoteAcceptance',
@@ -454,7 +455,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteRecipient" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem"
+    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteRecipient" | "signatureHandoff" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2752,6 +2753,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SignatureHandoff: {
+      payload: Prisma.$SignatureHandoffPayload<ExtArgs>
+      fields: Prisma.SignatureHandoffFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SignatureHandoffFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureHandoffPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SignatureHandoffFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureHandoffPayload>
+        }
+        findFirst: {
+          args: Prisma.SignatureHandoffFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureHandoffPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SignatureHandoffFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureHandoffPayload>
+        }
+        findMany: {
+          args: Prisma.SignatureHandoffFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureHandoffPayload>[]
+        }
+        create: {
+          args: Prisma.SignatureHandoffCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureHandoffPayload>
+        }
+        createMany: {
+          args: Prisma.SignatureHandoffCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SignatureHandoffCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureHandoffPayload>[]
+        }
+        delete: {
+          args: Prisma.SignatureHandoffDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureHandoffPayload>
+        }
+        update: {
+          args: Prisma.SignatureHandoffUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureHandoffPayload>
+        }
+        deleteMany: {
+          args: Prisma.SignatureHandoffDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SignatureHandoffUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SignatureHandoffUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureHandoffPayload>[]
+        }
+        upsert: {
+          args: Prisma.SignatureHandoffUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SignatureHandoffPayload>
+        }
+        aggregate: {
+          args: Prisma.SignatureHandoffAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSignatureHandoff>
+        }
+        groupBy: {
+          args: Prisma.SignatureHandoffGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SignatureHandoffGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SignatureHandoffCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SignatureHandoffCountAggregateOutputType> | number
+        }
+      }
+    }
     QuoteEvent: {
       payload: Prisma.$QuoteEventPayload<ExtArgs>
       fields: Prisma.QuoteEventFieldRefs
@@ -4145,6 +4220,24 @@ export const QuoteRecipientScalarFieldEnum = {
 export type QuoteRecipientScalarFieldEnum = (typeof QuoteRecipientScalarFieldEnum)[keyof typeof QuoteRecipientScalarFieldEnum]
 
 
+export const SignatureHandoffScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  quoteId: 'quoteId',
+  recipientId: 'recipientId',
+  hashedToken: 'hashedToken',
+  paths: 'paths',
+  version: 'version',
+  expiresAt: 'expiresAt',
+  deviceUserAgent: 'deviceUserAgent',
+  deviceIp: 'deviceIp',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SignatureHandoffScalarFieldEnum = (typeof SignatureHandoffScalarFieldEnum)[keyof typeof SignatureHandoffScalarFieldEnum]
+
+
 export const QuoteEventScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
@@ -4188,6 +4281,12 @@ export const QuoteAcceptanceScalarFieldEnum = {
   orderReference: 'orderReference',
   ipAddress: 'ipAddress',
   userAgent: 'userAgent',
+  verifiedEmail: 'verifiedEmail',
+  signatureDigest: 'signatureDigest',
+  signatureDevice: 'signatureDevice',
+  signatureDeviceUserAgent: 'signatureDeviceUserAgent',
+  signatureDeviceIp: 'signatureDeviceIp',
+  recordDigest: 'recordDigest',
   acceptedAt: 'acceptedAt'
 } as const
 
@@ -4745,6 +4844,20 @@ export type ListEnumSignatureTypeFieldRefInput<$PrismaModel> = FieldRefInputType
 
 
 /**
+ * Reference to a field of type 'SignatureDevice'
+ */
+export type EnumSignatureDeviceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SignatureDevice'>
+    
+
+
+/**
+ * Reference to a field of type 'SignatureDevice[]'
+ */
+export type ListEnumSignatureDeviceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SignatureDevice[]'>
+    
+
+
+/**
  * Reference to a field of type 'ReviewSource'
  */
 export type EnumReviewSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReviewSource'>
@@ -4967,6 +5080,7 @@ export type GlobalOmitConfig = {
   quoteShare?: Prisma.QuoteShareOmit
   quoteShareToken?: Prisma.QuoteShareTokenOmit
   quoteRecipient?: Prisma.QuoteRecipientOmit
+  signatureHandoff?: Prisma.SignatureHandoffOmit
   quoteEvent?: Prisma.QuoteEventOmit
   quoteMessage?: Prisma.QuoteMessageOmit
   quoteAcceptance?: Prisma.QuoteAcceptanceOmit

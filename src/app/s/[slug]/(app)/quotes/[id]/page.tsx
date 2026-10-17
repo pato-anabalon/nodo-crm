@@ -18,6 +18,11 @@ import { getQuote } from "@/modules/quotes/service";
 import { listCompanyDocuments } from "@/modules/documents/service";
 import { QuoteForm } from "@/modules/quotes/quote-form";
 import { QuoteRecipients } from "@/modules/quotes/quote-recipients";
+import { signatureViewBox } from "@/modules/portal/signature";
+import {
+  AcceptanceFingerprint,
+  type FingerprintAcceptance,
+} from "@/modules/portal/acceptance-fingerprint";
 import {
   addContactRecipientAction,
   addNewRecipientAction,
@@ -643,16 +648,13 @@ async function AcceptanceCard({
   formatLocale,
   timezone,
 }: {
-  acceptance: {
+  acceptance: FingerprintAcceptance & {
     acceptedByName: string;
-    acceptedByEmail: string | null;
     statementText: string;
     signatureType: string;
     signatureData: string | null;
     additionalComments: string | null;
     orderReference: string | null;
-    ipAddress: string | null;
-    acceptedAt: Date;
   };
   formatLocale: string;
   timezone: string;
@@ -681,12 +683,21 @@ async function AcceptanceCard({
         </div>
 
         {acceptance.signatureData && acceptance.signatureType === "DRAWN" ? (
-          <svg viewBox="0 0 600 130" className="h-20 w-full" role="img" aria-label={t("signature")}>
+          <svg
+            viewBox={signatureViewBox(acceptance.signatureData)}
+            preserveAspectRatio="xMinYMid meet"
+            className="h-20 w-full"
+            role="img"
+            aria-label={t("signature")}
+          >
             <path
               d={acceptance.signatureData}
               fill="none"
               stroke="currentColor"
               strokeWidth={2}
+              // Framed by its own strokes, so the zoom varies: the line keeps
+              // its weight in pixels rather than thickening with it.
+              vectorEffect="non-scaling-stroke"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
@@ -711,6 +722,13 @@ async function AcceptanceCard({
             <p className="text-xs whitespace-pre-wrap">{acceptance.additionalComments}</p>
           </div>
         ) : null}
+
+        <AcceptanceFingerprint
+          acceptance={acceptance}
+          locale={await getLocale()}
+          formatLocale={formatLocale}
+          timezone={timezone}
+        />
       </CardContent>
     </Card>
   );

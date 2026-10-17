@@ -546,6 +546,7 @@ export type QuoteWhereInput = {
   acceptance?: Prisma.XOR<Prisma.QuoteAcceptanceNullableScalarRelationFilter, Prisma.QuoteAcceptanceWhereInput> | null
   emailsSent?: Prisma.QuoteEmailListRelationFilter
   recipients?: Prisma.QuoteRecipientListRelationFilter
+  signatureHandoffs?: Prisma.SignatureHandoffListRelationFilter
 }
 
 export type QuoteOrderByWithRelationInput = {
@@ -603,6 +604,7 @@ export type QuoteOrderByWithRelationInput = {
   acceptance?: Prisma.QuoteAcceptanceOrderByWithRelationInput
   emailsSent?: Prisma.QuoteEmailOrderByRelationAggregateInput
   recipients?: Prisma.QuoteRecipientOrderByRelationAggregateInput
+  signatureHandoffs?: Prisma.SignatureHandoffOrderByRelationAggregateInput
 }
 
 export type QuoteWhereUniqueInput = Prisma.AtLeast<{
@@ -664,6 +666,7 @@ export type QuoteWhereUniqueInput = Prisma.AtLeast<{
   acceptance?: Prisma.XOR<Prisma.QuoteAcceptanceNullableScalarRelationFilter, Prisma.QuoteAcceptanceWhereInput> | null
   emailsSent?: Prisma.QuoteEmailListRelationFilter
   recipients?: Prisma.QuoteRecipientListRelationFilter
+  signatureHandoffs?: Prisma.SignatureHandoffListRelationFilter
 }, "id" | "legacyQuotientNumber" | "companyId_number">
 
 export type QuoteOrderByWithAggregationInput = {
@@ -811,6 +814,7 @@ export type QuoteCreateInput = {
   acceptance?: Prisma.QuoteAcceptanceCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteUncheckedCreateInput = {
@@ -864,6 +868,7 @@ export type QuoteUncheckedCreateInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailUncheckedCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteUpdateInput = {
@@ -917,6 +922,7 @@ export type QuoteUpdateInput = {
   acceptance?: Prisma.QuoteAcceptanceUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateInput = {
@@ -970,6 +976,7 @@ export type QuoteUncheckedUpdateInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUncheckedUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteCreateManyInput = {
@@ -1501,6 +1508,20 @@ export type QuoteUpdateOneRequiredWithoutRecipientsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.QuoteUpdateToOneWithWhereWithoutRecipientsInput, Prisma.QuoteUpdateWithoutRecipientsInput>, Prisma.QuoteUncheckedUpdateWithoutRecipientsInput>
 }
 
+export type QuoteCreateNestedOneWithoutSignatureHandoffsInput = {
+  create?: Prisma.XOR<Prisma.QuoteCreateWithoutSignatureHandoffsInput, Prisma.QuoteUncheckedCreateWithoutSignatureHandoffsInput>
+  connectOrCreate?: Prisma.QuoteCreateOrConnectWithoutSignatureHandoffsInput
+  connect?: Prisma.QuoteWhereUniqueInput
+}
+
+export type QuoteUpdateOneRequiredWithoutSignatureHandoffsNestedInput = {
+  create?: Prisma.XOR<Prisma.QuoteCreateWithoutSignatureHandoffsInput, Prisma.QuoteUncheckedCreateWithoutSignatureHandoffsInput>
+  connectOrCreate?: Prisma.QuoteCreateOrConnectWithoutSignatureHandoffsInput
+  upsert?: Prisma.QuoteUpsertWithoutSignatureHandoffsInput
+  connect?: Prisma.QuoteWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.QuoteUpdateToOneWithWhereWithoutSignatureHandoffsInput, Prisma.QuoteUpdateWithoutSignatureHandoffsInput>, Prisma.QuoteUncheckedUpdateWithoutSignatureHandoffsInput>
+}
+
 export type QuoteCreateNestedOneWithoutEventsInput = {
   create?: Prisma.XOR<Prisma.QuoteCreateWithoutEventsInput, Prisma.QuoteUncheckedCreateWithoutEventsInput>
   connectOrCreate?: Prisma.QuoteCreateOrConnectWithoutEventsInput
@@ -1649,6 +1670,7 @@ export type QuoteCreateWithoutCompanyInput = {
   acceptance?: Prisma.QuoteAcceptanceCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteUncheckedCreateWithoutCompanyInput = {
@@ -1701,6 +1723,7 @@ export type QuoteUncheckedCreateWithoutCompanyInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailUncheckedCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteCreateOrConnectWithoutCompanyInput = {
@@ -1825,6 +1848,7 @@ export type QuoteCreateWithoutCreatedByInput = {
   acceptance?: Prisma.QuoteAcceptanceCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteUncheckedCreateWithoutCreatedByInput = {
@@ -1877,6 +1901,7 @@ export type QuoteUncheckedCreateWithoutCreatedByInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailUncheckedCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteCreateOrConnectWithoutCreatedByInput = {
@@ -1955,6 +1980,7 @@ export type QuoteCreateWithoutTasksInput = {
   acceptance?: Prisma.QuoteAcceptanceCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteUncheckedCreateWithoutTasksInput = {
@@ -2007,6 +2033,7 @@ export type QuoteUncheckedCreateWithoutTasksInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailUncheckedCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteCreateOrConnectWithoutTasksInput = {
@@ -2075,6 +2102,7 @@ export type QuoteUpdateWithoutTasksInput = {
   acceptance?: Prisma.QuoteAcceptanceUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateWithoutTasksInput = {
@@ -2127,6 +2155,7 @@ export type QuoteUncheckedUpdateWithoutTasksInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUncheckedUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteCreateWithoutLeadInput = {
@@ -2179,6 +2208,7 @@ export type QuoteCreateWithoutLeadInput = {
   acceptance?: Prisma.QuoteAcceptanceCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteUncheckedCreateWithoutLeadInput = {
@@ -2231,6 +2261,7 @@ export type QuoteUncheckedCreateWithoutLeadInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailUncheckedCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteCreateOrConnectWithoutLeadInput = {
@@ -2309,6 +2340,7 @@ export type QuoteCreateWithoutTermsDocumentInput = {
   acceptance?: Prisma.QuoteAcceptanceCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteUncheckedCreateWithoutTermsDocumentInput = {
@@ -2361,6 +2393,7 @@ export type QuoteUncheckedCreateWithoutTermsDocumentInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailUncheckedCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteCreateOrConnectWithoutTermsDocumentInput = {
@@ -2439,6 +2472,7 @@ export type QuoteCreateWithoutShareInput = {
   acceptance?: Prisma.QuoteAcceptanceCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteUncheckedCreateWithoutShareInput = {
@@ -2491,6 +2525,7 @@ export type QuoteUncheckedCreateWithoutShareInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailUncheckedCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteCreateOrConnectWithoutShareInput = {
@@ -2559,6 +2594,7 @@ export type QuoteUpdateWithoutShareInput = {
   acceptance?: Prisma.QuoteAcceptanceUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateWithoutShareInput = {
@@ -2611,6 +2647,7 @@ export type QuoteUncheckedUpdateWithoutShareInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUncheckedUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteCreateWithoutRecipientsInput = {
@@ -2663,6 +2700,7 @@ export type QuoteCreateWithoutRecipientsInput = {
   messages?: Prisma.QuoteMessageCreateNestedManyWithoutQuoteInput
   acceptance?: Prisma.QuoteAcceptanceCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteUncheckedCreateWithoutRecipientsInput = {
@@ -2715,6 +2753,7 @@ export type QuoteUncheckedCreateWithoutRecipientsInput = {
   messages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutQuoteInput
   acceptance?: Prisma.QuoteAcceptanceUncheckedCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailUncheckedCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteCreateOrConnectWithoutRecipientsInput = {
@@ -2783,6 +2822,7 @@ export type QuoteUpdateWithoutRecipientsInput = {
   messages?: Prisma.QuoteMessageUpdateManyWithoutQuoteNestedInput
   acceptance?: Prisma.QuoteAcceptanceUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateWithoutRecipientsInput = {
@@ -2835,6 +2875,235 @@ export type QuoteUncheckedUpdateWithoutRecipientsInput = {
   messages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutQuoteNestedInput
   acceptance?: Prisma.QuoteAcceptanceUncheckedUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUncheckedUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutQuoteNestedInput
+}
+
+export type QuoteCreateWithoutSignatureHandoffsInput = {
+  id?: string
+  number: number
+  legacyQuotientNumber?: number | null
+  title: string
+  status?: $Enums.QuoteStatus
+  pricingMode?: $Enums.PricingMode
+  clientCompanyName?: string | null
+  clientName?: string | null
+  clientEmail?: string | null
+  clientPhone?: string | null
+  intro?: string | null
+  exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
+  currency?: string
+  language?: $Enums.Language
+  taxType?: $Enums.TaxType
+  taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: string | null
+  terms?: string | null
+  validUntil?: Date | string | null
+  sentAt?: Date | string | null
+  decidedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutQuotesInput
+  lead?: Prisma.LeadCreateNestedOneWithoutQuotesInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedQuotesInput
+  termsDocument?: Prisma.CompanyDocumentCreateNestedOneWithoutQuotesInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutQuoteInput
+  items?: Prisma.QuoteItemCreateNestedManyWithoutQuoteInput
+  sections?: Prisma.QuoteSectionCreateNestedManyWithoutQuoteInput
+  attachments?: Prisma.QuoteAttachmentCreateNestedManyWithoutQuoteInput
+  share?: Prisma.QuoteShareCreateNestedOneWithoutQuoteInput
+  events?: Prisma.QuoteEventCreateNestedManyWithoutQuoteInput
+  messages?: Prisma.QuoteMessageCreateNestedManyWithoutQuoteInput
+  acceptance?: Prisma.QuoteAcceptanceCreateNestedOneWithoutQuoteInput
+  emailsSent?: Prisma.QuoteEmailCreateNestedManyWithoutQuoteInput
+  recipients?: Prisma.QuoteRecipientCreateNestedManyWithoutQuoteInput
+}
+
+export type QuoteUncheckedCreateWithoutSignatureHandoffsInput = {
+  id?: string
+  companyId: string
+  number: number
+  leadId?: string | null
+  createdById?: string | null
+  legacyQuotientNumber?: number | null
+  title: string
+  status?: $Enums.QuoteStatus
+  pricingMode?: $Enums.PricingMode
+  clientCompanyName?: string | null
+  clientName?: string | null
+  clientEmail?: string | null
+  clientPhone?: string | null
+  intro?: string | null
+  exclusions?: string | null
+  scope?: string | null
+  quoteType?: string | null
+  projectAddress?: string | null
+  termsDocumentId?: string | null
+  currency?: string
+  language?: $Enums.Language
+  taxType?: $Enums.TaxType
+  taxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: $Enums.DiscountType
+  discountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: number | null
+  optionalDiscountType?: $Enums.DiscountType | null
+  optionalDiscountValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: string | null
+  terms?: string | null
+  validUntil?: Date | string | null
+  sentAt?: Date | string | null
+  decidedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutQuoteInput
+  items?: Prisma.QuoteItemUncheckedCreateNestedManyWithoutQuoteInput
+  sections?: Prisma.QuoteSectionUncheckedCreateNestedManyWithoutQuoteInput
+  attachments?: Prisma.QuoteAttachmentUncheckedCreateNestedManyWithoutQuoteInput
+  share?: Prisma.QuoteShareUncheckedCreateNestedOneWithoutQuoteInput
+  events?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutQuoteInput
+  messages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutQuoteInput
+  acceptance?: Prisma.QuoteAcceptanceUncheckedCreateNestedOneWithoutQuoteInput
+  emailsSent?: Prisma.QuoteEmailUncheckedCreateNestedManyWithoutQuoteInput
+  recipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutQuoteInput
+}
+
+export type QuoteCreateOrConnectWithoutSignatureHandoffsInput = {
+  where: Prisma.QuoteWhereUniqueInput
+  create: Prisma.XOR<Prisma.QuoteCreateWithoutSignatureHandoffsInput, Prisma.QuoteUncheckedCreateWithoutSignatureHandoffsInput>
+}
+
+export type QuoteUpsertWithoutSignatureHandoffsInput = {
+  update: Prisma.XOR<Prisma.QuoteUpdateWithoutSignatureHandoffsInput, Prisma.QuoteUncheckedUpdateWithoutSignatureHandoffsInput>
+  create: Prisma.XOR<Prisma.QuoteCreateWithoutSignatureHandoffsInput, Prisma.QuoteUncheckedCreateWithoutSignatureHandoffsInput>
+  where?: Prisma.QuoteWhereInput
+}
+
+export type QuoteUpdateToOneWithWhereWithoutSignatureHandoffsInput = {
+  where?: Prisma.QuoteWhereInput
+  data: Prisma.XOR<Prisma.QuoteUpdateWithoutSignatureHandoffsInput, Prisma.QuoteUncheckedUpdateWithoutSignatureHandoffsInput>
+}
+
+export type QuoteUpdateWithoutSignatureHandoffsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.IntFieldUpdateOperationsInput | number
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
+  pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
+  clientCompanyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutQuotesNestedInput
+  lead?: Prisma.LeadUpdateOneWithoutQuotesNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutCreatedQuotesNestedInput
+  termsDocument?: Prisma.CompanyDocumentUpdateOneWithoutQuotesNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutQuoteNestedInput
+  items?: Prisma.QuoteItemUpdateManyWithoutQuoteNestedInput
+  sections?: Prisma.QuoteSectionUpdateManyWithoutQuoteNestedInput
+  attachments?: Prisma.QuoteAttachmentUpdateManyWithoutQuoteNestedInput
+  share?: Prisma.QuoteShareUpdateOneWithoutQuoteNestedInput
+  events?: Prisma.QuoteEventUpdateManyWithoutQuoteNestedInput
+  messages?: Prisma.QuoteMessageUpdateManyWithoutQuoteNestedInput
+  acceptance?: Prisma.QuoteAcceptanceUpdateOneWithoutQuoteNestedInput
+  emailsSent?: Prisma.QuoteEmailUpdateManyWithoutQuoteNestedInput
+  recipients?: Prisma.QuoteRecipientUpdateManyWithoutQuoteNestedInput
+}
+
+export type QuoteUncheckedUpdateWithoutSignatureHandoffsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.IntFieldUpdateOperationsInput | number
+  leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumQuoteStatusFieldUpdateOperationsInput | $Enums.QuoteStatus
+  pricingMode?: Prisma.EnumPricingModeFieldUpdateOperationsInput | $Enums.PricingMode
+  clientCompanyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  taxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  taxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  optionalDiscountThreshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  optionalDiscountType?: Prisma.NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+  optionalDiscountValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutQuoteNestedInput
+  items?: Prisma.QuoteItemUncheckedUpdateManyWithoutQuoteNestedInput
+  sections?: Prisma.QuoteSectionUncheckedUpdateManyWithoutQuoteNestedInput
+  attachments?: Prisma.QuoteAttachmentUncheckedUpdateManyWithoutQuoteNestedInput
+  share?: Prisma.QuoteShareUncheckedUpdateOneWithoutQuoteNestedInput
+  events?: Prisma.QuoteEventUncheckedUpdateManyWithoutQuoteNestedInput
+  messages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutQuoteNestedInput
+  acceptance?: Prisma.QuoteAcceptanceUncheckedUpdateOneWithoutQuoteNestedInput
+  emailsSent?: Prisma.QuoteEmailUncheckedUpdateManyWithoutQuoteNestedInput
+  recipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteCreateWithoutEventsInput = {
@@ -2887,6 +3156,7 @@ export type QuoteCreateWithoutEventsInput = {
   acceptance?: Prisma.QuoteAcceptanceCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteUncheckedCreateWithoutEventsInput = {
@@ -2939,6 +3209,7 @@ export type QuoteUncheckedCreateWithoutEventsInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailUncheckedCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteCreateOrConnectWithoutEventsInput = {
@@ -3007,6 +3278,7 @@ export type QuoteUpdateWithoutEventsInput = {
   acceptance?: Prisma.QuoteAcceptanceUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateWithoutEventsInput = {
@@ -3059,6 +3331,7 @@ export type QuoteUncheckedUpdateWithoutEventsInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUncheckedUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteCreateWithoutMessagesInput = {
@@ -3111,6 +3384,7 @@ export type QuoteCreateWithoutMessagesInput = {
   acceptance?: Prisma.QuoteAcceptanceCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteUncheckedCreateWithoutMessagesInput = {
@@ -3163,6 +3437,7 @@ export type QuoteUncheckedCreateWithoutMessagesInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailUncheckedCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteCreateOrConnectWithoutMessagesInput = {
@@ -3231,6 +3506,7 @@ export type QuoteUpdateWithoutMessagesInput = {
   acceptance?: Prisma.QuoteAcceptanceUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateWithoutMessagesInput = {
@@ -3283,6 +3559,7 @@ export type QuoteUncheckedUpdateWithoutMessagesInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUncheckedUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteCreateWithoutAcceptanceInput = {
@@ -3335,6 +3612,7 @@ export type QuoteCreateWithoutAcceptanceInput = {
   messages?: Prisma.QuoteMessageCreateNestedManyWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteUncheckedCreateWithoutAcceptanceInput = {
@@ -3387,6 +3665,7 @@ export type QuoteUncheckedCreateWithoutAcceptanceInput = {
   messages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailUncheckedCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteCreateOrConnectWithoutAcceptanceInput = {
@@ -3455,6 +3734,7 @@ export type QuoteUpdateWithoutAcceptanceInput = {
   messages?: Prisma.QuoteMessageUpdateManyWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateWithoutAcceptanceInput = {
@@ -3507,6 +3787,7 @@ export type QuoteUncheckedUpdateWithoutAcceptanceInput = {
   messages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUncheckedUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteCreateWithoutSectionsInput = {
@@ -3559,6 +3840,7 @@ export type QuoteCreateWithoutSectionsInput = {
   acceptance?: Prisma.QuoteAcceptanceCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteUncheckedCreateWithoutSectionsInput = {
@@ -3611,6 +3893,7 @@ export type QuoteUncheckedCreateWithoutSectionsInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailUncheckedCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteCreateOrConnectWithoutSectionsInput = {
@@ -3679,6 +3962,7 @@ export type QuoteUpdateWithoutSectionsInput = {
   acceptance?: Prisma.QuoteAcceptanceUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateWithoutSectionsInput = {
@@ -3731,6 +4015,7 @@ export type QuoteUncheckedUpdateWithoutSectionsInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUncheckedUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteCreateWithoutAttachmentsInput = {
@@ -3783,6 +4068,7 @@ export type QuoteCreateWithoutAttachmentsInput = {
   acceptance?: Prisma.QuoteAcceptanceCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteUncheckedCreateWithoutAttachmentsInput = {
@@ -3835,6 +4121,7 @@ export type QuoteUncheckedCreateWithoutAttachmentsInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailUncheckedCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteCreateOrConnectWithoutAttachmentsInput = {
@@ -3903,6 +4190,7 @@ export type QuoteUpdateWithoutAttachmentsInput = {
   acceptance?: Prisma.QuoteAcceptanceUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateWithoutAttachmentsInput = {
@@ -3955,6 +4243,7 @@ export type QuoteUncheckedUpdateWithoutAttachmentsInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUncheckedUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteCreateWithoutEmailsSentInput = {
@@ -4007,6 +4296,7 @@ export type QuoteCreateWithoutEmailsSentInput = {
   messages?: Prisma.QuoteMessageCreateNestedManyWithoutQuoteInput
   acceptance?: Prisma.QuoteAcceptanceCreateNestedOneWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteUncheckedCreateWithoutEmailsSentInput = {
@@ -4059,6 +4349,7 @@ export type QuoteUncheckedCreateWithoutEmailsSentInput = {
   messages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutQuoteInput
   acceptance?: Prisma.QuoteAcceptanceUncheckedCreateNestedOneWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteCreateOrConnectWithoutEmailsSentInput = {
@@ -4127,6 +4418,7 @@ export type QuoteUpdateWithoutEmailsSentInput = {
   messages?: Prisma.QuoteMessageUpdateManyWithoutQuoteNestedInput
   acceptance?: Prisma.QuoteAcceptanceUpdateOneWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateWithoutEmailsSentInput = {
@@ -4179,6 +4471,7 @@ export type QuoteUncheckedUpdateWithoutEmailsSentInput = {
   messages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutQuoteNestedInput
   acceptance?: Prisma.QuoteAcceptanceUncheckedUpdateOneWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteCreateWithoutItemsInput = {
@@ -4231,6 +4524,7 @@ export type QuoteCreateWithoutItemsInput = {
   acceptance?: Prisma.QuoteAcceptanceCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteUncheckedCreateWithoutItemsInput = {
@@ -4283,6 +4577,7 @@ export type QuoteUncheckedCreateWithoutItemsInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedCreateNestedOneWithoutQuoteInput
   emailsSent?: Prisma.QuoteEmailUncheckedCreateNestedManyWithoutQuoteInput
   recipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutQuoteInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutQuoteInput
 }
 
 export type QuoteCreateOrConnectWithoutItemsInput = {
@@ -4351,6 +4646,7 @@ export type QuoteUpdateWithoutItemsInput = {
   acceptance?: Prisma.QuoteAcceptanceUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateWithoutItemsInput = {
@@ -4403,6 +4699,7 @@ export type QuoteUncheckedUpdateWithoutItemsInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUncheckedUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteCreateManyCompanyInput = {
@@ -4497,6 +4794,7 @@ export type QuoteUpdateWithoutCompanyInput = {
   acceptance?: Prisma.QuoteAcceptanceUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateWithoutCompanyInput = {
@@ -4549,6 +4847,7 @@ export type QuoteUncheckedUpdateWithoutCompanyInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUncheckedUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateManyWithoutCompanyInput = {
@@ -4685,6 +4984,7 @@ export type QuoteUpdateWithoutCreatedByInput = {
   acceptance?: Prisma.QuoteAcceptanceUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateWithoutCreatedByInput = {
@@ -4737,6 +5037,7 @@ export type QuoteUncheckedUpdateWithoutCreatedByInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUncheckedUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateManyWithoutCreatedByInput = {
@@ -4873,6 +5174,7 @@ export type QuoteUpdateWithoutLeadInput = {
   acceptance?: Prisma.QuoteAcceptanceUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateWithoutLeadInput = {
@@ -4925,6 +5227,7 @@ export type QuoteUncheckedUpdateWithoutLeadInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUncheckedUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateManyWithoutLeadInput = {
@@ -5061,6 +5364,7 @@ export type QuoteUpdateWithoutTermsDocumentInput = {
   acceptance?: Prisma.QuoteAcceptanceUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateWithoutTermsDocumentInput = {
@@ -5113,6 +5417,7 @@ export type QuoteUncheckedUpdateWithoutTermsDocumentInput = {
   acceptance?: Prisma.QuoteAcceptanceUncheckedUpdateOneWithoutQuoteNestedInput
   emailsSent?: Prisma.QuoteEmailUncheckedUpdateManyWithoutQuoteNestedInput
   recipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutQuoteNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutQuoteNestedInput
 }
 
 export type QuoteUncheckedUpdateManyWithoutTermsDocumentInput = {
@@ -5171,6 +5476,7 @@ export type QuoteCountOutputType = {
   messages: number
   emailsSent: number
   recipients: number
+  signatureHandoffs: number
 }
 
 export type QuoteCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5182,6 +5488,7 @@ export type QuoteCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   messages?: boolean | QuoteCountOutputTypeCountMessagesArgs
   emailsSent?: boolean | QuoteCountOutputTypeCountEmailsSentArgs
   recipients?: boolean | QuoteCountOutputTypeCountRecipientsArgs
+  signatureHandoffs?: boolean | QuoteCountOutputTypeCountSignatureHandoffsArgs
 }
 
 /**
@@ -5250,6 +5557,13 @@ export type QuoteCountOutputTypeCountRecipientsArgs<ExtArgs extends runtime.Type
   where?: Prisma.QuoteRecipientWhereInput
 }
 
+/**
+ * QuoteCountOutputType without action
+ */
+export type QuoteCountOutputTypeCountSignatureHandoffsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SignatureHandoffWhereInput
+}
+
 
 export type QuoteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -5306,6 +5620,7 @@ export type QuoteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   acceptance?: boolean | Prisma.Quote$acceptanceArgs<ExtArgs>
   emailsSent?: boolean | Prisma.Quote$emailsSentArgs<ExtArgs>
   recipients?: boolean | Prisma.Quote$recipientsArgs<ExtArgs>
+  signatureHandoffs?: boolean | Prisma.Quote$signatureHandoffsArgs<ExtArgs>
   _count?: boolean | Prisma.QuoteCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["quote"]>
 
@@ -5462,6 +5777,7 @@ export type QuoteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   acceptance?: boolean | Prisma.Quote$acceptanceArgs<ExtArgs>
   emailsSent?: boolean | Prisma.Quote$emailsSentArgs<ExtArgs>
   recipients?: boolean | Prisma.Quote$recipientsArgs<ExtArgs>
+  signatureHandoffs?: boolean | Prisma.Quote$signatureHandoffsArgs<ExtArgs>
   _count?: boolean | Prisma.QuoteCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type QuoteIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5494,6 +5810,7 @@ export type $QuotePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     acceptance: Prisma.$QuoteAcceptancePayload<ExtArgs> | null
     emailsSent: Prisma.$QuoteEmailPayload<ExtArgs>[]
     recipients: Prisma.$QuoteRecipientPayload<ExtArgs>[]
+    signatureHandoffs: Prisma.$SignatureHandoffPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -5984,6 +6301,7 @@ export interface Prisma__QuoteClient<T, Null = never, ExtArgs extends runtime.Ty
   acceptance<T extends Prisma.Quote$acceptanceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Quote$acceptanceArgs<ExtArgs>>): Prisma.Prisma__QuoteAcceptanceClient<runtime.Types.Result.GetResult<Prisma.$QuoteAcceptancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   emailsSent<T extends Prisma.Quote$emailsSentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Quote$emailsSentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuoteEmailPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   recipients<T extends Prisma.Quote$recipientsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Quote$recipientsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuoteRecipientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  signatureHandoffs<T extends Prisma.Quote$signatureHandoffsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Quote$signatureHandoffsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SignatureHandoffPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6738,6 +7056,30 @@ export type Quote$recipientsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.QuoteRecipientScalarFieldEnum | Prisma.QuoteRecipientScalarFieldEnum[]
+}
+
+/**
+ * Quote.signatureHandoffs
+ */
+export type Quote$signatureHandoffsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SignatureHandoff
+   */
+  select?: Prisma.SignatureHandoffSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SignatureHandoff
+   */
+  omit?: Prisma.SignatureHandoffOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SignatureHandoffInclude<ExtArgs> | null
+  where?: Prisma.SignatureHandoffWhereInput
+  orderBy?: Prisma.SignatureHandoffOrderByWithRelationInput | Prisma.SignatureHandoffOrderByWithRelationInput[]
+  cursor?: Prisma.SignatureHandoffWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SignatureHandoffScalarFieldEnum | Prisma.SignatureHandoffScalarFieldEnum[]
 }
 
 /**

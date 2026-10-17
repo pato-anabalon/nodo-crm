@@ -13,6 +13,8 @@ import { renderCustomerEmail } from "./customer-email";
 import { isEnabled } from "./kinds";
 import { renderTemplate } from "./render";
 import { senderName } from "./sender";
+import { joinNames } from "@/modules/quotes/recipients";
+import { ensurePrimaryRecipient } from "@/modules/quotes/recipients-service";
 
 /** The ones a scheduler sends, plus the confirmation an acceptance triggers. */
 const FALLBACK_KEYS: Record<string, { subject: string; body: string }> = {
@@ -49,9 +51,10 @@ export async function sendToCustomer(
       number: true,
       language: true,
       validUntil: true,
-      clientEmail: true,
       clientName: true,
       companyId: true,
+      lead: { select: { contactId: true, contactName: true, contactEmail: true } },
+      acceptance: { select: { acceptedByName: true } },
       createdBy: { select: { name: true } },
       company: {
         select: {
@@ -73,10 +76,14 @@ export async function sendToCustomer(
     },
   });
 
-  // The address frozen on the quote, not the lead's current one: if the contact
-  // changed email since it went out, this belongs to whoever was written to.
-  const to = quote?.clientEmail?.trim();
-  if (!quote || !to) return false;
+  if (!quote) return false;
+
+  // The addresses frozen on the quote, not the lead's current one: if the
+  // contact changed email since it went out, this belongs to whoever was
+  // written to. Everybody the quote went to hears from it again — the copies
+  // included, the same as the send itself.
+  const recipients = await ensurePrimaryRecipient(quote.companyId, quote.id, quote.lead);
+  if (recipients.length === 0) return false;
 
   const stored = await prisma.emailTemplate.findUnique({
     where: { companyId_kind: { companyId: quote.companyId, kind } },
@@ -102,14 +109,23 @@ export async function sendToCustomer(
   const keys = FALLBACK_KEYS[kind];
   if (!keys) return false;
 
+  const customer = joinNames(
+    recipients.map((recipient) => recipient.name),
+    locale,
+  );
+  // Only the acceptance confirmation says it, but every one of them is given
+  // it: with several people on a quote, "we've got your acceptance" has to say
+  // whose.
+  const acceptedBy = quote.acceptance?.acceptedByName ?? quote.clientName ?? "";
+
   const { subject, bodyHtml } = renderTemplate({
     stored,
     fallback: {
       subject: tEmail(keys.subject),
-      body: tEmail(keys.body, { customer: quote.clientName ?? "" }),
+      body: tEmail(keys.body, { customer, acceptedBy }),
     },
     values: {
-      customer: quote.clientName ?? "",
+      customer,
       reference,
       company: quote.company.name,
       author: quote.createdBy?.name ?? "",
@@ -117,56 +133,71 @@ export async function sendToCustomer(
     reference,
   });
 
-  /*
-   * A follow-up mints a fresh link, which kills the one the first email carried.
-   *
-   * There is no way around it: only the hash is stored, so an issued token can
-   * never be read back. It is the same property a resend already has, and this
-   * way the customer's most recent email is always the one that works — which is
-   * the one they will click. A follow-up with no way to see the quote would be
-   * an email asking somebody to look at something it doesn't show them.
-   */
-  const cta = NEEDS_LINK.has(kind)
-    ? {
-        label: tEmail("viewQuote"),
-        url: shareUrl(
-          quote.company.slug,
-          (
-            await issueShare({
-              companyId: quote.companyId,
-              quoteId: quote.id,
-              expiresAt: quote.validUntil,
-            })
-          ).token,
-          ROOT_DOMAIN,
-        ),
-      }
-    : null;
-
-  const { error } = await resend.emails.send({
-    from: defaultFrom(
-      senderName(quote.company.senderNameStyle, {
-        companyName: quote.company.name,
-        userName: quote.createdBy?.name,
-        connector: tEmail("senderConnector"),
-      }),
-    ),
-    to,
-    subject,
-    html: renderCustomerEmail({
-      bodyHtml: withReviewLinks(bodyHtml, kind, reviewLinks),
-      primaryColor: quote.company.primaryColor,
+  const from = defaultFrom(
+    senderName(quote.company.senderNameStyle, {
       companyName: quote.company.name,
-      logoUrl: quote.company.logoUrl,
-      slogan: quote.company.slogan,
-      validUntilLabel: null,
-      cta,
-      footerHtml: quote.company.quoteFooter ? sanitizeRichText(quote.company.quoteFooter) : null,
+      userName: quote.createdBy?.name,
+      connector: tEmail("senderConnector"),
     }),
-  });
-  if (error) return false;
+  );
 
-  await logCustomerEmail({ companyId: quote.companyId, quoteId: quote.id, kind, to });
+  const delivered: string[] = [];
+
+  for (const recipient of recipients) {
+    /*
+     * A follow-up mints a fresh link, which kills the one the first email carried.
+     *
+     * There is no way around it: only the hash is stored, so an issued token can
+     * never be read back. It is the same property a resend already has, and this
+     * way the customer's most recent email is always the one that works — which is
+     * the one they will click. A follow-up with no way to see the quote would be
+     * an email asking somebody to look at something it doesn't show them. Each
+     * recipient gets their own, so the portal still knows who is reading.
+     */
+    const cta = NEEDS_LINK.has(kind)
+      ? {
+          label: tEmail("viewQuote"),
+          url: shareUrl(
+            quote.company.slug,
+            (
+              await issueShare({
+                companyId: quote.companyId,
+                quoteId: quote.id,
+                expiresAt: quote.validUntil,
+                recipientId: recipient.id,
+              })
+            ).token,
+            ROOT_DOMAIN,
+          ),
+        }
+      : null;
+
+    const { error } = await resend.emails.send({
+      from,
+      to: recipient.email,
+      subject,
+      html: renderCustomerEmail({
+        bodyHtml: withReviewLinks(bodyHtml, kind, reviewLinks),
+        primaryColor: quote.company.primaryColor,
+        companyName: quote.company.name,
+        logoUrl: quote.company.logoUrl,
+        slogan: quote.company.slogan,
+        validUntilLabel: null,
+        cta,
+        footerHtml: quote.company.quoteFooter ? sanitizeRichText(quote.company.quoteFooter) : null,
+      }),
+    });
+    if (!error) delivered.push(recipient.email);
+  }
+
+  if (delivered.length === 0) return false;
+
+  await logCustomerEmail({
+    companyId: quote.companyId,
+    quoteId: quote.id,
+    kind,
+    to: delivered.join(", "),
+  });
   return true;
 }
 

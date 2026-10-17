@@ -1,15 +1,12 @@
 import { z } from "zod";
 import { SignatureType } from "@/generated/prisma/enums";
 
+/**
+ * What the customer fills in to accept. Their name and address are not here on
+ * purpose: they come from the link they opened (`viewerFor`), because a name
+ * typed into a form is whoever the person holding the link says they are.
+ */
 export const acceptQuoteSchema = z.object({
-  name: z.string().trim().min(2, "portal.errors.nameRequired").max(120),
-  email: z
-    .string()
-    .trim()
-    .transform((v) => (v === "" ? null : v.toLowerCase()))
-    .nullable()
-    .optional()
-    .refine((v) => !v || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), "validation.invalidEmail"),
   signatureType: z.nativeEnum(SignatureType).default(SignatureType.NONE),
   signatureData: z
     .string()

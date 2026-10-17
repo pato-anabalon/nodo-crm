@@ -16,7 +16,7 @@ export default async function ClientQuotePage({
   params: Promise<{ token: string }>;
 }) {
   const { token } = await params;
-  const { status, share } = await resolveShare(token);
+  const { status, share, viewer } = await resolveShare(token);
 
   if (status !== "ok" || !share) {
     return <InvalidLink status={status} />;
@@ -41,7 +41,15 @@ export default async function ClientQuotePage({
    * instead, because a beat comes from a browser with the page in front of
    * somebody. See `api/q/[token]/ping`.
    */
-  return <QuoteDocument company={company} quote={quote} locale={locale} token={token} />;
+  return (
+    <QuoteDocument
+      company={company}
+      quote={quote}
+      locale={locale}
+      token={token}
+      viewerName={viewer?.name ?? null}
+    />
+  );
 }
 
 /** A link that doesn't exist, was revoked or expired. Speaks the browser's language. */

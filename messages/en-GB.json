@@ -508,11 +508,12 @@
       "copyIntro": "This is the copy for your records. The customer received a link, not these figures.",
       "copyViewQuote": "Open it in the dashboard",
       "acceptedSubject": "Thanks for accepting",
-      "acceptedBody": "Hello {customer},\n\nWe've got your acceptance — thank you. We'll be in touch shortly to arrange the work.",
+      "acceptedBody": "Hello {customer},\n\nWe've got the acceptance from {acceptedBy} — thank you. We'll be in touch shortly to arrange the work.",
       "followUpSubject": "Just checking in",
       "followUpBody": "Hello {customer},\n\nJust checking whether you've had a chance to look at the quote we sent. If anything needs changing or you'd like to talk it through, reply here and we'll pick it up.",
       "reviewSubject": "How did we do?",
-      "reviewBody": "Hello {customer},\n\nThanks again for your business. If you were happy with the work, a short review would mean a lot — it's how most of our customers find us."
+      "reviewBody": "Hello {customer},\n\nThanks again for your business. If you were happy with the work, a short review would mean a lot — it's how most of our customers find us.",
+      "notDelivered": "It didn't reach {emails}."
     },
     "sections": {
       "all": "All",
@@ -534,6 +535,12 @@
         "ACCEPTED": "Accepted the quote",
         "DECLINED": "Declined the quote",
         "MESSAGE_SENT": "Sent a message"
+      },
+      "eventBy": {
+        "OPENED": "Opened by {name}",
+        "ACCEPTED": "Accepted by {name}",
+        "DECLINED": "Declined by {name}",
+        "MESSAGE_SENT": "Message from {name}"
       },
       "acceptedBy": "Accepted by {name}",
       "acceptanceStatement": "Statement accepted",
@@ -587,6 +594,38 @@
       "open": "Actions for {title}",
       "duplicate": "Duplicate",
       "preview": "View as customer"
+    },
+    "recipients": {
+      "title": "For",
+      "primary": "Primary",
+      "copyTo": "Copy to",
+      "none": "Nobody to send it to yet. Add a recipient, or give the lead's contact an email.",
+      "add": "Add a recipient",
+      "searchPlaceholder": "Search contacts or type an email",
+      "empty": "No contacts with an email match",
+      "addContact": "Add {email} as a new contact",
+      "addContactHint": "They're not in your contacts yet",
+      "newContactTitle": "New contact",
+      "newContactDescription": "Saved to your contacts and added to this quote. They'll get their own email and link the next time it's sent.",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "save": "Add contact",
+      "makePrimary": "Make primary",
+      "remove": "Remove {name}",
+      "removeTitle": "Remove {name}?",
+      "removeDescription": "{name} stops receiving this quote, and any link they were already sent stops working.",
+      "removeConfirm": "Remove",
+      "added": "Recipient added",
+      "removed": "Recipient removed",
+      "madePrimary": "Primary recipient changed",
+      "errors": {
+        "notFound": "That recipient or contact doesn't exist.",
+        "locked": "This quote has been decided, so its recipients are fixed.",
+        "duplicate": "They already receive this quote.",
+        "noEmail": "That contact has no email, so there's nothing to send them.",
+        "primary": "Make somebody else primary before removing them."
+      }
     }
   },
   "tasks": {
@@ -1232,9 +1271,6 @@
     "decline": "Decline",
     "declining": "Declining…",
     "acceptTitle": "Accept this quote",
-    "yourName": "Your name",
-    "yourNameHint": "It's recorded alongside the acceptance.",
-    "yourEmail": "Your email (optional)",
     "statementCheckbox": "Yes, I {name} accept this quote and its terms.",
     "statementSimple": "By clicking Accept quote, I {name} accept this quote and its terms.",
     "defaultStatement": "accept this quote and the conditions set out in it.",
@@ -1257,7 +1293,6 @@
     "noMessages": "No messages yet.",
     "you": "You",
     "errors": {
-      "nameRequired": "Enter your name to accept",
       "statementRequired": "Tick the box to accept",
       "signatureRequired": "Sign to accept",
       "notAvailable": "This quote is no longer open for a response.",
@@ -1273,6 +1308,7 @@
     "downloadPdf": "Download PDF",
     "email": "Email",
     "mobile": "Mobile",
+    "copyTo": "Copy to",
     "phone": "Phone",
     "gstNumber": "GST number",
     "projectAddress": "Project address",

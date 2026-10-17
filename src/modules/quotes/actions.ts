@@ -110,7 +110,7 @@ export async function sendQuoteAction(id: string): Promise<QuoteActionState> {
   revalidatePath(`/quotes/${id}`);
 
   return delivery.sent
-    ? { message: t("sentTo", { email: delivery.to }) }
+    ? { message: withFailures(t("sentTo", { email: delivery.to }), delivery.failed, t) }
     : { message: t("markedAsSent", { reason: delivery.reason }) };
 }
 
@@ -133,7 +133,20 @@ export async function resendQuoteAction(id: string): Promise<QuoteActionState> {
   if (!delivery.sent) return { error: delivery.reason };
 
   revalidatePath(`/quotes/${id}`);
-  return { message: t("share.resentTo", { email: delivery.to }) };
+  return {
+    message: withFailures(t("share.resentTo", { email: delivery.to }), delivery.failed, t),
+  };
+}
+
+/** A send that reached some recipients and not others says both. */
+function withFailures(
+  message: string,
+  failed: string[],
+  t: Awaited<ReturnType<typeof getTranslations<"quotes">>>,
+): string {
+  return failed.length === 0
+    ? message
+    : `${message} ${t("email.notDelivered", { emails: failed.join(", ") })}`;
 }
 
 /**

@@ -353,6 +353,7 @@ model Company {
   leads                   Lead[]
   quotes                  Quote[]
   contacts                Contact[]
+  quoteRecipients         QuoteRecipient[]
   clientCompanies         ClientCompany[]
   catalogue               CatalogueItem[]
   quoteTemplates          QuoteTemplate[]
@@ -772,8 +773,9 @@ model Contact {
 
   company       Company        @relation(fields: [companyId], references: [id], onDelete: Cascade)
   clientCompany ClientCompany? @relation(fields: [clientCompanyId], references: [id], onDelete: SetNull)
-  leads         Lead[]
-  tasks         Task[]
+  leads           Lead[]
+  tasks           Task[]
+  quoteRecipients QuoteRecipient[]
 
   @@index([companyId])
   @@index([companyId, email])
@@ -1259,6 +1261,7 @@ model Quote {
   messages      QuoteMessage[]
   acceptance    QuoteAcceptance?
   emailsSent    QuoteEmail[]
+  recipients    QuoteRecipient[]
 
   @@unique([companyId, number])
   @@index([companyId, status])
@@ -1366,6 +1369,15 @@ model QuoteShareToken {
   createdAt   DateTime @default(now())
 
   /**
+   * Who this link was sent to. The token is the customer's identity in the
+   * portal, so it is what says whose name goes on an acceptance and who the
+   * log says opened it. Null on links issued before a quote could have more
+   * than one recipient; those resolve to the primary.
+   */
+  recipientId String?
+  recipient   QuoteRecipient? @relation(fields: [recipientId], references: [id], onDelete: SetNull)
+
+  /**
    * Set when the company closes the link, and never cleared.
    * The share's own `revokedAt` is cleared by the next send, because sending
    * again is somebody deliberately letting the customer back in. That must not
@@ -1376,6 +1388,41 @@ model QuoteShareToken {
   revokedAt DateTime?
 
   @@index([shareId])
+  @@index([recipientId])
+}
+
+/**
+ * Somebody a quote is sent to. One is the primary — the "For" on the
+ * document, mirrored into `Quote.clientName/clientEmail/clientPhone` so every
+ * reader of those keeps working — and any others are copies.
+ *
+ * Name and address are frozen, the same as the quote's own client fields: the
+ * contact can change afterwards, and this is who was written to. Each one gets
+ * their own email and their own link, so the portal knows which of them is
+ * reading. One primary per quote is enforced by a partial unique index written
+ * by hand in the migration (Prisma has no way to say it here).
+ */
+model QuoteRecipient {
+  id        String  @id @default(cuid())
+  companyId String
+  quoteId   String
+  contactId String?
+
+  name      String
+  email     String
+  isPrimary Boolean @default(false)
+  position  Int     @default(0)
+
+  createdAt DateTime @default(now())
+
+  company Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  quote   Quote             @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  contact Contact?          @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  tokens  QuoteShareToken[]
+
+  @@unique([quoteId, email])
+  @@index([companyId])
+  @@index([contactId])
 }
 
 /**
@@ -1389,6 +1436,14 @@ model QuoteEvent {
 
   ipAddress String?
   userAgent String?
+
+  /**
+   * Which of the quote's recipients did it, frozen rather than linked: the log
+   * has to go on saying who opened it after that person is taken off the quote.
+   * Null on events from before a quote could have several recipients.
+   */
+  recipientName  String?
+  recipientEmail String?
 
   createdAt DateTime @default(now())
 
@@ -1411,6 +1466,11 @@ model QuoteMessage {
    * Null cuando escribe el cliente, que no tiene cuenta.
    */
   authorUserId String?
+  /**
+   * Which recipient wrote it, frozen, for a message from the customer side:
+   * with several people on a quote, "the customer" no longer says who.
+   */
+  authorName   String?
 
   body String
 

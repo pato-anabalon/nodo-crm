@@ -19,7 +19,7 @@ import { calculateQuoteTotals } from "@/modules/quotes/totals";
 import { resolveSelectedSectionAmounts, type SectionSelectionState } from "@/modules/quotes/section-selection";
 import { bundleFrom } from "@/modules/quotes/service";
 import { acceptQuoteSchema, buildStatement, clientMessageSchema, declineQuoteSchema } from "./schemas";
-import { canClientRespond, resolveShare } from "./service";
+import { canClientRespond, eventActor, resolveShare } from "./service";
 
 export type PortalActionState = {
   error?: string;
@@ -48,9 +48,9 @@ export async function acceptQuoteAction(
   formData: FormData,
 ): Promise<PortalActionState> {
   const t = await getTranslations();
-  const { status, share } = await resolveShare(token);
+  const { status, share, viewer } = await resolveShare(token);
 
-  if (status !== "ok" || !share) return { error: t("portal.errors.notAvailable") };
+  if (status !== "ok" || !share || !viewer) return { error: t("portal.errors.notAvailable") };
   if (!canClientRespond(share.quote.status)) return { error: t("portal.errors.notAvailable") };
 
   const company = share.company;
@@ -60,9 +60,9 @@ export async function acceptQuoteAction(
     return { fieldErrors: { agree: [t("portal.errors.statementRequired")] } };
   }
 
+  // Name and address are the link's, never the form's: whatever a request
+  // posts as `name` is ignored.
   const parsed = acceptQuoteSchema.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
     signatureType: formData.get("signatureType") || SignatureType.NONE,
     signatureData: formData.get("signatureData"),
     additionalComments: formData.get("additionalComments"),
@@ -80,7 +80,7 @@ export async function acceptQuoteAction(
   const meta = await requestMeta();
   const statementText = buildStatement(
     company.acceptanceStatement,
-    parsed.data.name,
+    viewer.name,
     t("portal.defaultStatement"),
   );
 
@@ -146,8 +146,8 @@ export async function acceptQuoteAction(
       data: {
         companyId: company.id,
         quoteId: share.quoteId,
-        acceptedByName: parsed.data.name,
-        acceptedByEmail: parsed.data.email ?? null,
+        acceptedByName: viewer.name,
+        acceptedByEmail: viewer.email,
         statementText,
         signatureType: parsed.data.signatureType,
         signatureData: parsed.data.signatureData ?? null,
@@ -173,6 +173,7 @@ export async function acceptQuoteAction(
         companyId: company.id,
         quoteId: share.quoteId,
         type: QuoteEventType.ACCEPTED,
+        ...eventActor(viewer),
         ipAddress: meta.ipAddress,
         userAgent: meta.userAgent,
       },
@@ -180,7 +181,7 @@ export async function acceptQuoteAction(
   ]);
 
   // The notice must not keep the customer waiting in front of the screen.
-  after(() => notifyQuoteDecided(share.quoteId, "accepted"));
+  after(() => notifyQuoteDecided(share.quoteId, "accepted", viewer.name));
   // The customer hears back too. Until now accepting produced silence on their
   // side, which for a commercial commitment reads like a form that didn't submit.
   after(() => sendAcceptedEmail(share.quoteId));
@@ -195,7 +196,7 @@ export async function declineQuoteAction(
   formData: FormData,
 ): Promise<PortalActionState> {
   const t = await getTranslations();
-  const { status, share } = await resolveShare(token);
+  const { status, share, viewer } = await resolveShare(token);
 
   if (status !== "ok" || !share) return { error: t("portal.errors.notAvailable") };
   if (!canClientRespond(share.quote.status)) return { error: t("portal.errors.notAvailable") };
@@ -217,6 +218,7 @@ export async function declineQuoteAction(
         companyId: share.company.id,
         quoteId: share.quoteId,
         type: QuoteEventType.DECLINED,
+        ...eventActor(viewer),
         ipAddress: meta.ipAddress,
         userAgent: meta.userAgent,
       },
@@ -230,12 +232,13 @@ export async function declineQuoteAction(
         companyId: share.company.id,
         quoteId: share.quoteId,
         author: MessageAuthor.CLIENT,
+        authorName: viewer?.name || null,
         body: parsed.data.reason,
       },
     });
   }
 
-  after(() => notifyQuoteDecided(share.quoteId, "declined"));
+  after(() => notifyQuoteDecided(share.quoteId, "declined", viewer?.name));
 
   revalidatePath(`/q/${token}`);
   return { done: true };
@@ -247,7 +250,7 @@ export async function sendClientMessageAction(
   formData: FormData,
 ): Promise<PortalActionState> {
   const t = await getTranslations();
-  const { status, share } = await resolveShare(token);
+  const { status, share, viewer } = await resolveShare(token);
 
   if (status !== "ok" || !share) return { error: t("portal.errors.notAvailable") };
 
@@ -262,6 +265,7 @@ export async function sendClientMessageAction(
         companyId: share.company.id,
         quoteId: share.quoteId,
         author: MessageAuthor.CLIENT,
+        authorName: viewer?.name || null,
         body: parsed.data.body,
       },
     }),
@@ -270,11 +274,12 @@ export async function sendClientMessageAction(
         companyId: share.company.id,
         quoteId: share.quoteId,
         type: QuoteEventType.MESSAGE_SENT,
+        ...eventActor(viewer),
       },
     }),
   ]);
 
-  after(() => notifyClientMessage(share.quoteId, parsed.data.body));
+  after(() => notifyClientMessage(share.quoteId, parsed.data.body, viewer?.name));
 
   revalidatePath(`/q/${token}`);
   return { done: true };

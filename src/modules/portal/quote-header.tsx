@@ -29,6 +29,8 @@ export type HeaderClient = {
   name: string | null;
   email: string | null;
   phone: string | null;
+  /** Who else the quote is sent to — addresses only, empty for one recipient. */
+  copyTo: string[];
 };
 
 export type HeaderQuote = {
@@ -160,6 +162,14 @@ export async function QuoteHeader({
           {client.phone ? (
             <Field label={t("mobile")}>
               <Line>{client.phone}</Line>
+            </Field>
+          ) : null}
+
+          {client.copyTo.length > 0 ? (
+            <Field label={t("copyTo")}>
+              {client.copyTo.map((email) => (
+                <Line key={email}>{email}</Line>
+              ))}
             </Field>
           ) : null}
         </PartyCard>

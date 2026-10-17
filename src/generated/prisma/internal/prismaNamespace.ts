@@ -427,6 +427,7 @@ export const ModelName = {
   CompanyDocument: 'CompanyDocument',
   QuoteShare: 'QuoteShare',
   QuoteShareToken: 'QuoteShareToken',
+  QuoteRecipient: 'QuoteRecipient',
   QuoteEvent: 'QuoteEvent',
   QuoteMessage: 'QuoteMessage',
   QuoteAcceptance: 'QuoteAcceptance',
@@ -453,7 +454,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem"
+    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteRecipient" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2677,6 +2678,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    QuoteRecipient: {
+      payload: Prisma.$QuoteRecipientPayload<ExtArgs>
+      fields: Prisma.QuoteRecipientFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.QuoteRecipientFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteRecipientPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.QuoteRecipientFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteRecipientPayload>
+        }
+        findFirst: {
+          args: Prisma.QuoteRecipientFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteRecipientPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.QuoteRecipientFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteRecipientPayload>
+        }
+        findMany: {
+          args: Prisma.QuoteRecipientFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteRecipientPayload>[]
+        }
+        create: {
+          args: Prisma.QuoteRecipientCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteRecipientPayload>
+        }
+        createMany: {
+          args: Prisma.QuoteRecipientCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.QuoteRecipientCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteRecipientPayload>[]
+        }
+        delete: {
+          args: Prisma.QuoteRecipientDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteRecipientPayload>
+        }
+        update: {
+          args: Prisma.QuoteRecipientUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteRecipientPayload>
+        }
+        deleteMany: {
+          args: Prisma.QuoteRecipientDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.QuoteRecipientUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.QuoteRecipientUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteRecipientPayload>[]
+        }
+        upsert: {
+          args: Prisma.QuoteRecipientUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteRecipientPayload>
+        }
+        aggregate: {
+          args: Prisma.QuoteRecipientAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateQuoteRecipient>
+        }
+        groupBy: {
+          args: Prisma.QuoteRecipientGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.QuoteRecipientGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.QuoteRecipientCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.QuoteRecipientCountAggregateOutputType> | number
+        }
+      }
+    }
     QuoteEvent: {
       payload: Prisma.$QuoteEventPayload<ExtArgs>
       fields: Prisma.QuoteEventFieldRefs
@@ -4048,10 +4123,26 @@ export const QuoteShareTokenScalarFieldEnum = {
   shareId: 'shareId',
   hashedToken: 'hashedToken',
   createdAt: 'createdAt',
+  recipientId: 'recipientId',
   revokedAt: 'revokedAt'
 } as const
 
 export type QuoteShareTokenScalarFieldEnum = (typeof QuoteShareTokenScalarFieldEnum)[keyof typeof QuoteShareTokenScalarFieldEnum]
+
+
+export const QuoteRecipientScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  quoteId: 'quoteId',
+  contactId: 'contactId',
+  name: 'name',
+  email: 'email',
+  isPrimary: 'isPrimary',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type QuoteRecipientScalarFieldEnum = (typeof QuoteRecipientScalarFieldEnum)[keyof typeof QuoteRecipientScalarFieldEnum]
 
 
 export const QuoteEventScalarFieldEnum = {
@@ -4061,6 +4152,8 @@ export const QuoteEventScalarFieldEnum = {
   type: 'type',
   ipAddress: 'ipAddress',
   userAgent: 'userAgent',
+  recipientName: 'recipientName',
+  recipientEmail: 'recipientEmail',
   createdAt: 'createdAt'
 } as const
 
@@ -4073,6 +4166,7 @@ export const QuoteMessageScalarFieldEnum = {
   quoteId: 'quoteId',
   author: 'author',
   authorUserId: 'authorUserId',
+  authorName: 'authorName',
   body: 'body',
   readAt: 'readAt',
   createdAt: 'createdAt'
@@ -4872,6 +4966,7 @@ export type GlobalOmitConfig = {
   companyDocument?: Prisma.CompanyDocumentOmit
   quoteShare?: Prisma.QuoteShareOmit
   quoteShareToken?: Prisma.QuoteShareTokenOmit
+  quoteRecipient?: Prisma.QuoteRecipientOmit
   quoteEvent?: Prisma.QuoteEventOmit
   quoteMessage?: Prisma.QuoteMessageOmit
   quoteAcceptance?: Prisma.QuoteAcceptanceOmit

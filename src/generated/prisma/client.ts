@@ -275,6 +275,20 @@ export type QuoteShare = Prisma.QuoteShareModel
  */
 export type QuoteShareToken = Prisma.QuoteShareTokenModel
 /**
+ * Model QuoteRecipient
+ * *
+ *  * Somebody a quote is sent to. One is the primary — the "For" on the
+ *  * document, mirrored into `Quote.clientName/clientEmail/clientPhone` so every
+ *  * reader of those keeps working — and any others are copies.
+ *  *
+ *  * Name and address are frozen, the same as the quote's own client fields: the
+ *  * contact can change afterwards, and this is who was written to. Each one gets
+ *  * their own email and their own link, so the portal knows which of them is
+ *  * reading. One primary per quote is enforced by a partial unique index written
+ *  * by hand in the migration (Prisma has no way to say it here).
+ */
+export type QuoteRecipient = Prisma.QuoteRecipientModel
+/**
  * Model QuoteEvent
  * *
  *  * A log of what the customer does with their quote.

@@ -67,11 +67,14 @@ export async function QuoteDocument({
   quote,
   locale,
   token,
+  viewerName = null,
 }: {
   company: DocumentCompany;
   quote: DocumentQuote;
   locale: Locale;
   token: string | null;
+  /** Whoever holds the link, by the token — what the acceptance is signed as. */
+  viewerName?: string | null;
 }) {
   const [t, allMessages] = await Promise.all([
     getTranslations({ locale, namespace: "portal" }),
@@ -155,6 +158,7 @@ export async function QuoteDocument({
               name: quote.clientName,
               email: quote.clientEmail,
               phone: quote.clientPhone,
+              copyTo: quote.recipients.map((recipient) => recipient.email),
             }}
             quote={quote}
             locale={locale}
@@ -403,6 +407,7 @@ export async function QuoteDocument({
                   askAdditionalComments: company.askAdditionalComments,
                   askOrderReference: company.askOrderReference,
                 }}
+                viewerName={viewerName ?? quote.clientName ?? ""}
                 acceptAction={acceptQuoteAction.bind(null, token)}
                 declineAction={declineQuoteAction.bind(null, token)}
               />

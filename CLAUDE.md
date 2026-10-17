@@ -858,6 +858,40 @@ that was sent.
 - The four email notices go out with `after()`, outside the response. The open
   one only notifies the first time each day.
 
+### Several people, one quote
+
+A quote goes to a **primary** — the "For" on the document — and any number of
+copies (`QuoteRecipient`). The primary starts as the lead's person; copies are
+added on the quote, from the contacts or by typing an address, which creates
+the contact when there isn't one (matched on the email alone, the same rule a
+web enquiry uses). A copy can be made primary or taken off.
+
+- **The primary is mirrored into `Quote.clientName/clientEmail/clientPhone`**,
+  in the same transaction as any change to it. Everything that already read
+  those — the document, the PDF, the lists — keeps reading them and knows
+  nothing about recipients.
+- **Each recipient gets their own email and their own link.** `to:` carries one
+  address, never a Cc, and `{{customer}}` names all of them (`joinNames`, in the
+  quote's language: "Ana, Bruno and Carla"). The follow-ups, the review request
+  and the acceptance confirmation go to all of them the same way.
+- **The token is who is reading.** `QuoteShareToken.recipientId` is what the
+  portal signs an acceptance with and what the log names — "Opened by Bruno".
+  The acceptance form asks for **no name and no email**: a typed name is
+  whoever the person holding the link says they are, and the server ignores
+  one if it is posted. A link issued before recipients existed belongs to the
+  primary (`viewerFor`).
+- **Taking somebody off revokes their links**, only theirs. Taking somebody off
+  a quote has to mean they can no longer accept it.
+- **The log freezes names, not ids** (`QuoteEvent.recipientName`,
+  `QuoteMessage.authorName`): it must go on saying who opened it after that
+  person is taken off the quote.
+- **One primary per quote** is a partial unique index written by hand in the
+  migration — Prisma can't declare one — so the swap clears before it sets.
+
+The recipients card sits outside the quote's own `<form>` and acts
+immediately; on `/quotes/new` it doesn't exist yet, and the primary comes from
+the lead on the first save. "Viewing now" is still the share's, not a person's.
+
 ## The emails the customer gets
 
 Sending a quote produces **two emails, to two audiences**.

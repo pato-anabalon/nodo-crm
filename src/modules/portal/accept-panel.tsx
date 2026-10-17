@@ -29,10 +29,17 @@ export type AcceptanceSettings = {
  */
 export function AcceptPanel({
   settings,
+  viewerName,
   acceptAction,
   declineAction,
 }: {
   settings: AcceptanceSettings;
+  /**
+   * Who is accepting, from the link they opened — never typed. Each recipient
+   * is sent their own link, so the statement names the person holding it, and
+   * the server signs the acceptance with the same name whatever is posted.
+   */
+  viewerName: string;
   acceptAction: (prev: PortalActionState, formData: FormData) => Promise<PortalActionState>;
   declineAction: (prev: PortalActionState, formData: FormData) => Promise<PortalActionState>;
 }) {
@@ -45,13 +52,11 @@ export function AcceptPanel({
     declineAction,
     {},
   );
-  const [name, setName] = useState("");
   const [showDecline, setShowDecline] = useState(false);
 
   const needsCheckbox = settings.mode === AcceptanceMode.STATEMENT_WITH_CHECKBOX;
-  // The name is woven into the statement as it's typed, just like Quotient does:
-  // the customer sees exactly what they're accepting.
-  const displayName = name.trim() || "…";
+  // The customer sees exactly what they're accepting, in their own name.
+  const displayName = viewerName.trim() || "…";
   const statementBody = settings.statement?.trim() || t("defaultStatement");
 
   return (
@@ -68,30 +73,6 @@ export function AcceptPanel({
                 <AlertDescription>{accept.error}</AlertDescription>
               </Alert>
             ) : null}
-
-            <div className="space-y-2">
-              <Label htmlFor="name">{t("yourName")}</Label>
-              <Input
-                id="name"
-                name="name"
-                required
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-                autoComplete="name"
-              />
-              <p className="text-xs text-muted-foreground">{t("yourNameHint")}</p>
-              {accept.fieldErrors?.name ? (
-                <p className="text-sm text-destructive">{accept.fieldErrors.name[0]}</p>
-              ) : null}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="email">{t("yourEmail")}</Label>
-              <Input id="email" name="email" type="email" autoComplete="email" />
-              {accept.fieldErrors?.email ? (
-                <p className="text-sm text-destructive">{accept.fieldErrors.email[0]}</p>
-              ) : null}
-            </div>
 
             {settings.requireSignature ? <SignaturePad required /> : null}
             {accept.fieldErrors?.signatureData ? (

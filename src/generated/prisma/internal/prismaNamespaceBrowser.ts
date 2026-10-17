@@ -81,6 +81,7 @@ export const ModelName = {
   CompanyDocument: 'CompanyDocument',
   QuoteShare: 'QuoteShare',
   QuoteShareToken: 'QuoteShareToken',
+  QuoteRecipient: 'QuoteRecipient',
   QuoteEvent: 'QuoteEvent',
   QuoteMessage: 'QuoteMessage',
   QuoteAcceptance: 'QuoteAcceptance',
@@ -628,10 +629,26 @@ export const QuoteShareTokenScalarFieldEnum = {
   shareId: 'shareId',
   hashedToken: 'hashedToken',
   createdAt: 'createdAt',
+  recipientId: 'recipientId',
   revokedAt: 'revokedAt'
 } as const
 
 export type QuoteShareTokenScalarFieldEnum = (typeof QuoteShareTokenScalarFieldEnum)[keyof typeof QuoteShareTokenScalarFieldEnum]
+
+
+export const QuoteRecipientScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  quoteId: 'quoteId',
+  contactId: 'contactId',
+  name: 'name',
+  email: 'email',
+  isPrimary: 'isPrimary',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type QuoteRecipientScalarFieldEnum = (typeof QuoteRecipientScalarFieldEnum)[keyof typeof QuoteRecipientScalarFieldEnum]
 
 
 export const QuoteEventScalarFieldEnum = {
@@ -641,6 +658,8 @@ export const QuoteEventScalarFieldEnum = {
   type: 'type',
   ipAddress: 'ipAddress',
   userAgent: 'userAgent',
+  recipientName: 'recipientName',
+  recipientEmail: 'recipientEmail',
   createdAt: 'createdAt'
 } as const
 
@@ -653,6 +672,7 @@ export const QuoteMessageScalarFieldEnum = {
   quoteId: 'quoteId',
   author: 'author',
   authorUserId: 'authorUserId',
+  authorName: 'authorName',
   body: 'body',
   readAt: 'readAt',
   createdAt: 'createdAt'

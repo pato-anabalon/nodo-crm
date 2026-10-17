@@ -71,3 +71,17 @@ describe("threadChanged", () => {
     expect(threadChanged([], [])).toBe(false);
   });
 });
+
+describe("formatThread — which customer wrote", () => {
+  it("names the recipient behind a customer's message, on either side", () => {
+    const message = stored({ author: MessageAuthor.CLIENT, authorUser: null, authorName: "Bruno Díaz" });
+    expect(formatThread([message], opts)[0].authorName).toBe("Bruno Díaz");
+    expect(formatThread([message], { ...opts, withAuthorNames: false })[0].authorName).toBe(
+      "Bruno Díaz",
+    );
+  });
+
+  it("still keeps the staff member's name off the customer's side", () => {
+    expect(formatThread([stored()], { ...opts, withAuthorNames: false })[0].authorName).toBeNull();
+  });
+});

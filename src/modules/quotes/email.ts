@@ -14,9 +14,13 @@ import { senderName } from "@/modules/email-templates/sender";
 import { logCustomerEmail } from "@/modules/email-templates/customer-send";
 import { templateFor } from "@/modules/email-templates/service";
 import { renderQuoteEmail } from "./email-template";
+import { joinNames } from "./recipients";
+import { ensurePrimaryRecipient } from "./recipients-service";
 import { getQuote } from "./service";
 
-export type QuoteDelivery = { sent: true; to: string } | { sent: false; reason: string };
+export type QuoteDelivery =
+  | { sent: true; to: string; failed: string[] }
+  | { sent: false; reason: string };
 
 /**
  * Sends the quote.
@@ -37,8 +41,8 @@ export async function sendQuoteEmail(ctx: CompanyContext, quoteId: string): Prom
   const quote = await getQuote(ctx, quoteId);
   if (!quote) return { sent: false, reason: t("notFound") };
 
-  const to = quote.lead?.contactEmail;
-  if (!to) return { sent: false, reason: t("email.noContactEmail") };
+  const recipients = await ensurePrimaryRecipient(ctx.company.id, quote.id, quote.lead);
+  if (recipients.length === 0) return { sent: false, reason: t("email.noContactEmail") };
 
   const resend = getResend();
   if (!resend) return { sent: false, reason: t("email.notConfigured") };
@@ -55,15 +59,6 @@ export async function sendQuoteEmail(ctx: CompanyContext, quoteId: string): Prom
     ? formatDate(quote.validUntil, ctx.company.formatLocale, ctx.company.timezone)
     : null;
 
-  // The link through which the customer views and answers the quote. Each send
-  // mints a new one: the stored hash can't be turned back into the old token.
-  const share = await issueShare({
-    companyId: ctx.company.id,
-    quoteId: quote.id,
-    expiresAt: quote.validUntil,
-  });
-  const viewUrl = shareUrl(ctx.company.slug, share.token, ROOT_DOMAIN);
-
   const from = defaultFrom(
     senderName(ctx.company.senderNameStyle, {
       companyName: ctx.company.name,
@@ -72,15 +67,22 @@ export async function sendQuoteEmail(ctx: CompanyContext, quoteId: string): Prom
     }),
   );
 
+  // Everybody is greeted in every email, each sent to one address: the
+  // greeting tells each person who else has the quote in front of them.
+  const customer = joinNames(
+    recipients.map((recipient) => recipient.name),
+    locale,
+  );
+
   const stored = await templateFor(ctx, EmailTemplateKind.NEW_QUOTE);
   const { subject, bodyHtml } = renderTemplate({
     stored,
     fallback: {
       subject: tEmail("defaultSubject"),
-      body: tEmail("defaultBody", { customer: quote.lead?.contactName ?? "" }),
+      body: tEmail("defaultBody", { customer }),
     },
     values: {
-      customer: quote.lead?.contactName ?? "",
+      customer,
       reference,
       company: ctx.company.name,
       author: quote.createdBy?.name ?? "",
@@ -88,23 +90,54 @@ export async function sendQuoteEmail(ctx: CompanyContext, quoteId: string): Prom
     reference,
   });
 
-  const { error } = await resend.emails.send({
-    from,
-    to,
-    subject,
-    html: renderCustomerEmail({
-      bodyHtml,
-      primaryColor: ctx.company.primaryColor,
-      companyName: ctx.company.name,
-      logoUrl: ctx.company.logoUrl,
-      slogan: ctx.company.slogan,
-      validUntilLabel: validUntil ? tEmail("validUntil", { date: validUntil }) : null,
-      cta: { label: tEmail("viewQuote"), url: viewUrl },
-      footerHtml: ctx.company.quoteFooter ? sanitizeRichText(ctx.company.quoteFooter) : null,
-    }),
-  });
+  const delivered: typeof recipients = [];
+  const failed: string[] = [];
+  let lastError: string | null = null;
 
-  if (error) return { sent: false, reason: t("email.rejected", { message: error.message }) };
+  for (const recipient of recipients) {
+    // Each recipient's own link, minted per send: the stored hash can't be
+    // turned back into the old token, and the token is how the portal knows
+    // which of them is reading.
+    const share = await issueShare({
+      companyId: ctx.company.id,
+      quoteId: quote.id,
+      expiresAt: quote.validUntil,
+      recipientId: recipient.id,
+    });
+
+    const { error } = await resend.emails.send({
+      from,
+      // One address per email. A copy is not a Cc: each person gets the quote
+      // as though it were only theirs, with a link that is only theirs.
+      to: recipient.email,
+      subject,
+      html: renderCustomerEmail({
+        bodyHtml,
+        primaryColor: ctx.company.primaryColor,
+        companyName: ctx.company.name,
+        logoUrl: ctx.company.logoUrl,
+        slogan: ctx.company.slogan,
+        validUntilLabel: validUntil ? tEmail("validUntil", { date: validUntil }) : null,
+        cta: { label: tEmail("viewQuote"), url: shareUrl(ctx.company.slug, share.token, ROOT_DOMAIN) },
+        footerHtml: ctx.company.quoteFooter ? sanitizeRichText(ctx.company.quoteFooter) : null,
+      }),
+    });
+
+    if (error) {
+      failed.push(recipient.email);
+      lastError = error.message;
+    } else {
+      delivered.push(recipient);
+    }
+  }
+
+  // Nobody received it: that is a failed send. Some did: it went, and the
+  // ones it didn't reach are said beside the success rather than hidden.
+  if (delivered.length === 0) {
+    return { sent: false, reason: t("email.rejected", { message: lastError ?? "" }) };
+  }
+
+  const to = delivered.map((recipient) => recipient.email).join(", ");
 
   // Logged like the scheduled ones, so the quote's list of what went out
   // starts with the email that started it rather than with the first chase.
@@ -115,9 +148,20 @@ export async function sendQuoteEmail(ctx: CompanyContext, quoteId: string): Prom
     to,
   });
 
-  await sendInternalCopy(ctx, { quote, reference, money, validUntil, from });
+  await sendInternalCopy(ctx, {
+    quote,
+    reference,
+    money,
+    validUntil,
+    from,
+    customerNames: joinNames(
+      delivered.map((recipient) => recipient.name),
+      ctx.locale,
+    ),
+    customerEmails: to,
+  });
 
-  return { sent: true, to };
+  return { sent: true, to, failed };
 }
 
 /**
@@ -137,6 +181,9 @@ async function sendInternalCopy(
     money: (value: number) => string;
     validUntil: string | null;
     from: string;
+    /** Who it went to, as the team reads it. */
+    customerNames: string;
+    customerEmails: string;
   },
 ): Promise<void> {
   if (!ctx.company.sendQuoteCopy) return;
@@ -157,7 +204,7 @@ async function sendInternalCopy(
   const html = renderQuoteEmail({
     companyName: ctx.company.name,
     primaryColor: ctx.company.primaryColor,
-    contactName: quote.lead?.contactName ?? null,
+    contactName: input.customerNames || null,
     reference,
     title: quote.title,
     total: money(Number(quote.total)),
@@ -181,8 +228,8 @@ async function sendInternalCopy(
     notesHtml: quote.notes ? sanitizeRichText(quote.notes) : null,
     viewUrl: companyUrl(ctx.company.slug, `/quotes/${quote.id}/preview`),
     labels: {
-      greeting: tEmail("copyGreeting", { customer: quote.lead?.contactName ?? "" }),
-      intro: tEmail("copyIntro", { customer: quote.lead?.contactEmail ?? "" }),
+      greeting: tEmail("copyGreeting", { customer: input.customerNames }),
+      intro: tEmail("copyIntro", { customer: input.customerEmails }),
       itemsHeader: tEmail("itemsHeader"),
       quantityHeader: tEmail("quantityHeader"),
       totalHeader: tEmail("totalHeader"),

@@ -54,6 +54,27 @@ export function shareStatus(
   return "ok";
 }
 
+/** Whoever holds the link that was opened. */
+export type PortalViewer = { recipientId: string | null; name: string; email: string | null };
+
+/**
+ * Who is reading, from the link they came in by.
+ *
+ * Each recipient is sent their own token, so the token says whose name goes on
+ * an acceptance and who the log says opened it — never a name typed into a
+ * form, which anybody holding the link could fill in as anybody. A link issued
+ * before quotes had several recipients belongs to nobody in particular; it was
+ * sent to the quote's primary, whose details the quote itself still carries.
+ */
+export function viewerFor(
+  recipient: { id: string; name: string; email: string } | null,
+  quote: { clientName: string | null; clientEmail: string | null },
+): PortalViewer {
+  if (recipient) return { recipientId: recipient.id, name: recipient.name, email: recipient.email };
+  const email = quote.clientEmail?.trim() || null;
+  return { recipientId: null, name: quote.clientName?.trim() || email || "", email };
+}
+
 /** The URL sent to the customer. It lives on their supplier's subdomain. */
 export function shareUrl(slug: string, token: string, rootDomain: string): string {
   const protocol = rootDomain.startsWith("localhost") ? "http" : "https";

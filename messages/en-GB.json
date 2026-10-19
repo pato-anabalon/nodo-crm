@@ -40,11 +40,249 @@
   },
   "marketing": {
     "title": "Nodo CRM",
-    "description": "Leads and quotes for trades, with each company's data genuinely kept apart.",
-    "headline": "One CRM per company, with each company's data genuinely kept apart.",
-    "subhead": "Leads and quotes in a space of your own, with your team's logo, colours and profiles. Every company works from <domain></domain>.",
-    "createCompany": "Create my company",
-    "haveAccount": "I already have an account"
+    "description": "The CRM for businesses that quote and deliver projects: leads, quotes your customers accept online, and every project through to done, under your own name.",
+    "nav": {
+      "label": "Main",
+      "enquiries": "Enquiries",
+      "quotes": "Quotes",
+      "jobs": "Jobs",
+      "team": "Team",
+      "signIn": "Sign in",
+      "createCompany": "Create my company",
+      "menu": "Menu"
+    },
+    "hero": {
+      "title": "Quote it. Win it. Get stuck in.",
+      "subtitle": "Leads, quotes your customers accept online, and every project through to done, all under your own name.",
+      "primary": "Create my company",
+      "secondary": "See how it works",
+      "signInPrompt": "Already have an account?",
+      "signInLink": "Sign in here",
+      "notifications": {
+        "lead": {
+          "label": "New lead",
+          "value": "Sarah Thompson · 15 Ellerton Road"
+        },
+        "opened": {
+          "label": "Viewing now",
+          "value": "COT-000123 · Exterior replaster"
+        },
+        "accepted": {
+          "label": "Quote accepted",
+          "value": "COT-000123 · $18,975.00"
+        },
+        "job": {
+          "label": "Job started",
+          "value": "15 Ellerton Road, Mount Eden"
+        }
+      }
+    },
+    "enquiries": {
+      "kicker": "Enquiries",
+      "title": "Catch every lead",
+      "body": "Enquiries land straight from your website, the right person hears about it, and every one gets a next step. No more digging through the inbox.",
+      "phoneAlt": "The list of leads in Nodo",
+      "features": {
+        "form": {
+          "title": "Your website, wired in",
+          "body": "Paste one snippet and every enquiry lands in Nodo, with spam and duplicates filtered out."
+        },
+        "person": {
+          "title": "They come back. You remember.",
+          "body": "Returning customers are recognised by their email, with every past project and quote right there."
+        },
+        "tasks": {
+          "title": "Follow up on time, every time",
+          "body": "Give every lead a next step with a date. The bell nudges you when one runs late."
+        },
+        "pipeline": {
+          "title": "A pipeline that updates itself",
+          "body": "Send the quote and the lead moves to proposal. They say yes, it's won. No dragging cards around."
+        }
+      }
+    },
+    "quotes": {
+      "kicker": "Quotes",
+      "title": "Quotes that close",
+      "body": "Write it once, send one link, and watch it being read.",
+      "steps": {
+        "build": {
+          "title": "Build",
+          "body": "Itemised or in sections, with optional extras and a choice of options.",
+          "alt": "Building a quote in Nodo"
+        },
+        "share": {
+          "title": "Share",
+          "body": "One link with your branding, and you see the moment it is opened.",
+          "alt": "The quote as the customer opens it"
+        },
+        "accept": {
+          "title": "Accept",
+          "body": "Signed on their phone, with the PDF ready to download.",
+          "alt": "A customer accepting and signing a quote"
+        }
+      }
+    },
+    "jobs": {
+      "kicker": "Jobs",
+      "title": "From yes to done",
+      "body": "One button turns the accepted quote into a job: its crew, its dates, its photos and its chat in one place, all the way to handover.",
+      "stages": {
+        "prep": "Prep",
+        "render": "Render",
+        "paint": "Paint",
+        "done": "Handover"
+      },
+      "cards": {
+        "schedule": {
+          "title": "Schedule & Lineup",
+          "body": "Every job on one timeline. Drag a bar to move its dates.",
+          "label": "Schedule",
+          "value": "Scaffold up · Monday 8am"
+        },
+        "people": {
+          "title": "Only their jobs",
+          "body": "Your crew sees the jobs they're on, never the prices.",
+          "label": "Crew added",
+          "value": "Mia and Tom · 15 Ellerton Rd"
+        },
+        "board": {
+          "title": "Message Board",
+          "body": "The daily report, with photos and comments, where everyone can find it.",
+          "label": "Message Board",
+          "value": "Day 3 · Base coat on"
+        },
+        "files": {
+          "title": "Docs & Files",
+          "body": "Photos straight from the phone, shrunk before they upload.",
+          "label": "Photos",
+          "value": "12 added from site"
+        },
+        "todos": {
+          "title": "To-dos",
+          "body": "Your crew ticks them off. The dates stay where you put them.",
+          "label": "To-do done",
+          "value": "Second coat · north wall"
+        },
+        "chat": {
+          "title": "Chat",
+          "body": "Quick talk for the crew. Only an @mention rings.",
+          "label": "Chat",
+          "value": "@Tom ladder's round the back"
+        }
+      },
+      "done": {
+        "title": "Handed over",
+        "body": "Every photo, note and to-do stays on the job, ready for the next time they call.",
+        "label": "Job completed",
+        "value": "15 Ellerton Road"
+      }
+    },
+    "rows": {
+      "title": "Your name. Your customer. Your numbers.",
+      "brand": {
+        "title": "Your brand, not ours",
+        "body": "Your own address, logo and colours on the quote, the emails and the PDF. Go on, try yours:",
+        "nameLabel": "Your company's name",
+        "namePlaceholder": "Kauri Plastering",
+        "colourLabel": "Your colour",
+        "quoteTitle": "Your quote",
+        "from": "From",
+        "lineA": "Preparation and repairs",
+        "lineB": "Exterior paint",
+        "total": "Total incl. GST",
+        "accept": "Accept quote",
+        "cta": "Create it for real"
+      },
+      "live": {
+        "title": "Watch it land",
+        "body": "See the moment it's opened, answer questions on the quote itself, and let the follow-ups send themselves. If the customer writes, they stop.",
+        "events": {
+          "sent": {
+            "day": "Day 0",
+            "title": "Quote sent",
+            "detail": "COT-000123 to Sarah Thompson"
+          },
+          "opened": {
+            "day": "Day 0",
+            "title": "Viewing now",
+            "detail": "Opened on her phone"
+          },
+          "followUp": {
+            "day": "Day 3",
+            "title": "Follow-up sent",
+            "detail": "On its own, when you said it should"
+          },
+          "message": {
+            "day": "Day 4",
+            "title": "Sarah wrote",
+            "detail": "“Could the paint go on in March?”",
+            "note": "Follow-ups paused: she's talking to you"
+          },
+          "accepted": {
+            "day": "Day 5",
+            "title": "Accepted and signed",
+            "detail": "$18,975.00"
+          }
+        }
+      },
+      "numbers": {
+        "title": "Know your numbers",
+        "body": "What you sent, what was won and what was turned down, how long customers take to decide, and the funnel from enquiry to won.",
+        "period": "Last 90 days",
+        "example": "Example data",
+        "accepted": "Accepted",
+        "awaiting": "Awaiting",
+        "declined": "Declined",
+        "acceptedShare": "accepted",
+        "funnel": "From enquiry to won",
+        "enquiries": "Enquiries",
+        "quoted": "Quoted",
+        "won": "Won",
+        "median": "Median time to accept",
+        "medianValue": "3.5 days"
+      }
+    },
+    "trust": {
+      "label": "Why Nodo",
+      "nz": {
+        "title": "Made for New Zealand",
+        "body": "GST in or on top, NZD, and prices shown the way the Fair Trading Act asks."
+      },
+      "private": {
+        "title": "Your prices stay yours",
+        "body": "Every company works in its own space. Nobody else ever sees your customers or your rates."
+      },
+      "sign": {
+        "title": "Signed from their phone",
+        "body": "Customers accept and sign wherever they are, with the PDF ready to download."
+      }
+    },
+    "founders": {
+      "kicker": "Founders",
+      "title": "The people behind Nodo",
+      "body": "[Placeholder] Two or three sentences about who you are, why you built Nodo, and the trade business it started with.",
+      "name": "[Founder name]",
+      "role": "[Role]",
+      "photoAlt": "Photo of the founder"
+    },
+    "reviews": {
+      "title": "Trusted by trades"
+    },
+    "cta": {
+      "title": "Your next job starts here",
+      "body": "Create your company in a minute and send your first quote today.",
+      "primary": "Create my company",
+      "secondary": "Sign in",
+      "beep": "Beep beep!"
+    },
+    "footer": {
+      "product": "Product",
+      "account": "Account",
+      "language": "Language",
+      "madeBy": "Another product made with 💜 by",
+      "legal": "© {year} Nodo CRM. Illustrations by Nodo."
+    }
   },
   "auth": {
     "signInTitle": "Sign in",

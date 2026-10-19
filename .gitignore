@@ -46,3 +46,8 @@ next-env.d.ts
 # Quotient historical-import scratch output (local backups, manifests, logs)
 quotient-pdf-backups/
 scripts/.output/
+
+# Local agent tooling: skills installed per machine, and their working files
+.agents/
+.claude/skills/
+.taste-skill/

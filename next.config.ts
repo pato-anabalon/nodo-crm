@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
     "lvh.me",
     "**.lvh.me",
     "192.168.1.72",
+    "192.168.1.72.nip.io",
     "*.192.168.1.72.nip.io",
   ],
   experimental: {

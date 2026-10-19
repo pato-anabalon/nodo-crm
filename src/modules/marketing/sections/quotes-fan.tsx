@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useMotionValue, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { QuotesCopy } from "../copy";
 import { Phone } from "../phone";
 import { Reveal } from "../reveal";
@@ -74,14 +74,7 @@ export function QuotesFan({ copy }: { copy: QuotesCopy }) {
     return (
       <section id="quotes" className="bg-zinc-950 py-24 text-white">
         <Reveal className="px-5">{heading}</Reveal>
-        <ul className="mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto px-[19vw] pb-6 [scrollbar-width:none]">
-          {STEPS.map(({ key, src }) => (
-            <li key={key} className="w-[62vw] shrink-0 snap-center">
-              <Phone src={src} alt={copy.steps[key].alt} sizes="62vw" />
-              <div className="mt-6">{label(copy, key)}</div>
-            </li>
-          ))}
-        </ul>
+        <Swipe copy={copy} />
       </section>
     );
   }
@@ -103,6 +96,84 @@ export function QuotesFan({ copy }: { copy: QuotesCopy }) {
   }
 
   return <Pinned copy={copy} heading={heading} />;
+}
+
+/**
+ * The three phones as a row to swipe, made to look like one: the phones on
+ * either side of the current one show at the edges, dimmed and a little
+ * smaller; dots under the row say there are three and which is showing, and
+ * take a tap; and the first time the row comes into view it slides a little
+ * way along and back, the way a hand would try it.
+ */
+function Swipe({ copy }: { copy: QuotesCopy }) {
+  const row = useRef<HTMLUListElement>(null);
+  const reduced = useReducedMotion();
+  const [current, setCurrent] = useState(0);
+  const nudged = useRef(false);
+
+  const step = () => {
+    const list = row.current;
+    const first = list?.children[0] as HTMLElement | undefined;
+    const second = list?.children[1] as HTMLElement | undefined;
+    return first && second ? second.offsetLeft - first.offsetLeft : 1;
+  };
+
+  useEffect(() => {
+    const list = row.current;
+    if (!list || reduced) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || nudged.current) return;
+        nudged.current = true;
+        observer.disconnect();
+        // Far enough to show the next phone moving, not far enough to snap to it.
+        list.scrollTo({ left: step() * 0.3, behavior: "smooth" });
+        window.setTimeout(() => list.scrollTo({ left: 0, behavior: "smooth" }), 650);
+      },
+      { threshold: 0.6 },
+    );
+    observer.observe(list);
+    return () => observer.disconnect();
+  }, [reduced]);
+
+  return (
+    <>
+      <ul
+        ref={row}
+        onScroll={(event) => setCurrent(Math.round(event.currentTarget.scrollLeft / step()))}
+        className="mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto px-[19vw] pb-2 [scrollbar-width:none]"
+      >
+        {STEPS.map(({ key, src }, index) => (
+          <li
+            key={key}
+            className={`w-[62vw] shrink-0 snap-center transition-[opacity,transform] duration-300 ${
+              index === current ? "opacity-100" : "scale-[0.92] opacity-45"
+            }`}
+          >
+            <Phone src={src} alt={copy.steps[key].alt} sizes="62vw" />
+            <div className="mt-6">{label(copy, key)}</div>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-4 flex justify-center gap-1">
+        {STEPS.map(({ key }, index) => (
+          <button
+            key={key}
+            type="button"
+            aria-label={copy.steps[key].title}
+            aria-current={index === current ? "step" : undefined}
+            onClick={() => row.current?.scrollTo({ left: index * step(), behavior: reduced ? "auto" : "smooth" })}
+            // The dot is small; the button around it is a thumb's width.
+            className="grid h-8 place-items-center px-1"
+          >
+            <span
+              className={`block h-2 rounded-full transition-all duration-300 ${index === current ? "w-6 bg-white" : "w-2 bg-white/35"}`}
+            />
+          </button>
+        ))}
+      </div>
+    </>
+  );
 }
 
 /** Piecewise-linear through `[at, value]` stops, held flat beyond either end. */

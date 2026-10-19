@@ -367,7 +367,17 @@ const SUN_TO = 92;
 /** How long the driver keeps waving after a tap. */
 const GREETING_MS = 1800;
 
-export function SunriseScene({ progress, beep }: { progress: MotionValue<number>; /** What the bubble says. */ beep: string }) {
+export function SunriseScene({
+  progress,
+  beep,
+  pan,
+}: {
+  progress: MotionValue<number>;
+  /** What the bubble says. */
+  beep: string;
+  /** Where the crop is centred, as a `translateX` of the drawing's width, when the camera moves. */
+  pan?: MotionValue<string>;
+}) {
   // Counts taps, so each one restarts the wave and the bubble from the top.
   const [greeting, setGreeting] = useState(0);
   const hide = useRef<number | undefined>(undefined);
@@ -387,7 +397,12 @@ export function SunriseScene({ progress, beep }: { progress: MotionValue<number>
   return (
     <div ref={ref} className="pointer-events-none absolute inset-0 overflow-hidden [container-type:size]" aria-hidden>
       {/* Bottom-aligned and centred like the other drawings; on a phone, centred on the city and the tower. */}
-      <div className="absolute bottom-0 left-1/2 aspect-[16/9] w-[max(100cqw,177.78cqh)] -translate-x-[40%] md:-translate-x-1/2 [container-type:inline-size]">
+      <motion.div
+        className={`absolute bottom-0 left-1/2 aspect-[16/9] w-[max(100cqw,177.78cqh)] [container-type:inline-size] ${
+          pan ? "" : "-translate-x-[40%] md:-translate-x-1/2"
+        }`}
+        style={pan ? { x: pan } : undefined}
+      >
         <svg className="ak-scene absolute inset-0 h-full w-full" viewBox={`0 0 ${W} ${H}`} shapeRendering="crispEdges" focusable="false">
           <Paths paths={LAYERS.night} />
           <motion.g style={{ opacity: dawn }}>
@@ -450,7 +465,7 @@ export function SunriseScene({ progress, beep }: { progress: MotionValue<number>
             </g>
           </g>
         </svg>
-      </div>
+      </motion.div>
     </div>
   );
 }

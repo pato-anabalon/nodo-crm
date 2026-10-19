@@ -10,25 +10,16 @@ import { ROOT_DOMAIN } from "@/lib/tenant/host";
 import { passwordsReady } from "@/lib/auth/password-policy";
 import { registerCompany, type RegisterState } from "./actions";
 import { useActionToast } from "@/lib/use-action-toast";
+import { slugify } from "@/lib/tenant/slug";
 
-/** Turns "Acme Ltd." into "acme-ltd", which is what the subdomain uses. */
-export function slugify(value: string): string {
-  return value
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 50);
-}
-
-export function RegisterForm() {
+/** `initialCompanyName` is whatever was typed into the brand demo on the public page, carried over. */
+export function RegisterForm({ initialCompanyName = "" }: { initialCompanyName?: string }) {
   const t = useTranslations("auth");
   const tp = useTranslations("password");
   const [state, action, pending] = useActionState<RegisterState, FormData>(registerCompany, {});
 
   useActionToast(state);
-  const [companyName, setCompanyName] = useState("");
+  const [companyName, setCompanyName] = useState(initialCompanyName);
   const [slug, setSlug] = useState("");
   const [slugTouched, setSlugTouched] = useState(false);
   const [password, setPassword] = useState("");
@@ -44,7 +35,6 @@ export function RegisterForm() {
 
   return (
     <form action={action} className="space-y-4">
-
       <Field label={t("yourName")} name="name" errors={state.fieldErrors?.name}>
         <Input id="name" name="name" required autoComplete="name" placeholder="Jane Doe" />
       </Field>
@@ -70,9 +60,7 @@ export function RegisterForm() {
           },
         }}
       />
-      {state.fieldErrors?.password?.length ? (
-        <p className="text-sm text-destructive">{state.fieldErrors.password[0]}</p>
-      ) : null}
+      {state.fieldErrors?.password?.length ? <p className="text-sm text-destructive">{state.fieldErrors.password[0]}</p> : null}
 
       <Field label={t("companyName")} name="companyName" errors={state.fieldErrors?.companyName}>
         <Input
@@ -110,17 +98,7 @@ export function RegisterForm() {
   );
 }
 
-function Field({
-  label,
-  name,
-  errors,
-  children,
-}: {
-  label: string;
-  name: string;
-  errors?: string[];
-  children: React.ReactNode;
-}) {
+function Field({ label, name, errors, children }: { label: string; name: string; errors?: string[]; children: React.ReactNode }) {
   return (
     <div className="space-y-2">
       <Label htmlFor={name}>{label}</Label>

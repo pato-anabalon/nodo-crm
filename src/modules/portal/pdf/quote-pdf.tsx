@@ -717,6 +717,11 @@ function Parties({
             {quote.clientPhone}
           </Field>
         ) : null}
+        {quote.recipients.length > 0 ? (
+          <Field label={t("copyTo")} ink={ink}>
+            {quote.recipients.map((recipient) => recipient.email).join("\n")}
+          </Field>
+        ) : null}
       </View>
     </View>
   );

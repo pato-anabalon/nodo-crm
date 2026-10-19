@@ -19,6 +19,8 @@ type StoredMessage = {
   body: string;
   createdAt: Date;
   authorUser?: { name: string | null; email: string } | null;
+  /** Which recipient wrote it, for a message from the customer side. */
+  authorName?: string | null;
 };
 
 /**
@@ -30,6 +32,8 @@ type StoredMessage = {
  *
  * `withAuthorNames` is off for the customer on purpose: which of the company's
  * staff replied is internal, and the portal already attributes it to the company.
+ * A customer's own name is not internal — with several people on one quote it
+ * is the only way to tell their messages apart — so it travels either way.
  */
 export function formatThread(
   messages: StoredMessage[],
@@ -40,9 +44,12 @@ export function formatThread(
     author: message.author,
     body: message.body,
     sentAtLabel: formatDateTime(message.createdAt, options.formatLocale, options.timezone),
-    authorName: options.withAuthorNames
-      ? (message.authorUser?.name ?? message.authorUser?.email ?? null)
-      : null,
+    authorName:
+      message.author === MessageAuthor.CLIENT
+        ? (message.authorName ?? null)
+        : options.withAuthorNames
+          ? (message.authorUser?.name ?? message.authorUser?.email ?? null)
+          : null,
   }));
 }
 

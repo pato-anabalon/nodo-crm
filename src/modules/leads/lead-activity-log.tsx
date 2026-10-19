@@ -117,6 +117,9 @@ export function describe(
     case ActivityType.CONVERTED:
       return t("activity.CONVERTED", { reference: activity.content });
 
+    case ActivityType.JOB_STARTED:
+      return t("activity.JOB_STARTED", { reference: activity.content });
+
     default:
       return t(`activity.${activity.type}`);
   }

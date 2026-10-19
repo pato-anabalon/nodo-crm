@@ -40,6 +40,12 @@ export type QuoteAcceptanceMinAggregateOutputType = {
   orderReference: string | null
   ipAddress: string | null
   userAgent: string | null
+  verifiedEmail: boolean | null
+  signatureDigest: string | null
+  signatureDevice: $Enums.SignatureDevice | null
+  signatureDeviceUserAgent: string | null
+  signatureDeviceIp: string | null
+  recordDigest: string | null
   acceptedAt: Date | null
 }
 
@@ -56,6 +62,12 @@ export type QuoteAcceptanceMaxAggregateOutputType = {
   orderReference: string | null
   ipAddress: string | null
   userAgent: string | null
+  verifiedEmail: boolean | null
+  signatureDigest: string | null
+  signatureDevice: $Enums.SignatureDevice | null
+  signatureDeviceUserAgent: string | null
+  signatureDeviceIp: string | null
+  recordDigest: string | null
   acceptedAt: Date | null
 }
 
@@ -72,6 +84,12 @@ export type QuoteAcceptanceCountAggregateOutputType = {
   orderReference: number
   ipAddress: number
   userAgent: number
+  verifiedEmail: number
+  signatureDigest: number
+  signatureDevice: number
+  signatureDeviceUserAgent: number
+  signatureDeviceIp: number
+  recordDigest: number
   acceptedAt: number
   _all: number
 }
@@ -90,6 +108,12 @@ export type QuoteAcceptanceMinAggregateInputType = {
   orderReference?: true
   ipAddress?: true
   userAgent?: true
+  verifiedEmail?: true
+  signatureDigest?: true
+  signatureDevice?: true
+  signatureDeviceUserAgent?: true
+  signatureDeviceIp?: true
+  recordDigest?: true
   acceptedAt?: true
 }
 
@@ -106,6 +130,12 @@ export type QuoteAcceptanceMaxAggregateInputType = {
   orderReference?: true
   ipAddress?: true
   userAgent?: true
+  verifiedEmail?: true
+  signatureDigest?: true
+  signatureDevice?: true
+  signatureDeviceUserAgent?: true
+  signatureDeviceIp?: true
+  recordDigest?: true
   acceptedAt?: true
 }
 
@@ -122,6 +152,12 @@ export type QuoteAcceptanceCountAggregateInputType = {
   orderReference?: true
   ipAddress?: true
   userAgent?: true
+  verifiedEmail?: true
+  signatureDigest?: true
+  signatureDevice?: true
+  signatureDeviceUserAgent?: true
+  signatureDeviceIp?: true
+  recordDigest?: true
   acceptedAt?: true
   _all?: true
 }
@@ -211,6 +247,12 @@ export type QuoteAcceptanceGroupByOutputType = {
   orderReference: string | null
   ipAddress: string | null
   userAgent: string | null
+  verifiedEmail: boolean | null
+  signatureDigest: string | null
+  signatureDevice: $Enums.SignatureDevice | null
+  signatureDeviceUserAgent: string | null
+  signatureDeviceIp: string | null
+  recordDigest: string | null
   acceptedAt: Date
   _count: QuoteAcceptanceCountAggregateOutputType | null
   _min: QuoteAcceptanceMinAggregateOutputType | null
@@ -248,6 +290,12 @@ export type QuoteAcceptanceWhereInput = {
   orderReference?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
   ipAddress?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
   userAgent?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
+  verifiedEmail?: Prisma.BoolNullableFilter<"QuoteAcceptance"> | boolean | null
+  signatureDigest?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
+  signatureDevice?: Prisma.EnumSignatureDeviceNullableFilter<"QuoteAcceptance"> | $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
+  signatureDeviceIp?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
+  recordDigest?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
   acceptedAt?: Prisma.DateTimeFilter<"QuoteAcceptance"> | Date | string
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   quote?: Prisma.XOR<Prisma.QuoteScalarRelationFilter, Prisma.QuoteWhereInput>
@@ -266,6 +314,12 @@ export type QuoteAcceptanceOrderByWithRelationInput = {
   orderReference?: Prisma.SortOrderInput | Prisma.SortOrder
   ipAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   userAgent?: Prisma.SortOrderInput | Prisma.SortOrder
+  verifiedEmail?: Prisma.SortOrderInput | Prisma.SortOrder
+  signatureDigest?: Prisma.SortOrderInput | Prisma.SortOrder
+  signatureDevice?: Prisma.SortOrderInput | Prisma.SortOrder
+  signatureDeviceUserAgent?: Prisma.SortOrderInput | Prisma.SortOrder
+  signatureDeviceIp?: Prisma.SortOrderInput | Prisma.SortOrder
+  recordDigest?: Prisma.SortOrderInput | Prisma.SortOrder
   acceptedAt?: Prisma.SortOrder
   company?: Prisma.CompanyOrderByWithRelationInput
   quote?: Prisma.QuoteOrderByWithRelationInput
@@ -287,6 +341,12 @@ export type QuoteAcceptanceWhereUniqueInput = Prisma.AtLeast<{
   orderReference?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
   ipAddress?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
   userAgent?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
+  verifiedEmail?: Prisma.BoolNullableFilter<"QuoteAcceptance"> | boolean | null
+  signatureDigest?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
+  signatureDevice?: Prisma.EnumSignatureDeviceNullableFilter<"QuoteAcceptance"> | $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
+  signatureDeviceIp?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
+  recordDigest?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
   acceptedAt?: Prisma.DateTimeFilter<"QuoteAcceptance"> | Date | string
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   quote?: Prisma.XOR<Prisma.QuoteScalarRelationFilter, Prisma.QuoteWhereInput>
@@ -305,6 +365,12 @@ export type QuoteAcceptanceOrderByWithAggregationInput = {
   orderReference?: Prisma.SortOrderInput | Prisma.SortOrder
   ipAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   userAgent?: Prisma.SortOrderInput | Prisma.SortOrder
+  verifiedEmail?: Prisma.SortOrderInput | Prisma.SortOrder
+  signatureDigest?: Prisma.SortOrderInput | Prisma.SortOrder
+  signatureDevice?: Prisma.SortOrderInput | Prisma.SortOrder
+  signatureDeviceUserAgent?: Prisma.SortOrderInput | Prisma.SortOrder
+  signatureDeviceIp?: Prisma.SortOrderInput | Prisma.SortOrder
+  recordDigest?: Prisma.SortOrderInput | Prisma.SortOrder
   acceptedAt?: Prisma.SortOrder
   _count?: Prisma.QuoteAcceptanceCountOrderByAggregateInput
   _max?: Prisma.QuoteAcceptanceMaxOrderByAggregateInput
@@ -327,6 +393,12 @@ export type QuoteAcceptanceScalarWhereWithAggregatesInput = {
   orderReference?: Prisma.StringNullableWithAggregatesFilter<"QuoteAcceptance"> | string | null
   ipAddress?: Prisma.StringNullableWithAggregatesFilter<"QuoteAcceptance"> | string | null
   userAgent?: Prisma.StringNullableWithAggregatesFilter<"QuoteAcceptance"> | string | null
+  verifiedEmail?: Prisma.BoolNullableWithAggregatesFilter<"QuoteAcceptance"> | boolean | null
+  signatureDigest?: Prisma.StringNullableWithAggregatesFilter<"QuoteAcceptance"> | string | null
+  signatureDevice?: Prisma.EnumSignatureDeviceNullableWithAggregatesFilter<"QuoteAcceptance"> | $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: Prisma.StringNullableWithAggregatesFilter<"QuoteAcceptance"> | string | null
+  signatureDeviceIp?: Prisma.StringNullableWithAggregatesFilter<"QuoteAcceptance"> | string | null
+  recordDigest?: Prisma.StringNullableWithAggregatesFilter<"QuoteAcceptance"> | string | null
   acceptedAt?: Prisma.DateTimeWithAggregatesFilter<"QuoteAcceptance"> | Date | string
 }
 
@@ -341,6 +413,12 @@ export type QuoteAcceptanceCreateInput = {
   orderReference?: string | null
   ipAddress?: string | null
   userAgent?: string | null
+  verifiedEmail?: boolean | null
+  signatureDigest?: string | null
+  signatureDevice?: $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: string | null
+  signatureDeviceIp?: string | null
+  recordDigest?: string | null
   acceptedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutAcceptancesInput
   quote: Prisma.QuoteCreateNestedOneWithoutAcceptanceInput
@@ -359,6 +437,12 @@ export type QuoteAcceptanceUncheckedCreateInput = {
   orderReference?: string | null
   ipAddress?: string | null
   userAgent?: string | null
+  verifiedEmail?: boolean | null
+  signatureDigest?: string | null
+  signatureDevice?: $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: string | null
+  signatureDeviceIp?: string | null
+  recordDigest?: string | null
   acceptedAt?: Date | string
 }
 
@@ -373,6 +457,12 @@ export type QuoteAcceptanceUpdateInput = {
   orderReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedEmail?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  signatureDigest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureDevice?: Prisma.NullableEnumSignatureDeviceFieldUpdateOperationsInput | $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureDeviceIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recordDigest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutAcceptancesNestedInput
   quote?: Prisma.QuoteUpdateOneRequiredWithoutAcceptanceNestedInput
@@ -391,6 +481,12 @@ export type QuoteAcceptanceUncheckedUpdateInput = {
   orderReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedEmail?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  signatureDigest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureDevice?: Prisma.NullableEnumSignatureDeviceFieldUpdateOperationsInput | $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureDeviceIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recordDigest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -407,6 +503,12 @@ export type QuoteAcceptanceCreateManyInput = {
   orderReference?: string | null
   ipAddress?: string | null
   userAgent?: string | null
+  verifiedEmail?: boolean | null
+  signatureDigest?: string | null
+  signatureDevice?: $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: string | null
+  signatureDeviceIp?: string | null
+  recordDigest?: string | null
   acceptedAt?: Date | string
 }
 
@@ -421,6 +523,12 @@ export type QuoteAcceptanceUpdateManyMutationInput = {
   orderReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedEmail?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  signatureDigest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureDevice?: Prisma.NullableEnumSignatureDeviceFieldUpdateOperationsInput | $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureDeviceIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recordDigest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -437,6 +545,12 @@ export type QuoteAcceptanceUncheckedUpdateManyInput = {
   orderReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedEmail?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  signatureDigest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureDevice?: Prisma.NullableEnumSignatureDeviceFieldUpdateOperationsInput | $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureDeviceIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recordDigest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -468,6 +582,12 @@ export type QuoteAcceptanceCountOrderByAggregateInput = {
   orderReference?: Prisma.SortOrder
   ipAddress?: Prisma.SortOrder
   userAgent?: Prisma.SortOrder
+  verifiedEmail?: Prisma.SortOrder
+  signatureDigest?: Prisma.SortOrder
+  signatureDevice?: Prisma.SortOrder
+  signatureDeviceUserAgent?: Prisma.SortOrder
+  signatureDeviceIp?: Prisma.SortOrder
+  recordDigest?: Prisma.SortOrder
   acceptedAt?: Prisma.SortOrder
 }
 
@@ -484,6 +604,12 @@ export type QuoteAcceptanceMaxOrderByAggregateInput = {
   orderReference?: Prisma.SortOrder
   ipAddress?: Prisma.SortOrder
   userAgent?: Prisma.SortOrder
+  verifiedEmail?: Prisma.SortOrder
+  signatureDigest?: Prisma.SortOrder
+  signatureDevice?: Prisma.SortOrder
+  signatureDeviceUserAgent?: Prisma.SortOrder
+  signatureDeviceIp?: Prisma.SortOrder
+  recordDigest?: Prisma.SortOrder
   acceptedAt?: Prisma.SortOrder
 }
 
@@ -500,6 +626,12 @@ export type QuoteAcceptanceMinOrderByAggregateInput = {
   orderReference?: Prisma.SortOrder
   ipAddress?: Prisma.SortOrder
   userAgent?: Prisma.SortOrder
+  verifiedEmail?: Prisma.SortOrder
+  signatureDigest?: Prisma.SortOrder
+  signatureDevice?: Prisma.SortOrder
+  signatureDeviceUserAgent?: Prisma.SortOrder
+  signatureDeviceIp?: Prisma.SortOrder
+  recordDigest?: Prisma.SortOrder
   acceptedAt?: Prisma.SortOrder
 }
 
@@ -581,6 +713,14 @@ export type EnumSignatureTypeFieldUpdateOperationsInput = {
   set?: $Enums.SignatureType
 }
 
+export type NullableBoolFieldUpdateOperationsInput = {
+  set?: boolean | null
+}
+
+export type NullableEnumSignatureDeviceFieldUpdateOperationsInput = {
+  set?: $Enums.SignatureDevice | null
+}
+
 export type QuoteAcceptanceCreateWithoutCompanyInput = {
   id?: string
   acceptedByName: string
@@ -592,6 +732,12 @@ export type QuoteAcceptanceCreateWithoutCompanyInput = {
   orderReference?: string | null
   ipAddress?: string | null
   userAgent?: string | null
+  verifiedEmail?: boolean | null
+  signatureDigest?: string | null
+  signatureDevice?: $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: string | null
+  signatureDeviceIp?: string | null
+  recordDigest?: string | null
   acceptedAt?: Date | string
   quote: Prisma.QuoteCreateNestedOneWithoutAcceptanceInput
 }
@@ -608,6 +754,12 @@ export type QuoteAcceptanceUncheckedCreateWithoutCompanyInput = {
   orderReference?: string | null
   ipAddress?: string | null
   userAgent?: string | null
+  verifiedEmail?: boolean | null
+  signatureDigest?: string | null
+  signatureDevice?: $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: string | null
+  signatureDeviceIp?: string | null
+  recordDigest?: string | null
   acceptedAt?: Date | string
 }
 
@@ -653,6 +805,12 @@ export type QuoteAcceptanceScalarWhereInput = {
   orderReference?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
   ipAddress?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
   userAgent?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
+  verifiedEmail?: Prisma.BoolNullableFilter<"QuoteAcceptance"> | boolean | null
+  signatureDigest?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
+  signatureDevice?: Prisma.EnumSignatureDeviceNullableFilter<"QuoteAcceptance"> | $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
+  signatureDeviceIp?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
+  recordDigest?: Prisma.StringNullableFilter<"QuoteAcceptance"> | string | null
   acceptedAt?: Prisma.DateTimeFilter<"QuoteAcceptance"> | Date | string
 }
 
@@ -667,6 +825,12 @@ export type QuoteAcceptanceCreateWithoutQuoteInput = {
   orderReference?: string | null
   ipAddress?: string | null
   userAgent?: string | null
+  verifiedEmail?: boolean | null
+  signatureDigest?: string | null
+  signatureDevice?: $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: string | null
+  signatureDeviceIp?: string | null
+  recordDigest?: string | null
   acceptedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutAcceptancesInput
 }
@@ -683,6 +847,12 @@ export type QuoteAcceptanceUncheckedCreateWithoutQuoteInput = {
   orderReference?: string | null
   ipAddress?: string | null
   userAgent?: string | null
+  verifiedEmail?: boolean | null
+  signatureDigest?: string | null
+  signatureDevice?: $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: string | null
+  signatureDeviceIp?: string | null
+  recordDigest?: string | null
   acceptedAt?: Date | string
 }
 
@@ -713,6 +883,12 @@ export type QuoteAcceptanceUpdateWithoutQuoteInput = {
   orderReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedEmail?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  signatureDigest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureDevice?: Prisma.NullableEnumSignatureDeviceFieldUpdateOperationsInput | $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureDeviceIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recordDigest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutAcceptancesNestedInput
 }
@@ -729,6 +905,12 @@ export type QuoteAcceptanceUncheckedUpdateWithoutQuoteInput = {
   orderReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedEmail?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  signatureDigest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureDevice?: Prisma.NullableEnumSignatureDeviceFieldUpdateOperationsInput | $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureDeviceIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recordDigest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -744,6 +926,12 @@ export type QuoteAcceptanceCreateManyCompanyInput = {
   orderReference?: string | null
   ipAddress?: string | null
   userAgent?: string | null
+  verifiedEmail?: boolean | null
+  signatureDigest?: string | null
+  signatureDevice?: $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: string | null
+  signatureDeviceIp?: string | null
+  recordDigest?: string | null
   acceptedAt?: Date | string
 }
 
@@ -758,6 +946,12 @@ export type QuoteAcceptanceUpdateWithoutCompanyInput = {
   orderReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedEmail?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  signatureDigest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureDevice?: Prisma.NullableEnumSignatureDeviceFieldUpdateOperationsInput | $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureDeviceIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recordDigest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quote?: Prisma.QuoteUpdateOneRequiredWithoutAcceptanceNestedInput
 }
@@ -774,6 +968,12 @@ export type QuoteAcceptanceUncheckedUpdateWithoutCompanyInput = {
   orderReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedEmail?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  signatureDigest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureDevice?: Prisma.NullableEnumSignatureDeviceFieldUpdateOperationsInput | $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureDeviceIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recordDigest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -789,6 +989,12 @@ export type QuoteAcceptanceUncheckedUpdateManyWithoutCompanyInput = {
   orderReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedEmail?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  signatureDigest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureDevice?: Prisma.NullableEnumSignatureDeviceFieldUpdateOperationsInput | $Enums.SignatureDevice | null
+  signatureDeviceUserAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureDeviceIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recordDigest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   acceptedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -807,6 +1013,12 @@ export type QuoteAcceptanceSelect<ExtArgs extends runtime.Types.Extensions.Inter
   orderReference?: boolean
   ipAddress?: boolean
   userAgent?: boolean
+  verifiedEmail?: boolean
+  signatureDigest?: boolean
+  signatureDevice?: boolean
+  signatureDeviceUserAgent?: boolean
+  signatureDeviceIp?: boolean
+  recordDigest?: boolean
   acceptedAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
@@ -825,6 +1037,12 @@ export type QuoteAcceptanceSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   orderReference?: boolean
   ipAddress?: boolean
   userAgent?: boolean
+  verifiedEmail?: boolean
+  signatureDigest?: boolean
+  signatureDevice?: boolean
+  signatureDeviceUserAgent?: boolean
+  signatureDeviceIp?: boolean
+  recordDigest?: boolean
   acceptedAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
@@ -843,6 +1061,12 @@ export type QuoteAcceptanceSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   orderReference?: boolean
   ipAddress?: boolean
   userAgent?: boolean
+  verifiedEmail?: boolean
+  signatureDigest?: boolean
+  signatureDevice?: boolean
+  signatureDeviceUserAgent?: boolean
+  signatureDeviceIp?: boolean
+  recordDigest?: boolean
   acceptedAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
@@ -861,10 +1085,16 @@ export type QuoteAcceptanceSelectScalar = {
   orderReference?: boolean
   ipAddress?: boolean
   userAgent?: boolean
+  verifiedEmail?: boolean
+  signatureDigest?: boolean
+  signatureDevice?: boolean
+  signatureDeviceUserAgent?: boolean
+  signatureDeviceIp?: boolean
+  recordDigest?: boolean
   acceptedAt?: boolean
 }
 
-export type QuoteAcceptanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "quoteId" | "acceptedByName" | "acceptedByEmail" | "statementText" | "signatureType" | "signatureData" | "additionalComments" | "orderReference" | "ipAddress" | "userAgent" | "acceptedAt", ExtArgs["result"]["quoteAcceptance"]>
+export type QuoteAcceptanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "quoteId" | "acceptedByName" | "acceptedByEmail" | "statementText" | "signatureType" | "signatureData" | "additionalComments" | "orderReference" | "ipAddress" | "userAgent" | "verifiedEmail" | "signatureDigest" | "signatureDevice" | "signatureDeviceUserAgent" | "signatureDeviceIp" | "recordDigest" | "acceptedAt", ExtArgs["result"]["quoteAcceptance"]>
 export type QuoteAcceptanceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
@@ -905,6 +1135,32 @@ export type $QuoteAcceptancePayload<ExtArgs extends runtime.Types.Extensions.Int
     orderReference: string | null
     ipAddress: string | null
     userAgent: string | null
+    /**
+     * *
+     *    * The digital fingerprint: what backs the acceptance beyond the signature
+     *    * itself. All nullable — acceptances from before it existed keep what they
+     *    * had and show only that.
+     *    *
+     *    * `verifiedEmail` is true when the link that accepted belonged to a
+     *    * recipient: that token only ever travelled in the email to that address.
+     */
+    verifiedEmail: boolean | null
+    /**
+     * * SHA-256 of `signatureData`: any change to the strokes changes it.
+     */
+    signatureDigest: string | null
+    signatureDevice: $Enums.SignatureDevice | null
+    /**
+     * * The phone's, when the signature was drawn there.
+     */
+    signatureDeviceUserAgent: string | null
+    signatureDeviceIp: string | null
+    /**
+     * *
+     *    * SHA-256 over everything above, the frozen total and the time, in a fixed
+     *    * order (`acceptanceDigest`). Editing the row afterwards stops it matching.
+     */
+    recordDigest: string | null
     acceptedAt: Date
   }, ExtArgs["result"]["quoteAcceptance"]>
   composites: {}
@@ -1343,6 +1599,12 @@ export interface QuoteAcceptanceFieldRefs {
   readonly orderReference: Prisma.FieldRef<"QuoteAcceptance", 'String'>
   readonly ipAddress: Prisma.FieldRef<"QuoteAcceptance", 'String'>
   readonly userAgent: Prisma.FieldRef<"QuoteAcceptance", 'String'>
+  readonly verifiedEmail: Prisma.FieldRef<"QuoteAcceptance", 'Boolean'>
+  readonly signatureDigest: Prisma.FieldRef<"QuoteAcceptance", 'String'>
+  readonly signatureDevice: Prisma.FieldRef<"QuoteAcceptance", 'SignatureDevice'>
+  readonly signatureDeviceUserAgent: Prisma.FieldRef<"QuoteAcceptance", 'String'>
+  readonly signatureDeviceIp: Prisma.FieldRef<"QuoteAcceptance", 'String'>
+  readonly recordDigest: Prisma.FieldRef<"QuoteAcceptance", 'String'>
   readonly acceptedAt: Prisma.FieldRef<"QuoteAcceptance", 'DateTime'>
 }
     

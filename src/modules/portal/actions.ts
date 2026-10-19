@@ -19,7 +19,10 @@ import { calculateQuoteTotals } from "@/modules/quotes/totals";
 import { resolveSelectedSectionAmounts, type SectionSelectionState } from "@/modules/quotes/section-selection";
 import { bundleFrom } from "@/modules/quotes/service";
 import { acceptQuoteSchema, buildStatement, clientMessageSchema, declineQuoteSchema } from "./schemas";
-import { canClientRespond, resolveShare } from "./service";
+import { canClientRespond, eventActor, resolveShare } from "./service";
+import { acceptanceDigest, sha256Hex } from "./fingerprint";
+import { startHandoff } from "./handoff";
+import { isSignaturePath, signatureDeviceFor } from "./signature";
 
 export type PortalActionState = {
   error?: string;
@@ -48,9 +51,9 @@ export async function acceptQuoteAction(
   formData: FormData,
 ): Promise<PortalActionState> {
   const t = await getTranslations();
-  const { status, share } = await resolveShare(token);
+  const { status, share, viewer } = await resolveShare(token);
 
-  if (status !== "ok" || !share) return { error: t("portal.errors.notAvailable") };
+  if (status !== "ok" || !share || !viewer) return { error: t("portal.errors.notAvailable") };
   if (!canClientRespond(share.quote.status)) return { error: t("portal.errors.notAvailable") };
 
   const company = share.company;
@@ -60,9 +63,9 @@ export async function acceptQuoteAction(
     return { fieldErrors: { agree: [t("portal.errors.statementRequired")] } };
   }
 
+  // Name and address are the link's, never the form's: whatever a request
+  // posts as `name` is ignored.
   const parsed = acceptQuoteSchema.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
     signatureType: formData.get("signatureType") || SignatureType.NONE,
     signatureData: formData.get("signatureData"),
     additionalComments: formData.get("additionalComments"),
@@ -77,10 +80,34 @@ export async function acceptQuoteAction(
     return { fieldErrors: { signatureData: [t("portal.errors.signatureRequired")] } };
   }
 
+  // Drawn strokes end up in an SVG on the team's screen: path data and
+  // nothing else.
+  const drawn = parsed.data.signatureType === SignatureType.DRAWN && !!parsed.data.signatureData;
+  if (drawn && !isSignaturePath(parsed.data.signatureData!)) {
+    return { fieldErrors: { signatureData: [t("portal.errors.signatureRequired")] } };
+  }
+
+  /*
+   * Where it was drawn. The phone's only when the strokes accepted are exactly
+   * the ones it sent — checked against the handoff of *this* quote, never
+   * taken from the form.
+   */
+  const handoffId = formData.get("signatureHandoffId");
+  const handoff =
+    drawn && typeof handoffId === "string" && handoffId
+      ? await prisma.signatureHandoff.findFirst({
+          where: { id: handoffId, quoteId: share.quoteId },
+          select: { paths: true, deviceUserAgent: true, deviceIp: true },
+        })
+      : null;
+  const signatureDevice = drawn
+    ? signatureDeviceFor(parsed.data.signatureData!, handoff?.paths ?? null)
+    : null;
+
   const meta = await requestMeta();
   const statementText = buildStatement(
     company.acceptanceStatement,
-    parsed.data.name,
+    viewer.name,
     t("portal.defaultStatement"),
   );
 
@@ -141,13 +168,38 @@ export async function acceptQuoteAction(
     return { error: t("portal.errors.nothingSelected") };
   }
 
+  /*
+   * The fingerprint. The time is fixed here rather than left to the column
+   * default, because it is sealed into the record digest and has to be the
+   * very value stored.
+   */
+  const acceptedAt = new Date();
+  const verifiedEmail = viewer.recipientId !== null;
+  const signatureDigest = parsed.data.signatureData ? sha256Hex(parsed.data.signatureData) : null;
+  const recordDigest = acceptanceDigest({
+    quoteId: share.quoteId,
+    quoteNumber: quote.number,
+    total: totals.total.toFixed(2),
+    currency: quote.currency,
+    statementText,
+    acceptedByName: viewer.name,
+    acceptedByEmail: viewer.email,
+    verifiedEmail,
+    signatureType: parsed.data.signatureType,
+    signatureDigest,
+    signatureDevice,
+    acceptedAt,
+    ipAddress: meta.ipAddress,
+    userAgent: meta.userAgent,
+  });
+
   await prisma.$transaction([
     prisma.quoteAcceptance.create({
       data: {
         companyId: company.id,
         quoteId: share.quoteId,
-        acceptedByName: parsed.data.name,
-        acceptedByEmail: parsed.data.email ?? null,
+        acceptedByName: viewer.name,
+        acceptedByEmail: viewer.email,
         statementText,
         signatureType: parsed.data.signatureType,
         signatureData: parsed.data.signatureData ?? null,
@@ -155,13 +207,20 @@ export async function acceptQuoteAction(
         orderReference: parsed.data.orderReference ?? null,
         ipAddress: meta.ipAddress,
         userAgent: meta.userAgent,
+        verifiedEmail,
+        signatureDigest,
+        signatureDevice,
+        signatureDeviceUserAgent: signatureDevice === "TOUCH_DEVICE" ? (handoff?.deviceUserAgent ?? null) : null,
+        signatureDeviceIp: signatureDevice === "TOUCH_DEVICE" ? (handoff?.deviceIp ?? null) : null,
+        recordDigest,
+        acceptedAt,
       },
     }),
     prisma.quote.update({
       where: { id: share.quoteId },
       data: {
         status: QuoteStatus.ACCEPTED,
-        decidedAt: new Date(),
+        decidedAt: acceptedAt,
         subtotal: totals.subtotal,
         discount: totals.discount,
         taxAmount: totals.taxAmount,
@@ -173,6 +232,7 @@ export async function acceptQuoteAction(
         companyId: company.id,
         quoteId: share.quoteId,
         type: QuoteEventType.ACCEPTED,
+        ...eventActor(viewer),
         ipAddress: meta.ipAddress,
         userAgent: meta.userAgent,
       },
@@ -180,7 +240,7 @@ export async function acceptQuoteAction(
   ]);
 
   // The notice must not keep the customer waiting in front of the screen.
-  after(() => notifyQuoteDecided(share.quoteId, "accepted"));
+  after(() => notifyQuoteDecided(share.quoteId, "accepted", viewer.name));
   // The customer hears back too. Until now accepting produced silence on their
   // side, which for a commercial commitment reads like a form that didn't submit.
   after(() => sendAcceptedEmail(share.quoteId));
@@ -195,7 +255,7 @@ export async function declineQuoteAction(
   formData: FormData,
 ): Promise<PortalActionState> {
   const t = await getTranslations();
-  const { status, share } = await resolveShare(token);
+  const { status, share, viewer } = await resolveShare(token);
 
   if (status !== "ok" || !share) return { error: t("portal.errors.notAvailable") };
   if (!canClientRespond(share.quote.status)) return { error: t("portal.errors.notAvailable") };
@@ -217,6 +277,7 @@ export async function declineQuoteAction(
         companyId: share.company.id,
         quoteId: share.quoteId,
         type: QuoteEventType.DECLINED,
+        ...eventActor(viewer),
         ipAddress: meta.ipAddress,
         userAgent: meta.userAgent,
       },
@@ -230,12 +291,13 @@ export async function declineQuoteAction(
         companyId: share.company.id,
         quoteId: share.quoteId,
         author: MessageAuthor.CLIENT,
+        authorName: viewer?.name || null,
         body: parsed.data.reason,
       },
     });
   }
 
-  after(() => notifyQuoteDecided(share.quoteId, "declined"));
+  after(() => notifyQuoteDecided(share.quoteId, "declined", viewer?.name));
 
   revalidatePath(`/q/${token}`);
   return { done: true };
@@ -247,7 +309,7 @@ export async function sendClientMessageAction(
   formData: FormData,
 ): Promise<PortalActionState> {
   const t = await getTranslations();
-  const { status, share } = await resolveShare(token);
+  const { status, share, viewer } = await resolveShare(token);
 
   if (status !== "ok" || !share) return { error: t("portal.errors.notAvailable") };
 
@@ -262,6 +324,7 @@ export async function sendClientMessageAction(
         companyId: share.company.id,
         quoteId: share.quoteId,
         author: MessageAuthor.CLIENT,
+        authorName: viewer?.name || null,
         body: parsed.data.body,
       },
     }),
@@ -270,11 +333,12 @@ export async function sendClientMessageAction(
         companyId: share.company.id,
         quoteId: share.quoteId,
         type: QuoteEventType.MESSAGE_SENT,
+        ...eventActor(viewer),
       },
     }),
   ]);
 
-  after(() => notifyClientMessage(share.quoteId, parsed.data.body));
+  after(() => notifyClientMessage(share.quoteId, parsed.data.body, viewer?.name));
 
   revalidatePath(`/q/${token}`);
   return { done: true };
@@ -326,4 +390,26 @@ export async function updateSectionSelectionAction(
   }
 
   return { ok: true };
+}
+
+export type HandoffStart = { id: string; qrSvg: string } | { error: string };
+
+/**
+ * "Sign from a touch device": opens a handoff for this quote and returns its
+ * QR. Only while the quote can still be accepted, and tied to the recipient
+ * whose link asked for it.
+ */
+export async function startSignatureHandoffAction(token: string): Promise<HandoffStart> {
+  const t = await getTranslations();
+  const { status, share, viewer } = await resolveShare(token);
+  if (status !== "ok" || !share || !canClientRespond(share.quote.status)) {
+    return { error: t("portal.errors.notAvailable") };
+  }
+
+  return startHandoff({
+    companyId: share.companyId,
+    companySlug: share.company.slug,
+    quoteId: share.quoteId,
+    recipientId: viewer?.recipientId ?? null,
+  });
 }

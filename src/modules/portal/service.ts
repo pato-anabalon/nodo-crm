@@ -3,7 +3,15 @@ import { prisma } from "@/lib/db/prisma";
 import type { CompanyContext } from "@/lib/auth/session";
 import type { Prisma } from "@/generated/prisma/client";
 import { QuoteEventType, QuoteStatus } from "@/generated/prisma/enums";
-import { generateShareToken, hashShareToken, isViewingNow, shareStatus, type ShareStatus } from "./share";
+import {
+  generateShareToken,
+  hashShareToken,
+  isViewingNow,
+  shareStatus,
+  viewerFor,
+  type PortalViewer,
+  type ShareStatus,
+} from "./share";
 
 /**
  * The end customer's context: the system's third actor.
@@ -76,11 +84,18 @@ export const quoteDocumentInclude = {
   createdBy: { select: { name: true, email: true, jobTitle: true, phone: true } },
   acceptance: true,
   messages: { orderBy: { createdAt: "asc" } },
+  // The copies, shown under "For" as addresses only: each of them is sent the
+  // quote too, and the document says so. The primary is already the "For".
+  recipients: {
+    where: { isPrimary: false },
+    orderBy: { position: "asc" },
+    select: { email: true },
+  },
 } satisfies Prisma.QuoteInclude;
 
 export const resolveShare = cache(async (token: string) => {
   if (!token || token.length < 20) {
-    return { status: "not-found" as ShareStatus, share: null };
+    return { status: "not-found" as ShareStatus, share: null, viewer: null };
   }
 
   /*
@@ -96,6 +111,7 @@ export const resolveShare = cache(async (token: string) => {
     where: { hashedToken: hashShareToken(token) },
     select: {
       revokedAt: true,
+      recipient: { select: { id: true, name: true, email: true } },
       share: {
         include: {
           company: { select: companyDocumentSelect },
@@ -106,12 +122,13 @@ export const resolveShare = cache(async (token: string) => {
   });
 
   const share = found?.share ?? null;
+  const viewer: PortalViewer | null = share ? viewerFor(found?.recipient ?? null, share.quote) : null;
 
   // A token the company closed stays closed, even after a later send reopens
   // the link for everybody else.
-  if (found?.revokedAt) return { status: "revoked" as ShareStatus, share };
+  if (found?.revokedAt) return { status: "revoked" as ShareStatus, share, viewer };
 
-  return { status: shareStatus(share), share };
+  return { status: shareStatus(share), share, viewer };
 });
 
 /** Records an open and refreshes presence. */
@@ -119,6 +136,7 @@ export async function recordOpen(input: {
   shareId: string;
   companyId: string;
   quoteId: string;
+  viewer: PortalViewer;
   ipAddress: string | null;
   userAgent: string | null;
 }) {
@@ -130,6 +148,7 @@ export async function recordOpen(input: {
         companyId: input.companyId,
         quoteId: input.quoteId,
         type: QuoteEventType.OPENED,
+        ...eventActor(input.viewer),
         ipAddress: input.ipAddress,
         userAgent: input.userAgent,
       },
@@ -170,14 +189,9 @@ export async function markLeft(shareId: string) {
   });
 }
 
-export async function recordClientEvent(input: {
-  companyId: string;
-  quoteId: string;
-  type: QuoteEventType;
-  ipAddress: string | null;
-  userAgent: string | null;
-}) {
-  return prisma.quoteEvent.create({ data: { ...input } });
+/** The reader's name and address as an event freezes them. */
+export function eventActor(viewer: PortalViewer | null) {
+  return { recipientName: viewer?.name || null, recipientEmail: viewer?.email ?? null };
 }
 
 /** Only a sent quote can be answered by the customer. */
@@ -200,6 +214,8 @@ export async function issueShare(input: {
   companyId: string;
   quoteId: string;
   expiresAt?: Date | null;
+  /** Who this link goes to: the token is how the portal knows who is reading. */
+  recipientId?: string | null;
 }): Promise<{ token: string }> {
   const { token, hashedToken } = generateShareToken();
 
@@ -226,7 +242,9 @@ export async function issueShare(input: {
     select: { id: true },
   });
 
-  await prisma.quoteShareToken.create({ data: { shareId: share.id, hashedToken } });
+  await prisma.quoteShareToken.create({
+    data: { shareId: share.id, hashedToken, recipientId: input.recipientId ?? null },
+  });
 
   return { token };
 }

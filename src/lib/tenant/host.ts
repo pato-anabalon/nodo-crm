@@ -73,8 +73,7 @@ function stripPort(value: string): string {
 
 /** Absolute URL of a company's subdomain. */
 export function companyUrl(slug: string, path = "/", rootDomain: string = ROOT_DOMAIN): string {
-  const protocol = rootDomain.startsWith("localhost") ? "http" : "https";
-  return `${protocol}://${slug}.${rootDomain}${path}`;
+  return `${rootProtocol(rootDomain)}://${slug}.${rootDomain}${path}`;
 }
 
 /**

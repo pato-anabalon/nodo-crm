@@ -32,7 +32,9 @@
     "reports": "Reports",
     "clients": "Client companies",
     "tasks": "Tasks",
-    "openMenu": "Open menu"
+    "openMenu": "Open menu",
+    "jobs": "Jobs",
+    "lineup": "Lineup"
   },
   "theme": {
     "toDark": "Switch to dark",
@@ -40,11 +42,249 @@
   },
   "marketing": {
     "title": "Nodo CRM",
-    "description": "Leads and quotes for trades, with each company's data genuinely kept apart.",
-    "headline": "One CRM per company, with each company's data genuinely kept apart.",
-    "subhead": "Leads and quotes in a space of your own, with your team's logo, colours and profiles. Every company works from <domain></domain>.",
-    "createCompany": "Create my company",
-    "haveAccount": "I already have an account"
+    "description": "The CRM for businesses that quote and deliver projects: leads, quotes your customers accept online, and every project through to done, under your own name.",
+    "nav": {
+      "label": "Main",
+      "enquiries": "Enquiries",
+      "quotes": "Quotes",
+      "jobs": "Jobs",
+      "team": "Team",
+      "signIn": "Sign in",
+      "createCompany": "Create my company",
+      "menu": "Menu"
+    },
+    "hero": {
+      "title": "Quote it. Win it. Get stuck in.",
+      "subtitle": "Leads, quotes your customers accept online, and every project through to done, all under your own name.",
+      "primary": "Create my company",
+      "secondary": "See how it works",
+      "signInPrompt": "Already have an account?",
+      "signInLink": "Sign in here",
+      "notifications": {
+        "lead": {
+          "label": "New lead",
+          "value": "Sarah Thompson · 15 Ellerton Road"
+        },
+        "opened": {
+          "label": "Viewing now",
+          "value": "COT-000123 · Exterior replaster"
+        },
+        "accepted": {
+          "label": "Quote accepted",
+          "value": "COT-000123 · $18,975.00"
+        },
+        "job": {
+          "label": "Job started",
+          "value": "15 Ellerton Road, Mount Eden"
+        }
+      }
+    },
+    "enquiries": {
+      "kicker": "Enquiries",
+      "title": "Catch every lead",
+      "body": "Enquiries land straight from your website, the right person hears about it, and every one gets a next step. No more digging through the inbox.",
+      "phoneAlt": "The list of leads in Nodo",
+      "features": {
+        "form": {
+          "title": "Your website, wired in",
+          "body": "Paste one snippet and every enquiry lands in Nodo, with spam and duplicates filtered out."
+        },
+        "person": {
+          "title": "They come back. You remember.",
+          "body": "Returning customers are recognised by their email, with every past project and quote right there."
+        },
+        "tasks": {
+          "title": "Follow up on time, every time",
+          "body": "Give every lead a next step with a date. The bell nudges you when one runs late."
+        },
+        "pipeline": {
+          "title": "A pipeline that updates itself",
+          "body": "Send the quote and the lead moves to proposal. They say yes, it's won. No dragging cards around."
+        }
+      }
+    },
+    "quotes": {
+      "kicker": "Quotes",
+      "title": "Quotes that close",
+      "body": "Write it once, send one link, and watch it being read.",
+      "steps": {
+        "build": {
+          "title": "Build",
+          "body": "Itemised or in sections, with optional extras and a choice of options.",
+          "alt": "Building a quote in Nodo"
+        },
+        "share": {
+          "title": "Share",
+          "body": "One link with your branding, and you see the moment it is opened.",
+          "alt": "The quote as the customer opens it"
+        },
+        "accept": {
+          "title": "Accept",
+          "body": "Signed on their phone, with the PDF ready to download.",
+          "alt": "A customer accepting and signing a quote"
+        }
+      }
+    },
+    "jobs": {
+      "kicker": "Jobs",
+      "title": "From yes to done",
+      "body": "One button turns the accepted quote into a job: its crew, its dates, its photos and its chat in one place, all the way to handover.",
+      "stages": {
+        "prep": "Prep",
+        "render": "Render",
+        "paint": "Paint",
+        "done": "Handover"
+      },
+      "cards": {
+        "schedule": {
+          "title": "Schedule & Lineup",
+          "body": "Every job on one timeline. Drag a bar to move its dates.",
+          "label": "Schedule",
+          "value": "Scaffold up · Monday 8am"
+        },
+        "people": {
+          "title": "Only their jobs",
+          "body": "Your crew sees the jobs they're on, never the prices.",
+          "label": "Crew added",
+          "value": "Mia and Tom · 15 Ellerton Rd"
+        },
+        "board": {
+          "title": "Message Board",
+          "body": "The daily report, with photos and comments, where everyone can find it.",
+          "label": "Message Board",
+          "value": "Day 3 · Base coat on"
+        },
+        "files": {
+          "title": "Docs & Files",
+          "body": "Photos straight from the phone, shrunk before they upload.",
+          "label": "Photos",
+          "value": "12 added from site"
+        },
+        "todos": {
+          "title": "To-dos",
+          "body": "Your crew ticks them off. The dates stay where you put them.",
+          "label": "To-do done",
+          "value": "Second coat · north wall"
+        },
+        "chat": {
+          "title": "Chat",
+          "body": "Quick talk for the crew. Only an @mention rings.",
+          "label": "Chat",
+          "value": "@Tom ladder's round the back"
+        }
+      },
+      "done": {
+        "title": "Handed over",
+        "body": "Every photo, note and to-do stays on the job, ready for the next time they call.",
+        "label": "Job completed",
+        "value": "15 Ellerton Road"
+      }
+    },
+    "rows": {
+      "title": "Your name. Your customer. Your numbers.",
+      "brand": {
+        "title": "Your brand, not ours",
+        "body": "Your own address, logo and colours on the quote, the emails and the PDF. Go on, try yours:",
+        "nameLabel": "Your company's name",
+        "namePlaceholder": "Kauri Plastering",
+        "colourLabel": "Your colour",
+        "quoteTitle": "Your quote",
+        "from": "From",
+        "lineA": "Preparation and repairs",
+        "lineB": "Exterior paint",
+        "total": "Total incl. GST",
+        "accept": "Accept quote",
+        "cta": "Create it for real"
+      },
+      "live": {
+        "title": "Watch it land",
+        "body": "See the moment it's opened, answer questions on the quote itself, and let the follow-ups send themselves. If the customer writes, they stop.",
+        "events": {
+          "sent": {
+            "day": "Day 0",
+            "title": "Quote sent",
+            "detail": "COT-000123 to Sarah Thompson"
+          },
+          "opened": {
+            "day": "Day 0",
+            "title": "Viewing now",
+            "detail": "Opened on her phone"
+          },
+          "followUp": {
+            "day": "Day 3",
+            "title": "Follow-up sent",
+            "detail": "On its own, when you said it should"
+          },
+          "message": {
+            "day": "Day 4",
+            "title": "Sarah wrote",
+            "detail": "“Could the paint go on in March?”",
+            "note": "Follow-ups paused: she's talking to you"
+          },
+          "accepted": {
+            "day": "Day 5",
+            "title": "Accepted and signed",
+            "detail": "$18,975.00"
+          }
+        }
+      },
+      "numbers": {
+        "title": "Know your numbers",
+        "body": "What you sent, what was won and what was turned down, how long customers take to decide, and the funnel from enquiry to won.",
+        "period": "Last 90 days",
+        "example": "Example data",
+        "accepted": "Accepted",
+        "awaiting": "Awaiting",
+        "declined": "Declined",
+        "acceptedShare": "accepted",
+        "funnel": "From enquiry to won",
+        "enquiries": "Enquiries",
+        "quoted": "Quoted",
+        "won": "Won",
+        "median": "Median time to accept",
+        "medianValue": "3.5 days"
+      }
+    },
+    "trust": {
+      "label": "Why Nodo",
+      "nz": {
+        "title": "Made for New Zealand",
+        "body": "GST in or on top, NZD, and prices shown the way the Fair Trading Act asks."
+      },
+      "private": {
+        "title": "Your prices stay yours",
+        "body": "Every company works in its own space. Nobody else ever sees your customers or your rates."
+      },
+      "sign": {
+        "title": "Signed from their phone",
+        "body": "Customers accept and sign wherever they are, with the PDF ready to download."
+      }
+    },
+    "founders": {
+      "kicker": "Founders",
+      "title": "The people behind Nodo",
+      "body": "[Placeholder] Two or three sentences about who you are, why you built Nodo, and the trade business it started with.",
+      "name": "[Founder name]",
+      "role": "[Role]",
+      "photoAlt": "Photo of the founder"
+    },
+    "reviews": {
+      "title": "Trusted by trades"
+    },
+    "cta": {
+      "title": "Your next job starts here",
+      "body": "Create your company in a minute and send your first quote today.",
+      "primary": "Create my company",
+      "secondary": "Sign in",
+      "beep": "Beep beep!"
+    },
+    "footer": {
+      "product": "Product",
+      "account": "Account",
+      "language": "Language",
+      "madeBy": "Another product made with 💜 by",
+      "legal": "© {year} Nodo CRM. Illustrations by Nodo."
+    }
   },
   "auth": {
     "signInTitle": "Sign in",
@@ -105,7 +345,8 @@
     "min": "Minimum {min}",
     "max": "Maximum {max}",
     "writeSomething": "Write something",
-    "maxChars": "Maximum {max} characters"
+    "maxChars": "Maximum {max} characters",
+    "invalidDate": "Enter a valid date"
   },
   "roles": {
     "OWNER": {
@@ -127,6 +368,22 @@
     "VIEWER": {
       "name": "Read only",
       "description": "Views the company's information without being able to change it."
+    },
+    "PROJECT_LEAD": {
+      "name": "Project lead",
+      "description": "Runs jobs end to end: opens them, puts the team together and sets the dates."
+    },
+    "TEAM_LEAD": {
+      "name": "Team lead",
+      "description": "Leads a crew on site: organises the to-dos and the schedule of their jobs."
+    },
+    "WORKER": {
+      "name": "Worker",
+      "description": "Carries out the work: reports progress, uploads photos and ticks off what is done."
+    },
+    "COLLABORATOR": {
+      "name": "Outside collaborator",
+      "description": "From outside the company: reads, comments and adds files on the jobs they are on, without touching the plan."
     }
   },
   "permissionModules": {
@@ -136,7 +393,15 @@
     "settings": "Settings",
     "users": "Users",
     "roles": "Profiles",
-    "reports": "Reports"
+    "reports": "Reports",
+    "jobs": "Jobs",
+    "messages": "Jobs › Message board",
+    "comments": "Jobs › Comments",
+    "todos": "Jobs › To-dos",
+    "files": "Jobs › Docs & files",
+    "schedule": "Jobs › Schedule",
+    "chat": "Jobs › Chat",
+    "lineup": "Jobs › Lineup"
   },
   "permissions": {
     "leads_read": "View leads",
@@ -165,7 +430,39 @@
     "users_remove": "Remove users from the company",
     "roles_read": "View profiles and their features",
     "roles_update": "Assign features to profiles",
-    "reports_read": "View reports and metrics"
+    "reports_read": "View reports and metrics",
+    "jobs_read": "View the jobs they are on",
+    "jobs_read_all": "View every job in the company, not just the ones they are on",
+    "jobs_create": "Start jobs from accepted quotes and create standalone jobs",
+    "jobs_update": "Edit a job's name, description, address and status",
+    "jobs_dates": "Change a job's start and end dates",
+    "jobs_members": "Add and remove people on a job",
+    "jobs_delete": "Delete jobs",
+    "jobs_moderate": "Edit and delete what other people wrote or uploaded",
+    "messages_read": "View the message board",
+    "messages_create": "Post messages",
+    "messages_update": "Edit their own messages",
+    "messages_delete": "Delete their own messages",
+    "comments_create": "Comment",
+    "comments_update": "Edit their own comments",
+    "comments_delete": "Delete their own comments",
+    "todos_read": "View to-dos",
+    "todos_create": "Add to-do lists and to-dos",
+    "todos_update": "Edit to-dos: title, notes, dates, assignees and order",
+    "todos_complete": "Tick off and reopen to-dos",
+    "todos_delete": "Delete to-do lists and to-dos",
+    "files_read": "View docs and files",
+    "files_create": "Upload files and create folders",
+    "files_update": "Rename and move their own files",
+    "files_delete": "Delete their own files",
+    "schedule_read": "View the schedule",
+    "schedule_create": "Add events",
+    "schedule_update": "Edit events, including their dates",
+    "schedule_delete": "Delete events",
+    "chat_read": "Read the chat",
+    "chat_create": "Write in the chat",
+    "chat_delete": "Delete their own chat messages",
+    "lineup_read": "View the lineup of every job they can see"
   },
   "dashboard": {
     "title": "Overview",
@@ -310,7 +607,8 @@
       "RESTORED": "Lead restored",
       "CONVERTED": "Quote {reference} created",
       "QUOTE_DECIDED": "Quote #{reference} was {status, select, ACCEPTED {accepted} REJECTED {declined} EXPIRED {left to expire} other {answered}}",
-      "QUOTE_EDITED": "Quote #{reference} edited after being sent"
+      "QUOTE_EDITED": "Quote #{reference} edited after being sent",
+      "JOB_STARTED": "Job started from quote #{reference}"
     },
     "ownerSaved": "Owner updated.",
     "ownerCleared": "Owner removed."
@@ -467,7 +765,10 @@
       "send": "Send to customer",
       "sending": "Sending…",
       "accept": "Mark as accepted",
-      "reject": "Mark as declined"
+      "reject": "Mark as declined",
+      "startJob": "Start job",
+      "startingJob": "Starting…",
+      "openJob": "Open job"
     },
     "detail": "Details",
     "amountHidden": "Hidden",
@@ -508,11 +809,12 @@
       "copyIntro": "This is the copy for your records. The customer received a link, not these figures.",
       "copyViewQuote": "Open it in the dashboard",
       "acceptedSubject": "Thanks for accepting",
-      "acceptedBody": "Hello {customer},\n\nWe've got your acceptance — thank you. We'll be in touch shortly to arrange the work.",
+      "acceptedBody": "Hello {customer},\n\nWe've got the acceptance from {acceptedBy} — thank you. We'll be in touch shortly to arrange the work.",
       "followUpSubject": "Just checking in",
       "followUpBody": "Hello {customer},\n\nJust checking whether you've had a chance to look at the quote we sent. If anything needs changing or you'd like to talk it through, reply here and we'll pick it up.",
       "reviewSubject": "How did we do?",
-      "reviewBody": "Hello {customer},\n\nThanks again for your business. If you were happy with the work, a short review would mean a lot — it's how most of our customers find us."
+      "reviewBody": "Hello {customer},\n\nThanks again for your business. If you were happy with the work, a short review would mean a lot — it's how most of our customers find us.",
+      "notDelivered": "It didn't reach {emails}."
     },
     "sections": {
       "all": "All",
@@ -534,6 +836,12 @@
         "ACCEPTED": "Accepted the quote",
         "DECLINED": "Declined the quote",
         "MESSAGE_SENT": "Sent a message"
+      },
+      "eventBy": {
+        "OPENED": "Opened by {name}",
+        "ACCEPTED": "Accepted by {name}",
+        "DECLINED": "Declined by {name}",
+        "MESSAGE_SENT": "Message from {name}"
       },
       "acceptedBy": "Accepted by {name}",
       "acceptanceStatement": "Statement accepted",
@@ -587,6 +895,38 @@
       "open": "Actions for {title}",
       "duplicate": "Duplicate",
       "preview": "View as customer"
+    },
+    "recipients": {
+      "title": "For",
+      "primary": "Primary",
+      "copyTo": "Copy to",
+      "none": "Nobody to send it to yet. Add a recipient, or give the lead's contact an email.",
+      "add": "Add a recipient",
+      "searchPlaceholder": "Search contacts or type an email",
+      "empty": "No contacts with an email match",
+      "addContact": "Add {email} as a new contact",
+      "addContactHint": "They're not in your contacts yet",
+      "newContactTitle": "New contact",
+      "newContactDescription": "Saved to your contacts and added to this quote. They'll get their own email and link the next time it's sent.",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "save": "Add contact",
+      "makePrimary": "Make primary",
+      "remove": "Remove {name}",
+      "removeTitle": "Remove {name}?",
+      "removeDescription": "{name} stops receiving this quote, and any link they were already sent stops working.",
+      "removeConfirm": "Remove",
+      "added": "Recipient added",
+      "removed": "Recipient removed",
+      "madePrimary": "Primary recipient changed",
+      "errors": {
+        "notFound": "That recipient or contact doesn't exist.",
+        "locked": "This quote has been decided, so its recipients are fixed.",
+        "duplicate": "They already receive this quote.",
+        "noEmail": "That contact has no email, so there's nothing to send them.",
+        "primary": "Make somebody else primary before removing them."
+      }
     }
   },
   "tasks": {
@@ -1037,7 +1377,9 @@
       "reviews": "{count, plural, =0 {No reviews yet} one {# review} other {# reviews}}",
       "ingestKeys": "{count, plural, =0 {Not connected} one {# key in use} other {# keys in use}}",
       "notices": "{count, plural, =0 {You get every notice} one {# notice turned off} other {# notices turned off}}",
-      "profileNoName": "No name set yet"
+      "profileNoName": "No name set yet",
+      "trades": "{count, plural, =0 {No trades yet} one {# trade} other {# trades}}",
+      "postCategories": "{count, plural, =0 {No categories} one {# category} other {# categories}}"
     },
     "back": "Back to {section}"
   },
@@ -1106,7 +1448,8 @@
       "person": "Person",
       "role": "Profile",
       "status": "Status",
-      "actions": "Actions"
+      "actions": "Actions",
+      "trades": "Trades"
     },
     "status": {
       "ACTIVE": "Active",
@@ -1232,9 +1575,6 @@
     "decline": "Decline",
     "declining": "Declining…",
     "acceptTitle": "Accept this quote",
-    "yourName": "Your name",
-    "yourNameHint": "It's recorded alongside the acceptance.",
-    "yourEmail": "Your email (optional)",
     "statementCheckbox": "Yes, I {name} accept this quote and its terms.",
     "statementSimple": "By clicking Accept quote, I {name} accept this quote and its terms.",
     "defaultStatement": "accept this quote and the conditions set out in it.",
@@ -1243,6 +1583,7 @@
     "signatureDraw": "Draw",
     "signatureType": "Type",
     "signatureClear": "Clear",
+    "signHere": "Sign here",
     "signaturePlaceholder": "Type your name",
     "additionalComments": "Comments (optional)",
     "orderReference": "Order or reference number (optional)",
@@ -1257,7 +1598,6 @@
     "noMessages": "No messages yet.",
     "you": "You",
     "errors": {
-      "nameRequired": "Enter your name to accept",
       "statementRequired": "Tick the box to accept",
       "signatureRequired": "Sign to accept",
       "notAvailable": "This quote is no longer open for a response.",
@@ -1273,6 +1613,7 @@
     "downloadPdf": "Download PDF",
     "email": "Email",
     "mobile": "Mobile",
+    "copyTo": "Copy to",
     "phone": "Phone",
     "gstNumber": "GST number",
     "projectAddress": "Project address",
@@ -1295,7 +1636,44 @@
     "bundleProgress": "Select {count, plural, one {# more optional item} other {# more optional items}} to unlock {amount} off",
     "bundleUnlocked": "{amount} discount unlocked",
     "chooseOne": "Choose one of the following",
-    "questionsAndAnswers": "Questions & answers"
+    "questionsAndAnswers": "Questions & answers",
+    "handoff": {
+      "open": "Sign from a touch device",
+      "qrLabel": "QR code to sign on your phone",
+      "title": "Scan the QR code",
+      "step1": "Open your phone's camera and point it at the code.",
+      "step2": "Tap the link that appears.",
+      "step3": "Sign with your finger on the box that opens.",
+      "autoUpdate": "This screen updates by itself once you've signed.",
+      "cancel": "Cancel",
+      "mirroring": "Showing what you draw on your phone.",
+      "stop": "Stop",
+      "phoneTitle": "Sign here",
+      "phoneUnavailableTitle": "This code no longer works",
+      "phoneUnavailableBody": "Go back to the quote on your other screen and choose “Sign from a touch device” again.",
+      "rotate": "Turn your phone sideways for more room to sign.",
+      "ready": "Ready to accept on your other screen",
+      "failed": "That didn't reach your other screen. Lift your finger again to retry.",
+      "drawHere": "Draw your signature in the box",
+      "clear": "Clear"
+    },
+    "fingerprint": {
+      "show": "Show digital fingerprint",
+      "hide": "Hide digital fingerprint",
+      "timestamp": "Timestamp",
+      "verifiedEmail": "Verified by email",
+      "email": "Email",
+      "verifiedEmailHint": "Accepted through a unique link sent only to this address.",
+      "ipAddress": "IP address",
+      "signatureDigest": "Signature fingerprint (SHA-256)",
+      "signatureDigestHint": "Changing a single point of the signature changes this value.",
+      "signedOn": "Signed on",
+      "touchDevice": "A touch device",
+      "thisDevice": "The same device that accepted",
+      "userAgent": "Browser that accepted",
+      "recordDigest": "Record seal (SHA-256)",
+      "recordDigestHint": "Covers everything above, the accepted total and the statement. Any later change to the record stops it matching."
+    }
   },
   "notifications": {
     "leadReceived": {
@@ -1335,7 +1713,14 @@
       "TASK_ASSIGNED": "{by} gave you the task “{title}”",
       "TASK_DUE": "Task overdue: {title}",
       "QUOTE_EXPIRING": "Quote {reference} is about to run out",
-      "INGEST_FAILING": "Your web form rejected {count} enquiries and let none through"
+      "INGEST_FAILING": "Your web form rejected {count} enquiries and let none through",
+      "JOB_ADDED": "{by} added you to {job}",
+      "JOB_POST": "{by} posted {title} on {job}",
+      "JOB_COMMENT": "{by} commented on {title} ({job})",
+      "JOB_TODO_ASSIGNED": "{by} assigned you {title} ({job})",
+      "JOB_TODO_COMPLETED": "{by} completed {title} ({job})",
+      "JOB_EVENT": "{by} added you to {title} ({job})",
+      "JOB_CHAT_MENTION": "{by} mentioned you in the chat of {job}: “{excerpt}”"
     },
     "quoteExpiring": {
       "subject": "Quote {reference} is about to run out",
@@ -1449,7 +1834,39 @@
     "orderedList": "Numbered list",
     "link": "Link",
     "unlink": "Remove link",
-    "linkPrompt": "Link address"
+    "linkPrompt": "Link address",
+    "undo": "Undo",
+    "redo": "Redo",
+    "heading2": "Heading",
+    "heading3": "Subheading",
+    "underline": "Underline",
+    "strike": "Strikethrough",
+    "textColor": "Text colour",
+    "noColor": "No colour",
+    "highlight": "Highlight",
+    "noHighlight": "No highlight",
+    "colors": {
+      "red": "Red",
+      "orange": "Orange",
+      "yellow": "Yellow",
+      "green": "Green",
+      "blue": "Blue",
+      "purple": "Purple",
+      "gray": "Grey",
+      "pink": "Pink"
+    },
+    "alignLeft": "Align left",
+    "alignCenter": "Centre",
+    "alignRight": "Align right",
+    "quote": "Quote",
+    "code": "Code block",
+    "table": "Table",
+    "insertTable": "Insert table",
+    "addRow": "Add row below",
+    "addColumn": "Add column to the right",
+    "deleteRow": "Delete row",
+    "deleteColumn": "Delete column",
+    "deleteTable": "Delete table"
   },
   "notificationSettings": {
     "title": "My notifications",
@@ -1472,7 +1889,21 @@
       "QUOTE_EXPIRING": "A quote of mine is about to run out",
       "QUOTE_EXPIRING_hint": "Once, when a sent quote nears its expiry without an answer.",
       "INGEST_FAILING": "The web form stops working",
-      "INGEST_FAILING_hint": "Once a day while enquiries are being rejected and none get through."
+      "INGEST_FAILING_hint": "Once a day while enquiries are being rejected and none get through.",
+      "JOB_ADDED": "I'm added to a job",
+      "JOB_ADDED_hint": "When somebody puts you on a job.",
+      "JOB_POST": "A message is posted on my job",
+      "JOB_POST_hint": "When somebody posts on the Message Board of a job you follow, or picks you to hear about it.",
+      "JOB_COMMENT": "A reply in a conversation I am in",
+      "JOB_COMMENT_hint": "When somebody comments on a post, a to-do or an event you are part of.",
+      "JOB_TODO_ASSIGNED": "A to-do is assigned to me",
+      "JOB_TODO_ASSIGNED_hint": "When somebody puts you on a to-do in one of your jobs.",
+      "JOB_TODO_COMPLETED": "A to-do I added is completed",
+      "JOB_TODO_COMPLETED_hint": "When somebody ticks off a to-do you wrote down.",
+      "JOB_EVENT": "I’m put on an event",
+      "JOB_EVENT_hint": "When somebody adds you to an event on a job’s schedule.",
+      "JOB_CHAT_MENTION": "I’m mentioned in a chat",
+      "JOB_CHAT_MENTION_hint": "When somebody names you with @ in the chat of one of your jobs."
     },
     "indexSubtitle": "Choose which emails you want to receive.",
     "recipients": {
@@ -1580,5 +2011,448 @@
     "activated": "Company activated",
     "suspended": "Company suspended",
     "empty": "No companies registered yet."
+  },
+  "trades": {
+    "title": "Trades",
+    "subtitle": "What your people do — Plaster, Painting, Marketing. Shown beside each person on a job.",
+    "name": "Trade",
+    "namePlaceholder": "e.g. Plaster",
+    "add": "Add trade",
+    "added": "Trade added.",
+    "deleted": "Trade removed.",
+    "duplicate": "There is already a trade with that name.",
+    "empty": "No trades yet. Add the first one above.",
+    "people": "{count, plural, =0 {Nobody} one {# person} other {# people}}",
+    "deleteTitle": "Remove {name}?",
+    "deleteBody": "Nobody will be marked as {name} any more. The people stay; only the label goes.",
+    "delete": "Remove",
+    "member": "Trades",
+    "memberNone": "No trades",
+    "memberEdit": "Edit trades",
+    "memberSaved": "Trades saved.",
+    "noneConfigured": "The company has no trades yet. Add them in Settings › Trades."
+  },
+  "jobs": {
+    "title": "Jobs",
+    "subtitle": "The work after the customer said yes.",
+    "noAccess": "You don't have access to jobs.",
+    "new": "New job",
+    "newSubtitle": "A job with no quote behind it — an office, paperwork, anything the team works on.",
+    "backToJobs": "Back to Jobs",
+    "loading": {
+      "title": "Preparing your job",
+      "subtitle": "Setting up your job data…"
+    },
+    "show": {
+      "active": "In progress",
+      "done": "Finished"
+    },
+    "empty": "No jobs here yet. They start from an accepted quote, with Start job.",
+    "emptyDone": "No finished jobs yet.",
+    "recentActivity": "Most recent activity",
+    "noRecentActivity": "Nothing has happened on your jobs yet.",
+    "fromQuote": "Quote {reference}",
+    "saved": "Job saved.",
+    "datesSaved": "Dates saved.",
+    "statusSaved": "Status changed.",
+    "invalidStatus": "That status doesn't exist.",
+    "create": "Create job",
+    "creating": "Creating…",
+    "edit": "Edit job",
+    "fields": {
+      "name": "Name",
+      "description": "Description",
+      "address": "Address",
+      "startsOn": "Starts",
+      "endsOn": "Ends",
+      "status": "Status",
+      "colour": "Colour on the Lineup",
+      "colourAuto": "Automatic",
+      "colourOption": "Colour {n}"
+    },
+    "dates": "Dates",
+    "noDates": "No dates set",
+    "dateRange": "{start} – {end}",
+    "startsOnly": "From {start}",
+    "endsOnly": "Until {end}",
+    "status": {
+      "ACTIVE": "In progress",
+      "ON_HOLD": "On hold",
+      "COMPLETED": "Completed",
+      "ARCHIVED": "Archived"
+    },
+    "validation": {
+      "endBeforeStart": "The end can't be before the start"
+    },
+    "startErrors": {
+      "not-found": "That quote doesn't exist.",
+      "not-accepted": "Only an accepted quote can become a job.",
+      "already-started": "This quote already has a job."
+    },
+    "delete": "Delete job",
+    "deleteTitle": "Delete {name}?",
+    "deleteBody": "Its people, timeline and everything on it go with it. The quote stays.",
+    "people": {
+      "title": "People",
+      "add": "Add people",
+      "addSelected": "Add selected",
+      "pickSomebody": "Pick at least one person.",
+      "nobodyLeft": "Everybody in the company is already on this job.",
+      "added": "{count, plural, =0 {Nobody new to add.} one {# person added.} other {# people added.}}",
+      "removed": "Removed from the job.",
+      "remove": "Remove",
+      "removeTitle": "Remove {name} from this job?",
+      "removeBody": "They stop seeing it unless their profile sees every job. What they wrote stays.",
+      "you": "you",
+      "follow": "Notify me",
+      "unfollow": "Don't notify me",
+      "following": "You'll be notified about this job.",
+      "notFollowing": "You won't be notified about this job."
+    },
+    "timeline": {
+      "title": "Latest activity",
+      "empty": "Nothing yet.",
+      "quiet": "{days, plural, one {No activity for a day} other {No activity for # days}}",
+      "someone": "Somebody",
+      "CREATED": "{actor} created this job",
+      "CREATED_fromQuote": "{actor} started this job from quote {reference}",
+      "MEMBERS_ADDED": "{actor} added {names} to the job",
+      "MEMBER_REMOVED": "{actor} removed {name} from the job",
+      "STATUS_CHANGED": "{actor} marked the job {to}",
+      "DATES_CHANGED": "{actor} set the dates to {dates}",
+      "DATES_CLEARED": "{actor} cleared the dates",
+      "FILES_UPLOADED": "{actor} uploaded {count, plural, one {a file} other {# files}}",
+      "FOLDER_CREATED": "{actor} created the folder {name}",
+      "POST_PUBLISHED": "{actor} posted a message: {title}",
+      "COMMENT_ADDED": "{actor} commented on {title}",
+      "TODO_LIST_CREATED": "{actor} created the to-do list {name}",
+      "TODO_ADDED": "{actor} added a to-do: {title}",
+      "TODO_COMPLETED": "{actor} completed {title}",
+      "TODO_REOPENED": "{actor} re-opened {title}",
+      "TODO_COMMENTED": "{actor} commented on {title}",
+      "EVENT_CREATED": "{actor} scheduled {title} for {date}",
+      "EVENT_CREATED_undated": "{actor} scheduled {title}",
+      "EVENT_COMMENTED": "{actor} commented on {title}",
+      "CHAT_MESSAGES": "{actor} sent {count, plural, one {a message} other {# messages}} in the chat"
+    },
+    "files": {
+      "title": "Docs & Files",
+      "backToJob": "Back to {name}",
+      "breadcrumb": "Folders",
+      "count": "{count, plural, =0 {Nothing yet} one {# file} other {# files}}",
+      "cardEmpty": "Plans, photos and documents for this job.",
+      "cardNoPhotos": "No photos yet.",
+      "upload": "Upload files",
+      "uploading": "Uploading…",
+      "preparing": "Preparing…",
+      "dropTitle": "Drag & drop <hl>photos</hl>, <hl>videos</hl> or <hl>documents</hl>",
+      "dropBrowse": "or <browse>browse files</browse> on your device",
+      "dropHint": "Photos are made smaller before they go up.",
+      "retry": "Try again",
+      "uploaded": "{count, plural, one {File uploaded} other {# files uploaded}}",
+      "uploadErrors": {
+        "empty": "This file is empty.",
+        "type": "This kind of file can't be uploaded.",
+        "heic": "HEIC photos can't be uploaded from here. Upload it from the phone, which converts it, or export it as JPEG.",
+        "size": "This file is too large.",
+        "network": "The upload didn't finish. Check the connection and try again."
+      },
+      "registerErrors": {
+        "folder": "That folder isn't on this job any more.",
+        "file": "The upload couldn't be checked, so it wasn't saved. Try again."
+      },
+      "newFolder": "New folder",
+      "folderCreated": "Folder created",
+      "name": "Name",
+      "rename": "Rename",
+      "renamed": "Renamed",
+      "move": "Move",
+      "moveTo": "Move to",
+      "moving": "Moving…",
+      "moved": "Moved",
+      "topLevel": "Docs & Files (top level)",
+      "download": "Download",
+      "openInTab": "Open in a new tab",
+      "delete": "Delete",
+      "deleted": "File deleted",
+      "folderDeleted": "Folder deleted",
+      "notAllowed": "You can't change this.",
+      "deleteFileTitle": "Delete {name}?",
+      "deleteFileBody": "It is removed from the job for everyone, and can't be recovered.",
+      "deleteFolderTitle": "Delete the folder {name}?",
+      "deleteFolderBody": "Everything inside it goes too ({contents}), for everyone, and can't be recovered.",
+      "contents": "{files, plural, one {# file} other {# files}} · {folders, plural, one {# folder} other {# folders}}",
+      "actionsFor": "Actions for {name}",
+      "empty": "Nothing here yet.",
+      "emptyCanUpload": "Nothing here yet. Upload files or drop them on this page.",
+      "emptyFiltered": "No files of this kind on the job.",
+      "uploadedBy": "Uploaded by",
+      "date": "Date",
+      "size": "Size",
+      "position": "{current} of {total}",
+      "previous": "Previous",
+      "next": "Next",
+      "filterLabel": "Show",
+      "filter": {
+        "all": "All",
+        "images": "Photos",
+        "videos": "Videos",
+        "documents": "Documents"
+      },
+      "viewLabel": "View",
+      "view": {
+        "grid": "Grid",
+        "list": "List"
+      }
+    },
+    "board": {
+      "title": "Message Board",
+      "backToJob": "Back to {name}",
+      "backToBoard": "Back to the Message Board",
+      "backToPost": "Back to the post",
+      "newPost": "New message",
+      "yourDrafts": "{count, plural, one {Your draft} other {Your # drafts}}",
+      "draftSaved": "saved {when}",
+      "filterLabel": "Filter by category",
+      "allCategories": "All",
+      "someone": "Someone",
+      "empty": "Nothing has been posted on this job yet.",
+      "emptyCanPost": "Nothing posted yet. A message is the place for the day’s report, an announcement or a question for the team.",
+      "emptyCategory": "Nothing posted in this category yet.",
+      "categories": {
+        "ANNOUNCEMENT": "Announcement",
+        "FYI": "FYI",
+        "HEARTBEAT": "Heartbeat",
+        "PITCH": "Pitch",
+        "QUESTION": "Question"
+      },
+      "category": "Category",
+      "noCategory": "No category",
+      "postTitle": "Title",
+      "titlePlaceholder": "Type a title…",
+      "body": "Message",
+      "bodyPlaceholder": "Write away…",
+      "notifyLegend": "When I post this, notify…",
+      "notify": {
+        "followers": "Everybody following this job",
+        "followers_hint": "The people on the job who haven’t turned its notices off.",
+        "selected": "Only the people I select",
+        "selected_hint": "Pick them below.",
+        "nobody": "Nobody",
+        "nobody_hint": "It goes on the board and the timeline, without a notice."
+      },
+      "nobodyElse": "Nobody else is on this job yet.",
+      "publish": "Post this message",
+      "saveDraft": "Save as a draft",
+      "saveChanges": "Save changes",
+      "attach": "Attach files",
+      "attachHint": "Photos, videos, PDFs and documents. Photos are made smaller before they go up.",
+      "removeAttachment": "Remove {name}",
+      "stillUploading": "Wait until the files finish uploading.",
+      "comment": "Comment",
+      "commentPlaceholder": "Add a comment…",
+      "addComment": "Add this comment",
+      "saveComment": "Save comment",
+      "editComment": "Edit comment",
+      "deleteComment": "Delete comment",
+      "deleteCommentTitle": "Delete this comment?",
+      "deleteCommentBody": "The comment and its files are deleted. This can’t be undone.",
+      "deletePost": "Delete",
+      "deletePostTitle": "Delete “{title}”?",
+      "deletePostBody": "The post, every comment on it and all their files are deleted, and it leaves the timeline. This can’t be undone.",
+      "draftNotice": "This is a draft. Only you can see it until you post it.",
+      "edited": "edited",
+      "editPost": "Edit",
+      "editDraft": "Edit draft",
+      "comments": "{count, plural, =0 {Comments} one {# comment} other {# comments}}",
+      "notAllowed": "You can’t do that with this post.",
+      "filesRefused": "One of the files couldn’t be attached. Try uploading it again.",
+      "commentEmpty": "Write something or attach a file.",
+      "commented": "Comment added",
+      "commentSaved": "Comment saved",
+      "commentDeleted": "Comment deleted",
+      "count": "{count, plural, =0 {No posts} one {# post} other {# posts}}",
+      "cardEmpty": "No messages yet.",
+      "commentCount": "{count, plural, one {# comment} other {# comments}}"
+    },
+    "todos": {
+      "title": "To-dos",
+      "backToJob": "Back to {name}",
+      "backToTodos": "Back to the to-dos",
+      "backToList": "Back to {name}",
+      "backToTodo": "Back to the to-do",
+      "openCount": "{count, plural, =0 {Nothing left to do} one {# to-do left} other {# to-dos left}}",
+      "empty": "No to-do lists on this job yet.",
+      "emptyCanCreate": "No to-do lists yet. A list is a stage of the work — “Prep”, “First coat”, “Snag list” — with the steps that make it up.",
+      "cardEmpty": "No lists yet.",
+      "moreLists": "{count, plural, one {and # more list} other {and # more lists}}",
+      "progress": "{done}/{total} done",
+      "newList": "New list",
+      "editList": "Edit list",
+      "listName": "Name",
+      "listNamePlaceholder": "e.g. First coat",
+      "listDescription": "Description",
+      "listDescriptionPlaceholder": "What this list is for (optional)…",
+      "listCreated": "List created",
+      "listSaved": "List saved",
+      "delete": "Delete",
+      "deleteListTitle": "Delete “{name}”?",
+      "deleteListBody": "The list, every to-do on it, their comments and their files are deleted, and they leave the timeline. This can’t be undone.",
+      "deleteTodoTitle": "Delete “{title}”?",
+      "deleteTodoBody": "The to-do, its comments and its files are deleted, and it leaves the timeline. This can’t be undone.",
+      "addTodo": "Add a to-do",
+      "addThisTodo": "Add this to-do",
+      "todoAdded": "To-do added",
+      "todoTitle": "To-do",
+      "todoPlaceholder": "Describe the to-do…",
+      "list": "List",
+      "assignees": "Assigned to",
+      "unassigned": "Nobody yet",
+      "nobodyOnJob": "Nobody is on this job yet.",
+      "startsOn": "Starts on",
+      "dueOn": "Due on",
+      "notes": "Notes",
+      "notesPlaceholder": "Add extra details or attach a file…",
+      "saveTodo": "Save changes",
+      "edit": "Edit",
+      "editTodo": "Edit to-do",
+      "markDone": "Mark “{title}” as done",
+      "markOpen": "Mark “{title}” as not done",
+      "hasNotes": "Has notes",
+      "dragTodo": "Drag to reorder “{title}”",
+      "dragList": "Drag to reorder “{name}”",
+      "allDone": "Everything on this list is done.",
+      "showDone": "{count, plural, one {Show # completed to-do} other {Show # completed to-dos}}",
+      "hideDone": "Hide completed",
+      "when": "When",
+      "noDates": "No dates",
+      "overdue": "overdue",
+      "someone": "Somebody",
+      "addedBy": "Added by {name} on {when}",
+      "completedBy": "Completed by {name} on {when}",
+      "notAllowed": "You can’t do that with this to-do.",
+      "orderStale": "The list changed while you were moving things. Reload and try again.",
+      "dates": {
+        "range": "{start} – {end}",
+        "due": "Due {date}",
+        "starts": "Starts {date}"
+      }
+    },
+    "schedule": {
+      "title": "Schedule",
+      "upcomingCount": "{count, plural, =0 {Nothing coming up} one {# coming up} other {# coming up}}",
+      "cardEmpty": "Nothing scheduled.",
+      "backToJob": "Back to {name}",
+      "backToSchedule": "Back to the schedule",
+      "backToEvent": "Back to the event",
+      "newEvent": "New event",
+      "addEvent": "Add this event",
+      "saveEvent": "Save changes",
+      "editEvent": "Edit event",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteTitle": "Delete “{title}”?",
+      "deleteBody": "The event and its comments are deleted, and it leaves the timeline. This can’t be undone.",
+      "earlier": "Earlier",
+      "later": "Later",
+      "today": "Today",
+      "viewLabel": "View",
+      "views": {
+        "calendar": "Calendar",
+        "agenda": "Agenda"
+      },
+      "addOn": "Add an event on {date}",
+      "agendaEmpty": "Nothing scheduled between {range}.",
+      "allDay": "All day",
+      "commentCount": "{count, plural, one {# comment} other {# comments}}",
+      "todoDue": "To-do due",
+      "milestone": "Milestone",
+      "milestoneHint": "Also shown on the Lineup, over this job’s bar.",
+      "when": "When",
+      "participants": "Who’s involved",
+      "noParticipants": "Nobody in particular",
+      "notes": "Notes",
+      "notesPlaceholder": "Add details — the address, what to bring, who to ask for…",
+      "addedBy": "Added by {name} on {when}",
+      "someone": "Somebody",
+      "eventTitle": "Event",
+      "eventTitlePlaceholder": "e.g. Scaffold goes up",
+      "startsOn": "Starts",
+      "endsOn": "Ends",
+      "startTime": "Start time",
+      "endTime": "End time",
+      "endHint": "Leave the end day blank for a one-day event.",
+      "notAllowed": "You can’t do that with this event.",
+      "validation": {
+        "time": "Enter a time"
+      }
+    },
+    "chat": {
+      "title": "Chat",
+      "count": "{count, plural, =0 {No messages} one {# message} other {# messages}}",
+      "cardEmpty": "Nobody has said anything yet.",
+      "backToJob": "Back to {name}",
+      "empty": "No messages yet. Say hello to the people on this job.",
+      "placeholder": "Write a message… Type @ to mention somebody.",
+      "message": "Message",
+      "send": "Send",
+      "sending": "Sending…",
+      "hint": "Enter sends, Shift + Enter starts a new line.",
+      "hintTouch": "Use the send button to send.",
+      "loadEarlier": "Show earlier messages",
+      "loading": "Loading…",
+      "deleteMessage": "Delete message",
+      "deleteTitle": "Delete this message?",
+      "deleteBody": "It disappears for everybody on the job, with any files attached to it.",
+      "deleted": "Message deleted.",
+      "emptyMessage": "Write something or attach a file.",
+      "notAllowed": "You can’t do that in this chat.",
+      "someone": "Somebody",
+      "mentionList": "People on this job",
+      "readOnly": "You can read this chat but not write in it.",
+      "attachmentsOnly": "{count, plural, one {# file} other {# files}}",
+      "sent": "Message sent."
+    }
+  },
+  "lineup": {
+    "title": "Lineup",
+    "subtitle": "Every job on one timeline, with its milestones.",
+    "earlier": "Earlier",
+    "later": "Later",
+    "today": "Today",
+    "empty": "No jobs with dates in these weeks.",
+    "dragHint": "Drag a bar to move a job, or an end to stretch it. With the keyboard: arrows move it, Shift + arrows move the end, Alt + arrows the start.",
+    "undated": "{count, plural, one {# job without dates} other {# jobs without dates}}",
+    "undatedHint": "They aren’t on the plan yet. Set their dates on the job.",
+    "moved": "{name}: dates saved",
+    "notSaved": "The dates couldn’t be saved.",
+    "bar": "{name}, {start} to {end}",
+    "barEditable": "{name}, {start} to {end}. Arrow keys move it.",
+    "milestone": "Milestone: {title}",
+    "filters": {
+      "status": "Status",
+      "active": "Active and on hold",
+      "all": "All jobs",
+      "member": "Person",
+      "anyone": "Anyone",
+      "trade": "Trade",
+      "anyTrade": "Any trade"
+    }
+  },
+  "postCategories": {
+    "title": "Message categories",
+    "subtitle": "The kinds of post on a job’s Message Board — Announcement, Question, your own. Each with an emoji, for a board you can scan.",
+    "emoji": "Emoji",
+    "name": "Name",
+    "namePlaceholder": "e.g. Site report",
+    "add": "Add category",
+    "added": "Category added.",
+    "deleted": "Category removed.",
+    "duplicate": "There is already a category with that name.",
+    "empty": "No categories. Posts can still go out without one.",
+    "posts": "{count, plural, =0 {No posts} one {# post} other {# posts}}",
+    "deleteTitle": "Remove {name}?",
+    "deleteBody": "{count, plural, =0 {No post uses it.} one {The post that uses it stays, without a category.} other {The # posts that use it stay, without a category.}}",
+    "delete": "Remove"
   }
 }

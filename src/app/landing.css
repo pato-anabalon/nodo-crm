@@ -1,0 +1,250 @@
+/*
+ * The public site's ambient motion: clouds, boats, water and the city's lit
+ * windows. Layout lives in Tailwind on the components; scroll-linked motion
+ * in `motion`. Everything here only plays for someone who hasn't asked the
+ * system for less movement, and every element rests at its finished state.
+ *
+ * SVG groups animate with `transform-box: fill-box` so an origin means the
+ * group's own box rather than the whole drawing.
+ */
+
+.ak-scene [class^="ak-"],
+.ak-scene [class*=" ak-"] {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* A link to a section travels there rather than cutting to it. Scoped to the
+     landing: the app's own pages keep the browser's instant jump. Next turns it
+     off during a route change (`data-scroll-behavior` on <html>), so leaving
+     for /register doesn't glide to the top of the new page. */
+  html:has(.landing) {
+    scroll-behavior: smooth;
+  }
+  .ak-cloud {
+    animation: ak-drift linear infinite;
+  }
+  .ak-arrive {
+    opacity: 0;
+    animation: ak-arrive linear infinite;
+  }
+  .ak-bob {
+    animation: ak-bob 4s ease-in-out infinite;
+  }
+  .ak-shimmer {
+    animation: ak-shimmer 5s ease-in-out infinite;
+  }
+  .ak-twinkle {
+    animation: ak-twinkle 3.2s ease-in-out infinite;
+  }
+  .ak-window {
+    animation: ak-window 9s steps(1, end) infinite;
+  }
+  .ak-beacon {
+    animation: ak-beacon 1.6s ease-in-out infinite;
+  }
+  .ak-sway {
+    animation: ak-sway 7s ease-in-out infinite alternate;
+    transform-origin: bottom center;
+  }
+  .ak-float {
+    animation: ak-float 6s ease-in-out infinite;
+  }
+  .ak-hue {
+    animation: ak-hue 10s linear infinite;
+  }
+  .ak-drive {
+    animation: ak-drive 18s linear infinite;
+  }
+  .ak-rocket {
+    animation: ak-rocket 0.6s ease-out both;
+  }
+  .ak-spark {
+    animation: ak-spark 1.6s ease-out both;
+  }
+  .ak-wave {
+    animation: ak-wave 0.45s ease-in-out 4 alternate;
+  }
+  .ak-pop {
+    animation: ak-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+}
+
+/* In the hero's own pixels: its drawing is 320 wide. */
+@keyframes ak-drift {
+  from {
+    transform: translateX(-60px);
+  }
+  to {
+    transform: translateX(340px);
+  }
+}
+/* A yacht in from the gulf: out from behind the pōhutukawa, up the harbour
+   past the Sky Tower and smaller as it goes, then gone until the next one. */
+@keyframes ak-arrive {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(1);
+  }
+  5% {
+    opacity: 1;
+  }
+  72% {
+    opacity: 1;
+    transform: translate(-176px, -3px) scale(0.6);
+  }
+  78%,
+  100% {
+    opacity: 0;
+    transform: translate(-182px, -3px) scale(0.58);
+  }
+}
+@keyframes ak-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1px);
+  }
+}
+@keyframes ak-shimmer {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+@keyframes ak-twinkle {
+  0%,
+  100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+@keyframes ak-window {
+  0%,
+  62% {
+    opacity: 1;
+  }
+  63%,
+  78% {
+    opacity: 0.2;
+  }
+  79%,
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes ak-beacon {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.15;
+  }
+}
+@keyframes ak-sway {
+  from {
+    transform: rotate(-1.2deg);
+  }
+  to {
+    transform: rotate(1.2deg);
+  }
+}
+@keyframes ak-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+/* The Sky Tower's colours at night, round the wheel and back to where they began. */
+@keyframes ak-hue {
+  0%,
+  100% {
+    stop-color: #ff4d8d;
+  }
+  20% {
+    stop-color: #a66bff;
+  }
+  40% {
+    stop-color: #3db8ff;
+  }
+  60% {
+    stop-color: #2fe0a0;
+  }
+  80% {
+    stop-color: #ffd27a;
+  }
+}
+/* The ute through the sunrise: in from the left, out at the right, then a while
+   before the next one. It rests at 150 of the drawing's 320, so -210 and +180
+   are just past either edge. */
+@keyframes ak-drive {
+  0% {
+    transform: translateX(-210px);
+  }
+  55%,
+  100% {
+    transform: translateX(180px);
+  }
+}
+/* A rocket off the tip of the spire to where it bursts. */
+@keyframes ak-rocket {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  10%,
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy));
+  }
+}
+/* A spark flying out from the burst, falling a little as it fades. */
+@keyframes ak-spark {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  4%,
+  65% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), calc(var(--dy) + 3px));
+  }
+}
+/* The driver's hand, side to side. */
+@keyframes ak-wave {
+  from {
+    transform: rotate(-18deg);
+  }
+  to {
+    transform: rotate(18deg);
+  }
+}
+/* The beep's bubble popping up out of the cab. */
+@keyframes ak-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

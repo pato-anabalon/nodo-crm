@@ -19,7 +19,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const locale = await getLocale();
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning data-scroll-behavior="smooth">
       {/* Browser extensions add attributes to <body> before React hydrates —
           ColorZilla's `cz-shortcut-listen` is the usual one. `suppressHydrationWarning`
           only reaches one level deep, so having it on <html> doesn't cover this. */}

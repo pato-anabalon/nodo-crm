@@ -32,7 +32,9 @@
     "reports": "Reportes",
     "clients": "Empresas cliente",
     "tasks": "Tareas",
-    "openMenu": "Abrir menú"
+    "openMenu": "Abrir menú",
+    "jobs": "Trabajos",
+    "lineup": "Lineup"
   },
   "theme": {
     "toDark": "Cambiar a oscuro",
@@ -40,11 +42,249 @@
   },
   "marketing": {
     "title": "Nodo CRM",
-    "description": "Leads y cotizaciones para oficios, con los datos de cada empresa separados de verdad.",
-    "headline": "Un CRM por empresa, con los datos de cada una separados de verdad.",
-    "subhead": "Leads y cotizaciones en un espacio propio, con el logo, los colores y los perfiles de tu equipo. Cada empresa opera en <domain></domain>.",
-    "createCompany": "Crear mi empresa",
-    "haveAccount": "Ya tengo cuenta"
+    "description": "El CRM para empresas que cotizan y ejecutan proyectos: leads, cotizaciones que tus clientes aceptan en línea y el avance de cada proyecto, con tu propio nombre.",
+    "nav": {
+      "label": "Principal",
+      "enquiries": "Consultas",
+      "quotes": "Cotizaciones",
+      "jobs": "Trabajos",
+      "team": "Equipo",
+      "signIn": "Ingresar",
+      "createCompany": "Crear mi empresa",
+      "menu": "Menú"
+    },
+    "hero": {
+      "title": "Cotiza. Gana. Manos a la obra.",
+      "subtitle": "Leads, cotizaciones que tus clientes aceptan en línea y el avance de cada proyecto, todo con tu propio nombre.",
+      "primary": "Crear mi empresa",
+      "secondary": "Ver cómo funciona",
+      "signInPrompt": "¿Ya tienes una cuenta?",
+      "signInLink": "Ingresa aquí",
+      "notifications": {
+        "lead": {
+          "label": "Nuevo lead",
+          "value": "Sarah Thompson · 15 Ellerton Road"
+        },
+        "opened": {
+          "label": "Viéndola ahora",
+          "value": "COT-000123 · Exterior replaster"
+        },
+        "accepted": {
+          "label": "Cotización aceptada",
+          "value": "COT-000123 · $18,975.00"
+        },
+        "job": {
+          "label": "Trabajo iniciado",
+          "value": "15 Ellerton Road, Mount Eden"
+        }
+      }
+    },
+    "enquiries": {
+      "kicker": "Consultas",
+      "title": "Que no se te escape ni un lead",
+      "body": "Las consultas llegan directo desde tu web, avisan a quien corresponde y cada una tiene su próximo paso. Se acabó buscar en la bandeja de entrada.",
+      "phoneAlt": "La lista de leads en Nodo",
+      "features": {
+        "form": {
+          "title": "Tu web, conectada",
+          "body": "Pega un fragmento de código y cada consulta llega a Nodo, sin spam ni duplicados."
+        },
+        "person": {
+          "title": "Vuelven, y tú te acuerdas",
+          "body": "Al cliente que vuelve se le reconoce por su correo, con todos sus proyectos y cotizaciones anteriores a mano."
+        },
+        "tasks": {
+          "title": "Seguimiento a tiempo, siempre",
+          "body": "Dale a cada lead un próximo paso con fecha. La campana te avisa cuando uno se atrasa."
+        },
+        "pipeline": {
+          "title": "Un embudo que se actualiza solo",
+          "body": "Envías la cotización y el lead pasa a propuesta. Te dicen que sí, queda ganado. Sin arrastrar tarjetas."
+        }
+      }
+    },
+    "quotes": {
+      "kicker": "Cotizaciones",
+      "title": "Cotizaciones que se cierran",
+      "body": "Escríbela una vez, envía un enlace y mira cuándo la leen.",
+      "steps": {
+        "build": {
+          "title": "Armar",
+          "body": "Por ítems o por secciones, con extras opcionales y opciones a elegir.",
+          "alt": "Armando una cotización en Nodo"
+        },
+        "share": {
+          "title": "Compartir",
+          "body": "Un enlace con tu marca, y ves el momento en que la abren.",
+          "alt": "La cotización como la abre el cliente"
+        },
+        "accept": {
+          "title": "Aceptar",
+          "body": "Firmada desde su celular, con el PDF listo para descargar.",
+          "alt": "Un cliente aceptando y firmando una cotización"
+        }
+      }
+    },
+    "jobs": {
+      "kicker": "Trabajos",
+      "title": "Del sí a la obra terminada",
+      "body": "Un botón convierte la cotización aceptada en un trabajo: su equipo, sus fechas, sus fotos y su chat en un solo lugar, hasta la entrega.",
+      "stages": {
+        "prep": "Preparación",
+        "render": "Revestimiento",
+        "paint": "Pintura",
+        "done": "Entrega"
+      },
+      "cards": {
+        "schedule": {
+          "title": "Agenda y Lineup",
+          "body": "Todos los trabajos en una sola línea de tiempo. Arrastra una barra para mover sus fechas.",
+          "label": "Agenda",
+          "value": "Andamio · lunes 8:00"
+        },
+        "people": {
+          "title": "Solo sus trabajos",
+          "body": "Tu equipo ve los trabajos en que está, nunca los precios.",
+          "label": "Equipo asignado",
+          "value": "Mia y Tom · 15 Ellerton Rd"
+        },
+        "board": {
+          "title": "Message Board",
+          "body": "El reporte del día, con fotos y comentarios, donde todos lo encuentran.",
+          "label": "Message Board",
+          "value": "Día 3 · Primera mano lista"
+        },
+        "files": {
+          "title": "Docs y archivos",
+          "body": "Fotos directo desde el celular, achicadas antes de subir.",
+          "label": "Fotos",
+          "value": "12 subidas desde la obra"
+        },
+        "todos": {
+          "title": "Tareas",
+          "body": "Tu equipo las marca como hechas. Las fechas quedan donde las pusiste.",
+          "label": "Tarea hecha",
+          "value": "Segunda mano · muro norte"
+        },
+        "chat": {
+          "title": "Chat",
+          "body": "Conversación rápida para el equipo. Solo suena una @mención.",
+          "label": "Chat",
+          "value": "@Tom la escalera está atrás"
+        }
+      },
+      "done": {
+        "title": "Entregado",
+        "body": "Cada foto, nota y tarea queda en el trabajo, lista para la próxima vez que llamen.",
+        "label": "Trabajo terminado",
+        "value": "15 Ellerton Road"
+      }
+    },
+    "rows": {
+      "title": "Tu marca. Tu cliente. Tus números.",
+      "brand": {
+        "title": "Tu marca, no la nuestra",
+        "body": "Tu propia dirección, logo y colores en la cotización, los correos y el PDF. Anda, prueba con la tuya:",
+        "nameLabel": "El nombre de tu empresa",
+        "namePlaceholder": "Kauri Plastering",
+        "colourLabel": "Tu color",
+        "quoteTitle": "Tu cotización",
+        "from": "De",
+        "lineA": "Preparación y reparaciones",
+        "lineB": "Pintura exterior",
+        "total": "Total con GST",
+        "accept": "Aceptar cotización",
+        "cta": "Créala de verdad"
+      },
+      "live": {
+        "title": "Mira cómo la reciben",
+        "body": "Ves el momento en que la abren, respondes preguntas en la misma cotización y los seguimientos salen solos. Si el cliente escribe, se detienen.",
+        "events": {
+          "sent": {
+            "day": "Día 0",
+            "title": "Cotización enviada",
+            "detail": "COT-000123 a Sarah Thompson"
+          },
+          "opened": {
+            "day": "Día 0",
+            "title": "Viéndola ahora",
+            "detail": "La abrió en su celular"
+          },
+          "followUp": {
+            "day": "Día 3",
+            "title": "Seguimiento enviado",
+            "detail": "Solo, cuando tú lo definiste"
+          },
+          "message": {
+            "day": "Día 4",
+            "title": "Sarah escribió",
+            "detail": "“¿Se podría pintar en marzo?”",
+            "note": "Seguimientos en pausa: está hablando contigo"
+          },
+          "accepted": {
+            "day": "Día 5",
+            "title": "Aceptada y firmada",
+            "detail": "$18,975.00"
+          }
+        }
+      },
+      "numbers": {
+        "title": "Conoce tus números",
+        "body": "Lo que enviaste, lo que ganaste y lo que te rechazaron, cuánto tardan tus clientes en decidir y el embudo de la consulta a la venta.",
+        "period": "Últimos 90 días",
+        "example": "Datos de ejemplo",
+        "accepted": "Aceptadas",
+        "awaiting": "En espera",
+        "declined": "Rechazadas",
+        "acceptedShare": "aceptadas",
+        "funnel": "De la consulta a la venta",
+        "enquiries": "Consultas",
+        "quoted": "Cotizadas",
+        "won": "Ganadas",
+        "median": "Tiempo mediano hasta aceptar",
+        "medianValue": "3,5 días"
+      }
+    },
+    "trust": {
+      "label": "Por qué Nodo",
+      "nz": {
+        "title": "Hecho para Nueva Zelanda",
+        "body": "GST incluido o aparte, NZD y precios como los pide la Fair Trading Act."
+      },
+      "private": {
+        "title": "Tus precios son tuyos",
+        "body": "Cada empresa trabaja en su propio espacio. Nadie más ve tus clientes ni tus tarifas."
+      },
+      "sign": {
+        "title": "Firmada desde el celular",
+        "body": "Tus clientes aceptan y firman donde estén, con el PDF listo para descargar."
+      }
+    },
+    "founders": {
+      "kicker": "Fundadores",
+      "title": "Las personas detrás de Nodo",
+      "body": "[Placeholder] Dos o tres frases sobre quién eres, por qué creaste Nodo y la empresa de oficios con la que empezó.",
+      "name": "[Nombre del fundador]",
+      "role": "[Cargo]",
+      "photoAlt": "Foto del fundador"
+    },
+    "reviews": {
+      "title": "La confianza de los oficios"
+    },
+    "cta": {
+      "title": "Tu próxima obra empieza aquí",
+      "body": "Crea tu empresa en un minuto y envía tu primera cotización hoy.",
+      "primary": "Crear mi empresa",
+      "secondary": "Ingresar",
+      "beep": "¡Bip bip!"
+    },
+    "footer": {
+      "product": "Producto",
+      "account": "Cuenta",
+      "language": "Idioma",
+      "madeBy": "Otro producto hecho con 💜 por",
+      "legal": "© {year} Nodo CRM. Ilustraciones de Nodo."
+    }
   },
   "auth": {
     "signInTitle": "Entrar",
@@ -105,7 +345,8 @@
     "min": "Mínimo {min}",
     "max": "Máximo {max}",
     "writeSomething": "Escribe algo",
-    "maxChars": "Máximo {max} caracteres"
+    "maxChars": "Máximo {max} caracteres",
+    "invalidDate": "Ingresa una fecha válida"
   },
   "roles": {
     "OWNER": {
@@ -127,6 +368,22 @@
     "VIEWER": {
       "name": "Solo lectura",
       "description": "Consulta la información de la empresa sin poder modificarla."
+    },
+    "PROJECT_LEAD": {
+      "name": "Jefe de proyecto",
+      "description": "Lleva los trabajos de punta a punta: los abre, arma el equipo y fija las fechas."
+    },
+    "TEAM_LEAD": {
+      "name": "Jefe de cuadrilla",
+      "description": "Dirige una cuadrilla en obra: organiza los to-dos y la agenda de sus trabajos."
+    },
+    "WORKER": {
+      "name": "Trabajador",
+      "description": "Ejecuta el trabajo: reporta avance, sube fotos y marca lo hecho."
+    },
+    "COLLABORATOR": {
+      "name": "Colaborador externo",
+      "description": "Externo a la empresa: lee, comenta y aporta archivos en los trabajos donde está, sin tocar la planificación."
     }
   },
   "permissionModules": {
@@ -136,7 +393,15 @@
     "settings": "Configuración",
     "users": "Usuarios",
     "roles": "Perfiles",
-    "reports": "Reportes"
+    "reports": "Reportes",
+    "jobs": "Trabajos",
+    "messages": "Trabajos › Mensajes",
+    "comments": "Trabajos › Comentarios",
+    "todos": "Trabajos › To-dos",
+    "files": "Trabajos › Documentos y archivos",
+    "schedule": "Trabajos › Agenda",
+    "chat": "Trabajos › Chat",
+    "lineup": "Trabajos › Lineup"
   },
   "permissions": {
     "leads_read": "Ver leads",
@@ -165,7 +430,39 @@
     "users_remove": "Quitar usuarios de la empresa",
     "roles_read": "Ver perfiles y sus funcionalidades",
     "roles_update": "Asignar funcionalidades a los perfiles",
-    "reports_read": "Ver reportes y métricas"
+    "reports_read": "Ver reportes y métricas",
+    "jobs_read": "Ver los trabajos donde participa",
+    "jobs_read_all": "Ver todos los trabajos de la empresa, no solo donde participa",
+    "jobs_create": "Iniciar trabajos desde cotizaciones aceptadas y crear trabajos sueltos",
+    "jobs_update": "Editar nombre, descripción, dirección y estado de un trabajo",
+    "jobs_dates": "Cambiar las fechas de inicio y término de un trabajo",
+    "jobs_members": "Agregar y quitar personas de un trabajo",
+    "jobs_delete": "Eliminar trabajos",
+    "jobs_moderate": "Editar y eliminar lo que escribieron o subieron otras personas",
+    "messages_read": "Ver el tablero de mensajes",
+    "messages_create": "Publicar mensajes",
+    "messages_update": "Editar sus propios mensajes",
+    "messages_delete": "Eliminar sus propios mensajes",
+    "comments_create": "Comentar",
+    "comments_update": "Editar sus propios comentarios",
+    "comments_delete": "Eliminar sus propios comentarios",
+    "todos_read": "Ver to-dos",
+    "todos_create": "Agregar listas y to-dos",
+    "todos_update": "Editar to-dos: título, notas, fechas, responsables y orden",
+    "todos_complete": "Marcar y desmarcar to-dos",
+    "todos_delete": "Eliminar listas y to-dos",
+    "files_read": "Ver documentos y archivos",
+    "files_create": "Subir archivos y crear carpetas",
+    "files_update": "Renombrar y mover sus propios archivos",
+    "files_delete": "Eliminar sus propios archivos",
+    "schedule_read": "Ver la agenda",
+    "schedule_create": "Agregar eventos",
+    "schedule_update": "Editar eventos, incluidas sus fechas",
+    "schedule_delete": "Eliminar eventos",
+    "chat_read": "Leer el chat",
+    "chat_create": "Escribir en el chat",
+    "chat_delete": "Eliminar sus propios mensajes del chat",
+    "lineup_read": "Ver el lineup de todos los trabajos que puede ver"
   },
   "dashboard": {
     "title": "Resumen",
@@ -310,7 +607,8 @@
       "RESTORED": "Lead restaurado",
       "CONVERTED": "Cotización {reference} creada",
       "QUOTE_DECIDED": "La cotización #{reference} fue {status, select, ACCEPTED {aceptada} REJECTED {rechazada} EXPIRED {dejada vencer} other {respondida}}",
-      "QUOTE_EDITED": "Cotización #{reference} editada después de enviada"
+      "QUOTE_EDITED": "Cotización #{reference} editada después de enviada",
+      "JOB_STARTED": "Trabajo iniciado desde la cotización #{reference}"
     },
     "ownerSaved": "Responsable actualizado.",
     "ownerCleared": "Responsable quitado."
@@ -467,7 +765,10 @@
       "send": "Enviar al cliente",
       "sending": "Enviando…",
       "accept": "Marcar aceptada",
-      "reject": "Marcar rechazada"
+      "reject": "Marcar rechazada",
+      "startJob": "Iniciar trabajo",
+      "startingJob": "Iniciando…",
+      "openJob": "Abrir trabajo"
     },
     "detail": "Detalle",
     "amountHidden": "Oculto",
@@ -508,11 +809,12 @@
       "copyIntro": "Ésta es la copia para tus registros. El cliente recibió un enlace, no estas cifras.",
       "copyViewQuote": "Abrirla en el panel",
       "acceptedSubject": "Gracias por aceptar",
-      "acceptedBody": "Hola {customer},\n\nRecibimos tu aceptación, gracias. Nos pondremos en contacto en breve para coordinar el trabajo.",
+      "acceptedBody": "Hola {customer},\n\nRecibimos la aceptación de {acceptedBy}, gracias. Nos pondremos en contacto en breve para coordinar el trabajo.",
       "followUpSubject": "Un recordatorio",
       "followUpBody": "Hola {customer},\n\nQueríamos saber si alcanzaste a ver la cotización que te enviamos. Si hay algo que ajustar o prefieres conversarlo, respóndenos por aquí y lo vemos.",
       "reviewSubject": "¿Cómo lo hicimos?",
-      "reviewBody": "Hola {customer},\n\nGracias de nuevo por confiar en nosotros. Si quedaste conforme con el trabajo, una reseña breve nos ayuda mucho: es como nos encuentra la mayoría de nuestros clientes."
+      "reviewBody": "Hola {customer},\n\nGracias de nuevo por confiar en nosotros. Si quedaste conforme con el trabajo, una reseña breve nos ayuda mucho: es como nos encuentra la mayoría de nuestros clientes.",
+      "notDelivered": "No llegó a {emails}."
     },
     "sections": {
       "all": "Todas",
@@ -534,6 +836,12 @@
         "ACCEPTED": "Aceptó la cotización",
         "DECLINED": "Rechazó la cotización",
         "MESSAGE_SENT": "Envió un mensaje"
+      },
+      "eventBy": {
+        "OPENED": "Abierta por {name}",
+        "ACCEPTED": "Aceptada por {name}",
+        "DECLINED": "Rechazada por {name}",
+        "MESSAGE_SENT": "Mensaje de {name}"
       },
       "acceptedBy": "Aceptada por {name}",
       "acceptanceStatement": "Declaración aceptada",
@@ -587,6 +895,38 @@
       "open": "Acciones de {title}",
       "duplicate": "Duplicar",
       "preview": "Ver como cliente"
+    },
+    "recipients": {
+      "title": "Para",
+      "primary": "Principal",
+      "copyTo": "Copia a",
+      "none": "Todavía no hay a quién enviarla. Agrega un destinatario o ponle correo al contacto del lead.",
+      "add": "Agregar destinatario",
+      "searchPlaceholder": "Busca un contacto o escribe un correo",
+      "empty": "Ningún contacto con correo coincide",
+      "addContact": "Agregar {email} como contacto nuevo",
+      "addContactHint": "Todavía no está en tus contactos",
+      "newContactTitle": "Contacto nuevo",
+      "newContactDescription": "Se guarda en tus contactos y se agrega a esta cotización. Recibirá su propio correo y su propio link la próxima vez que se envíe.",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo",
+      "save": "Agregar contacto",
+      "makePrimary": "Hacer principal",
+      "remove": "Quitar a {name}",
+      "removeTitle": "¿Quitar a {name}?",
+      "removeDescription": "{name} deja de recibir esta cotización, y el link que ya se le envió deja de funcionar.",
+      "removeConfirm": "Quitar",
+      "added": "Destinatario agregado",
+      "removed": "Destinatario quitado",
+      "madePrimary": "Destinatario principal cambiado",
+      "errors": {
+        "notFound": "Ese destinatario o contacto no existe.",
+        "locked": "Esta cotización ya fue decidida, así que sus destinatarios no cambian.",
+        "duplicate": "Ya recibe esta cotización.",
+        "noEmail": "Ese contacto no tiene correo, así que no hay a dónde enviarle.",
+        "primary": "Haz principal a otra persona antes de quitarla."
+      }
     }
   },
   "tasks": {
@@ -1037,7 +1377,9 @@
       "reviews": "{count, plural, =0 {Sin reseñas todavía} one {# reseña} other {# reseñas}}",
       "ingestKeys": "{count, plural, =0 {Sin conectar} one {# clave en uso} other {# claves en uso}}",
       "notices": "{count, plural, =0 {Recibes todos los avisos} one {# aviso desactivado} other {# avisos desactivados}}",
-      "profileNoName": "Todavía sin nombre"
+      "profileNoName": "Todavía sin nombre",
+      "trades": "{count, plural, =0 {Sin oficios aún} one {# oficio} other {# oficios}}",
+      "postCategories": "{count, plural, =0 {Sin categorías} one {# categoría} other {# categorías}}"
     },
     "back": "Volver a {section}"
   },
@@ -1106,7 +1448,8 @@
       "person": "Persona",
       "role": "Perfil",
       "status": "Estado",
-      "actions": "Acciones"
+      "actions": "Acciones",
+      "trades": "Oficios"
     },
     "status": {
       "ACTIVE": "Activo",
@@ -1232,9 +1575,6 @@
     "decline": "Rechazar",
     "declining": "Rechazando…",
     "acceptTitle": "Aceptar esta cotización",
-    "yourName": "Tu nombre",
-    "yourNameHint": "Queda registrado junto con la aceptación.",
-    "yourEmail": "Tu correo (opcional)",
     "statementCheckbox": "Sí, {name} acepto esta cotización y sus términos.",
     "statementSimple": "Al hacer clic en Aceptar cotización, {name} acepto esta cotización y sus términos.",
     "defaultStatement": "acepto esta cotización y las condiciones indicadas en ella.",
@@ -1243,6 +1583,7 @@
     "signatureDraw": "Dibujar",
     "signatureType": "Escribir",
     "signatureClear": "Borrar",
+    "signHere": "Firma aquí",
     "signaturePlaceholder": "Escribe tu nombre",
     "additionalComments": "Comentarios (opcional)",
     "orderReference": "Número de orden de compra (opcional)",
@@ -1257,7 +1598,6 @@
     "noMessages": "Todavía no hay mensajes.",
     "you": "Tú",
     "errors": {
-      "nameRequired": "Escribe tu nombre para aceptar",
       "statementRequired": "Debes marcar la casilla para aceptar",
       "signatureRequired": "Firma para poder aceptar",
       "notAvailable": "Esta cotización ya no admite respuesta.",
@@ -1273,6 +1613,7 @@
     "downloadPdf": "Descargar PDF",
     "email": "Correo",
     "mobile": "Móvil",
+    "copyTo": "Copia a",
     "phone": "Teléfono",
     "gstNumber": "GST",
     "projectAddress": "Dirección del proyecto",
@@ -1295,7 +1636,44 @@
     "bundleProgress": "Selecciona {count, plural, one {# ítem opcional más} other {# ítems opcionales más}} para desbloquear {amount} de descuento",
     "bundleUnlocked": "Descuento de {amount} desbloqueado",
     "chooseOne": "Elige una de las siguientes opciones",
-    "questionsAndAnswers": "Preguntas y respuestas"
+    "questionsAndAnswers": "Preguntas y respuestas",
+    "handoff": {
+      "open": "Firmar desde un dispositivo táctil",
+      "qrLabel": "Código QR para firmar en tu teléfono",
+      "title": "Escanea el código QR",
+      "step1": "Abre la cámara de tu teléfono y apúntala al código.",
+      "step2": "Toca el enlace que aparece.",
+      "step3": "Firma con el dedo en el recuadro que se abre.",
+      "autoUpdate": "Esta pantalla se actualiza sola cuando hayas firmado.",
+      "cancel": "Cancelar",
+      "mirroring": "Mostrando lo que dibujas en tu teléfono.",
+      "stop": "Detener",
+      "phoneTitle": "Firma aquí",
+      "phoneUnavailableTitle": "Este código ya no funciona",
+      "phoneUnavailableBody": "Vuelve a la cotización en tu otra pantalla y elige “Firmar desde un dispositivo táctil” otra vez.",
+      "rotate": "Gira el teléfono para tener más espacio al firmar.",
+      "ready": "Listo para aceptar en tu otra pantalla",
+      "failed": "No llegó a tu otra pantalla. Levanta el dedo otra vez para reintentar.",
+      "drawHere": "Dibuja tu firma en el recuadro",
+      "clear": "Borrar"
+    },
+    "fingerprint": {
+      "show": "Ver huella digital",
+      "hide": "Ocultar huella digital",
+      "timestamp": "Fecha y hora",
+      "verifiedEmail": "Verificado por correo",
+      "email": "Correo",
+      "verifiedEmailHint": "Aceptada a través de un enlace único enviado solo a esta dirección.",
+      "ipAddress": "Dirección IP",
+      "signatureDigest": "Huella de la firma (SHA-256)",
+      "signatureDigestHint": "Cambiar un solo punto de la firma cambia este valor.",
+      "signedOn": "Firmada en",
+      "touchDevice": "Un dispositivo táctil",
+      "thisDevice": "El mismo dispositivo que aceptó",
+      "userAgent": "Navegador que aceptó",
+      "recordDigest": "Sello del registro (SHA-256)",
+      "recordDigestHint": "Cubre todo lo anterior, el total aceptado y la declaración. Cualquier cambio posterior al registro deja de coincidir."
+    }
   },
   "notifications": {
     "leadReceived": {
@@ -1335,7 +1713,14 @@
       "TASK_ASSIGNED": "{by} te dejó la tarea «{title}»",
       "TASK_DUE": "Tarea atrasada: {title}",
       "QUOTE_EXPIRING": "La cotización {reference} está por vencer",
-      "INGEST_FAILING": "Tu formulario web rechazó {count} consultas y no dejó pasar ninguna"
+      "INGEST_FAILING": "Tu formulario web rechazó {count} consultas y no dejó pasar ninguna",
+      "JOB_ADDED": "{by} te agregó a {job}",
+      "JOB_POST": "{by} publicó {title} en {job}",
+      "JOB_COMMENT": "{by} comentó en {title} ({job})",
+      "JOB_TODO_ASSIGNED": "{by} te asignó {title} ({job})",
+      "JOB_TODO_COMPLETED": "{by} completó {title} ({job})",
+      "JOB_EVENT": "{by} te sumó a {title} ({job})",
+      "JOB_CHAT_MENTION": "{by} te mencionó en el chat de {job}: “{excerpt}”"
     },
     "quoteExpiring": {
       "subject": "La cotización {reference} está por vencer",
@@ -1449,7 +1834,39 @@
     "orderedList": "Lista numerada",
     "link": "Enlace",
     "unlink": "Quitar enlace",
-    "linkPrompt": "Dirección del enlace"
+    "linkPrompt": "Dirección del enlace",
+    "undo": "Deshacer",
+    "redo": "Rehacer",
+    "heading2": "Título",
+    "heading3": "Subtítulo",
+    "underline": "Subrayado",
+    "strike": "Tachado",
+    "textColor": "Color del texto",
+    "noColor": "Sin color",
+    "highlight": "Resaltado",
+    "noHighlight": "Sin resaltado",
+    "colors": {
+      "red": "Rojo",
+      "orange": "Naranja",
+      "yellow": "Amarillo",
+      "green": "Verde",
+      "blue": "Azul",
+      "purple": "Morado",
+      "gray": "Gris",
+      "pink": "Rosado"
+    },
+    "alignLeft": "Alinear a la izquierda",
+    "alignCenter": "Centrar",
+    "alignRight": "Alinear a la derecha",
+    "quote": "Cita",
+    "code": "Bloque de código",
+    "table": "Tabla",
+    "insertTable": "Insertar tabla",
+    "addRow": "Agregar fila abajo",
+    "addColumn": "Agregar columna a la derecha",
+    "deleteRow": "Eliminar fila",
+    "deleteColumn": "Eliminar columna",
+    "deleteTable": "Eliminar tabla"
   },
   "notificationSettings": {
     "title": "Mis notificaciones",
@@ -1472,7 +1889,21 @@
       "QUOTE_EXPIRING": "Una cotización mía está por vencer",
       "QUOTE_EXPIRING_hint": "Una vez, cuando una cotización enviada se acerca a su vencimiento sin respuesta.",
       "INGEST_FAILING": "El formulario web deja de funcionar",
-      "INGEST_FAILING_hint": "Una vez al día mientras se rechacen consultas y no entre ninguna."
+      "INGEST_FAILING_hint": "Una vez al día mientras se rechacen consultas y no entre ninguna.",
+      "JOB_ADDED": "Me agregan a un trabajo",
+      "JOB_ADDED_hint": "Cuando alguien te suma a un trabajo.",
+      "JOB_POST": "Se publica un mensaje en mi trabajo",
+      "JOB_POST_hint": "Cuando alguien publica en el Message Board de un trabajo que sigues, o te elige para avisarte.",
+      "JOB_COMMENT": "Una respuesta en una conversación donde participo",
+      "JOB_COMMENT_hint": "Cuando alguien comenta un post, un to-do o un evento en el que participas.",
+      "JOB_TODO_ASSIGNED": "Me asignan un to-do",
+      "JOB_TODO_ASSIGNED_hint": "Cuando alguien te asigna un to-do en uno de tus trabajos.",
+      "JOB_TODO_COMPLETED": "Se completa un to-do que agregué",
+      "JOB_TODO_COMPLETED_hint": "Cuando alguien marca como hecho un to-do que tú anotaste.",
+      "JOB_EVENT": "Me suman a un evento",
+      "JOB_EVENT_hint": "Cuando alguien te agrega a un evento en el schedule de un trabajo.",
+      "JOB_CHAT_MENTION": "Me mencionan en un chat",
+      "JOB_CHAT_MENTION_hint": "Cuando alguien te nombra con @ en el chat de uno de tus trabajos."
     },
     "indexSubtitle": "Elige qué correos quieres recibir.",
     "recipients": {
@@ -1580,5 +2011,448 @@
     "activated": "Empresa activada",
     "suspended": "Empresa suspendida",
     "empty": "Todavía no hay empresas registradas."
+  },
+  "trades": {
+    "title": "Oficios",
+    "subtitle": "Lo que hace tu gente — Yeso, Pintura, Marketing. Se muestra junto a cada persona en un trabajo.",
+    "name": "Oficio",
+    "namePlaceholder": "p. ej. Yeso",
+    "add": "Agregar oficio",
+    "added": "Oficio agregado.",
+    "deleted": "Oficio eliminado.",
+    "duplicate": "Ya existe un oficio con ese nombre.",
+    "empty": "Aún no hay oficios. Agrega el primero arriba.",
+    "people": "{count, plural, =0 {Nadie} one {# persona} other {# personas}}",
+    "deleteTitle": "¿Eliminar {name}?",
+    "deleteBody": "Nadie quedará marcado como {name}. Las personas se quedan; solo se va la etiqueta.",
+    "delete": "Eliminar",
+    "member": "Oficios",
+    "memberNone": "Sin oficios",
+    "memberEdit": "Editar oficios",
+    "memberSaved": "Oficios guardados.",
+    "noneConfigured": "La empresa aún no tiene oficios. Agrégalos en Configuración › Oficios."
+  },
+  "jobs": {
+    "title": "Trabajos",
+    "subtitle": "El trabajo después de que el cliente dijo que sí.",
+    "noAccess": "No tienes acceso a los trabajos.",
+    "new": "Nuevo trabajo",
+    "newSubtitle": "Un trabajo sin cotización detrás — una oficina, trámites, cualquier cosa en la que trabaje el equipo.",
+    "backToJobs": "Volver a Trabajos",
+    "loading": {
+      "title": "Preparando tu trabajo",
+      "subtitle": "Cargando los datos del trabajo…"
+    },
+    "show": {
+      "active": "En curso",
+      "done": "Terminados"
+    },
+    "empty": "Aún no hay trabajos aquí. Nacen de una cotización aceptada, con Iniciar trabajo.",
+    "emptyDone": "Aún no hay trabajos terminados.",
+    "recentActivity": "Actividad reciente",
+    "noRecentActivity": "Aún no ha pasado nada en tus trabajos.",
+    "fromQuote": "Cotización {reference}",
+    "saved": "Trabajo guardado.",
+    "datesSaved": "Fechas guardadas.",
+    "statusSaved": "Estado cambiado.",
+    "invalidStatus": "Ese estado no existe.",
+    "create": "Crear trabajo",
+    "creating": "Creando…",
+    "edit": "Editar trabajo",
+    "fields": {
+      "name": "Nombre",
+      "description": "Descripción",
+      "address": "Dirección",
+      "startsOn": "Inicio",
+      "endsOn": "Término",
+      "status": "Estado",
+      "colour": "Color en el Lineup",
+      "colourAuto": "Automático",
+      "colourOption": "Color {n}"
+    },
+    "dates": "Fechas",
+    "noDates": "Sin fechas",
+    "dateRange": "{start} – {end}",
+    "startsOnly": "Desde {start}",
+    "endsOnly": "Hasta {end}",
+    "status": {
+      "ACTIVE": "En curso",
+      "ON_HOLD": "En pausa",
+      "COMPLETED": "Terminado",
+      "ARCHIVED": "Archivado"
+    },
+    "validation": {
+      "endBeforeStart": "El término no puede ser antes del inicio"
+    },
+    "startErrors": {
+      "not-found": "Esa cotización no existe.",
+      "not-accepted": "Solo una cotización aceptada puede convertirse en trabajo.",
+      "already-started": "Esta cotización ya tiene un trabajo."
+    },
+    "delete": "Eliminar trabajo",
+    "deleteTitle": "¿Eliminar {name}?",
+    "deleteBody": "Se van con él su gente, su historial y todo lo que contiene. La cotización se queda.",
+    "people": {
+      "title": "Personas",
+      "add": "Agregar personas",
+      "addSelected": "Agregar seleccionadas",
+      "pickSomebody": "Elige al menos una persona.",
+      "nobodyLeft": "Todas las personas de la empresa ya están en este trabajo.",
+      "added": "{count, plural, =0 {No había nadie nuevo que agregar.} one {# persona agregada.} other {# personas agregadas.}}",
+      "removed": "Quitado del trabajo.",
+      "remove": "Quitar",
+      "removeTitle": "¿Quitar a {name} de este trabajo?",
+      "removeBody": "Deja de verlo, salvo que su perfil vea todos los trabajos. Lo que escribió se queda.",
+      "you": "tú",
+      "follow": "Avisarme",
+      "unfollow": "No avisarme",
+      "following": "Recibirás avisos de este trabajo.",
+      "notFollowing": "No recibirás avisos de este trabajo."
+    },
+    "timeline": {
+      "title": "Última actividad",
+      "empty": "Aún nada.",
+      "quiet": "{days, plural, one {Sin actividad durante un día} other {Sin actividad durante # días}}",
+      "someone": "Alguien",
+      "CREATED": "{actor} creó este trabajo",
+      "CREATED_fromQuote": "{actor} inició este trabajo desde la cotización {reference}",
+      "MEMBERS_ADDED": "{actor} agregó a {names} al trabajo",
+      "MEMBER_REMOVED": "{actor} quitó a {name} del trabajo",
+      "STATUS_CHANGED": "{actor} marcó el trabajo como {to}",
+      "DATES_CHANGED": "{actor} fijó las fechas: {dates}",
+      "DATES_CLEARED": "{actor} quitó las fechas",
+      "FILES_UPLOADED": "{actor} subió {count, plural, one {un archivo} other {# archivos}}",
+      "FOLDER_CREATED": "{actor} creó la carpeta {name}",
+      "POST_PUBLISHED": "{actor} publicó un mensaje: {title}",
+      "COMMENT_ADDED": "{actor} comentó en {title}",
+      "TODO_LIST_CREATED": "{actor} creó la lista de to-dos {name}",
+      "TODO_ADDED": "{actor} agregó un to-do: {title}",
+      "TODO_COMPLETED": "{actor} completó {title}",
+      "TODO_REOPENED": "{actor} reabrió {title}",
+      "TODO_COMMENTED": "{actor} comentó en {title}",
+      "EVENT_CREATED": "{actor} agendó {title} para el {date}",
+      "EVENT_CREATED_undated": "{actor} agendó {title}",
+      "EVENT_COMMENTED": "{actor} comentó en {title}",
+      "CHAT_MESSAGES": "{actor} envió {count, plural, one {un mensaje} other {# mensajes}} en el chat"
+    },
+    "files": {
+      "title": "Docs y archivos",
+      "backToJob": "Volver a {name}",
+      "breadcrumb": "Carpetas",
+      "count": "{count, plural, =0 {Nada aún} one {# archivo} other {# archivos}}",
+      "cardEmpty": "Planos, fotos y documentos de este trabajo.",
+      "cardNoPhotos": "Aún no hay fotos.",
+      "upload": "Subir archivos",
+      "uploading": "Subiendo…",
+      "preparing": "Preparando…",
+      "dropTitle": "Arrastra y suelta <hl>fotos</hl>, <hl>videos</hl> o <hl>documentos</hl>",
+      "dropBrowse": "o <browse>busca archivos</browse> en tu dispositivo",
+      "dropHint": "Las fotos se achican antes de subir.",
+      "retry": "Reintentar",
+      "uploaded": "{count, plural, one {Archivo subido} other {# archivos subidos}}",
+      "uploadErrors": {
+        "empty": "Este archivo está vacío.",
+        "type": "Este tipo de archivo no se puede subir.",
+        "heic": "Las fotos HEIC no se pueden subir desde aquí. Súbela desde el celular, que la convierte, o expórtala como JPEG.",
+        "size": "Este archivo es demasiado grande.",
+        "network": "La subida no terminó. Revisa la conexión y vuelve a intentarlo."
+      },
+      "registerErrors": {
+        "folder": "Esa carpeta ya no está en este trabajo.",
+        "file": "No se pudo verificar la subida, así que no se guardó. Vuelve a intentarlo."
+      },
+      "newFolder": "Nueva carpeta",
+      "folderCreated": "Carpeta creada",
+      "name": "Nombre",
+      "rename": "Renombrar",
+      "renamed": "Renombrado",
+      "move": "Mover",
+      "moveTo": "Mover a",
+      "moving": "Moviendo…",
+      "moved": "Movido",
+      "topLevel": "Docs y archivos (raíz)",
+      "download": "Descargar",
+      "openInTab": "Abrir en otra pestaña",
+      "delete": "Eliminar",
+      "deleted": "Archivo eliminado",
+      "folderDeleted": "Carpeta eliminada",
+      "notAllowed": "No puedes cambiar esto.",
+      "deleteFileTitle": "¿Eliminar {name}?",
+      "deleteFileBody": "Se quita del trabajo para todos y no se puede recuperar.",
+      "deleteFolderTitle": "¿Eliminar la carpeta {name}?",
+      "deleteFolderBody": "Se va también todo lo que contiene ({contents}), para todos, y no se puede recuperar.",
+      "contents": "{files, plural, one {# archivo} other {# archivos}} · {folders, plural, one {# carpeta} other {# carpetas}}",
+      "actionsFor": "Acciones para {name}",
+      "empty": "Aún no hay nada aquí.",
+      "emptyCanUpload": "Aún no hay nada aquí. Sube archivos o arrástralos a esta página.",
+      "emptyFiltered": "No hay archivos de este tipo en el trabajo.",
+      "uploadedBy": "Subido por",
+      "date": "Fecha",
+      "size": "Tamaño",
+      "position": "{current} de {total}",
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "filterLabel": "Mostrar",
+      "filter": {
+        "all": "Todo",
+        "images": "Fotos",
+        "videos": "Videos",
+        "documents": "Documentos"
+      },
+      "viewLabel": "Vista",
+      "view": {
+        "grid": "Cuadrícula",
+        "list": "Lista"
+      }
+    },
+    "board": {
+      "title": "Message Board",
+      "backToJob": "Volver a {name}",
+      "backToBoard": "Volver al Message Board",
+      "backToPost": "Volver al post",
+      "newPost": "Nuevo mensaje",
+      "yourDrafts": "{count, plural, one {Tu borrador} other {Tus # borradores}}",
+      "draftSaved": "guardado {when}",
+      "filterLabel": "Filtrar por categoría",
+      "allCategories": "Todas",
+      "someone": "Alguien",
+      "empty": "Todavía no se ha publicado nada en este trabajo.",
+      "emptyCanPost": "Todavía no hay mensajes. Aquí va el reporte del día, un anuncio o una pregunta para el equipo.",
+      "emptyCategory": "Todavía no hay mensajes en esta categoría.",
+      "categories": {
+        "ANNOUNCEMENT": "Anuncio",
+        "FYI": "Para tu información",
+        "HEARTBEAT": "Pulso",
+        "PITCH": "Propuesta",
+        "QUESTION": "Pregunta"
+      },
+      "category": "Categoría",
+      "noCategory": "Sin categoría",
+      "postTitle": "Título",
+      "titlePlaceholder": "Escribe un título…",
+      "body": "Mensaje",
+      "bodyPlaceholder": "Escribe aquí…",
+      "notifyLegend": "Cuando publique esto, avisar a…",
+      "notify": {
+        "followers": "Todos los que siguen este trabajo",
+        "followers_hint": "La gente del trabajo que no apagó sus avisos.",
+        "selected": "Solo a quienes elija",
+        "selected_hint": "Elígelos abajo.",
+        "nobody": "Nadie",
+        "nobody_hint": "Queda en el board y en el timeline, sin aviso."
+      },
+      "nobodyElse": "Todavía no hay nadie más en este trabajo.",
+      "publish": "Publicar este mensaje",
+      "saveDraft": "Guardar como borrador",
+      "saveChanges": "Guardar cambios",
+      "attach": "Adjuntar archivos",
+      "attachHint": "Fotos, videos, PDF y documentos. Las fotos se achican antes de subir.",
+      "removeAttachment": "Quitar {name}",
+      "stillUploading": "Espera a que terminen de subir los archivos.",
+      "comment": "Comentario",
+      "commentPlaceholder": "Agrega un comentario…",
+      "addComment": "Agregar este comentario",
+      "saveComment": "Guardar comentario",
+      "editComment": "Editar comentario",
+      "deleteComment": "Eliminar comentario",
+      "deleteCommentTitle": "¿Eliminar este comentario?",
+      "deleteCommentBody": "Se eliminan el comentario y sus archivos. No se puede deshacer.",
+      "deletePost": "Eliminar",
+      "deletePostTitle": "¿Eliminar «{title}»?",
+      "deletePostBody": "Se eliminan el post, todos sus comentarios y sus archivos, y sale del timeline. No se puede deshacer.",
+      "draftNotice": "Esto es un borrador. Solo tú lo ves hasta que lo publiques.",
+      "edited": "editado",
+      "editPost": "Editar",
+      "editDraft": "Editar borrador",
+      "comments": "{count, plural, =0 {Comentarios} one {# comentario} other {# comentarios}}",
+      "notAllowed": "No puedes hacer eso con este post.",
+      "filesRefused": "Uno de los archivos no se pudo adjuntar. Vuelve a subirlo.",
+      "commentEmpty": "Escribe algo o adjunta un archivo.",
+      "commented": "Comentario agregado",
+      "commentSaved": "Comentario guardado",
+      "commentDeleted": "Comentario eliminado",
+      "count": "{count, plural, =0 {Sin mensajes} one {# mensaje} other {# mensajes}}",
+      "cardEmpty": "Todavía no hay mensajes.",
+      "commentCount": "{count, plural, one {# comentario} other {# comentarios}}"
+    },
+    "todos": {
+      "title": "To-dos",
+      "backToJob": "Volver a {name}",
+      "backToTodos": "Volver a los to-dos",
+      "backToList": "Volver a {name}",
+      "backToTodo": "Volver al to-do",
+      "openCount": "{count, plural, =0 {No queda nada pendiente} one {Queda # to-do} other {Quedan # to-dos}}",
+      "empty": "Este trabajo todavía no tiene listas de to-dos.",
+      "emptyCanCreate": "Todavía no hay listas. Una lista es una etapa del trabajo —“Preparación”, “Primera mano”, “Detalles finales”— con los pasos que la componen.",
+      "cardEmpty": "Aún no hay listas.",
+      "moreLists": "{count, plural, one {y # lista más} other {y # listas más}}",
+      "progress": "{done}/{total} hechos",
+      "newList": "Nueva lista",
+      "editList": "Editar lista",
+      "listName": "Nombre",
+      "listNamePlaceholder": "p. ej. Primera mano",
+      "listDescription": "Descripción",
+      "listDescriptionPlaceholder": "Para qué es esta lista (opcional)…",
+      "listCreated": "Lista creada",
+      "listSaved": "Lista guardada",
+      "delete": "Eliminar",
+      "deleteListTitle": "¿Eliminar “{name}”?",
+      "deleteListBody": "Se eliminan la lista, todos sus to-dos, sus comentarios y sus archivos, y salen del timeline. No se puede deshacer.",
+      "deleteTodoTitle": "¿Eliminar “{title}”?",
+      "deleteTodoBody": "Se eliminan el to-do, sus comentarios y sus archivos, y sale del timeline. No se puede deshacer.",
+      "addTodo": "Agregar un to-do",
+      "addThisTodo": "Agregar este to-do",
+      "todoAdded": "To-do agregado",
+      "todoTitle": "To-do",
+      "todoPlaceholder": "Describe el to-do…",
+      "list": "Lista",
+      "assignees": "Asignado a",
+      "unassigned": "Nadie aún",
+      "nobodyOnJob": "Todavía no hay nadie en este trabajo.",
+      "startsOn": "Empieza el",
+      "dueOn": "Vence el",
+      "notes": "Notas",
+      "notesPlaceholder": "Agrega detalles o adjunta un archivo…",
+      "saveTodo": "Guardar cambios",
+      "edit": "Editar",
+      "editTodo": "Editar to-do",
+      "markDone": "Marcar “{title}” como hecho",
+      "markOpen": "Marcar “{title}” como pendiente",
+      "hasNotes": "Tiene notas",
+      "dragTodo": "Arrastra para reordenar “{title}”",
+      "dragList": "Arrastra para reordenar “{name}”",
+      "allDone": "Todo lo de esta lista está hecho.",
+      "showDone": "{count, plural, one {Mostrar # to-do completado} other {Mostrar # to-dos completados}}",
+      "hideDone": "Ocultar completados",
+      "when": "Cuándo",
+      "noDates": "Sin fechas",
+      "overdue": "atrasado",
+      "someone": "Alguien",
+      "addedBy": "Agregado por {name} el {when}",
+      "completedBy": "Completado por {name} el {when}",
+      "notAllowed": "No puedes hacer eso con este to-do.",
+      "orderStale": "La lista cambió mientras movías cosas. Recarga e intenta de nuevo.",
+      "dates": {
+        "range": "{start} – {end}",
+        "due": "Vence {date}",
+        "starts": "Empieza {date}"
+      }
+    },
+    "schedule": {
+      "title": "Schedule",
+      "upcomingCount": "{count, plural, =0 {Nada próximo} one {# próximo} other {# próximos}}",
+      "cardEmpty": "Nada agendado.",
+      "backToJob": "Volver a {name}",
+      "backToSchedule": "Volver al schedule",
+      "backToEvent": "Volver al evento",
+      "newEvent": "Nuevo evento",
+      "addEvent": "Agregar este evento",
+      "saveEvent": "Guardar cambios",
+      "editEvent": "Editar evento",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "deleteTitle": "¿Eliminar “{title}”?",
+      "deleteBody": "Se eliminan el evento y sus comentarios, y sale del timeline. No se puede deshacer.",
+      "earlier": "Antes",
+      "later": "Después",
+      "today": "Hoy",
+      "viewLabel": "Vista",
+      "views": {
+        "calendar": "Calendario",
+        "agenda": "Agenda"
+      },
+      "addOn": "Agregar un evento el {date}",
+      "agendaEmpty": "Nada agendado entre {range}.",
+      "allDay": "Todo el día",
+      "commentCount": "{count, plural, one {# comentario} other {# comentarios}}",
+      "todoDue": "Vence un to-do",
+      "milestone": "Hito",
+      "milestoneHint": "También se muestra en el Lineup, sobre la barra de este trabajo.",
+      "when": "Cuándo",
+      "participants": "Participan",
+      "noParticipants": "Nadie en particular",
+      "notes": "Notas",
+      "notesPlaceholder": "Agrega detalles: la dirección, qué llevar, por quién preguntar…",
+      "addedBy": "Agregado por {name} el {when}",
+      "someone": "Alguien",
+      "eventTitle": "Evento",
+      "eventTitlePlaceholder": "p. ej. Se arma el andamio",
+      "startsOn": "Empieza",
+      "endsOn": "Termina",
+      "startTime": "Hora de inicio",
+      "endTime": "Hora de término",
+      "endHint": "Deja vacío el día de término si dura un solo día.",
+      "notAllowed": "No puedes hacer eso con este evento.",
+      "validation": {
+        "time": "Ingresa una hora"
+      }
+    },
+    "chat": {
+      "title": "Chat",
+      "count": "{count, plural, =0 {Sin mensajes} one {# mensaje} other {# mensajes}}",
+      "cardEmpty": "Nadie ha escrito todavía.",
+      "backToJob": "Volver a {name}",
+      "empty": "Todavía no hay mensajes. Saluda a la gente de este trabajo.",
+      "placeholder": "Escribe un mensaje… Usa @ para mencionar a alguien.",
+      "message": "Mensaje",
+      "send": "Enviar",
+      "sending": "Enviando…",
+      "hint": "Enter envía; Shift + Enter hace un salto de línea.",
+      "hintTouch": "Usa el botón para enviar.",
+      "loadEarlier": "Ver mensajes anteriores",
+      "loading": "Cargando…",
+      "deleteMessage": "Borrar mensaje",
+      "deleteTitle": "¿Borrar este mensaje?",
+      "deleteBody": "Desaparece para todos en el trabajo, junto con los archivos que tenga.",
+      "deleted": "Mensaje borrado.",
+      "emptyMessage": "Escribe algo o adjunta un archivo.",
+      "notAllowed": "No puedes hacer eso en este chat.",
+      "someone": "Alguien",
+      "mentionList": "Gente de este trabajo",
+      "readOnly": "Puedes leer este chat, pero no escribir en él.",
+      "attachmentsOnly": "{count, plural, one {# archivo} other {# archivos}}",
+      "sent": "Mensaje enviado."
+    }
+  },
+  "lineup": {
+    "title": "Lineup",
+    "subtitle": "Todos los trabajos en una línea de tiempo, con sus hitos.",
+    "earlier": "Antes",
+    "later": "Después",
+    "today": "Hoy",
+    "empty": "No hay trabajos con fechas en estas semanas.",
+    "dragHint": "Arrastra una barra para mover un trabajo, o un extremo para estirarlo. Con el teclado: las flechas lo mueven, Shift + flechas mueven el término, Alt + flechas el inicio.",
+    "undated": "{count, plural, one {# trabajo sin fechas} other {# trabajos sin fechas}}",
+    "undatedHint": "Todavía no están en el plan. Fija sus fechas en el trabajo.",
+    "moved": "{name}: fechas guardadas",
+    "notSaved": "No se pudieron guardar las fechas.",
+    "bar": "{name}, del {start} al {end}",
+    "barEditable": "{name}, del {start} al {end}. Las flechas lo mueven.",
+    "milestone": "Hito: {title}",
+    "filters": {
+      "status": "Estado",
+      "active": "Activos y en pausa",
+      "all": "Todos los trabajos",
+      "member": "Persona",
+      "anyone": "Cualquiera",
+      "trade": "Oficio",
+      "anyTrade": "Cualquier oficio"
+    }
+  },
+  "postCategories": {
+    "title": "Categorías de mensajes",
+    "subtitle": "Los tipos de post del Message Board de cada trabajo — Anuncio, Pregunta, los suyos. Cada uno con un emoji, para recorrer el board de un vistazo.",
+    "emoji": "Emoji",
+    "name": "Nombre",
+    "namePlaceholder": "p. ej. Reporte de obra",
+    "add": "Agregar categoría",
+    "added": "Categoría agregada.",
+    "deleted": "Categoría eliminada.",
+    "duplicate": "Ya hay una categoría con ese nombre.",
+    "empty": "No hay categorías. Igual se puede publicar sin una.",
+    "posts": "{count, plural, =0 {Sin mensajes} one {# mensaje} other {# mensajes}}",
+    "deleteTitle": "¿Eliminar {name}?",
+    "deleteBody": "{count, plural, =0 {Ningún mensaje la usa.} one {El mensaje que la usa se queda, sin categoría.} other {Los # mensajes que la usan se quedan, sin categoría.}}",
+    "delete": "Eliminar"
   }
 }

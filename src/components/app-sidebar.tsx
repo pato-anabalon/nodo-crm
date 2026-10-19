@@ -5,7 +5,9 @@ import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import {
+  Briefcase,
   Building2,
+  CalendarRange,
   ChartLine,
   Contact,
   CircleCheck,
@@ -31,6 +33,8 @@ const ICONS = {
   gauge: Gauge,
   users: Users,
   "file-text": FileText,
+  briefcase: Briefcase,
+  "calendar-range": CalendarRange,
   contact: Contact,
   building: Building2,
   check: CircleCheck,

@@ -8,6 +8,8 @@ import { canChangeLead, canTransition, isQuoteEditable, sectionStatuses } from "
 import { nextLeadStatus, type LeadEvent } from "@/modules/leads/constants";
 import type { QuoteFilters, QuoteFormValues } from "./schemas";
 import { companyDocumentSelect, quoteDocumentInclude } from "@/modules/portal/service";
+import { primaryRecipientFrom } from "./recipients";
+import { recipientSelect, replacePrimaryRecipient } from "./recipients-service";
 
 export const QUOTES_PAGE_SIZE = 20;
 
@@ -150,7 +152,16 @@ export async function getQuote(ctx: CompanyContext, id: string) {
       // here, or they'd show twice — once at the top of the quote, once
       // inside the section they actually belong to.
       attachments: { where: { sectionId: null }, orderBy: { position: "asc" } },
-      lead: { select: { id: true, title: true, contactName: true, contactEmail: true, companyName: true } },
+      lead: {
+        select: {
+          id: true,
+          title: true,
+          contactId: true,
+          contactName: true,
+          contactEmail: true,
+          companyName: true,
+        },
+      },
       createdBy: { select: { name: true, email: true, jobTitle: true, phone: true } },
       termsDocument: { select: { name: true, url: true } },
       acceptance: true,
@@ -158,6 +169,7 @@ export async function getQuote(ctx: CompanyContext, id: string) {
         select: { lastSeenAt: true, viewing: true, openCount: true, revokedAt: true, expiresAt: true },
       },
       events: { orderBy: { createdAt: "desc" }, take: 20 },
+      recipients: { select: recipientSelect, orderBy: [{ isPrimary: "desc" }, { position: "asc" }] },
       emailsSent: { orderBy: { sentAt: "desc" } },
       messages: {
         orderBy: { createdAt: "asc" },
@@ -311,6 +323,7 @@ export async function duplicateQuote(
 }
 
 const clientSnapshotSelect = {
+  contactId: true,
   contactName: true,
   contactEmail: true,
   contactPhone: true,
@@ -318,6 +331,7 @@ const clientSnapshotSelect = {
 } as const;
 
 type ClientSnapshotSource = {
+  contactId?: string | null;
   contactName: string | null;
   contactEmail: string | null;
   contactPhone: string | null;
@@ -383,6 +397,14 @@ export async function createQuote(ctx: CompanyContext, values: QuoteFormValues) 
             pricingMode: values.pricingMode,
 
             ...clientSnapshot(lead),
+            // The lead's person is who it goes to; copies are added on the
+            // quote afterwards. The same snapshot as the fields above.
+            recipients: (() => {
+              const primary = primaryRecipientFrom(lead);
+              return primary
+                ? { create: { companyId: ctx.company.id, ...primary, isPrimary: true, position: 0 } }
+                : undefined;
+            })(),
 
             intro: cleanBody(values.intro ?? ctx.company.quoteIntro),
             exclusions: cleanBody(values.exclusions ?? ctx.company.quoteExclusions),
@@ -595,6 +617,10 @@ export async function updateQuote(ctx: CompanyContext, id: string, values: Quote
       }
     } else {
       await tx.quoteSection.deleteMany({ where: { quoteId: id } });
+    }
+
+    if (leadChanged) {
+      await replacePrimaryRecipient(tx, ctx.company.id, id, relinkedLead);
     }
 
     return updated;

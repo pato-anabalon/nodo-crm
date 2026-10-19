@@ -29,6 +29,20 @@ export const DIRECT_TENANT_MODELS = new Set([
   "IngestAttempt",
   "IngestKey",
   "Invitation",
+  "Job",
+  "JobActivity",
+  "JobFile",
+  "JobFolder",
+  "JobPostCategory",
+  "JobPost",
+  "JobComment",
+  "JobTodoList",
+  "JobTodo",
+  "JobTodoAssignee",
+  "JobEvent",
+  "JobEventParticipant",
+  "JobChatMessage",
+  "JobMember",
   "Lead",
   "LeadAttachment",
   "LeadSubmission",
@@ -40,9 +54,12 @@ export const DIRECT_TENANT_MODELS = new Set([
   "QuoteAcceptance",
   "QuoteEvent",
   "QuoteMessage",
+  "QuoteRecipient",
+  "SignatureHandoff",
   "QuoteShare",
   "Role",
   "Task",
+  "Trade",
 ]);
 
 /** Models that inherit the company through a relation. */
@@ -54,6 +71,7 @@ export const RELATION_TENANT_MODELS: Record<string, string> = {
   QuoteTemplateSection: "template",
   QuoteShareToken: "share",
   RolePermission: "role",
+  MembershipTrade: "membership",
 };
 
 /**

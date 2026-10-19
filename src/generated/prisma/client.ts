@@ -54,7 +54,6 @@ export type Company = Prisma.CompanyModel
  *  * every company drew up this list differently, same reason `CatalogueItem`
  *  * and `ReviewLink` aren't enums either — added one at a time, each checked on
  *  * the way in (`@@unique([companyId, label])`).
- *  *
  *  * A quote never points back here by id. It freezes the label text itself at
  *  * creation, the same way it freezes `currency`/`taxType` — so deleting a type
  *  * later can't change what a quote already issued is shown as, and there is no
@@ -75,7 +74,6 @@ export type Membership = Prisma.MembershipModel
  * Model LoginAttempt
  * *
  *  * One row per magic-link request, kept only to rate-limit by IP.
- *  *
  *  * The limit is deliberately global — not scoped per company the way the
  *  * ingest API's is — because what it protects is Resend's own account-wide
  *  * daily send cap, shared across every company on this instance. An attacker
@@ -188,7 +186,6 @@ export type LeadSubmission = Prisma.LeadSubmissionModel
  * Model LeadAttachment
  * *
  *  * A file that came in with a website form.
- *  *
  *  * The form sends links to files it already hosts; the lead is created straight
  *  * away with the rows `PENDING`, and a background step copies each file into our
  *  * own store. A copy that fails stays `FAILED` with its `sourceUrl`, so the team
@@ -275,6 +272,32 @@ export type QuoteShare = Prisma.QuoteShareModel
  */
 export type QuoteShareToken = Prisma.QuoteShareTokenModel
 /**
+ * Model QuoteRecipient
+ * *
+ *  * Somebody a quote is sent to. One is the primary — the "For" on the
+ *  * document, mirrored into `Quote.clientName/clientEmail/clientPhone` so every
+ *  * reader of those keeps working — and any others are copies.
+ *  *
+ *  * Name and address are frozen, the same as the quote's own client fields: the
+ *  * contact can change afterwards, and this is who was written to. Each one gets
+ *  * their own email and their own link, so the portal knows which of them is
+ *  * reading. One primary per quote is enforced by a partial unique index written
+ *  * by hand in the migration (Prisma has no way to say it here).
+ */
+export type QuoteRecipient = Prisma.QuoteRecipientModel
+/**
+ * Model SignatureHandoff
+ * *
+ *  * Signing on a phone for a quote open on a computer.
+ *  *
+ *  * The portal shows a QR; the phone opens `/sign/<token>` and sends its strokes
+ *  * each time a finger lifts, replacing what it sent before; the portal polls
+ *  * for a newer `version` and redraws. One way only. The token is its own, not
+ *  * the quote's link: whoever scans it can draw and nothing else — accepting
+ *  * still happens on the screen holding the real link. Only the hash is stored.
+ */
+export type SignatureHandoff = Prisma.SignatureHandoffModel
+/**
  * Model QuoteEvent
  * *
  *  * A log of what the customer does with their quote.
@@ -307,7 +330,6 @@ export type QuoteSection = Prisma.QuoteSectionModel
  * Model QuoteAttachment
  * *
  *  * Files that travel with the quote: drawings, spec sheets, markups.
- *  *
  *  * `sectionId` is optional — null for a file attached to the quote as a whole,
  *  * set for one attached to a single section. Both share this table rather than
  *  * two, because they're the same thing with a narrower scope: same upload
@@ -343,7 +365,6 @@ export type QuoteAttachment = Prisma.QuoteAttachmentModel
  *  * comma-separated box is invisible until somebody notices nobody reviews them.
  * *
  *  * One platform the company is reviewed on, and its two addresses there.
- *  *
  *  * Reading the reviews and leaving one are different pages more often than not
  *  * — Google's write link opens the form, its listing shows what others said;
  *  * NoCowboys anchors the same page at `#rate` or `#ratings` — so each is its own
@@ -389,3 +410,133 @@ export type NotificationPreference = Prisma.NotificationPreferenceModel
  * 
  */
 export type QuoteItem = Prisma.QuoteItemModel
+/**
+ * Model Job
+ * *
+ *  * A piece of work being carried out: usually an accepted quote, sometimes
+ *  * something standing on its own (an office "HQ", paperwork for the IRD).
+ *  * Who may act on a job is two questions with two answers. *Where* is
+ *  * membership (`JobMember`) or `jobs.read.all`; *what* is the profile's
+ *  * permissions, per tool and per verb. Being a member grants nothing by itself.
+ */
+export type Job = Prisma.JobModel
+/**
+ * Model JobMember
+ * *
+ *  * Somebody working on a job. `companyId` is carried directly rather than
+ *  * inherited through the job, because "which jobs am I on" is asked on every
+ *  * page a worker opens.
+ */
+export type JobMember = Prisma.JobMemberModel
+/**
+ * Model JobActivity
+ * *
+ *  * The job's timeline. Stores a type and its parameters, never a sentence —
+ *  * the same reason `Notification` does: each reader sees it in their own
+ *  * language, and that can change after it was written.
+ */
+export type JobActivity = Prisma.JobActivityModel
+/**
+ * Model JobFolder
+ * *
+ *  * A folder in a job's Docs & Files. Nested through `parentId`; deleting one
+ *  * takes what is inside it with it, which the screen says before it happens.
+ */
+export type JobFolder = Prisma.JobFolderModel
+/**
+ * Model JobFile
+ * *
+ *  * A file on a job: a photo from site, a plan, a video. Uploaded by the browser
+ *  * straight to Blob — a Vercel function's body stops at 4.5 MB — and registered
+ *  * here afterwards, once the server has checked it landed under this job's
+ *  * prefix.
+ *  * One table for every place a file can hang off (a folder now; a post, a
+ *  * comment, a to-do, a chat message as those arrive), the same way
+ *  * `QuoteAttachment` carries an optional `sectionId` rather than a second table.
+ */
+export type JobFile = Prisma.JobFileModel
+/**
+ * Model JobPostCategory
+ * *
+ *  * The Message Board's kinds of post, per company. The standard five are
+ *  * stored by `key` with no name and translated on the way out, the same as a
+ *  * standard profile; a company's own carry their `name`.
+ */
+export type JobPostCategory = Prisma.JobPostCategoryModel
+/**
+ * Model JobPost
+ * *
+ *  * A Message Board post. `publishedAt` null is a draft, which only its author
+ *  * sees; publishing is what writes the timeline line and raises the notices.
+ */
+export type JobPost = Prisma.JobPostModel
+/**
+ * Model JobComment
+ * *
+ *  * A comment on something inside a job. One nullable key per thing that can be
+ *  * commented on — a post, a to-do, a to-do list, an event — and a check in the
+ *  * migration that exactly one is set.
+ */
+export type JobComment = Prisma.JobCommentModel
+/**
+ * Model JobEvent
+ * *
+ *  * Something on a job's Schedule: a delivery, an inspection, the days the
+ *  * scaffold is up.
+ *  * `startsOn`/`endsOn` are the days it covers, in the company's timezone, and
+ *  * they are what every calendar places it by — a day is a day wherever the
+ *  * server runs. A timed event also keeps its two instants; an all-day one has
+ *  * none. A milestone is also drawn on the Lineup, over its job's bar.
+ */
+export type JobEvent = Prisma.JobEventModel
+/**
+ * Model JobEventParticipant
+ * *
+ *  * Somebody taking part in an event.
+ */
+export type JobEventParticipant = Prisma.JobEventParticipantModel
+/**
+ * Model JobTodoList
+ * *
+ *  * A to-do list on a job. Ordered by hand (`position`), the way Basecamp's
+ *  * are: the order is the plan, not the date it was written down.
+ */
+export type JobTodoList = Prisma.JobTodoListModel
+/**
+ * Model JobTodo
+ * *
+ *  * One thing to do. `completedAt` null is open; ticking it off records who and
+ *  * when, and ticking it back on clears both — the timeline keeps the history.
+ *  * `jobId` is carried as well as `listId` so every guard can read the job off
+ *  * the row itself.
+ */
+export type JobTodo = Prisma.JobTodoModel
+/**
+ * Model JobTodoAssignee
+ * *
+ *  * Somebody a to-do is assigned to. Several per to-do, as in Basecamp.
+ */
+export type JobTodoAssignee = Prisma.JobTodoAssigneeModel
+/**
+ * Model Trade
+ * *
+ *  * A trade a company works in — Plaster, Painting, Marketing. A list per
+ *  * company, since every company names its own.
+ */
+export type Trade = Prisma.TradeModel
+/**
+ * Model MembershipTrade
+ * *
+ *  * A person's trades **at this company**: on the membership rather than the
+ *  * user, because the same person can be a plasterer at one company and do the
+ *  * marketing at another.
+ */
+export type MembershipTrade = Prisma.MembershipTradeModel
+/**
+ * Model JobChatMessage
+ * *
+ *  * The job's Chat: quick talk, unlike the Message Board's titled posts. Plain
+ *  * text — line breaks and links, nothing else — because it is typed in a hurry
+ *  * on a phone.
+ */
+export type JobChatMessage = Prisma.JobChatMessageModel

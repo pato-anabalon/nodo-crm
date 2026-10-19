@@ -16,7 +16,6 @@ import type * as Prisma from "../internal/prismaNamespace"
  * Model LeadAttachment
  * *
  *  * A file that came in with a website form.
- *  *
  *  * The form sends links to files it already hosts; the lead is created straight
  *  * away with the rows `PENDING`, and a background step copies each file into our
  *  * own store. A copy that fails stays `FAILED` with its `sourceUrl`, so the team

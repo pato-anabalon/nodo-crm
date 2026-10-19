@@ -40,6 +40,7 @@ export type QuoteShareTokenMinAggregateOutputType = {
   shareId: string | null
   hashedToken: string | null
   createdAt: Date | null
+  recipientId: string | null
   revokedAt: Date | null
 }
 
@@ -48,6 +49,7 @@ export type QuoteShareTokenMaxAggregateOutputType = {
   shareId: string | null
   hashedToken: string | null
   createdAt: Date | null
+  recipientId: string | null
   revokedAt: Date | null
 }
 
@@ -56,6 +58,7 @@ export type QuoteShareTokenCountAggregateOutputType = {
   shareId: number
   hashedToken: number
   createdAt: number
+  recipientId: number
   revokedAt: number
   _all: number
 }
@@ -66,6 +69,7 @@ export type QuoteShareTokenMinAggregateInputType = {
   shareId?: true
   hashedToken?: true
   createdAt?: true
+  recipientId?: true
   revokedAt?: true
 }
 
@@ -74,6 +78,7 @@ export type QuoteShareTokenMaxAggregateInputType = {
   shareId?: true
   hashedToken?: true
   createdAt?: true
+  recipientId?: true
   revokedAt?: true
 }
 
@@ -82,6 +87,7 @@ export type QuoteShareTokenCountAggregateInputType = {
   shareId?: true
   hashedToken?: true
   createdAt?: true
+  recipientId?: true
   revokedAt?: true
   _all?: true
 }
@@ -163,6 +169,7 @@ export type QuoteShareTokenGroupByOutputType = {
   shareId: string
   hashedToken: string
   createdAt: Date
+  recipientId: string | null
   revokedAt: Date | null
   _count: QuoteShareTokenCountAggregateOutputType | null
   _min: QuoteShareTokenMinAggregateOutputType | null
@@ -192,8 +199,10 @@ export type QuoteShareTokenWhereInput = {
   shareId?: Prisma.StringFilter<"QuoteShareToken"> | string
   hashedToken?: Prisma.StringFilter<"QuoteShareToken"> | string
   createdAt?: Prisma.DateTimeFilter<"QuoteShareToken"> | Date | string
+  recipientId?: Prisma.StringNullableFilter<"QuoteShareToken"> | string | null
   revokedAt?: Prisma.DateTimeNullableFilter<"QuoteShareToken"> | Date | string | null
   share?: Prisma.XOR<Prisma.QuoteShareScalarRelationFilter, Prisma.QuoteShareWhereInput>
+  recipient?: Prisma.XOR<Prisma.QuoteRecipientNullableScalarRelationFilter, Prisma.QuoteRecipientWhereInput> | null
 }
 
 export type QuoteShareTokenOrderByWithRelationInput = {
@@ -201,8 +210,10 @@ export type QuoteShareTokenOrderByWithRelationInput = {
   shareId?: Prisma.SortOrder
   hashedToken?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  recipientId?: Prisma.SortOrderInput | Prisma.SortOrder
   revokedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   share?: Prisma.QuoteShareOrderByWithRelationInput
+  recipient?: Prisma.QuoteRecipientOrderByWithRelationInput
 }
 
 export type QuoteShareTokenWhereUniqueInput = Prisma.AtLeast<{
@@ -213,8 +224,10 @@ export type QuoteShareTokenWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.QuoteShareTokenWhereInput | Prisma.QuoteShareTokenWhereInput[]
   shareId?: Prisma.StringFilter<"QuoteShareToken"> | string
   createdAt?: Prisma.DateTimeFilter<"QuoteShareToken"> | Date | string
+  recipientId?: Prisma.StringNullableFilter<"QuoteShareToken"> | string | null
   revokedAt?: Prisma.DateTimeNullableFilter<"QuoteShareToken"> | Date | string | null
   share?: Prisma.XOR<Prisma.QuoteShareScalarRelationFilter, Prisma.QuoteShareWhereInput>
+  recipient?: Prisma.XOR<Prisma.QuoteRecipientNullableScalarRelationFilter, Prisma.QuoteRecipientWhereInput> | null
 }, "id" | "hashedToken">
 
 export type QuoteShareTokenOrderByWithAggregationInput = {
@@ -222,6 +235,7 @@ export type QuoteShareTokenOrderByWithAggregationInput = {
   shareId?: Prisma.SortOrder
   hashedToken?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  recipientId?: Prisma.SortOrderInput | Prisma.SortOrder
   revokedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.QuoteShareTokenCountOrderByAggregateInput
   _max?: Prisma.QuoteShareTokenMaxOrderByAggregateInput
@@ -236,6 +250,7 @@ export type QuoteShareTokenScalarWhereWithAggregatesInput = {
   shareId?: Prisma.StringWithAggregatesFilter<"QuoteShareToken"> | string
   hashedToken?: Prisma.StringWithAggregatesFilter<"QuoteShareToken"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"QuoteShareToken"> | Date | string
+  recipientId?: Prisma.StringNullableWithAggregatesFilter<"QuoteShareToken"> | string | null
   revokedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"QuoteShareToken"> | Date | string | null
 }
 
@@ -245,6 +260,7 @@ export type QuoteShareTokenCreateInput = {
   createdAt?: Date | string
   revokedAt?: Date | string | null
   share: Prisma.QuoteShareCreateNestedOneWithoutTokensInput
+  recipient?: Prisma.QuoteRecipientCreateNestedOneWithoutTokensInput
 }
 
 export type QuoteShareTokenUncheckedCreateInput = {
@@ -252,6 +268,7 @@ export type QuoteShareTokenUncheckedCreateInput = {
   shareId: string
   hashedToken: string
   createdAt?: Date | string
+  recipientId?: string | null
   revokedAt?: Date | string | null
 }
 
@@ -261,6 +278,7 @@ export type QuoteShareTokenUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   share?: Prisma.QuoteShareUpdateOneRequiredWithoutTokensNestedInput
+  recipient?: Prisma.QuoteRecipientUpdateOneWithoutTokensNestedInput
 }
 
 export type QuoteShareTokenUncheckedUpdateInput = {
@@ -268,6 +286,7 @@ export type QuoteShareTokenUncheckedUpdateInput = {
   shareId?: Prisma.StringFieldUpdateOperationsInput | string
   hashedToken?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  recipientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -276,6 +295,7 @@ export type QuoteShareTokenCreateManyInput = {
   shareId: string
   hashedToken: string
   createdAt?: Date | string
+  recipientId?: string | null
   revokedAt?: Date | string | null
 }
 
@@ -291,6 +311,7 @@ export type QuoteShareTokenUncheckedUpdateManyInput = {
   shareId?: Prisma.StringFieldUpdateOperationsInput | string
   hashedToken?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  recipientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -309,6 +330,7 @@ export type QuoteShareTokenCountOrderByAggregateInput = {
   shareId?: Prisma.SortOrder
   hashedToken?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  recipientId?: Prisma.SortOrder
   revokedAt?: Prisma.SortOrder
 }
 
@@ -317,6 +339,7 @@ export type QuoteShareTokenMaxOrderByAggregateInput = {
   shareId?: Prisma.SortOrder
   hashedToken?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  recipientId?: Prisma.SortOrder
   revokedAt?: Prisma.SortOrder
 }
 
@@ -325,6 +348,7 @@ export type QuoteShareTokenMinOrderByAggregateInput = {
   shareId?: Prisma.SortOrder
   hashedToken?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  recipientId?: Prisma.SortOrder
   revokedAt?: Prisma.SortOrder
 }
 
@@ -370,17 +394,61 @@ export type QuoteShareTokenUncheckedUpdateManyWithoutShareNestedInput = {
   deleteMany?: Prisma.QuoteShareTokenScalarWhereInput | Prisma.QuoteShareTokenScalarWhereInput[]
 }
 
+export type QuoteShareTokenCreateNestedManyWithoutRecipientInput = {
+  create?: Prisma.XOR<Prisma.QuoteShareTokenCreateWithoutRecipientInput, Prisma.QuoteShareTokenUncheckedCreateWithoutRecipientInput> | Prisma.QuoteShareTokenCreateWithoutRecipientInput[] | Prisma.QuoteShareTokenUncheckedCreateWithoutRecipientInput[]
+  connectOrCreate?: Prisma.QuoteShareTokenCreateOrConnectWithoutRecipientInput | Prisma.QuoteShareTokenCreateOrConnectWithoutRecipientInput[]
+  createMany?: Prisma.QuoteShareTokenCreateManyRecipientInputEnvelope
+  connect?: Prisma.QuoteShareTokenWhereUniqueInput | Prisma.QuoteShareTokenWhereUniqueInput[]
+}
+
+export type QuoteShareTokenUncheckedCreateNestedManyWithoutRecipientInput = {
+  create?: Prisma.XOR<Prisma.QuoteShareTokenCreateWithoutRecipientInput, Prisma.QuoteShareTokenUncheckedCreateWithoutRecipientInput> | Prisma.QuoteShareTokenCreateWithoutRecipientInput[] | Prisma.QuoteShareTokenUncheckedCreateWithoutRecipientInput[]
+  connectOrCreate?: Prisma.QuoteShareTokenCreateOrConnectWithoutRecipientInput | Prisma.QuoteShareTokenCreateOrConnectWithoutRecipientInput[]
+  createMany?: Prisma.QuoteShareTokenCreateManyRecipientInputEnvelope
+  connect?: Prisma.QuoteShareTokenWhereUniqueInput | Prisma.QuoteShareTokenWhereUniqueInput[]
+}
+
+export type QuoteShareTokenUpdateManyWithoutRecipientNestedInput = {
+  create?: Prisma.XOR<Prisma.QuoteShareTokenCreateWithoutRecipientInput, Prisma.QuoteShareTokenUncheckedCreateWithoutRecipientInput> | Prisma.QuoteShareTokenCreateWithoutRecipientInput[] | Prisma.QuoteShareTokenUncheckedCreateWithoutRecipientInput[]
+  connectOrCreate?: Prisma.QuoteShareTokenCreateOrConnectWithoutRecipientInput | Prisma.QuoteShareTokenCreateOrConnectWithoutRecipientInput[]
+  upsert?: Prisma.QuoteShareTokenUpsertWithWhereUniqueWithoutRecipientInput | Prisma.QuoteShareTokenUpsertWithWhereUniqueWithoutRecipientInput[]
+  createMany?: Prisma.QuoteShareTokenCreateManyRecipientInputEnvelope
+  set?: Prisma.QuoteShareTokenWhereUniqueInput | Prisma.QuoteShareTokenWhereUniqueInput[]
+  disconnect?: Prisma.QuoteShareTokenWhereUniqueInput | Prisma.QuoteShareTokenWhereUniqueInput[]
+  delete?: Prisma.QuoteShareTokenWhereUniqueInput | Prisma.QuoteShareTokenWhereUniqueInput[]
+  connect?: Prisma.QuoteShareTokenWhereUniqueInput | Prisma.QuoteShareTokenWhereUniqueInput[]
+  update?: Prisma.QuoteShareTokenUpdateWithWhereUniqueWithoutRecipientInput | Prisma.QuoteShareTokenUpdateWithWhereUniqueWithoutRecipientInput[]
+  updateMany?: Prisma.QuoteShareTokenUpdateManyWithWhereWithoutRecipientInput | Prisma.QuoteShareTokenUpdateManyWithWhereWithoutRecipientInput[]
+  deleteMany?: Prisma.QuoteShareTokenScalarWhereInput | Prisma.QuoteShareTokenScalarWhereInput[]
+}
+
+export type QuoteShareTokenUncheckedUpdateManyWithoutRecipientNestedInput = {
+  create?: Prisma.XOR<Prisma.QuoteShareTokenCreateWithoutRecipientInput, Prisma.QuoteShareTokenUncheckedCreateWithoutRecipientInput> | Prisma.QuoteShareTokenCreateWithoutRecipientInput[] | Prisma.QuoteShareTokenUncheckedCreateWithoutRecipientInput[]
+  connectOrCreate?: Prisma.QuoteShareTokenCreateOrConnectWithoutRecipientInput | Prisma.QuoteShareTokenCreateOrConnectWithoutRecipientInput[]
+  upsert?: Prisma.QuoteShareTokenUpsertWithWhereUniqueWithoutRecipientInput | Prisma.QuoteShareTokenUpsertWithWhereUniqueWithoutRecipientInput[]
+  createMany?: Prisma.QuoteShareTokenCreateManyRecipientInputEnvelope
+  set?: Prisma.QuoteShareTokenWhereUniqueInput | Prisma.QuoteShareTokenWhereUniqueInput[]
+  disconnect?: Prisma.QuoteShareTokenWhereUniqueInput | Prisma.QuoteShareTokenWhereUniqueInput[]
+  delete?: Prisma.QuoteShareTokenWhereUniqueInput | Prisma.QuoteShareTokenWhereUniqueInput[]
+  connect?: Prisma.QuoteShareTokenWhereUniqueInput | Prisma.QuoteShareTokenWhereUniqueInput[]
+  update?: Prisma.QuoteShareTokenUpdateWithWhereUniqueWithoutRecipientInput | Prisma.QuoteShareTokenUpdateWithWhereUniqueWithoutRecipientInput[]
+  updateMany?: Prisma.QuoteShareTokenUpdateManyWithWhereWithoutRecipientInput | Prisma.QuoteShareTokenUpdateManyWithWhereWithoutRecipientInput[]
+  deleteMany?: Prisma.QuoteShareTokenScalarWhereInput | Prisma.QuoteShareTokenScalarWhereInput[]
+}
+
 export type QuoteShareTokenCreateWithoutShareInput = {
   id?: string
   hashedToken: string
   createdAt?: Date | string
   revokedAt?: Date | string | null
+  recipient?: Prisma.QuoteRecipientCreateNestedOneWithoutTokensInput
 }
 
 export type QuoteShareTokenUncheckedCreateWithoutShareInput = {
   id?: string
   hashedToken: string
   createdAt?: Date | string
+  recipientId?: string | null
   revokedAt?: Date | string | null
 }
 
@@ -418,13 +486,57 @@ export type QuoteShareTokenScalarWhereInput = {
   shareId?: Prisma.StringFilter<"QuoteShareToken"> | string
   hashedToken?: Prisma.StringFilter<"QuoteShareToken"> | string
   createdAt?: Prisma.DateTimeFilter<"QuoteShareToken"> | Date | string
+  recipientId?: Prisma.StringNullableFilter<"QuoteShareToken"> | string | null
   revokedAt?: Prisma.DateTimeNullableFilter<"QuoteShareToken"> | Date | string | null
+}
+
+export type QuoteShareTokenCreateWithoutRecipientInput = {
+  id?: string
+  hashedToken: string
+  createdAt?: Date | string
+  revokedAt?: Date | string | null
+  share: Prisma.QuoteShareCreateNestedOneWithoutTokensInput
+}
+
+export type QuoteShareTokenUncheckedCreateWithoutRecipientInput = {
+  id?: string
+  shareId: string
+  hashedToken: string
+  createdAt?: Date | string
+  revokedAt?: Date | string | null
+}
+
+export type QuoteShareTokenCreateOrConnectWithoutRecipientInput = {
+  where: Prisma.QuoteShareTokenWhereUniqueInput
+  create: Prisma.XOR<Prisma.QuoteShareTokenCreateWithoutRecipientInput, Prisma.QuoteShareTokenUncheckedCreateWithoutRecipientInput>
+}
+
+export type QuoteShareTokenCreateManyRecipientInputEnvelope = {
+  data: Prisma.QuoteShareTokenCreateManyRecipientInput | Prisma.QuoteShareTokenCreateManyRecipientInput[]
+  skipDuplicates?: boolean
+}
+
+export type QuoteShareTokenUpsertWithWhereUniqueWithoutRecipientInput = {
+  where: Prisma.QuoteShareTokenWhereUniqueInput
+  update: Prisma.XOR<Prisma.QuoteShareTokenUpdateWithoutRecipientInput, Prisma.QuoteShareTokenUncheckedUpdateWithoutRecipientInput>
+  create: Prisma.XOR<Prisma.QuoteShareTokenCreateWithoutRecipientInput, Prisma.QuoteShareTokenUncheckedCreateWithoutRecipientInput>
+}
+
+export type QuoteShareTokenUpdateWithWhereUniqueWithoutRecipientInput = {
+  where: Prisma.QuoteShareTokenWhereUniqueInput
+  data: Prisma.XOR<Prisma.QuoteShareTokenUpdateWithoutRecipientInput, Prisma.QuoteShareTokenUncheckedUpdateWithoutRecipientInput>
+}
+
+export type QuoteShareTokenUpdateManyWithWhereWithoutRecipientInput = {
+  where: Prisma.QuoteShareTokenScalarWhereInput
+  data: Prisma.XOR<Prisma.QuoteShareTokenUpdateManyMutationInput, Prisma.QuoteShareTokenUncheckedUpdateManyWithoutRecipientInput>
 }
 
 export type QuoteShareTokenCreateManyShareInput = {
   id?: string
   hashedToken: string
   createdAt?: Date | string
+  recipientId?: string | null
   revokedAt?: Date | string | null
 }
 
@@ -433,17 +545,52 @@ export type QuoteShareTokenUpdateWithoutShareInput = {
   hashedToken?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  recipient?: Prisma.QuoteRecipientUpdateOneWithoutTokensNestedInput
 }
 
 export type QuoteShareTokenUncheckedUpdateWithoutShareInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   hashedToken?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  recipientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type QuoteShareTokenUncheckedUpdateManyWithoutShareInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedToken?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  recipientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type QuoteShareTokenCreateManyRecipientInput = {
+  id?: string
+  shareId: string
+  hashedToken: string
+  createdAt?: Date | string
+  revokedAt?: Date | string | null
+}
+
+export type QuoteShareTokenUpdateWithoutRecipientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedToken?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  share?: Prisma.QuoteShareUpdateOneRequiredWithoutTokensNestedInput
+}
+
+export type QuoteShareTokenUncheckedUpdateWithoutRecipientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  shareId?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedToken?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type QuoteShareTokenUncheckedUpdateManyWithoutRecipientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  shareId?: Prisma.StringFieldUpdateOperationsInput | string
   hashedToken?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -456,8 +603,10 @@ export type QuoteShareTokenSelect<ExtArgs extends runtime.Types.Extensions.Inter
   shareId?: boolean
   hashedToken?: boolean
   createdAt?: boolean
+  recipientId?: boolean
   revokedAt?: boolean
   share?: boolean | Prisma.QuoteShareDefaultArgs<ExtArgs>
+  recipient?: boolean | Prisma.QuoteShareToken$recipientArgs<ExtArgs>
 }, ExtArgs["result"]["quoteShareToken"]>
 
 export type QuoteShareTokenSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -465,8 +614,10 @@ export type QuoteShareTokenSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   shareId?: boolean
   hashedToken?: boolean
   createdAt?: boolean
+  recipientId?: boolean
   revokedAt?: boolean
   share?: boolean | Prisma.QuoteShareDefaultArgs<ExtArgs>
+  recipient?: boolean | Prisma.QuoteShareToken$recipientArgs<ExtArgs>
 }, ExtArgs["result"]["quoteShareToken"]>
 
 export type QuoteShareTokenSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -474,8 +625,10 @@ export type QuoteShareTokenSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   shareId?: boolean
   hashedToken?: boolean
   createdAt?: boolean
+  recipientId?: boolean
   revokedAt?: boolean
   share?: boolean | Prisma.QuoteShareDefaultArgs<ExtArgs>
+  recipient?: boolean | Prisma.QuoteShareToken$recipientArgs<ExtArgs>
 }, ExtArgs["result"]["quoteShareToken"]>
 
 export type QuoteShareTokenSelectScalar = {
@@ -483,30 +636,43 @@ export type QuoteShareTokenSelectScalar = {
   shareId?: boolean
   hashedToken?: boolean
   createdAt?: boolean
+  recipientId?: boolean
   revokedAt?: boolean
 }
 
-export type QuoteShareTokenOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shareId" | "hashedToken" | "createdAt" | "revokedAt", ExtArgs["result"]["quoteShareToken"]>
+export type QuoteShareTokenOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shareId" | "hashedToken" | "createdAt" | "recipientId" | "revokedAt", ExtArgs["result"]["quoteShareToken"]>
 export type QuoteShareTokenInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   share?: boolean | Prisma.QuoteShareDefaultArgs<ExtArgs>
+  recipient?: boolean | Prisma.QuoteShareToken$recipientArgs<ExtArgs>
 }
 export type QuoteShareTokenIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   share?: boolean | Prisma.QuoteShareDefaultArgs<ExtArgs>
+  recipient?: boolean | Prisma.QuoteShareToken$recipientArgs<ExtArgs>
 }
 export type QuoteShareTokenIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   share?: boolean | Prisma.QuoteShareDefaultArgs<ExtArgs>
+  recipient?: boolean | Prisma.QuoteShareToken$recipientArgs<ExtArgs>
 }
 
 export type $QuoteShareTokenPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "QuoteShareToken"
   objects: {
     share: Prisma.$QuoteSharePayload<ExtArgs>
+    recipient: Prisma.$QuoteRecipientPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     shareId: string
     hashedToken: string
     createdAt: Date
+    /**
+     * *
+     *    * Who this link was sent to. The token is the customer's identity in the
+     *    * portal, so it is what says whose name goes on an acceptance and who the
+     *    * log says opened it. Null on links issued before a quote could have more
+     *    * than one recipient; those resolve to the primary.
+     */
+    recipientId: string | null
     /**
      * *
      *    * Set when the company closes the link, and never cleared.
@@ -912,6 +1078,7 @@ readonly fields: QuoteShareTokenFieldRefs;
 export interface Prisma__QuoteShareTokenClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   share<T extends Prisma.QuoteShareDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuoteShareDefaultArgs<ExtArgs>>): Prisma.Prisma__QuoteShareClient<runtime.Types.Result.GetResult<Prisma.$QuoteSharePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  recipient<T extends Prisma.QuoteShareToken$recipientArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuoteShareToken$recipientArgs<ExtArgs>>): Prisma.Prisma__QuoteRecipientClient<runtime.Types.Result.GetResult<Prisma.$QuoteRecipientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -945,6 +1112,7 @@ export interface QuoteShareTokenFieldRefs {
   readonly shareId: Prisma.FieldRef<"QuoteShareToken", 'String'>
   readonly hashedToken: Prisma.FieldRef<"QuoteShareToken", 'String'>
   readonly createdAt: Prisma.FieldRef<"QuoteShareToken", 'DateTime'>
+  readonly recipientId: Prisma.FieldRef<"QuoteShareToken", 'String'>
   readonly revokedAt: Prisma.FieldRef<"QuoteShareToken", 'DateTime'>
 }
     
@@ -1344,6 +1512,25 @@ export type QuoteShareTokenDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many QuoteShareTokens to delete.
    */
   limit?: number
+}
+
+/**
+ * QuoteShareToken.recipient
+ */
+export type QuoteShareToken$recipientArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QuoteRecipient
+   */
+  select?: Prisma.QuoteRecipientSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the QuoteRecipient
+   */
+  omit?: Prisma.QuoteRecipientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuoteRecipientInclude<ExtArgs> | null
+  where?: Prisma.QuoteRecipientWhereInput
 }
 
 /**

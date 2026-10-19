@@ -1,4 +1,4 @@
-import { sanitizeRichText } from "@/lib/rich-text";
+import { sanitizeRichText, type RichTextProfile } from "@/lib/rich-text";
 import { cn } from "@/lib/utils";
 
 /**
@@ -13,8 +13,17 @@ import { cn } from "@/lib/utils";
  * redundant: the stored value may have arrived by another route, and this is the
  * last point before it becomes markup.
  */
-export function RichText({ html, className }: { html: string | null; className?: string }) {
-  const clean = sanitizeRichText(html);
+export function RichText({
+  html,
+  className,
+  profile = "basic",
+}: {
+  html: string | null;
+  className?: string;
+  /** `full` for the Message Board; the quote's stays `basic`. */
+  profile?: RichTextProfile;
+}) {
+  const clean = sanitizeRichText(html, profile);
   if (!clean) return null;
 
   return (

@@ -143,6 +143,14 @@ export const SignatureType = {
 export type SignatureType = (typeof SignatureType)[keyof typeof SignatureType]
 
 
+export const SignatureDevice = {
+  THIS_DEVICE: 'THIS_DEVICE',
+  TOUCH_DEVICE: 'TOUCH_DEVICE'
+} as const
+
+export type SignatureDevice = (typeof SignatureDevice)[keyof typeof SignatureDevice]
+
+
 export const NotificationKind = {
   LEAD_RECEIVED: 'LEAD_RECEIVED',
   LEAD_ASSIGNED: 'LEAD_ASSIGNED',
@@ -152,7 +160,14 @@ export const NotificationKind = {
   TASK_ASSIGNED: 'TASK_ASSIGNED',
   TASK_DUE: 'TASK_DUE',
   QUOTE_EXPIRING: 'QUOTE_EXPIRING',
-  INGEST_FAILING: 'INGEST_FAILING'
+  INGEST_FAILING: 'INGEST_FAILING',
+  JOB_ADDED: 'JOB_ADDED',
+  JOB_POST: 'JOB_POST',
+  JOB_COMMENT: 'JOB_COMMENT',
+  JOB_TODO_ASSIGNED: 'JOB_TODO_ASSIGNED',
+  JOB_TODO_COMPLETED: 'JOB_TODO_COMPLETED',
+  JOB_EVENT: 'JOB_EVENT',
+  JOB_CHAT_MENTION: 'JOB_CHAT_MENTION'
 } as const
 
 export type NotificationKind = (typeof NotificationKind)[keyof typeof NotificationKind]
@@ -179,7 +194,11 @@ export const RoleKey = {
   ADMIN: 'ADMIN',
   MANAGER: 'MANAGER',
   SALES: 'SALES',
-  VIEWER: 'VIEWER'
+  VIEWER: 'VIEWER',
+  PROJECT_LEAD: 'PROJECT_LEAD',
+  TEAM_LEAD: 'TEAM_LEAD',
+  WORKER: 'WORKER',
+  COLLABORATOR: 'COLLABORATOR'
 } as const
 
 export type RoleKey = (typeof RoleKey)[keyof typeof RoleKey]
@@ -243,7 +262,8 @@ export const ActivityType = {
   ASSIGNED: 'ASSIGNED',
   DISCARDED: 'DISCARDED',
   RESTORED: 'RESTORED',
-  CONVERTED: 'CONVERTED'
+  CONVERTED: 'CONVERTED',
+  JOB_STARTED: 'JOB_STARTED'
 } as const
 
 export type ActivityType = (typeof ActivityType)[keyof typeof ActivityType]
@@ -258,3 +278,36 @@ export const QuoteStatus = {
 } as const
 
 export type QuoteStatus = (typeof QuoteStatus)[keyof typeof QuoteStatus]
+
+
+export const JobStatus = {
+  ACTIVE: 'ACTIVE',
+  ON_HOLD: 'ON_HOLD',
+  COMPLETED: 'COMPLETED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type JobStatus = (typeof JobStatus)[keyof typeof JobStatus]
+
+
+export const JobActivityType = {
+  CREATED: 'CREATED',
+  MEMBERS_ADDED: 'MEMBERS_ADDED',
+  MEMBER_REMOVED: 'MEMBER_REMOVED',
+  STATUS_CHANGED: 'STATUS_CHANGED',
+  DATES_CHANGED: 'DATES_CHANGED',
+  FILES_UPLOADED: 'FILES_UPLOADED',
+  FOLDER_CREATED: 'FOLDER_CREATED',
+  POST_PUBLISHED: 'POST_PUBLISHED',
+  COMMENT_ADDED: 'COMMENT_ADDED',
+  TODO_LIST_CREATED: 'TODO_LIST_CREATED',
+  TODO_ADDED: 'TODO_ADDED',
+  TODO_COMPLETED: 'TODO_COMPLETED',
+  TODO_REOPENED: 'TODO_REOPENED',
+  TODO_COMMENTED: 'TODO_COMMENTED',
+  EVENT_CREATED: 'EVENT_CREATED',
+  EVENT_COMMENTED: 'EVENT_COMMENTED',
+  CHAT_MESSAGES: 'CHAT_MESSAGES'
+} as const
+
+export type JobActivityType = (typeof JobActivityType)[keyof typeof JobActivityType]

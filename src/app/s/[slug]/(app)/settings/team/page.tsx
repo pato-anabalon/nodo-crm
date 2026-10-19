@@ -5,6 +5,8 @@ import { RoleKey } from "@/generated/prisma/enums";
 import { listTeam } from "@/modules/team/service";
 import { TeamManager } from "@/modules/team/team-manager";
 import { SettingsHeader } from "@/modules/settings/settings-header";
+import { listTrades } from "@/modules/jobs/service";
+import { setMemberTradesAction } from "@/modules/jobs/actions";
 
 export async function generateMetadata() {
   const t = await getTranslations("team");
@@ -14,7 +16,7 @@ export async function generateMetadata() {
 export default async function TeamPage() {
   const ctx = await requirePermission("users.read");
   const t = await getTranslations("team");
-  const { members, invitations } = await listTeam(ctx);
+  const [{ members, invitations }, trades] = await Promise.all([listTeam(ctx), listTrades(ctx)]);
 
   return (
     <div className="space-y-6">
@@ -38,6 +40,8 @@ export default async function TeamPage() {
         canInvite={can(ctx, "users.invite")}
         canUpdate={can(ctx, "users.update")}
         canRemove={can(ctx, "users.remove")}
+        trades={trades.map((trade) => ({ id: trade.id, name: trade.name }))}
+        onSetTrades={setMemberTradesAction}
       />
     </div>
   );

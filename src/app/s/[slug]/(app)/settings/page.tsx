@@ -4,6 +4,8 @@ import {
   Bell,
   Building2,
   FileText,
+  HardHat,
+  Tags,
   LayoutTemplate,
   Mail,
   Package,
@@ -37,7 +39,7 @@ type Entry = {
 
 export default async function SettingsPage() {
   const ctx = await requirePermission("settings.read");
-  const [t, tDocs, tApi, tReviews, tNotices, tTeam, tProfiles, tCatalogue, tTemplates, tEmails, tAccount] =
+  const [t, tDocs, tApi, tReviews, tNotices, tTeam, tProfiles, tCatalogue, tTemplates, tEmails, tAccount, tTrades, tCategories] =
     await Promise.all([
       getTranslations("settings"),
       getTranslations("documents"),
@@ -50,6 +52,8 @@ export default async function SettingsPage() {
       getTranslations("quoteTemplates"),
       getTranslations("emailTemplates"),
       getTranslations("account"),
+      getTranslations("trades"),
+      getTranslations("postCategories"),
     ]);
 
   const has = await settingsOverview(ctx);
@@ -89,6 +93,22 @@ export default async function SettingsPage() {
           description: tProfiles("subtitle"),
           status: tState("profiles", { count: has.profiles }),
           filled: true,
+        },
+        {
+          href: "/settings/trades",
+          icon: HardHat,
+          title: tTrades("title"),
+          description: tTrades("subtitle"),
+          status: tState("trades", { count: has.trades }),
+          filled: has.trades > 0,
+        },
+        {
+          href: "/settings/post-categories",
+          icon: Tags,
+          title: tCategories("title"),
+          description: tCategories("subtitle"),
+          status: tState("postCategories", { count: has.postCategories }),
+          filled: has.postCategories > 0,
         },
       ],
     },

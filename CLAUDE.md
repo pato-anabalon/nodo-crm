@@ -746,6 +746,228 @@ On the customer's own document, an image gets a small preview; anything else
 already use — one component, `modules/portal/section-attachments.tsx`, shared
 by both the static section list and the interactive selector.
 
+## Jobs: the work after the customer said yes
+
+What used to happen in Basecamp once a quote was accepted. "Start job" on an
+`ACCEPTED` quote creates a `Job` (`startJobFromQuote`), and a job can also stand
+on its own — an office, paperwork — from `/jobs/new`.
+
+**Where and what are two questions with two answers.** *Where* somebody may act
+is membership of the job (`JobMember`) or `jobs.read.all`. *What* they may do
+there is their profile's permissions, **per tool and per verb** — `todos.update`,
+`schedule.delete`, `jobs.dates`. Being a member grants nothing by itself: an
+outside collaborator on a job still can't move its dates. Four profiles carry the
+work out (`PROJECT_LEAD`, `TEAM_LEAD`, `WORKER`, `COLLABORATOR`); none of them
+reaches leads, quotes, contacts or reports, and `/` sends them to `/jobs`.
+
+- **Ticking a to-do off is not editing it.** `todos.complete` is apart from
+  `todos.update`, and on the server they are two actions — a hand-crafted POST
+  carrying a due date can't come in through the "complete" door.
+- **Own and somebody else's.** On authored content (posts, comments, chat,
+  files) `*.update`/`*.delete` reach what the person wrote; anybody else's needs
+  `jobs.moderate` too. `canTouch` in `jobs/rules.ts` is the one place that says so.
+- **`requireJobContext(jobId, permission)`** is the guard every job page and
+  action goes through: the job exists in this company, this person may be on it,
+  and their profile holds the permission. `ctx.db` draws the line between
+  companies; this draws the line between jobs. Something inside a job is acted on
+  through the `jobId` read from its row, never the one the form sent.
+
+**The name carries the quote's reference**: `<address or title> - COT-000123`,
+written once and then the job's own text. A later change of `quotePrefix` doesn't
+rename work under way, whose reference is the one on the customer's quote. That
+is also why `Job` has no number of its own.
+
+`JobActivity` is the timeline, and like `Notification` it stores a type and its
+parameters, never a sentence. The day headings are drawn in the company's
+timezone (`groupByDay`), and the silence between them is said out loud — "No
+activity for 176 days" is information about a job.
+
+**Trades** (Plaster, Painting…) sit on the membership, not the user: the same
+person can plaster for one company and do the marketing for another.
+
+> **Adding profiles reaches existing companies only through a script.**
+> `db:seed` syncs the catalogue and never touches grants. After the
+> `jobs_base` migration, `scripts/provision-job-roles.ts` creates the new
+> profiles in every company and grants the existing ones their job
+> permissions. It leaves alone any profile that already holds a job permission,
+> so running it twice — or after a company trimmed a profile — changes nothing.
+
+### Files go straight to the store
+
+A Vercel function's body stops at **4.5 MB**, whatever `bodySizeLimit` says, and
+a phone photo is 5–12 MB, a site video hundreds. So a job's files never pass
+through a function: the browser uploads to Blob directly (`upload()` from
+`@vercel/blob/client`), and `/api/jobs/<id>/upload` only decides whether to hand
+it a token — the same `jobAccess` questions as every job page, a path under
+`companies/<companyId>/jobs/<jobId>/`, and the type and cap that
+`jobs/files.ts` allows for that extension. Blob enforces the token: a different
+path or content type is refused by the store, not by us.
+
+- **The type comes from the extension**, from one table read on both sides.
+  Browsers report nothing for a `.dwg` and something different for a `.mov` on
+  each platform; the extension is the one thing every side agrees on.
+- **Registering is a second, separate check.** `registerJobFilesAction` writes
+  the rows afterwards and trusts nothing the browser reports: the path must be
+  under the prefix, the URL must be the store's own for that path, and size and
+  type are read back with `head()`. Blob's `onUploadCompleted` callback is not
+  used — it can't reach localhost, and a check that only runs in production is
+  a check nobody has seen run.
+- **Photos are compressed in the browser** (`browser-image-compression`, loaded
+  only when somebody uploads one): 2560 px on the long edge, JPEG stays JPEG and
+  PNG becomes WebP so transparency survives. A 480 px WebP copy goes up beside
+  it, and every gallery shows that — the originals are only fetched in the
+  lightbox. Videos and documents go as they are. HEIC is refused by name: the
+  `accept` lists the image types, which is what makes iOS hand over a JPEG.
+- **A PDF's first page is drawn in the browser too** (`pdfjs-dist`, its worker
+  bundled rather than fetched from a CDN) and goes up as the same kind of
+  thumbnail, so a plan shows its cover sheet on the tile. A PDF that can't be
+  drawn goes up without one — the picture is a courtesy, never a reason to
+  refuse the file. Word, Excel and PowerPoint get no preview: nothing light
+  draws them in a browser, and the free Office viewer would mean handing a
+  customer's documents to Microsoft. They get a tile in their program's colour
+  with the extension written on it instead.
+- **One timeline line per batch** (`FILES_UPLOADED`, with a handful of
+  `fileIds` for thumbnails), not one per photo.
+- **Rows are deleted before the stored files**: a
+  file left in the store costs kilobytes, a row pointing at a deleted file is a
+  broken thumbnail. Deleting a folder takes its subtree; deleting the job clears
+  its files from the store too.
+- **A tool taken away takes its lines off the timeline.** `activityPermission`
+  maps each `JobActivityType` to the permission that reads it, so a profile
+  without `files.read` sees neither the files nor their thumbnails.
+
+### The Message Board
+
+Posts with a title, a body in the **full** editor, attachments and comments
+(`modules/jobs/board/`). Basecamp's shape, because that is what the people
+moving over already know.
+
+- **A draft is its author's alone.** `publishedAt` null is a draft, and
+  `visiblePosts` lets only its author see it — not a moderator either: a draft
+  is somebody still deciding what to say. Publishing is what writes the
+  timeline line and raises the notices, and only the first publish counts
+  (`updateMany … where publishedAt is null`), so a double press is one line.
+- **An edit is a correction, not news.** A published post that changes is
+  marked `editedAt` and notifies nobody again.
+- **Who hears about a post is the author's choice**: everybody following the
+  job, only the people ticked, or nobody. A comment is heard about by whoever
+  is already in the conversation — the post's author and everybody who
+  commented — not the whole job. Either way the list is cut to people still
+  on the job whose profile reads the board (`canRead`): a notice is a link,
+  and a link that answers 404 is noise.
+- **Attachments are `JobFile` rows** with `postId` or `commentId`, through the
+  same pipeline as Docs (`useUploadQueue`, `verifyUploads`). They go up while
+  the post is being written and travel with the form as JSON; the action
+  checks them the way Docs registration does and, if one is refused, takes
+  the half-made post back out. Docs & Files lists only what was filed there
+  (`postId` and `commentId` null). A check in the migration holds a file to
+  one home and a comment to one subject.
+- **Deleting a post takes its lines off the timeline**, matched on
+  `params.postId`. A line that leads to a 404 is worse than no line.
+- **Categories are the company's** (`JobPostCategory`), the standard five
+  stored by `key` and translated like a standard profile. The migration seeded
+  them for every company already there; `createCompanyWithOwner` seeds each
+  new one; a test holds the two lists together.
+
+### To-dos
+
+Lists of steps, each with people, days, notes, files and its own comments
+(`modules/jobs/todos/`). A list is a stage of the work and the order of both
+lists and to-dos is somebody's plan, so they are ordered by hand (`position`),
+dragged with the same dnd-kit the quote's sections use.
+
+- **Ticking off is its own door.** `setTodoCompletedAction` reaches only
+  `completedAt`/`completedById`, behind `todos.complete`; everything else is
+  `updateTodoAction`, behind `todos.update`. A Worker can say something is done
+  without being able to move when it was due.
+- **Each tick is history.** Completing and reopening each write a line, and only
+  a real change counts (`updateMany … where completedAt is null`), so a double
+  press is one line. Finishing a to-do tells whoever wrote it down.
+- **People are the job's people.** Assignees are cut to `JobMember`s on the
+  way in; only the newly assigned hear about it, so moving a date doesn't
+  re-notify anybody.
+- **A reorder is all or nothing.** `isPermutationOf` accepts the ids only as a
+  rearrangement of exactly what is there — an id from another list, one
+  missing, one twice is a stale screen or a forged post. Done to-dos sit below,
+  most recently finished first, and keep their position for if they are
+  reopened. The screen moves first (`useOptimistic`) and goes back by itself if
+  the server says no.
+- **Every to-do line carries `listId`**, so deleting a list takes all of its
+  lines off the timeline with it; moving a to-do rewrites its lines' `listId`.
+
+### The Schedule and the Lineup
+
+Events on a job (`modules/jobs/schedule/`), and every job on one timeline
+(`/lineup`).
+
+- **An event is placed by its days, not its instants.** `startsOn`/`endsOn`
+  are the days it covers on the company's own calendar, and every view lays it
+  out by them; a timed event also keeps `startsAt`/`endsAt`. The form sends days
+  and wall-clock times and the server turns them into instants in the company's
+  timezone (`lib/zoned-time.ts`, which asks `Intl` rather than doing offset
+  arithmetic — the tests cross a daylight-saving change). A day is then the same
+  day wherever the server runs, and the calendar never needs a timezone at all.
+  Two checks in the migration hold the shape: the end isn't before the start,
+  and a timed event has both instants while an all-day one has neither.
+- **The geometry is pure** (`schedule/calendar.ts`): which weeks a view shows
+  (weeks start on Monday), which row of a week each event takes so that
+  something running several days is one bar rather than a copy per cell, where
+  a job's bar sits in the Lineup's window, and what dragging an end does. Days
+  are `YYYY-MM-DD` strings throughout.
+- **The Schedule shows to-dos falling due** beside the events, read-only, for
+  whoever reads to-dos: a due date is a date on the job's calendar.
+- **A milestone is an event with a flag**, and it is what the Lineup draws over
+  the job's bar.
+- **The Lineup moves a job's dates by dragging**, through the very
+  `setJobDatesAction` the job's own dates dialog uses — `jobs.dates`, checked on
+  the server. The bar moves first (`useOptimistic`) and goes back if refused;
+  the arrow keys do the same without a pointer. It sees what `jobVisibilityWhere`
+  lets the person see, so a Worker gets the bars of their own jobs.
+- **A job's colour is one of `JOB_COLOURS`** — chosen to carry white text — or,
+  with none chosen, one derived from its id, so it is the same colour every time
+  it is drawn. Anything else posted reads as none.
+
+### The Chat
+
+Quick talk on a job (`modules/jobs/chat/`), beside the Message Board's titled
+posts. **Plain text** — line breaks and links, nothing else — because it is
+typed in a hurry on a phone; files go through the same attachment pipeline as
+everything else (`JobFile.chatMessageId`, a fifth home in `JobFile_one_home`).
+
+- **Polling, not a socket.** The screen asks `/api/jobs/<id>/chat` every few
+  seconds while its tab is visible, the same shape as the quote's thread. The
+  route and the page draw through one `chatFeed`, so a message that arrives by
+  poll reads exactly like one rendered. Older messages come a page at a time
+  with `?before=<id>`.
+- **Written and deleted, never edited** — the catalogue has no `chat.update`.
+  Deleting is `canTouch`: own with `chat.delete`, anybody's with `jobs.moderate`
+  too. Whether each message may be deleted is worked out on the server and sent
+  as a flag, since a client component can't be handed the rule.
+- **A mention is a fact, not a rendering.** `mentionedIn` finds `@Name` against
+  the job's members when the message is sent and stores the ids
+  (`mentionIds`); only those are drawn as mentions later. The longest name wins
+  at each `@`, a name must end at a word boundary, and an `@` after a letter
+  (an email address) is not one. **Only a mention rings the bell**
+  (`JOB_CHAT_MENTION`) — a notice per message would be a bell nobody reads.
+- **One timeline line per person per day** (`CHAT_MESSAGES`), not per message.
+  Its count is recounted from the messages on every send and delete rather than
+  incremented, so a deletion can't leave it wrong; the last message of the day
+  going takes the line with it.
+- **Enter sends, Shift + Enter is a new line** — except on a touch screen, which
+  has no Shift + Enter, where Enter is a new line and the button sends.
+
+### Comments, wherever they are
+
+`JobComment` hangs off one thing — a post, a to-do, a list or an event — and a check in
+the database holds it to exactly one. `comments/subject.ts` turns those keys
+into the answers every caller needs: which tool's read permission it also takes
+(a profile that doesn't read to-dos doesn't reach their comments through the
+comment), and which page it lives on. Writing, editing and deleting one, and who
+hears about a reply, are written once (`comments/service.ts`,
+`comments/actions.ts`), and `CommentThread` draws every conversation. A test
+reads the schema and the migrations and fails if another commentable thing is
+added to one and not the other.
+
 ## The three security contexts
 
 Everything built before answered a single question: "does this user belong to
@@ -857,6 +1079,87 @@ status is never touched by revoking — one whose link was closed is still a quo
 that was sent.
 - The four email notices go out with `after()`, outside the response. The open
   one only notifies the first time each day.
+
+### Several people, one quote
+
+A quote goes to a **primary** — the "For" on the document — and any number of
+copies (`QuoteRecipient`). The primary starts as the lead's person; copies are
+added on the quote, from the contacts or by typing an address, which creates
+the contact when there isn't one (matched on the email alone, the same rule a
+web enquiry uses). A copy can be made primary or taken off.
+
+- **The primary is mirrored into `Quote.clientName/clientEmail/clientPhone`**,
+  in the same transaction as any change to it. Everything that already read
+  those — the document, the PDF, the lists — keeps reading them and knows
+  nothing about recipients.
+- **Each recipient gets their own email and their own link.** `to:` carries one
+  address, never a Cc, and `{{customer}}` names all of them (`joinNames`, in the
+  quote's language: "Ana, Bruno and Carla"). The follow-ups, the review request
+  and the acceptance confirmation go to all of them the same way.
+- **The token is who is reading.** `QuoteShareToken.recipientId` is what the
+  portal signs an acceptance with and what the log names — "Opened by Bruno".
+  The acceptance form asks for **no name and no email**: a typed name is
+  whoever the person holding the link says they are, and the server ignores
+  one if it is posted. A link issued before recipients existed belongs to the
+  primary (`viewerFor`).
+- **Taking somebody off revokes their links**, only theirs. Taking somebody off
+  a quote has to mean they can no longer accept it.
+- **The log freezes names, not ids** (`QuoteEvent.recipientName`,
+  `QuoteMessage.authorName`): it must go on saying who opened it after that
+  person is taken off the quote.
+- **One primary per quote** is a partial unique index written by hand in the
+  migration — Prisma can't declare one — so the swap clears before it sets.
+
+The recipients card sits outside the quote's own `<form>` and acts
+immediately; on `/quotes/new` it doesn't exist yet, and the primary comes from
+the lead on the first save. "Viewing now" is still the share's, not a person's.
+
+### Signing from a phone
+
+Drawing a signature with a mouse is hard; with a finger it isn't. "Sign from a
+touch device" shows a QR; the phone opens `/sign/<token>`, and each time a
+finger lifts it posts **all** its strokes, replacing the last send — a retry
+changes nothing and Clear is an empty send. The portal polls for a newer
+`version` every 1.5 s while the QR or the mirroring is live, and redraws. One
+way only, as in Quotient: drawing on the computer doesn't go back.
+
+- **Polling, not a socket.** The phone only sends on lift, so a second of delay
+  is invisible, and a WebSocket on Vercel would need a Redis behind it for the
+  two ends to meet across instances. Same reasoning as presence and the thread.
+- **The QR carries its own token, never the quote's link** (`SignatureHandoff`,
+  hash only, 15 minutes). Whoever scans it can draw and nothing else; accepting
+  happens on the screen holding the real link. It closes when the quote is
+  decided or its link stops opening, and opens only on its company's subdomain.
+- **Strokes live in a fixed 600×250 box** (`portal/signature.ts`), whatever the
+  canvas — a signature drawn on a phone held sideways has to land in the same
+  place on the computer. Older signatures were drawn in 600×130 and nothing
+  converts them: a stored signature is always **framed by its own strokes**
+  (`signatureViewBox`), so the box it came from doesn't matter where it is
+  shown, and a small one fills its frame instead of hiding in a corner. The
+  phone suggests turning sideways for the room; upright still works.
+- **"Sign here" and the line are drawn behind the canvas** (`SignatureGuide`),
+  never on it, so neither is ever part of what is stored or sent.
+- **`isSignaturePath`** allows `M`/`L` and numbers only: the strokes end up in
+  an SVG `d` on the team's screen, and the phone's endpoint can be hand-crafted.
+
+### The acceptance's fingerprint
+
+What backs an acceptance beyond the signature, shown folded under it on the
+customer's page and the team's card (`AcceptanceFingerprint`, one component
+for both). Time in UTC and the company's zone, the address, IP, browser, and:
+
+- **"Verified by email" only when it is true** — the accepting link belonged to
+  a recipient, so that token only ever travelled in the email to that address.
+  An older link with no recipient shows the address without the claim.
+- **Signed on a touch device** only when the strokes accepted are exactly what
+  the phone sent (`signatureDeviceFor`), checked against the handoff of *this*
+  quote. Drawing over them on the computer makes it this device's signature.
+- **Two SHA-256s.** The signature's, which changes with a single point; and a
+  record seal over every field in a fixed order (`acceptanceDigest`), with the
+  time fixed in the action rather than by the column default, so an edited row
+  stops matching. Our strokes carry no timing, so nothing claims to replay how
+  the signature was written — Quotient's "as it's written in time" would not
+  be true here.
 
 ## The emails the customer gets
 
@@ -1129,6 +1432,15 @@ Each section's scope is written with **Tiptap** (MIT; what they charge for is
 their cloud, which we don't use). The mark set is short on purpose — bold,
 italic, lists and links — because that content goes out in an email and in print,
 where tables, colours and images look broken.
+
+**The Message Board has a second profile, `full`** (`sanitizeRichText(html,
+"full")`, `RichTextEditor variant="full"`, `RichText profile="full"`): headings,
+tables, alignment, colour and highlight — what a team writes for itself and
+reads on a screen. `style` survives only as `text-align`, and as colours from
+the one palette in `lib/rich-text-palette.ts` that both the toolbar and the
+sanitiser read, in hex and in the `rgb()` a browser writes back. Images stay
+out of the HTML there too; they are attachments. The quote's profile is
+unchanged and a test pins it.
 
 > **The HTML is sanitised on the server, always.** `sanitizeRichText()` runs on
 > save and again on display. Sanitising in the browser protects nothing: the

@@ -10,8 +10,9 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: [
     "lvh.me",
     "**.lvh.me",
-    "192.168.1.33",
-    "*.192.168.1.33.nip.io",
+    "192.168.1.72",
+    "192.168.1.72.nip.io",
+    "*.192.168.1.72.nip.io",
   ],
   experimental: {
     serverActions: {

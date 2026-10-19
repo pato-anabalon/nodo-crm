@@ -18,6 +18,8 @@ export type SettingsOverview = {
   hasLogo: boolean;
   team: number;
   profiles: number;
+  trades: number;
+  postCategories: number;
   catalogue: number;
   quoteTemplates: number;
   documents: number;
@@ -33,6 +35,8 @@ export async function settingsOverview(ctx: CompanyContext): Promise<SettingsOve
   const [
     team,
     profiles,
+    trades,
+    postCategories,
     catalogue,
     quoteTemplates,
     documents,
@@ -43,6 +47,8 @@ export async function settingsOverview(ctx: CompanyContext): Promise<SettingsOve
   ] = await Promise.all([
     ctx.db.membership.count({ where: { status: MembershipStatus.ACTIVE } }),
     ctx.db.role.count(),
+    ctx.db.trade.count(),
+    ctx.db.jobPostCategory.count(),
     // Retired lines drop out of the picker, so they shouldn't be counted as
     // something the company has to quote with.
     ctx.db.catalogueItem.count({ where: { active: true } }),
@@ -63,6 +69,8 @@ export async function settingsOverview(ctx: CompanyContext): Promise<SettingsOve
     hasLogo: Boolean(ctx.company.logoUrl),
     team,
     profiles,
+    trades,
+    postCategories,
     catalogue,
     quoteTemplates,
     documents,

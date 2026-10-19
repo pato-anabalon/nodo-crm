@@ -20,7 +20,6 @@ import type * as Prisma from "../internal/prismaNamespace"
  *  * every company drew up this list differently, same reason `CatalogueItem`
  *  * and `ReviewLink` aren't enums either — added one at a time, each checked on
  *  * the way in (`@@unique([companyId, label])`).
- *  *
  *  * A quote never points back here by id. It freezes the label text itself at
  *  * creation, the same way it freezes `currency`/`taxType` — so deleting a type
  *  * later can't change what a quote already issued is shown as, and there is no

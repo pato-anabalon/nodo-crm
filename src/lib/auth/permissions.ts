@@ -15,6 +15,16 @@ export const PERMISSION_MODULES = [
   "users",
   "roles",
   "reports",
+  // Module Jobs: one module per tool, so the profile grid groups them that way
+  // and a profile can be given the Schedule without the Chat.
+  "jobs",
+  "messages",
+  "comments",
+  "todos",
+  "files",
+  "schedule",
+  "chat",
+  "lineup",
 ] as const;
 
 export type PermissionModule = (typeof PERMISSION_MODULES)[number];
@@ -63,6 +73,62 @@ export const PERMISSIONS = [
 
   // Reports
   "reports.read",
+
+  // Jobs. Being a member of a job decides *where* somebody may act; these
+  // decide *what* they may do there — being a member grants nothing by itself.
+  // `jobs.read` is the jobs somebody is a member of; `jobs.read.all` is every one.
+  "jobs.read",
+  "jobs.read.all",
+  "jobs.create",
+  // Name, description, address, status.
+  "jobs.update",
+  // The job's start and end — its bar on the Lineup. Apart from `jobs.update`
+  // because moving the plan is a different responsibility from fixing a typo.
+  "jobs.dates",
+  "jobs.members",
+  "jobs.delete",
+  // Edit and delete what **somebody else** wrote or uploaded. Without it,
+  // `*.update` and `*.delete` on authored content reach only one's own.
+  "jobs.moderate",
+
+  // Message board
+  "messages.read",
+  "messages.create",
+  "messages.update",
+  "messages.delete",
+
+  // Comments, on anything in a job that takes them
+  "comments.create",
+  "comments.update",
+  "comments.delete",
+
+  // To-dos. Ticking one off is not editing it: `todos.complete` lets somebody
+  // mark work done without being able to move its dates or reassign it.
+  "todos.read",
+  "todos.create",
+  "todos.update",
+  "todos.complete",
+  "todos.delete",
+
+  // Docs & files
+  "files.read",
+  "files.create",
+  "files.update",
+  "files.delete",
+
+  // Schedule. `schedule.update` includes moving an event's dates.
+  "schedule.read",
+  "schedule.create",
+  "schedule.update",
+  "schedule.delete",
+
+  // Chat
+  "chat.read",
+  "chat.create",
+  "chat.delete",
+
+  // The calendar across every job somebody can see
+  "lineup.read",
 ] as const;
 
 export type Permission = (typeof PERMISSIONS)[number];

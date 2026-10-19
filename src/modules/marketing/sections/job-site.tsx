@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll } from "motion/react";
+import { AnimatePresence, motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { CalendarRange, CheckCircle2, CheckSquare, Images, MessageCircle, MessagesSquare, UserCheck } from "lucide-react";
 import { useRef, useState } from "react";
 import type { JobsCopy } from "../copy";
@@ -114,13 +114,98 @@ function Heading({ copy, className = "" }: { copy: JobsCopy; className?: string 
  * pinned, from bare sheets to the handover, with the tools of each stage
  * rising over its roof as notices — the hero's story carried on to its end.
  *
- * On a phone, or asked for less motion, the finished house at night, and the
- * stages and their tools as a list underneath.
+ * On a phone the same story, stacked: the words and the stages at the top,
+ * the house under them. Asked for less motion, the finished house at night,
+ * and the stages and their tools as a list underneath.
  */
 export function JobSite({ copy }: { copy: JobsCopy }) {
   const wide = useWide();
   const reduced = useReducedMotion();
-  return wide && !reduced ? <Pinned copy={copy} /> : <Still copy={copy} />;
+  if (reduced) return <Still copy={copy} />;
+  return wide ? <Pinned copy={copy} /> : <PinnedPhone copy={copy} />;
+}
+
+/**
+ * The colour of the sky at the top of the drawing as the day goes, so the
+ * band above it on a phone runs on from the drawing rather than ending at a
+ * line: the afternoon's top band, dusk's, then dusk under the night's veil.
+ */
+/**
+ * The phone's camera. A portrait screen shows about half the drawing's width,
+ * so it moves with the story instead: it opens on the city and the Sky Tower
+ * with the house at the edge, slides across to the house while the work goes
+ * on, and comes back far enough at nightfall for the tower's lights to stand
+ * beside the lit house. Centres in the drawing's 320, as `translateX`.
+ */
+const CAMERA = {
+  at: [0, 0.08, SWEEP.render[1], SWEEP.night[0], 0.8],
+  centre: [150, 150, 226, 226, 191],
+};
+const toPan = (centre: number) => `${-(centre / 320) * 100}%`;
+
+const SKY_TOP = { at: [0, SWEEP.dusk[0], SWEEP.night[0], SWEEP.night[1]], colour: ["#1d6fd8", "#1d6fd8", "#2b3a7a", "#17214d"] };
+
+/** Where each stage stands in four, as a bar: done, current, still to come. */
+function StageBar({ copy, stage }: { copy: JobsCopy; stage: number }) {
+  return (
+    <div className={`${pixelFont.className} text-xs`}>
+      <div className="flex gap-1.5" aria-hidden>
+        {STAGES.map(({ key }, index) => (
+          <span key={key} className={`h-1.5 flex-1 transition-colors duration-300 ${index <= stage ? "bg-[#ffd27a]" : "bg-white/25"}`} />
+        ))}
+      </div>
+      <p className="mt-2 text-white/85">
+        {stage + 1}/{STAGES.length} · <span className="text-white">{copy.stages[STAGES[stage].key]}</span>
+      </p>
+    </div>
+  );
+}
+
+/**
+ * The pinned story on a phone. A portrait screen can't hold the drawing's
+ * width, so it takes the lower part of the screen, cropped to the house where
+ * everything happens; the words take the sky above it, in a band coloured to
+ * run on from the drawing. Shorter than on a wide screen: a thumb covers
+ * ground faster than a wheel.
+ */
+function PinnedPhone({ copy }: { copy: JobsCopy }) {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const [stage, setStage] = useState(0);
+  useMotionValueEvent(scrollYProgress, "change", (v) => setStage(stageAt(v)));
+  const sky = useTransform(scrollYProgress, SKY_TOP.at, SKY_TOP.colour);
+  const pan = useTransform(scrollYProgress, CAMERA.at, CAMERA.centre.map(toPan));
+
+  return (
+    <section id="jobs" ref={ref} className="relative bg-[#0a1433] text-white" style={{ height: "320vh" }}>
+      <motion.div className="sticky top-0 h-[100svh] overflow-hidden" style={{ backgroundColor: sky }}>
+        <div className="absolute inset-x-0 bottom-0 h-[55%]">
+          <JobSiteScene progress={scrollYProgress} pan={pan} cheering={STAGES[stage].key === "done"}>
+            <Notices copy={copy} stage={stage} />
+          </JobSiteScene>
+        </div>
+
+        <div className="relative px-5 pt-[4.5rem]">
+          <h2 className="text-balance text-3xl font-semibold tracking-[-0.03em]">{copy.title}</h2>
+          <div className="mt-3">
+            <StageBar copy={copy} stage={stage} />
+          </div>
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={stage}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.2 }}
+              className="mt-4 grid gap-3 text-sm [&_h3]:text-base"
+            >
+              <Captions copy={copy} stage={stage} />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </motion.div>
+    </section>
+  );
 }
 
 function Pinned({ copy }: { copy: JobsCopy }) {

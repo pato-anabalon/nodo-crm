@@ -117,11 +117,13 @@ export function AucklandScene({
   return (
     // The drawing covers the hero the way `slice` would — bottom-aligned, centred,
     // cropped at whichever side is longer — but as a box of its own, so the HTML
-    // over it can be placed in the drawing's pixels. On a phone, where only a
-    // strip of it shows, the strip is the tradie and the ute with the city
-    // behind them: centred at 200 of the drawing's 320.
+    // over it can be placed in the drawing's pixels. On a phone only a strip
+    // about 80 of the drawing's 320 wide shows, and the Sky Tower (151) and the
+    // tradie on the tailgate (203–215) are more than that apart from the whole
+    // ute: centred at 183, between the two, the strip holds the tower and the
+    // tradie, with the back of the ute they sit on and its front cropped.
     <div className="pointer-events-none absolute inset-0 overflow-hidden [container-type:size]" aria-hidden>
-      <div className="absolute bottom-0 left-1/2 aspect-[16/9] w-[max(100cqw,177.78cqh)] -translate-x-[62.5%] md:-translate-x-1/2 [--u:calc(100cqw/320)] [container-type:inline-size]">
+      <div className="absolute bottom-0 left-1/2 aspect-[16/9] w-[max(100cqw,177.78cqh)] -translate-x-[57%] md:-translate-x-1/2 [--u:calc(100cqw/320)] [container-type:inline-size]">
         <svg
           className="ak-scene absolute inset-0 h-full w-full"
           viewBox={`0 0 ${W} ${H}`}

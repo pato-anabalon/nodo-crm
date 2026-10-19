@@ -523,9 +523,15 @@ function Sweep({
 export function JobSiteScene({
   progress,
   cheering = false,
+  pan,
   children,
 }: {
   progress: MotionValue<number>;
+  /**
+   * Where the crop is centred, as a `translateX` of the drawing's width, when
+   * the camera follows the story rather than sitting still on the house.
+   */
+  pan?: MotionValue<string>;
   /** The tradie with an arm in the air: the job is done. */
   cheering?: boolean;
   /** HTML placed over the roof, in the drawing's own pixels (`--u`). */
@@ -542,9 +548,14 @@ export function JobSiteScene({
   return (
     // Covers its box the way the hero's drawing does — bottom-aligned, centred,
     // cropped at whichever side is longer. On a phone the crop is centred on
-    // the house rather than the drawing.
+    // the house (226 of the drawing's 320) rather than on the drawing.
     <div className="pointer-events-none absolute inset-0 overflow-hidden [container-type:size]" aria-hidden>
-      <div className="absolute bottom-0 left-1/2 aspect-[16/9] w-[max(100cqw,177.78cqh)] -translate-x-[66%] md:-translate-x-1/2 [--u:calc(100cqw/320)] [container-type:inline-size]">
+      <motion.div
+        className={`absolute bottom-0 left-1/2 aspect-[16/9] w-[max(100cqw,177.78cqh)] [--u:calc(100cqw/320)] [container-type:inline-size] ${
+          pan ? "" : "-translate-x-[70.6%] md:-translate-x-1/2"
+        }`}
+        style={pan ? { x: pan } : undefined}
+      >
         <svg className="ak-scene absolute inset-0 h-full w-full" viewBox={`0 0 ${W} ${H}`} shapeRendering="crispEdges" focusable="false">
           <Paths paths={LAYERS.day} />
           <motion.g style={{ opacity: dusk }}>
@@ -602,13 +613,14 @@ export function JobSiteScene({
             style={{
               left: `calc(var(--u) * ${ROOF.ridge[0] - 8})`,
               bottom: `calc(var(--u) * ${H - ROOF.top + 6})`,
-              fontSize: "calc(var(--u) * 2.7)",
+              // Never smaller than a phone can read: at the scale a phone draws the house, 2.7 pixels of it is about 7px.
+              fontSize: "max(11px, calc(var(--u) * 2.7))",
             }}
           >
             {children}
           </div>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }

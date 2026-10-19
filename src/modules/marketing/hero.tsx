@@ -52,7 +52,7 @@ export function Hero({ copy }: { copy: HeroCopy }) {
         aria-hidden
       />
 
-      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col px-5 pb-10 pt-28 md:px-8 md:pt-70">
+      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col px-5 pb-[calc(18svh+9rem)] pt-28 md:px-8 md:pb-10 md:pt-70">
         <div className="max-w-2xl">
           <motion.h1
             {...rise(0.1)}
@@ -86,15 +86,18 @@ export function Hero({ copy }: { copy: HeroCopy }) {
           </motion.p>
         </div>
 
-        {/*
-          On a phone the notices sit in the page's own flow, under the buttons, where no
-          height of screen can push them over the words; the space under them is the
-          tradie's, at the foot of the drawing.
-        */}
-        <div className="mt-10 text-[13px] md:hidden">
-          <NotificationStack copy={copy.notifications} visible={2} onArrive={onArrive} />
-        </div>
-        <div className="h-40 shrink-0 md:hidden" aria-hidden />
+      </div>
+
+      {/*
+        On a phone the notices rise over the tradie's head, as they do on a wide
+        screen. The drawing covers the hero by its height there, so one of its
+        pixels is a 180th of the hero's: the cards start 32 of them up from the
+        foot, just over the head, which is 17.8% wherever the hero ends. The words keep that much, and the
+        two cards' height, clear at the bottom, so a short screen grows the hero
+        rather than putting the cards over the buttons.
+      */}
+      <div className="absolute bottom-[calc(17.8%+0.5rem)] right-5 z-10 text-[13px] md:hidden">
+        <NotificationStack copy={copy.notifications} visible={2} onArrive={onArrive} />
       </div>
     </section>
   );

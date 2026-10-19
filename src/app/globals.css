@@ -272,6 +272,73 @@
 .rich-text a { text-decoration: underline; text-underline-offset: 2px; }
 
 /*
+ * What only the Message Board's profile lets through. Shared with the editor
+ * (`.rich-text-editor`), so what is typed looks like what is posted.
+ */
+.rich-text h2,
+.rich-text-editor h2 {
+  margin-block: 1rem 0.4rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+.rich-text blockquote,
+.rich-text-editor blockquote {
+  margin-block: 0.5rem;
+  border-inline-start: 3px solid var(--border);
+  padding-inline-start: 0.75rem;
+  color: var(--muted-foreground);
+}
+.rich-text code,
+.rich-text-editor code {
+  border-radius: 0.25rem;
+  background: var(--muted);
+  padding: 0.1rem 0.3rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.85em;
+}
+.rich-text pre,
+.rich-text-editor pre {
+  margin-block: 0.5rem;
+  overflow-x: auto;
+  border-radius: 0.375rem;
+  background: var(--muted);
+  padding: 0.6rem 0.75rem;
+}
+.rich-text pre code,
+.rich-text-editor pre code { background: none; padding: 0; }
+.rich-text hr,
+.rich-text-editor hr { margin-block: 1rem; border-color: var(--border); }
+/* The palette's highlights are pale in both themes, so the text on them stays dark in both. */
+.rich-text mark,
+.rich-text-editor mark { border-radius: 0.15rem; padding-inline: 0.1rem; color: #1a1a1a; }
+.rich-text table,
+.rich-text-editor table {
+  margin-block: 0.75rem;
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.rich-text th,
+.rich-text td,
+.rich-text-editor th,
+.rich-text-editor td {
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.5rem;
+  vertical-align: top;
+  text-align: start;
+}
+.rich-text th,
+.rich-text-editor th { background: var(--muted); font-weight: 600; }
+.rich-text td p,
+.rich-text th p,
+.rich-text-editor td p,
+.rich-text-editor th p { margin: 0; }
+/* A wide table scrolls inside its own box rather than widening the page. */
+.rich-text:has(table) { overflow-x: auto; }
+.rich-text-editor .selectedCell { background: color-mix(in oklch, var(--primary) 12%, transparent); }
+
+/*
  * Printing the quote.
  *
  * The download button opens the browser's dialog; this leaves the document

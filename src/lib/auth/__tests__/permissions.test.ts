@@ -27,14 +27,8 @@ describe("permission catalogue", () => {
 });
 
 describe("profile templates", () => {
-  it("defines the five standard profiles", () => {
-    expect(ROLE_TEMPLATES.map((t) => t.key)).toEqual([
-      RoleKey.OWNER,
-      RoleKey.ADMIN,
-      RoleKey.MANAGER,
-      RoleKey.SALES,
-      RoleKey.VIEWER,
-    ]);
+  it("defines a template for every standard profile", () => {
+    expect(ROLE_TEMPLATES.map((t) => t.key)).toEqual(Object.values(RoleKey));
   });
 
   it("the owner gets every permission", () => {
@@ -88,5 +82,41 @@ describe("profile templates", () => {
     for (const key of [RoleKey.OWNER, RoleKey.ADMIN, RoleKey.MANAGER, RoleKey.SALES, RoleKey.VIEWER]) {
       expect(templatePermissions(roleTemplate(key))).toContain("quotes.read.amounts");
     }
+  });
+
+  const JOB_PROFILES = [RoleKey.PROJECT_LEAD, RoleKey.TEAM_LEAD, RoleKey.WORKER, RoleKey.COLLABORATOR];
+
+  it("the people carrying out the work reach nothing of the sales side", () => {
+    for (const key of JOB_PROFILES) {
+      const granted = templatePermissions(roleTemplate(key));
+      const outside = granted.filter((p) => !["jobs", "messages", "comments", "todos", "files", "schedule", "chat", "lineup"].includes(permissionModule(p)));
+      expect({ key, outside }).toEqual({ key, outside: [] });
+    }
+  });
+
+  it("only the project lead sees every job and moves a job's dates", () => {
+    for (const key of JOB_PROFILES) {
+      const granted = templatePermissions(roleTemplate(key));
+      const expected = key === RoleKey.PROJECT_LEAD;
+      expect(granted.includes("jobs.read.all")).toBe(expected);
+      expect(granted.includes("jobs.dates")).toBe(expected);
+      expect(granted.includes("jobs.members")).toBe(expected);
+    }
+  });
+
+  it("an outside collaborator can tick a to-do off but not edit it", () => {
+    const collaborator = templatePermissions(roleTemplate(RoleKey.COLLABORATOR));
+    expect(collaborator).toContain("todos.complete");
+    expect(collaborator).not.toContain("todos.update");
+    expect(collaborator).not.toContain("schedule.update");
+  });
+
+  it("every job permission is granted by at least one template other than the owner's", () => {
+    const granted = new Set(
+      ROLE_TEMPLATES.filter((t) => t.key !== RoleKey.OWNER).flatMap((t) => templatePermissions(t)),
+    );
+    const jobModules = ["jobs", "messages", "comments", "todos", "files", "schedule", "chat", "lineup"];
+    const missing = ALL_PERMISSIONS.filter((p) => jobModules.includes(permissionModule(p)) && !granted.has(p));
+    expect(missing).toEqual([]);
   });
 });

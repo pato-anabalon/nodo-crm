@@ -16,7 +16,6 @@ import type * as Prisma from "../internal/prismaNamespace"
  * Model QuoteAttachment
  * *
  *  * Files that travel with the quote: drawings, spec sheets, markups.
- *  *
  *  * `sectionId` is optional — null for a file attached to the quote as a whole,
  *  * set for one attached to a single section. Both share this table rather than
  *  * two, because they're the same thing with a narrower scope: same upload

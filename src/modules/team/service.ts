@@ -37,6 +37,7 @@ export async function listTeam(ctx: CompanyContext) {
       include: {
         user: { select: { id: true, name: true, email: true } },
         role: { select: { id: true, key: true, name: true } },
+        trades: { select: { tradeId: true } },
       },
       orderBy: [{ status: "asc" }, { createdAt: "asc" }],
     }),
@@ -59,6 +60,7 @@ export async function listTeam(ctx: CompanyContext) {
       roleName: m.role.name,
       status: m.status,
       isSelf: m.user.id === ctx.user.id,
+      tradeIds: m.trades.map((t) => t.tradeId),
     })),
     invitations: invitations.map((i) => ({
       id: i.id,

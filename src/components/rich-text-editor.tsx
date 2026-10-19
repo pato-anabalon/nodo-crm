@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { EditorContent, useEditor, type Editor } from "@tiptap/react";
+import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import { useTranslations } from "next-intl";
 import { Bold, Italic, Link2, List, ListOrdered, Unlink } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { fullExtensions, FullToolbar } from "./rich-text-full";
+import { promptLink, Tool } from "./rich-text-tools";
 
 /**
  * Formatted-text editor for the descriptions the customer reads.
@@ -24,12 +25,23 @@ export function RichTextEditor({
   defaultValue,
   placeholder,
   ariaLabel,
+  variant = "basic",
+  minHeight,
 }: {
   /** Hidden field carried by the form, so it works with server actions. */
   name: string;
   defaultValue?: string | null;
   placeholder?: string;
   ariaLabel?: string;
+  /**
+   * `basic` is the quote's short set, which goes out by email and onto paper.
+   * `full` is the Message Board's: headings, colour, alignment, tables. The
+   * server sanitises each with its own profile, so the choice here is only
+   * what is offered.
+   */
+  variant?: "basic" | "full";
+  /** A comment box starts shorter than a post. */
+  minHeight?: "sm" | "md";
 }) {
   const t = useTranslations("editor");
   // What the form will post. Held here rather than in the DOM so that a
@@ -39,25 +51,33 @@ export function RichTextEditor({
   const editor = useEditor({
     // Without this, Next warns about a server/client mismatch.
     immediatelyRender: false,
-    extensions: [
-      StarterKit.configure({
-        heading: { levels: [3] },
-        codeBlock: false,
-        horizontalRule: false,
-        blockquote: false,
-      }),
-      Link.configure({
-        openOnClick: false,
-        autolink: true,
-        protocols: ["http", "https", "mailto", "tel"],
-      }),
-    ],
+    // The full toolbar shows which marks are on under the cursor, so it has
+    // to redraw as the selection moves; the quote's short one never did.
+    shouldRerenderOnTransaction: variant === "full",
+    extensions:
+      variant === "full"
+        ? fullExtensions()
+        : [
+            StarterKit.configure({
+              heading: { levels: [3] },
+              codeBlock: false,
+              horizontalRule: false,
+              blockquote: false,
+            }),
+            Link.configure({
+              openOnClick: false,
+              autolink: true,
+              protocols: ["http", "https", "mailto", "tel"],
+            }),
+          ],
     content: defaultValue ?? "",
     onUpdate: ({ editor }) => setHtml(editor.isEmpty ? "" : editor.getHTML()),
     editorProps: {
       attributes: {
         class: cn(
-          "min-h-40 w-full rounded-b-md border border-t-0 border-input bg-field px-3 py-2",
+          minHeight === "sm" ? "min-h-24" : "min-h-40",
+          variant === "full" && "rich-text-editor [&_h2]:mt-3",
+          "w-full rounded-b-md border border-t-0 border-input bg-field px-3 py-2",
           "text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
           "[&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:my-1.5",
           "[&_h3]:text-base [&_h3]:font-semibold [&_a]:underline",
@@ -84,108 +104,72 @@ export function RichTextEditor({
       */}
       <input type="hidden" name={name} value={html} readOnly />
 
-      <div className="flex flex-wrap items-center gap-0.5 rounded-t-md border border-input bg-muted/40 p-1">
-        <Tool
-          editor={editor}
-          label={t("bold")}
-          active={editor?.isActive("bold")}
-          onClick={() => editor?.chain().focus().toggleBold().run()}
-        >
-          <Bold className="size-4" />
-        </Tool>
-
-        <Tool
-          editor={editor}
-          label={t("italic")}
-          active={editor?.isActive("italic")}
-          onClick={() => editor?.chain().focus().toggleItalic().run()}
-        >
-          <Italic className="size-4" />
-        </Tool>
-
-        <span className="mx-1 h-5 w-px bg-border" />
-
-        <Tool
-          editor={editor}
-          label={t("bulletList")}
-          active={editor?.isActive("bulletList")}
-          onClick={() => editor?.chain().focus().toggleBulletList().run()}
-        >
-          <List className="size-4" />
-        </Tool>
-
-        <Tool
-          editor={editor}
-          label={t("orderedList")}
-          active={editor?.isActive("orderedList")}
-          onClick={() => editor?.chain().focus().toggleOrderedList().run()}
-        >
-          <ListOrdered className="size-4" />
-        </Tool>
-
-        <span className="mx-1 h-5 w-px bg-border" />
-
-        <Tool
-          editor={editor}
-          label={t("link")}
-          active={editor?.isActive("link")}
-          onClick={() => {
-            const previous = editor?.getAttributes("link").href as string | undefined;
-            // `prompt` blocks the tab but it's the only thing that doesn't need a
-            // whole dialog just to paste a URL; swap it out if it grates.
-            const url = window.prompt(t("linkPrompt"), previous ?? "https://");
-            if (url === null) return;
-            if (url === "") {
-              editor?.chain().focus().unsetLink().run();
-              return;
-            }
-            editor?.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
-          }}
-        >
-          <Link2 className="size-4" />
-        </Tool>
-
-        {editor?.isActive("link") ? (
+      {variant === "full" ? (
+        <FullToolbar editor={editor} />
+      ) : (
+        <div className="flex flex-wrap items-center gap-0.5 rounded-t-md border border-input bg-muted/40 p-1">
           <Tool
             editor={editor}
-            label={t("unlink")}
-            onClick={() => editor?.chain().focus().unsetLink().run()}
+            label={t("bold")}
+            active={editor?.isActive("bold")}
+            onClick={() => editor?.chain().focus().toggleBold().run()}
           >
-            <Unlink className="size-4" />
+            <Bold className="size-4" />
           </Tool>
-        ) : null}
-      </div>
+
+          <Tool
+            editor={editor}
+            label={t("italic")}
+            active={editor?.isActive("italic")}
+            onClick={() => editor?.chain().focus().toggleItalic().run()}
+          >
+            <Italic className="size-4" />
+          </Tool>
+
+          <span className="mx-1 h-5 w-px bg-border" />
+
+          <Tool
+            editor={editor}
+            label={t("bulletList")}
+            active={editor?.isActive("bulletList")}
+            onClick={() => editor?.chain().focus().toggleBulletList().run()}
+          >
+            <List className="size-4" />
+          </Tool>
+
+          <Tool
+            editor={editor}
+            label={t("orderedList")}
+            active={editor?.isActive("orderedList")}
+            onClick={() => editor?.chain().focus().toggleOrderedList().run()}
+          >
+            <ListOrdered className="size-4" />
+          </Tool>
+
+          <span className="mx-1 h-5 w-px bg-border" />
+
+          <Tool
+            editor={editor}
+            label={t("link")}
+            active={editor?.isActive("link")}
+            onClick={() => promptLink(editor, t("linkPrompt"))}
+          >
+            <Link2 className="size-4" />
+          </Tool>
+
+          {editor?.isActive("link") ? (
+            <Tool
+              editor={editor}
+              label={t("unlink")}
+              onClick={() => editor?.chain().focus().unsetLink().run()}
+            >
+              <Unlink className="size-4" />
+            </Tool>
+          ) : null}
+        </div>
+      )}
 
       <EditorContent editor={editor} />
     </div>
-  );
-}
-
-function Tool({
-  editor,
-  label,
-  active,
-  onClick,
-  children,
-}: {
-  editor: Editor | null;
-  label: string;
-  active?: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <Button
-      type="button"
-      size="icon"
-      variant="ghost"
-      className={cn("size-8", active && "bg-accent text-accent-foreground")}
-      aria-label={label}
-      aria-pressed={active ?? false}
-      disabled={!editor}
-      onClick={onClick}
-    >
-      {children}
-    </Button>
   );
 }

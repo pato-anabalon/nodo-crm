@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { can, requireCompanyContext } from "@/lib/auth/session";
 import { roleDisplayName } from "@/lib/auth/role-name";
@@ -29,6 +30,10 @@ type QuoteRow = {
 
 export default async function DashboardPage() {
   const ctx = await requireCompanyContext();
+  // The overview is about leads and quotes. Somebody whose work is the jobs
+  // themselves — a worker, a collaborator — lands where their work is rather
+  // than on a page with nothing on it.
+  if (!can(ctx, "leads.read") && can(ctx, "jobs.read")) redirect("/jobs");
   const [t, tLeads, tQuotes, tRoles] = await Promise.all([
     getTranslations("dashboard"),
     getTranslations("leads"),

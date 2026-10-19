@@ -26,6 +26,14 @@ describe("RichTextEditor", () => {
     expect(screen.queryByRole("button", { name: /table|image|colour|color/i })).toBeNull();
   });
 
+  it("offers the Message Board's tools only when asked for the full editor", () => {
+    renderWithIntl(<RichTextEditor name="body" variant="full" />);
+
+    for (const label of ["Heading", "Text colour", "Highlight", "Centre", "Table", "Undo", "Strikethrough", "Quote"]) {
+      expect(screen.getByRole("button", { name: label })).toBeInTheDocument();
+    }
+  });
+
   it("leaves the content in a hidden field, so the form stays a form", () => {
     renderWithIntl(<RichTextEditor name="body" defaultValue="<p>Scope of work</p>" />);
     expect(hidden()).toHaveValue("<p>Scope of work</p>");

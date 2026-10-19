@@ -34,6 +34,8 @@ import { hasActiveCatalogue } from "@/modules/catalogue/service";
 import { searchCatalogueAction } from "@/modules/catalogue/actions";
 import { searchLeadsAction } from "@/modules/leads/actions";
 import { QuoteActionsBar } from "@/modules/quotes/quote-actions-bar";
+import { jobForQuote, quoteHasJob } from "@/modules/jobs/service";
+import { startJobAction } from "@/modules/jobs/actions";
 import {
   decideQuoteAction,
   deleteQuoteAttachmentAction,
@@ -79,6 +81,13 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
   if (!quote) notFound();
 
   const reference = formatQuoteNumber(ctx.company.quotePrefix, quote.number);
+  const accepted = quote.status === QuoteStatus.ACCEPTED;
+  // The job this quote became, if this person can see it. A job they can't see
+  // still exists, so "Start job" isn't offered over the top of it either.
+  const [job, hasJob] = accepted
+    ? await Promise.all([can(ctx, "jobs.read") ? jobForQuote(ctx, quote.id) : null, quoteHasJob(ctx, quote.id)])
+    : [null, false];
+  const canStartJob = accepted && !hasJob && can(ctx, "jobs.create");
   // The currency comes from the quote, not the company: it's the copy frozen on issue.
   const money = (value: number) => formatMoney(value, quote.currency, ctx.company.formatLocale);
   const editable = isQuoteEditable(quote.status) && can(ctx, "quotes.update");
@@ -195,6 +204,8 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
             return decideAction(decision);
           }}
           previewHref={`/quotes/${quote.id}/preview`}
+          job={job ? { href: `/jobs/${job.id}` } : null}
+          onStartJob={canStartJob ? startJobAction.bind(null, quote.id) : undefined}
         />
       </div>
 

@@ -1,4 +1,5 @@
 import sanitizeHtml from "sanitize-html";
+import { colorPattern, HIGHLIGHT_COLORS, TEXT_COLORS } from "./rich-text-palette";
 
 /**
  * Sanitising the formatted text a company writes.
@@ -51,9 +52,86 @@ const OPTIONS: sanitizeHtml.IOptions = {
   disallowedTagsMode: "discard",
 };
 
-export function sanitizeRichText(html: string | null | undefined): string {
+/**
+ * The Message Board's profile: what a team writes for itself, read on a
+ * screen and never mailed to a customer. So it gets what the quote's profile
+ * refuses — headings, tables, alignment, colour — but colour only from the
+ * closed palette, and `style` only for those three properties. A style
+ * attribute open to anything is how a post would cover the page or load a
+ * picture from somewhere else.
+ *
+ * Images are still not allowed inline: they are attached to the post and shown
+ * as a gallery beneath it, through the same thumbnails and viewer as Docs.
+ */
+const TEXT_COLOR = colorPattern(TEXT_COLORS.map((color) => color.value));
+const HIGHLIGHT = colorPattern(HIGHLIGHT_COLORS.map((color) => color.value));
+const ALIGN = /^(left|center|right|justify)$/;
+const SPAN = /^[1-9]\d?$/;
+
+const FULL_OPTIONS: sanitizeHtml.IOptions = {
+  ...OPTIONS,
+  allowedTags: [
+    ...ALLOWED_TAGS,
+    "h2",
+    "hr",
+    "code",
+    "pre",
+    "span",
+    "mark",
+    "table",
+    "colgroup",
+    "col",
+    "thead",
+    "tbody",
+    "tr",
+    "th",
+    "td",
+  ],
+  allowedAttributes: {
+    ...OPTIONS.allowedAttributes,
+    p: ["style"],
+    h2: ["style"],
+    h3: ["style"],
+    span: ["style"],
+    mark: ["style"],
+    th: ["colspan", "rowspan"],
+    td: ["colspan", "rowspan"],
+  },
+  allowedStyles: {
+    p: { "text-align": [ALIGN] },
+    h2: { "text-align": [ALIGN] },
+    h3: { "text-align": [ALIGN] },
+    span: { color: [TEXT_COLOR] },
+    mark: { "background-color": [HIGHLIGHT] },
+  },
+  transformTags: {
+    ...OPTIONS.transformTags,
+    // A cell span is a small number or nothing: a huge colspan is a way to
+    // blow a table out sideways.
+    td: spanGuard("td"),
+    th: spanGuard("th"),
+  },
+};
+
+function spanGuard(tag: "td" | "th"): sanitizeHtml.Transformer {
+  return (_name, attribs) => {
+    const clean: Record<string, string> = {};
+    for (const key of ["colspan", "rowspan"] as const) {
+      if (attribs[key] && SPAN.test(attribs[key])) clean[key] = attribs[key];
+    }
+    return { tagName: tag, attribs: clean };
+  };
+}
+
+export type RichTextProfile = "basic" | "full";
+
+/**
+ * `basic` is the quote's — it goes out by email and onto paper, and must not
+ * change. `full` is the Message Board's.
+ */
+export function sanitizeRichText(html: string | null | undefined, profile: RichTextProfile = "basic"): string {
   if (!html) return "";
-  return sanitizeHtml(toRichTextHtml(html), OPTIONS).trim();
+  return sanitizeHtml(toRichTextHtml(html), profile === "full" ? FULL_OPTIONS : OPTIONS).trim();
 }
 
 /**
@@ -110,7 +188,7 @@ export function richTextToPlain(html: string | null | undefined): string {
 
   return html
     .replace(/<li[^>]*>/gi, "\n• ")
-    .replace(/<\/(p|div|h3|blockquote)>/gi, "\n\n")
+    .replace(/<\/(p|div|h2|h3|blockquote|pre|tr)>/gi, "\n\n")
     .replace(/<br\s*\/?>/gi, "\n")
     .replace(/<[^>]*>/g, "")
     .replace(/&nbsp;/g, " ")

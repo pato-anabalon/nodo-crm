@@ -40,11 +40,249 @@
   },
   "marketing": {
     "title": "Nodo CRM",
-    "description": "Leads y cotizaciones para oficios, con los datos de cada empresa separados de verdad.",
-    "headline": "Un CRM por empresa, con los datos de cada una separados de verdad.",
-    "subhead": "Leads y cotizaciones en un espacio propio, con el logo, los colores y los perfiles de tu equipo. Cada empresa opera en <domain></domain>.",
-    "createCompany": "Crear mi empresa",
-    "haveAccount": "Ya tengo cuenta"
+    "description": "El CRM para empresas que cotizan y ejecutan proyectos: leads, cotizaciones que tus clientes aceptan en línea y el avance de cada proyecto, con tu propio nombre.",
+    "nav": {
+      "label": "Principal",
+      "enquiries": "Consultas",
+      "quotes": "Cotizaciones",
+      "jobs": "Trabajos",
+      "team": "Equipo",
+      "signIn": "Ingresar",
+      "createCompany": "Crear mi empresa",
+      "menu": "Menú"
+    },
+    "hero": {
+      "title": "Cotiza. Gana. Manos a la obra.",
+      "subtitle": "Leads, cotizaciones que tus clientes aceptan en línea y el avance de cada proyecto, todo con tu propio nombre.",
+      "primary": "Crear mi empresa",
+      "secondary": "Ver cómo funciona",
+      "signInPrompt": "¿Ya tienes una cuenta?",
+      "signInLink": "Ingresa aquí",
+      "notifications": {
+        "lead": {
+          "label": "Nuevo lead",
+          "value": "Sarah Thompson · 15 Ellerton Road"
+        },
+        "opened": {
+          "label": "Viéndola ahora",
+          "value": "COT-000123 · Exterior replaster"
+        },
+        "accepted": {
+          "label": "Cotización aceptada",
+          "value": "COT-000123 · $18,975.00"
+        },
+        "job": {
+          "label": "Trabajo iniciado",
+          "value": "15 Ellerton Road, Mount Eden"
+        }
+      }
+    },
+    "enquiries": {
+      "kicker": "Consultas",
+      "title": "Que no se te escape ni un lead",
+      "body": "Las consultas llegan directo desde tu web, avisan a quien corresponde y cada una tiene su próximo paso. Se acabó buscar en la bandeja de entrada.",
+      "phoneAlt": "La lista de leads en Nodo",
+      "features": {
+        "form": {
+          "title": "Tu web, conectada",
+          "body": "Pega un fragmento de código y cada consulta llega a Nodo, sin spam ni duplicados."
+        },
+        "person": {
+          "title": "Vuelven, y tú te acuerdas",
+          "body": "Al cliente que vuelve se le reconoce por su correo, con todos sus proyectos y cotizaciones anteriores a mano."
+        },
+        "tasks": {
+          "title": "Seguimiento a tiempo, siempre",
+          "body": "Dale a cada lead un próximo paso con fecha. La campana te avisa cuando uno se atrasa."
+        },
+        "pipeline": {
+          "title": "Un embudo que se actualiza solo",
+          "body": "Envías la cotización y el lead pasa a propuesta. Te dicen que sí, queda ganado. Sin arrastrar tarjetas."
+        }
+      }
+    },
+    "quotes": {
+      "kicker": "Cotizaciones",
+      "title": "Cotizaciones que se cierran",
+      "body": "Escríbela una vez, envía un enlace y mira cuándo la leen.",
+      "steps": {
+        "build": {
+          "title": "Armar",
+          "body": "Por ítems o por secciones, con extras opcionales y opciones a elegir.",
+          "alt": "Armando una cotización en Nodo"
+        },
+        "share": {
+          "title": "Compartir",
+          "body": "Un enlace con tu marca, y ves el momento en que la abren.",
+          "alt": "La cotización como la abre el cliente"
+        },
+        "accept": {
+          "title": "Aceptar",
+          "body": "Firmada desde su celular, con el PDF listo para descargar.",
+          "alt": "Un cliente aceptando y firmando una cotización"
+        }
+      }
+    },
+    "jobs": {
+      "kicker": "Trabajos",
+      "title": "Del sí a la obra terminada",
+      "body": "Un botón convierte la cotización aceptada en un trabajo: su equipo, sus fechas, sus fotos y su chat en un solo lugar, hasta la entrega.",
+      "stages": {
+        "prep": "Preparación",
+        "render": "Revestimiento",
+        "paint": "Pintura",
+        "done": "Entrega"
+      },
+      "cards": {
+        "schedule": {
+          "title": "Agenda y Lineup",
+          "body": "Todos los trabajos en una sola línea de tiempo. Arrastra una barra para mover sus fechas.",
+          "label": "Agenda",
+          "value": "Andamio · lunes 8:00"
+        },
+        "people": {
+          "title": "Solo sus trabajos",
+          "body": "Tu equipo ve los trabajos en que está, nunca los precios.",
+          "label": "Equipo asignado",
+          "value": "Mia y Tom · 15 Ellerton Rd"
+        },
+        "board": {
+          "title": "Message Board",
+          "body": "El reporte del día, con fotos y comentarios, donde todos lo encuentran.",
+          "label": "Message Board",
+          "value": "Día 3 · Primera mano lista"
+        },
+        "files": {
+          "title": "Docs y archivos",
+          "body": "Fotos directo desde el celular, achicadas antes de subir.",
+          "label": "Fotos",
+          "value": "12 subidas desde la obra"
+        },
+        "todos": {
+          "title": "Tareas",
+          "body": "Tu equipo las marca como hechas. Las fechas quedan donde las pusiste.",
+          "label": "Tarea hecha",
+          "value": "Segunda mano · muro norte"
+        },
+        "chat": {
+          "title": "Chat",
+          "body": "Conversación rápida para el equipo. Solo suena una @mención.",
+          "label": "Chat",
+          "value": "@Tom la escalera está atrás"
+        }
+      },
+      "done": {
+        "title": "Entregado",
+        "body": "Cada foto, nota y tarea queda en el trabajo, lista para la próxima vez que llamen.",
+        "label": "Trabajo terminado",
+        "value": "15 Ellerton Road"
+      }
+    },
+    "rows": {
+      "title": "Tu marca. Tu cliente. Tus números.",
+      "brand": {
+        "title": "Tu marca, no la nuestra",
+        "body": "Tu propia dirección, logo y colores en la cotización, los correos y el PDF. Anda, prueba con la tuya:",
+        "nameLabel": "El nombre de tu empresa",
+        "namePlaceholder": "Kauri Plastering",
+        "colourLabel": "Tu color",
+        "quoteTitle": "Tu cotización",
+        "from": "De",
+        "lineA": "Preparación y reparaciones",
+        "lineB": "Pintura exterior",
+        "total": "Total con GST",
+        "accept": "Aceptar cotización",
+        "cta": "Créala de verdad"
+      },
+      "live": {
+        "title": "Mira cómo la reciben",
+        "body": "Ves el momento en que la abren, respondes preguntas en la misma cotización y los seguimientos salen solos. Si el cliente escribe, se detienen.",
+        "events": {
+          "sent": {
+            "day": "Día 0",
+            "title": "Cotización enviada",
+            "detail": "COT-000123 a Sarah Thompson"
+          },
+          "opened": {
+            "day": "Día 0",
+            "title": "Viéndola ahora",
+            "detail": "La abrió en su celular"
+          },
+          "followUp": {
+            "day": "Día 3",
+            "title": "Seguimiento enviado",
+            "detail": "Solo, cuando tú lo definiste"
+          },
+          "message": {
+            "day": "Día 4",
+            "title": "Sarah escribió",
+            "detail": "“¿Se podría pintar en marzo?”",
+            "note": "Seguimientos en pausa: está hablando contigo"
+          },
+          "accepted": {
+            "day": "Día 5",
+            "title": "Aceptada y firmada",
+            "detail": "$18,975.00"
+          }
+        }
+      },
+      "numbers": {
+        "title": "Conoce tus números",
+        "body": "Lo que enviaste, lo que ganaste y lo que te rechazaron, cuánto tardan tus clientes en decidir y el embudo de la consulta a la venta.",
+        "period": "Últimos 90 días",
+        "example": "Datos de ejemplo",
+        "accepted": "Aceptadas",
+        "awaiting": "En espera",
+        "declined": "Rechazadas",
+        "acceptedShare": "aceptadas",
+        "funnel": "De la consulta a la venta",
+        "enquiries": "Consultas",
+        "quoted": "Cotizadas",
+        "won": "Ganadas",
+        "median": "Tiempo mediano hasta aceptar",
+        "medianValue": "3,5 días"
+      }
+    },
+    "trust": {
+      "label": "Por qué Nodo",
+      "nz": {
+        "title": "Hecho para Nueva Zelanda",
+        "body": "GST incluido o aparte, NZD y precios como los pide la Fair Trading Act."
+      },
+      "private": {
+        "title": "Tus precios son tuyos",
+        "body": "Cada empresa trabaja en su propio espacio. Nadie más ve tus clientes ni tus tarifas."
+      },
+      "sign": {
+        "title": "Firmada desde el celular",
+        "body": "Tus clientes aceptan y firman donde estén, con el PDF listo para descargar."
+      }
+    },
+    "founders": {
+      "kicker": "Fundadores",
+      "title": "Las personas detrás de Nodo",
+      "body": "[Placeholder] Dos o tres frases sobre quién eres, por qué creaste Nodo y la empresa de oficios con la que empezó.",
+      "name": "[Nombre del fundador]",
+      "role": "[Cargo]",
+      "photoAlt": "Foto del fundador"
+    },
+    "reviews": {
+      "title": "La confianza de los oficios"
+    },
+    "cta": {
+      "title": "Tu próxima obra empieza aquí",
+      "body": "Crea tu empresa en un minuto y envía tu primera cotización hoy.",
+      "primary": "Crear mi empresa",
+      "secondary": "Ingresar",
+      "beep": "¡Bip bip!"
+    },
+    "footer": {
+      "product": "Producto",
+      "account": "Cuenta",
+      "language": "Idioma",
+      "madeBy": "Otro producto hecho con 💜 por",
+      "legal": "© {year} Nodo CRM. Ilustraciones de Nodo."
+    }
   },
   "auth": {
     "signInTitle": "Entrar",

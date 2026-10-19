@@ -20,16 +20,15 @@ export type RegisterState = {
  * It's the only entry point that creates a company, so the global Prisma client
  * is used here deliberately: there's no tenant to scope to yet.
  */
-export async function registerCompany(
-  _prev: RegisterState,
-  formData: FormData,
-): Promise<RegisterState> {
+export async function registerCompany(_prev: RegisterState, formData: FormData): Promise<RegisterState> {
   const parsed = signupSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
     password: formData.get("password"),
     companyName: formData.get("companyName"),
-    companySlug: String(formData.get("companySlug") ?? "").toLowerCase().trim(),
+    companySlug: String(formData.get("companySlug") ?? "")
+      .toLowerCase()
+      .trim(),
   });
 
   const t = await getTranslations();

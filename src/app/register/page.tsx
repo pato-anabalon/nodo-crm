@@ -8,7 +8,10 @@ export async function generateMetadata() {
   return { title: `${t("createCompany")} · Nodo CRM` };
 }
 
-export default async function RegistroPage() {
+export default async function RegistroPage({ searchParams }: { searchParams: Promise<{ company?: string | string[] }> }) {
+  const { company } = await searchParams;
+  // The name typed into the public page's brand demo, so it isn't typed twice.
+  const initialCompanyName = typeof company === "string" ? company.slice(0, 100) : "";
   const t = await getTranslations("auth");
 
   return (
@@ -21,7 +24,7 @@ export default async function RegistroPage() {
           <p className="text-sm text-muted-foreground">{t("signUpSubtitle")}</p>
         </div>
 
-        <RegisterForm />
+        <RegisterForm initialCompanyName={initialCompanyName} />
 
         <p className="text-center text-sm text-muted-foreground">
           {t("alreadyHaveAccount")}{" "}

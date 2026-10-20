@@ -1530,6 +1530,8 @@
     "understood": "Ya la guardé",
     "howTo": "Cómo conectarla",
     "howToBody": "Haz que tu formulario envíe un POST a esta dirección con la clave en la cabecera. Los nombres de los campos son libres: se reconocen los habituales y el resto se guarda igual.",
+    "howToFields": "Se reconocen automáticamente: nombre (o nombre y apellido), email, teléfono, empresa, dirección, servicio, mensaje, source_url, referrer y utm_source / utm_medium / utm_campaign, en inglés o español. Cualquier otro campo, como preferred_start arriba, se guarda con la consulta.",
+    "howToFiles": "Los archivos no se suben a esta dirección: envía los enlaces en files (o attachments). Hasta 5 archivos de 10 MB, solo https, PDF, JPG, PNG, WebP o HEIC. Un archivo que no cumpla se deja fuera y la consulta llega igual.",
     "rejections": "Últimos rechazos",
     "rejectionsBody": "Si tu formulario no entra, acá está el motivo.",
     "noRejections": "Sin rechazos recientes.",

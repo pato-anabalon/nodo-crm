@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { File, FileText, Loader2, TriangleAlert } from "lucide-react";
+import { File as FileIcon, FileText, Loader2, TriangleAlert } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatBytes } from "@/modules/documents/constants";
@@ -44,7 +44,7 @@ export async function LeadAttachmentsPanel({
             const href = attachment.url ?? attachment.sourceUrl;
             const isImage =
               attachment.status === "STORED" && attachment.contentType?.startsWith("image/");
-            const Icon = attachment.contentType === "application/pdf" ? FileText : File;
+            const Icon = attachment.contentType === "application/pdf" ? FileText : FileIcon;
 
             return (
               <li key={attachment.id} className="min-w-0">

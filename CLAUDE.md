@@ -1813,6 +1813,93 @@ by being fetched would be accepted by the first mail scanner that previewed it.
 The signed-in address has to match the invited one, or a forwarded email would
 let whoever opened it walk in.
 
+## Who gets in: sign-up, approval and demos
+
+Anybody can sign a company up, so **signing up grants nothing**: the company is
+created with `isActive: false` and a platform admin switches it on from `/admin`.
+The register form says so instead of redirecting to a login that would lead
+nowhere, and the admins are emailed (`PLATFORM_ADMIN_EMAILS`) that one is waiting.
+A company that is off answers exactly like one that doesn't exist, on purpose, so
+the 404 can't be used to find out which names are registered — which is also why
+that page says "isn't open yet" and never names the company.
+
+**`isActive` stays the one switch.** Login, session, magic link, ingest keys and
+the sweep already stop at it, so nothing new had to learn about demos. The fields
+beside it only say *why* it is on or off, and `companyStatus` (pure, in
+`platform/status.ts`) turns them into the five words /admin shows:
+
+| Status | How it reads |
+|---|---|
+| Pending | off, `approvedAt` null — signed up, never switched on |
+| Active | on, not a demo |
+| Demo | on, `isDemo`, with its days left |
+| Demo ended | off, `demoEndedAt` set — the sweep ran it out |
+| Suspended | off, `approvedAt` set — somebody turned it off |
+
+`approvedAt` is the first switch-on only; later reactivations keep it. The
+migration backfilled it with `createdAt` for every company that was already on,
+so none of them reads as pending.
+
+**A demo's clock starts when the admin switches the company on**, not at sign-up:
+the wait for approval isn't the company's to spend. `demoEndsAt` is stored rather
+than worked out, so the sweep asks for what has run out in one comparison;
+changing the days rewrites it from `demoStartedAt`. Activating a demo that ran out
+starts a fresh one, which is what "extend" means, and the dialog offers the
+previous days back. Making the company a customer clears all of it.
+
+**The nightly sweep ends demos** (`endExpiredDemos`) and does it **first**, so a
+company that ends tonight is already off when the sweep reads who to chase.
+It is idempotent through its own filter — the update only matches a demo that is
+on and not yet ended — so a retry costs nothing and two runs can't both claim a
+company, which is what keeps the email to one. Resolution is the sweep's: a demo
+can run up to a day past its end, the price of needing no scheduler of its own.
+`status.test.ts` reads the sweep's source for both facts, because forgetting
+either leaves every demo running forever with nothing failing.
+
+**The owners are told twice, as Nodo and not as their company**
+(`platform/owner-notices.ts`): three days before the end and when it ends. These
+are not company emails, so they have **no template and no screen to edit one** —
+the wording is in `messages` (`platform.ownerDemo`), changed in code like any other
+text, and each active owner gets it in their own language. They are not a
+preference either (`NotificationPreference` doesn't cover them): they are about
+the owner's access.
+
+They invite the owner to **get in touch and take the platform up**, not to ask for
+more time. When there are plans and online payment, this is the email whose action
+becomes "choose a plan".
+
+- **The warning is once per demo** (`demoWarnedAt`), claimed in the same single
+  update that makes a retry safe, and cleared whenever the demo's days change so
+  an extended demo is warned again before its new end. It is not sent for a demo no
+  longer than the window itself: the night after it starts, "ends in two days"
+  would tell nobody anything.
+- **The address they are invited to write to is `PLATFORM_CONTACT_EMAIL`, never one
+  of `PLATFORM_ADMIN_EMAILS`.** The admin addresses are the accounts that get into
+  `/admin`, and a Reply-To on every owner's email would put one of them in front of
+  every company. `contact.test.ts` checks the code never reads the allowlist. With
+  it unset the email carries no Reply-To and the button points at the public site,
+  rather than at a mailto that leads nowhere.
+
+### The sweep and quotes brought in from another tool
+
+A company that migrated keeps thousands of old quotes, some still `SENT`, that are
+still worked in the tool they came from. The sweep must never touch them: not
+chase their customers, not close them as `EXPIRED` (which also moves a lead along
+on a history this platform never recorded), not warn the team about them.
+
+The line is `Company.quoteNumberStart`: the importer numbers what it brings in
+from 1 and the start is set above the last, so **a quote made here is numbered at
+or above it** (`isNativeQuote` / `nativeQuoteWhere`, in `quotes/native.ts`). A
+company that never migrated leaves it at 1 and the rule changes nothing for it.
+`native.test.ts` reads the three sweeps' source and fails if a query on quotes
+doesn't go through it — a fourth pass added later is exactly how it would be
+forgotten.
+
+Two things to know. Something made here *before* the start was set is numbered
+below it and is treated as brought in; for PlasterPro those were two drafts.
+And `scripts/count-cron-candidates.ts` is a read-only way to see, per company,
+what the sweep would do tonight before switching it on.
+
 ## Commands
 
 > Migrations are created with `prisma migrate diff --from-config-datasource

@@ -2,6 +2,7 @@ import { prisma } from "@/lib/db/prisma";
 import { ActivityType, QuoteStatus } from "@/generated/prisma/enums";
 import { nextLeadStatus } from "@/modules/leads/constants";
 import { hasExpired } from "@/modules/notifications/watch";
+import { nativeQuoteWhere } from "./native";
 
 /**
  * Closes out quotes nobody answered before their `validUntil` ran out.
@@ -19,11 +20,19 @@ import { hasExpired } from "@/modules/notifications/watch";
  * and running twice in one night closes nothing twice.
  */
 export async function closeExpiredQuotes(
-  company: { id: string },
+  company: { id: string; quoteNumberStart: number },
   now: Date,
 ): Promise<number> {
   const quotes = await prisma.quote.findMany({
-    where: { companyId: company.id, status: QuoteStatus.SENT, validUntil: { not: null, lt: now } },
+    // Only quotes made here. One brought in from another tool and still `SENT`
+    // past its date is that tool's to close; doing it here would also move its
+    // lead along on a history this platform never recorded.
+    where: {
+      companyId: company.id,
+      ...nativeQuoteWhere(company.quoteNumberStart),
+      status: QuoteStatus.SENT,
+      validUntil: { not: null, lt: now },
+    },
     select: { id: true, number: true, leadId: true, validUntil: true },
     take: 500,
   });

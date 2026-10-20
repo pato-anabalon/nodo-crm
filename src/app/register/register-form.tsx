@@ -1,7 +1,9 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useState } from "react";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
+import { MailCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -28,10 +30,25 @@ export function RegisterForm({ initialCompanyName = "" }: { initialCompanyName?:
   // Until the user edits the subdomain, it's derived from the name.
   const effectiveSlug = slugTouched ? slug : slugify(companyName);
 
-  useEffect(() => {
-    // Sign-up ends on another subdomain, so `redirect()` won't do.
-    if (state.redirectTo) window.location.href = state.redirectTo;
-  }, [state.redirectTo]);
+  // Sign-up no longer ends on the company's login: the company is switched off
+  // until a platform admin approves it, so there is nowhere to send them yet.
+  if (state.pendingApproval) {
+    return (
+      <div role="status" className="space-y-5 rounded-xl border bg-card p-8 text-center shadow-sm">
+        <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <MailCheck className="size-7" aria-hidden />
+        </div>
+        <div className="space-y-2">
+          <h2 className="text-xl font-semibold tracking-tight">{t("pendingTitle")}</h2>
+          <p className="text-sm text-muted-foreground">{t("pendingBody")}</p>
+          {state.email ? <p className="text-sm font-medium">{t("pendingEmail", { email: state.email })}</p> : null}
+        </div>
+        <Button asChild variant="outline">
+          <Link href="/">{t("pendingBack")}</Link>
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <form action={action} className="space-y-4">

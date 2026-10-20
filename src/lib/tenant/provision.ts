@@ -35,6 +35,8 @@ export async function createCompanyWithOwner(
     currency?: string;
     formatLocale?: string;
     timezone?: string;
+    /** Defaults to on; public sign-up passes false so the platform admin decides. */
+    isActive?: boolean;
   },
 ) {
   return prisma.$transaction(async (tx) => {
@@ -45,6 +47,7 @@ export async function createCompanyWithOwner(
         currency: input.currency ?? "NZD",
         formatLocale: input.formatLocale ?? "en-NZ",
         timezone: input.timezone ?? "Pacific/Auckland",
+        isActive: input.isActive ?? true,
       },
     });
 

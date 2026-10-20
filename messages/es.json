@@ -316,7 +316,11 @@
     "findCompanyBody": "Cada empresa entra por su propia dirección. Escribe la tuya y te llevamos.",
     "companyAddress": "Dirección de tu empresa",
     "goToCompany": "Ir a mi empresa",
-    "noCompanyYet": "¿Todavía no tienes empresa?"
+    "noCompanyYet": "¿Todavía no tienes empresa?",
+    "pendingTitle": "Tu empresa ha sido creada",
+    "pendingBody": "Gracias por registrarte. Revisamos cada empresa nueva antes de activarla y pronto te contactaremos para darte acceso a la plataforma.",
+    "pendingEmail": "Te escribiremos a {email} apenas esté lista.",
+    "pendingBack": "Volver al inicio"
   },
   "password": {
     "choose": "Elige una contraseña",
@@ -2012,7 +2016,23 @@
     "activate": "Activar",
     "activated": "Empresa activada",
     "suspended": "Empresa suspendida",
-    "empty": "Todavía no hay empresas registradas."
+    "empty": "Todavía no hay empresas registradas.",
+    "registeredNotice": {
+      "subject": "Nueva empresa pendiente de aprobación: {company}",
+      "heading": "Se registró una nueva empresa",
+      "company": "Empresa: {company} ({slug})",
+      "owner": "Propietario: {name} · {email}",
+      "body": "Está desactivada hasta que la actives. Mientras tanto nadie puede entrar a su subdominio ni iniciar sesión.",
+      "action": "Revisarla en el panel de administración"
+    }
+  },
+  "notFound": {
+    "eyebrow": "Error 404",
+    "title": "Este sitio todavía no está abierto",
+    "body": "Puede que la dirección tenga un error de escritura, o que el sitio de esta empresa aún esté en preparación. Activamos cada empresa nueva a mano, así que si acabas de registrarte, un poco de paciencia: te avisaremos por correo apenas esté lista.",
+    "home": "Volver al inicio",
+    "signIn": "Buscar mi empresa",
+    "sceneAlt": "Ilustración en pixel art: una grúa torre levanta un letrero 404 con eslingas y otra grúa más pequeña sube un cajón, con conos en la vereda, la Sky Tower de Auckland al fondo y una camioneta que pasa."
   },
   "trades": {
     "title": "Oficios",

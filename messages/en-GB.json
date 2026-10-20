@@ -316,7 +316,11 @@
     "findCompanyBody": "Each company signs in at its own address. Enter yours and we'll take you there.",
     "companyAddress": "Your company's address",
     "goToCompany": "Go to my company",
-    "noCompanyYet": "Don't have a company yet?"
+    "noCompanyYet": "Don't have a company yet?",
+    "pendingTitle": "Your company has been created",
+    "pendingBody": "Thanks for signing up. We review every new company before switching it on, and we'll be in touch soon to give you access to the platform.",
+    "pendingEmail": "We'll write to {email} as soon as it's ready.",
+    "pendingBack": "Back to the home page"
   },
   "password": {
     "choose": "Choose a password",
@@ -2012,7 +2016,23 @@
     "activate": "Activate",
     "activated": "Company activated",
     "suspended": "Company suspended",
-    "empty": "No companies registered yet."
+    "empty": "No companies registered yet.",
+    "registeredNotice": {
+      "subject": "New company waiting for approval: {company}",
+      "heading": "A new company has signed up",
+      "company": "Company: {company} ({slug})",
+      "owner": "Owner: {name} · {email}",
+      "body": "It is switched off until you activate it. Until then nobody can reach its subdomain or sign in.",
+      "action": "Review it in the admin panel"
+    }
+  },
+  "notFound": {
+    "eyebrow": "Error 404",
+    "title": "This site isn't open yet",
+    "body": "The address may have a typo, or this company's site may still be getting set up. We switch every new company on by hand, so if you've just signed up, hang tight: we'll email you the moment it's ready.",
+    "home": "Back to the home page",
+    "signIn": "Find my company",
+    "sceneAlt": "Pixel art: a tower crane hoists a 404 sign on its slings while a smaller crane lifts a crate, with cones on the footpath, Auckland's Sky Tower behind and a ute driving past."
   },
   "trades": {
     "title": "Trades",

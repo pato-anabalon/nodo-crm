@@ -62,6 +62,7 @@ export function IngestKeysManager({
         </CardHeader>
         <CardContent className="space-y-3">
           <p className="text-sm text-muted-foreground">{t("howToBody")}</p>
+          <p className="text-sm text-muted-foreground">{t("howToFields")}</p>
           <pre className="overflow-x-auto rounded-md bg-muted p-3 text-xs">
             <code>{`POST ${endpoint}
 Authorization: Bearer nodo_pk_…
@@ -71,10 +72,17 @@ Content-Type: application/json
   "name": "Sarah Whitmore",
   "email": "sarah@example.co.nz",
   "phone": "+64 21 555 0134",
+  "company": "Whitmore Builders",
+  "address": "12 Example Street, Auckland",
   "service": "Interior plastering",
-  "message": "Kitchen walls need replastering."
+  "message": "Kitchen walls need replastering.",
+  "files": [
+    { "name": "kitchen.jpg", "url": "https://example.co.nz/uploads/kitchen.jpg" }
+  ],
+  "preferred_start": "March"
 }`}</code>
           </pre>
+          <p className="text-sm text-muted-foreground">{t("howToFiles")}</p>
         </CardContent>
       </Card>
 

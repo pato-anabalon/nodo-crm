@@ -3,7 +3,7 @@
 import { useActionState, useEffect, useRef, useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { File, FileImage, FileText, Paperclip, Trash2 } from "lucide-react";
+import { File as FileIcon, FileImage, FileText, Paperclip, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ConfirmButton } from "@/components/confirm-button";
@@ -47,7 +47,7 @@ export type AttachmentUploadActions = {
 function fileIcon(contentType: string) {
   if (contentType === "application/pdf") return FileText;
   if (contentType.startsWith("image/")) return FileImage;
-  return File;
+  return FileIcon;
 }
 
 /** The icon already says what it is — the name doesn't need to repeat the

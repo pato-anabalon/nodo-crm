@@ -1530,6 +1530,8 @@
     "understood": "I've saved it",
     "howTo": "How to connect it",
     "howToBody": "Have your form POST to this address with the key in the header. Field names are up to you: the usual ones are recognised and everything else is kept anyway.",
+    "howToFields": "Recognised automatically: name (or first and last name), email, phone, company, address, service, message, source_url, referrer and utm_source / utm_medium / utm_campaign, in English or Spanish. Any other field, like preferred_start above, is kept with the enquiry.",
+    "howToFiles": "Files aren't uploaded to this address: send links to them in files (or attachments). Up to 5 files, 10 MB each, https only, PDF, JPG, PNG, WebP or HEIC. A file that doesn't qualify is left out and the enquiry still arrives.",
     "rejections": "Recent rejections",
     "rejectionsBody": "If your form isn't getting through, the reason is here.",
     "noRejections": "No recent rejections.",

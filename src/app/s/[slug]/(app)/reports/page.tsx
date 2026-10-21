@@ -84,8 +84,11 @@ export default async function ReportsPage({
         <StatsPanel params={raw} />
       </Suspense>
 
-      <div className="grid gap-6 lg:grid-cols-5">
-        <div className="lg:col-span-2">
+      {/* `grid-cols-1` and `min-w-0`, not the defaults: a grid's implicit column is
+          `auto`, which grows to the widest thing inside it, so on a phone the
+          trend chart's own minimum pushed the whole panel past the screen. */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
+        <div className="min-w-0 lg:col-span-2">
           {/* No `key` here, unlike its siblings: the donut keeps the previous
               period's ring on screen through the filter's transition instead
               of remounting to a skeleton, and animates into the new shares
@@ -95,7 +98,7 @@ export default async function ReportsPage({
           </Suspense>
         </div>
 
-        <div className="lg:col-span-3">
+        <div className="min-w-0 lg:col-span-3">
           {/* No `key` here either, same reason as the donut beside it: it
               keeps its previous curve on screen and tweens into the new one
               instead of remounting to a skeleton (see `trend-chart.tsx`). */}
@@ -105,7 +108,7 @@ export default async function ReportsPage({
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <Suspense
           key={`funnel-${key}`}
           fallback={<PanelSkeleton rows={3} height="h-10" />}
@@ -190,7 +193,7 @@ async function StatsPanel({ params }: { params: Params }) {
   ];
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
       {tiles.map((tile) => (
         <Card key={tile.key}>
           <CardContent>

@@ -99,7 +99,7 @@ export default async function DashboardPage() {
       </div>
 
       {showFunnel ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Metric label={t("openOpportunities")} value={String(openCount)} />
           <Metric
             label={t("pipelineValue")}
@@ -114,7 +114,7 @@ export default async function DashboardPage() {
           moving, and what moved most recently — so they sit in the same row
           at the same height rather than one stacked above the other. */}
       {showFunnel || showQuotes ? (
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {showFunnel ? (
             <Card className="h-full">
               <CardHeader>
@@ -155,7 +155,7 @@ export default async function DashboardPage() {
       ) : null}
 
       {showQuotes ? (
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <QuoteListCard
             title={t("lastSent")}
             emptyLabel={t("noneSentYet")}

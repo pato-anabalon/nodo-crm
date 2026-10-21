@@ -27,6 +27,8 @@ export type MailInput = {
   lines: string[];
   actionLabel?: string;
   actionUrl?: string;
+  /** Where a reply goes, for the notices whose sender is `no-reply@`. */
+  replyTo?: string;
 };
 
 export async function sendNotice(input: MailInput): Promise<boolean> {
@@ -45,6 +47,7 @@ export async function sendNotice(input: MailInput): Promise<boolean> {
   const { error } = await resend.emails.send({
     from: defaultFrom(input.companyName),
     to: input.to.email,
+    ...(input.replyTo ? { replyTo: input.replyTo } : {}),
     subject: input.subject,
     html: `<div style="font-family:system-ui,-apple-system,sans-serif;max-width:560px;margin:0 auto;color:#0f172a">
   <h1 style="font-size:18px;margin:0 0 12px">${escapeHtml(input.heading)}</h1>

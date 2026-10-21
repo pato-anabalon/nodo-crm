@@ -91,7 +91,7 @@ export function DateFields({
 }) {
   const t = useTranslations("jobs.fields");
   return (
-    <div className="grid gap-4 sm:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <div className="space-y-2">
         <Label htmlFor="job-starts">{t("startsOn")}</Label>
         <Input id="job-starts" name="startsOn" type="date" defaultValue={defaults.startsOn ?? ""} />

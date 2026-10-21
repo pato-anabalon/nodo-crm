@@ -1,4 +1,5 @@
 import {
+  closeOf,
   wasAwaitingAt,
   wasDecidedWithin,
   wasExpiredWithin,
@@ -183,6 +184,102 @@ describe("the stock/flow partition behind the Reports cards", () => {
 
     // A sanity floor, so a change that made every quote fall outside the
     // pool (and the loop above a no-op) still fails loudly.
+    expect(checked).toBeGreaterThan(20);
+  });
+});
+
+/**
+ * A period that hasn't ended. The year in progress closes on 1 January, but a
+ * quote valid until November has not run out yet: it is open. Reading the stock
+ * as of next January counted it as expired and left "awaiting acceptance" at
+ * zero while quotes were genuinely waiting.
+ */
+describe("a period that is still open", () => {
+  const now = day("2023-07-01T00:00:00Z"); // half way through `period`
+
+  it("closes at today, not at the period's end", () => {
+    expect(closeOf(period, now)).toEqual(now);
+  });
+
+  it("closes at the period's end once that has passed", () => {
+    expect(closeOf(period, day("2025-01-01T00:00:00Z"))).toEqual(period.to);
+    // ...and at the exact instant it ends, which is the half-open boundary.
+    expect(closeOf(period, period.to)).toEqual(period.to);
+  });
+
+  it("keeps a quote whose validity is still ahead awaiting, and out of expired", () => {
+    const q = quote({
+      sentAt: day("2023-06-10T00:00:00Z"),
+      validUntil: day("2023-09-10T00:00:00Z"), // inside the period, but not here yet
+      status: "SENT",
+    });
+
+    expect(wasAwaitingAt(q, closeOf(period, now))).toBe(true);
+    expect(wasExpiredWithin(q, period, now)).toBe(false);
+    // The behaviour this replaces: read at the period's end it was "expired".
+    expect(wasAwaitingAt(q, period.to)).toBe(false);
+    expect(wasExpiredWithin(q, period)).toBe(true);
+  });
+
+  it("still counts as expired a quote whose validity really has run out by today", () => {
+    const q = quote({
+      sentAt: day("2023-02-01T00:00:00Z"),
+      validUntil: day("2023-03-01T00:00:00Z"),
+      status: "SENT",
+    });
+
+    expect(wasExpiredWithin(q, period, now)).toBe(true);
+    expect(wasAwaitingAt(q, closeOf(period, now))).toBe(false);
+  });
+
+  it("leaves a past period exactly as it was", () => {
+    const later = day("2030-01-01T00:00:00Z");
+    const q = quote({ sentAt: day("2023-06-10T00:00:00Z"), validUntil: day("2023-09-10T00:00:00Z") });
+
+    expect(wasExpiredWithin(q, period, later)).toBe(wasExpiredWithin(q, period));
+    expect(wasAwaitingAt(q, closeOf(period, later))).toBe(wasAwaitingAt(q, period.to));
+  });
+
+  it("still gives every quote exactly one outcome when the period isn't over", () => {
+    const before = day("2022-06-01T00:00:00Z");
+    const early = day("2023-02-01T00:00:00Z");
+    const recent = day("2023-06-15T00:00:00Z");
+    const ahead = day("2023-11-01T00:00:00Z");
+    const afterPeriod = day("2024-06-01T00:00:00Z");
+
+    // Sent and decided can only be in the past; validity is the one date that
+    // can sit ahead of today.
+    const past = [before, early, recent, period.from];
+    const validities = [null, before, early, recent, ahead, afterPeriod, period.from, period.to];
+
+    const quotes: QuoteLike[] = [];
+    for (const sentAt of past) {
+      for (const validUntil of validities) {
+        if (validUntil !== null && validUntil <= sentAt) continue;
+        quotes.push(quote({ sentAt, status: "SENT", validUntil }));
+        quotes.push(quote({ sentAt, status: "EXPIRED", validUntil }));
+      }
+      for (const decidedAt of past) {
+        if (decidedAt < sentAt) continue;
+        quotes.push(quote({ sentAt, decidedAt, status: "ACCEPTED" }));
+        quotes.push(quote({ sentAt, decidedAt, status: "REJECTED" }));
+      }
+    }
+
+    let checked = 0;
+    for (const q of quotes) {
+      const openedPool = wasAwaitingAt(q, period.from) || wasSentWithin(q, period);
+      if (!openedPool) continue;
+      checked += 1;
+
+      const outcomes =
+        Number(wasDecidedWithin(q, period)) +
+        Number(wasExpiredWithin(q, period, now)) +
+        Number(wasAwaitingAt(q, closeOf(period, now)));
+
+      if (outcomes !== 1) throw new Error(`Quote ${JSON.stringify(q)} resolved to ${outcomes} outcomes instead of 1`);
+    }
+
     expect(checked).toBeGreaterThan(20);
   });
 });

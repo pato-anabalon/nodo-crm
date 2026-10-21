@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
+import { Eye } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export type PresenceRow = { viewingNow: boolean; openCount: number };
@@ -108,8 +109,14 @@ export function ViewingNow({ quoteId }: { quoteId: string }) {
 export function QuoteSeen({
   quoteId,
   seenLabel,
+  card = false,
 }: {
   quoteId: string;
+  /**
+   * Inside a `QuoteCard`: in its compact density the word "Seen" gives way to
+   * an eye (the word stays for a screen reader). The table keeps the sentence.
+   */
+  card?: boolean;
   /** "3 days ago", or null when the customer has never opened it. */
   seenLabel: string | null;
 }) {
@@ -121,6 +128,16 @@ export function QuoteSeen({
   if (row.viewingNow) return <ViewingNow quoteId={quoteId} />;
   if (!seenLabel) return <span className="text-muted-foreground italic">{t("neverOpened")}</span>;
 
+  if (card) {
+    return (
+      <span className="relative inline-flex items-center gap-1.5 text-muted-foreground">
+        <Eye aria-hidden className="hidden size-3.5 group-data-[variant=compact]/card:block" />
+        <span className="group-data-[variant=compact]/card:sr-only">{t("seen")}</span>
+        {seenLabel}
+      </span>
+    );
+  }
+
   return <span className="text-muted-foreground">{t("seenAgo", { when: seenLabel })}</span>;
 }
 
@@ -130,4 +147,18 @@ export function OpenCount({ quoteId }: { quoteId: string }) {
 
   if (!row) return <span className="text-muted-foreground">—</span>;
   return <span className="tabular-nums">{row.openCount}</span>;
+}
+
+/**
+ * The open count written out — "2 opens" — for a card, where there is no column
+ * header to say what the number is. The same dash as `OpenCount` when no link
+ * ever went out, for the same reason.
+ */
+export function OpenCountLabel({ quoteId }: { quoteId: string }) {
+  const presence = useContext(PresenceContext);
+  const t = useTranslations("quotes.cards");
+  const row = presence[quoteId];
+
+  if (!row) return <span>—</span>;
+  return <span className="tabular-nums">{t("opens", { count: row.openCount })}</span>;
 }

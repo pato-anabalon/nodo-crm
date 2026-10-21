@@ -103,6 +103,14 @@ export const quoteFormSchema = z
     .transform((v) => (v === "" ? null : v))
     .nullable()
     .optional(),
+  // Who the quote belongs to. Sent only by the edit form, and only to people
+  // who may reassign; blank means "leave it with whoever has it".
+  ownerId: z
+    .string()
+    .trim()
+    .transform((v) => (v === "" ? null : v))
+    .nullable()
+    .optional(),
   taxRate: z.coerce.number().min(0).max(100).default(15),
   // Optional, same reason as currency below: the service fills in the
   // company's own setting when the form doesn't send one (a new quote, before
@@ -288,6 +296,7 @@ export function quoteFormDataToInput(formData: FormData): Record<string, unknown
     pricingMode: get("pricingMode") ?? PricingMode.ITEMIZED,
     sections: parseQuoteSections(formData),
     leadId: get("leadId"),
+    ownerId: get("ownerId"),
     termsDocumentId: get("termsDocumentId"),
     taxRate: get("taxRate") ?? 15,
     taxDisplayMode: get("taxDisplayMode"),

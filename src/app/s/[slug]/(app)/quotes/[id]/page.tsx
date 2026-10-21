@@ -15,6 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { getQuote } from "@/modules/quotes/service";
+import { listCompanyMembers } from "@/modules/team/service";
 import { listCompanyDocuments } from "@/modules/documents/service";
 import { QuoteForm } from "@/modules/quotes/quote-form";
 import { QuoteRecipients } from "@/modules/quotes/quote-recipients";
@@ -33,6 +34,7 @@ import {
 import { hasActiveCatalogue } from "@/modules/catalogue/service";
 import { searchCatalogueAction } from "@/modules/catalogue/actions";
 import { searchLeadsAction } from "@/modules/leads/actions";
+import { QuoteOwnerSelect } from "@/modules/quotes/quote-owner-select";
 import { QuoteActionsBar } from "@/modules/quotes/quote-actions-bar";
 import { jobForQuote, quoteHasJob } from "@/modules/jobs/service";
 import { startJobAction } from "@/modules/jobs/actions";
@@ -91,6 +93,13 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
   // The currency comes from the quote, not the company: it's the copy frozen on issue.
   const money = (value: number) => formatMoney(value, quote.currency, ctx.company.formatLocale);
   const editable = isQuoteEditable(quote.status) && can(ctx, "quotes.update");
+
+  // Handing the quote to somebody else is for whoever sees every quote; it is
+  // the same rule the server enforces on save.
+  const owners =
+    editable && can(ctx, "quotes.read.all")
+      ? (await listCompanyMembers(ctx)).map((member) => ({ id: member.userId, name: member.name }))
+      : undefined;
   const canSeeAmounts = can(ctx, "quotes.read.amounts");
   // Stands in for a raw figure wherever `quotes.read.amounts` says not to show
   // one — used throughout the read-only detail below. The edit form is a
@@ -189,24 +198,29 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
           </div>
         </div>
 
-        <QuoteActionsBar
-          quoteId={quote.id}
-          status={quote.status}
-          canSend={can(ctx, "quotes.send")}
-          canDecide={can(ctx, "quotes.decide")}
-          hasLead={!!quote.leadId}
-          onSend={async () => {
-            "use server";
-            return sendAction();
-          }}
-          onDecide={async (decision) => {
-            "use server";
-            return decideAction(decision);
-          }}
-          previewHref={`/quotes/${quote.id}/preview`}
-          job={job ? { href: `/jobs/${job.id}` } : null}
-          onStartJob={canStartJob ? startJobAction.bind(null, quote.id) : undefined}
-        />
+        {/* The owner select and the actions share the right-hand side; on a phone
+            they stack and span the width. */}
+        <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
+          {owners ? <QuoteOwnerSelect ownerId={quote.createdById} owners={owners} /> : null}
+          <QuoteActionsBar
+            quoteId={quote.id}
+            status={quote.status}
+            canSend={can(ctx, "quotes.send")}
+            canDecide={can(ctx, "quotes.decide")}
+            hasLead={!!quote.leadId}
+            onSend={async () => {
+              "use server";
+              return sendAction();
+            }}
+            onDecide={async (decision) => {
+              "use server";
+              return decideAction(decision);
+            }}
+            previewHref={`/quotes/${quote.id}/preview`}
+            job={job ? { href: `/jobs/${job.id}` } : null}
+            onStartJob={canStartJob ? startJobAction.bind(null, quote.id) : undefined}
+          />
+        </div>
       </div>
 
       {editable ? (
@@ -314,7 +328,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
             </Card>
           ) : null}
 
-          <div className="grid items-start gap-6 lg:grid-cols-3">
+          <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-3">
             <div className="space-y-6 lg:col-span-2">
             <Card>
               <CardHeader>
@@ -335,7 +349,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
                 </CardContent>
               ) : (
                 <CardContent className="p-0">
-                  <Table>
+                  <Table cards>
                     <TableHeader>
                       <TableRow>
                         <TableHead>{t("columns.description")}</TableHead>
@@ -348,11 +362,13 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
                     <TableBody>
                       {quote.items.map((item) => (
                         <TableRow key={item.id}>
-                          <TableCell>{item.description}</TableCell>
-                          <TableCell className="text-right tabular-nums">{Number(item.quantity)}</TableCell>
-                          <TableCell className="text-right tabular-nums">{maskedMoney(Number(item.unitPrice))}</TableCell>
-                          <TableCell className="text-right tabular-nums">{Number(item.discount)}%</TableCell>
-                          <TableCell className="text-right tabular-nums">{maskedMoney(Number(item.total))}</TableCell>
+                          <TableCell primary>
+                            {item.description}
+                          </TableCell>
+                          <TableCell label={t("columns.quantity")} className="text-right tabular-nums">{Number(item.quantity)}</TableCell>
+                          <TableCell label={t("columns.unitPrice")} className="text-right tabular-nums">{maskedMoney(Number(item.unitPrice))}</TableCell>
+                          <TableCell label={t("columns.discount")} className="text-right tabular-nums">{Number(item.discount)}%</TableCell>
+                          <TableCell label={t("columns.total")} className="text-right font-medium tabular-nums">{maskedMoney(Number(item.total))}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
@@ -417,15 +433,6 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
                   </div>
                 ) : null}
 
-                {quote.exclusions ? (
-                  <div className="space-y-1.5">
-                    <h3 className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-                      {t("form.exclusions")}
-                    </h3>
-                    <RichText className="text-muted-foreground" html={quote.exclusions} />
-                  </div>
-                ) : null}
-
                 {quote.terms ? (
                   <div className="space-y-1.5">
                     <h3 className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
@@ -442,6 +449,15 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
                       {quote.termsDocument.name}
                     </a>
                   </Button>
+                ) : null}
+
+                {quote.exclusions ? (
+                  <div className="space-y-1.5">
+                    <h3 className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+                      {t("form.exclusions")}
+                    </h3>
+                    <RichText className="text-muted-foreground" html={quote.exclusions} />
+                  </div>
                 ) : null}
               </CardContent>
             </Card>
@@ -478,7 +494,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
           {/* No `items-start` here, unlike the row below: letting the grid
               stretch them is what gives the three the same height, and they
               read as one band of controls rather than three loose cards. */}
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             {reuseCard}
 
             <ShareCard
@@ -510,7 +526,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
             />
           </div>
 
-          <div className="grid items-start gap-6 lg:grid-cols-3">
+          <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-3">
             <div className="space-y-6">
               {attachmentsCard}
 
@@ -556,7 +572,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
           list, and at full width a two-line card leaves a band of empty card
           under it.
         */
-        <div className="grid items-start gap-6 lg:grid-cols-2">
+        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
           {attachmentsCard}
           {reuseCard}
         </div>

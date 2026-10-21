@@ -665,10 +665,6 @@ export type UserNullableScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput | null
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type NullableEnumLanguageFieldUpdateOperationsInput = {
   set?: $Enums.Language | null
 }

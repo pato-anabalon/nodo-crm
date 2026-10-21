@@ -81,7 +81,10 @@ export function QuoteActionsBar({
   if (!showSend && !showDecision && !showOpenJob && !showStartJob) return null;
 
   return (
-    <div className="flex flex-wrap gap-2">
+    // On a phone the bar spans the width and its two buttons take half each (one
+    // alone takes it all); from 640px it goes back to buttons the size of their
+    // text, wrapping if it must.
+    <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:flex-wrap [&>*:only-child]:col-span-2">
       {showSend ? (
         <>
           {previewHref ? (

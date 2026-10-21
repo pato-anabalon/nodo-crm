@@ -64,6 +64,23 @@ export const QUOTE_STATUS_TEXT_CLASS: Record<QuoteStatus, string> = {
   [QuoteStatus.EXPIRED]: "text-[var(--status-expired-text)]",
 };
 
+/**
+ * A soft badge: the status's own colour as text, on a faint wash of itself.
+ *
+ * Built on the `--status-*-text` set, which was chosen to read against the
+ * ground it sits on, so the word stays legible on the wash in both themes. The
+ * company's colours never reach it — a status means the same in every company.
+ */
+export const QUOTE_STATUS_SOFT_CLASS: Record<QuoteStatus, string> = {
+  // Written out whole, never assembled: Tailwind only generates a class it can
+  // read in the source, and a template string leaves the badge with no fill.
+  [QuoteStatus.DRAFT]: "border-transparent bg-[color-mix(in_oklab,var(--status-draft-text)_14%,transparent)] text-[var(--status-draft-text)]",
+  [QuoteStatus.SENT]: "border-transparent bg-[color-mix(in_oklab,var(--status-sent-text)_14%,transparent)] text-[var(--status-sent-text)]",
+  [QuoteStatus.ACCEPTED]: "border-transparent bg-[color-mix(in_oklab,var(--status-accepted-text)_14%,transparent)] text-[var(--status-accepted-text)]",
+  [QuoteStatus.REJECTED]: "border-transparent bg-[color-mix(in_oklab,var(--status-declined-text)_14%,transparent)] text-[var(--status-declined-text)]",
+  [QuoteStatus.EXPIRED]: "border-transparent bg-[color-mix(in_oklab,var(--status-expired-text)_14%,transparent)] text-[var(--status-expired-text)]",
+};
+
 /** Valid status transitions. Stops, for instance, going back from Accepted to Draft. */
 export const QUOTE_TRANSITIONS: Record<QuoteStatus, readonly QuoteStatus[]> = {
   DRAFT: [QuoteStatus.SENT],
@@ -116,3 +133,10 @@ export function sectionStatuses(section: QuoteSection): QuoteStatus[] | null {
 export function isQuoteSection(value: string | undefined | null): value is QuoteSection {
   return QUOTE_SECTIONS.includes(value as QuoteSection);
 }
+
+/**
+ * The id of the quote's edit `<form>`. A control that lives elsewhere on the page
+ * (the owner select in the header) joins the form through the `form` attribute,
+ * so it posts with Save changes without sitting inside it.
+ */
+export const QUOTE_FORM_ID = "quote-form";

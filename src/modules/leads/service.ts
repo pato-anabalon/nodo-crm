@@ -7,6 +7,9 @@ import type { LeadFilters, LeadFormValues } from "./schemas";
 
 export const LEADS_PAGE_SIZE = 20;
 
+/** The `ownerId` filter's value for "nobody has this yet". */
+export const UNASSIGNED_FILTER = "none";
+
 /**
  * Visibility limits within the company.
  *
@@ -27,7 +30,9 @@ export function buildLeadWhere(ctx: CompanyContext, filters: LeadFilters): Prism
   and.push(filters.discarded ? { NOT: { discardedAt: null } } : { discardedAt: null });
 
   if (filters.status) and.push({ status: filters.status });
-  if (filters.ownerId) and.push({ ownerId: filters.ownerId });
+  if (filters.ownerId) {
+    and.push({ ownerId: filters.ownerId === UNASSIGNED_FILTER ? null : filters.ownerId });
+  }
 
   if (filters.q) {
     const q = filters.q;

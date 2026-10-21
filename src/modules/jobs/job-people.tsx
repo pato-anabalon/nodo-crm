@@ -73,7 +73,7 @@ export function JobPeople({
         </div>
       </div>
 
-      <ul className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+      <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3">
         {members.map((member) => {
           const name = personName(member);
           return (

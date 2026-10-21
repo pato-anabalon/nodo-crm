@@ -56,12 +56,13 @@ export default async function TemplatePage({ params }: { params: Promise<{ id: s
     canSeeAmounts ? formatMoney(amount, ctx.company.currency, ctx.company.formatLocale) : <HiddenAmount />;
 
   const bySections = template.pricingMode === PricingMode.SECTIONS;
+  // Same order as the quote form: notes, terms, exclusions.
   const texts = [
     { label: tQuotes("form.intro"), html: template.intro },
     { label: tQuotes("form.scope"), html: template.scope },
     { label: tQuotes("form.notes"), html: template.notes },
-    { label: tQuotes("form.exclusions"), html: template.exclusions },
     { label: tQuotes("form.terms"), html: template.terms },
+    { label: tQuotes("form.exclusions"), html: template.exclusions },
   ];
 
   return (
@@ -88,7 +89,7 @@ export default async function TemplatePage({ params }: { params: Promise<{ id: s
       </div>
 
       <Card>
-        <CardContent className="flex flex-wrap gap-x-8 gap-y-3 pt-6 text-sm">
+        <CardContent className="grid grid-cols-1 gap-x-8 gap-y-3 pt-6 text-sm sm:flex sm:flex-wrap">
           <Field label={t("detail.suggestedTitle")} value={template.titlePattern ?? template.name} />
           <Field
             label={tQuotes("form.pricingMode.label")}
@@ -126,7 +127,7 @@ export default async function TemplatePage({ params }: { params: Promise<{ id: s
           </CardContent>
         ) : (
           <CardContent className="p-0">
-            <Table>
+            <Table cards>
               <TableHeader>
                 <TableRow>
                   <TableHead>{tQuotes("columns.description")}</TableHead>
@@ -139,11 +140,17 @@ export default async function TemplatePage({ params }: { params: Promise<{ id: s
               <TableBody>
                 {template.items.map((item) => (
                   <TableRow key={item.id}>
-                    <TableCell>{item.description}</TableCell>
-                    <TableCell className="text-right tabular-nums">{Number(item.quantity)}</TableCell>
-                    <TableCell className="text-right tabular-nums">{money(Number(item.unitPrice))}</TableCell>
-                    <TableCell className="text-right tabular-nums">{Number(item.discount)}%</TableCell>
-                    <TableCell className="text-right tabular-nums">
+                    <TableCell primary>{item.description}</TableCell>
+                    <TableCell label={tQuotes("columns.quantity")} className="text-right tabular-nums">
+                      {Number(item.quantity)}
+                    </TableCell>
+                    <TableCell label={tQuotes("columns.unitPrice")} className="text-right tabular-nums">
+                      {money(Number(item.unitPrice))}
+                    </TableCell>
+                    <TableCell label={tQuotes("columns.discount")} className="text-right tabular-nums">
+                      {Number(item.discount)}%
+                    </TableCell>
+                    <TableCell label={tQuotes("columns.total")} className="text-right tabular-nums">
                       {money(
                         lineTotal({
                           quantity: Number(item.quantity),

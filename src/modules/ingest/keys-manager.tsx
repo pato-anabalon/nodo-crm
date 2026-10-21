@@ -104,7 +104,7 @@ Content-Type: application/json
               <div className="space-y-2">
                 <Label>{t("type")}</Label>
                 <input type="hidden" name="type" value={type} />
-                <div className="grid gap-3 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   {[IngestKeyType.PUBLIC, IngestKeyType.SECRET].map((option) => {
                     const selected = type === option;
                     return (

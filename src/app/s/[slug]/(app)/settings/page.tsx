@@ -243,7 +243,7 @@ function Group({ label, children }: { label: string; children: React.ReactNode }
         `auto-fit` rather than a column count: three across on a desktop, two on
         a tablet, one on a phone, with no breakpoints to maintain.
       */}
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{children}</div>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">{children}</div>
     </section>
   );
 }

@@ -71,7 +71,7 @@ export function PermissionGrid({
         </p>
       ) : null}
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {groups.map((group) => (
           <Card key={group.module}>
             <CardHeader className="pb-3">

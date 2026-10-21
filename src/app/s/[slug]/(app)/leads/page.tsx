@@ -16,9 +16,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { leadFiltersSchema } from "@/modules/leads/schemas";
-import { listLeads } from "@/modules/leads/service";
+import { UNASSIGNED_FILTER, listLeads } from "@/modules/leads/service";
+import { listCompanyMembers } from "@/modules/team/service";
 import { LEAD_PIPELINE, leadStatusVariant } from "@/modules/leads/constants";
 import { formatMoney } from "@/lib/format";
+import { LeadCards } from "@/modules/leads/lead-cards";
 
 export async function generateMetadata() {
   const t = await getTranslations("leads");
@@ -44,12 +46,15 @@ export default async function LeadsPage({
   const filters = leadFiltersSchema.parse({
     q: typeof raw.q === "string" ? raw.q : undefined,
     status: typeof raw.status === "string" && raw.status !== "" ? raw.status : undefined,
+    ownerId: typeof raw.ownerId === "string" && raw.ownerId !== "" ? raw.ownerId : undefined,
     discarded: raw.discarded === "1",
     page: typeof raw.page === "string" ? raw.page : 1,
   });
 
   const { items, total, page, pageCount } = await listLeads(ctx, filters);
   const seesAll = can(ctx, "leads.read.all");
+  // Filtering by person only means something to whoever sees more than their own.
+  const members = seesAll ? await listCompanyMembers(ctx) : [];
 
   return (
     <div className="space-y-6">
@@ -97,12 +102,50 @@ export default async function LeadsPage({
             label: t(`status.${status}`),
           }))}
         />
+        {seesAll ? (
+          <NativeSelect
+            name="ownerId"
+            aria-label={t("ownerFilter")}
+            defaultValue={filters.ownerId ?? ""}
+            className="w-auto"
+            placeholder={t("allOwners")}
+            options={[
+              { value: UNASSIGNED_FILTER, label: tCommon("unassigned") },
+              ...members.map((member) => ({ value: member.userId, label: member.name })),
+            ]}
+          />
+        ) : null}
         <Button type="submit" variant="secondary">
           {tCommon("filter")}
         </Button>
       </form>
 
-      <TableCard>
+      <LeadCards
+        storageKey={`leads.cardVariant:${ctx.user.id}`}
+        empty={filters.discarded ? t("emptyDiscarded") : t("empty")}
+        leads={items.map((lead) => ({
+          id: lead.id,
+          href: `/leads/${lead.id}`,
+          title: lead.title,
+          companyName: lead.companyName,
+          owner: lead.owner?.name ?? lead.owner?.email ?? tCommon("unassigned"),
+          status: (
+            <Badge variant={leadStatusVariant(lead.status)}>
+              {t(`status.${lead.status}`)}
+            </Badge>
+          ),
+          quoteCount: lead._count.quotes,
+          value: lead.estimatedValue
+            ? formatMoney(
+                Number(lead.estimatedValue),
+                lead.currency,
+                ctx.company.formatLocale,
+              )
+            : tCommon("none"),
+        }))}
+      />
+
+      <TableCard className="hidden sm:block">
           <Table>
             <TableHeader>
               <TableRow>
@@ -179,12 +222,13 @@ export default async function LeadsPage({
 }
 
 function buildPageHref(
-  filters: { q?: string; status?: string; discarded?: boolean },
+  filters: { q?: string; status?: string; ownerId?: string; discarded?: boolean },
   page: number,
 ): string {
   const params = new URLSearchParams();
   if (filters.q) params.set("q", filters.q);
   if (filters.status) params.set("status", filters.status);
+  if (filters.ownerId) params.set("ownerId", filters.ownerId);
   if (filters.discarded) params.set("discarded", "1");
   params.set("page", String(page));
   return `/leads?${params.toString()}`;

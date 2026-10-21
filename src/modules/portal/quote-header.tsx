@@ -110,7 +110,7 @@ export async function QuoteHeader({
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <PartyCard label={t("from")}>
           {issuer?.name ? (
             <Line>
@@ -175,31 +175,40 @@ export async function QuoteHeader({
         </PartyCard>
       </div>
 
-      <div className="flex flex-wrap items-start justify-between gap-6">
-        <div className="min-w-0 flex-1 space-y-3">
-          <h1 className="text-3xl font-semibold tracking-tight text-balance">
-            {quote.quoteType ? `${quote.quoteType}: ` : ""}
-            {quote.title}
-          </h1>
+      {/* The title, then Download PDF, then what the document is about — in that
+          order on a phone, each on its own row. They used to share one wrapping
+          row, which left the title in half the width with the button beside it.
+          From 640px the button goes back to the top right and the details sit
+          under the title. */}
+      <div className="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-[minmax(0,1fr)_auto]">
+        <h1 className="min-w-0 text-3xl font-semibold tracking-tight text-balance sm:col-start-1 sm:row-start-1">
+          {quote.quoteType ? `${quote.quoteType}: ` : ""}
+          {quote.title}
+        </h1>
 
-          {quote.projectAddress ? (
-            <Field label={t("projectAddress")}>
-              <Line>{quote.projectAddress}</Line>
-            </Field>
-          ) : null}
+        {printButton ? (
+          <div className="sm:col-start-2 sm:row-start-1">{printButton}</div>
+        ) : null}
 
-          {quote.scope ? (
-            <div className="space-y-1 pt-1">
-              <Label>{t("scope")}</Label>
-              <RichText
-                className="text-sm text-muted-foreground"
-                html={quote.scope}
-              />
-            </div>
-          ) : null}
-        </div>
+        {quote.projectAddress || quote.scope ? (
+          <div className="min-w-0 space-y-3 sm:col-start-1 sm:row-start-2">
+            {quote.projectAddress ? (
+              <Field label={t("projectAddress")}>
+                <Line>{quote.projectAddress}</Line>
+              </Field>
+            ) : null}
 
-        {printButton ? <div className="shrink-0">{printButton}</div> : null}
+            {quote.scope ? (
+              <div className="space-y-1 pt-1">
+                <Label>{t("scope")}</Label>
+                <RichText
+                  className="text-sm text-muted-foreground"
+                  html={quote.scope}
+                />
+              </div>
+            ) : null}
+          </div>
+        ) : null}
       </div>
     </header>
   );

@@ -197,22 +197,31 @@ export function FileBrowser({
                 <TableHead>{t("name")}</TableHead>
                 <TableHead className="hidden sm:table-cell">{t("uploadedBy")}</TableHead>
                 <TableHead className="hidden md:table-cell">{t("date")}</TableHead>
-                <TableHead className="text-right">{t("size")}</TableHead>
+                <TableHead className="hidden text-right sm:table-cell">{t("size")}</TableHead>
                 <TableHead className="w-10" />
               </TableRow>
             </TableHeader>
             <TableBody>
               {folders.map((folder) => (
                 <TableRow key={folder.id}>
-                  <TableCell>
-                    <Link href={folder.href} className="flex items-center gap-3 font-medium hover:underline">
+                  {/* `max-w-0` with `w-full` is what lets a long name truncate: a table
+                      cell otherwise grows to its text's width, and the whole table
+                      with it. On a phone the columns that don't fit move under the
+                      name instead of disappearing. */}
+                  <TableCell className="w-full max-w-0">
+                    <Link href={folder.href} className="group flex items-center gap-3 font-medium">
                       <Folder className="size-5 shrink-0 fill-amber-200 text-amber-500 dark:fill-amber-500/30" />
-                      {folder.name}
+                      <span className="min-w-0">
+                        <span className="block truncate group-hover:underline">{folder.name}</span>
+                        <span className="block truncate text-xs font-normal text-muted-foreground sm:hidden">
+                          {folder.contents}
+                        </span>
+                      </span>
                     </Link>
                   </TableCell>
                   <TableCell className="hidden sm:table-cell" />
                   <TableCell className="hidden md:table-cell" />
-                  <TableCell className="text-right text-muted-foreground">{folder.contents}</TableCell>
+                  <TableCell className="hidden text-right text-muted-foreground sm:table-cell">{folder.contents}</TableCell>
                   <TableCell>
                     <FolderMenu folder={folder} onRename={onRenameFolder} onDelete={onDeleteFolder} />
                   </TableCell>
@@ -220,8 +229,8 @@ export function FileBrowser({
               ))}
               {files.map((file) => (
                 <TableRow key={file.id}>
-                  <TableCell>
-                    <button type="button" onClick={() => openFile(file)} className="flex min-w-0 items-center gap-3 text-left hover:underline">
+                  <TableCell className="w-full max-w-0">
+                    <button type="button" onClick={() => openFile(file)} className="group flex w-full min-w-0 items-center gap-3 text-left">
                       {file.thumbnailUrl ? (
                         // eslint-disable-next-line @next/next/no-img-element -- already a small copy made at upload.
                         <img src={file.thumbnailUrl} alt="" loading="lazy" className="size-9 shrink-0 rounded object-cover" />
@@ -230,7 +239,14 @@ export function FileBrowser({
                           <KindIcon kind={file.kind} extension={file.extension} className="size-4" />
                         </span>
                       )}
-                      <span className="truncate font-medium">{file.name}</span>
+                      <span className="min-w-0">
+                        <span className="block truncate font-medium group-hover:underline">{file.name}</span>
+                        <span className="block truncate text-xs text-muted-foreground sm:hidden">
+                          {[file.sizeLabel, file.dateLabel, file.uploadedBy?.name ?? file.uploadedBy?.email]
+                            .filter(Boolean)
+                            .join(" · ")}
+                        </span>
+                      </span>
                     </button>
                   </TableCell>
                   <TableCell className="hidden sm:table-cell">
@@ -242,7 +258,7 @@ export function FileBrowser({
                     ) : null}
                   </TableCell>
                   <TableCell className="hidden text-muted-foreground md:table-cell">{file.dateLabel}</TableCell>
-                  <TableCell className="text-right text-muted-foreground">{file.sizeLabel}</TableCell>
+                  <TableCell className="hidden text-right text-muted-foreground sm:table-cell">{file.sizeLabel}</TableCell>
                   <TableCell>
                     <FileMenu file={file} {...menuProps} />
                   </TableCell>

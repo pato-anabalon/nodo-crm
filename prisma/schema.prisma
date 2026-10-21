@@ -359,7 +359,43 @@ model Company {
   askAdditionalComments Boolean        @default(false)
   askOrderReference     Boolean        @default(false)
 
-  isActive  Boolean  @default(true)
+  /**
+   * The one switch the whole app reads: login, session, magic link, ingest keys
+   * and the sweep all stop at a company that is off. Everything below only says
+   * *why* it is on or off, so none of those places needed to learn about it.
+   */
+  isActive Boolean @default(true)
+
+  /**
+   * When a platform admin first switched the company on. Null while it is off
+   * means it signed up and is still waiting; set while it is off means somebody
+   * suspended it. Companies that existed before this field were backfilled with
+   * their creation date, so none of them reads as pending.
+   */
+  approvedAt DateTime?
+
+  /**
+   * A demo: access for a set number of days, then off by itself. The clock
+   * starts when the admin switches the company on, not when it signed up — the
+   * wait for approval isn't the company's to spend. `demoEndsAt` is stored
+   * rather than worked out so the nightly sweep can ask for what has run out in
+   * one indexed comparison; changing the days rewrites it from `demoStartedAt`.
+   * `demoEndedAt` is the sweep's own mark, and is what tells a demo that ran
+   * out apart from a company somebody suspended.
+   */
+  isDemo        Boolean   @default(false)
+  demoDays      Int?
+  demoStartedAt DateTime?
+  demoEndsAt    DateTime?
+  demoEndedAt   DateTime?
+  /**
+   * When the owners were told their demo is about to end. The sweep sees the same
+   * company every night inside the warning window, and this is what keeps one
+   * notice from becoming a nightly one. Cleared whenever the demo's days change,
+   * so a demo that is extended is warned again before its new end.
+   */
+  demoWarnedAt  DateTime?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

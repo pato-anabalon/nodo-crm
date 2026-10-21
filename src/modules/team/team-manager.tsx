@@ -7,6 +7,7 @@ import { Ban, RotateCcw, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { NativeSelect } from "@/components/ui/native-select";
 import { Button } from "@/components/ui/button";
+import { ConfirmButton } from "@/components/confirm-button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -144,7 +145,7 @@ export function TeamManager({
         </CardHeader>
         <CardContent className="p-0">
           <div className="overflow-x-auto">
-            <Table>
+            <Table cards>
               <TableHeader>
                 <TableRow>
                   <TableHead>{t("columns.person")}</TableHead>
@@ -167,12 +168,12 @@ export function TeamManager({
 
                   return (
                     <TableRow key={member.userId}>
-                      <TableCell>
+                      <TableCell primary>
                         <p className="font-medium">{member.name ?? member.email}</p>
-                        <p className="text-xs text-muted-foreground">{member.email}</p>
+                        <p className="text-xs font-normal break-all text-muted-foreground">{member.email}</p>
                       </TableCell>
 
-                      <TableCell>
+                      <TableCell label={t("columns.role")}>
                         {editable ? (
                           <NativeSelect
                             value={member.roleKey}
@@ -191,7 +192,7 @@ export function TeamManager({
                         )}
                       </TableCell>
 
-                      <TableCell>
+                      <TableCell label={t("columns.trades")}>
                         {/* Unlike the profile, a person's trades are theirs to
                             have edited by anyone with users.update — their own
                             row included: saying what you do locks nobody out. */}
@@ -203,7 +204,7 @@ export function TeamManager({
                         />
                       </TableCell>
 
-                      <TableCell>
+                      <TableCell label={t("columns.status")}>
                         <Badge variant={suspended ? "secondary" : "outline"}>
                           {t(`status.${member.status}`)}
                         </Badge>
@@ -212,8 +213,8 @@ export function TeamManager({
                         ) : null}
                       </TableCell>
 
-                      <TableCell className="text-right">
-                        <div className="flex justify-end gap-1">
+                      <TableCell label={t("columns.actions")} className="text-right">
+                        <div className="flex flex-wrap justify-end gap-1">
                           {editable ? (
                             <Button
                               variant="ghost"
@@ -233,15 +234,23 @@ export function TeamManager({
                           ) : null}
 
                           {canRemove && !member.isSelf ? (
-                            <Button
-                              variant="ghost"
-                              size="sm"
+                            // Removing can't be undone from here, so it asks first
+                            // and the question names the person.
+                            <ConfirmButton
                               disabled={pending}
-                              onClick={() => run(() => removeMemberAction(member.userId))}
-                            >
-                              <Trash2 className="size-4" />
-                              {t("remove")}
-                            </Button>
+                              title={t("confirmRemove.title", { name: member.name ?? member.email })}
+                              description={t("confirmRemove.description", {
+                                name: member.name ?? member.email,
+                              })}
+                              confirmLabel={t("remove")}
+                              onConfirm={() => run(() => removeMemberAction(member.userId))}
+                              trigger={
+                                <Button variant="ghost" size="sm" disabled={pending}>
+                                  <Trash2 className="size-4" />
+                                  {t("remove")}
+                                </Button>
+                              }
+                            />
                           ) : null}
                         </div>
                       </TableCell>

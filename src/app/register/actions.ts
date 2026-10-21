@@ -1,17 +1,22 @@
 "use server";
 
 import bcrypt from "bcryptjs";
+import { after } from "next/server";
 import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/db/prisma";
 import { translateFieldErrors } from "@/lib/i18n-errors";
 import { signupSchema } from "@/lib/auth/schemas";
 import { createCompanyWithOwner, syncPermissions } from "@/lib/tenant/provision";
-import { companyUrl, isReservedSlug, isValidSlug } from "@/lib/tenant/host";
+import { isReservedSlug, isValidSlug } from "@/lib/tenant/host";
+import { notifyCompanyRegistered } from "@/modules/platform/notify";
 
 export type RegisterState = {
   error?: string;
   fieldErrors?: Record<string, string[]>;
-  redirectTo?: string;
+  /** The company exists but is switched off until a platform admin activates it. */
+  pendingApproval?: boolean;
+  /** Echoed back so the confirmation can say where the answer will be sent. */
+  email?: string;
 };
 
 /**
@@ -71,7 +76,12 @@ export async function registerCompany(_prev: RegisterState, formData: FormData):
     name: companyName,
     slug: companySlug,
     ownerUserId: user.id,
+    // Public sign-up is open to bots, so nothing is reachable until somebody
+    // on the platform switches the company on from /admin.
+    isActive: false,
   });
 
-  return { redirectTo: companyUrl(companySlug, "/login") };
+  after(() => notifyCompanyRegistered({ companyName, slug: companySlug, ownerName: name, ownerEmail: email }));
+
+  return { pendingApproval: true, email };
 }

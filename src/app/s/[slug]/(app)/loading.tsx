@@ -12,13 +12,13 @@ export default function DashboardLoading() {
       <CardRowSkeleton />
 
       {/* Funnel and latest quotes: same row, same height. */}
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <ListCardSkeleton rows={7} />
         <ListCardSkeleton rows={5} />
       </div>
 
       {/* Last sent and last accepted: same row, same height. */}
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <ListCardSkeleton rows={5} />
         <ListCardSkeleton rows={5} />
       </div>

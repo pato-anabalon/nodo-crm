@@ -101,7 +101,7 @@ export function LeadForm({
   }
 
   return (
-    <form action={formAction} className="grid gap-6 lg:grid-cols-3">
+    <form action={formAction} className="grid grid-cols-1 gap-6 lg:grid-cols-3">
 
       <Card className="lg:col-span-2">
         <CardHeader>
@@ -128,7 +128,7 @@ export function LeadForm({
             />
           </Field>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field label={t("form.status")} name="status" error={errors.status?.[0]}>
               <NativeSelect id="status" name="status" defaultValue={defaults.status ?? LeadStatus.NEW}>
                 {LEAD_PIPELINE.map((status) => (

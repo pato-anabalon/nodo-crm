@@ -46,12 +46,6 @@ export const TEMPLATE_ORDER: EmailTemplateKind[] = [
   EmailTemplateKind.REVIEW_REQUEST,
 ];
 
-/** What Phase A actually sends. The rest are configurable but dormant. */
-export const IMPLEMENTED_KINDS: EmailTemplateKind[] = [
-  EmailTemplateKind.NEW_QUOTE,
-  EmailTemplateKind.QUOTE_ACCEPTED,
-];
-
 export function isOptional(kind: EmailTemplateKind): boolean {
   return TEMPLATE_KINDS[kind].optional;
 }

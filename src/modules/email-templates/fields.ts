@@ -40,10 +40,10 @@ export function isEmailField(name: string): name is EmailField {
  * all at once: fixing a typo only to be told about the next one is a bad way to
  * spend somebody's afternoon.
  */
-export function unknownFields(text: string): string[] {
+export function unknownFields(text: string, alsoAllowed: readonly string[] = []): string[] {
   const found = new Set<string>();
   for (const [, name] of text.matchAll(TOKEN)) {
-    if (!isEmailField(name)) found.add(name);
+    if (!isEmailField(name) && !alsoAllowed.includes(name)) found.add(name);
   }
   return [...found];
 }

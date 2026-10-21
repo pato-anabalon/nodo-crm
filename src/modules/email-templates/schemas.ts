@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { EmailTemplateKind, SenderNameStyle } from "@/generated/prisma/enums";
 import { unknownFields } from "./fields";
+import { REVIEW_LINKS_FIELD } from "./review-links";
 
 /**
  * Rejects a field the catalogue doesn't have.
@@ -9,17 +10,22 @@ import { unknownFields } from "./fields";
  * told "there is a mistake" and having to hunt for it is a bad way to spend an
  * afternoon, and the names are already known here.
  */
-const withKnownFields = <T extends z.ZodType<string | null | undefined>>(schema: T) =>
-  schema.superRefine((value, ctx) => {
-    const unknown = unknownFields(value ?? "");
-    if (unknown.length > 0) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "emailTemplates.errors.unknownFields",
-        params: { fields: unknown },
-      });
-    }
-  });
+function rejectUnknownFields(
+  value: string | null | undefined,
+  path: string,
+  ctx: z.RefinementCtx,
+  alsoAllowed: readonly string[] = [],
+) {
+  const unknown = unknownFields(value ?? "", alsoAllowed);
+  if (unknown.length > 0) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: [path],
+      message: "emailTemplates.errors.unknownFields",
+      params: { fields: unknown },
+    });
+  }
+}
 
 const optionalText = (max: number) =>
   z
@@ -30,12 +36,23 @@ const optionalText = (max: number) =>
     .nullable()
     .optional();
 
-export const emailTemplateSchema = z.object({
-  kind: z.nativeEnum(EmailTemplateKind),
-  subject: withKnownFields(optionalText(200)),
-  bodyHtml: withKnownFields(optionalText(20000)),
-  enabled: z.coerce.boolean(),
-});
+export const emailTemplateSchema = z
+  .object({
+    kind: z.nativeEnum(EmailTemplateKind),
+    subject: optionalText(200),
+    bodyHtml: optionalText(20000),
+    enabled: z.coerce.boolean(),
+  })
+  .superRefine((values, ctx) => {
+    rejectUnknownFields(values.subject, "subject", ctx);
+    // The list of review links only exists in the review request's body.
+    rejectUnknownFields(
+      values.bodyHtml,
+      "bodyHtml",
+      ctx,
+      values.kind === EmailTemplateKind.REVIEW_REQUEST ? [REVIEW_LINKS_FIELD] : [],
+    );
+  });
 
 export type EmailTemplateValues = z.infer<typeof emailTemplateSchema>;
 

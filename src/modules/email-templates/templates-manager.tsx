@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { RichTextEditor } from "@/components/rich-text-editor";
 import { EmailTemplateKind } from "@/generated/prisma/enums";
 import { EMAIL_FIELDS } from "./fields";
+import { REVIEW_LINKS_FIELD } from "./review-links";
 import { saveEmailTemplateAction, type EmailTemplateState } from "./actions";
 import { useEffect } from "react";
 
@@ -21,7 +22,6 @@ export type TemplateCard = {
   enabled: boolean;
   optional: boolean;
   /** Whether anything actually sends this yet. */
-  live: boolean;
   /** The platform's own wording, shown as help — never as content. */
   defaultSubject: string;
   defaultBody: string;
@@ -47,9 +47,6 @@ export function EmailTemplateForm({ card }: { card: TemplateCard }) {
       <CardHeader>
         <CardTitle className="text-base">{t(`kinds.${card.kind}.name`)}</CardTitle>
         <p className="text-xs text-muted-foreground">{t(`kinds.${card.kind}.when`)}</p>
-        {!card.live ? (
-          <p className="text-xs text-muted-foreground">{t("notLiveYet")}</p>
-        ) : null}
       </CardHeader>
 
       <CardContent>
@@ -102,6 +99,12 @@ export function EmailTemplateForm({ card }: { card: TemplateCard }) {
                   {t(`fields.${field}`)}
                 </li>
               ))}
+              {card.kind === EmailTemplateKind.REVIEW_REQUEST ? (
+                <li className="text-xs text-muted-foreground">
+                  <code className="rounded bg-muted px-1 py-0.5">{`{{${REVIEW_LINKS_FIELD}}}`}</code>{" "}
+                  {t("fields.reviewLinks")}
+                </li>
+              ) : null}
             </ul>
           </div>
 

@@ -1971,13 +1971,13 @@
     "body": "Mensaje",
     "bodyHint": "Déjalo vacío para usar el nuestro, que está escrito en todos los idiomas. Lo que escribas aquí se envía tal cual.",
     "enabled": "Enviar este correo",
-    "notLiveYet": "Ya se puede configurar; empieza a enviarse más adelante.",
     "fieldsTitle": "Campos que puedes usar",
     "fields": {
       "customer": "el nombre del contacto",
       "reference": "la referencia de la cotización",
       "company": "el nombre de tu empresa",
-      "author": "quien preparó la cotización"
+      "author": "quien preparó la cotización",
+      "reviewLinks": "los links para dejar la reseña; se agregan al final si no lo pones"
     },
     "errors": {
       "unknownFields": "No existe ningún campo con ese nombre.",

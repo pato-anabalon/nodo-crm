@@ -1971,13 +1971,13 @@
     "body": "Message",
     "bodyHint": "Leave it empty to use ours, which is written in every language. Anything you type here is sent as written.",
     "enabled": "Send this email",
-    "notLiveYet": "Configurable now; it starts sending in a later release.",
     "fieldsTitle": "Fields you can use",
     "fields": {
       "customer": "the contact's name",
       "reference": "the quote's reference",
       "company": "your company's name",
-      "author": "who prepared the quote"
+      "author": "who prepared the quote",
+      "reviewLinks": "the links to leave a review, added at the end if you leave it out"
     },
     "errors": {
       "unknownFields": "There is no field by that name.",

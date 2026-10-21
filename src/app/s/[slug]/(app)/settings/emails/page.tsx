@@ -15,7 +15,7 @@ import {
 import { leaveLinks } from "@/modules/settings/review-platforms";
 import { saveEmailSettingsAction } from "@/modules/email-templates/actions";
 import { EmailTemplateForm } from "@/modules/email-templates/templates-manager";
-import { IMPLEMENTED_KINDS, isOptional, isEnabled, TEMPLATE_ORDER } from "@/modules/email-templates/kinds";
+import { isOptional, isEnabled, TEMPLATE_ORDER } from "@/modules/email-templates/kinds";
 import { templatesFor } from "@/modules/email-templates/service";
 import { senderName } from "@/modules/email-templates/sender";
 import { SettingsHeader } from "@/modules/settings/settings-header";
@@ -166,7 +166,6 @@ export default async function EmailSettingsPage() {
                 bodyHtml: row?.bodyHtml ?? null,
                 enabled: isEnabled(kind, row),
                 optional: isOptional(kind),
-                live: IMPLEMENTED_KINDS.includes(kind),
                 defaultSubject: defaults[kind]?.subject ?? "",
                 defaultBody: defaults[kind]?.body ?? "",
               }}

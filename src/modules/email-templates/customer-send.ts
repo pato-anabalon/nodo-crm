@@ -8,10 +8,11 @@ import { sanitizeRichText } from "@/lib/rich-text";
 import { issueShare } from "@/modules/portal/service";
 import { shareUrl } from "@/modules/portal/share";
 import { ROOT_DOMAIN } from "@/lib/tenant/host";
-import { leaveLinks, type PlatformLink } from "@/modules/settings/review-platforms";
+import { leaveLinks } from "@/modules/settings/review-platforms";
 import { renderCustomerEmail } from "./customer-email";
 import { isEnabled } from "./kinds";
 import { renderTemplate } from "./render";
+import { withReviewLinks } from "./review-links";
 import { senderName } from "./sender";
 import { joinNames } from "@/modules/quotes/recipients";
 import { ensurePrimaryRecipient } from "@/modules/quotes/recipients-service";
@@ -224,38 +225,4 @@ export async function logCustomerEmail(input: {
     create: input,
     update: { sentAt: new Date(), to: input.to },
   });
-}
-
-/**
- * The review links, appended as a list.
- *
- * Not offered as a field the company writes into their text: the whole email
- * exists to hand these over, and one left out by a typo is an email that asks
- * for a favour and then doesn't say where.
- */
-function withReviewLinks(
-  bodyHtml: string,
-  kind: EmailTemplateKind,
-  links: PlatformLink[],
-): string {
-  if (kind !== EmailTemplateKind.REVIEW_REQUEST || links.length === 0) return bodyHtml;
-
-  const items = links
-    .map(
-      (link) =>
-        `<li style="margin:4px 0"><a href="${escapeAttribute(link.url)}">${escapeText(link.name)}</a></li>`,
-    )
-    .join("");
-
-  return `${bodyHtml}<ul style="padding-left:18px;margin:12px 0">${items}</ul>`;
-}
-
-/** A platform's name can be typed by the company now ("Builderscrack"), so
- * it is escaped like any other text going into the HTML. */
-function escapeText(value: string): string {
-  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
-
-function escapeAttribute(value: string): string {
-  return value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 }

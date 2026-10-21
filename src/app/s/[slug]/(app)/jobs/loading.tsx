@@ -11,8 +11,8 @@ export default function JobsLoading() {
         <Skeleton className="h-8 w-20" />
         <Skeleton className="h-8 w-20" />
       </div>
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
-        <ul className="grid content-start gap-3 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
+        <ul className="grid grid-cols-1 content-start gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {Array.from({ length: 6 }, (_, index) => (
             <li key={index} className="flex h-32 flex-col gap-2 rounded-xl border bg-card p-4">
               <Skeleton className="h-4 w-4/5" />

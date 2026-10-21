@@ -36,7 +36,7 @@ export async function RepTable({
 
   return (
     <div className="overflow-x-auto">
-      <Table>
+      <Table cards>
         <TableHeader>
           <TableRow>
             <TableHead>{t("person")}</TableHead>
@@ -50,12 +50,12 @@ export async function RepTable({
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.userId}>
-              <TableCell className="font-medium">{row.name}</TableCell>
-              <TableCell className="text-right tabular-nums">{number(row.leads)}</TableCell>
-              <TableCell className="text-right tabular-nums">{number(row.sent.count)}</TableCell>
-              <TableCell className="text-right tabular-nums">{number(row.accepted.count)}</TableCell>
-              <TableCell className="text-right tabular-nums">{row.rate}%</TableCell>
-              <TableCell className="text-right tabular-nums">{money(row.accepted.value)}</TableCell>
+              <TableCell primary className="font-medium">{row.name}</TableCell>
+              <TableCell label={t("leads")} className="text-right tabular-nums">{number(row.leads)}</TableCell>
+              <TableCell label={t("sent")} className="text-right tabular-nums">{number(row.sent.count)}</TableCell>
+              <TableCell label={t("accepted")} className="text-right tabular-nums">{number(row.accepted.count)}</TableCell>
+              <TableCell label={t("rate")} className="text-right tabular-nums">{row.rate}%</TableCell>
+              <TableCell label={t("value")} className="text-right tabular-nums">{money(row.accepted.value)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

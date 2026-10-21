@@ -86,7 +86,7 @@ export function CompanyList({ companies }: { companies: CompanyRow[] }) {
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Stat label={t("stats.total")} value={counts.all} />
         <Stat label={t("stats.active")} value={counts.active} tone="active" />
         <Stat label={t("stats.pending")} value={counts.pending} tone={counts.pending > 0 ? "waiting" : undefined} hint={counts.pending > 0 ? t("stats.waiting") : undefined} />
@@ -115,7 +115,7 @@ export function CompanyList({ companies }: { companies: CompanyRow[] }) {
       </div>
 
       <TableCard>
-        <Table>
+        <Table cards>
           <TableHeader>
             <TableRow>
               <TableHead className="h-11 pl-6">{t("columns.company")}</TableHead>
@@ -141,8 +141,8 @@ export function CompanyList({ companies }: { companies: CompanyRow[] }) {
               const host = hostOf(company.url);
               const { status } = company;
               return (
-                <TableRow key={company.id} className={cn("h-[4.5rem]", status.kind === "pending" && "bg-amber-500/[0.06]")}>
-                  <TableCell className="pl-6">
+                <TableRow key={company.id} className={cn("h-[4.5rem] max-sm:h-auto", status.kind === "pending" && "bg-amber-500/[0.06]")}>
+                  <TableCell primary className="pl-6">
                     <div className="flex items-center gap-3">
                       <span
                         aria-hidden
@@ -167,9 +167,9 @@ export function CompanyList({ companies }: { companies: CompanyRow[] }) {
                     </div>
                   </TableCell>
 
-                  <TableCell className="text-sm">
+                  <TableCell label={t("columns.owner")} className="min-w-0 text-sm">
                     {company.ownerEmail ? (
-                      <span className="block max-w-[20rem] truncate" title={company.ownerEmail}>
+                      <span className="block max-w-[20rem] min-w-0 truncate" title={company.ownerEmail}>
                         {company.ownerEmail}
                       </span>
                     ) : (
@@ -177,13 +177,16 @@ export function CompanyList({ companies }: { companies: CompanyRow[] }) {
                     )}
                   </TableCell>
 
-                  <TableCell className="text-right text-sm tabular-nums">{company.userCount}</TableCell>
+                  <TableCell label={t("columns.users")} className="text-right text-sm tabular-nums">{company.userCount}</TableCell>
 
-                  <TableCell className="whitespace-nowrap text-sm text-muted-foreground" title={DATE_TIME.format(company.createdAt)}>
+                  <TableCell label={t("columns.createdAt")} className="whitespace-nowrap text-sm text-muted-foreground" title={DATE_TIME.format(company.createdAt)}>
                     {DATE.format(company.createdAt)}
                   </TableCell>
 
-                  <TableCell>
+                  <TableCell label={t("columns.status")}>
+                    {/* One box, so on a phone the word and its note stay together
+                        on the value side instead of becoming two flex items. */}
+                    <div>
                     <span className={cn("inline-flex items-center gap-2 whitespace-nowrap text-sm font-medium", TONE[status.kind])}>
                       <span aria-hidden className="size-2 rounded-full bg-current" />
                       {t(`status.${WORD[status.kind]}`)}
@@ -198,9 +201,10 @@ export function CompanyList({ companies }: { companies: CompanyRow[] }) {
                         {t("demo.ended", { date: DATE.format(status.endedAt) })}
                       </p>
                     ) : null}
+                    </div>
                   </TableCell>
 
-                  <TableCell className="pr-6">
+                  <TableCell label={t("columns.actions")} className="pr-6">
                     <div className="flex items-center justify-end gap-2">
                       {status.kind === "demo" ? (
                         <DemoDialog

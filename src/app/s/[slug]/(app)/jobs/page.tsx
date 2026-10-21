@@ -58,11 +58,11 @@ export default async function JobsPage({
         ))}
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
         {jobs.length === 0 ? (
           <p className="text-sm italic text-muted-foreground">{filter === "done" ? t("emptyDone") : t("empty")}</p>
         ) : (
-          <ul className="grid content-start gap-3 sm:grid-cols-2 xl:grid-cols-3">
+          <ul className="grid grid-cols-1 content-start gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {jobs.map((job) => (
               <li key={job.id}>
                 <Link

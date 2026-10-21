@@ -81,7 +81,7 @@ export function TemplateManager({ templates, canEdit }: { templates: TemplateRow
               className="flex flex-wrap items-baseline justify-between gap-3 border-b pb-3 last:border-0 last:pb-0"
             >
               <div className="min-w-0 flex-1">
-                <p className="flex flex-wrap items-center gap-2 font-medium">
+                <p className="flex flex-wrap items-center gap-2 font-medium break-words">
                   <Link href={`/settings/templates/${template.id}`} className="hover:underline">
                     {template.name}
                   </Link>
@@ -93,7 +93,7 @@ export function TemplateManager({ templates, canEdit }: { templates: TemplateRow
                 <p className="text-xs text-muted-foreground">{template.summary}</p>
               </div>
 
-              <div className="flex flex-wrap gap-1">
+              <div className="grid w-full grid-cols-2 gap-1 sm:flex sm:w-auto sm:flex-wrap">
                 <Button asChild variant="ghost" size="sm">
                   <Link href={`/settings/templates/${template.id}`}>
                     <Eye className="size-4" />
@@ -161,7 +161,7 @@ export function NameForm({
 
   return (
     <form action={formAction} className="space-y-3">
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor={`name-${defaults?.name ?? "new"}`}>{t("name")}</Label>
           <Input

@@ -147,7 +147,11 @@ export function SearchCombobox<T extends SearchComboboxItem>({
       </PopoverTrigger>
       <PopoverContent
         align="start"
-        className="w-[28rem] max-w-[90vw] p-0"
+        // As wide as the control it opens from, so the list reads as the combo
+        // unfolding rather than a second, wider box (it was a fixed 28rem, which
+        // on a phone stuck out past the field on both sides). A floor keeps a
+        // narrow trigger from giving a list too tight to read.
+        className="w-(--radix-popover-trigger-width) max-w-[90vw] min-w-64 p-0"
         onOpenAutoFocus={(event) => {
           event.preventDefault();
           searchInputRef.current?.focus();

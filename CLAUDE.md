@@ -1310,7 +1310,13 @@ is counted twice or lost between the two.
   the number identical to the share of the ring the accepted segment occupies, so
   the centre can't contradict the drawing.
 - **Awaiting is a stock, not a flow**: what was still open at the close of the
-  period, whenever it went out.
+  period, whenever it went out. **For a period that hasn't ended, the close is
+  today** (`closeOf`), not the period's end: a year in progress ends on 1 January,
+  but a quote valid until November hasn't run out yet. Reading the stock as of next
+  January counted every quote that expires before then as already expired, so the
+  card showed zero while quotes were genuinely waiting — and the same quotes were
+  counted in *Expired*. The expired figure stops at the same close, which is what
+  keeps the two from overlapping.
 - **The funnel is a cohort.** The leads counted at every step are the same ones.
   The alternative — this month's leads against this month's acceptances — mixes
   populations and can produce a "conversion" above 100%. The price is that a
@@ -1328,6 +1334,31 @@ skeleton again instead of leaving the previous period's figures on screen, and a
 slow panel can't hold up the rest. `breakdownFor` is memoised per request —
 keyed on the range as text, because React's cache compares arguments by identity
 and two callers build different `Date` objects for the same instant.
+
+### On a phone: columns that don't grow, charts drawn at their width
+
+Two things made the panels run off the right edge of a phone, and the first is
+easy to repeat anywhere.
+
+- **A grid's implicit column is `auto`, and `auto` grows to the widest thing
+  inside it.** The trend chart had a minimum width so its labels stayed readable,
+  and inside a one-column grid that minimum became the *column's*, pushing the
+  whole panel past the screen — the subtitle cut off, the legend's amounts gone.
+  The grids say `grid-cols-1` (which is `minmax(0, 1fr)`) and their children
+  `min-w-0`, so a wide child scrolls or shrinks inside its own card instead.
+- **The trend chart is drawn at the width it has** (`useElementWidth`) rather than
+  once at 720 and scaled. Scaled to a phone, its 10px labels came out under 5px,
+  which is why it had a minimum width at all. Drawn at its real width the text
+  keeps its size and nothing scrolls sideways.
+
+The donut's legend has a width it won't go below (`flex-[1_1_14rem]`) in a row that
+wraps, so where it doesn't fit beside the ring it drops underneath at full width.
+That is intrinsic to the layout rather than a breakpoint, which is the point: the
+card is a third of a desktop page and all of a phone's. It used to be `flex-1` —
+a flex basis of zero — so it always "fit" and was squeezed until its labels
+vanished, wrapping row or not. A container query (`@md:`) was tried first and did
+not take effect in the browser; the wrap needs nothing from the stylesheet beyond
+what was already there.
 
 ### Two palettes, because the encodings differ
 
@@ -1425,6 +1456,73 @@ that genuinely belongs in a list — "quote this like that one" is decided while
 looking down it. Sending, revoking and deleting reach a real customer or destroy
 something, and in a list the row you think you are on is not always the row you
 are on; those keep the quote's own page, where you can see what you are acting on.
+
+### On a phone, a table that would scroll sideways becomes cards
+
+A grid is the right shape for a desktop and the wrong one for 375 pixels. A table
+with more columns than a phone is wide does one of two things: it hides the
+rest behind a sideways swipe, which nobody discovers and which a sticky first
+column only half fixes, or it squeezes every column into a few characters.
+**Below 640px, such a table is a list of cards** — every value stays visible, each
+row is one card, and nothing needs a gesture to be found.
+
+This is a rule for the platform, not for one screen. It is a property of the table
+primitive, so a screen opts in with one prop and labels its cells:
+
+```tsx
+<Table cards>
+  …
+  <TableCell primary>{row.name}</TableCell>                   {/* the card's title */}
+  <TableCell label={t("leads")}>{row.leads}</TableCell>       {/* "Leads ........ 12" */}
+```
+
+- **`primary` is what the row is about**, shown as the card's title with no label;
+  every other cell is a `label: value` line, the label being the column's header.
+  A cell with neither is a number floating on a card, so
+  `table-cards.test.tsx` reads every screen that uses `<Table cards>` and fails if
+  one has a body cell with neither (a spanning `colSpan` "nothing here" cell is
+  exempt).
+- **Opt in when the table would scroll or crush on a phone** — in practice more
+  than three columns, or any column that holds something long. A table of two short
+  columns is fine as a table and stays one.
+- **The rules live in `globals.css`, unlayered, keyed on `table[data-cards]`.**
+  Unlayered on purpose: the primitives carry utilities (the row's bottom border,
+  the cell's padding and top border, the body's last-row rule) that would win on
+  specificity and leave a half-built card. The header is hidden but kept, so a
+  screen reader still hears each value with its column; it is positioned, which is
+  why the table is too — the same "needs something to hang off" lesson as
+  `sr-only`.
+- **`actions` marks the row's menu** (the `⋯`): it goes in the card's top corner
+  and the title leaves room for it, instead of costing a line of its own.
+- **A `TableCard` loses its own border, shadow and background on a phone** when it
+  wraps a `cards` table (a `:has()` rule), so the cards sit on the page and not
+  inside a second card. A table in an ordinary `Card` with a header — *By person* —
+  keeps its frame, and its cards sit inside it.
+- **A card's border is a real border.** A shadow ring was tried and is clipped on
+  both sides by the table's `overflow-x-auto` wrapper, which is exactly as wide as
+  the card.
+
+**When a row deserves more than label–value lines, it gets its own card.** The quotes
+list does not use `cards`: a quote is the thing people open, so on a phone it is a
+`QuoteCard` (`modules/quotes/quote-card.tsx`) beside a table that shows from 640px.
+One component with `variant="balanced" | "compact"` — the variant moves things and
+changes spacing, never adds or drops a datum, and a test holds every datum in both.
+The choice is a presentation preference kept in the browser under the user's id
+(`useStoredChoice`), compact by default. The whole card opens the quote through the
+title's link stretched over it (`after:absolute after:inset-0`), with the `⋯` menu
+stacked above as its own control — a real anchor, so new-tab works, and no button
+inside it. Status is a soft badge built from the `--status-*-text` tokens, never the
+company's colour; the brand reaches the card only as the reference's text
+(`--brand-ink`) and a faint wash behind the total in balanced.
+
+The pieces are shared (`components/ui/record-card.tsx`: the surface, the stretched
+link, the footer strip, and the density choice), so the leads list is `LeadCard` on
+the same base and a third screen is a thin card of its own rather than a copy. The
+choice is remembered per screen and per user (`leads.cardVariant:<userId>`).
+
+Written first for *By person* in Reports and then the quotes list. The rest of the
+app's tables are to be brought over screen by screen, each with its columns'
+labels, rather than all at once without being looked at on a phone.
 
 ## Rich text
 

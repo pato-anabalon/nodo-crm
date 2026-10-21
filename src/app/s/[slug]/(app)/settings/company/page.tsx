@@ -60,7 +60,7 @@ export default async function CompanySettingsPage() {
           to its customer, and each card is narrow enough to share the row. The
           PDF's logo sits between the two it relates to — the logo it replaces
           on paper, and the other image the PDF prints. */}
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <LogoManager
           companyName={company.name}
           logoUrl={company.logoUrl}
@@ -166,10 +166,10 @@ export default async function CompanySettingsPage() {
               hint={t("quotes.quoteIntroHint")} defaultValue={company.quoteIntro} />
             <RichAreaField label={t("quotes.quoteNotes")} name="quoteNotes"
               defaultValue={company.quoteNotes} />
-            <RichAreaField label={t("quotes.quoteExclusions")} name="quoteExclusions"
-              defaultValue={company.quoteExclusions} />
             <RichAreaField label={t("quotes.quoteTerms")} name="quoteTerms"
               hint={t("quotes.quoteTermsHint")} defaultValue={company.quoteTerms} />
+            <RichAreaField label={t("quotes.quoteExclusions")} name="quoteExclusions"
+              defaultValue={company.quoteExclusions} />
             <RichAreaField label={t("quotes.quoteScope")} name="quoteScope"
               hint={t("quotes.quoteScopeHint")} defaultValue={company.quoteScope} />
         </>

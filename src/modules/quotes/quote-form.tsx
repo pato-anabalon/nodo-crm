@@ -55,7 +55,7 @@ import {
   TaxDisplayMode,
 } from "@/generated/prisma/enums";
 import { RichTextEditor } from "@/components/rich-text-editor";
-import { canChangeLead } from "./constants";
+import { QUOTE_FORM_ID, canChangeLead } from "./constants";
 import { MoneyInput } from "@/components/money-input";
 import {
   SearchCombobox,
@@ -163,6 +163,19 @@ const EMPTY_LINE: QuoteLineDraft = {
   unitPrice: "0",
   discount: "0",
 };
+
+/**
+ * A line in the editor, with an id of its own.
+ *
+ * Lines used to be told apart by their position, which is fine until they can
+ * move: a row dragged to a new place has to keep being *that* row, with its own
+ * typed values and its own focus, rather than the row that now happens to sit at
+ * its old index. The id is only this session's — never posted. What reaches the
+ * server is the order, through the `items[n]` names.
+ */
+type LineRow = QuoteLineDraft & { key: string };
+
+const withKey = (line: QuoteLineDraft): LineRow => ({ ...line, key: newSectionId() });
 
 /**
  * `crypto.randomUUID` needs a secure context in the browser and isn't
@@ -301,8 +314,8 @@ export function QuoteForm({
   // A new quote has no status yet, and is as open as a draft.
   const leadChangeable = !status || canChangeLead(status);
   const tCommon = useTranslations("common");
-  const [items, setItems] = useState<QuoteLineDraft[]>(
-    defaults.items?.length ? defaults.items : [{ ...EMPTY_LINE }],
+  const [items, setItems] = useState<LineRow[]>(() =>
+    (defaults.items?.length ? defaults.items : [EMPTY_LINE]).map(withKey),
   );
   const [selectedLead, setSelectedLead] = useState<SearchComboboxItem | null>(
     defaults.leadId
@@ -466,6 +479,27 @@ export function QuoteForm({
     });
   }
 
+  /** The same two ways in as the sections: the grip, and the up/down buttons. */
+  function moveLine(key: string, delta: 1 | -1) {
+    setItems((current) => {
+      const from = current.findIndex((line) => line.key === key);
+      const to = from + delta;
+      if (from === -1 || to < 0 || to >= current.length) return current;
+      return arrayMove(current, from, to);
+    });
+  }
+
+  function handleLineDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+    setItems((current) => {
+      const from = current.findIndex((line) => line.key === active.id);
+      const to = current.findIndex((line) => line.key === over.id);
+      if (from === -1 || to === -1) return current;
+      return arrayMove(current, from, to);
+    });
+  }
+
   function handleSectionDragEnd(event: DragEndEvent) {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
@@ -486,7 +520,8 @@ export function QuoteForm({
    */
   function addFromCatalogue(option: CatalogueSearchItem) {
     setItems((current) => {
-      const line: QuoteLineDraft = {
+      const line: LineRow = {
+        key: newSectionId(),
         description: [option.name, option.description]
           .filter(Boolean)
           .join(" — "),
@@ -536,10 +571,11 @@ export function QuoteForm({
 
   return (
     <form
+      id={QUOTE_FORM_ID}
       ref={formRef}
       action={formAction}
       onSubmit={submitWithoutReset}
-      className="grid gap-6 lg:grid-cols-3"
+      className="grid grid-cols-1 gap-6 lg:grid-cols-3"
     >
       <div className="space-y-6 lg:col-span-2">
         <Card>
@@ -550,7 +586,7 @@ export function QuoteForm({
             <div
               className={
                 quoteTypes.length > 0
-                  ? "grid gap-4 sm:grid-cols-[3fr_7fr]"
+                  ? "grid grid-cols-1 gap-4 sm:grid-cols-[3fr_7fr]"
                   : undefined
               }
             >
@@ -609,7 +645,7 @@ export function QuoteForm({
               />
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="leadId">{t("form.lead")}</Label>
                 <SearchCombobox
@@ -655,7 +691,7 @@ export function QuoteForm({
           </CardHeader>
           <CardContent>
             <input type="hidden" name="pricingMode" value={pricingMode} />
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {[PricingMode.ITEMIZED, PricingMode.SECTIONS].map((mode) => {
                 const selected = pricingMode === mode;
                 return (
@@ -717,7 +753,7 @@ export function QuoteForm({
                   {t("form.bundleDiscount.hint")}
                 </p>
               </div>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                 <div className="space-y-1.5">
                   <Label
                     htmlFor="optionalDiscountThreshold"
@@ -858,8 +894,8 @@ export function QuoteForm({
                           keeps the title and price columns at the same width
                           and the same baseline on every row, instead of each
                           relying on `flex-wrap` to land the same way. */}
-                      <div className="grid grid-cols-[1fr_160px_auto] items-end gap-3">
-                        <div className="min-w-0 space-y-1.5">
+                      <div className="grid grid-cols-[1fr_auto] items-end gap-3 sm:grid-cols-[1fr_160px_auto]">
+                        <div className="order-1 min-w-0 space-y-1.5 sm:order-none">
                           <Label
                             htmlFor={`sections[${index}].title`}
                             className="text-xs"
@@ -877,7 +913,7 @@ export function QuoteForm({
                           />
                         </div>
 
-                        <div className="space-y-1.5">
+                        <div className="order-3 col-span-2 space-y-1.5 sm:order-none sm:col-span-1">
                           <Label
                             htmlFor={`sections[${index}].amount`}
                             className="text-xs"
@@ -903,6 +939,7 @@ export function QuoteForm({
                           type="button"
                           variant="ghost"
                           size="icon"
+                          className="order-2 sm:order-none"
                           aria-label={t("form.removeSection", {
                             position: index + 1,
                           })}
@@ -969,7 +1006,7 @@ export function QuoteForm({
                           label-plus-input stack, and bottom-aligning it left
                           its own label sitting visibly lower than "Discount
                           type"/"Discount value" above it. */}
-                      <div className="grid grid-cols-[30%_30%_35%] items-start gap-3">
+                      <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-[30%_30%_35%]">
                         <div className="space-y-1.5">
                           <Label
                             htmlFor={`sections[${index}].discountType`}
@@ -1043,7 +1080,7 @@ export function QuoteForm({
                           )}
                         </div>
 
-                        <div className="space-y-1.5 text-right">
+                        <div className="flex items-baseline justify-between gap-3 sm:block sm:space-y-1.5 sm:text-right">
                           <p className="text-sm text-muted-foreground">
                             {t("form.sectionFinalPrice")}
                           </p>
@@ -1102,7 +1139,7 @@ export function QuoteForm({
               size="sm"
               variant="outline"
               onClick={() =>
-                setItems((current) => [...current, { ...EMPTY_LINE }])
+                setItems((current) => [...current, withKey(EMPTY_LINE)])
               }
             >
               <Plus className="size-4" />
@@ -1138,11 +1175,38 @@ export function QuoteForm({
               </div>
             ) : null}
 
-            {items.map((line, index) => (
-              <div
-                key={index}
-                className="grid gap-3 rounded-lg border p-3 sm:grid-cols-12"
+            <DndContext
+              id="quote-lines"
+              sensors={sectionSensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleLineDragEnd}
+            >
+              <SortableContext
+                items={items.map((line) => line.key)}
+                strategy={verticalListSortingStrategy}
               >
+                <div className="space-y-4">
+            {items.map((line, index) => (
+              <SortableLineRow
+                key={line.key}
+                id={line.key}
+                dragLabel={t("form.dragLineHandle", { position: index + 1 })}
+                canMoveUp={index > 0}
+                canMoveDown={index < items.length - 1}
+                onMoveUp={() => moveLine(line.key, -1)}
+                onMoveDown={() => moveLine(line.key, 1)}
+                moveUpLabel={t("form.moveLineUp", { position: index + 1 })}
+                moveDownLabel={t("form.moveLineDown", { position: index + 1 })}
+              >
+              <div
+                // On a phone each line is a card of its own: a tone apart from
+                // the card around it, and numbered by a chip sitting on its top
+                // edge, so a long list of lines can be told apart and counted.
+                className="relative grid grid-cols-1 gap-3 rounded-lg border p-3 max-sm:bg-muted/40 max-sm:pt-4 sm:grid-cols-12"
+              >
+                <span className="absolute top-0 right-3 -translate-y-1/2 rounded-full border bg-card px-2.5 py-0.5 text-xs font-medium text-muted-foreground sm:hidden">
+                  {t("form.lineNumber", { number: index + 1 })}
+                </span>
                 <div className="space-y-1.5 sm:col-span-5">
                   <Label
                     htmlFor={`items[${index}].description`}
@@ -1198,10 +1262,18 @@ export function QuoteForm({
                   className="sm:col-span-2"
                 />
 
-                <div className="flex items-end justify-between gap-2 sm:col-span-1">
-                  <span className="text-sm tabular-nums sm:hidden">
-                    {money(totals.lineTotals[index] ?? 0)}
-                  </span>
+                <div className="flex items-center justify-between gap-2 border-t pt-3 sm:col-span-1 sm:items-end sm:border-0 sm:pt-0">
+                  {/* The line's figure, named and made the largest thing on the
+                      card — it is what the line comes to. A phone only: from
+                      640px the subtotal line below says it. */}
+                  <div className="flex items-baseline gap-2 sm:hidden">
+                    <span className="text-sm text-muted-foreground">
+                      {t("form.lineTotal")}
+                    </span>
+                    <span className="text-lg font-semibold tabular-nums text-[var(--brand-ink)]">
+                      {money(totals.lineTotals[index] ?? 0)}
+                    </span>
+                  </div>
                   <Button
                     type="button"
                     variant="ghost"
@@ -1224,7 +1296,11 @@ export function QuoteForm({
                   })}
                 </p>
               </div>
+              </SortableLineRow>
             ))}
+                </div>
+              </SortableContext>
+            </DndContext>
           </CardContent>
         </Card>
 
@@ -1255,15 +1331,9 @@ export function QuoteForm({
                 ariaLabel={t("form.notes")}
               />
             </div>
-            <div className="space-y-2">
-              <Label>{t("form.exclusions")}</Label>
-              <RichTextEditor
-                name="exclusions"
-                defaultValue={toRichTextHtml(defaults.exclusions)}
-                ariaLabel={t("form.exclusions")}
-              />
-            </div>
-
+            {/* The order the customer reads them in, and the PDF prints them in:
+                notes, the terms with the full document that goes with them,
+                then what is excluded. */}
             <div className="space-y-2">
               <Label>{t("form.terms")}</Label>
               <RichTextEditor
@@ -1290,6 +1360,15 @@ export function QuoteForm({
                 />
               </div>
             ) : null}
+
+            <div className="space-y-2">
+              <Label>{t("form.exclusions")}</Label>
+              <RichTextEditor
+                name="exclusions"
+                defaultValue={toRichTextHtml(defaults.exclusions)}
+                ariaLabel={t("form.exclusions")}
+              />
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -1316,7 +1395,7 @@ export function QuoteForm({
               ) : null}
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="discountType">
                   {t("form.discountType.label")}
@@ -1501,6 +1580,83 @@ function Row({ label, value }: { label: string; value: string }) {
     <div className="flex items-center justify-between text-muted-foreground">
       <dt>{label}</dt>
       <dd className="tabular-nums">{value}</dd>
+    </div>
+  );
+}
+
+/**
+ * One line's row, made draggable.
+ *
+ * The same two ways to move as a section: the grip answers to a pointer and to
+ * dnd-kit's keyboard sensor, and the chevrons are plain buttons that work
+ * without either. Where they sit depends on the room. Beside the card on a wide
+ * screen, in a column like a section's; on a phone they would eat a tenth of a
+ * card that has none to spare, so they ride on the card's top edge instead, a
+ * pill that mirrors the "Item n" chip on the opposite corner.
+ */
+function SortableLineRow({
+  id,
+  dragLabel,
+  canMoveUp,
+  canMoveDown,
+  onMoveUp,
+  onMoveDown,
+  moveUpLabel,
+  moveDownLabel,
+  children,
+}: {
+  id: string;
+  dragLabel: string;
+  canMoveUp: boolean;
+  canMoveDown: boolean;
+  onMoveUp: () => void;
+  onMoveDown: () => void;
+  moveUpLabel: string;
+  moveDownLabel: string;
+  children: ReactNode;
+}) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({ id });
+  const style = { transform: CSS.Transform.toString(transform), transition };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className={`relative flex gap-2 ${isDragging ? "z-10 opacity-60" : ""}`}
+    >
+      <div className="z-10 flex items-center gap-0.5 max-sm:absolute max-sm:top-0 max-sm:left-3 max-sm:-translate-y-1/2 max-sm:rounded-full max-sm:border max-sm:bg-card max-sm:px-1 sm:shrink-0 sm:flex-col sm:pt-3">
+        <button
+          type="button"
+          aria-label={dragLabel}
+          className="cursor-grab touch-none rounded p-1 text-muted-foreground hover:bg-accent hover:text-accent-foreground active:cursor-grabbing"
+          {...attributes}
+          {...listeners}
+        >
+          <GripVertical className="size-4" />
+        </button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-xs"
+          aria-label={moveUpLabel}
+          disabled={!canMoveUp}
+          onClick={onMoveUp}
+        >
+          <ChevronUp className="size-3.5" />
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-xs"
+          aria-label={moveDownLabel}
+          disabled={!canMoveDown}
+          onClick={onMoveDown}
+        >
+          <ChevronDown className="size-3.5" />
+        </Button>
+      </div>
+      <div className="min-w-0 flex-1">{children}</div>
     </div>
   );
 }

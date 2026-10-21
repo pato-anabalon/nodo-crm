@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import { useTranslations } from "next-intl";
 import { QUOTE_STATUS_COLORS } from "./status-colors";
 import { TRANSITION_MS, easeOutCubic } from "./animate";
@@ -14,7 +14,10 @@ import {
 } from "./format-client";
 import type { SeriesPoint } from "./series";
 
-const WIDTH = 720;
+/** What the server draws, before the browser has measured anything. */
+const DEFAULT_WIDTH = 720;
+/** Narrower than this, the axis labels and the plot start to crowd each other. */
+const MIN_WIDTH = 280;
 const HEIGHT = 220;
 const PADDING = { top: 12, right: 12, bottom: 26, left: 52 };
 /** The floating tooltip's own box, in the chart's coordinate space — a
@@ -135,6 +138,37 @@ function useAnimatedSeries(points: SeriesPoint[], duration = TRANSITION_MS): Ser
   return animated;
 }
 
+const useIsomorphicLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
+
+/**
+ * The width of an element, kept current as it resizes.
+ *
+ * The chart is drawn *at* this width rather than drawn once at 720 and scaled:
+ * scaled down to a phone, its 10px axis labels came out under 5px, which is why
+ * it was held to a minimum width and left to scroll sideways — and a minimum
+ * width inside a grid is what pushed the whole panel past the screen. Drawn at
+ * the width it has, the text keeps its real size and nothing has to scroll.
+ *
+ * Takes the element as state, not a ref, so it keeps working when the element
+ * that holds it is swapped (the "no data" message and the chart are not the same
+ * node).
+ */
+function useElementWidth(element: HTMLElement | null): number {
+  const [width, setWidth] = useState(DEFAULT_WIDTH);
+
+  useIsomorphicLayoutEffect(() => {
+    if (!element) return;
+    const measure = () => setWidth(Math.max(MIN_WIDTH, Math.round(element.clientWidth)));
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [element]);
+
+  return width;
+}
+
 /**
  * How the quoted value moves within the period.
  *
@@ -145,6 +179,8 @@ function useAnimatedSeries(points: SeriesPoint[], duration = TRANSITION_MS): Ser
 export function TrendChart({ points, format }: { points: SeriesPoint[]; format: ChartFormat }) {
   const t = useTranslations("reports");
   const svgRef = useRef<SVGSVGElement>(null);
+  const [box, setBox] = useState<HTMLDivElement | null>(null);
+  const width = useElementWidth(box);
   const [hover, setHover] = useState<number | null>(null);
   // Which curve the pointer is over, not just which column: the two series
   // share the same columns, so telling them apart needs the pointer's height
@@ -166,7 +202,7 @@ export function TrendChart({ points, format }: { points: SeriesPoint[]; format: 
   );
 
   const plot = useMemo(() => {
-    const innerWidth = WIDTH - PADDING.left - PADDING.right;
+    const innerWidth = width - PADDING.left - PADDING.right;
     const innerHeight = HEIGHT - PADDING.top - PADDING.bottom;
     const dataMax = Math.max(1, ...animated.map((point) => point.total));
     // The axis tops out at the highest gridline, not at the data's own peak —
@@ -196,10 +232,14 @@ export function TrendChart({ points, format }: { points: SeriesPoint[]; format: 
       totalArea: areaUnder((p) => p.total),
       acceptedArea: areaUnder((p) => p.accepted),
     };
-  }, [animated]);
+  }, [animated, width]);
 
   if (points.length === 0) {
-    return <p className="text-sm text-muted-foreground">{t("noData")}</p>;
+    return (
+      <div ref={setBox}>
+        <p className="text-sm text-muted-foreground">{t("noData")}</p>
+      </div>
+    );
   }
 
   const active = hover === null ? null : animated[hover];
@@ -217,7 +257,7 @@ export function TrendChart({ points, format }: { points: SeriesPoint[]; format: 
     point.y = event.clientY;
     const local = point.matrixTransform(ctm.inverse());
 
-    const innerWidth = WIDTH - PADDING.left - PADDING.right;
+    const innerWidth = width - PADDING.left - PADDING.right;
     const ratio = animated.length <= 1 ? 0 : (local.x - PADDING.left) / innerWidth;
     const index = Math.min(
       animated.length - 1,
@@ -248,7 +288,7 @@ export function TrendChart({ points, format }: { points: SeriesPoint[]; format: 
   // Flips below the point instead of clipping past the top edge, and clamps
   // sideways instead of running off the left or right of the viewBox.
   const tooltipLeft = tooltip
-    ? Math.min(Math.max(tooltip.x - TOOLTIP_WIDTH / 2, 4), WIDTH - TOOLTIP_WIDTH - 4)
+    ? Math.min(Math.max(tooltip.x - TOOLTIP_WIDTH / 2, 4), width - TOOLTIP_WIDTH - 4)
     : 0;
   const tooltipAbove = tooltip ? tooltip.y - TOOLTIP_HEIGHT - TOOLTIP_GAP : 0;
   const tooltipTop = tooltip
@@ -259,11 +299,13 @@ export function TrendChart({ points, format }: { points: SeriesPoint[]; format: 
 
   return (
     <div className="space-y-3">
-      <div className="overflow-x-auto">
+      <div ref={setBox} className="w-full min-w-0">
         <svg
           ref={svgRef}
-          viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
-          className="h-56 w-full min-w-[32rem]"
+          viewBox={`0 0 ${width} ${HEIGHT}`}
+          width={width}
+          height={HEIGHT}
+          className="block max-w-full"
           role="img"
           aria-label={t("trendTitle")}
           onMouseMove={handlePointerMove}
@@ -275,7 +317,7 @@ export function TrendChart({ points, format }: { points: SeriesPoint[]; format: 
               <g key={value}>
                 <line
                   x1={PADDING.left}
-                  x2={WIDTH - PADDING.right}
+                  x2={width - PADDING.right}
                   y1={plot.y(value)}
                   y2={plot.y(value)}
                   stroke="var(--border)"
@@ -387,7 +429,7 @@ export function TrendChart({ points, format }: { points: SeriesPoint[]; format: 
             {formatDate(points[0].date)}
           </text>
           <text
-            x={WIDTH - PADDING.right}
+            x={width - PADDING.right}
             y={HEIGHT - 6}
             textAnchor="end"
             className="fill-muted-foreground text-[10px]"

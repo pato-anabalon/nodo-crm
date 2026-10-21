@@ -6,10 +6,12 @@ import { Button } from "@/components/ui/button";
 import { NativeSelect } from "@/components/ui/native-select";
 import {
   OpenCount,
+  OpenCountLabel,
   QuotePresenceProvider,
   QuoteSeen,
 } from "@/modules/quotes/quote-presence";
 import { QuoteRowActions } from "@/modules/quotes/row-actions";
+import { QuoteCards } from "@/modules/quotes/quote-cards";
 import { elapsedLabel } from "@/lib/elapsed-label";
 import { isViewingNow } from "@/modules/portal/share";
 import { Input } from "@/components/ui/input";
@@ -28,6 +30,7 @@ import {
   QUOTE_SECTIONS,
   QUOTE_STATUSES,
   isQuoteSection,
+  QUOTE_STATUS_SOFT_CLASS,
   QUOTE_STATUS_TEXT_CLASS,
 } from "@/modules/quotes/constants";
 import { formatMoney, formatQuoteNumber, truncate } from "@/lib/format";
@@ -167,7 +170,55 @@ export default async function QuotesPage({
             ]),
         )}
       >
-        <TableCard>
+        {/*
+          Two presentations of the same rows. A phone gets cards, with a choice
+          of density; from 640px a table. Both sit inside the one presence
+          provider, so the live dot and the open counts agree between them.
+        */}
+        <QuoteCards
+          storageKey={`quotes.cardVariant:${ctx.user.id}`}
+          empty={t("empty")}
+          quotes={items.map((quote) => ({
+            id: quote.id,
+            href: `/quotes/${quote.id}`,
+            title: truncate(quote.title, TITLE_MAX),
+            reference: formatQuoteNumber(ctx.company.quotePrefix, quote.number),
+            customerName: quote.clientName,
+            companyName: quote.clientCompanyName,
+            statusLabel: t(`status.${quote.status}`),
+            statusClass: QUOTE_STATUS_SOFT_CLASS[quote.status],
+            sent: quote.sentAt ? ago(quote.sentAt) : null,
+            seen: (
+              <QuoteSeen
+                card
+                quoteId={quote.id}
+                seenLabel={
+                  quote.share?.lastSeenAt ? ago(quote.share.lastSeenAt) : null
+                }
+              />
+            ),
+            opensCount: <OpenCount quoteId={quote.id} />,
+            opensLabel: <OpenCountLabel quoteId={quote.id} />,
+            total: canSeeAmounts ? (
+              formatMoney(
+                Number(quote.total),
+                quote.currency,
+                ctx.company.formatLocale,
+              )
+            ) : (
+              <HiddenAmount />
+            ),
+            menu: (
+              <QuoteRowActions
+                quoteId={quote.id}
+                title={quote.title}
+                className="size-11"
+              />
+            ),
+          }))}
+        />
+
+        <TableCard className="hidden sm:block">
           <Table>
             <TableHeader>
               <TableRow>
@@ -203,7 +254,7 @@ export default async function QuotesPage({
                       the row two lines to breathe. Everything else on the row
                       is an attribute of this, and reads quieter.
                     */}
-                    <TableCell>
+                    <TableCell primary>
                       <Link
                         href={`/quotes/${quote.id}`}
                         className="font-medium hover:underline"
@@ -212,7 +263,7 @@ export default async function QuotesPage({
                       >
                         {truncate(quote.title, TITLE_MAX)}
                       </Link>
-                      <div className="mt-0.5 font-mono text-xs text-muted-foreground">
+                      <div className="mt-0.5 font-mono text-xs font-normal text-muted-foreground">
                         {formatQuoteNumber(
                           ctx.company.quotePrefix,
                           quote.number,
@@ -220,7 +271,7 @@ export default async function QuotesPage({
                       </div>
                     </TableCell>
 
-                    <TableCell>
+                    <TableCell label={t("columns.customer")}>
                       {quote.clientName ? <div>{quote.clientName}</div> : null}
                       {/*
                         Most quotes have no company — a person who enquired on
@@ -239,7 +290,7 @@ export default async function QuotesPage({
                       ) : null}
                     </TableCell>
 
-                    <TableCell>
+                    <TableCell label={t("columns.status")}>
                       <div
                         className={`font-medium ${QUOTE_STATUS_TEXT_CLASS[quote.status]}`}
                       >
@@ -257,15 +308,15 @@ export default async function QuotesPage({
                       </div>
                     </TableCell>
 
-                    <TableCell className="text-sm whitespace-nowrap text-muted-foreground">
+                    <TableCell label={t("columns.sent")} className="text-sm whitespace-nowrap text-muted-foreground">
                       {quote.sentAt ? ago(quote.sentAt) : "—"}
                     </TableCell>
 
-                    <TableCell className="text-right text-sm">
+                    <TableCell label={t("columns.opens")} className="text-right text-sm">
                       <OpenCount quoteId={quote.id} />
                     </TableCell>
 
-                    <TableCell className="text-right tabular-nums whitespace-nowrap">
+                    <TableCell label={t("columns.total")} className="text-right font-medium tabular-nums whitespace-nowrap">
                       {canSeeAmounts ? (
                         formatMoney(
                           Number(quote.total),
@@ -277,7 +328,7 @@ export default async function QuotesPage({
                       )}
                     </TableCell>
 
-                    <TableCell className="text-right">
+                    <TableCell actions className="text-right">
                       <QuoteRowActions quoteId={quote.id} title={quote.title} />
                     </TableCell>
                   </TableRow>

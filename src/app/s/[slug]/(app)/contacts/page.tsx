@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/table";
 import { contactDisplayName } from "@/modules/contacts/identity";
 import { contactFiltersFromParams } from "@/modules/contacts/schemas";
+import { ContactCards } from "@/modules/contacts/contact-cards";
 import { listContacts } from "@/modules/contacts/service";
 
 export async function generateMetadata() {
@@ -70,7 +71,22 @@ export default async function ContactsPage({
         </Button>
       </form>
 
-      <TableCard>
+      <ContactCards
+        storageKey={`contacts.cardVariant:${ctx.user.id}`}
+        empty={t("empty")}
+        contacts={items.map((contact) => ({
+          id: contact.id,
+          href: `/contacts/${contact.id}`,
+          name: contactDisplayName(contact),
+          position: contact.position,
+          companyName: contact.clientCompany?.name ?? null,
+          email: contact.email,
+          phone: contact.phone,
+          leadCount: contact._count.leads,
+        }))}
+      />
+
+      <TableCard className="hidden sm:block">
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>

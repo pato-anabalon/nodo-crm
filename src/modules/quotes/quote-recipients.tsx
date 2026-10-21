@@ -116,22 +116,28 @@ export function QuoteRecipients({
           <p className="text-muted-foreground italic">{t("none")}</p>
         ) : null}
 
+        {/*
+          One card per address. The row this replaced put the name, the address,
+          a badge and two buttons on a single wrapping line, which on a phone
+          fell apart into fragments with the buttons stranded on their own.
+          A card gives each person a name, an address under it, and their own
+          actions — beside it on a wide screen, underneath on a narrow one.
+        */}
         <ul className="space-y-2">
           {primary ? (
-            <li className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <Person recipient={primary} />
-              <Badge variant="secondary">{t("primary")}</Badge>
+            <li className="rounded-lg border p-3">
+              <Person recipient={primary} tag={<Badge variant="secondary">{t("primary")}</Badge>} />
             </li>
           ) : null}
 
           {copies.map((recipient) => (
-            <li key={recipient.id} className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <span className="text-xs tracking-wide text-muted-foreground uppercase">
-                {t("copyTo")}
-              </span>
-              <Person recipient={recipient} />
+            <li
+              key={recipient.id}
+              className="flex flex-col gap-3 rounded-lg border p-3 sm:flex-row sm:items-center sm:justify-between"
+            >
+              <Person recipient={recipient} tag={<Badge variant="outline">{t("copyTo")}</Badge>} />
               {editable ? (
-                <span className="ml-auto flex items-center gap-1">
+                <span className="flex items-center justify-between gap-1 border-t pt-2 sm:justify-end sm:border-0 sm:pt-0">
                   <Button
                     type="button"
                     variant="ghost"
@@ -194,14 +200,18 @@ export function QuoteRecipients({
   );
 }
 
-function Person({ recipient }: { recipient: RecipientView }) {
+/** The name with what kind of recipient they are, and the address under it. */
+function Person({ recipient, tag }: { recipient: RecipientView; tag: React.ReactNode }) {
   return (
-    <span className="min-w-0">
-      <span className="font-medium">{recipient.name}</span>
+    <div className="min-w-0">
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+        <span className="font-medium break-words">{recipient.name}</span>
+        {tag}
+      </div>
       {recipient.name !== recipient.email ? (
-        <span className="text-muted-foreground"> · {recipient.email}</span>
+        <p className="mt-0.5 text-sm break-words text-muted-foreground">{recipient.email}</p>
       ) : null}
-    </span>
+    </div>
   );
 }
 
@@ -272,7 +282,7 @@ function NewContactFields({
         }
       }}
     >
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <Field id="recipient-first-name" label={t("firstName")} error={errors.firstName?.[0]}>
           <Input
             id="recipient-first-name"

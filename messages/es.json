@@ -21,6 +21,11 @@
       "minutes": "hace {value} min",
       "hours": "{value, plural, one {hace # hora} other {hace # horas}}",
       "days": "{value, plural, one {ayer} other {hace # días}}"
+    },
+    "cardLayout": {
+      "label": "Diseño de las tarjetas",
+      "balanced": "Equilibrada",
+      "compact": "Compacta"
     }
   },
   "nav": {
@@ -615,7 +620,12 @@
       "JOB_STARTED": "Trabajo iniciado desde la cotización #{reference}"
     },
     "ownerSaved": "Responsable actualizado.",
-    "ownerCleared": "Responsable quitado."
+    "ownerCleared": "Responsable quitado.",
+    "cards": {
+      "quotes": "{count, plural, =0 {Sin cotizaciones} one {# cotización} other {# cotizaciones}}"
+    },
+    "allOwners": "Todas las personas",
+    "ownerFilter": "Filtrar por persona"
   },
   "quotes": {
     "title": "Cotizaciones",
@@ -763,7 +773,15 @@
       "pickFromCatalogue": "Elegir un ítem…",
       "searchCatalogue": "Buscar en la lista de precios…",
       "noCatalogueFound": "No se encontraron ítems",
-      "catalogueHint": "Se copia a la cotización; cambiar la lista después no la altera."
+      "catalogueHint": "Se copia a la cotización; cambiar la lista después no la altera.",
+      "lineNumber": "Ítem #{number}",
+      "lineTotal": "Total de la línea",
+      "owner": "Responsable",
+      "ownerNone": "Sin responsable",
+      "ownerHint": "Parte siendo quien guardó el quote por primera vez. Cámbialo y pulsa Guardar cambios para traspasarlo: sus avisos y reportes lo siguen.",
+      "dragLineHandle": "Arrastrar para reordenar la línea {position}",
+      "moveLineUp": "Subir línea {position}",
+      "moveLineDown": "Bajar línea {position}"
     },
     "actions": {
       "send": "Enviar al cliente",
@@ -854,7 +872,8 @@
       "signature": "Firma",
       "viewingNowShort": "viendo ahora",
       "neverOpened": "Sin abrir",
-      "seenAgo": "Vista {when}"
+      "seenAgo": "Vista {when}",
+      "seen": "Visto"
     },
     "share": {
       "title": "Enlace del cliente",
@@ -897,7 +916,7 @@
     },
     "rowActions": {
       "open": "Acciones de {title}",
-      "duplicate": "Duplicar",
+      "duplicate": "Duplicar cotización",
       "preview": "Ver como cliente"
     },
     "recipients": {
@@ -931,7 +950,11 @@
         "noEmail": "Ese contacto no tiene correo, así que no hay a dónde enviarle.",
         "primary": "Haz principal a otra persona antes de quitarla."
       }
-    }
+    },
+    "cards": {
+      "opens": "{count, plural, one {# apertura} other {# aperturas}}"
+    },
+    "ownerInvalid": "Esa persona no puede ser responsable de este quote."
   },
   "tasks": {
     "title": "Tareas",
@@ -1050,6 +1073,10 @@
       "title": "Historial",
       "subtitle": "Todo lo que ha llegado de esta empresa, lo haya mandado quien lo haya mandado.",
       "empty": "Todavía no ha llegado nada de esta empresa."
+    },
+    "cards": {
+      "people": "{count, plural, =0 {Sin personas} one {# persona} other {# personas}}",
+      "leads": "{count, plural, =0 {Sin leads} one {# lead} other {# leads}}"
     }
   },
   "documents": {
@@ -1505,6 +1532,10 @@
       "subtitle": "Qué funcionalidades puede usar cada perfil.",
       "counts": "{features, plural, one {# funcionalidad} other {# funcionalidades}} · {people, plural, =0 {nadie aún} one {# persona} other {# personas}}",
       "gridSubtitle": "Marca lo que este perfil puede hacer. Solo afecta a esta empresa."
+    },
+    "confirmRemove": {
+      "title": "¿Quitar a {name}?",
+      "description": "{name} pierde el acceso a esta empresa de inmediato y sale de sus jobs y de sus tareas. Lo que escribió se conserva. Su cuenta no se elimina, pero para recuperarlo hay que volver a invitarlo. Si prefieres que sea reversible, suspéndelo en su lugar."
     }
   },
   "ingest": {

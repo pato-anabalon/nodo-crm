@@ -63,7 +63,7 @@ export default async function ClientPage({ params }: { params: Promise<{ id: str
         ) : null}
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-5">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
         <div className="space-y-6 lg:col-span-2">
           {can(ctx, "contacts.update") ? (
             <ClientCompanyForm

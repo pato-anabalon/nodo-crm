@@ -1,5 +1,6 @@
 import type { CompanyContext } from "@/lib/auth/session";
 import { prisma } from "@/lib/db/prisma";
+import { MembershipStatus } from "@/generated/prisma/enums";
 import { ActivityType, PricingMode, Prisma, QuoteStatus, type TaxDisplayMode } from "@/generated/prisma/client";
 import { isRichTextEmpty, sanitizeRichText } from "@/lib/rich-text";
 import { calculateQuoteTotals } from "./totals";
@@ -485,11 +486,35 @@ function isUniqueNumberConflict(error: unknown): boolean {
 export async function updateQuote(ctx: CompanyContext, id: string, values: QuoteFormValues) {
   const current = await ctx.db.quote.findFirst({
     where: { id, ...visibilityWhere(ctx) },
-    select: { id: true, status: true, taxDisplayMode: true, leadId: true, number: true },
+    select: {
+      id: true,
+      status: true,
+      taxDisplayMode: true,
+      leadId: true,
+      number: true,
+      createdById: true,
+    },
   });
   if (!current) return { ok: false as const, reason: "not-found" as const };
   if (!isQuoteEditable(current.status)) {
     return { ok: false as const, reason: "locked" as const };
+  }
+
+  // The quote's owner is `createdById`: the one the notices follow, the one the
+  // reports credit and, for a profile that doesn't see every quote, the one
+  // whose book it is in. It starts as whoever saved it first and can be handed
+  // on here. Only somebody who sees every quote may do it — handing over your
+  // own quote is how it would disappear from your list — and only to an active
+  // member of this company. Blank leaves it where it is.
+  const nextOwnerId = values.ownerId && values.ownerId !== current.createdById ? values.ownerId : null;
+  if (nextOwnerId) {
+    const member = ctx.permissions.has("quotes.read.all")
+      ? await ctx.db.membership.findFirst({
+          where: { userId: nextOwnerId, status: MembershipStatus.ACTIVE },
+          select: { id: true },
+        })
+      : null;
+    if (!member) return { ok: false as const, reason: "owner-invalid" as const };
   }
 
   // Falls back to what the quote already had, same as currency below — the
@@ -541,6 +566,7 @@ export async function updateQuote(ctx: CompanyContext, id: string, values: Quote
       data: {
         title: values.title,
         leadId: nextLeadId,
+        ...(nextOwnerId ? { createdById: nextOwnerId } : {}),
         ...(leadChanged ? clientSnapshot(relinkedLead) : {}),
         termsDocumentId: values.termsDocumentId ?? null,
         pricingMode: values.pricingMode,

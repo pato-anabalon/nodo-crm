@@ -73,7 +73,7 @@ export function TableSkeleton({ columns, rows = 6 }: { columns: number; rows?: n
 /** A row of card tiles, for the dashboard's metrics and settings' groups. */
 export function CardRowSkeleton({ cards = 4 }: { cards?: number }) {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {Array.from({ length: cards }, (_, index) => (
         <Card key={index}>
           <CardContent className="space-y-2 pt-6">

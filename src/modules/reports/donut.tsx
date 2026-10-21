@@ -156,7 +156,11 @@ export function StatusDonut({
       : null;
 
   return (
-    <div className="flex flex-wrap items-center gap-6">
+    // The legend has a width it won't go below (`basis` on the list), and the row
+    // wraps: where it doesn't fit beside the ring it drops underneath, at full
+    // width, instead of being squeezed until its labels are gone. It used to be
+    // `flex-1` with no floor, which is a basis of zero — so it always "fit".
+    <div className="flex flex-wrap items-center justify-center gap-6">
       <div className="relative shrink-0">
         <svg
           width={SIZE}
@@ -237,7 +241,7 @@ export function StatusDonut({
 
       {/* With four series a legend is compulsory: identity is never left to
           colour alone. */}
-      <ul className="min-w-0 flex-1 space-y-2">
+      <ul className="min-w-0 flex-[1_1_14rem] space-y-2">
         {ordered.map((slice) => (
           <li
             key={slice.key}

@@ -21,6 +21,11 @@
       "minutes": "{value} min ago",
       "hours": "{value, plural, one {# hour ago} other {# hours ago}}",
       "days": "{value, plural, one {yesterday} other {# days ago}}"
+    },
+    "cardLayout": {
+      "label": "Card layout",
+      "balanced": "Balanced",
+      "compact": "Compact"
     }
   },
   "nav": {
@@ -615,7 +620,12 @@
       "JOB_STARTED": "Job started from quote #{reference}"
     },
     "ownerSaved": "Owner updated.",
-    "ownerCleared": "Owner removed."
+    "ownerCleared": "Owner removed.",
+    "cards": {
+      "quotes": "{count, plural, =0 {No quotes} one {# quote} other {# quotes}}"
+    },
+    "allOwners": "Everyone",
+    "ownerFilter": "Filter by person"
   },
   "quotes": {
     "title": "Quotes",
@@ -763,7 +773,15 @@
       "pickFromCatalogue": "Pick an item…",
       "searchCatalogue": "Search the price list…",
       "noCatalogueFound": "No items found",
-      "catalogueHint": "It's copied onto the quote; changing the list later won't alter it."
+      "catalogueHint": "It's copied onto the quote; changing the list later won't alter it.",
+      "lineNumber": "Item #{number}",
+      "lineTotal": "Line total",
+      "owner": "Owner",
+      "ownerNone": "No owner",
+      "ownerHint": "Starts as whoever saved the quote first. Change it and press Save changes to hand the quote over: their notices and reports follow it.",
+      "dragLineHandle": "Drag to reorder line {position}",
+      "moveLineUp": "Move line {position} up",
+      "moveLineDown": "Move line {position} down"
     },
     "actions": {
       "send": "Send to customer",
@@ -854,7 +872,8 @@
       "signature": "Signature",
       "viewingNowShort": "viewing now",
       "neverOpened": "Unopened",
-      "seenAgo": "Seen {when}"
+      "seenAgo": "Seen {when}",
+      "seen": "Seen"
     },
     "share": {
       "title": "Customer link",
@@ -897,7 +916,7 @@
     },
     "rowActions": {
       "open": "Actions for {title}",
-      "duplicate": "Duplicate",
+      "duplicate": "Duplicate quote",
       "preview": "View as customer"
     },
     "recipients": {
@@ -931,7 +950,11 @@
         "noEmail": "That contact has no email, so there's nothing to send them.",
         "primary": "Make somebody else primary before removing them."
       }
-    }
+    },
+    "cards": {
+      "opens": "{count, plural, one {# open} other {# opens}}"
+    },
+    "ownerInvalid": "That person can't be the owner of this quote."
   },
   "tasks": {
     "title": "Tasks",
@@ -1050,6 +1073,10 @@
       "title": "History",
       "subtitle": "Everything that ever came from this company, whoever sent it.",
       "empty": "Nothing has come from this company yet."
+    },
+    "cards": {
+      "people": "{count, plural, =0 {No people} one {# person} other {# people}}",
+      "leads": "{count, plural, =0 {No leads} one {# lead} other {# leads}}"
     }
   },
   "documents": {
@@ -1505,6 +1532,10 @@
       "subtitle": "Which features each profile can use.",
       "counts": "{features, plural, one {# feature} other {# features}} · {people, plural, =0 {nobody yet} one {# person} other {# people}}",
       "gridSubtitle": "Tick what this profile may do. It only affects this company."
+    },
+    "confirmRemove": {
+      "title": "Remove {name}?",
+      "description": "{name} loses access to this company straight away, and is taken off its jobs and their to-dos. What they wrote stays. Their account isn't deleted, but getting them back means inviting them again. To keep it reversible, suspend them instead."
     }
   },
   "ingest": {

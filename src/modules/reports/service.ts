@@ -6,6 +6,7 @@ import type { Period } from "./period";
 import { buildSeries, divideSeries, rollingSum, type SeriesPoint } from "./series";
 import { conversionRate, daysBetween, median, type DisplayAs } from "./metrics";
 import { foldByCurrency, type Bucket } from "./currency";
+import { closeOf } from "./stock-flow";
 
 export type { DisplayAs } from "./metrics";
 
@@ -54,8 +55,18 @@ export type Range = { from: Date; to: Date };
  * actually checks that identity — change a condition here and change it
  * there too, or the check stops meaning anything.
  */
-export async function quoteBreakdown(ctx: CompanyContext, period: Range): Promise<Breakdown> {
+export async function quoteBreakdown(
+  ctx: CompanyContext,
+  period: Range,
+  now: Date = new Date(),
+): Promise<Breakdown> {
   const visible = visibilityWhere(ctx);
+  // The two figures that are read at the close — what was still open, and what
+  // had run out by it — read it as of today when the period hasn't ended. A
+  // year in progress closes on 1 January, but a quote valid until November has
+  // not expired yet: it is open, and counting it as expired left "awaiting" at
+  // zero while quotes were genuinely waiting.
+  const close = closeOf(period, now);
 
   const [decided, sent, awaiting, expired] = await Promise.all([
     ctx.db.quote.groupBy({
@@ -78,11 +89,11 @@ export async function quoteBreakdown(ctx: CompanyContext, period: Range): Promis
       by: ["currency"],
       where: {
         ...visible,
-        sentAt: { lt: period.to },
+        sentAt: { lt: close },
         // Undecided by the end of the period — including quotes answered later,
         // which were still open at the moment being reported on.
         AND: [
-          { OR: [{ decidedAt: null }, { decidedAt: { gte: period.to } }] },
+          { OR: [{ decidedAt: null }, { decidedAt: { gte: close } }] },
           // An expired quote never gets a `decidedAt` — nobody decided, it
           // just ran out — so the decidedAt check alone can't tell it apart
           // from one still genuinely open. `validUntil` can: a quote whose
@@ -92,7 +103,7 @@ export async function quoteBreakdown(ctx: CompanyContext, period: Range): Promis
           // whatever the row says today. Without this, every quote that's
           // since expired piles up in every past period's stock forever
           // instead of dropping out once it's dead.
-          { OR: [{ validUntil: null }, { validUntil: { gte: period.to } }] },
+          { OR: [{ validUntil: null }, { validUntil: { gte: close } }] },
         ],
       },
       _count: { _all: true },
@@ -114,7 +125,7 @@ export async function quoteBreakdown(ctx: CompanyContext, period: Range): Promis
         // at creation, not at send.
         sentAt: { not: null },
         decidedAt: null,
-        validUntil: { gte: period.from, lt: period.to },
+        validUntil: { gte: period.from, lt: close },
       },
       _count: { _all: true },
       _sum: { total: true },

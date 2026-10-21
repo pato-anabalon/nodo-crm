@@ -59,7 +59,7 @@ export default async function EventPage({ params }: { params: Promise<{ id: stri
           <h1 className="text-2xl font-bold tracking-tight text-balance">{event.title}</h1>
         </header>
 
-        <dl className="grid gap-3 text-sm sm:grid-cols-[8rem_1fr]">
+        <dl className="grid grid-cols-1 gap-3 text-sm sm:grid-cols-[8rem_1fr]">
           <dt className="flex items-center gap-2 text-muted-foreground">
             <CalendarDays className="size-4" />
             {t("when")}

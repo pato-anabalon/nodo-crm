@@ -14,6 +14,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { clientCompanyFiltersFromParams } from "@/modules/client-companies/schemas";
+import { ClientCards } from "@/modules/client-companies/client-cards";
 import { listClientCompanies } from "@/modules/client-companies/service";
 
 export async function generateMetadata() {
@@ -62,7 +63,23 @@ export default async function ClientsPage({
         <Button type="submit" variant="secondary">{tCommon("search")}</Button>
       </form>
 
-      <TableCard>
+      <ClientCards
+        storageKey={`clients.cardVariant:${ctx.user.id}`}
+        empty={t("empty")}
+        clients={items.map((client) => ({
+          id: client.id,
+          href: `/clients/${client.id}`,
+          name: client.name,
+          taxId: client.taxId,
+          email: client.email,
+          phone: client.phone,
+          address: client.address,
+          peopleCount: client._count.contacts,
+          leadCount: client._count.leads,
+        }))}
+      />
+
+      <TableCard className="hidden sm:block">
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { Copy, Eye, MoreHorizontal } from "lucide-react";
+import { cn } from "cn";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -26,7 +27,15 @@ import { duplicateQuoteAction } from "@/modules/quote-templates/actions";
  * not always the row you are on. Those keep the quote's own page, where you can
  * see which one you are acting on before you act.
  */
-export function QuoteRowActions({ quoteId, title }: { quoteId: string; title: string }) {
+export function QuoteRowActions({
+  quoteId,
+  title,
+  className,
+}: {
+  quoteId: string;
+  title: string;
+  className?: string;
+}) {
   const t = useTranslations("quotes.rowActions");
   const [pending, startTransition] = useTransition();
 
@@ -36,7 +45,7 @@ export function QuoteRowActions({ quoteId, title }: { quoteId: string; title: st
         <Button
           variant="ghost"
           size="icon"
-          className="size-7"
+          className={cn("size-7", className)}
           aria-label={t("open", { title })}
           disabled={pending}
         >

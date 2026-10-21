@@ -82,7 +82,7 @@ function TodoFields({
         defaultIds={defaults?.assigneeIds}
       />
 
-      <div className="grid gap-3 sm:max-w-md sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 sm:max-w-md sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor={`${idPrefix}-starts`}>{t("startsOn")}</Label>
           <Input id={`${idPrefix}-starts`} type="date" name="startsOn" defaultValue={defaults?.startsOn ?? ""} />

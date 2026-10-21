@@ -105,7 +105,7 @@ export function PostForm({
           ))}
           {notify === "selected" ? (
             people.length > 0 ? (
-              <ul className="grid gap-2 pl-6 sm:grid-cols-2">
+              <ul className="grid grid-cols-1 gap-2 pl-6 sm:grid-cols-2">
                 {people.map((person) => (
                   <li key={person.id}>
                     <label className="flex items-center gap-2 text-sm">

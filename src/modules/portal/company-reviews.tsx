@@ -42,7 +42,7 @@ export async function CompanyReviews({
       <h2 className="text-lg font-semibold">{t("reviews")}</h2>
 
       {reviews.length > 0 ? (
-        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {reviews.map((review) => (
             <li key={review.id} className="space-y-2 text-sm">
               <Stars rating={review.rating} />

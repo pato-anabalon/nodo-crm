@@ -244,7 +244,7 @@ export function AttachmentsManager({
         <Label className="text-xs">{t("title")}</Label>
         {/* Upload on the left at a fixed share, the list filling the rest —
             the list is what grows with use, not the upload control. */}
-        <div className="grid grid-cols-[35%_1fr] gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-[35%_1fr]">
           {canManage ? (
             <div className="space-y-2">
               <Label htmlFor={fieldId} className="text-xs">

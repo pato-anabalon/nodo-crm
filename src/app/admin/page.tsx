@@ -14,16 +14,17 @@ export default async function PlatformAdminPage() {
   ]);
 
   return (
-    <main className="mx-auto max-w-4xl space-y-6 p-6">
-      <div className="flex items-start justify-between gap-4">
+    <main className="mx-auto max-w-6xl space-y-8 px-6 py-10">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="text-lg font-semibold">{t("title")}</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">{t("title")}</h1>
           <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
         </div>
 
-        <div className="flex shrink-0 items-center gap-3">
-          <span className="text-sm text-muted-foreground">{email}</span>
+        <div className="flex min-w-0 items-center justify-between gap-3 sm:shrink-0 sm:justify-end">
+          <span className="min-w-0 truncate text-sm text-muted-foreground">{email}</span>
           <form
+            className="shrink-0"
             action={async () => {
               "use server";
               await signOut({ redirectTo: "/sign-in" });

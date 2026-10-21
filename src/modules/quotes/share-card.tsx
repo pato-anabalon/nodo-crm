@@ -60,7 +60,7 @@ export function ShareCard({
         ) : null}
 
         <div className="flex flex-wrap gap-2">
-          <Button asChild variant="outline" size="sm">
+          <Button asChild size="sm">
             <Link href={previewHref}>
               <ExternalLink className="size-4" />
               {t("preview")}

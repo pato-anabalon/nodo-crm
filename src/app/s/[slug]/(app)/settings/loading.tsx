@@ -13,7 +13,7 @@ export default function SettingsLoading() {
       {[3, 3, 2, 1].map((count, group) => (
         <div key={group} className="space-y-2">
           <Skeleton className="h-3 w-24" />
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: count }, (_, index) => (
               <Card key={index}>
                 <CardContent className="space-y-2 pt-6">

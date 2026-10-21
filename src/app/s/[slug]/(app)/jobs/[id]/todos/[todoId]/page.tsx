@@ -92,7 +92,7 @@ export default async function TodoPage({ params }: { params: Promise<Params> }) 
           </div>
         </header>
 
-        <dl className="grid gap-3 text-sm sm:grid-cols-[8rem_1fr]">
+        <dl className="grid grid-cols-1 gap-3 text-sm sm:grid-cols-[8rem_1fr]">
           <dt className="flex items-center gap-2 text-muted-foreground">
             <Users className="size-4" />
             {t("assignees")}

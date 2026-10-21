@@ -4924,6 +4924,13 @@ export const CompanyScalarFieldEnum = {
   askAdditionalComments: 'askAdditionalComments',
   askOrderReference: 'askOrderReference',
   isActive: 'isActive',
+  approvedAt: 'approvedAt',
+  isDemo: 'isDemo',
+  demoDays: 'demoDays',
+  demoStartedAt: 'demoStartedAt',
+  demoEndsAt: 'demoEndsAt',
+  demoEndedAt: 'demoEndedAt',
+  demoWarnedAt: 'demoWarnedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

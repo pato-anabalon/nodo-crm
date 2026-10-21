@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db/prisma";
 import { EmailTemplateKind, MessageAuthor, QuoteStatus } from "@/generated/prisma/enums";
+import { nativeQuoteWhere } from "@/modules/quotes/native";
 import { sendToCustomer } from "./customer-send";
 import { shouldAskForReview, shouldFollowUp, type ScheduledQuote } from "./schedule";
 
@@ -23,7 +24,13 @@ export type ScheduledEmailResult = {
  * so a retry after a failure is free and running twice sends nothing twice.
  */
 export async function sweepScheduledEmails(
-  company: { id: string; firstFollowUpDays: number; secondFollowUpDays: number; reviewRequestDays: number },
+  company: {
+    id: string;
+    quoteNumberStart: number;
+    firstFollowUpDays: number;
+    secondFollowUpDays: number;
+    reviewRequestDays: number;
+  },
   now: Date,
 ): Promise<ScheduledEmailResult> {
   const result: ScheduledEmailResult = {
@@ -35,6 +42,9 @@ export async function sweepScheduledEmails(
   const quotes = await prisma.quote.findMany({
     where: {
       companyId: company.id,
+      // Only what was made here: a quote brought in from another tool is still
+      // being followed up there, and its customer has never heard from us.
+      ...nativeQuoteWhere(company.quoteNumberStart),
       status: { in: [QuoteStatus.SENT, QuoteStatus.ACCEPTED] },
       clientEmail: { not: null },
     },

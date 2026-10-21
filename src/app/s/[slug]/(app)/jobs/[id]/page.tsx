@@ -192,7 +192,7 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
       />
 
       {board || todos || schedule || chat || files ? (
-        <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {board ? (
             <Link
               href={`/jobs/${jobId}/messages`}

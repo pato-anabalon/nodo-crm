@@ -14,8 +14,14 @@ import { dueDedupeKey, isDue } from "./due";
 import { dailyKey, formLooksBroken, isBrokenOutcome, isExpiring, EXPIRING_WITHIN_DAYS } from "./watch";
 import { sweepScheduledEmails } from "@/modules/email-templates/sweep";
 import { closeExpiredQuotes } from "@/modules/quotes/sweep";
+import { nativeQuoteWhere } from "@/modules/quotes/native";
+import { endExpiredDemos, warnEndingDemos } from "@/modules/platform/demo-sweep";
 
 export type SweepResult = {
+  /** Demos whose days ran out tonight and were switched off. */
+  endedDemos: number;
+  /** Demos whose owners were told tonight that they are about to end. */
+  warnedDemos: number;
   companies: number;
   closedExpired: number;
   expiring: number;
@@ -42,6 +48,11 @@ export type SweepResult = {
  * and a retry after a failure is free.
  */
 export async function runDailySweep(now: Date = new Date()): Promise<SweepResult> {
+  // First, so a demo that ends tonight is already off when the companies are
+  // read below and gets no chasing emails in the same pass.
+  const endedDemos = await endExpiredDemos(now);
+  const warnedDemos = await warnEndingDemos(now);
+
   const companies = await prisma.company.findMany({
     // A suspended company gets no more chasing emails than it gets a login.
     where: { isActive: true },
@@ -49,6 +60,7 @@ export async function runDailySweep(now: Date = new Date()): Promise<SweepResult
       id: true,
       name: true,
       quotePrefix: true,
+      quoteNumberStart: true,
       defaultLanguage: true,
       firstFollowUpDays: true,
       secondFollowUpDays: true,
@@ -57,6 +69,8 @@ export async function runDailySweep(now: Date = new Date()): Promise<SweepResult
   });
 
   const result: SweepResult = {
+    endedDemos,
+    warnedDemos,
     companies: companies.length,
     closedExpired: 0,
     expiring: 0,
@@ -93,6 +107,7 @@ type CompanyRow = {
   id: string;
   name: string;
   quotePrefix: string;
+  quoteNumberStart: number;
   defaultLanguage: Language;
 };
 
@@ -102,6 +117,9 @@ async function sweepExpiringQuotes(company: CompanyRow, now: Date): Promise<numb
   const quotes = await prisma.quote.findMany({
     where: {
       companyId: company.id,
+      // Quotes made here only: the team has nothing to do about one that is
+      // still being managed in the tool it came from.
+      ...nativeQuoteWhere(company.quoteNumberStart),
       status: QuoteStatus.SENT,
       validUntil: { not: null, lte: horizon },
     },

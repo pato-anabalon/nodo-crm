@@ -1,0 +1,153 @@
+/*
+ * The 404's motion. Same rule as the landing's: every element rests in a
+ * finished, sensible pose, and nothing plays for somebody who asked the system
+ * for less movement.
+ *
+ * SVG groups use `transform-box: fill-box` so an origin means the group's own
+ * box. The swinging board is the exception: it turns about the crane's trolley,
+ * which is the group's local origin, so it measures from the drawing instead.
+ */
+
+.nf-scene [class^="nf-"],
+.nf-scene [class*=" nf-"] {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.nf-scene .nf-sway {
+  transform-box: view-box;
+  transform-origin: 0 0;
+}
+
+.nf-scene .nf-car,
+.nf-scene .nf-cloud {
+  transform: translateX(var(--x, 0px));
+}
+
+.nf-scene .nf-blink-b {
+  opacity: 0.25;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nf-scene .nf-sway {
+    animation: nf-sway 4s ease-in-out infinite alternate;
+  }
+  .nf-scene .nf-lift {
+    animation: nf-lift 6s ease-in-out infinite alternate;
+  }
+  .nf-scene .nf-blink {
+    animation: nf-blink 1s steps(1, end) infinite;
+  }
+  .nf-scene .nf-blink-b {
+    animation-delay: -0.5s;
+  }
+  .nf-scene .nf-car {
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  .nf-scene .nf-car-r {
+    animation-name: nf-drive-right;
+  }
+  .nf-scene .nf-car-l {
+    animation-name: nf-drive-left;
+  }
+  .nf-scene .nf-cloud {
+    animation-name: nf-drift;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  .nf-scene .nf-window {
+    animation: nf-window 7s steps(1, end) infinite;
+  }
+  .nf-scene .nf-beacon {
+    animation: nf-beacon 1.6s ease-in-out infinite;
+  }
+  .nf-rise {
+    animation: nf-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+/* A load on a cable never hangs dead still: a degree and a half each way. */
+@keyframes nf-sway {
+  from {
+    transform: rotate(-1.5deg);
+  }
+  to {
+    transform: rotate(1.5deg);
+  }
+}
+
+@keyframes nf-lift {
+  from {
+    transform: translateY(-3px);
+  }
+  to {
+    transform: translateY(3px);
+  }
+}
+
+@keyframes nf-blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes nf-drive-right {
+  from {
+    transform: translateX(-30px);
+  }
+  to {
+    transform: translateX(250px);
+  }
+}
+
+@keyframes nf-drive-left {
+  from {
+    transform: translateX(250px);
+  }
+  to {
+    transform: translateX(-30px);
+  }
+}
+
+@keyframes nf-drift {
+  from {
+    transform: translateX(-50px);
+  }
+  to {
+    transform: translateX(260px);
+  }
+}
+
+@keyframes nf-window {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+}
+
+@keyframes nf-beacon {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes nf-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

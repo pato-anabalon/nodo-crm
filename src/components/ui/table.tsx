@@ -22,7 +22,23 @@ function TableCard({ className, ...props }: React.ComponentProps<typeof Card>) {
   return <Card className={cn("gap-0 overflow-hidden py-0", className)} {...props} />;
 }
 
-function Table({ className, ...props }: React.ComponentProps<"table">) {
+/**
+ * `cards` turns the table into a list of cards below 640px.
+ *
+ * A table with more columns than a phone has width either hides some behind a
+ * sideways swipe — which nobody discovers, and which a sticky first column only
+ * half fixes — or squeezes every one into a few characters. Cards show every
+ * value, each row as one card: the cell marked `primary` is its title and every
+ * other cell is a `label: value` line. The rules are in `globals.css`, keyed on
+ * `data-cards`, so a screen opts in with this one prop and labels its cells.
+ *
+ * Not on by default: a table of two short columns is fine as it is.
+ */
+function Table({
+  className,
+  cards = false,
+  ...props
+}: React.ComponentProps<"table"> & { cards?: boolean }) {
   return (
     <div
       data-slot="table-container"
@@ -30,6 +46,7 @@ function Table({ className, ...props }: React.ComponentProps<"table">) {
     >
       <table
         data-slot="table"
+        data-cards={cards ? "" : undefined}
         className={cn("w-full caption-bottom text-sm [&_tbody_td]:border-t [&_tbody_td]:border-border", className)}
         {...props}
       />
@@ -105,10 +122,26 @@ function TableHead({ className, ...props }: React.ComponentProps<"th">) {
   )
 }
 
-function TableCell({ className, ...props }: React.ComponentProps<"td">) {
+/**
+ * In a `cards` table, `label` is what the value is called on the card — the
+ * column's header, which is hidden there — and `primary` makes the cell the
+ * card's title, with no label. `actions` is the row's menu: it sits in the
+ * card's top corner instead of taking a line of its own. All three are ignored
+ * when it is a table.
+ */
+function TableCell({
+  className,
+  label,
+  primary = false,
+  actions = false,
+  ...props
+}: React.ComponentProps<"td"> & { label?: string; primary?: boolean; actions?: boolean }) {
   return (
     <td
       data-slot="table-cell"
+      data-label={label}
+      data-primary={primary ? "" : undefined}
+      data-actions={actions ? "" : undefined}
       className={cn(
         "px-4 py-3 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
         className

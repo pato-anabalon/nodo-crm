@@ -63,7 +63,7 @@ export async function LeadSubmissionPanel({
       </CardHeader>
 
       <CardContent className="space-y-4">
-        <dl className="grid gap-x-6 gap-y-3 sm:grid-cols-2">
+        <dl className="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
           {entries.map(([label, value]) => (
             <div key={label} className="min-w-0 space-y-0.5">
               <dt className="text-xs font-medium tracking-wide text-muted-foreground uppercase">

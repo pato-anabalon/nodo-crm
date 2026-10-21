@@ -130,6 +130,16 @@ async function changeMember(
   if (refusal) return { ok: false, reason: refusal };
 
   if (change.kind === "remove") {
+    // Their place on the company's jobs goes first. Those rows hang off the user
+    // and the company, not off the membership, so deleting the membership leaves
+    // them behind: somebody who can no longer sign in would stay listed on every
+    // job they were on, still counted for its notices and still a name in the
+    // assignee and participant lists. Done before the membership so a failure
+    // part-way leaves somebody still removable, and removing again finishes it.
+    // What they wrote stays, under their name: that is the job's history.
+    await ctx.db.jobTodoAssignee.deleteMany({ where: { userId } });
+    await ctx.db.jobEventParticipant.deleteMany({ where: { userId } });
+    await ctx.db.jobMember.deleteMany({ where: { userId } });
     await ctx.db.membership.deleteMany({ where: { id: membership.id } });
     return { ok: true };
   }

@@ -26,6 +26,7 @@ import {
 import { usePortalAnimatedTotal } from "./animated-total";
 import type { SectionSelectionResult } from "./actions";
 import { SectionAttachments, type SectionAttachmentRow } from "./section-attachments";
+import { SectionCard, SectionPrice } from "./section-card";
 
 export type SelectorSection = {
   id: string;
@@ -206,9 +207,10 @@ export function SectionSelector({
                   {t("chooseOne")}
                 </p>
               ) : null}
-              <article className="grid grid-cols-[80%_20%] overflow-hidden rounded-2xl border border-[color-mix(in_oklab,var(--primary)_60%,transparent)]">
-                <div className="min-w-0 space-y-3 p-4">
-                  {section.kind === "OPTIONAL" ? (
+              <SectionCard
+                tinted={included}
+                heading={
+                  section.kind === "OPTIONAL" ? (
                     <label className="flex items-start gap-3">
                       <Checkbox
                         className="mt-1"
@@ -226,37 +228,23 @@ export function SectionSelector({
                     </label>
                   ) : (
                     <h2 className="text-lg font-semibold">{section.title}</h2>
-                  )}
-                  <RichText className="text-sm text-muted-foreground" html={section.body} />
-                  <SectionAttachments attachments={section.attachments} />
-                </div>
-                {/* Stretches to the row's full height by default — the
-                    title and description beside it decide how tall the row
-                    is, and this column fills exactly that, so the whole
-                    price side reads as "in" rather than just its figure. No
-                    rounding of its own: `overflow-hidden` on the article
-                    clips it to the shared outer radius instead. */}
-                <div
-                  className={cn(
-                    "flex items-center justify-end px-3 transition-colors",
-                    included && "bg-muted-foreground/10",
-                  )}
-                >
-                  {section.discountValue > 0 ? (
-                    <div className="flex flex-col items-end gap-0.5 py-2">
-                      <span className="text-xs text-muted-foreground line-through">
-                        {money(section.amount)}
-                      </span>
-                      <span className="text-xs font-semibold text-primary">
-                        {discountLabel}
-                      </span>
-                      <span className="text-lg font-medium tabular-nums">{money(net)}</span>
-                    </div>
-                  ) : (
-                    <span className="text-lg font-medium tabular-nums">{money(net)}</span>
-                  )}
-                </div>
-              </article>
+                  )
+                }
+                price={
+                  <SectionPrice
+                    gross={money(section.amount)}
+                    net={money(net)}
+                    discountLabel={section.discountValue > 0 ? discountLabel : null}
+                  />
+                }
+              >
+                {section.body || section.attachments.length > 0 ? (
+                  <>
+                    <RichText className="text-sm text-muted-foreground" html={section.body} />
+                    <SectionAttachments attachments={section.attachments} />
+                  </>
+                ) : null}
+              </SectionCard>
             </div>
           );
         })}

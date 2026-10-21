@@ -21,6 +21,11 @@
       "minutes": "hace {value} min",
       "hours": "{value, plural, one {hace # hora} other {hace # horas}}",
       "days": "{value, plural, one {ayer} other {hace # días}}"
+    },
+    "cardLayout": {
+      "label": "Diseño de las tarjetas",
+      "balanced": "Equilibrada",
+      "compact": "Compacta"
     }
   },
   "nav": {
@@ -316,7 +321,11 @@
     "findCompanyBody": "Cada empresa entra por su propia dirección. Escribe la tuya y te llevamos.",
     "companyAddress": "Dirección de tu empresa",
     "goToCompany": "Ir a mi empresa",
-    "noCompanyYet": "¿Todavía no tienes empresa?"
+    "noCompanyYet": "¿Todavía no tienes empresa?",
+    "pendingTitle": "Tu empresa ha sido creada",
+    "pendingBody": "Gracias por registrarte. Revisamos cada empresa nueva antes de activarla y pronto te contactaremos para darte acceso a la plataforma.",
+    "pendingEmail": "Te escribiremos a {email} apenas esté lista.",
+    "pendingBack": "Volver al inicio"
   },
   "password": {
     "choose": "Elige una contraseña",
@@ -611,7 +620,12 @@
       "JOB_STARTED": "Trabajo iniciado desde la cotización #{reference}"
     },
     "ownerSaved": "Responsable actualizado.",
-    "ownerCleared": "Responsable quitado."
+    "ownerCleared": "Responsable quitado.",
+    "cards": {
+      "quotes": "{count, plural, =0 {Sin cotizaciones} one {# cotización} other {# cotizaciones}}"
+    },
+    "allOwners": "Todas las personas",
+    "ownerFilter": "Filtrar por persona"
   },
   "quotes": {
     "title": "Cotizaciones",
@@ -759,7 +773,15 @@
       "pickFromCatalogue": "Elegir un ítem…",
       "searchCatalogue": "Buscar en la lista de precios…",
       "noCatalogueFound": "No se encontraron ítems",
-      "catalogueHint": "Se copia a la cotización; cambiar la lista después no la altera."
+      "catalogueHint": "Se copia a la cotización; cambiar la lista después no la altera.",
+      "lineNumber": "Ítem #{number}",
+      "lineTotal": "Total de la línea",
+      "owner": "Responsable",
+      "ownerNone": "Sin responsable",
+      "ownerHint": "Parte siendo quien guardó el quote por primera vez. Cámbialo y pulsa Guardar cambios para traspasarlo: sus avisos y reportes lo siguen.",
+      "dragLineHandle": "Arrastrar para reordenar la línea {position}",
+      "moveLineUp": "Subir línea {position}",
+      "moveLineDown": "Bajar línea {position}"
     },
     "actions": {
       "send": "Enviar al cliente",
@@ -850,7 +872,8 @@
       "signature": "Firma",
       "viewingNowShort": "viendo ahora",
       "neverOpened": "Sin abrir",
-      "seenAgo": "Vista {when}"
+      "seenAgo": "Vista {when}",
+      "seen": "Visto"
     },
     "share": {
       "title": "Enlace del cliente",
@@ -893,7 +916,7 @@
     },
     "rowActions": {
       "open": "Acciones de {title}",
-      "duplicate": "Duplicar",
+      "duplicate": "Duplicar cotización",
       "preview": "Ver como cliente"
     },
     "recipients": {
@@ -927,7 +950,11 @@
         "noEmail": "Ese contacto no tiene correo, así que no hay a dónde enviarle.",
         "primary": "Haz principal a otra persona antes de quitarla."
       }
-    }
+    },
+    "cards": {
+      "opens": "{count, plural, one {# apertura} other {# aperturas}}"
+    },
+    "ownerInvalid": "Esa persona no puede ser responsable de este quote."
   },
   "tasks": {
     "title": "Tareas",
@@ -1046,6 +1073,10 @@
       "title": "Historial",
       "subtitle": "Todo lo que ha llegado de esta empresa, lo haya mandado quien lo haya mandado.",
       "empty": "Todavía no ha llegado nada de esta empresa."
+    },
+    "cards": {
+      "people": "{count, plural, =0 {Sin personas} one {# persona} other {# personas}}",
+      "leads": "{count, plural, =0 {Sin leads} one {# lead} other {# leads}}"
     }
   },
   "documents": {
@@ -1501,6 +1532,10 @@
       "subtitle": "Qué funcionalidades puede usar cada perfil.",
       "counts": "{features, plural, one {# funcionalidad} other {# funcionalidades}} · {people, plural, =0 {nadie aún} one {# persona} other {# personas}}",
       "gridSubtitle": "Marca lo que este perfil puede hacer. Solo afecta a esta empresa."
+    },
+    "confirmRemove": {
+      "title": "¿Quitar a {name}?",
+      "description": "{name} pierde el acceso a esta empresa de inmediato y sale de sus jobs y de sus tareas. Lo que escribió se conserva. Su cuenta no se elimina, pero para recuperarlo hay que volver a invitarlo. Si prefieres que sea reversible, suspéndelo en su lugar."
     }
   },
   "ingest": {
@@ -2005,14 +2040,109 @@
       "actions": "Acciones"
     },
     "status": {
+      "pending": "Pendiente",
       "active": "Activa",
+      "demo": "Demo",
+      "demoEnded": "Demo finalizado",
       "suspended": "Suspendida"
+    },
+    "stats": {
+      "total": "Empresas",
+      "active": "Activas",
+      "pending": "Pendientes",
+      "demos": "Demos",
+      "waiting": "Esperando que las habilites"
+    },
+    "filters": {
+      "label": "Filtrar empresas",
+      "all": "Todas",
+      "pending": "Pendientes",
+      "active": "Activas",
+      "demo": "Demos",
+      "off": "Apagadas"
+    },
+    "emptyFilter": "No hay empresas en esta vista.",
+    "confirmSuspend": {
+      "title": "¿Suspender {company}?",
+      "body": "{host} deja de abrirse y nadie de la empresa podrá iniciar sesión hasta que la actives de nuevo. No se borra nada.",
+      "confirm": "Suspender empresa"
     },
     "suspend": "Suspender",
     "activate": "Activar",
     "activated": "Empresa activada",
     "suspended": "Empresa suspendida",
-    "empty": "Todavía no hay empresas registradas."
+    "empty": "Todavía no hay empresas registradas.",
+    "registeredNotice": {
+      "subject": "Nueva empresa pendiente de aprobación: {company}",
+      "heading": "Se registró una nueva empresa",
+      "company": "Empresa: {company} ({slug})",
+      "owner": "Propietario: {name} · {email}",
+      "body": "Está desactivada hasta que la actives. Mientras tanto nadie puede entrar a su subdominio ni iniciar sesión.",
+      "action": "Revisarla en el panel de administración"
+    },
+    "demo": {
+      "endsOn": "Termina el {date}",
+      "daysLeft": "{days, plural, =0 {último día} one {queda # día} other {quedan # días}}",
+      "ended": "Terminó el {date}"
+    },
+    "activateDialog": {
+      "title": "Activar {company}",
+      "body": "Habilita {host}. Elige si es una demo y por cuánto tiempo.",
+      "endedNote": "Su demo terminó el {date}.",
+      "demoLabel": "Es una demo",
+      "demoHint": "El acceso se apaga solo cuando se acaban los días.",
+      "daysLabel": "Días de acceso",
+      "endsOn": "Termina el {date}",
+      "noEnd": "Queda encendida hasta que la suspendas.",
+      "confirm": "Activar"
+    },
+    "demoDialog": {
+      "manage": "Demo",
+      "title": "Demo de {company}",
+      "started": "Empezó el {date}",
+      "ends": "Termina el {date}",
+      "daysLabel": "Días de acceso",
+      "save": "Guardar días",
+      "convert": "Pasar a cliente",
+      "convertHint": "Termina la demo. La empresa sigue encendida sin límite de tiempo."
+    },
+    "demoSaved": "Demo actualizada",
+    "converted": "La empresa ahora es cliente",
+    "errors": {
+      "demoDays": "Los días deben ser un número entero entre 1 y 365.",
+      "notADemo": "Esa empresa ya no está en demo."
+    },
+    "demoEndedNotice": {
+      "subject": "Demo finalizado: {company}",
+      "heading": "Terminó una demo",
+      "company": "Empresa: {company} ({slug})",
+      "owner": "Propietario: {email}",
+      "body": "Su demo de {days} días se acabó y la empresa quedó apagada. Actívala de nuevo desde el panel de administración para empezar otra, o pásala a cliente.",
+      "action": "Abrir el panel de administración"
+    },
+    "ownerDemo": {
+      "action": "Contáctanos",
+      "ending": {
+        "subject": "Tu demo de Nodo CRM termina el {date}",
+        "heading": "Tu demo está por terminar",
+        "line1": "Tu demo de Nodo CRM para {company} termina el {date}. Después de esa fecha, el acceso se apagará.",
+        "line2": "Para seguir usando Nodo CRM sin interrupciones, contáctanos y te dejamos funcionando en la plataforma."
+      },
+      "ended": {
+        "subject": "Tu demo de Nodo CRM ha terminado",
+        "heading": "Tu demo ha terminado",
+        "line1": "La demo de {days} días de Nodo CRM para {company} terminó y el acceso quedó apagado. Tu información no se ha borrado.",
+        "line2": "Para empezar a usar Nodo CRM de forma definitiva, contáctanos y te dejamos funcionando en la plataforma."
+      }
+    }
+  },
+  "notFound": {
+    "eyebrow": "Error 404",
+    "title": "Este sitio todavía no está abierto",
+    "body": "Puede que la dirección tenga un error de escritura, o que el sitio de esta empresa aún esté en preparación. Activamos cada empresa nueva a mano, así que si acabas de registrarte, un poco de paciencia: te avisaremos por correo apenas esté lista.",
+    "home": "Volver al inicio",
+    "signIn": "Buscar mi empresa",
+    "sceneAlt": "Ilustración en pixel art: una grúa torre levanta un letrero 404 con eslingas y otra grúa más pequeña sube un cajón, con conos en la vereda, la Sky Tower de Auckland al fondo y una camioneta que pasa."
   },
   "trades": {
     "title": "Oficios",

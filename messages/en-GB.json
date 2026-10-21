@@ -21,6 +21,11 @@
       "minutes": "{value} min ago",
       "hours": "{value, plural, one {# hour ago} other {# hours ago}}",
       "days": "{value, plural, one {yesterday} other {# days ago}}"
+    },
+    "cardLayout": {
+      "label": "Card layout",
+      "balanced": "Balanced",
+      "compact": "Compact"
     }
   },
   "nav": {
@@ -316,7 +321,11 @@
     "findCompanyBody": "Each company signs in at its own address. Enter yours and we'll take you there.",
     "companyAddress": "Your company's address",
     "goToCompany": "Go to my company",
-    "noCompanyYet": "Don't have a company yet?"
+    "noCompanyYet": "Don't have a company yet?",
+    "pendingTitle": "Your company has been created",
+    "pendingBody": "Thanks for signing up. We review every new company before switching it on, and we'll be in touch soon to give you access to the platform.",
+    "pendingEmail": "We'll write to {email} as soon as it's ready.",
+    "pendingBack": "Back to the home page"
   },
   "password": {
     "choose": "Choose a password",
@@ -611,7 +620,12 @@
       "JOB_STARTED": "Job started from quote #{reference}"
     },
     "ownerSaved": "Owner updated.",
-    "ownerCleared": "Owner removed."
+    "ownerCleared": "Owner removed.",
+    "cards": {
+      "quotes": "{count, plural, =0 {No quotes} one {# quote} other {# quotes}}"
+    },
+    "allOwners": "Everyone",
+    "ownerFilter": "Filter by person"
   },
   "quotes": {
     "title": "Quotes",
@@ -759,7 +773,15 @@
       "pickFromCatalogue": "Pick an item…",
       "searchCatalogue": "Search the price list…",
       "noCatalogueFound": "No items found",
-      "catalogueHint": "It's copied onto the quote; changing the list later won't alter it."
+      "catalogueHint": "It's copied onto the quote; changing the list later won't alter it.",
+      "lineNumber": "Item #{number}",
+      "lineTotal": "Line total",
+      "owner": "Owner",
+      "ownerNone": "No owner",
+      "ownerHint": "Starts as whoever saved the quote first. Change it and press Save changes to hand the quote over: their notices and reports follow it.",
+      "dragLineHandle": "Drag to reorder line {position}",
+      "moveLineUp": "Move line {position} up",
+      "moveLineDown": "Move line {position} down"
     },
     "actions": {
       "send": "Send to customer",
@@ -850,7 +872,8 @@
       "signature": "Signature",
       "viewingNowShort": "viewing now",
       "neverOpened": "Unopened",
-      "seenAgo": "Seen {when}"
+      "seenAgo": "Seen {when}",
+      "seen": "Seen"
     },
     "share": {
       "title": "Customer link",
@@ -893,7 +916,7 @@
     },
     "rowActions": {
       "open": "Actions for {title}",
-      "duplicate": "Duplicate",
+      "duplicate": "Duplicate quote",
       "preview": "View as customer"
     },
     "recipients": {
@@ -927,7 +950,11 @@
         "noEmail": "That contact has no email, so there's nothing to send them.",
         "primary": "Make somebody else primary before removing them."
       }
-    }
+    },
+    "cards": {
+      "opens": "{count, plural, one {# open} other {# opens}}"
+    },
+    "ownerInvalid": "That person can't be the owner of this quote."
   },
   "tasks": {
     "title": "Tasks",
@@ -1046,6 +1073,10 @@
       "title": "History",
       "subtitle": "Everything that ever came from this company, whoever sent it.",
       "empty": "Nothing has come from this company yet."
+    },
+    "cards": {
+      "people": "{count, plural, =0 {No people} one {# person} other {# people}}",
+      "leads": "{count, plural, =0 {No leads} one {# lead} other {# leads}}"
     }
   },
   "documents": {
@@ -1501,6 +1532,10 @@
       "subtitle": "Which features each profile can use.",
       "counts": "{features, plural, one {# feature} other {# features}} · {people, plural, =0 {nobody yet} one {# person} other {# people}}",
       "gridSubtitle": "Tick what this profile may do. It only affects this company."
+    },
+    "confirmRemove": {
+      "title": "Remove {name}?",
+      "description": "{name} loses access to this company straight away, and is taken off its jobs and their to-dos. What they wrote stays. Their account isn't deleted, but getting them back means inviting them again. To keep it reversible, suspend them instead."
     }
   },
   "ingest": {
@@ -2005,14 +2040,109 @@
       "actions": "Actions"
     },
     "status": {
+      "pending": "Pending",
       "active": "Active",
+      "demo": "Demo",
+      "demoEnded": "Demo ended",
       "suspended": "Suspended"
+    },
+    "stats": {
+      "total": "Companies",
+      "active": "Active",
+      "pending": "Pending",
+      "demos": "Demos",
+      "waiting": "Waiting for you to switch them on"
+    },
+    "filters": {
+      "label": "Filter companies",
+      "all": "All",
+      "pending": "Pending",
+      "active": "Active",
+      "demo": "Demos",
+      "off": "Switched off"
+    },
+    "emptyFilter": "No companies in this view.",
+    "confirmSuspend": {
+      "title": "Suspend {company}?",
+      "body": "{host} stops opening and nobody in the company can sign in until you activate it again. Nothing is deleted.",
+      "confirm": "Suspend company"
     },
     "suspend": "Suspend",
     "activate": "Activate",
     "activated": "Company activated",
     "suspended": "Company suspended",
-    "empty": "No companies registered yet."
+    "empty": "No companies registered yet.",
+    "registeredNotice": {
+      "subject": "New company waiting for approval: {company}",
+      "heading": "A new company has signed up",
+      "company": "Company: {company} ({slug})",
+      "owner": "Owner: {name} · {email}",
+      "body": "It is switched off until you activate it. Until then nobody can reach its subdomain or sign in.",
+      "action": "Review it in the admin panel"
+    },
+    "demo": {
+      "endsOn": "Ends {date}",
+      "daysLeft": "{days, plural, =0 {last day} one {# day left} other {# days left}}",
+      "ended": "Ended {date}"
+    },
+    "activateDialog": {
+      "title": "Activate {company}",
+      "body": "Switch on {host}. Choose whether it is a demo and for how long.",
+      "endedNote": "Its demo ended on {date}.",
+      "demoLabel": "This is a demo",
+      "demoHint": "Access switches off by itself when the days run out.",
+      "daysLabel": "Days of access",
+      "endsOn": "Ends on {date}",
+      "noEnd": "It stays on until you suspend it.",
+      "confirm": "Activate"
+    },
+    "demoDialog": {
+      "manage": "Demo",
+      "title": "Demo for {company}",
+      "started": "Started {date}",
+      "ends": "Ends {date}",
+      "daysLabel": "Days of access",
+      "save": "Save days",
+      "convert": "Make a customer",
+      "convertHint": "Ends the demo. The company stays on with no time limit."
+    },
+    "demoSaved": "Demo updated",
+    "converted": "The company is now a customer",
+    "errors": {
+      "demoDays": "Days must be a whole number between 1 and 365.",
+      "notADemo": "That company isn't running a demo any more."
+    },
+    "demoEndedNotice": {
+      "subject": "Demo ended: {company}",
+      "heading": "A demo has ended",
+      "company": "Company: {company} ({slug})",
+      "owner": "Owner: {email}",
+      "body": "Its {days}-day demo ran out and the company was switched off. Activate it again from the admin panel to start another, or make it a customer.",
+      "action": "Open the admin panel"
+    },
+    "ownerDemo": {
+      "action": "Get in touch",
+      "ending": {
+        "subject": "Your Nodo CRM demo ends on {date}",
+        "heading": "Your demo is about to end",
+        "line1": "Your demo of Nodo CRM for {company} ends on {date}. After that, access is switched off.",
+        "line2": "To keep using Nodo CRM without a break, get in touch and we'll set you up on the platform."
+      },
+      "ended": {
+        "subject": "Your Nodo CRM demo has ended",
+        "heading": "Your demo has ended",
+        "line1": "The {days}-day demo of Nodo CRM for {company} has ended, and access has been switched off. Your information has not been deleted.",
+        "line2": "To start using Nodo CRM for good, get in touch and we'll set you up on the platform."
+      }
+    }
+  },
+  "notFound": {
+    "eyebrow": "Error 404",
+    "title": "This site isn't open yet",
+    "body": "The address may have a typo, or this company's site may still be getting set up. We switch every new company on by hand, so if you've just signed up, hang tight: we'll email you the moment it's ready.",
+    "home": "Back to the home page",
+    "signIn": "Find my company",
+    "sceneAlt": "Pixel art: a tower crane hoists a 404 sign on its slings while a smaller crane lifts a crate, with cones on the footpath, Auckland's Sky Tower behind and a ute driving past."
   },
   "trades": {
     "title": "Trades",

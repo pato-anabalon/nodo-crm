@@ -38,7 +38,7 @@ export function ProfileForm({
       </CardHeader>
       <CardContent>
         <form action={action} className="space-y-4">
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <div className="space-y-2">
               <Label htmlFor="name">{t("nameLabel")}</Label>
               <Input id="name" name="name" required defaultValue={name ?? ""} placeholder="Jane Doe" />

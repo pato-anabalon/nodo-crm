@@ -140,7 +140,7 @@ function ReviewForm({ review, onDone }: { review: ReviewRow | null; onDone: () =
       </CardHeader>
       <CardContent>
         <form action={formAction} className="space-y-4">
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <div className="space-y-2 sm:col-span-2">
               <Label htmlFor="author">{t("author")}</Label>
               <Input id="author" name="author" required defaultValue={review?.author} />
@@ -169,7 +169,7 @@ function ReviewForm({ review, onDone }: { review: ReviewRow | null; onDone: () =
             {errors.body ? <p className="text-sm text-destructive">{errors.body[0]}</p> : null}
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <div className="space-y-2">
               <Label htmlFor="source">{t("source")}</Label>
               <NativeSelect

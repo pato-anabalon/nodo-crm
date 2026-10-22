@@ -35,6 +35,13 @@ describe("profile templates", () => {
     expect(templatePermissions(roleTemplate(RoleKey.OWNER)).sort()).toEqual([...ALL_PERMISSIONS].sort());
   });
 
+  it("no standard profile but the owner starts with the quote export: each company hands it out", () => {
+    for (const template of ROLE_TEMPLATES) {
+      if (template.key === RoleKey.OWNER) continue;
+      expect(templatePermissions(template)).not.toContain("quotes.export");
+    }
+  });
+
   it("only uses permissions that exist in the catalogue", () => {
     for (const template of ROLE_TEMPLATES) {
       for (const permission of templatePermissions(template)) {

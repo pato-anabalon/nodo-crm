@@ -1367,6 +1367,9 @@ model Quote {
   @@unique([companyId, number])
   @@index([companyId, status])
   @@index([companyId, leadId])
+  // The export reads one calendar year of a company's quotes, and its year
+  // picker asks for the earliest and latest.
+  @@index([companyId, createdAt])
 }
 
 enum QuoteStatus {

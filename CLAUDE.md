@@ -1305,6 +1305,43 @@ accept a second ago; a button that goes nowhere useful is worse than none. It
 fires from both doors — the portal and the team recording a phone call — because
 that is the same news either way.
 
+## Exporting quotes
+
+`/quotes/export` (a link in the list's header, only with `quotes.export`) offers a
+CSV of **one calendar year** of quotes, `GET /api/quotes/export?year=2025`. It is
+a screen of its own, not a button on the list, because it has to ask something
+first: a company that brought in thousands of quotes shouldn't be one click from
+reading all of them in a single request.
+
+- **A year is required and there is no "all"** — the route answers 400 without
+  one, and for one in the future. The year is the company's own: midnight to
+  midnight in its timezone (`yearBounds`), by `createdAt`, so a quote made late on
+  31 December in Auckland is that year's even while UTC is still the afternoon.
+  An imported quote carries the date it had in the old tool.
+- **Three guards.** `quotes.export` *and* `quotes.read`; only the quotes the
+  profile could open on screen (`visibilityWhere`, through `ctx.db`); and without
+  `quotes.read.amounts` the priced columns are **absent, not blank**, and not even
+  selected from the database.
+- **Cheap on the database.** Read in batches of 500 by keyset on the quote number
+  (never `skip`), only the columns the file has, and written to the response as it
+  goes, so a year of thousands costs a few index reads and no memory. Quote has an
+  index on `(companyId, createdAt)` for it.
+- **The year picker is cached for what doesn't move.** A quote is stamped when it
+  is made, so a past year only gains one through an import: those years are cached
+  a day per company and per visibility (`unstable_cache`, keyed on plain values —
+  there is no session inside a cache, so it goes through `forCompany`), and the
+  current year is asked live. `unstable_cache` and not `use cache`, which means
+  turning on Cache Components for the whole app; that is a decision about every
+  page and not about this list.
+- **A cell that starts with `=`, `+`, `-` or `@` is written as text** (`csvCell`):
+  titles and customer names come from web forms, and a spreadsheet would run them.
+  UTF-8 with a BOM so Excel reads the accents; dates are `YYYY-MM-DD` in the
+  company's zone; money is a plain number beside its `Currency` column.
+- **`quotes.export` is nobody's by default but `OWNER`'s**, which holds the whole
+  catalogue and can't be edited on the profiles screen. For companies that already
+  exist run `scripts/grant-owner-permissions.ts` after `db:seed`: without it an
+  owner could hand the feature to another profile and not use it themselves.
+
 ## Reports
 
 The period selector (`resolvePeriod`) is a pure function and is where the edge

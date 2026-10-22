@@ -50,6 +50,10 @@ export const PERMISSIONS = [
   // granting or withholding an action: without it, a quote a profile can
   // otherwise open still shows, but its priced figures don't.
   "quotes.read.amounts",
+  // Takes data out of the platform, so no standard profile but `OWNER` (which
+  // holds everything) starts with it: each company hands it to the profiles it
+  // chooses. Without `quotes.read.amounts` the file simply has no amount columns.
+  "quotes.export",
 
   // Contacts
   "contacts.read",

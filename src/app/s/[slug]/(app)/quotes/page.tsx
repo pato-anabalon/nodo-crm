@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Plus } from "lucide-react";
+import { Download, Plus } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { can, requireCompanyContext } from "@/lib/auth/session";
 import { Button } from "@/components/ui/button";
@@ -100,14 +100,25 @@ export default async function QuotesPage({
           </p>
         </div>
 
-        {can(ctx, "quotes.create") ? (
-          <Button asChild>
-            <Link href="/quotes/new">
-              <Plus className="size-4" />
-              {t("new")}
-            </Link>
-          </Button>
-        ) : null}
+        <div className="flex flex-wrap items-center gap-2">
+          {can(ctx, "quotes.export") ? (
+            // A screen of its own rather than a download: it asks for a year first.
+            <Button asChild variant="outline">
+              <Link href="/quotes/export">
+                <Download className="size-4" />
+                {t("export.button")}
+              </Link>
+            </Button>
+          ) : null}
+          {can(ctx, "quotes.create") ? (
+            <Button asChild>
+              <Link href="/quotes/new">
+                <Plus className="size-4" />
+                {t("new")}
+              </Link>
+            </Button>
+          ) : null}
+        </div>
       </div>
 
       <nav className="flex flex-wrap gap-1 border-b">

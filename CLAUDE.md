@@ -1350,8 +1350,10 @@ reading all of them in a single request.
   localhost, and the hidden input has no `defaultValue` (React would reset it).
 - **`quotes.export` is nobody's by default but `OWNER`'s**, which holds the whole
   catalogue and can't be edited on the profiles screen. For companies that already
-  exist run `scripts/grant-owner-permissions.ts` after `db:seed`: without it an
-  owner could hand the feature to another profile and not use it themselves.
+  exist run `scripts/grant-owner-permissions.ts`: it syncs the catalogue itself
+  (so production needs no `db:seed`, which also creates a demo user and company)
+  and without it an owner could hand the feature to another profile and not use
+  it themselves.
 
 ### The phone on quotes brought in from Quotient
 

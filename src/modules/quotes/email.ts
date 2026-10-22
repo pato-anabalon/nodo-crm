@@ -122,7 +122,7 @@ export async function sendQuoteEmail(ctx: CompanyContext, quoteId: string): Prom
       // as though it were only theirs, with a link that is only theirs.
       to: recipient.email,
       // Replies go to the company, or to whoever sent it, never to the
-      // platform's no-reply address.
+      // platform's own address.
       replyTo: ctx.company.email?.trim() || ctx.user.email || undefined,
       subject,
       html: renderCustomerEmail(email),

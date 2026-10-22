@@ -1293,9 +1293,19 @@ out on every send, and anything a scheduler sends falls back to the company —
 there is no person behind it. The combined form uses the first name only, as
 Quotient does: "Rolando from PlasterPro Solution Limited" already runs long.
 
-The address stays `no-reply@nodo.co.nz` until each company verifies its own
+The address stays `hello@nodo.co.nz` until each company verifies its own
 domain. Whatever the shape, the name goes through `formatAddress()` — a comma in
 a name would split the header into two recipients.
+
+> **Not `no-reply@`, and every customer email carries a `Reply-To`.** A sender that
+> announces nobody reads the replies is something spam filters and the inbox's own
+> hints (Resend's insights flag it) mark down, and a customer who answers it would
+> reach nobody. The customer-facing sends set `Reply-To` to the company's own
+> address — or to whoever pressed Send when it has none — and go out as
+> multipart (HTML plus a plain-text part built from the same markup, so the two
+> say the same thing), as a whole document with a doctype, a language and a title.
+> Authentication was never the cause of the junk-folder reports: SPF, DKIM and
+> DMARC all pass.
 
 ### The acceptance email has no button
 
@@ -2134,9 +2144,9 @@ nothing to configure). Demo user: `demo@nodo-crm.test` / `demo1234`.
 The DNS for `nodo.co.nz` is at 1stdomains.net.nz. Two records are needed:
 `CNAME crm → b29c698a597c6c9f.vercel-dns-017.com.` and `A *.crm → 76.76.21.21`.
 
-Email goes out through Resend from `no-reply@nodo.co.nz` (verified domain), with
+Email goes out through Resend from `hello@nodo.co.nz` (verified domain), with
 each company's name as the visible sender: "Acme Ltd
-\<no-reply@nodo.co.nz\>". That name is written by the customer at registration,
+\<hello@nodo.co.nz\>". That name is written by the customer at registration,
 so it passes through `formatAddress()` before entering the header — without that,
 a comma splits it into two addresses and an `<other@domain>` injects a foreign
 sender.

@@ -27,7 +27,7 @@ export type MailInput = {
   lines: string[];
   actionLabel?: string;
   actionUrl?: string;
-  /** Where a reply goes, for the notices whose sender is `no-reply@`. */
+  /** Where a reply goes, for the notices whose sender is the platform's own address. */
   replyTo?: string;
 };
 

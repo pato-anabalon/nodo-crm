@@ -188,7 +188,7 @@ export async function sendToCustomer(
     const { error } = await resend.emails.send({
       from,
       to: recipient.email,
-      // Replies go to the company, not to the platform's no-reply address.
+      // Replies go to the company, not to the platform's own address.
       ...(quote.company.email?.trim() ? { replyTo: quote.company.email.trim() } : {}),
       subject,
       html: renderCustomerEmail(email),

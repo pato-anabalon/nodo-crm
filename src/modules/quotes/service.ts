@@ -6,7 +6,7 @@ import { isRichTextEmpty, sanitizeRichText } from "@/lib/rich-text";
 import { calculateQuoteTotals } from "./totals";
 import { resolveSelectedSectionAmounts, type BundleDiscount } from "./section-selection";
 import { canChangeLead, canTransition, isQuoteEditable, sectionStatuses } from "./constants";
-import { nextLeadStatus, type LeadEvent } from "@/modules/leads/constants";
+import { moveLeadAlong } from "./lead-sync";
 import type { QuoteFilters, QuoteFormValues } from "./schemas";
 import { companyDocumentSelect, quoteDocumentInclude } from "@/modules/portal/service";
 import { primaryRecipientFrom } from "./recipients";
@@ -717,56 +717,15 @@ export async function changeQuoteStatus(
       },
     });
 
-    await moveLeadAlong(ctx, current.leadId, to);
+    await moveLeadAlong(ctx.db, {
+      companyId: ctx.company.id,
+      leadId: current.leadId,
+      to,
+      userId: ctx.user.id,
+    });
   }
 
   return { ok: true as const, quote };
-}
-
-/**
- * Moves the lead its quote belongs to, when the quote's fate says something
- * about the work as a whole.
- *
- * A single declined quote isn't a lost lead: a job can be quoted twice, and the
- * second one may still be live. Only when nothing is left open does the work
- * count as lost.
- */
-async function moveLeadAlong(ctx: CompanyContext, leadId: string, to: QuoteStatus) {
-  let event: LeadEvent | null = null;
-
-  if (to === QuoteStatus.SENT) event = "quote-sent";
-  else if (to === QuoteStatus.ACCEPTED) event = "quote-accepted";
-  else if (to === QuoteStatus.REJECTED || to === QuoteStatus.EXPIRED) {
-    const stillOpen = await ctx.db.quote.count({
-      where: { leadId, status: { in: [QuoteStatus.DRAFT, QuoteStatus.SENT] } },
-    });
-    if (stillOpen === 0) event = "quotes-all-declined";
-  }
-
-  if (!event) return;
-
-  const lead = await ctx.db.lead.findFirst({ where: { id: leadId }, select: { status: true } });
-  if (!lead) return;
-
-  const next = nextLeadStatus(lead.status, event);
-  if (!next) return;
-
-  await ctx.db.lead.update({ where: { id: leadId }, data: { status: next } });
-
-  // Recorded like any other move on the lead, so its history shows who and when
-  // even though the "who" here is the quote rather than a person.
-  await ctx.db.activity.create({
-    data: {
-      companyId: ctx.company.id,
-      leadId,
-      userId: ctx.user.id,
-      type: ActivityType.STATUS_CHANGE,
-      // The same separator the lead's own service writes, because the same
-      // line reads both. An arrow here is how `leads.status.NEW → PROPOSAL`
-      // ended up being asked for.
-      content: `${lead.status}>${next}`,
-    },
-  });
 }
 
 export async function deleteQuote(ctx: CompanyContext, id: string) {

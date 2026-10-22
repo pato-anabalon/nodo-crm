@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import { requirePermission } from "@/lib/auth/session";
+import { can, requirePermission } from "@/lib/auth/session";
 import { Card, CardContent } from "@/components/ui/card";
 import { roleDisplayName } from "@/lib/auth/role-name";
 import { listCompanyRoles } from "@/modules/team/service";
+import { createRoleAction } from "@/modules/team/actions";
+import { NewRoleForm } from "@/modules/team/new-role-form";
 import { SettingsHeader } from "@/modules/settings/settings-header";
 
 export async function generateMetadata() {
@@ -45,6 +47,19 @@ export default async function ProfilesPage() {
           ))}
         </CardContent>
       </Card>
+
+      {can(ctx, "roles.update") ? (
+        <NewRoleForm
+          roles={roles.map((role) => ({
+            id: role.id,
+            label: roleDisplayName({ key: role.key, name: role.name }, tRoles),
+          }))}
+          // Sales is where a company's own profiles usually start from: broad
+          // enough to be useful, short of administering anything.
+          defaultCopyFrom={roles.find((role) => role.key === "SALES")?.id ?? ""}
+          action={createRoleAction}
+        />
+      ) : null}
     </div>
   );
 }

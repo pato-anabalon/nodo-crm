@@ -2,12 +2,13 @@ import { MembershipStatus, RoleKey } from "@/generated/prisma/enums";
 
 export type MemberSnapshot = {
   userId: string;
-  roleKey: RoleKey;
+  /** Null for a profile the company made itself. */
+  roleKey: RoleKey | null;
   status: MembershipStatus;
 };
 
 export type MemberChange =
-  | { kind: "role"; to: RoleKey }
+  | { kind: "role"; to: RoleKey | null }
   | { kind: "suspend" }
   | { kind: "reactivate" }
   | { kind: "remove" };
@@ -60,6 +61,6 @@ function removesAnOwner(member: MemberSnapshot, change: MemberChange): boolean {
  * made on this very screen, so letting it be trimmed is how a company locks
  * itself out of its own settings.
  */
-export function isRoleEditable(key: RoleKey): boolean {
+export function isRoleEditable(key: RoleKey | null): boolean {
   return key !== RoleKey.OWNER;
 }

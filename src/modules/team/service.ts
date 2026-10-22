@@ -43,7 +43,7 @@ export async function listTeam(ctx: CompanyContext) {
     }),
     ctx.db.invitation.findMany({
       where: { status: InvitationStatus.PENDING },
-      include: { role: { select: { key: true, name: true } } },
+      include: { role: { select: { id: true, key: true, name: true } } },
       orderBy: { createdAt: "desc" },
     }),
   ]);
@@ -65,6 +65,7 @@ export async function listTeam(ctx: CompanyContext) {
     invitations: invitations.map((i) => ({
       id: i.id,
       email: i.email,
+      roleId: i.role.id,
       roleKey: i.role.key,
       roleName: i.role.name,
       expiresAt: i.expiresAt,
@@ -80,16 +81,21 @@ export async function listCompanyRoles(ctx: CompanyContext) {
     include: { _count: { select: { permissions: true, memberships: true } } },
   });
 
+  // The standard profiles in their own order, then the company's own in the
+  // order it made them.
   const order = Object.values(RoleKey);
+  const rank = (key: RoleKey | null) => (key === null ? order.length : order.indexOf(key));
   return roles
     .map((role) => ({
       id: role.id,
       key: role.key,
       name: role.name,
+      custom: !role.isSystem,
+      createdAt: role.createdAt,
       permissionCount: role._count.permissions,
       memberCount: role._count.memberships,
     }))
-    .sort((a, b) => order.indexOf(a.key) - order.indexOf(b.key));
+    .sort((a, b) => rank(a.key) - rank(b.key) || a.createdAt.getTime() - b.createdAt.getTime());
 }
 
 /** How many owners can still administer the company right now. */
@@ -114,6 +120,8 @@ async function changeMember(
   ctx: CompanyContext,
   userId: string,
   change: MemberChange,
+  /** For a role change: the profile they move to. Its key is what the rules see. */
+  toRoleId?: string,
 ): Promise<MemberOutcome> {
   const membership = await ctx.db.membership.findFirst({
     where: { userId },
@@ -146,20 +154,25 @@ async function changeMember(
 
   const data =
     change.kind === "role"
-      ? { roleId: await roleIdFor(ctx, change.to) }
+      ? { roleId: toRoleId! }
       : { status: change.kind === "suspend" ? MembershipStatus.SUSPENDED : MembershipStatus.ACTIVE };
 
   await ctx.db.membership.updateMany({ where: { id: membership.id }, data });
   return { ok: true };
 }
 
-async function roleIdFor(ctx: CompanyContext, key: RoleKey): Promise<string> {
-  const role = await ctx.db.role.findFirstOrThrow({ where: { key }, select: { id: true } });
-  return role.id;
-}
+export async function changeMemberRole(
+  ctx: CompanyContext,
+  userId: string,
+  roleId: string,
+): Promise<MemberOutcome> {
+  // The profile has to be one of this company's: `ctx.db` scopes the lookup, so
+  // an id from another company simply isn't found.
+  const role = await ctx.db.role.findFirst({ where: { id: roleId }, select: { id: true, key: true } });
+  if (!role) return { ok: false, reason: "not-found" };
 
-export const changeMemberRole = (ctx: CompanyContext, userId: string, to: RoleKey) =>
-  changeMember(ctx, userId, { kind: "role", to });
+  return changeMember(ctx, userId, { kind: "role", to: role.key }, role.id);
+}
 
 export const suspendMember = (ctx: CompanyContext, userId: string) =>
   changeMember(ctx, userId, { kind: "suspend" });
@@ -172,7 +185,7 @@ export const removeMember = (ctx: CompanyContext, userId: string) =>
 
 export type InviteOutcome =
   | { ok: true; token: string }
-  | { ok: false; reason: "already-member" };
+  | { ok: false; reason: "already-member" | "role-not-found" };
 
 /**
  * Invites somebody, or re-invites them.
@@ -183,7 +196,7 @@ export type InviteOutcome =
  */
 export async function inviteMember(
   ctx: CompanyContext,
-  input: { email: string; roleKey: RoleKey },
+  input: { email: string; roleId: string },
 ): Promise<InviteOutcome> {
   const email = input.email.trim().toLowerCase();
 
@@ -193,7 +206,10 @@ export async function inviteMember(
   });
   if (already) return { ok: false, reason: "already-member" };
 
-  const roleId = await roleIdFor(ctx, input.roleKey);
+  const role = await ctx.db.role.findFirst({ where: { id: input.roleId }, select: { id: true } });
+  if (!role) return { ok: false, reason: "role-not-found" };
+  const roleId = role.id;
+
   const { token, hashedToken } = generateInvitationToken();
   const expiresAt = invitationExpiry();
 

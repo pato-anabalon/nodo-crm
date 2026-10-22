@@ -572,16 +572,22 @@ enum MembershipStatus {
 // ---------------------------------------------------------------------------
 
 // Profiles are standard (same `key` across the platform) but each company has
-// its own row, so it can reassign features without affecting the others.
+// its own row, so it can reassign features without affecting the others. A
+// company can also make its own: those have no `key` and always carry a name.
 model Role {
   id          String   @id @default(cuid())
   companyId   String
-  key         RoleKey
+  // Null on a profile the company made itself. Postgres treats nulls as
+  // distinct in a unique index, so `@@unique([companyId, key])` still allows one
+  // standard profile per key and as many custom ones as the company wants.
+  key         RoleKey?
   // Null on standard profiles: name and description are translated from `key`.
-  // They're only filled in when a company renames a profile to suit itself.
+  // They're only filled in when a company renames a profile to suit itself. A
+  // custom profile has no key to translate from, so its name is always set.
   name        String?
   description String?
-  // System profiles can't be deleted; OWNER can't be edited either.
+  // True for the standard profiles, false for the ones a company made. Only
+  // OWNER is locked: it can't be edited or deleted. The rest can be both.
   isSystem    Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -1361,6 +1367,9 @@ model Quote {
   @@unique([companyId, number])
   @@index([companyId, status])
   @@index([companyId, leadId])
+  // The export reads one calendar year of a company's quotes, and its year
+  // picker asks for the earliest and latest.
+  @@index([companyId, createdAt])
 }
 
 enum QuoteStatus {

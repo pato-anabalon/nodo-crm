@@ -2,6 +2,9 @@ import type { CompanyContext } from "@/lib/auth/session";
 import { ActivityType, LeadStatus, Prisma } from "@/generated/prisma/client";
 import { NotificationKind } from "@/generated/prisma/enums";
 import { notify } from "@/modules/notifications/inbox";
+import { attachContact } from "@/modules/contacts/attach";
+import { canBecomeContact } from "@/modules/contacts/identity";
+import { attachClientCompany } from "@/modules/client-companies/attach";
 import { isClosedStatus } from "./constants";
 import type { LeadFilters, LeadFormValues } from "./schemas";
 
@@ -121,29 +124,51 @@ export async function getLead(ctx: CompanyContext, id: string) {
 }
 
 /**
- * Checks a posted `contactId` actually belongs to this tenant before
- * trusting it — `ctx.db` scopes a `where`, but a raw foreign key assigned
- * straight into `data` writes the pointer without checking the row it points
- * at, so a hand-crafted id from another company would otherwise link across
- * the isolation boundary. Same check `linkLeadToContact` already does for the
- * same reason.
+ * Works out who the lead is about.
  *
- * `clientCompanyId` isn't a field the form posts on its own — it's inherited
- * from whichever contact this resolves to, the same way the lead's company
- * name follows the contact picked for it.
+ * A posted `contactId` is checked against this tenant before it is trusted —
+ * `ctx.db` scopes a `where`, but a raw foreign key assigned straight into `data`
+ * writes the pointer without checking the row it points at, so a hand-crafted id
+ * from another company would otherwise link across the isolation boundary. Same
+ * check `linkLeadToContact` already does for the same reason. `clientCompanyId`
+ * isn't posted on its own: it is inherited from whichever contact this resolves
+ * to, the same way the lead's company name follows the contact picked for it.
+ *
+ * With no contact picked, the lead's own details are treated the way a web
+ * enquiry's are (`attachContact`): matched on the email alone, recorded as a new
+ * person when nobody has it yet. Only the API did this before, so a lead typed in
+ * by hand never produced a contact and a customer who came back a year later
+ * landed on a second set of records. No email, no contact — the lead keeps the
+ * details it has until somebody links it.
  */
 async function resolveLeadLinks(
   ctx: CompanyContext,
-  values: Pick<LeadFormValues, "contactId">,
+  values: Pick<LeadFormValues, "contactId" | "contactName" | "contactEmail" | "contactPhone" | "companyName">,
 ): Promise<{ contactId: string | null; clientCompanyId: string | null }> {
-  const contact = values.contactId
-    ? await ctx.db.contact.findFirst({
-        where: { id: values.contactId },
-        select: { id: true, clientCompanyId: true },
-      })
-    : null;
+  if (values.contactId) {
+    const contact = await ctx.db.contact.findFirst({
+      where: { id: values.contactId },
+      select: { id: true, clientCompanyId: true },
+    });
+    // A picked id that doesn't resolve is a stale or forged one, not a request
+    // to create somebody: the lead goes without a contact, as it always has.
+    return { contactId: contact?.id ?? null, clientCompanyId: contact?.clientCompanyId ?? null };
+  }
 
-  return { contactId: contact?.id ?? null, clientCompanyId: contact?.clientCompanyId ?? null };
+  if (!canBecomeContact(values)) return { contactId: null, clientCompanyId: null };
+
+  const clientCompanyId = await attachClientCompany(ctx.db, ctx.company.id, values.companyName);
+  const contactId = await attachContact(
+    ctx.db,
+    ctx.company.id,
+    {
+      contactName: values.contactName ?? null,
+      contactEmail: values.contactEmail ?? null,
+      contactPhone: values.contactPhone ?? null,
+    },
+    clientCompanyId,
+  );
+  return { contactId, clientCompanyId };
 }
 
 export async function createLead(ctx: CompanyContext, values: LeadFormValues) {

@@ -181,7 +181,7 @@ async function main() {
   // --- Pre-load contacts + client companies, keyed by normalised email ---
   const contactByEmail = new Map<
     string,
-    { contactId: string; clientCompanyId: string | null; clientCompanyName: string | null }
+    { contactId: string; clientCompanyId: string | null; clientCompanyName: string | null; phone: string | null }
   >();
   let preloaded = 0;
   for (const c of masterContacts) {
@@ -210,7 +210,7 @@ async function main() {
       return { contactId: created.id, clientCompanyId };
     }, `contact preload ${c.email}`);
 
-    contactByEmail.set(c.email, { contactId, clientCompanyId, clientCompanyName: c.companyName || null });
+    contactByEmail.set(c.email, { contactId, clientCompanyId, clientCompanyName: c.companyName || null, phone: c.phone || null });
     preloaded++;
     if (preloaded % 200 === 0) console.log(`  ...${preloaded}/${masterContacts.length} contacts`);
   }
@@ -334,6 +334,7 @@ async function main() {
           clientCompanyId: contactInfo?.clientCompanyId ?? null,
           contactName,
           contactEmail: row.email || null,
+          contactPhone: contactInfo?.phone ?? null,
           companyName: contactInfo?.clientCompanyName ?? null,
           closedAt,
           createdAt,
@@ -352,6 +353,7 @@ async function main() {
           clientCompanyName: contactInfo?.clientCompanyName ?? null,
           clientName: contactName,
           clientEmail: row.email || null,
+          clientPhone: contactInfo?.phone ?? null,
           currency: row.currency,
           taxType: "GST",
           taxRate,

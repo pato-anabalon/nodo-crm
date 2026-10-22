@@ -168,7 +168,7 @@ export type RoleGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type RoleGroupByOutputType = {
   id: string
   companyId: string
-  key: $Enums.RoleKey
+  key: $Enums.RoleKey | null
   name: string | null
   description: string | null
   isSystem: boolean
@@ -200,7 +200,7 @@ export type RoleWhereInput = {
   NOT?: Prisma.RoleWhereInput | Prisma.RoleWhereInput[]
   id?: Prisma.StringFilter<"Role"> | string
   companyId?: Prisma.StringFilter<"Role"> | string
-  key?: Prisma.EnumRoleKeyFilter<"Role"> | $Enums.RoleKey
+  key?: Prisma.EnumRoleKeyNullableFilter<"Role"> | $Enums.RoleKey | null
   name?: Prisma.StringNullableFilter<"Role"> | string | null
   description?: Prisma.StringNullableFilter<"Role"> | string | null
   isSystem?: Prisma.BoolFilter<"Role"> | boolean
@@ -215,7 +215,7 @@ export type RoleWhereInput = {
 export type RoleOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
-  key?: Prisma.SortOrder
+  key?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   isSystem?: Prisma.SortOrder
@@ -234,7 +234,7 @@ export type RoleWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.RoleWhereInput[]
   NOT?: Prisma.RoleWhereInput | Prisma.RoleWhereInput[]
   companyId?: Prisma.StringFilter<"Role"> | string
-  key?: Prisma.EnumRoleKeyFilter<"Role"> | $Enums.RoleKey
+  key?: Prisma.EnumRoleKeyNullableFilter<"Role"> | $Enums.RoleKey | null
   name?: Prisma.StringNullableFilter<"Role"> | string | null
   description?: Prisma.StringNullableFilter<"Role"> | string | null
   isSystem?: Prisma.BoolFilter<"Role"> | boolean
@@ -249,7 +249,7 @@ export type RoleWhereUniqueInput = Prisma.AtLeast<{
 export type RoleOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
-  key?: Prisma.SortOrder
+  key?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   isSystem?: Prisma.SortOrder
@@ -266,7 +266,7 @@ export type RoleScalarWhereWithAggregatesInput = {
   NOT?: Prisma.RoleScalarWhereWithAggregatesInput | Prisma.RoleScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Role"> | string
   companyId?: Prisma.StringWithAggregatesFilter<"Role"> | string
-  key?: Prisma.EnumRoleKeyWithAggregatesFilter<"Role"> | $Enums.RoleKey
+  key?: Prisma.EnumRoleKeyNullableWithAggregatesFilter<"Role"> | $Enums.RoleKey | null
   name?: Prisma.StringNullableWithAggregatesFilter<"Role"> | string | null
   description?: Prisma.StringNullableWithAggregatesFilter<"Role"> | string | null
   isSystem?: Prisma.BoolWithAggregatesFilter<"Role"> | boolean
@@ -276,7 +276,7 @@ export type RoleScalarWhereWithAggregatesInput = {
 
 export type RoleCreateInput = {
   id?: string
-  key: $Enums.RoleKey
+  key?: $Enums.RoleKey | null
   name?: string | null
   description?: string | null
   isSystem?: boolean
@@ -291,7 +291,7 @@ export type RoleCreateInput = {
 export type RoleUncheckedCreateInput = {
   id?: string
   companyId: string
-  key: $Enums.RoleKey
+  key?: $Enums.RoleKey | null
   name?: string | null
   description?: string | null
   isSystem?: boolean
@@ -304,7 +304,7 @@ export type RoleUncheckedCreateInput = {
 
 export type RoleUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  key?: Prisma.EnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey
+  key?: Prisma.NullableEnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -319,7 +319,7 @@ export type RoleUpdateInput = {
 export type RoleUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
-  key?: Prisma.EnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey
+  key?: Prisma.NullableEnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -333,7 +333,7 @@ export type RoleUncheckedUpdateInput = {
 export type RoleCreateManyInput = {
   id?: string
   companyId: string
-  key: $Enums.RoleKey
+  key?: $Enums.RoleKey | null
   name?: string | null
   description?: string | null
   isSystem?: boolean
@@ -343,7 +343,7 @@ export type RoleCreateManyInput = {
 
 export type RoleUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  key?: Prisma.EnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey
+  key?: Prisma.NullableEnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -354,7 +354,7 @@ export type RoleUpdateManyMutationInput = {
 export type RoleUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
-  key?: Prisma.EnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey
+  key?: Prisma.NullableEnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -471,8 +471,8 @@ export type RoleUpdateOneRequiredWithoutMembershipsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RoleUpdateToOneWithWhereWithoutMembershipsInput, Prisma.RoleUpdateWithoutMembershipsInput>, Prisma.RoleUncheckedUpdateWithoutMembershipsInput>
 }
 
-export type EnumRoleKeyFieldUpdateOperationsInput = {
-  set?: $Enums.RoleKey
+export type NullableEnumRoleKeyFieldUpdateOperationsInput = {
+  set?: $Enums.RoleKey | null
 }
 
 export type RoleCreateNestedOneWithoutPermissionsInput = {
@@ -505,7 +505,7 @@ export type RoleUpdateOneRequiredWithoutInvitationsNestedInput = {
 
 export type RoleCreateWithoutCompanyInput = {
   id?: string
-  key: $Enums.RoleKey
+  key?: $Enums.RoleKey | null
   name?: string | null
   description?: string | null
   isSystem?: boolean
@@ -518,7 +518,7 @@ export type RoleCreateWithoutCompanyInput = {
 
 export type RoleUncheckedCreateWithoutCompanyInput = {
   id?: string
-  key: $Enums.RoleKey
+  key?: $Enums.RoleKey | null
   name?: string | null
   description?: string | null
   isSystem?: boolean
@@ -561,7 +561,7 @@ export type RoleScalarWhereInput = {
   NOT?: Prisma.RoleScalarWhereInput | Prisma.RoleScalarWhereInput[]
   id?: Prisma.StringFilter<"Role"> | string
   companyId?: Prisma.StringFilter<"Role"> | string
-  key?: Prisma.EnumRoleKeyFilter<"Role"> | $Enums.RoleKey
+  key?: Prisma.EnumRoleKeyNullableFilter<"Role"> | $Enums.RoleKey | null
   name?: Prisma.StringNullableFilter<"Role"> | string | null
   description?: Prisma.StringNullableFilter<"Role"> | string | null
   isSystem?: Prisma.BoolFilter<"Role"> | boolean
@@ -571,7 +571,7 @@ export type RoleScalarWhereInput = {
 
 export type RoleCreateWithoutMembershipsInput = {
   id?: string
-  key: $Enums.RoleKey
+  key?: $Enums.RoleKey | null
   name?: string | null
   description?: string | null
   isSystem?: boolean
@@ -585,7 +585,7 @@ export type RoleCreateWithoutMembershipsInput = {
 export type RoleUncheckedCreateWithoutMembershipsInput = {
   id?: string
   companyId: string
-  key: $Enums.RoleKey
+  key?: $Enums.RoleKey | null
   name?: string | null
   description?: string | null
   isSystem?: boolean
@@ -613,7 +613,7 @@ export type RoleUpdateToOneWithWhereWithoutMembershipsInput = {
 
 export type RoleUpdateWithoutMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  key?: Prisma.EnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey
+  key?: Prisma.NullableEnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -627,7 +627,7 @@ export type RoleUpdateWithoutMembershipsInput = {
 export type RoleUncheckedUpdateWithoutMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
-  key?: Prisma.EnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey
+  key?: Prisma.NullableEnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -639,7 +639,7 @@ export type RoleUncheckedUpdateWithoutMembershipsInput = {
 
 export type RoleCreateWithoutPermissionsInput = {
   id?: string
-  key: $Enums.RoleKey
+  key?: $Enums.RoleKey | null
   name?: string | null
   description?: string | null
   isSystem?: boolean
@@ -653,7 +653,7 @@ export type RoleCreateWithoutPermissionsInput = {
 export type RoleUncheckedCreateWithoutPermissionsInput = {
   id?: string
   companyId: string
-  key: $Enums.RoleKey
+  key?: $Enums.RoleKey | null
   name?: string | null
   description?: string | null
   isSystem?: boolean
@@ -681,7 +681,7 @@ export type RoleUpdateToOneWithWhereWithoutPermissionsInput = {
 
 export type RoleUpdateWithoutPermissionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  key?: Prisma.EnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey
+  key?: Prisma.NullableEnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -695,7 +695,7 @@ export type RoleUpdateWithoutPermissionsInput = {
 export type RoleUncheckedUpdateWithoutPermissionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
-  key?: Prisma.EnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey
+  key?: Prisma.NullableEnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -707,7 +707,7 @@ export type RoleUncheckedUpdateWithoutPermissionsInput = {
 
 export type RoleCreateWithoutInvitationsInput = {
   id?: string
-  key: $Enums.RoleKey
+  key?: $Enums.RoleKey | null
   name?: string | null
   description?: string | null
   isSystem?: boolean
@@ -721,7 +721,7 @@ export type RoleCreateWithoutInvitationsInput = {
 export type RoleUncheckedCreateWithoutInvitationsInput = {
   id?: string
   companyId: string
-  key: $Enums.RoleKey
+  key?: $Enums.RoleKey | null
   name?: string | null
   description?: string | null
   isSystem?: boolean
@@ -749,7 +749,7 @@ export type RoleUpdateToOneWithWhereWithoutInvitationsInput = {
 
 export type RoleUpdateWithoutInvitationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  key?: Prisma.EnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey
+  key?: Prisma.NullableEnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -763,7 +763,7 @@ export type RoleUpdateWithoutInvitationsInput = {
 export type RoleUncheckedUpdateWithoutInvitationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
-  key?: Prisma.EnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey
+  key?: Prisma.NullableEnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -775,7 +775,7 @@ export type RoleUncheckedUpdateWithoutInvitationsInput = {
 
 export type RoleCreateManyCompanyInput = {
   id?: string
-  key: $Enums.RoleKey
+  key?: $Enums.RoleKey | null
   name?: string | null
   description?: string | null
   isSystem?: boolean
@@ -785,7 +785,7 @@ export type RoleCreateManyCompanyInput = {
 
 export type RoleUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  key?: Prisma.EnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey
+  key?: Prisma.NullableEnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -798,7 +798,7 @@ export type RoleUpdateWithoutCompanyInput = {
 
 export type RoleUncheckedUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  key?: Prisma.EnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey
+  key?: Prisma.NullableEnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -811,7 +811,7 @@ export type RoleUncheckedUpdateWithoutCompanyInput = {
 
 export type RoleUncheckedUpdateManyWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  key?: Prisma.EnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey
+  key?: Prisma.NullableEnumRoleKeyFieldUpdateOperationsInput | $Enums.RoleKey | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -945,7 +945,7 @@ export type $RolePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     companyId: string
-    key: $Enums.RoleKey
+    key: $Enums.RoleKey | null
     name: string | null
     description: string | null
     isSystem: boolean

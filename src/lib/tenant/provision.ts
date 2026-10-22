@@ -104,6 +104,46 @@ export function isJobPermission(permission: Permission): boolean {
 }
 
 /**
+ * Gives every company's `OWNER` profile the permissions it is missing.
+ *
+ * `OWNER` holds the whole catalogue by definition, and nobody can edit it on the
+ * profiles screen — which is exactly why a permission added later doesn't reach
+ * an existing company's owner by itself: templates are read when a company is
+ * created, and `syncPermissions` only fills the catalogue. Without this an owner
+ * could hand the new feature to other profiles and not use it themselves, with
+ * no way to tick it on their own.
+ *
+ * Only `OWNER`: every other profile is left exactly as the company set it.
+ * Safe to run twice.
+ */
+export async function grantOwnerPermissions(
+  prisma: PrismaClient,
+): Promise<{ owners: number; granted: number }> {
+  await syncPermissions(prisma);
+  const permissions = await prisma.permission.findMany({ select: { id: true } });
+
+  const owners = await prisma.role.findMany({
+    where: { key: RoleKey.OWNER },
+    select: { id: true, permissions: { select: { permissionId: true } } },
+  });
+
+  let granted = 0;
+  for (const owner of owners) {
+    const held = new Set(owner.permissions.map((row) => row.permissionId));
+    const missing = permissions.filter((permission) => !held.has(permission.id));
+    if (missing.length === 0) continue;
+
+    await prisma.rolePermission.createMany({
+      data: missing.map((permission) => ({ roleId: owner.id, permissionId: permission.id })),
+      skipDuplicates: true,
+    });
+    granted += missing.length;
+  }
+
+  return { owners: owners.length, granted };
+}
+
+/**
  * Brings companies created before Jobs up to date: the standard profiles they
  * don't have yet (PROJECT_LEAD, TEAM_LEAD, WORKER, COLLABORATOR) are created
  * from their templates, and the profiles they do have are granted their

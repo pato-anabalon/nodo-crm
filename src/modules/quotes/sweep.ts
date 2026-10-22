@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/db/prisma";
 import { ActivityType, QuoteStatus } from "@/generated/prisma/enums";
-import { nextLeadStatus } from "@/modules/leads/constants";
 import { hasExpired } from "@/modules/notifications/watch";
+import { moveLeadAlong } from "./lead-sync";
 import { nativeQuoteWhere } from "./native";
 
 /**
@@ -54,11 +54,9 @@ export async function closeExpiredQuotes(
     // trail.
     if (!quote.leadId) continue;
 
-    // Same shape as `changeQuoteStatus`/`moveLeadAlong` in quotes/service.ts,
-    // duplicated rather than shared: those take a `CompanyContext` and a
-    // signed-in actor, neither of which exists here — there's no session to
-    // bound a cron, the same reason the rest of this sweep goes through
-    // `prisma` with an explicit `companyId` instead of `ctx.db`.
+    // The line goes through `prisma` with an explicit `companyId`, and the lead
+    // through the shared `moveLeadAlong`: there's no session to bound a cron,
+    // so no `ctx.db` and no signed-in actor.
     await prisma.activity.create({
       data: {
         companyId: company.id,
@@ -69,27 +67,7 @@ export async function closeExpiredQuotes(
       },
     });
 
-    const stillOpen = await prisma.quote.count({
-      where: { leadId: quote.leadId, status: { in: [QuoteStatus.DRAFT, QuoteStatus.SENT] } },
-    });
-    if (stillOpen > 0) continue;
-
-    const lead = await prisma.lead.findFirst({ where: { id: quote.leadId }, select: { status: true } });
-    if (!lead) continue;
-
-    const next = nextLeadStatus(lead.status, "quotes-all-declined");
-    if (!next) continue;
-
-    await prisma.lead.update({ where: { id: quote.leadId }, data: { status: next } });
-    await prisma.activity.create({
-      data: {
-        companyId: company.id,
-        leadId: quote.leadId,
-        userId: null,
-        type: ActivityType.STATUS_CHANGE,
-        content: `${lead.status}>${next}`,
-      },
-    });
+    await moveLeadAlong(prisma, { companyId: company.id, leadId: quote.leadId, to: QuoteStatus.EXPIRED, userId: null });
   }
 
   return closed;

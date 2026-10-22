@@ -57,7 +57,7 @@ export type CompanyContext = {
     email: string | null;
   };
   /** `name` is null on standard profiles: it's translated from `key`. */
-  role: { id: string; key: string; name: string | null };
+  role: { id: string; key: string | null; name: string | null };
   /** This user's language, already resolved against the company's. */
   locale: Locale;
   permissions: Set<Permission>;

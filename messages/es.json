@@ -1500,7 +1500,12 @@
       "notFound": "Esa persona ya no está en la empresa.",
       "alreadyMember": "Ese correo ya pertenece a la empresa.",
       "ownerLocked": "El perfil de propietario siempre tiene todas las funcionalidades.",
-      "noPermission": "Tu perfil no puede editar perfiles."
+      "noPermission": "Tu perfil no puede editar perfiles.",
+      "nameTaken": "Ya hay otro perfil con ese nombre.",
+      "roleNotFound": "Ese perfil ya no existe.",
+      "roleOwner": "El perfil de propietario no se puede eliminar.",
+      "roleInUse": "Tienes {count, plural, one {# usuario} other {# usuarios}} con este perfil. Reasígnalos a otro perfil antes de eliminarlo.",
+      "roleInvited": "Hay {count, plural, one {# invitación pendiente} other {# invitaciones pendientes}} para este perfil. Revócalas o reenvíalas con otro perfil antes de eliminarlo."
     },
     "email": {
       "subject": "Te invitaron a {company}",
@@ -1531,7 +1536,20 @@
       "title": "Perfiles",
       "subtitle": "Qué funcionalidades puede usar cada perfil.",
       "counts": "{features, plural, one {# funcionalidad} other {# funcionalidades}} · {people, plural, =0 {nadie aún} one {# persona} other {# personas}}",
-      "gridSubtitle": "Marca lo que este perfil puede hacer. Solo afecta a esta empresa."
+      "gridSubtitle": "Marca lo que este perfil puede hacer. Solo afecta a esta empresa.",
+      "nameLabel": "Nombre del perfil",
+      "nameHint": "Déjalo vacío para usar «{standard}».",
+      "rename": "Renombrar",
+      "renaming": "Guardando…",
+      "newTitle": "Nuevo perfil",
+      "newSubtitle": "Crea un perfil que calce con cómo trabaja tu empresa. Parte de uno existente y cambia lo que sea distinto.",
+      "copyFrom": "Partir desde",
+      "copyNothing": "Sin nada marcado",
+      "create": "Crear perfil",
+      "creating": "Creando…",
+      "delete": "Eliminar perfil",
+      "deleteTitle": "¿Eliminar {name}?",
+      "deleteBody": "El perfil {name} y sus funcionalidades se eliminan para siempre. Nadie lo tiene ahora, así que nadie pierde acceso."
     },
     "confirmRemove": {
       "title": "¿Quitar a {name}?",

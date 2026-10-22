@@ -19,7 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { MembershipStatus, RoleKey } from "@/generated/prisma/enums";
+import { MembershipStatus } from "@/generated/prisma/enums";
 import { MemberTrades } from "@/modules/jobs/member-trades";
 import type { JobActionState } from "@/modules/jobs/actions";
 import {
@@ -36,7 +36,7 @@ export type MemberRow = {
   userId: string;
   name: string | null;
   email: string;
-  roleKey: RoleKey;
+  roleId: string;
   status: MembershipStatus;
   isSelf: boolean;
   tradeIds: string[];
@@ -45,7 +45,7 @@ export type MemberRow = {
 export type InvitationRow = {
   id: string;
   email: string;
-  roleKey: RoleKey;
+  roleId: string;
   expiresLabel: string;
   expired: boolean;
 };
@@ -62,6 +62,7 @@ export function TeamManager({
   members,
   invitations,
   roles,
+  defaultRoleId,
   canInvite,
   canUpdate,
   canRemove,
@@ -70,7 +71,10 @@ export function TeamManager({
 }: {
   members: MemberRow[];
   invitations: InvitationRow[];
-  roles: RoleKey[];
+  /** The company's profiles, labelled with what it calls each: its own name or the standard one. */
+  roles: { id: string; label: string }[];
+  /** What the invitation form starts on. */
+  defaultRoleId: string;
   canInvite: boolean;
   canUpdate: boolean;
   canRemove: boolean;
@@ -79,7 +83,7 @@ export function TeamManager({
   onSetTrades: (userId: string, state: JobActionState, formData: FormData) => Promise<JobActionState>;
 }) {
   const t = useTranslations("team");
-  const tRoles = useTranslations("roles");
+  const labelOf = (roleId: string) => roles.find((role) => role.id === roleId)?.label ?? "";
   const [state, formAction, inviting] = useActionState<TeamState, FormData>(
     inviteMemberAction,
     {},
@@ -122,12 +126,12 @@ export function TeamManager({
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="roleKey">{t("invite.role")}</Label>
+                <Label htmlFor="roleId">{t("invite.role")}</Label>
                 <NativeSelect
-                  id="roleKey"
-                  name="roleKey"
-                  defaultValue={RoleKey.SALES}
-                  options={roles.map((key) => ({ value: key, label: tRoles(`${key}.name`) }))}
+                  id="roleId"
+                  name="roleId"
+                  defaultValue={defaultRoleId}
+                  options={roles.map((role) => ({ value: role.id, label: role.label }))}
                 />
               </div>
 
@@ -176,19 +180,16 @@ export function TeamManager({
                       <TableCell label={t("columns.role")}>
                         {editable ? (
                           <NativeSelect
-                            value={member.roleKey}
+                            value={member.roleId}
                             disabled={pending}
                             onChange={(event) =>
                               run(() => changeMemberRoleAction(member.userId, event.target.value))
                             }
                             className="h-8 w-auto px-2"
-                            options={roles.map((key) => ({
-                              value: key,
-                              label: tRoles(`${key}.name`),
-                            }))}
+                            options={roles.map((role) => ({ value: role.id, label: role.label }))}
                           />
                         ) : (
-                          <span className="text-sm">{tRoles(`${member.roleKey}.name`)}</span>
+                          <span className="text-sm">{labelOf(member.roleId)}</span>
                         )}
                       </TableCell>
 
@@ -278,7 +279,7 @@ export function TeamManager({
                 <div className="min-w-0">
                   <p className="text-sm font-medium">{invitation.email}</p>
                   <p className="text-xs text-muted-foreground">
-                    {tRoles(`${invitation.roleKey}.name`)}
+                    {labelOf(invitation.roleId)}
                     {" · "}
                     {invitation.expired
                       ? t("invitationExpired")

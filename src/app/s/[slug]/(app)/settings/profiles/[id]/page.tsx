@@ -8,7 +8,9 @@ import {
   permissionsByModule,
 } from "@/lib/auth/permissions";
 import { getRoleDetail } from "@/modules/team/roles";
-import { saveRolePermissionsAction } from "@/modules/team/actions";
+import { deleteRoleAction, renameRoleAction, saveRolePermissionsAction } from "@/modules/team/actions";
+import { DeleteRoleButton } from "@/modules/team/delete-role-button";
+import { RoleNameForm } from "@/modules/team/role-name-form";
 import { PermissionGrid } from "@/modules/team/permission-grid";
 import { SettingsHeader } from "@/modules/settings/settings-header";
 
@@ -43,7 +45,23 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
       <SettingsHeader
         title={roleDisplayName({ key: role.key, name: role.name }, tRoles)}
         subtitle={t("gridSubtitle")}
+        action={
+          role.deletable && can(ctx, "roles.update") ? (
+            <DeleteRoleButton
+              name={roleDisplayName({ key: role.key, name: role.name }, tRoles)}
+              action={deleteRoleAction.bind(null, role.id)}
+            />
+          ) : undefined
+        }
         back={{ href: "/settings/profiles", label: t("title") }}
+      />
+
+      <RoleNameForm
+        name={role.name}
+        standardName={role.key ? tRoles(`${role.key}.name`) : ""}
+        custom={role.custom}
+        canEdit={can(ctx, "roles.update")}
+        action={renameRoleAction.bind(null, role.id)}
       />
 
       <PermissionGrid

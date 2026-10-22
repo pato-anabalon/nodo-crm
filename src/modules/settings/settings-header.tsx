@@ -19,6 +19,7 @@ export async function SettingsHeader({
   title,
   subtitle,
   back,
+  action,
 }: {
   title: ReactNode;
   subtitle?: ReactNode;
@@ -27,6 +28,8 @@ export async function SettingsHeader({
    * than off the index — a profile's permission grid returns to Profiles.
    */
   back?: { href: string; label: string };
+  /** A control for the screen as a whole, at the far end of the row. */
+  action?: ReactNode;
 }) {
   const t = await getTranslations("settings");
   const target = back ?? { href: "/settings", label: t("title") };
@@ -45,10 +48,12 @@ export async function SettingsHeader({
         </Link>
       </Button>
 
-      <div className="min-w-0 space-y-1">
+      <div className="min-w-0 flex-1 space-y-1">
         <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
         {subtitle ? <p className="text-sm text-muted-foreground">{subtitle}</p> : null}
       </div>
+
+      {action ? <div className="shrink-0">{action}</div> : null}
     </div>
   );
 }

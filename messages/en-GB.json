@@ -1500,7 +1500,12 @@
       "notFound": "That person is no longer in the company.",
       "alreadyMember": "That address already belongs to the company.",
       "ownerLocked": "The owner profile always holds every feature.",
-      "noPermission": "Your profile can't edit profiles."
+      "noPermission": "Your profile can't edit profiles.",
+      "nameTaken": "Another profile already has that name.",
+      "roleNotFound": "That profile no longer exists.",
+      "roleOwner": "The owner profile can't be deleted.",
+      "roleInUse": "{count, plural, one {# user has this profile} other {# users have this profile}}. Reassign them to another profile before deleting it.",
+      "roleInvited": "{count, plural, one {# invitation is} other {# invitations are}} still waiting for this profile. Revoke or resend with another profile before deleting it."
     },
     "email": {
       "subject": "You've been invited to {company}",
@@ -1531,7 +1536,20 @@
       "title": "Profiles",
       "subtitle": "Which features each profile can use.",
       "counts": "{features, plural, one {# feature} other {# features}} · {people, plural, =0 {nobody yet} one {# person} other {# people}}",
-      "gridSubtitle": "Tick what this profile may do. It only affects this company."
+      "gridSubtitle": "Tick what this profile may do. It only affects this company.",
+      "nameLabel": "Profile name",
+      "nameHint": "Leave it empty to use “{standard}”.",
+      "rename": "Rename",
+      "renaming": "Saving…",
+      "newTitle": "New profile",
+      "newSubtitle": "Make a profile that fits how your company works. Start from an existing one and change what's different.",
+      "copyFrom": "Start from",
+      "copyNothing": "Nothing ticked",
+      "create": "Create profile",
+      "creating": "Creating…",
+      "delete": "Delete profile",
+      "deleteTitle": "Delete {name}?",
+      "deleteBody": "The {name} profile and its features are deleted for good. Nobody holds it right now, so no one loses access."
     },
     "confirmRemove": {
       "title": "Remove {name}?",

@@ -1,6 +1,6 @@
 import { fireEvent, screen, waitFor, within } from "@testing-library/react";
 import { renderWithIntl } from "@/test/intl";
-import { MembershipStatus, RoleKey } from "@/generated/prisma/enums";
+import { MembershipStatus } from "@/generated/prisma/enums";
 
 const removeMemberAction = jest.fn().mockResolvedValue({ message: "Removed" });
 
@@ -25,14 +25,18 @@ function renderTeam() {
           userId: "u2",
           name: "Wendy Worker",
           email: "wendy@example.com",
-          roleKey: RoleKey.WORKER,
+          roleId: "role-worker",
           status: MembershipStatus.ACTIVE,
           isSelf: false,
           tradeIds: [],
         },
       ]}
       invitations={[]}
-      roles={[RoleKey.WORKER, RoleKey.SALES]}
+      roles={[
+        { id: "role-worker", label: "Worker" },
+        { id: "role-sales", label: "Sales" },
+      ]}
+      defaultRoleId="role-sales"
       canInvite={false}
       canUpdate
       canRemove

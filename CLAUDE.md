@@ -505,6 +505,14 @@ enquiries are not evidence of the same person, and merging them would put one
 customer's history on another's record. No address means no contact, and the
 lead keeps the details it arrived with until somebody links it by hand.
 
+A lead typed in by hand takes the same road (`resolveLeadLinks` in
+`leads/service.ts`): with no contact picked in the form, its email finds or
+creates one, and its company name finds or creates the `ClientCompany`. For a
+while only the API did, so hand-made leads never produced a contact and the
+asymmetry was invisible until somebody looked in `/contacts`. A contact that *is*
+picked wins and nothing is created; an id that doesn't resolve is a stale one and
+the lead goes without.
+
 Deleting a contact is `SetNull` on the lead: the work stays, with the details it
 came with. Losing the history along with the record would be a surprising thing
 for a delete button to do.
@@ -541,6 +549,13 @@ Two rules hold them together. The lead only moves **forward** — a revised quot
 going out to a lead in negotiation must not drag it back to proposal — and **won
 is the end**, because the reports are built on that history. Lost is not an end:
 a quote sent to a lost lead is someone reviving it.
+
+All three reach the lead through one function, `moveLeadAlong`
+(`quotes/lead-sync.ts`), called by the team's `changeQuoteStatus`, by the
+customer's accept and decline in the portal, and by the sweep that expires quotes.
+The portal writes the quote directly, so it once moved nothing: accepted quotes
+left their leads in `PROPOSAL`. `lead-sync.test.ts` reads those sources and fails
+if a path that decides a quote stops calling it.
 
 `NEGOTIATION` stays manual on purpose. It is the stage where a person knows
 something the system doesn't — that the customer rang asking for a discount — and
@@ -1859,6 +1874,37 @@ affecting the others.
   profile.
 
 To protect an action: `await requirePermission("quotes.send")`.
+
+### Renaming and making profiles
+
+A company can **rename** any profile, `OWNER` included (`Role.name`; empty goes
+back to the translated standard name), and **make its own** at
+`/settings/profiles`. A profile of its own has `key = null`, `isSystem = false`
+and always a name — there is nothing to translate it from, so emptying the name
+is refused. Postgres treats nulls as distinct in a unique index, so
+`@@unique([companyId, key])` still allows one standard profile per key and any
+number of custom ones, with no hand-written index.
+
+- **The enum stays the nine standard profiles.** Anything that walks
+  `RoleKey` — the templates, provisioning, the permissions tests — keeps meaning
+  "the standard ones". A custom profile is invisible to them on purpose.
+- **People and invitations point at a profile by id**, never by key: the invite
+  form, "change profile", and the rules all take a `roleId`. The key is read
+  back from the row only so `refuseMemberChange` can still tell whether somebody
+  is an owner.
+- **A new profile starts as a copy** of another's features (a snapshot, not a
+  link) or from nothing, and the person lands on its feature grid. Names must be
+  unique **as they appear on screen** (`isRoleNameTaken`): a custom
+  "Administrator" can't sit beside the translated standard one.
+- **Any profile can be deleted but `OWNER`**, and only once nobody holds it:
+  members (suspended included) and pending invitations both refuse. Answered or
+  revoked invitations are history and go with it. The owner profile is refused on
+  the server, not just hidden — it is what undoes a mistake on this screen and
+  what the "last owner" rules lean on. Nothing else reads a profile's `key`, so a
+  company that doesn't want `Viewer` can drop it. `provision-job-roles.ts` would
+  put a deleted standard profile back, but it only runs by hand.
+- **The name is free text, not translated**: a user working in Spanish and one in
+  English read the same words.
 
 ### A permission that hides a datum, not an action
 

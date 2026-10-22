@@ -6,6 +6,12 @@
  * edited on the profiles screen, so nobody could tick it for them. Running it
  * again changes nothing.
  *
+ * It syncs the permission catalogue first (the same `syncPermissions` that
+ * `db:seed` runs), so it can stand in for the seed where that must not run: the
+ * seed also creates a demo user and company, which has no place in production.
+ * Reads `DATABASE_URL_UNPOOLED ?? DATABASE_URL` like the other data scripts and
+ * prints the host it is talking to.
+ *
  * Usage:
  *   npx tsx scripts/grant-owner-permissions.ts
  */
@@ -14,13 +20,21 @@ loadEnv({ path: [".env.local", ".env"], quiet: true });
 
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../src/generated/prisma/client";
-import { grantOwnerPermissions } from "../src/lib/tenant/provision";
+import { grantOwnerPermissions, syncPermissions } from "../src/lib/tenant/provision";
+
+const connectionString = process.env.DATABASE_URL_UNPOOLED ?? process.env.DATABASE_URL;
 
 const prisma = new PrismaClient({
-  adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
+  adapter: new PrismaPg({ connectionString }),
 });
 
-grantOwnerPermissions(prisma)
+console.log(`Database: ${new URL(connectionString ?? "postgres://unset").hostname}`);
+
+syncPermissions(prisma)
+  .then((total) => {
+    console.log(`✓ ${total} permissions synced`);
+    return grantOwnerPermissions(prisma);
+  })
   .then((result) => {
     console.log(`✓ ${result.owners} owner profiles — ${result.granted} permissions granted`);
   })

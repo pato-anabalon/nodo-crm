@@ -22,7 +22,7 @@ export function getResend(): Resend | null {
  * The sender for a company's emails.
  *
  * The display name is the company's and the address is the platform's:
- * "Acme Ltd <no-reply@nodo.co.nz>". Later, once each company verifies its own
+ * "Acme Ltd <hello@nodo.co.nz>". Later, once each company verifies its own
  * domain, the address will be theirs too.
  */
 export function defaultFrom(companyName: string): string {

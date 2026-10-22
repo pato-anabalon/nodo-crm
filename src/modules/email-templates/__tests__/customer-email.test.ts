@@ -1,4 +1,8 @@
-import { renderCustomerEmail, type CustomerEmailData } from "../customer-email";
+import {
+  renderCustomerEmail,
+  renderCustomerEmailText,
+  type CustomerEmailData,
+} from "../customer-email";
 
 const base: CustomerEmailData = {
   bodyHtml: "<p>Your quote is ready.</p>",
@@ -54,5 +58,43 @@ describe("the email the customer gets", () => {
   it("carries no prices", () => {
     const html = renderCustomerEmail(base);
     expect(html).not.toMatch(/\$|\btotal\b/i);
+  });
+});
+
+describe("the plain-text half", () => {
+  it("is a whole document, with a language and a title", () => {
+    const html = renderCustomerEmail(base);
+
+    expect(html.startsWith("<!doctype html>")).toBe(true);
+    expect(html).toContain('<html lang="en">');
+    expect(html).toContain("<title>PlasterPro Solution</title>");
+  });
+
+  it("carries the words and the link, so the two halves say the same thing", () => {
+    const text = renderCustomerEmailText({
+      ...base,
+      bodyHtml: "<p>Hi Ana,</p><p>Your <strong>quote</strong> is ready.</p>",
+      slogan: "Built to last",
+    });
+
+    expect(text).toContain("Hi Ana,\n\nYour quote is ready.");
+    expect(text).toContain("View quote: https://acme.example/q/token");
+    expect(text).toContain("Built to last");
+    expect(text).toContain("PlasterPro Solution");
+    expect(text).not.toMatch(/<[a-z]/i);
+  });
+
+  it("keeps the address of a link whose text doesn't show it", () => {
+    const text = renderCustomerEmailText({
+      ...base,
+      cta: null,
+      bodyHtml: '<p>See <a href="https://example.com/x">our site</a>.</p>',
+    });
+
+    expect(text).toContain("our site (https://example.com/x)");
+  });
+
+  it("has no button line when there is no button", () => {
+    expect(renderCustomerEmailText({ ...base, cta: null })).not.toContain("View quote");
   });
 });

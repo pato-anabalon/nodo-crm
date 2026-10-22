@@ -1337,10 +1337,32 @@ reading all of them in a single request.
   titles and customer names come from web forms, and a spreadsheet would run them.
   UTF-8 with a BOM so Excel reads the accents; dates are `YYYY-MM-DD` in the
   company's zone; money is a plain number beside its `Currency` column.
+- **A `Tax mode` column leads the priced ones.** `Tax` alone reads either way: in
+  an inclusive quote it is already inside the total and in an exclusive one it is
+  added on top, and nothing in the figures says which. It is stored on the quote
+  (`taxDisplayMode`), so the file reads it, never works it out.
+- **The button says when it is done.** The answer is a file, so the page gets no
+  event when the download starts: `ExportForm` posts a token and the route echoes
+  it in a cookie on the response that carries the file, and the form waits for it
+  (with a two-minute fallback). The route reads the first batch *before*
+  answering, so the cookie only exists once there is a file to hand over. The
+  token avoids `crypto.randomUUID`, which doesn't exist over plain http outside
+  localhost, and the hidden input has no `defaultValue` (React would reset it).
 - **`quotes.export` is nobody's by default but `OWNER`'s**, which holds the whole
   catalogue and can't be edited on the profiles screen. For companies that already
   exist run `scripts/grant-owner-permissions.ts` after `db:seed`: without it an
   owner could hand the feature to another profile and not use it themselves.
+
+### The phone on quotes brought in from Quotient
+
+A quote and a lead each keep their own copy of the customer's phone
+(`Quote.clientPhone`, `Lead.contactPhone`). The importer used to save it on the
+`Contact` only, so every migrated quote showed none — the export was where it was
+noticed. It now writes all three, and `scripts/backfill-migrated-phones.ts` repaired
+what was already there: PlasterPro (`plasterprosolution`, or `--company=<slug>`),
+quotes numbered below 3000, only where the phone was empty. It counts unless given
+`--apply`, prints the database it is talking to, and reads
+`DATABASE_URL_UNPOOLED ?? DATABASE_URL` like the other data scripts.
 
 ## Reports
 

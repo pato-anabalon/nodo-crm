@@ -8,7 +8,7 @@ import { sanitizeRichText } from "@/lib/rich-text";
 import { issueShare } from "@/modules/portal/service";
 import { shareUrl } from "@/modules/portal/share";
 import { companyUrl, ROOT_DOMAIN } from "@/lib/tenant/host";
-import { renderCustomerEmail } from "@/modules/email-templates/customer-email";
+import { renderCustomerEmail, renderCustomerEmailText } from "@/modules/email-templates/customer-email";
 import { renderTemplate } from "@/modules/email-templates/render";
 import { senderName } from "@/modules/email-templates/sender";
 import { logCustomerEmail } from "@/modules/email-templates/customer-send";
@@ -105,22 +105,28 @@ export async function sendQuoteEmail(ctx: CompanyContext, quoteId: string): Prom
       recipientId: recipient.id,
     });
 
+    const email = {
+      bodyHtml,
+      primaryColor: ctx.company.primaryColor,
+      companyName: ctx.company.name,
+      logoUrl: ctx.company.logoUrl,
+      slogan: ctx.company.slogan,
+      validUntilLabel: validUntil ? tEmail("validUntil", { date: validUntil }) : null,
+      cta: { label: tEmail("viewQuote"), url: shareUrl(ctx.company.slug, share.token, ROOT_DOMAIN) },
+      footerHtml: ctx.company.quoteFooter ? sanitizeRichText(ctx.company.quoteFooter) : null,
+    };
+
     const { error } = await resend.emails.send({
       from,
       // One address per email. A copy is not a Cc: each person gets the quote
       // as though it were only theirs, with a link that is only theirs.
       to: recipient.email,
+      // Replies go to the company, or to whoever sent it, never to the
+      // platform's no-reply address.
+      replyTo: ctx.company.email?.trim() || ctx.user.email || undefined,
       subject,
-      html: renderCustomerEmail({
-        bodyHtml,
-        primaryColor: ctx.company.primaryColor,
-        companyName: ctx.company.name,
-        logoUrl: ctx.company.logoUrl,
-        slogan: ctx.company.slogan,
-        validUntilLabel: validUntil ? tEmail("validUntil", { date: validUntil }) : null,
-        cta: { label: tEmail("viewQuote"), url: shareUrl(ctx.company.slug, share.token, ROOT_DOMAIN) },
-        footerHtml: ctx.company.quoteFooter ? sanitizeRichText(ctx.company.quoteFooter) : null,
-      }),
+      html: renderCustomerEmail(email),
+      text: renderCustomerEmailText(email),
     });
 
     if (error) {

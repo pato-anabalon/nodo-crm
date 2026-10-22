@@ -9,7 +9,7 @@ import { issueShare } from "@/modules/portal/service";
 import { shareUrl } from "@/modules/portal/share";
 import { ROOT_DOMAIN } from "@/lib/tenant/host";
 import { leaveLinks } from "@/modules/settings/review-platforms";
-import { renderCustomerEmail } from "./customer-email";
+import { renderCustomerEmail, renderCustomerEmailText } from "./customer-email";
 import { isEnabled } from "./kinds";
 import { renderTemplate } from "./render";
 import { withReviewLinks } from "./review-links";
@@ -61,6 +61,7 @@ export async function sendToCustomer(
         select: {
           id: true,
           name: true,
+          email: true,
           slug: true,
           primaryColor: true,
           logoUrl: true,
@@ -173,20 +174,25 @@ export async function sendToCustomer(
         }
       : null;
 
+    const email = {
+      bodyHtml: withReviewLinks(bodyHtml, kind, reviewLinks),
+      primaryColor: quote.company.primaryColor,
+      companyName: quote.company.name,
+      logoUrl: quote.company.logoUrl,
+      slogan: quote.company.slogan,
+      validUntilLabel: null,
+      cta,
+      footerHtml: quote.company.quoteFooter ? sanitizeRichText(quote.company.quoteFooter) : null,
+    };
+
     const { error } = await resend.emails.send({
       from,
       to: recipient.email,
+      // Replies go to the company, not to the platform's no-reply address.
+      ...(quote.company.email?.trim() ? { replyTo: quote.company.email.trim() } : {}),
       subject,
-      html: renderCustomerEmail({
-        bodyHtml: withReviewLinks(bodyHtml, kind, reviewLinks),
-        primaryColor: quote.company.primaryColor,
-        companyName: quote.company.name,
-        logoUrl: quote.company.logoUrl,
-        slogan: quote.company.slogan,
-        validUntilLabel: null,
-        cta,
-        footerHtml: quote.company.quoteFooter ? sanitizeRichText(quote.company.quoteFooter) : null,
-      }),
+      html: renderCustomerEmail(email),
+      text: renderCustomerEmailText(email),
     });
     if (!error) delivered.push(recipient.email);
   }

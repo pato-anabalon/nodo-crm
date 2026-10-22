@@ -1,4 +1,4 @@
-import { escapeHtml } from "@/lib/html";
+import { escapeHtml, htmlToText } from "@/lib/html";
 
 export type CustomerEmailData = {
   /** The company's words, already resolved and sanitised. */
@@ -69,7 +69,17 @@ export function renderCustomerEmail(data: CustomerEmailData): string {
     ? `<div style="margin-top:28px;padding-top:16px;border-top:1px solid #e5e7eb;font-size:12px;color:#64748b">${data.footerHtml}</div>`
     : "";
 
-  return `
+  // A whole document, not a fragment: a message that is a bare `<div>` has no
+  // doctype, no language and no title, which is how a hand-made mailing looks
+  // and not how a mail client's does.
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${escapeHtml(data.companyName)}</title>
+</head>
+<body style="margin:0;padding:16px;background:#ffffff">
 <div style="font-family:system-ui,-apple-system,sans-serif;max-width:600px;margin:0 auto;color:#0f172a">
   ${logo}
   <div style="border-top:4px solid ${escapeHtml(data.primaryColor)};padding-top:24px">
@@ -81,5 +91,27 @@ export function renderCustomerEmail(data: CustomerEmailData): string {
     ${validUntil}
     ${footer}
   </div>
-</div>`;
+</div>
+</body>
+</html>`;
+}
+
+/**
+ * The same email as plain text, sent beside the HTML.
+ *
+ * A message with only an HTML part is one of the cheapest things a filter can
+ * mark down: nothing real is sent that way. Both halves carry the same words
+ * and the same link, in the same order.
+ */
+export function renderCustomerEmailText(data: CustomerEmailData): string {
+  return [
+    htmlToText(data.bodyHtml),
+    data.cta ? `${data.cta.label}: ${data.cta.url}` : "",
+    data.slogan?.trim() ?? "",
+    data.companyName,
+    data.validUntilLabel ?? "",
+    data.footerHtml ? htmlToText(data.footerHtml) : "",
+  ]
+    .filter(Boolean)
+    .join("\n\n");
 }

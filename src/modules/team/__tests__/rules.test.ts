@@ -74,3 +74,17 @@ describe("isRoleEditable", () => {
     },
   );
 });
+
+describe("a profile the company made", () => {
+  it("is editable, and moving somebody out of one never counts as losing an owner", () => {
+    expect(isRoleEditable(null)).toBe(true);
+    const custom = member({ roleKey: null });
+    expect(refuseMemberChange(ACTOR, custom, { kind: "role", to: RoleKey.VIEWER }, 1)).toBeNull();
+    expect(refuseMemberChange(ACTOR, custom, { kind: "suspend" }, 1)).toBeNull();
+  });
+
+  it("moving the last owner into one is still refused: it is not the owner profile", () => {
+    const owner = member({ roleKey: RoleKey.OWNER });
+    expect(refuseMemberChange(ACTOR, owner, { kind: "role", to: null }, 1)).toBe("last-owner");
+  });
+});

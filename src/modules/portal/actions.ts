@@ -7,6 +7,7 @@ import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/db/prisma";
 import { translateFieldErrors } from "@/lib/i18n-errors";
 import {
+  ActivityType,
   MessageAuthor,
   QuoteEventType,
   QuoteSectionKind,
@@ -18,6 +19,7 @@ import { notifyClientMessage, notifyQuoteDecided } from "@/modules/notifications
 import { calculateQuoteTotals } from "@/modules/quotes/totals";
 import { resolveSelectedSectionAmounts, type SectionSelectionState } from "@/modules/quotes/section-selection";
 import { bundleFrom } from "@/modules/quotes/service";
+import { moveLeadAlong } from "@/modules/quotes/lead-sync";
 import { acceptQuoteSchema, buildStatement, clientMessageSchema, declineQuoteSchema } from "./schemas";
 import { canClientRespond, eventActor, resolveShare } from "./service";
 import { acceptanceDigest, sha256Hex } from "./fingerprint";
@@ -36,6 +38,34 @@ async function requestMeta() {
     ipAddress: h.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null,
     userAgent: h.get("user-agent"),
   };
+}
+
+/**
+ * What a decision in the portal means for the lead behind the quote: the line in
+ * its history, and the move (accepted → won, nothing left open → lost). The team's
+ * own `changeQuoteStatus` does both, and the portal writes the quote directly, so
+ * it has to say so here or the lead stays where it was.
+ *
+ * Runs after the decision is committed and never fails it: the customer has
+ * already accepted, and an error on their screen over a bookkeeping step would
+ * tell them otherwise. Nobody is signed in, so the author is null — "System".
+ */
+async function settleLead(quote: { companyId: string; leadId: string | null; number: number }, to: QuoteStatus) {
+  if (!quote.leadId) return;
+  try {
+    await prisma.activity.create({
+      data: {
+        companyId: quote.companyId,
+        leadId: quote.leadId,
+        userId: null,
+        type: ActivityType.QUOTE_DECIDED,
+        content: `${quote.number}>${to}`,
+      },
+    });
+    await moveLeadAlong(prisma, { companyId: quote.companyId, leadId: quote.leadId, to, userId: null });
+  } catch (error) {
+    console.error("portal: could not move the lead along after a decision", error);
+  }
 }
 
 /**
@@ -239,6 +269,8 @@ export async function acceptQuoteAction(
     }),
   ]);
 
+  await settleLead(quote, QuoteStatus.ACCEPTED);
+
   // The notice must not keep the customer waiting in front of the screen.
   after(() => notifyQuoteDecided(share.quoteId, "accepted", viewer.name));
   // The customer hears back too. Until now accepting produced silence on their
@@ -296,6 +328,8 @@ export async function declineQuoteAction(
       },
     });
   }
+
+  await settleLead(share.quote, QuoteStatus.REJECTED);
 
   after(() => notifyQuoteDecided(share.quoteId, "declined", viewer?.name));
 

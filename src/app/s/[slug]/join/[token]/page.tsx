@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { roleDisplayName } from "@/lib/auth/role-name";
 import { getTranslations } from "next-intl/server";
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
@@ -47,7 +48,7 @@ export default async function JoinPage({
       <JoinPasswordForm
         company={{ name: invitation.company.name, logoUrl: invitation.company.logoUrl }}
         email={invitation.email}
-        role={tRoles(`${invitation.role.key}.name`)}
+        role={roleDisplayName(invitation.role, tRoles)}
         hasPassword={hasPassword}
         accept={acceptWithPassword.bind(null, token)}
       />
@@ -78,7 +79,7 @@ export default async function JoinPage({
   return (
     <Notice
       title={t("title", { company: invitation.company.name })}
-      body={t("body", { role: tRoles(`${invitation.role.key}.name`) })}
+      body={t("body", { role: roleDisplayName(invitation.role, tRoles) })}
       logo={{ name: invitation.company.name, url: invitation.company.logoUrl }}
       form={{ action: accept, label: t("accept") }}
     />

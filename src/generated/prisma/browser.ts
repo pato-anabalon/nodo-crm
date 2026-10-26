@@ -516,3 +516,13 @@ export type MembershipTrade = Prisma.MembershipTradeModel
  *  * on a phone.
  */
 export type JobChatMessage = Prisma.JobChatMessageModel
+/**
+ * Model JobScopeItem
+ * *
+ *  * One line of what was quoted — an item's description, or a section's title and
+ *  * write-up — copied onto the job when it starts. Never an amount: a job is read
+ *  * by people with no business seeing the price. Not editable: it is the frame
+ *  * the work was agreed in, and a copy that drifted from the quote would stop
+ *  * being a reference.
+ */
+export type JobScopeItem = Prisma.JobScopeItemModel

@@ -11,9 +11,12 @@ import {
 } from "@/generated/prisma/client";
 import { formatQuoteNumber } from "@/lib/format";
 import { notifyEach } from "@/modules/notifications/inbox";
+import { emailJobNotice } from "./emails";
+import { recipientsOnJob } from "./recipients";
 import { jobNameFromQuote } from "./naming";
 import { jobVisibilityWhere } from "./scope";
 import { activityPermission } from "./timeline";
+import { scopeItemsFromQuote } from "./scope-items";
 import { dayKey, type JobDates, type JobFormValues, type JobListFilter } from "./schemas";
 
 const OPEN_STATUSES: JobStatus[] = [JobStatus.ACTIVE, JobStatus.ON_HOLD];
@@ -53,6 +56,7 @@ export async function getJob(ctx: CompanyContext, id: string) {
     where: { id, ...visibleJobs(ctx) },
     include: {
       quote: { select: { id: true, number: true } },
+      closedBy: { select: { name: true, email: true } },
       members: {
         orderBy: { createdAt: "asc" },
         select: { userId: true, following: true, user: { select: personSelect } },
@@ -65,7 +69,7 @@ export type JobDetail = NonNullable<Awaited<ReturnType<typeof getJob>>>;
 
 /** The job started from a quote, if there is one this person can see. */
 export async function jobForQuote(ctx: CompanyContext, quoteId: string) {
-  return ctx.db.job.findFirst({ where: { quoteId, ...visibleJobs(ctx) }, select: { id: true } });
+  return ctx.db.job.findFirst({ where: { quoteId, ...visibleJobs(ctx) }, select: { id: true, status: true } });
 }
 
 /** Whether the quote already has a job, seen or not — so "Start job" isn't offered twice. */
@@ -178,6 +182,24 @@ export async function startJobFromQuote(ctx: CompanyContext, quoteId: string): P
       leadId: true,
       lead: { select: { ownerId: true } },
       job: { select: { id: true } },
+      // What was sold, to be kept on the job. The amounts are selected only because
+      // `resolveSelectedSectionAmounts` needs them to say what counts; none is stored.
+      pricingMode: true,
+      items: { select: { position: true, description: true } },
+      sections: {
+        select: {
+          id: true,
+          position: true,
+          title: true,
+          body: true,
+          kind: true,
+          selectedByDefault: true,
+          customerSelected: true,
+          amount: true,
+          discountType: true,
+          discountValue: true,
+        },
+      },
     },
   });
   if (!quote) return { ok: false, reason: "not-found" };
@@ -186,6 +208,15 @@ export async function startJobFromQuote(ctx: CompanyContext, quoteId: string): P
 
   const reference = formatQuoteNumber(ctx.company.quotePrefix, quote.number);
   const companyId = ctx.company.id;
+  const scopeItems = scopeItemsFromQuote({
+    pricingMode: quote.pricingMode,
+    items: quote.items,
+    sections: quote.sections.map((section) => ({
+      ...section,
+      amount: Number(section.amount),
+      discountValue: Number(section.discountValue),
+    })),
+  });
   const memberIds = [...new Set([ctx.user.id, quote.lead?.ownerId].filter((id): id is string => Boolean(id)))];
 
   try {
@@ -205,6 +236,11 @@ export async function startJobFromQuote(ctx: CompanyContext, quoteId: string): P
       await tx.jobMember.createMany({
         data: memberIds.map((userId) => ({ companyId, jobId: job.id, userId, addedById: ctx.user.id })),
       });
+      if (scopeItems.length > 0) {
+        await tx.jobScopeItem.createMany({
+          data: scopeItems.map((item) => ({ companyId, jobId: job.id, ...item })),
+        });
+      }
       await tx.jobActivity.create({
         data: {
           companyId,
@@ -259,6 +295,15 @@ export function clientSummary(quote: {
   return lines.length > 0 ? lines.join("\n") : null;
 }
 
+/** What the job was quoted for, in the order the quote had it. Empty for a job that never had a quote. */
+export async function jobScope(ctx: CompanyContext, jobId: string) {
+  return ctx.db.jobScopeItem.findMany({
+    where: { jobId },
+    orderBy: { position: "asc" },
+    select: { id: true, title: true, body: true },
+  });
+}
+
 /** A job that stands on its own, with no quote behind it. */
 export async function createJob(ctx: CompanyContext, values: JobFormValues & JobDates): Promise<string> {
   const companyId = ctx.company.id;
@@ -302,6 +347,33 @@ export async function setJobStatus(ctx: CompanyContext, jobId: string, to: JobSt
   if (!job || job.status === to) return false;
   await ctx.db.job.update({ where: { id: jobId }, data: { status: to } });
   await logJobActivity(ctx, jobId, JobActivityType.STATUS_CHANGED, { from: job.status, to });
+  return true;
+}
+
+/**
+ * Finishing a job locks it (`COMPLETED`, see `closing.ts`) and says who did it
+ * and when. Only an open job closes: `updateMany … where status ≠ COMPLETED`
+ * makes a double press — or two people — one line on the timeline.
+ */
+export async function finishJob(ctx: CompanyContext, jobId: string): Promise<boolean> {
+  const { count } = await ctx.db.job.updateMany({
+    where: { id: jobId, status: { not: JobStatus.COMPLETED } },
+    data: { status: JobStatus.COMPLETED, closedAt: new Date(), closedById: ctx.user.id },
+  });
+  if (count === 0) return false;
+  await logJobActivity(ctx, jobId, JobActivityType.JOB_FINISHED, {});
+  await notifyFinished(ctx, jobId);
+  return true;
+}
+
+/** Back to `ACTIVE`: a finished job has no memory of what it was before, and active is what reopening means. */
+export async function reopenJob(ctx: CompanyContext, jobId: string): Promise<boolean> {
+  const { count } = await ctx.db.job.updateMany({
+    where: { id: jobId, status: JobStatus.COMPLETED },
+    data: { status: JobStatus.ACTIVE, closedAt: null, closedById: null },
+  });
+  if (count === 0) return false;
+  await logJobActivity(ctx, jobId, JobActivityType.JOB_REOPENED, {});
   return true;
 }
 
@@ -379,18 +451,45 @@ export async function logJobActivity(
 }
 
 /** Being added to a job is news — except to whoever did the adding. */
+/** Everybody on the job hears it was finished — except whoever finished it. */
+async function notifyFinished(ctx: CompanyContext, jobId: string): Promise<void> {
+  const job = await ctx.db.job.findFirst({
+    where: { id: jobId },
+    select: { name: true, members: { select: { userId: true } } },
+  });
+  if (!job) return;
+  const recipients = await recipientsOnJob(
+    ctx,
+    jobId,
+    job.members.map((member) => member.userId),
+    "jobs.read",
+  );
+  if (recipients.length === 0) return;
+
+  const params = { job: job.name, by: ctx.user.name ?? ctx.user.email };
+  const raised = await notifyEach(recipients, {
+    companyId: ctx.company.id,
+    kind: NotificationKind.JOB_FINISHED,
+    params,
+    href: `/jobs/${jobId}`,
+  });
+  emailJobNotice(ctx, { userIds: raised, template: "finished", params, path: `/jobs/${jobId}` });
+}
+
 async function notifyAdded(ctx: CompanyContext, jobId: string, userIds: string[]): Promise<void> {
   const recipients = userIds.filter((id) => id !== ctx.user.id);
   if (recipients.length === 0) return;
   const job = await ctx.db.job.findFirst({ where: { id: jobId }, select: { name: true } });
   if (!job) return;
 
-  await notifyEach(recipients, {
+  const params = { job: job.name, by: ctx.user.name ?? ctx.user.email };
+  const raised = await notifyEach(recipients, {
     companyId: ctx.company.id,
     kind: NotificationKind.JOB_ADDED,
-    params: { job: job.name, by: ctx.user.name ?? ctx.user.email },
+    params,
     href: `/jobs/${jobId}`,
   });
+  emailJobNotice(ctx, { userIds: raised, template: "added", params, path: `/jobs/${jobId}` });
 }
 
 // ---------------------------------------------------------------------------

@@ -43,6 +43,7 @@ export const DIRECT_TENANT_MODELS = new Set([
   "JobEventParticipant",
   "JobChatMessage",
   "JobMember",
+  "JobScopeItem",
   "Lead",
   "LeadAttachment",
   "LeadSubmission",

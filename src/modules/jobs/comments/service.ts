@@ -2,6 +2,7 @@ import type { CompanyContext } from "@/lib/auth/session";
 import type { Permission } from "@/lib/auth/permissions";
 import { NotificationKind } from "@/generated/prisma/client";
 import { notifyEach } from "@/modules/notifications/inbox";
+import { emailJobNotice } from "../emails";
 import { attachFiles, deleteStored, detachFiles, jobFileSelect, type UploadedFile } from "../files-service";
 import { jobName, recipientsOnJob } from "../recipients";
 
@@ -67,12 +68,14 @@ export async function notifyConversation(
 ): Promise<void> {
   const recipients = await recipientsOnJob(ctx, options.jobId, options.people, options.permission);
   if (recipients.length === 0) return;
-  await notifyEach(recipients, {
+  const params = { by: ctx.user.name ?? ctx.user.email, job: await jobName(ctx, options.jobId), title: options.title };
+  const raised = await notifyEach(recipients, {
     companyId: ctx.company.id,
     kind: NotificationKind.JOB_COMMENT,
-    params: { by: ctx.user.name ?? ctx.user.email, job: await jobName(ctx, options.jobId), title: options.title },
+    params,
     href: options.href,
   });
+  emailJobNotice(ctx, { userIds: raised, template: "comment", params, path: options.href });
 }
 
 export async function updateComment(

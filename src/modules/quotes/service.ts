@@ -74,6 +74,8 @@ export async function listQuotes(ctx: CompanyContext, filters: QuoteFilters) {
         createdBy: { select: { name: true, email: true } },
         // How often the customer opened it, and whether they have it open now.
         share: { select: { openCount: true, lastSeenAt: true, viewing: true } },
+        // Only its status: an accepted quote whose job was finished says so in the list.
+        job: { select: { status: true } },
         _count: { select: { items: true } },
       },
     }),
@@ -111,6 +113,7 @@ export function recentQuotesByStatus(
       status: true,
       total: true,
       currency: true,
+      job: { select: { status: true } },
     },
   });
 }

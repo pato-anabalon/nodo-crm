@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDate, formatMoney, formatQuoteNumber } from "@/lib/format";
 import { QUOTE_STATUS_CLASS } from "@/modules/quotes/constants";
+import { JobCompletedMark, isJobCompleted } from "@/modules/quotes/job-completed-mark";
 import { contactDisplayName } from "@/modules/contacts/identity";
 import {
   deleteClientCompanyAction,
@@ -27,6 +28,7 @@ export default async function ClientPage({ params }: { params: Promise<{ id: str
   ]);
 
   if (!can(ctx, "contacts.read")) notFound();
+  const canSeeJobs = can(ctx, "jobs.read");
 
   const client = await getClientCompany(ctx, id);
   if (!client) notFound();
@@ -141,6 +143,9 @@ export default async function ClientPage({ params }: { params: Promise<{ id: str
                               <Badge variant="outline" className={QUOTE_STATUS_CLASS[quote.status]}>
                                 {tQuotes(`status.${quote.status}`)}
                               </Badge>
+                              {isJobCompleted(quote, canSeeJobs) ? (
+                                <JobCompletedMark label={tQuotes("jobCompleted")} />
+                              ) : null}
                               <span className="tabular-nums">
                                 {money(Number(quote.total), quote.currency)}
                               </span>

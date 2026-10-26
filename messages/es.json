@@ -448,6 +448,8 @@
     "jobs_dates": "Cambiar las fechas de inicio y término de un trabajo",
     "jobs_members": "Agregar y quitar personas de un trabajo",
     "jobs_delete": "Eliminar trabajos",
+    "jobs_finish": "Finalizar un trabajo, lo que lo bloquea",
+    "jobs_reopen": "Reabrir un trabajo finalizado",
     "jobs_moderate": "Editar y eliminar lo que escribieron o subieron otras personas",
     "messages_read": "Ver el tablero de mensajes",
     "messages_create": "Publicar mensajes",
@@ -827,6 +829,7 @@
       "startingJob": "Iniciando…",
       "openJob": "Abrir trabajo"
     },
+    "jobCompleted": "Trabajo finalizado",
     "detail": "Detalle",
     "amountHidden": "Oculto",
     "status": {
@@ -1810,7 +1813,9 @@
       "JOB_TODO_ASSIGNED": "{by} te asignó {title} ({job})",
       "JOB_TODO_COMPLETED": "{by} completó {title} ({job})",
       "JOB_EVENT": "{by} te sumó a {title} ({job})",
-      "JOB_CHAT_MENTION": "{by} te mencionó en el chat de {job}: “{excerpt}”"
+      "JOB_CHAT_MENTION": "{by} te mencionó en el chat de {job}: “{excerpt}”",
+      "JOB_FINISHED": "{by} finalizó {job}",
+      "JOB_TODO_DUE": "“{title}” vence ({job})"
     },
     "quoteExpiring": {
       "subject": "La cotización {reference} está por vencer",
@@ -1826,6 +1831,50 @@
       "subject": "Tarea atrasada: {title}",
       "heading": "Una tarea pasó su fecha",
       "line": "{title}"
+    },
+    "job": {
+      "open": "Abrir en Nodo",
+      "manage": "Elige qué correos recibes",
+      "added": {
+        "subject": "{by} te agregó a {job}",
+        "heading": "Te agregaron a un trabajo",
+        "line": "{by} te agregó a {job}."
+      },
+      "todoAssigned": {
+        "subject": "{by} te asignó una tarea en {job}",
+        "heading": "Tienes una tarea",
+        "line": "{by} te asignó “{title}” en {job}."
+      },
+      "todoDue": {
+        "subject": "Tarea para hoy: {title}",
+        "heading": "Una tarea llegó a su fecha",
+        "line": "“{title}” en {job} vence y aún no está lista."
+      },
+      "mention": {
+        "subject": "{by} te mencionó en el chat de {job}",
+        "heading": "Te mencionaron",
+        "line": "{by}: “{excerpt}”"
+      },
+      "post": {
+        "subject": "{by} publicó “{title}” en {job}",
+        "heading": "Nuevo mensaje en un trabajo",
+        "line": "{by} publicó “{title}” en el tablero de mensajes de {job}."
+      },
+      "comment": {
+        "subject": "{by} comentó en “{title}”",
+        "heading": "Nuevo comentario",
+        "line": "{by} comentó en “{title}” ({job})."
+      },
+      "event": {
+        "subject": "{by} te agregó a “{title}”",
+        "heading": "Estás en un evento de la agenda",
+        "line": "{by} te agregó a “{title}” en {job}."
+      },
+      "finished": {
+        "subject": "{job} está finalizado",
+        "heading": "Se finalizó un trabajo",
+        "line": "{by} finalizó {job}. Ahora es de solo lectura."
+      }
     }
   },
   "reports": {
@@ -1993,7 +2042,11 @@
       "JOB_EVENT": "Me suman a un evento",
       "JOB_EVENT_hint": "Cuando alguien te agrega a un evento en el schedule de un trabajo.",
       "JOB_CHAT_MENTION": "Me mencionan en un chat",
-      "JOB_CHAT_MENTION_hint": "Cuando alguien te nombra con @ en el chat de uno de tus trabajos."
+      "JOB_CHAT_MENTION_hint": "Cuando alguien te nombra con @ en el chat de uno de tus trabajos.",
+      "JOB_FINISHED": "Se finaliza un trabajo mío",
+      "JOB_FINISHED_hint": "Cuando alguien finaliza un trabajo en el que estás.",
+      "JOB_TODO_DUE": "Vence una tarea mía",
+      "JOB_TODO_DUE_hint": "El día en que una tarea que te asignaron llega a su fecha sin estar lista."
     },
     "indexSubtitle": "Elige qué correos quieres recibir.",
     "recipients": {
@@ -2240,6 +2293,21 @@
     "saved": "Trabajo guardado.",
     "datesSaved": "Fechas guardadas.",
     "statusSaved": "Estado cambiado.",
+    "closed": {
+      "banner": "Este trabajo está finalizado. Se puede leer, pero no se puede agregar, cambiar ni eliminar nada.",
+      "bannerBy": "Finalizado por {name} el {date}. Se puede leer, pero no se puede agregar, cambiar ni eliminar nada.",
+      "finish": "Finalizar trabajo",
+      "finishTitle": "¿Finalizar {name}?",
+      "finishBody": "El trabajo quedará bloqueado: nadie podrá agregar, cambiar ni eliminar mensajes, tareas, eventos, archivos, chat ni personas hasta que se reabra.",
+      "reopen": "Reabrir",
+      "reopenTitle": "¿Reabrir {name}?",
+      "reopenBody": "El trabajo volverá a admitir cambios.",
+      "finished": "Trabajo finalizado.",
+      "reopened": "Trabajo reabierto.",
+      "notAllowed": "No puedes hacer eso.",
+      "someone": "Alguien",
+      "alreadyClosed": "Este trabajo está finalizado, por lo que no se puede cambiar. Reábrelo primero."
+    },
     "invalidStatus": "Ese estado no existe.",
     "create": "Crear trabajo",
     "creating": "Creando…",
@@ -2304,6 +2372,8 @@
       "MEMBERS_ADDED": "{actor} agregó a {names} al trabajo",
       "MEMBER_REMOVED": "{actor} quitó a {name} del trabajo",
       "STATUS_CHANGED": "{actor} marcó el trabajo como {to}",
+      "JOB_FINISHED": "{actor} finalizó el trabajo",
+      "JOB_REOPENED": "{actor} reabrió el trabajo",
       "DATES_CHANGED": "{actor} fijó las fechas: {dates}",
       "DATES_CLEARED": "{actor} quitó las fechas",
       "FILES_UPLOADED": "{actor} subió {count, plural, one {un archivo} other {# archivos}}",
@@ -2320,13 +2390,23 @@
       "EVENT_COMMENTED": "{actor} comentó en {title}",
       "CHAT_MESSAGES": "{actor} envió {count, plural, one {un mensaje} other {# mensajes}} en el chat"
     },
+    "scope": {
+      "title": "Alcance del trabajo",
+      "count": "{count, plural, one {# ítem} other {# ítems}}",
+      "intro": "Lo que se cotizó para este trabajo. Es una referencia: no se puede editar y no incluye precios.",
+      "empty": "Este trabajo no tiene alcance cotizado: no se inició desde una cotización.",
+      "copy": "Copiar",
+      "copyAll": "Copiar todo",
+      "copied": "Copiado",
+      "backToJob": "Volver a {name}"
+    },
     "files": {
       "title": "Docs y archivos",
       "backToJob": "Volver a {name}",
       "breadcrumb": "Carpetas",
       "count": "{count, plural, =0 {Nada aún} one {# archivo} other {# archivos}}",
       "cardEmpty": "Planos, fotos y documentos de este trabajo.",
-      "cardNoPhotos": "Aún no hay fotos.",
+      "folderCount": "{count, plural, one {# carpeta} other {# carpetas}}",
       "upload": "Subir archivos",
       "uploading": "Subiendo…",
       "preparing": "Preparando…",

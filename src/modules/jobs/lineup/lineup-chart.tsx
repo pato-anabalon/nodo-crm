@@ -24,6 +24,8 @@ export type LineupRow = {
   startsOn: string | null;
   endsOn: string | null;
   milestones: { id: string; title: string; day: string; href: string }[];
+  /** A finished job: its dates are no longer anybody's to move. */
+  locked: boolean;
 };
 
 type Dates = { startsOn: string; endsOn: string };
@@ -96,7 +98,7 @@ export function LineupChart({
   }
 
   function onPointerDown(event: PointerEvent<HTMLElement>, row: LineupRow, part: Part) {
-    if (!canEditDates || event.button !== 0) return;
+    if (!canEditDates || row.locked || event.button !== 0) return;
     event.stopPropagation();
     event.currentTarget.setPointerCapture(event.pointerId);
     const track = event.currentTarget.closest("[data-track]");
@@ -138,7 +140,7 @@ export function LineupChart({
       router.push(row.href);
       return;
     }
-    if (!canEditDates || (event.key !== "ArrowLeft" && event.key !== "ArrowRight")) return;
+    if (!canEditDates || row.locked || (event.key !== "ArrowLeft" && event.key !== "ArrowRight")) return;
     event.preventDefault();
     const delta = event.key === "ArrowLeft" ? -1 : 1;
     // Shift moves the end alone; Alt the start alone; plain arrows the whole bar.
@@ -174,6 +176,7 @@ export function LineupChart({
 
         {rows.map((row) => {
           const dates = datesOf(row);
+          const editable = canEditDates && !row.locked;
           const shifted =
             dates && drag && drag.jobId === row.id && drag.moved ? shiftDates(dates, drag.part, drag.delta) : dates;
           const bar = shifted ? barInWindow(shifted.startsOn, shifted.endsOn, windowStart, days) : null;
@@ -202,7 +205,7 @@ export function LineupChart({
                     role="button"
                     tabIndex={0}
                     aria-label={
-                      canEditDates
+                      editable
                         ? t("barEditable", { name: row.name, start: shifted!.startsOn, end: shifted!.endsOn })
                         : t("bar", { name: row.name, start: shifted!.startsOn, end: shifted!.endsOn })
                     }
@@ -217,19 +220,19 @@ export function LineupChart({
                     onClick={() => {
                       // For somebody who can drag, a press that didn't move is
                       // already a click (`onPointerUp`); everybody else just opens it.
-                      if (!canEditDates) router.push(row.href);
+                      if (!editable) router.push(row.href);
                     }}
                     onKeyDown={(event) => onKeyDown(event, row)}
                     className={cn(
                       "absolute top-2 flex h-7 select-none items-center overflow-hidden px-2 text-xs font-medium text-white shadow-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
-                      canEditDates ? "cursor-grab touch-none active:cursor-grabbing" : "cursor-pointer",
+                      editable ? "cursor-grab touch-none active:cursor-grabbing" : "cursor-pointer",
                       !bar.clippedStart && "rounded-l-md",
                       !bar.clippedEnd && "rounded-r-md",
                       drag?.jobId === row.id && drag.moved && "opacity-80 ring-2 ring-foreground/40",
                     )}
                     style={{ left: at(bar.offset), width: at(bar.length), backgroundColor: row.colour }}
                   >
-                    {canEditDates && !bar.clippedStart ? (
+                    {editable && !bar.clippedStart ? (
                       <span
                         className="absolute inset-y-0 left-0 w-2 cursor-ew-resize"
                         onPointerDown={(event) => onPointerDown(event, row, "start")}
@@ -237,7 +240,7 @@ export function LineupChart({
                       />
                     ) : null}
                     <span className="pointer-events-none truncate">{row.name}</span>
-                    {canEditDates && !bar.clippedEnd ? (
+                    {editable && !bar.clippedEnd ? (
                       <span
                         className="absolute inset-y-0 right-0 w-2 cursor-ew-resize"
                         onPointerDown={(event) => onPointerDown(event, row, "end")}

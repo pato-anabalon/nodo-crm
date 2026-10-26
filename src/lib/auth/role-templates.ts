@@ -33,7 +33,7 @@ const JOB_TOOLS_READ: readonly Permission[] = [
 ];
 
 const JOBS_ALL: readonly Permission[] = [
-  "jobs.read", "jobs.read.all", "jobs.create", "jobs.update", "jobs.dates", "jobs.members", "jobs.delete", "jobs.moderate",
+  "jobs.read", "jobs.read.all", "jobs.create", "jobs.update", "jobs.dates", "jobs.members", "jobs.finish", "jobs.reopen", "jobs.delete", "jobs.moderate",
 ];
 
 export const ROLE_TEMPLATES: readonly RoleTemplate[] = [
@@ -96,7 +96,7 @@ export const ROLE_TEMPLATES: readonly RoleTemplate[] = [
     // Runs a job end to end: opens it, puts the team together, sets the dates.
     key: RoleKey.PROJECT_LEAD,
     permissions: [
-      "jobs.read", "jobs.read.all", "jobs.create", "jobs.update", "jobs.dates", "jobs.members", "jobs.moderate",
+      "jobs.read", "jobs.read.all", "jobs.create", "jobs.update", "jobs.dates", "jobs.members", "jobs.finish", "jobs.moderate",
       ...JOB_TOOLS_ALL,
     ],
   },

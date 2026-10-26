@@ -252,6 +252,7 @@ export type UserWhereInput = {
   createdQuotes?: Prisma.QuoteListRelationFilter
   activities?: Prisma.ActivityListRelationFilter
   jobsCreated?: Prisma.JobListRelationFilter
+  jobsClosed?: Prisma.JobListRelationFilter
   jobMemberships?: Prisma.JobMemberListRelationFilter
   jobMembersAdded?: Prisma.JobMemberListRelationFilter
   jobActivities?: Prisma.JobActivityListRelationFilter
@@ -295,6 +296,7 @@ export type UserOrderByWithRelationInput = {
   createdQuotes?: Prisma.QuoteOrderByRelationAggregateInput
   activities?: Prisma.ActivityOrderByRelationAggregateInput
   jobsCreated?: Prisma.JobOrderByRelationAggregateInput
+  jobsClosed?: Prisma.JobOrderByRelationAggregateInput
   jobMemberships?: Prisma.JobMemberOrderByRelationAggregateInput
   jobMembersAdded?: Prisma.JobMemberOrderByRelationAggregateInput
   jobActivities?: Prisma.JobActivityOrderByRelationAggregateInput
@@ -341,6 +343,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdQuotes?: Prisma.QuoteListRelationFilter
   activities?: Prisma.ActivityListRelationFilter
   jobsCreated?: Prisma.JobListRelationFilter
+  jobsClosed?: Prisma.JobListRelationFilter
   jobMemberships?: Prisma.JobMemberListRelationFilter
   jobMembersAdded?: Prisma.JobMemberListRelationFilter
   jobActivities?: Prisma.JobActivityListRelationFilter
@@ -420,6 +423,7 @@ export type UserCreateInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -463,6 +467,7 @@ export type UserUncheckedCreateInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -506,6 +511,7 @@ export type UserUpdateInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -549,6 +555,7 @@ export type UserUncheckedUpdateInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -873,6 +880,12 @@ export type UserCreateNestedOneWithoutJobsCreatedInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
+export type UserCreateNestedOneWithoutJobsClosedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutJobsClosedInput, Prisma.UserUncheckedCreateWithoutJobsClosedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutJobsClosedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
 export type UserUpdateOneWithoutJobsCreatedNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutJobsCreatedInput, Prisma.UserUncheckedCreateWithoutJobsCreatedInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutJobsCreatedInput
@@ -881,6 +894,16 @@ export type UserUpdateOneWithoutJobsCreatedNestedInput = {
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutJobsCreatedInput, Prisma.UserUpdateWithoutJobsCreatedInput>, Prisma.UserUncheckedUpdateWithoutJobsCreatedInput>
+}
+
+export type UserUpdateOneWithoutJobsClosedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutJobsClosedInput, Prisma.UserUncheckedCreateWithoutJobsClosedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutJobsClosedInput
+  upsert?: Prisma.UserUpsertWithoutJobsClosedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutJobsClosedInput, Prisma.UserUpdateWithoutJobsClosedInput>, Prisma.UserUncheckedUpdateWithoutJobsClosedInput>
 }
 
 export type UserCreateNestedOneWithoutJobMembershipsInput = {
@@ -1127,6 +1150,7 @@ export type UserCreateWithoutMembershipsInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -1169,6 +1193,7 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -1227,6 +1252,7 @@ export type UserUpdateWithoutMembershipsInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -1269,6 +1295,7 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -1311,6 +1338,7 @@ export type UserCreateWithoutAccountsInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -1353,6 +1381,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -1411,6 +1440,7 @@ export type UserUpdateWithoutAccountsInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -1453,6 +1483,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -1495,6 +1526,7 @@ export type UserCreateWithoutSessionsInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -1537,6 +1569,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -1595,6 +1628,7 @@ export type UserUpdateWithoutSessionsInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -1637,6 +1671,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -1679,6 +1714,7 @@ export type UserCreateWithoutTasksAssignedInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -1721,6 +1757,7 @@ export type UserUncheckedCreateWithoutTasksAssignedInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -1768,6 +1805,7 @@ export type UserCreateWithoutTasksCreatedInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -1810,6 +1848,7 @@ export type UserUncheckedCreateWithoutTasksCreatedInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -1868,6 +1907,7 @@ export type UserUpdateWithoutTasksAssignedInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -1910,6 +1950,7 @@ export type UserUncheckedUpdateWithoutTasksAssignedInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -1963,6 +2004,7 @@ export type UserUpdateWithoutTasksCreatedInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -2005,6 +2047,7 @@ export type UserUncheckedUpdateWithoutTasksCreatedInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -2047,6 +2090,7 @@ export type UserCreateWithoutNotificationsInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -2089,6 +2133,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -2147,6 +2192,7 @@ export type UserUpdateWithoutNotificationsInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -2189,6 +2235,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -2231,6 +2278,7 @@ export type UserCreateWithoutAssignedLeadsInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -2273,6 +2321,7 @@ export type UserUncheckedCreateWithoutAssignedLeadsInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -2320,6 +2369,7 @@ export type UserCreateWithoutDiscardedLeadsInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -2362,6 +2412,7 @@ export type UserUncheckedCreateWithoutDiscardedLeadsInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -2420,6 +2471,7 @@ export type UserUpdateWithoutAssignedLeadsInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -2462,6 +2514,7 @@ export type UserUncheckedUpdateWithoutAssignedLeadsInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -2515,6 +2568,7 @@ export type UserUpdateWithoutDiscardedLeadsInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -2557,6 +2611,7 @@ export type UserUncheckedUpdateWithoutDiscardedLeadsInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -2599,6 +2654,7 @@ export type UserCreateWithoutIngestKeysInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -2641,6 +2697,7 @@ export type UserUncheckedCreateWithoutIngestKeysInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -2699,6 +2756,7 @@ export type UserUpdateWithoutIngestKeysInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -2741,6 +2799,7 @@ export type UserUncheckedUpdateWithoutIngestKeysInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -2783,6 +2842,7 @@ export type UserCreateWithoutActivitiesInput = {
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -2825,6 +2885,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -2883,6 +2944,7 @@ export type UserUpdateWithoutActivitiesInput = {
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -2925,6 +2987,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -2967,6 +3030,7 @@ export type UserCreateWithoutCreatedQuotesInput = {
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -3009,6 +3073,7 @@ export type UserUncheckedCreateWithoutCreatedQuotesInput = {
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -3067,6 +3132,7 @@ export type UserUpdateWithoutCreatedQuotesInput = {
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -3109,6 +3175,7 @@ export type UserUncheckedUpdateWithoutCreatedQuotesInput = {
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -3151,6 +3218,7 @@ export type UserCreateWithoutQuoteMessagesInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -3193,6 +3261,7 @@ export type UserUncheckedCreateWithoutQuoteMessagesInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -3251,6 +3320,7 @@ export type UserUpdateWithoutQuoteMessagesInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -3293,6 +3363,7 @@ export type UserUncheckedUpdateWithoutQuoteMessagesInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -3335,6 +3406,7 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -3377,6 +3449,7 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -3435,6 +3508,7 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -3477,6 +3551,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -3519,6 +3594,7 @@ export type UserCreateWithoutJobsCreatedInput = {
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -3561,6 +3637,7 @@ export type UserUncheckedCreateWithoutJobsCreatedInput = {
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -3580,6 +3657,97 @@ export type UserUncheckedCreateWithoutJobsCreatedInput = {
 export type UserCreateOrConnectWithoutJobsCreatedInput = {
   where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutJobsCreatedInput, Prisma.UserUncheckedCreateWithoutJobsCreatedInput>
+}
+
+export type UserCreateWithoutJobsClosedInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  passwordHash?: string | null
+  isSuperAdmin?: boolean
+  jobTitle?: string | null
+  phone?: string | null
+  language?: $Enums.Language | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
+  ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
+  quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
+  createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
+  jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
+  jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
+  jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
+  jobFoldersCreated?: Prisma.JobFolderCreateNestedManyWithoutCreatedByInput
+  jobFilesUploaded?: Prisma.JobFileCreateNestedManyWithoutUploadedByInput
+  jobPostsWritten?: Prisma.JobPostCreateNestedManyWithoutAuthorInput
+  jobCommentsWritten?: Prisma.JobCommentCreateNestedManyWithoutAuthorInput
+  jobTodoListsCreated?: Prisma.JobTodoListCreateNestedManyWithoutCreatedByInput
+  jobTodosCreated?: Prisma.JobTodoCreateNestedManyWithoutCreatedByInput
+  jobTodosCompleted?: Prisma.JobTodoCreateNestedManyWithoutCompletedByInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeCreateNestedManyWithoutUserInput
+  jobEventsCreated?: Prisma.JobEventCreateNestedManyWithoutCreatedByInput
+  jobEventParticipations?: Prisma.JobEventParticipantCreateNestedManyWithoutUserInput
+  jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutAuthorInput
+}
+
+export type UserUncheckedCreateWithoutJobsClosedInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  passwordHash?: string | null
+  isSuperAdmin?: boolean
+  jobTitle?: string | null
+  phone?: string | null
+  language?: $Enums.Language | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
+  ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
+  createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
+  jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
+  jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
+  jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
+  jobFoldersCreated?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCreatedByInput
+  jobFilesUploaded?: Prisma.JobFileUncheckedCreateNestedManyWithoutUploadedByInput
+  jobPostsWritten?: Prisma.JobPostUncheckedCreateNestedManyWithoutAuthorInput
+  jobCommentsWritten?: Prisma.JobCommentUncheckedCreateNestedManyWithoutAuthorInput
+  jobTodoListsCreated?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutCreatedByInput
+  jobTodosCreated?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCreatedByInput
+  jobTodosCompleted?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCompletedByInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUncheckedCreateNestedManyWithoutUserInput
+  jobEventsCreated?: Prisma.JobEventUncheckedCreateNestedManyWithoutCreatedByInput
+  jobEventParticipations?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutUserInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+export type UserCreateOrConnectWithoutJobsClosedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutJobsClosedInput, Prisma.UserUncheckedCreateWithoutJobsClosedInput>
 }
 
 export type UserUpsertWithoutJobsCreatedInput = {
@@ -3619,6 +3787,7 @@ export type UserUpdateWithoutJobsCreatedInput = {
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -3661,6 +3830,104 @@ export type UserUncheckedUpdateWithoutJobsCreatedInput = {
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
+  jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
+  jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
+  jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
+  jobFoldersCreated?: Prisma.JobFolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobFilesUploaded?: Prisma.JobFileUncheckedUpdateManyWithoutUploadedByNestedInput
+  jobPostsWritten?: Prisma.JobPostUncheckedUpdateManyWithoutAuthorNestedInput
+  jobCommentsWritten?: Prisma.JobCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  jobTodoListsCreated?: Prisma.JobTodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobTodosCreated?: Prisma.JobTodoUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobTodosCompleted?: Prisma.JobTodoUncheckedUpdateManyWithoutCompletedByNestedInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUncheckedUpdateManyWithoutUserNestedInput
+  jobEventsCreated?: Prisma.JobEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobEventParticipations?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserUpsertWithoutJobsClosedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutJobsClosedInput, Prisma.UserUncheckedUpdateWithoutJobsClosedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutJobsClosedInput, Prisma.UserUncheckedCreateWithoutJobsClosedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutJobsClosedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutJobsClosedInput, Prisma.UserUncheckedUpdateWithoutJobsClosedInput>
+}
+
+export type UserUpdateWithoutJobsClosedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
+  ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
+  quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
+  createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
+  jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
+  jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
+  jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
+  jobFoldersCreated?: Prisma.JobFolderUpdateManyWithoutCreatedByNestedInput
+  jobFilesUploaded?: Prisma.JobFileUpdateManyWithoutUploadedByNestedInput
+  jobPostsWritten?: Prisma.JobPostUpdateManyWithoutAuthorNestedInput
+  jobCommentsWritten?: Prisma.JobCommentUpdateManyWithoutAuthorNestedInput
+  jobTodoListsCreated?: Prisma.JobTodoListUpdateManyWithoutCreatedByNestedInput
+  jobTodosCreated?: Prisma.JobTodoUpdateManyWithoutCreatedByNestedInput
+  jobTodosCompleted?: Prisma.JobTodoUpdateManyWithoutCompletedByNestedInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUpdateManyWithoutUserNestedInput
+  jobEventsCreated?: Prisma.JobEventUpdateManyWithoutCreatedByNestedInput
+  jobEventParticipations?: Prisma.JobEventParticipantUpdateManyWithoutUserNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutJobsClosedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
+  ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
+  createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
+  jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -3704,6 +3971,7 @@ export type UserCreateWithoutJobMembershipsInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
   jobFoldersCreated?: Prisma.JobFolderCreateNestedManyWithoutCreatedByInput
@@ -3746,6 +4014,7 @@ export type UserUncheckedCreateWithoutJobMembershipsInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
   jobFoldersCreated?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3793,6 +4062,7 @@ export type UserCreateWithoutJobMembersAddedInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
   jobFoldersCreated?: Prisma.JobFolderCreateNestedManyWithoutCreatedByInput
@@ -3835,6 +4105,7 @@ export type UserUncheckedCreateWithoutJobMembersAddedInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
   jobFoldersCreated?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3893,6 +4164,7 @@ export type UserUpdateWithoutJobMembershipsInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
   jobFoldersCreated?: Prisma.JobFolderUpdateManyWithoutCreatedByNestedInput
@@ -3935,6 +4207,7 @@ export type UserUncheckedUpdateWithoutJobMembershipsInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
   jobFoldersCreated?: Prisma.JobFolderUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3988,6 +4261,7 @@ export type UserUpdateWithoutJobMembersAddedInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
   jobFoldersCreated?: Prisma.JobFolderUpdateManyWithoutCreatedByNestedInput
@@ -4030,6 +4304,7 @@ export type UserUncheckedUpdateWithoutJobMembersAddedInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
   jobFoldersCreated?: Prisma.JobFolderUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4072,6 +4347,7 @@ export type UserCreateWithoutJobActivitiesInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobFoldersCreated?: Prisma.JobFolderCreateNestedManyWithoutCreatedByInput
@@ -4114,6 +4390,7 @@ export type UserUncheckedCreateWithoutJobActivitiesInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobFoldersCreated?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCreatedByInput
@@ -4172,6 +4449,7 @@ export type UserUpdateWithoutJobActivitiesInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobFoldersCreated?: Prisma.JobFolderUpdateManyWithoutCreatedByNestedInput
@@ -4214,6 +4492,7 @@ export type UserUncheckedUpdateWithoutJobActivitiesInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobFoldersCreated?: Prisma.JobFolderUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4256,6 +4535,7 @@ export type UserCreateWithoutJobFoldersCreatedInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -4298,6 +4578,7 @@ export type UserUncheckedCreateWithoutJobFoldersCreatedInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -4356,6 +4637,7 @@ export type UserUpdateWithoutJobFoldersCreatedInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -4398,6 +4680,7 @@ export type UserUncheckedUpdateWithoutJobFoldersCreatedInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -4440,6 +4723,7 @@ export type UserCreateWithoutJobFilesUploadedInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -4482,6 +4766,7 @@ export type UserUncheckedCreateWithoutJobFilesUploadedInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -4540,6 +4825,7 @@ export type UserUpdateWithoutJobFilesUploadedInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -4582,6 +4868,7 @@ export type UserUncheckedUpdateWithoutJobFilesUploadedInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -4624,6 +4911,7 @@ export type UserCreateWithoutJobPostsWrittenInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -4666,6 +4954,7 @@ export type UserUncheckedCreateWithoutJobPostsWrittenInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -4724,6 +5013,7 @@ export type UserUpdateWithoutJobPostsWrittenInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -4766,6 +5056,7 @@ export type UserUncheckedUpdateWithoutJobPostsWrittenInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -4808,6 +5099,7 @@ export type UserCreateWithoutJobCommentsWrittenInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -4850,6 +5142,7 @@ export type UserUncheckedCreateWithoutJobCommentsWrittenInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -4908,6 +5201,7 @@ export type UserUpdateWithoutJobCommentsWrittenInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -4950,6 +5244,7 @@ export type UserUncheckedUpdateWithoutJobCommentsWrittenInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -4992,6 +5287,7 @@ export type UserCreateWithoutJobEventsCreatedInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -5034,6 +5330,7 @@ export type UserUncheckedCreateWithoutJobEventsCreatedInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -5092,6 +5389,7 @@ export type UserUpdateWithoutJobEventsCreatedInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -5134,6 +5432,7 @@ export type UserUncheckedUpdateWithoutJobEventsCreatedInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -5176,6 +5475,7 @@ export type UserCreateWithoutJobEventParticipationsInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -5218,6 +5518,7 @@ export type UserUncheckedCreateWithoutJobEventParticipationsInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -5276,6 +5577,7 @@ export type UserUpdateWithoutJobEventParticipationsInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -5318,6 +5620,7 @@ export type UserUncheckedUpdateWithoutJobEventParticipationsInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -5360,6 +5663,7 @@ export type UserCreateWithoutJobTodoListsCreatedInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -5402,6 +5706,7 @@ export type UserUncheckedCreateWithoutJobTodoListsCreatedInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -5460,6 +5765,7 @@ export type UserUpdateWithoutJobTodoListsCreatedInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -5502,6 +5808,7 @@ export type UserUncheckedUpdateWithoutJobTodoListsCreatedInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -5544,6 +5851,7 @@ export type UserCreateWithoutJobTodosCompletedInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -5586,6 +5894,7 @@ export type UserUncheckedCreateWithoutJobTodosCompletedInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -5633,6 +5942,7 @@ export type UserCreateWithoutJobTodosCreatedInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -5675,6 +5985,7 @@ export type UserUncheckedCreateWithoutJobTodosCreatedInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -5733,6 +6044,7 @@ export type UserUpdateWithoutJobTodosCompletedInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -5775,6 +6087,7 @@ export type UserUncheckedUpdateWithoutJobTodosCompletedInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -5828,6 +6141,7 @@ export type UserUpdateWithoutJobTodosCreatedInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -5870,6 +6184,7 @@ export type UserUncheckedUpdateWithoutJobTodosCreatedInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -5912,6 +6227,7 @@ export type UserCreateWithoutJobTodoAssignmentsInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -5954,6 +6270,7 @@ export type UserUncheckedCreateWithoutJobTodoAssignmentsInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -6012,6 +6329,7 @@ export type UserUpdateWithoutJobTodoAssignmentsInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -6054,6 +6372,7 @@ export type UserUncheckedUpdateWithoutJobTodoAssignmentsInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -6096,6 +6415,7 @@ export type UserCreateWithoutJobChatMessagesInput = {
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
@@ -6138,6 +6458,7 @@ export type UserUncheckedCreateWithoutJobChatMessagesInput = {
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
   jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
   jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
   jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
@@ -6196,6 +6517,7 @@ export type UserUpdateWithoutJobChatMessagesInput = {
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
@@ -6238,6 +6560,7 @@ export type UserUncheckedUpdateWithoutJobChatMessagesInput = {
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
   jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
   jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
@@ -6273,6 +6596,7 @@ export type UserCountOutputType = {
   createdQuotes: number
   activities: number
   jobsCreated: number
+  jobsClosed: number
   jobMemberships: number
   jobMembersAdded: number
   jobActivities: number
@@ -6304,6 +6628,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   createdQuotes?: boolean | UserCountOutputTypeCountCreatedQuotesArgs
   activities?: boolean | UserCountOutputTypeCountActivitiesArgs
   jobsCreated?: boolean | UserCountOutputTypeCountJobsCreatedArgs
+  jobsClosed?: boolean | UserCountOutputTypeCountJobsClosedArgs
   jobMemberships?: boolean | UserCountOutputTypeCountJobMembershipsArgs
   jobMembersAdded?: boolean | UserCountOutputTypeCountJobMembersAddedArgs
   jobActivities?: boolean | UserCountOutputTypeCountJobActivitiesArgs
@@ -6425,6 +6750,13 @@ export type UserCountOutputTypeCountActivitiesArgs<ExtArgs extends runtime.Types
  * UserCountOutputType without action
  */
 export type UserCountOutputTypeCountJobsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JobWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountJobsClosedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.JobWhereInput
 }
 
@@ -6554,6 +6886,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdQuotes?: boolean | Prisma.User$createdQuotesArgs<ExtArgs>
   activities?: boolean | Prisma.User$activitiesArgs<ExtArgs>
   jobsCreated?: boolean | Prisma.User$jobsCreatedArgs<ExtArgs>
+  jobsClosed?: boolean | Prisma.User$jobsClosedArgs<ExtArgs>
   jobMemberships?: boolean | Prisma.User$jobMembershipsArgs<ExtArgs>
   jobMembersAdded?: boolean | Prisma.User$jobMembersAddedArgs<ExtArgs>
   jobActivities?: boolean | Prisma.User$jobActivitiesArgs<ExtArgs>
@@ -6632,6 +6965,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   createdQuotes?: boolean | Prisma.User$createdQuotesArgs<ExtArgs>
   activities?: boolean | Prisma.User$activitiesArgs<ExtArgs>
   jobsCreated?: boolean | Prisma.User$jobsCreatedArgs<ExtArgs>
+  jobsClosed?: boolean | Prisma.User$jobsClosedArgs<ExtArgs>
   jobMemberships?: boolean | Prisma.User$jobMembershipsArgs<ExtArgs>
   jobMembersAdded?: boolean | Prisma.User$jobMembersAddedArgs<ExtArgs>
   jobActivities?: boolean | Prisma.User$jobActivitiesArgs<ExtArgs>
@@ -6668,6 +7002,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     createdQuotes: Prisma.$QuotePayload<ExtArgs>[]
     activities: Prisma.$ActivityPayload<ExtArgs>[]
     jobsCreated: Prisma.$JobPayload<ExtArgs>[]
+    jobsClosed: Prisma.$JobPayload<ExtArgs>[]
     jobMemberships: Prisma.$JobMemberPayload<ExtArgs>[]
     jobMembersAdded: Prisma.$JobMemberPayload<ExtArgs>[]
     jobActivities: Prisma.$JobActivityPayload<ExtArgs>[]
@@ -7104,6 +7439,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   createdQuotes<T extends Prisma.User$createdQuotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdQuotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activities<T extends Prisma.User$activitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$activitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   jobsCreated<T extends Prisma.User$jobsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$jobsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  jobsClosed<T extends Prisma.User$jobsClosedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$jobsClosedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   jobMemberships<T extends Prisma.User$jobMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$jobMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   jobMembersAdded<T extends Prisma.User$jobMembersAddedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$jobMembersAddedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   jobActivities<T extends Prisma.User$jobActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$jobActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -7867,6 +8203,30 @@ export type User$activitiesArgs<ExtArgs extends runtime.Types.Extensions.Interna
  * User.jobsCreated
  */
 export type User$jobsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Job
+   */
+  select?: Prisma.JobSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Job
+   */
+  omit?: Prisma.JobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobInclude<ExtArgs> | null
+  where?: Prisma.JobWhereInput
+  orderBy?: Prisma.JobOrderByWithRelationInput | Prisma.JobOrderByWithRelationInput[]
+  cursor?: Prisma.JobWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JobScalarFieldEnum | Prisma.JobScalarFieldEnum[]
+}
+
+/**
+ * User.jobsClosed
+ */
+export type User$jobsClosedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Job
    */

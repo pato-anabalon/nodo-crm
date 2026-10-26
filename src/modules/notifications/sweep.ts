@@ -16,6 +16,7 @@ import { sweepScheduledEmails } from "@/modules/email-templates/sweep";
 import { closeExpiredQuotes } from "@/modules/quotes/sweep";
 import { nativeQuoteWhere } from "@/modules/quotes/native";
 import { endExpiredDemos, warnEndingDemos } from "@/modules/platform/demo-sweep";
+import { sweepDueJobTodos } from "@/modules/jobs/sweep";
 
 export type SweepResult = {
   /** Demos whose days ran out tonight and were switched off. */
@@ -27,6 +28,8 @@ export type SweepResult = {
   expiring: number;
   brokenForms: number;
   dueTasks: number;
+  /** To-dos on a job that reached their date, announced to whoever they are assigned to. */
+  dueJobTodos: number;
   /** The customer-facing emails that go on a calendar rather than an action. */
   firstFollowUps: number;
   secondFollowUps: number;
@@ -59,6 +62,8 @@ export async function runDailySweep(now: Date = new Date()): Promise<SweepResult
     select: {
       id: true,
       name: true,
+      slug: true,
+      timezone: true,
       quotePrefix: true,
       quoteNumberStart: true,
       defaultLanguage: true,
@@ -76,6 +81,7 @@ export async function runDailySweep(now: Date = new Date()): Promise<SweepResult
     expiring: 0,
     brokenForms: 0,
     dueTasks: 0,
+    dueJobTodos: 0,
     firstFollowUps: 0,
     secondFollowUps: 0,
     reviewRequests: 0,
@@ -90,6 +96,7 @@ export async function runDailySweep(now: Date = new Date()): Promise<SweepResult
     result.expiring += await sweepExpiringQuotes(company, now);
     result.brokenForms += await sweepBrokenForm(company, now);
     result.dueTasks += await sweepDueTasks(company, now);
+    result.dueJobTodos += await sweepDueJobTodos(company, now);
 
     // The three that go to the customer rather than to the team. They live in
     // the emails module because that is where their wording and their switches
@@ -109,6 +116,8 @@ type CompanyRow = {
   quotePrefix: string;
   quoteNumberStart: number;
   defaultLanguage: Language;
+  slug: string;
+  timezone: string;
 };
 
 async function sweepExpiringQuotes(company: CompanyRow, now: Date): Promise<number> {

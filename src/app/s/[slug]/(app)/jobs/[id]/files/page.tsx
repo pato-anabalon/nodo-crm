@@ -17,6 +17,7 @@ import {
   deleteFileAction,
   deleteFolderAction,
   moveFileAction,
+  moveFileToAction,
   registerJobFilesAction,
   renameFileAction,
   renameFolderAction,
@@ -24,6 +25,7 @@ import {
 import { JobUploader } from "@/modules/jobs/docs/job-uploader";
 import { NewFolderButton } from "@/modules/jobs/docs/name-dialogs";
 import { FileBrowser, type BrowserFile } from "@/modules/jobs/docs/file-browser";
+import { CrumbDrop, FileDndProvider } from "@/modules/jobs/docs/file-dnd";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -119,15 +121,19 @@ export default async function JobFilesPage({
       <div className="flex flex-wrap items-center justify-between gap-3">
         {/* Where we are: the job's Docs & Files, then each folder down to this one. */}
         <nav aria-label={t("breadcrumb")} className="flex min-w-0 flex-wrap items-center gap-1 text-sm">
-          <Link href={href({ folder: null, kind: null })} className={cn("hover:underline", trail.length === 0 && !filter && "font-semibold")}>
-            {t("title")}
-          </Link>
+          <CrumbDrop folderId={null} current={trail.length === 0}>
+            <Link href={href({ folder: null, kind: null })} draggable={false} className={cn("hover:underline", trail.length === 0 && !filter && "font-semibold")}>
+              {t("title")}
+            </Link>
+          </CrumbDrop>
           {trail.map((folder, index) => (
             <span key={folder.id} className="flex items-center gap-1">
               <ChevronRight className="size-4 text-muted-foreground" />
-              <Link href={href({ folder: folder.id, kind: null })} className={cn("hover:underline", index === trail.length - 1 && "font-semibold")}>
-                {folder.name}
-              </Link>
+              <CrumbDrop folderId={folder.id} current={index === trail.length - 1}>
+                <Link href={href({ folder: folder.id, kind: null })} draggable={false} className={cn("hover:underline", index === trail.length - 1 && "font-semibold")}>
+                  {folder.name}
+                </Link>
+              </CrumbDrop>
             </span>
           ))}
         </nav>
@@ -185,6 +191,8 @@ export default async function JobFilesPage({
         </div>
       </div>
 
+      {/* Dropping on a folder moves a file; a filter spreads the job's files over every folder, so there is no "here" to drop them in. */}
+      <FileDndProvider enabled={!filter} onMove={moveFileToAction}>
       {canCreate && !filter ? (
         <JobUploader
           jobId={job.id}
@@ -196,6 +204,7 @@ export default async function JobFilesPage({
       ) : (
         gallery
       )}
+      </FileDndProvider>
     </div>
   );
 }

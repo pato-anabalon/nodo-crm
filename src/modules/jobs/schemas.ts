@@ -44,7 +44,12 @@ export const jobDatesSchema = z
 
 export type JobDates = z.infer<typeof jobDatesSchema>;
 
-export const jobStatusSchema = z.nativeEnum(JobStatus);
+/**
+ * What the status select may set. `COMPLETED` is not one of them: finishing a
+ * job locks it and is its own action behind its own permission, so it cannot be
+ * reached through a select that only asks for `jobs.update`.
+ */
+export const jobStatusSchema = z.nativeEnum(JobStatus).refine((status) => status !== JobStatus.COMPLETED);
 
 export const tradeNameSchema = z.string().trim().min(1, "validation.required").max(60);
 

@@ -2,6 +2,7 @@ import type { CompanyContext } from "@/lib/auth/session";
 import { zonedInstant } from "@/lib/zoned-time";
 import { JobActivityType, JobStatus, NotificationKind, type Prisma } from "@/generated/prisma/client";
 import { notifyEach } from "@/modules/notifications/inbox";
+import { emailJobNotice } from "../emails";
 import { deleteStored, type UploadedFile } from "../files-service";
 import { logJobActivity } from "../service";
 import { jobVisibilityWhere } from "../scope";
@@ -176,12 +177,14 @@ export async function updateEvent(
 async function notifyParticipants(ctx: CompanyContext, jobId: string, eventId: string, title: string, userIds: string[]) {
   const recipients = await recipientsOnJob(ctx, jobId, userIds, "schedule.read");
   if (recipients.length === 0) return;
-  await notifyEach(recipients, {
+  const params = { by: ctx.user.name ?? ctx.user.email, job: await jobName(ctx, jobId), title };
+  const raised = await notifyEach(recipients, {
     companyId: ctx.company.id,
     kind: NotificationKind.JOB_EVENT,
-    params: { by: ctx.user.name ?? ctx.user.email, job: await jobName(ctx, jobId), title },
+    params,
     href: `/jobs/${jobId}/schedule/${eventId}`,
   });
+  emailJobNotice(ctx, { userIds: raised, template: "event", params, path: `/jobs/${jobId}/schedule/${eventId}` });
 }
 
 /** Deletes an event with its comments and their files, and its lines on the timeline. */

@@ -655,6 +655,7 @@ export type CompanyWhereInput = {
   jobEvents?: Prisma.JobEventListRelationFilter
   jobEventParticipants?: Prisma.JobEventParticipantListRelationFilter
   jobChatMessages?: Prisma.JobChatMessageListRelationFilter
+  jobScopeItems?: Prisma.JobScopeItemListRelationFilter
   trades?: Prisma.TradeListRelationFilter
 }
 
@@ -754,6 +755,7 @@ export type CompanyOrderByWithRelationInput = {
   jobEvents?: Prisma.JobEventOrderByRelationAggregateInput
   jobEventParticipants?: Prisma.JobEventParticipantOrderByRelationAggregateInput
   jobChatMessages?: Prisma.JobChatMessageOrderByRelationAggregateInput
+  jobScopeItems?: Prisma.JobScopeItemOrderByRelationAggregateInput
   trades?: Prisma.TradeOrderByRelationAggregateInput
 }
 
@@ -856,6 +858,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   jobEvents?: Prisma.JobEventListRelationFilter
   jobEventParticipants?: Prisma.JobEventParticipantListRelationFilter
   jobChatMessages?: Prisma.JobChatMessageListRelationFilter
+  jobScopeItems?: Prisma.JobScopeItemListRelationFilter
   trades?: Prisma.TradeListRelationFilter
 }, "id" | "slug">
 
@@ -1073,6 +1076,7 @@ export type CompanyCreateInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -1172,6 +1176,7 @@ export type CompanyUncheckedCreateInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -1271,6 +1276,7 @@ export type CompanyUpdateInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -1370,6 +1376,7 @@ export type CompanyUncheckedUpdateInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -2430,6 +2437,20 @@ export type CompanyUpdateOneRequiredWithoutJobChatMessagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutJobChatMessagesInput, Prisma.CompanyUpdateWithoutJobChatMessagesInput>, Prisma.CompanyUncheckedUpdateWithoutJobChatMessagesInput>
 }
 
+export type CompanyCreateNestedOneWithoutJobScopeItemsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutJobScopeItemsInput, Prisma.CompanyUncheckedCreateWithoutJobScopeItemsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutJobScopeItemsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutJobScopeItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutJobScopeItemsInput, Prisma.CompanyUncheckedCreateWithoutJobScopeItemsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutJobScopeItemsInput
+  upsert?: Prisma.CompanyUpsertWithoutJobScopeItemsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutJobScopeItemsInput, Prisma.CompanyUpdateWithoutJobScopeItemsInput>, Prisma.CompanyUncheckedUpdateWithoutJobScopeItemsInput>
+}
+
 export type CompanyCreateWithoutQuoteTypesInput = {
   id?: string
   slug: string
@@ -2525,6 +2546,7 @@ export type CompanyCreateWithoutQuoteTypesInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -2623,6 +2645,7 @@ export type CompanyUncheckedCreateWithoutQuoteTypesInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -2737,6 +2760,7 @@ export type CompanyUpdateWithoutQuoteTypesInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -2835,6 +2859,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTypesInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -2933,6 +2958,7 @@ export type CompanyCreateWithoutMembershipsInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -3031,6 +3057,7 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -3145,6 +3172,7 @@ export type CompanyUpdateWithoutMembershipsInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -3243,6 +3271,7 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -3341,6 +3370,7 @@ export type CompanyCreateWithoutLoginAttemptsInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -3439,6 +3469,7 @@ export type CompanyUncheckedCreateWithoutLoginAttemptsInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -3553,6 +3584,7 @@ export type CompanyUpdateWithoutLoginAttemptsInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -3651,6 +3683,7 @@ export type CompanyUncheckedUpdateWithoutLoginAttemptsInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -3749,6 +3782,7 @@ export type CompanyCreateWithoutRolesInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -3847,6 +3881,7 @@ export type CompanyUncheckedCreateWithoutRolesInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -3961,6 +3996,7 @@ export type CompanyUpdateWithoutRolesInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -4059,6 +4095,7 @@ export type CompanyUncheckedUpdateWithoutRolesInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -4157,6 +4194,7 @@ export type CompanyCreateWithoutInvitationsInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -4255,6 +4293,7 @@ export type CompanyUncheckedCreateWithoutInvitationsInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -4369,6 +4408,7 @@ export type CompanyUpdateWithoutInvitationsInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -4467,6 +4507,7 @@ export type CompanyUncheckedUpdateWithoutInvitationsInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -4565,6 +4606,7 @@ export type CompanyCreateWithoutTasksInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -4663,6 +4705,7 @@ export type CompanyUncheckedCreateWithoutTasksInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -4777,6 +4820,7 @@ export type CompanyUpdateWithoutTasksInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -4875,6 +4919,7 @@ export type CompanyUncheckedUpdateWithoutTasksInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -4973,6 +5018,7 @@ export type CompanyCreateWithoutNotificationsInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -5071,6 +5117,7 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -5185,6 +5232,7 @@ export type CompanyUpdateWithoutNotificationsInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -5283,6 +5331,7 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -5381,6 +5430,7 @@ export type CompanyCreateWithoutCatalogueInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -5479,6 +5529,7 @@ export type CompanyUncheckedCreateWithoutCatalogueInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -5593,6 +5644,7 @@ export type CompanyUpdateWithoutCatalogueInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -5691,6 +5743,7 @@ export type CompanyUncheckedUpdateWithoutCatalogueInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -5789,6 +5842,7 @@ export type CompanyCreateWithoutClientCompaniesInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -5887,6 +5941,7 @@ export type CompanyUncheckedCreateWithoutClientCompaniesInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -6001,6 +6056,7 @@ export type CompanyUpdateWithoutClientCompaniesInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -6099,6 +6155,7 @@ export type CompanyUncheckedUpdateWithoutClientCompaniesInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -6197,6 +6254,7 @@ export type CompanyCreateWithoutContactsInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -6295,6 +6353,7 @@ export type CompanyUncheckedCreateWithoutContactsInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -6409,6 +6468,7 @@ export type CompanyUpdateWithoutContactsInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -6507,6 +6567,7 @@ export type CompanyUncheckedUpdateWithoutContactsInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -6605,6 +6666,7 @@ export type CompanyCreateWithoutLeadsInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -6703,6 +6765,7 @@ export type CompanyUncheckedCreateWithoutLeadsInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -6817,6 +6880,7 @@ export type CompanyUpdateWithoutLeadsInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -6915,6 +6979,7 @@ export type CompanyUncheckedUpdateWithoutLeadsInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -7013,6 +7078,7 @@ export type CompanyCreateWithoutSubmissionsInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -7111,6 +7177,7 @@ export type CompanyUncheckedCreateWithoutSubmissionsInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -7225,6 +7292,7 @@ export type CompanyUpdateWithoutSubmissionsInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -7323,6 +7391,7 @@ export type CompanyUncheckedUpdateWithoutSubmissionsInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -7421,6 +7490,7 @@ export type CompanyCreateWithoutLeadAttachmentsInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -7519,6 +7589,7 @@ export type CompanyUncheckedCreateWithoutLeadAttachmentsInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -7633,6 +7704,7 @@ export type CompanyUpdateWithoutLeadAttachmentsInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -7731,6 +7803,7 @@ export type CompanyUncheckedUpdateWithoutLeadAttachmentsInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -7829,6 +7902,7 @@ export type CompanyCreateWithoutIngestKeysInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -7927,6 +8001,7 @@ export type CompanyUncheckedCreateWithoutIngestKeysInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -8041,6 +8116,7 @@ export type CompanyUpdateWithoutIngestKeysInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -8139,6 +8215,7 @@ export type CompanyUncheckedUpdateWithoutIngestKeysInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -8237,6 +8314,7 @@ export type CompanyCreateWithoutIngestAttemptsInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -8335,6 +8413,7 @@ export type CompanyUncheckedCreateWithoutIngestAttemptsInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -8449,6 +8528,7 @@ export type CompanyUpdateWithoutIngestAttemptsInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -8547,6 +8627,7 @@ export type CompanyUncheckedUpdateWithoutIngestAttemptsInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -8645,6 +8726,7 @@ export type CompanyCreateWithoutActivitiesInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -8743,6 +8825,7 @@ export type CompanyUncheckedCreateWithoutActivitiesInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -8857,6 +8940,7 @@ export type CompanyUpdateWithoutActivitiesInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -8955,6 +9039,7 @@ export type CompanyUncheckedUpdateWithoutActivitiesInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -9053,6 +9138,7 @@ export type CompanyCreateWithoutQuoteTemplatesInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -9151,6 +9237,7 @@ export type CompanyUncheckedCreateWithoutQuoteTemplatesInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -9265,6 +9352,7 @@ export type CompanyUpdateWithoutQuoteTemplatesInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -9363,6 +9451,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTemplatesInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -9461,6 +9550,7 @@ export type CompanyCreateWithoutQuotesInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -9559,6 +9649,7 @@ export type CompanyUncheckedCreateWithoutQuotesInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -9673,6 +9764,7 @@ export type CompanyUpdateWithoutQuotesInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -9771,6 +9863,7 @@ export type CompanyUncheckedUpdateWithoutQuotesInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -9869,6 +9962,7 @@ export type CompanyCreateWithoutDocumentsInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -9967,6 +10061,7 @@ export type CompanyUncheckedCreateWithoutDocumentsInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -10081,6 +10176,7 @@ export type CompanyUpdateWithoutDocumentsInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -10179,6 +10275,7 @@ export type CompanyUncheckedUpdateWithoutDocumentsInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -10277,6 +10374,7 @@ export type CompanyCreateWithoutQuoteSharesInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -10375,6 +10473,7 @@ export type CompanyUncheckedCreateWithoutQuoteSharesInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -10489,6 +10588,7 @@ export type CompanyUpdateWithoutQuoteSharesInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -10587,6 +10687,7 @@ export type CompanyUncheckedUpdateWithoutQuoteSharesInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -10685,6 +10786,7 @@ export type CompanyCreateWithoutQuoteRecipientsInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -10783,6 +10885,7 @@ export type CompanyUncheckedCreateWithoutQuoteRecipientsInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -10897,6 +11000,7 @@ export type CompanyUpdateWithoutQuoteRecipientsInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -10995,6 +11099,7 @@ export type CompanyUncheckedUpdateWithoutQuoteRecipientsInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -11093,6 +11198,7 @@ export type CompanyCreateWithoutSignatureHandoffsInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -11191,6 +11297,7 @@ export type CompanyUncheckedCreateWithoutSignatureHandoffsInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -11305,6 +11412,7 @@ export type CompanyUpdateWithoutSignatureHandoffsInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -11403,6 +11511,7 @@ export type CompanyUncheckedUpdateWithoutSignatureHandoffsInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -11501,6 +11610,7 @@ export type CompanyCreateWithoutQuoteEventsInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -11599,6 +11709,7 @@ export type CompanyUncheckedCreateWithoutQuoteEventsInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -11713,6 +11824,7 @@ export type CompanyUpdateWithoutQuoteEventsInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -11811,6 +11923,7 @@ export type CompanyUncheckedUpdateWithoutQuoteEventsInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -11909,6 +12022,7 @@ export type CompanyCreateWithoutQuoteMessagesInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -12007,6 +12121,7 @@ export type CompanyUncheckedCreateWithoutQuoteMessagesInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -12121,6 +12236,7 @@ export type CompanyUpdateWithoutQuoteMessagesInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -12219,6 +12335,7 @@ export type CompanyUncheckedUpdateWithoutQuoteMessagesInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -12317,6 +12434,7 @@ export type CompanyCreateWithoutAcceptancesInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -12415,6 +12533,7 @@ export type CompanyUncheckedCreateWithoutAcceptancesInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -12529,6 +12648,7 @@ export type CompanyUpdateWithoutAcceptancesInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -12627,6 +12747,7 @@ export type CompanyUncheckedUpdateWithoutAcceptancesInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -12725,6 +12846,7 @@ export type CompanyCreateWithoutReviewLinksInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -12823,6 +12945,7 @@ export type CompanyUncheckedCreateWithoutReviewLinksInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -12937,6 +13060,7 @@ export type CompanyUpdateWithoutReviewLinksInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -13035,6 +13159,7 @@ export type CompanyUncheckedUpdateWithoutReviewLinksInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -13133,6 +13258,7 @@ export type CompanyCreateWithoutEmailTemplatesInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -13231,6 +13357,7 @@ export type CompanyUncheckedCreateWithoutEmailTemplatesInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -13345,6 +13472,7 @@ export type CompanyUpdateWithoutEmailTemplatesInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -13443,6 +13571,7 @@ export type CompanyUncheckedUpdateWithoutEmailTemplatesInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -13541,6 +13670,7 @@ export type CompanyCreateWithoutReviewsInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -13639,6 +13769,7 @@ export type CompanyUncheckedCreateWithoutReviewsInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -13753,6 +13884,7 @@ export type CompanyUpdateWithoutReviewsInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -13851,6 +13983,7 @@ export type CompanyUncheckedUpdateWithoutReviewsInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -13949,6 +14082,7 @@ export type CompanyCreateWithoutNotificationPreferencesInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -14047,6 +14181,7 @@ export type CompanyUncheckedCreateWithoutNotificationPreferencesInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -14161,6 +14296,7 @@ export type CompanyUpdateWithoutNotificationPreferencesInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -14259,6 +14395,7 @@ export type CompanyUncheckedUpdateWithoutNotificationPreferencesInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -14357,6 +14494,7 @@ export type CompanyCreateWithoutJobsInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -14455,6 +14593,7 @@ export type CompanyUncheckedCreateWithoutJobsInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -14569,6 +14708,7 @@ export type CompanyUpdateWithoutJobsInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -14667,6 +14807,7 @@ export type CompanyUncheckedUpdateWithoutJobsInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -14765,6 +14906,7 @@ export type CompanyCreateWithoutJobMembersInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -14863,6 +15005,7 @@ export type CompanyUncheckedCreateWithoutJobMembersInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -14977,6 +15120,7 @@ export type CompanyUpdateWithoutJobMembersInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -15075,6 +15219,7 @@ export type CompanyUncheckedUpdateWithoutJobMembersInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -15173,6 +15318,7 @@ export type CompanyCreateWithoutJobActivitiesInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -15271,6 +15417,7 @@ export type CompanyUncheckedCreateWithoutJobActivitiesInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -15385,6 +15532,7 @@ export type CompanyUpdateWithoutJobActivitiesInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -15483,6 +15631,7 @@ export type CompanyUncheckedUpdateWithoutJobActivitiesInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -15581,6 +15730,7 @@ export type CompanyCreateWithoutJobFoldersInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -15679,6 +15829,7 @@ export type CompanyUncheckedCreateWithoutJobFoldersInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -15793,6 +15944,7 @@ export type CompanyUpdateWithoutJobFoldersInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -15891,6 +16043,7 @@ export type CompanyUncheckedUpdateWithoutJobFoldersInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -15989,6 +16142,7 @@ export type CompanyCreateWithoutJobFilesInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -16087,6 +16241,7 @@ export type CompanyUncheckedCreateWithoutJobFilesInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -16201,6 +16356,7 @@ export type CompanyUpdateWithoutJobFilesInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -16299,6 +16455,7 @@ export type CompanyUncheckedUpdateWithoutJobFilesInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -16397,6 +16554,7 @@ export type CompanyCreateWithoutJobPostCategoriesInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -16495,6 +16653,7 @@ export type CompanyUncheckedCreateWithoutJobPostCategoriesInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -16609,6 +16768,7 @@ export type CompanyUpdateWithoutJobPostCategoriesInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -16707,6 +16867,7 @@ export type CompanyUncheckedUpdateWithoutJobPostCategoriesInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -16805,6 +16966,7 @@ export type CompanyCreateWithoutJobPostsInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -16903,6 +17065,7 @@ export type CompanyUncheckedCreateWithoutJobPostsInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -17017,6 +17180,7 @@ export type CompanyUpdateWithoutJobPostsInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -17115,6 +17279,7 @@ export type CompanyUncheckedUpdateWithoutJobPostsInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -17213,6 +17378,7 @@ export type CompanyCreateWithoutJobCommentsInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -17311,6 +17477,7 @@ export type CompanyUncheckedCreateWithoutJobCommentsInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -17425,6 +17592,7 @@ export type CompanyUpdateWithoutJobCommentsInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -17523,6 +17691,7 @@ export type CompanyUncheckedUpdateWithoutJobCommentsInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -17621,6 +17790,7 @@ export type CompanyCreateWithoutJobEventsInput = {
   jobTodoAssignees?: Prisma.JobTodoAssigneeCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -17719,6 +17889,7 @@ export type CompanyUncheckedCreateWithoutJobEventsInput = {
   jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -17833,6 +18004,7 @@ export type CompanyUpdateWithoutJobEventsInput = {
   jobTodoAssignees?: Prisma.JobTodoAssigneeUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -17931,6 +18103,7 @@ export type CompanyUncheckedUpdateWithoutJobEventsInput = {
   jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -18029,6 +18202,7 @@ export type CompanyCreateWithoutJobEventParticipantsInput = {
   jobTodoAssignees?: Prisma.JobTodoAssigneeCreateNestedManyWithoutCompanyInput
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -18127,6 +18301,7 @@ export type CompanyUncheckedCreateWithoutJobEventParticipantsInput = {
   jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedCreateNestedManyWithoutCompanyInput
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -18241,6 +18416,7 @@ export type CompanyUpdateWithoutJobEventParticipantsInput = {
   jobTodoAssignees?: Prisma.JobTodoAssigneeUpdateManyWithoutCompanyNestedInput
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -18339,6 +18515,7 @@ export type CompanyUncheckedUpdateWithoutJobEventParticipantsInput = {
   jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedUpdateManyWithoutCompanyNestedInput
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -18437,6 +18614,7 @@ export type CompanyCreateWithoutJobTodoListsInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -18535,6 +18713,7 @@ export type CompanyUncheckedCreateWithoutJobTodoListsInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -18649,6 +18828,7 @@ export type CompanyUpdateWithoutJobTodoListsInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -18747,6 +18927,7 @@ export type CompanyUncheckedUpdateWithoutJobTodoListsInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -18845,6 +19026,7 @@ export type CompanyCreateWithoutJobTodosInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -18943,6 +19125,7 @@ export type CompanyUncheckedCreateWithoutJobTodosInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -19057,6 +19240,7 @@ export type CompanyUpdateWithoutJobTodosInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -19155,6 +19339,7 @@ export type CompanyUncheckedUpdateWithoutJobTodosInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -19253,6 +19438,7 @@ export type CompanyCreateWithoutJobTodoAssigneesInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -19351,6 +19537,7 @@ export type CompanyUncheckedCreateWithoutJobTodoAssigneesInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -19465,6 +19652,7 @@ export type CompanyUpdateWithoutJobTodoAssigneesInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -19563,6 +19751,7 @@ export type CompanyUncheckedUpdateWithoutJobTodoAssigneesInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -19662,6 +19851,7 @@ export type CompanyCreateWithoutTradesInput = {
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutTradesInput = {
@@ -19760,6 +19950,7 @@ export type CompanyUncheckedCreateWithoutTradesInput = {
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutTradesInput = {
@@ -19874,6 +20065,7 @@ export type CompanyUpdateWithoutTradesInput = {
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutTradesInput = {
@@ -19972,6 +20164,7 @@ export type CompanyUncheckedUpdateWithoutTradesInput = {
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
   jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutJobChatMessagesInput = {
@@ -20069,6 +20262,7 @@ export type CompanyCreateWithoutJobChatMessagesInput = {
   jobTodoAssignees?: Prisma.JobTodoAssigneeCreateNestedManyWithoutCompanyInput
   jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
 }
 
@@ -20167,6 +20361,7 @@ export type CompanyUncheckedCreateWithoutJobChatMessagesInput = {
   jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedCreateNestedManyWithoutCompanyInput
   jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -20281,6 +20476,7 @@ export type CompanyUpdateWithoutJobChatMessagesInput = {
   jobTodoAssignees?: Prisma.JobTodoAssigneeUpdateManyWithoutCompanyNestedInput
   jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
 }
 
@@ -20379,6 +20575,419 @@ export type CompanyUncheckedUpdateWithoutJobChatMessagesInput = {
   jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedUpdateManyWithoutCompanyNestedInput
   jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
   jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
+  trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutJobScopeItemsInput = {
+  id?: string
+  slug: string
+  name: string
+  legalName?: string | null
+  taxId?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  logoUrl?: string | null
+  pdfLogoUrl?: string | null
+  watermarkUrl?: string | null
+  primaryColor?: string
+  accentColor?: string
+  defaultLanguage?: $Enums.Language
+  currency?: string
+  formatLocale?: string
+  timezone?: string
+  defaultTaxType?: $Enums.TaxType
+  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: string
+  quoteValidityDays?: number
+  quoteNumberStart?: number
+  quoteFooter?: string | null
+  slogan?: string | null
+  senderNameStyle?: $Enums.SenderNameStyle
+  firstFollowUpDays?: number
+  secondFollowUpDays?: number
+  reviewRequestDays?: number
+  sendQuoteCopy?: boolean
+  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
+  quoteIntro?: string | null
+  quoteNotes?: string | null
+  quoteExclusions?: string | null
+  quoteTerms?: string | null
+  quoteScope?: string | null
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  acceptanceMode?: $Enums.AcceptanceMode
+  acceptanceStatement?: string | null
+  requireSignature?: boolean
+  askAdditionalComments?: boolean
+  askOrderReference?: boolean
+  isActive?: boolean
+  approvedAt?: Date | string | null
+  isDemo?: boolean
+  demoDays?: number | null
+  demoStartedAt?: Date | string | null
+  demoEndsAt?: Date | string | null
+  demoEndedAt?: Date | string | null
+  demoWarnedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipCreateNestedManyWithoutCompanyInput
+  loginAttempts?: Prisma.LoginAttemptCreateNestedManyWithoutCompanyInput
+  roles?: Prisma.RoleCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutCompanyInput
+  leads?: Prisma.LeadCreateNestedManyWithoutCompanyInput
+  quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
+  quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
+  clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
+  catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
+  quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
+  submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
+  ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
+  quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
+  acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
+  emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
+  reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
+  jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
+  jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
+  jobFolders?: Prisma.JobFolderCreateNestedManyWithoutCompanyInput
+  jobFiles?: Prisma.JobFileCreateNestedManyWithoutCompanyInput
+  jobPostCategories?: Prisma.JobPostCategoryCreateNestedManyWithoutCompanyInput
+  jobPosts?: Prisma.JobPostCreateNestedManyWithoutCompanyInput
+  jobComments?: Prisma.JobCommentCreateNestedManyWithoutCompanyInput
+  jobTodoLists?: Prisma.JobTodoListCreateNestedManyWithoutCompanyInput
+  jobTodos?: Prisma.JobTodoCreateNestedManyWithoutCompanyInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeCreateNestedManyWithoutCompanyInput
+  jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
+  jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
+  jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutJobScopeItemsInput = {
+  id?: string
+  slug: string
+  name: string
+  legalName?: string | null
+  taxId?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  logoUrl?: string | null
+  pdfLogoUrl?: string | null
+  watermarkUrl?: string | null
+  primaryColor?: string
+  accentColor?: string
+  defaultLanguage?: $Enums.Language
+  currency?: string
+  formatLocale?: string
+  timezone?: string
+  defaultTaxType?: $Enums.TaxType
+  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: string
+  quoteValidityDays?: number
+  quoteNumberStart?: number
+  quoteFooter?: string | null
+  slogan?: string | null
+  senderNameStyle?: $Enums.SenderNameStyle
+  firstFollowUpDays?: number
+  secondFollowUpDays?: number
+  reviewRequestDays?: number
+  sendQuoteCopy?: boolean
+  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
+  quoteIntro?: string | null
+  quoteNotes?: string | null
+  quoteExclusions?: string | null
+  quoteTerms?: string | null
+  quoteScope?: string | null
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  acceptanceMode?: $Enums.AcceptanceMode
+  acceptanceStatement?: string | null
+  requireSignature?: boolean
+  askAdditionalComments?: boolean
+  askOrderReference?: boolean
+  isActive?: boolean
+  approvedAt?: Date | string | null
+  isDemo?: boolean
+  demoDays?: number | null
+  demoStartedAt?: Date | string | null
+  demoEndsAt?: Date | string | null
+  demoEndedAt?: Date | string | null
+  demoWarnedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutCompanyInput
+  loginAttempts?: Prisma.LoginAttemptUncheckedCreateNestedManyWithoutCompanyInput
+  roles?: Prisma.RoleUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutCompanyInput
+  leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCompanyInput
+  quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
+  quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
+  clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
+  catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
+  submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
+  ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
+  quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
+  acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
+  emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
+  jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
+  jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
+  jobFolders?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCompanyInput
+  jobFiles?: Prisma.JobFileUncheckedCreateNestedManyWithoutCompanyInput
+  jobPostCategories?: Prisma.JobPostCategoryUncheckedCreateNestedManyWithoutCompanyInput
+  jobPosts?: Prisma.JobPostUncheckedCreateNestedManyWithoutCompanyInput
+  jobComments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutCompanyInput
+  jobTodoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutCompanyInput
+  jobTodos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCompanyInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedCreateNestedManyWithoutCompanyInput
+  jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
+  jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutJobScopeItemsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutJobScopeItemsInput, Prisma.CompanyUncheckedCreateWithoutJobScopeItemsInput>
+}
+
+export type CompanyUpsertWithoutJobScopeItemsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutJobScopeItemsInput, Prisma.CompanyUncheckedUpdateWithoutJobScopeItemsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutJobScopeItemsInput, Prisma.CompanyUncheckedCreateWithoutJobScopeItemsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutJobScopeItemsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutJobScopeItemsInput, Prisma.CompanyUncheckedUpdateWithoutJobScopeItemsInput>
+}
+
+export type CompanyUpdateWithoutJobScopeItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
+  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
+  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
+  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
+  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
+  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isDemo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  demoDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  demoStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoWarnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUpdateManyWithoutCompanyNestedInput
+  loginAttempts?: Prisma.LoginAttemptUpdateManyWithoutCompanyNestedInput
+  roles?: Prisma.RoleUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutCompanyNestedInput
+  leads?: Prisma.LeadUpdateManyWithoutCompanyNestedInput
+  quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
+  quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
+  clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
+  catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
+  quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
+  submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
+  ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
+  quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
+  acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
+  emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
+  reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
+  jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
+  jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
+  jobFolders?: Prisma.JobFolderUpdateManyWithoutCompanyNestedInput
+  jobFiles?: Prisma.JobFileUpdateManyWithoutCompanyNestedInput
+  jobPostCategories?: Prisma.JobPostCategoryUpdateManyWithoutCompanyNestedInput
+  jobPosts?: Prisma.JobPostUpdateManyWithoutCompanyNestedInput
+  jobComments?: Prisma.JobCommentUpdateManyWithoutCompanyNestedInput
+  jobTodoLists?: Prisma.JobTodoListUpdateManyWithoutCompanyNestedInput
+  jobTodos?: Prisma.JobTodoUpdateManyWithoutCompanyNestedInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeUpdateManyWithoutCompanyNestedInput
+  jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
+  jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutJobScopeItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
+  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
+  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
+  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
+  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
+  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isDemo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  demoDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  demoStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoWarnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutCompanyNestedInput
+  loginAttempts?: Prisma.LoginAttemptUncheckedUpdateManyWithoutCompanyNestedInput
+  roles?: Prisma.RoleUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  leads?: Prisma.LeadUncheckedUpdateManyWithoutCompanyNestedInput
+  quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
+  clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
+  catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
+  submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
+  ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
+  jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
+  jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
+  jobFolders?: Prisma.JobFolderUncheckedUpdateManyWithoutCompanyNestedInput
+  jobFiles?: Prisma.JobFileUncheckedUpdateManyWithoutCompanyNestedInput
+  jobPostCategories?: Prisma.JobPostCategoryUncheckedUpdateManyWithoutCompanyNestedInput
+  jobPosts?: Prisma.JobPostUncheckedUpdateManyWithoutCompanyNestedInput
+  jobComments?: Prisma.JobCommentUncheckedUpdateManyWithoutCompanyNestedInput
+  jobTodoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutCompanyNestedInput
+  jobTodos?: Prisma.JobTodoUncheckedUpdateManyWithoutCompanyNestedInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedUpdateManyWithoutCompanyNestedInput
+  jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
+  jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -20431,6 +21040,7 @@ export type CompanyCountOutputType = {
   jobEvents: number
   jobEventParticipants: number
   jobChatMessages: number
+  jobScopeItems: number
   trades: number
 }
 
@@ -20478,6 +21088,7 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   jobEvents?: boolean | CompanyCountOutputTypeCountJobEventsArgs
   jobEventParticipants?: boolean | CompanyCountOutputTypeCountJobEventParticipantsArgs
   jobChatMessages?: boolean | CompanyCountOutputTypeCountJobChatMessagesArgs
+  jobScopeItems?: boolean | CompanyCountOutputTypeCountJobScopeItemsArgs
   trades?: boolean | CompanyCountOutputTypeCountTradesArgs
 }
 
@@ -20795,6 +21406,13 @@ export type CompanyCountOutputTypeCountJobChatMessagesArgs<ExtArgs extends runti
 /**
  * CompanyCountOutputType without action
  */
+export type CompanyCountOutputTypeCountJobScopeItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JobScopeItemWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
 export type CompanyCountOutputTypeCountTradesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.TradeWhereInput
 }
@@ -20896,6 +21514,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   jobEvents?: boolean | Prisma.Company$jobEventsArgs<ExtArgs>
   jobEventParticipants?: boolean | Prisma.Company$jobEventParticipantsArgs<ExtArgs>
   jobChatMessages?: boolean | Prisma.Company$jobChatMessagesArgs<ExtArgs>
+  jobScopeItems?: boolean | Prisma.Company$jobScopeItemsArgs<ExtArgs>
   trades?: boolean | Prisma.Company$tradesArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
@@ -21110,6 +21729,7 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   jobEvents?: boolean | Prisma.Company$jobEventsArgs<ExtArgs>
   jobEventParticipants?: boolean | Prisma.Company$jobEventParticipantsArgs<ExtArgs>
   jobChatMessages?: boolean | Prisma.Company$jobChatMessagesArgs<ExtArgs>
+  jobScopeItems?: boolean | Prisma.Company$jobScopeItemsArgs<ExtArgs>
   trades?: boolean | Prisma.Company$tradesArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -21162,6 +21782,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     jobEvents: Prisma.$JobEventPayload<ExtArgs>[]
     jobEventParticipants: Prisma.$JobEventParticipantPayload<ExtArgs>[]
     jobChatMessages: Prisma.$JobChatMessagePayload<ExtArgs>[]
+    jobScopeItems: Prisma.$JobScopeItemPayload<ExtArgs>[]
     trades: Prisma.$TradePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -21755,6 +22376,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   jobEvents<T extends Prisma.Company$jobEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$jobEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   jobEventParticipants<T extends Prisma.Company$jobEventParticipantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$jobEventParticipantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobEventParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   jobChatMessages<T extends Prisma.Company$jobChatMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$jobChatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  jobScopeItems<T extends Prisma.Company$jobScopeItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$jobScopeItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobScopeItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   trades<T extends Prisma.Company$tradesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$tradesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -23259,6 +23881,30 @@ export type Company$jobChatMessagesArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.JobChatMessageScalarFieldEnum | Prisma.JobChatMessageScalarFieldEnum[]
+}
+
+/**
+ * Company.jobScopeItems
+ */
+export type Company$jobScopeItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JobScopeItem
+   */
+  select?: Prisma.JobScopeItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JobScopeItem
+   */
+  omit?: Prisma.JobScopeItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobScopeItemInclude<ExtArgs> | null
+  where?: Prisma.JobScopeItemWhereInput
+  orderBy?: Prisma.JobScopeItemOrderByWithRelationInput | Prisma.JobScopeItemOrderByWithRelationInput[]
+  cursor?: Prisma.JobScopeItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JobScopeItemScalarFieldEnum | Prisma.JobScopeItemScalarFieldEnum[]
 }
 
 /**

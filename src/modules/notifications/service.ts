@@ -29,7 +29,21 @@ export type MailInput = {
   actionUrl?: string;
   /** Where a reply goes, for the notices whose sender is the platform's own address. */
   replyTo?: string;
+  /** A quiet line at the foot, for where to change what arrives. */
+  footer?: { label: string; url: string };
 };
+
+/** The same notice without markup: the part a client falls back to, and what spam filters look for. */
+function plainText(input: MailInput): string {
+  return [
+    input.heading,
+    ...input.lines,
+    input.actionUrl && input.actionLabel ? `${input.actionLabel}: ${input.actionUrl}` : null,
+    input.footer ? `${input.footer.label}: ${input.footer.url}` : null,
+  ]
+    .filter(Boolean)
+    .join("\n\n");
+}
 
 export async function sendNotice(input: MailInput): Promise<boolean> {
   const resend = getResend();
@@ -44,6 +58,10 @@ export async function sendNotice(input: MailInput): Promise<boolean> {
       ? `<p style="margin:20px 0 0"><a href="${escapeHtml(input.actionUrl)}" style="font-size:14px">${escapeHtml(input.actionLabel)}</a></p>`
       : "";
 
+  const footer = input.footer
+    ? `<p style="margin:28px 0 0;font-size:12px;color:#64748b"><a href="${escapeHtml(input.footer.url)}" style="color:#64748b">${escapeHtml(input.footer.label)}</a></p>`
+    : "";
+
   const { error } = await resend.emails.send({
     from: defaultFrom(input.companyName),
     to: input.to.email,
@@ -51,8 +69,9 @@ export async function sendNotice(input: MailInput): Promise<boolean> {
     subject: input.subject,
     html: `<div style="font-family:system-ui,-apple-system,sans-serif;max-width:560px;margin:0 auto;color:#0f172a">
   <h1 style="font-size:18px;margin:0 0 12px">${escapeHtml(input.heading)}</h1>
-  ${body}${action}
+  ${body}${action}${footer}
 </div>`,
+    text: plainText(input),
   });
 
   return !error;

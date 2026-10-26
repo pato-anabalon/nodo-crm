@@ -134,22 +134,31 @@ export async function renameFileAction(
   return { message: t("jobs.files.renamed") };
 }
 
-export async function moveFileAction(
-  fileId: string,
-  _prev: JobActionState,
-  formData: FormData,
-): Promise<JobActionState> {
+async function moveTo(fileId: string, folderId: string | null): Promise<JobActionState> {
   const t = await getTranslations("jobs.files");
   const guarded = await fileGuard(fileId, "files.update");
   if (!guarded) return { error: t("notAllowed") };
 
-  const target = formData.get("folderId");
-  const folderId = typeof target === "string" && target !== "" ? target : null;
   const moved = await moveFile(guarded.ctx, guarded.file.jobId, fileId, folderId);
   if (!moved) return { error: t("registerErrors.folder") };
 
   refresh(guarded.file.jobId);
   return { message: t("moved") };
+}
+
+/** The Move dialog: the folder comes from a select, "" meaning the top level. */
+export async function moveFileAction(
+  fileId: string,
+  _prev: JobActionState,
+  formData: FormData,
+): Promise<JobActionState> {
+  const target = formData.get("folderId");
+  return moveTo(fileId, typeof target === "string" && target !== "" ? target : null);
+}
+
+/** Dropping a file on a folder: the same move and the same checks, with no form in between. */
+export async function moveFileToAction(fileId: string, folderId: string | null): Promise<JobActionState> {
+  return moveTo(fileId, folderId);
 }
 
 export async function deleteFileAction(fileId: string): Promise<JobActionState> {

@@ -1,6 +1,7 @@
 import type { CompanyContext } from "@/lib/auth/session";
 import { JobActivityType, NotificationKind } from "@/generated/prisma/client";
 import { notifyEach } from "@/modules/notifications/inbox";
+import { emailJobNotice } from "../emails";
 import { attachFiles, deleteStored, detachFiles, jobFileSelect, type UploadedFile } from "../files-service";
 import { logJobActivity } from "../service";
 import { jobName, membersAmong, recipientsOnJob } from "../recipients";
@@ -344,12 +345,14 @@ export async function updateTodo(
 async function notifyAssigned(ctx: CompanyContext, jobId: string, todoId: string, title: string, userIds: string[]) {
   const recipients = await recipientsOnJob(ctx, jobId, userIds, "todos.read");
   if (recipients.length === 0) return;
-  await notifyEach(recipients, {
+  const params = { by: ctx.user.name ?? ctx.user.email, job: await jobName(ctx, jobId), title };
+  const raised = await notifyEach(recipients, {
     companyId: ctx.company.id,
     kind: NotificationKind.JOB_TODO_ASSIGNED,
-    params: { by: ctx.user.name ?? ctx.user.email, job: await jobName(ctx, jobId), title },
+    params,
     href: `/jobs/${jobId}/todos/${todoId}`,
   });
+  emailJobNotice(ctx, { userIds: raised, template: "todoAssigned", params, path: `/jobs/${jobId}/todos/${todoId}` });
 }
 
 /**

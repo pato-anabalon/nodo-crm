@@ -109,7 +109,8 @@ export const ModelName = {
   JobTodoAssignee: 'JobTodoAssignee',
   Trade: 'Trade',
   MembershipTrade: 'MembershipTrade',
-  JobChatMessage: 'JobChatMessage'
+  JobChatMessage: 'JobChatMessage',
+  JobScopeItem: 'JobScopeItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -876,6 +877,8 @@ export const JobScalarFieldEnum = {
   quoteId: 'quoteId',
   leadId: 'leadId',
   status: 'status',
+  closedAt: 'closedAt',
+  closedById: 'closedById',
   startsOn: 'startsOn',
   endsOn: 'endsOn',
   color: 'color',
@@ -1108,6 +1111,19 @@ export const JobChatMessageScalarFieldEnum = {
 } as const
 
 export type JobChatMessageScalarFieldEnum = (typeof JobChatMessageScalarFieldEnum)[keyof typeof JobChatMessageScalarFieldEnum]
+
+
+export const JobScopeItemScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  jobId: 'jobId',
+  position: 'position',
+  title: 'title',
+  body: 'body',
+  createdAt: 'createdAt'
+} as const
+
+export type JobScopeItemScalarFieldEnum = (typeof JobScopeItemScalarFieldEnum)[keyof typeof JobScopeItemScalarFieldEnum]
 
 
 export const SortOrder = {

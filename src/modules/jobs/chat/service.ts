@@ -2,6 +2,7 @@ import type { CompanyContext } from "@/lib/auth/session";
 import { JobActivityType, NotificationKind } from "@/generated/prisma/enums";
 import { zonedInstant } from "@/lib/zoned-time";
 import { notifyEach } from "@/modules/notifications/inbox";
+import { emailJobNotice } from "../emails";
 import { attachFiles, deleteStored, jobFileSelect, type UploadedFile } from "../files-service";
 import { jobName, recipientsOnJob } from "../recipients";
 import { addDays } from "../schedule/calendar";
@@ -124,12 +125,14 @@ export async function sendChatMessage(
 async function notifyMentions(ctx: CompanyContext, jobId: string, messageId: string, body: string, mentionIds: string[]) {
   const recipients = await recipientsOnJob(ctx, jobId, mentionIds, "chat.read");
   if (recipients.length === 0) return;
-  await notifyEach(recipients, {
+  const params = { by: ctx.user.name ?? ctx.user.email, job: await jobName(ctx, jobId), excerpt: chatExcerpt(body) };
+  const raised = await notifyEach(recipients, {
     companyId: ctx.company.id,
     kind: NotificationKind.JOB_CHAT_MENTION,
-    params: { by: ctx.user.name ?? ctx.user.email, job: await jobName(ctx, jobId), excerpt: chatExcerpt(body) },
+    params,
     href: `/jobs/${jobId}/chat#message-${messageId}`,
   });
+  emailJobNotice(ctx, { userIds: raised, template: "mention", params, path: `/jobs/${jobId}/chat#message-${messageId}` });
 }
 
 /** Deletes a message with its files, and recounts its author's line for that day. */

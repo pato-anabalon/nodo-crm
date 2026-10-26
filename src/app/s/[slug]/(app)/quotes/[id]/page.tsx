@@ -1,3 +1,4 @@
+import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, FileText } from "lucide-react";
@@ -189,6 +190,12 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
               <Badge variant="outline" className={QUOTE_STATUS_CLASS[quote.status]}>
                 {t(`status.${quote.status}`)}
               </Badge>
+              {job?.status === "COMPLETED" ? (
+                <span className="inline-flex items-center gap-1 text-xs font-medium text-[var(--status-accepted-text)]">
+                  <CheckCircle2 className="size-3.5" />
+                  {t("jobCompleted")}
+                </span>
+              ) : null}
               {quote.lead ? (
                 <Link href={`/leads/${quote.lead.id}`} className="hover:underline">
                   · {quote.lead.title}

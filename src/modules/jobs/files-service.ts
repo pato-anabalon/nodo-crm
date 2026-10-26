@@ -75,19 +75,34 @@ export async function allJobFiles(ctx: CompanyContext, jobId: string) {
 
 export type JobFileRow = Awaited<ReturnType<typeof folderContents>>["files"][number];
 
-/** How many files, and the latest photos — the Docs & Files card on the job's page. */
+/** The most tiles the Docs & Files card draws, folders and files together. */
+const CARD_TILES = 6;
+/** Folders take the first places, but never the whole card: the files are what people came for. */
+const CARD_FOLDERS = 3;
+
+/**
+ * How many files and folders, and what to draw on the job's Docs & Files card:
+ * the top-level folders first, then the latest files of any kind — a plan or a
+ * spreadsheet is as much a part of the job as a photo.
+ */
 export async function filesSummary(ctx: CompanyContext, jobId: string) {
-  const [count, images] = await Promise.all([
+  const [count, folderCount, folders] = await Promise.all([
     ctx.db.jobFile.count({ where: { jobId, ...filed } }),
-    ctx.db.jobFile.findMany({
-      // A PDF has a cover too, but this card promises photos.
-      where: { jobId, ...filed, thumbnailUrl: { not: null }, contentType: { startsWith: "image/" } },
-      orderBy: { createdAt: "desc" },
-      take: 6,
-      select: { id: true, name: true, thumbnailUrl: true },
+    ctx.db.jobFolder.count({ where: { jobId } }),
+    ctx.db.jobFolder.findMany({
+      where: { jobId, parentId: null },
+      orderBy: { name: "asc" },
+      take: CARD_FOLDERS,
+      select: { id: true, name: true },
     }),
   ]);
-  return { count, images };
+  const files = await ctx.db.jobFile.findMany({
+    where: { jobId, ...filed },
+    orderBy: { createdAt: "desc" },
+    take: CARD_TILES - folders.length,
+    select: { id: true, name: true, contentType: true, thumbnailUrl: true },
+  });
+  return { count, folderCount, folders, files };
 }
 
 /** The files a timeline row mentions, those still there. */

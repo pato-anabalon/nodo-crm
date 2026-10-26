@@ -1,3 +1,4 @@
+import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { Download, Plus } from "lucide-react";
 import { getTranslations } from "next-intl/server";
@@ -70,6 +71,10 @@ export default async function QuotesPage({
   }
 
   const canSeeAmounts = can(ctx, "quotes.read.amounts");
+  // Whether the work is done is the job's to say; whoever can't open jobs isn't shown it.
+  const canSeeJobs = can(ctx, "jobs.read");
+  const jobCompleted = (quote: { status: string; job: { status: string } | null }) =>
+    canSeeJobs && quote.status === "ACCEPTED" && quote.job?.status === "COMPLETED";
 
   const raw = await searchParams;
   const filters = quoteFiltersSchema.parse({
@@ -198,6 +203,7 @@ export default async function QuotesPage({
             companyName: quote.clientCompanyName,
             statusLabel: t(`status.${quote.status}`),
             statusClass: QUOTE_STATUS_SOFT_CLASS[quote.status],
+            jobCompletedLabel: jobCompleted(quote) ? t("jobCompleted") : null,
             sent: quote.sentAt ? ago(quote.sentAt) : null,
             seen: (
               <QuoteSeen
@@ -307,6 +313,12 @@ export default async function QuotesPage({
                       >
                         {t(`status.${quote.status}`)}
                       </div>
+                      {jobCompleted(quote) ? (
+                        <div className="mt-0.5 flex items-center gap-1 text-xs font-medium text-[var(--status-accepted-text)]">
+                          <CheckCircle2 className="size-3.5" />
+                          {t("jobCompleted")}
+                        </div>
+                      ) : null}
                       <div className="mt-0.5 text-xs">
                         <QuoteSeen
                           quoteId={quote.id}

@@ -93,6 +93,10 @@ export function describeJobActivity(
       const label = (Object.values(JobStatus) as string[]).includes(to) ? t(`status.${to}`) : to;
       return t("STATUS_CHANGED", { actor, to: label });
     }
+    case JobActivityType.JOB_FINISHED:
+      return t("JOB_FINISHED", { actor });
+    case JobActivityType.JOB_REOPENED:
+      return t("JOB_REOPENED", { actor });
     case JobActivityType.DATES_CHANGED: {
       const start = str("startsOn");
       const end = str("endsOn");

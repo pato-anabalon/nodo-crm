@@ -112,7 +112,15 @@ export async function getLead(ctx: CompanyContext, id: string) {
       contact: true,
       quotes: {
         orderBy: { createdAt: "desc" },
-        select: { id: true, number: true, title: true, status: true, total: true, currency: true },
+        select: {
+          id: true,
+          number: true,
+          title: true,
+          status: true,
+          total: true,
+          currency: true,
+          job: { select: { status: true } },
+        },
       },
       activities: {
         orderBy: { createdAt: "desc" },

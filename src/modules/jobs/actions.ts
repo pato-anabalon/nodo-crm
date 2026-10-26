@@ -18,6 +18,8 @@ import {
   setFollowing,
   setJobDates,
   setJobStatus,
+  finishJob,
+  reopenJob,
   setMemberTrades,
   startJobFromQuote,
   updateJob,
@@ -141,6 +143,25 @@ export async function setJobStatusAction(
   await setJobStatus(ctx, jobId, parsed.data);
   refresh(jobId);
   return { message: t("statusSaved") };
+}
+
+/** The lock is its own permission: the people who may fix a typo are not all the people who may end the work. */
+export async function finishJobAction(jobId: string): Promise<JobActionState> {
+  const { ctx } = await requireJobContext(jobId, "jobs.finish");
+  const t = await getTranslations("jobs.closed");
+
+  await finishJob(ctx, jobId);
+  refresh(jobId);
+  return { message: t("finished") };
+}
+
+export async function reopenJobAction(jobId: string): Promise<JobActionState> {
+  const { ctx } = await requireJobContext(jobId, "jobs.reopen");
+  const t = await getTranslations("jobs.closed");
+
+  await reopenJob(ctx, jobId);
+  refresh(jobId);
+  return { message: t("reopened") };
 }
 
 export async function deleteJobAction(jobId: string): Promise<void> {

@@ -1,16 +1,19 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, CalendarDays, FileText, Flag, FolderOpen, ListChecks, MapPin, MessageCircle, MessagesSquare, Paperclip } from "lucide-react";
+import { ArrowLeft, CalendarDays, ClipboardList, Lock, FileText, Flag, FolderOpen, ListChecks, MapPin, MessageCircle, MessagesSquare, Paperclip } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { can, requireCompanyContext } from "@/lib/auth/session";
 import { Button } from "@/components/ui/button";
 import { formatDate, formatQuoteNumber } from "@/lib/format";
+import { cn } from "@/lib/utils";
 import { roleDisplayName } from "@/lib/auth/role-name";
-import { getJob, jobActivity, memberCandidates, tradesByUser } from "@/modules/jobs/service";
+import { getJob, jobActivity, jobScope, memberCandidates, tradesByUser } from "@/modules/jobs/service";
 import {
   addJobMembersAction,
   deleteJobAction,
+  finishJobAction,
   removeJobMemberAction,
+  reopenJobAction,
   setFollowingAction,
   setJobDatesAction,
   setJobStatusAction,
@@ -19,6 +22,8 @@ import {
 import { dayKey } from "@/modules/jobs/schemas";
 import { activityFileIds, activityHref, dateRange, dayIn, groupByDay } from "@/modules/jobs/timeline";
 import { filesByIds, filesSummary } from "@/modules/jobs/files-service";
+import { extensionOf, kindOfContentType } from "@/modules/jobs/files";
+import { DocumentTile, FolderGlyph } from "@/modules/jobs/docs/document-tile";
 import { latestPosts } from "@/modules/jobs/board/service";
 import { todosSummary } from "@/modules/jobs/todos/service";
 import { upcomingEvents } from "@/modules/jobs/schedule/service";
@@ -30,7 +35,8 @@ import { personName } from "@/modules/jobs/avatars";
 import { activityDescriber } from "@/modules/jobs/activity-feed";
 import { PersonAvatar } from "@/modules/jobs/avatars";
 import { JobPeople, type JobPerson } from "@/modules/jobs/job-people";
-import { DeleteJobButton, EditJobButton, JobDatesButton, JobStatusSelect } from "@/modules/jobs/job-controls";
+import { DeleteJobButton, EditJobButton, FinishJobButton, JobDatesButton, JobStatusSelect, ReopenJobButton } from "@/modules/jobs/job-controls";
+import { isJobClosed, withoutWrites } from "@/modules/jobs/closing";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -41,11 +47,14 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function JobPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const ctx = await requireCompanyContext();
-  if (!can(ctx, "jobs.read")) notFound();
+  const session = await requireCompanyContext();
+  if (!can(session, "jobs.read")) notFound();
 
-  const job = await getJob(ctx, id);
+  const job = await getJob(session, id);
   if (!job) notFound();
+  // A finished job is drawn with a read-only context, so nothing below offers what would be refused.
+  const closed = isJobClosed(job.status);
+  const ctx = closed ? withoutWrites(session) : session;
 
   const canMembers = can(ctx, "jobs.members");
   const canFiles = can(ctx, "files.read");
@@ -54,7 +63,7 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
   const canSchedule = can(ctx, "schedule.read");
   const canChat = can(ctx, "chat.read");
   const today = dayIn(new Date(), ctx.company.timezone);
-  const [t, tRoles, activity, candidates, trades, files, board, todos, schedule, chat] = await Promise.all([
+  const [t, tRoles, activity, candidates, trades, files, board, todos, schedule, chat, scope] = await Promise.all([
     getTranslations("jobs"),
     getTranslations("roles"),
     jobActivity(ctx, job.id),
@@ -65,6 +74,7 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
     canTodos ? todosSummary(ctx, job.id) : Promise.resolve(null),
     canSchedule ? upcomingEvents(ctx, job.id, today) : Promise.resolve(null),
     canChat ? chatSummary(ctx, job.id) : Promise.resolve(null),
+    jobScope(ctx, job.id),
   ]);
   const [describe, mentionedFiles] = await Promise.all([
     activityDescriber(ctx, activity),
@@ -156,6 +166,24 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
         </div>
 
         <div className="flex flex-wrap gap-2">
+          {!closed && can(ctx, "jobs.finish") ? (
+            <FinishJobButton
+              name={job.name}
+              onFinish={async () => {
+                "use server";
+                return finishJobAction(jobId);
+              }}
+            />
+          ) : null}
+          {closed && can(ctx, "jobs.reopen") ? (
+            <ReopenJobButton
+              name={job.name}
+              onReopen={async () => {
+                "use server";
+                return reopenJobAction(jobId);
+              }}
+            />
+          ) : null}
           {can(ctx, "jobs.update") ? (
             <EditJobButton
               action={updateJobAction.bind(null, jobId)}
@@ -174,6 +202,20 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
         </div>
       </div>
 
+      {closed ? (
+        <div role="status" className="flex items-start gap-3 rounded-xl border bg-muted/50 p-4 text-sm">
+          <Lock className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+          <p>
+            {job.closedAt
+              ? t("closed.bannerBy", {
+                  name: job.closedBy?.name ?? job.closedBy?.email ?? t("closed.someone"),
+                  date: formatDate(job.closedAt, ctx.company.formatLocale, ctx.company.timezone),
+                })
+              : t("closed.banner")}
+          </p>
+        </div>
+      ) : null}
+
       <JobPeople
         members={members}
         candidates={candidates.map((c) => ({ ...c, roleName: roleDisplayName(c.role, tRoles) }))}
@@ -190,6 +232,27 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
           return setFollowingAction(jobId, following);
         }}
       />
+
+      {scope.length > 0 ? (
+        <Link
+          href={`/jobs/${jobId}/scope`}
+          className="group flex flex-col gap-3 rounded-xl border bg-card p-4 transition-colors hover:bg-accent/40"
+        >
+          <span className="flex items-center gap-2 font-semibold">
+            <ClipboardList className="size-5 text-muted-foreground" />
+            {t("scope.title")}
+            <span className="ml-auto text-xs font-normal text-muted-foreground">{t("scope.count", { count: scope.length })}</span>
+          </span>
+          <ul className="space-y-1 text-sm">
+            {scope.slice(0, 4).map((item) => (
+              <li key={item.id} className="truncate">
+                {item.title}
+              </li>
+            ))}
+            {scope.length > 4 ? <li className="text-muted-foreground">…</li> : null}
+          </ul>
+        </Link>
+      ) : null}
 
       {board || todos || schedule || chat || files ? (
         <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -347,25 +410,41 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
                 {t("files.title")}
                 <span className="ml-auto text-xs font-normal text-muted-foreground">
                   {t("files.count", { count: files.count })}
+                  {files.folderCount > 0 ? ` · ${t("files.folderCount", { count: files.folderCount })}` : ""}
                 </span>
               </span>
-              {files.images.length > 0 ? (
+              {files.folders.length + files.files.length > 0 ? (
                 <span className="grid grid-cols-3 gap-1.5">
-                  {files.images.map((image) => (
-                    // eslint-disable-next-line @next/next/no-img-element -- a small copy made at upload.
-                    <img
-                      key={image.id}
-                      src={image.thumbnailUrl ?? undefined}
-                      alt=""
-                      loading="lazy"
-                      className="aspect-square w-full rounded object-cover"
-                    />
+                  {files.folders.map((folder) => (
+                    <span
+                      key={folder.id}
+                      className="flex aspect-square w-full flex-col items-center justify-center gap-1 overflow-hidden rounded bg-muted/60 p-1.5"
+                    >
+                      <FolderGlyph className="size-8" />
+                      <span className="w-full truncate text-center text-xs font-medium">{folder.name}</span>
+                    </span>
                   ))}
+                  {files.files.map((file) => {
+                    const kind = kindOfContentType(file.contentType);
+                    return (
+                      <span key={file.id} className="aspect-square w-full overflow-hidden rounded">
+                        {file.thumbnailUrl ? (
+                          // eslint-disable-next-line @next/next/no-img-element -- a small copy made at upload.
+                          <img
+                            src={file.thumbnailUrl}
+                            alt=""
+                            loading="lazy"
+                            className={cn("size-full object-cover", kind === "pdf" && "object-top")}
+                          />
+                        ) : (
+                          <DocumentTile kind={kind} extension={extensionOf(file.name)} />
+                        )}
+                      </span>
+                    );
+                  })}
                 </span>
               ) : (
-                <span className="text-sm italic text-muted-foreground">
-                  {files.count === 0 ? t("files.cardEmpty") : t("files.cardNoPhotos")}
-                </span>
+                <span className="text-sm italic text-muted-foreground">{t("files.cardEmpty")}</span>
               )}
             </Link>
           ) : null}

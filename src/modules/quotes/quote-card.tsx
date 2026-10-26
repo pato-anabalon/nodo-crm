@@ -1,5 +1,6 @@
 "use client";
 
+import { CheckCircle2 } from "lucide-react";
 import type { ReactNode } from "react";
 import { CalendarDays, MousePointerClick } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -28,6 +29,8 @@ export type QuoteCardData = {
   companyName: string | null;
   statusLabel: string;
   statusClass: string;
+  /** "Job completed" once the job this quote became has been finished, otherwise null. */
+  jobCompletedLabel?: string | null;
   /** "3 days ago", or null when it has not gone out. */
   sent: string | null;
   seen: ReactNode;
@@ -76,6 +79,22 @@ export function QuoteCard({
     </span>
   );
 
+  // The quote stays Accepted — that is what the customer decided — and this says
+  // what became of the work. A second mark beside it rather than a different status.
+  const completed = quote.jobCompletedLabel ? (
+    <span className="inline-flex shrink-0 items-center gap-1 text-xs font-medium whitespace-nowrap text-[var(--status-accepted-text)]">
+      <CheckCircle2 className="size-3.5" />
+      {quote.jobCompletedLabel}
+    </span>
+  ) : null;
+
+  const statusMarks = (
+    <div className="flex flex-col items-end gap-1">
+      {badge}
+      {completed}
+    </div>
+  );
+
   const customer = (
     <div className="min-w-0">
       {balanced ? (
@@ -115,10 +134,10 @@ export function QuoteCard({
         {balanced ? (
           <div className="shrink-0 text-right">
             <div className="mb-1 text-xs text-muted-foreground">{t("columns.status")}</div>
-            {badge}
+            {statusMarks}
           </div>
         ) : (
-          badge
+          statusMarks
         )}
       </div>
 

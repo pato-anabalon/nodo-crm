@@ -9,6 +9,7 @@ import { leadPipelineSummary } from "@/modules/leads/service";
 import { listQuotes, recentQuotesByStatus } from "@/modules/quotes/service";
 import { LEAD_PIPELINE, isClosedStatus } from "@/modules/leads/constants";
 import { QUOTE_STATUS_CLASS } from "@/modules/quotes/constants";
+import { JobCompletedMark, isJobCompleted } from "@/modules/quotes/job-completed-mark";
 import { HiddenAmount } from "@/modules/quotes/hidden-amount";
 import { QuoteStatus } from "@/generated/prisma/enums";
 import { formatMoney, formatQuoteNumber } from "@/lib/format";
@@ -25,6 +26,7 @@ type QuoteRow = {
   reference: string;
   statusLabel: string;
   statusClass: string;
+  jobCompletedLabel: string | null;
   amount: React.ReactNode;
 };
 
@@ -44,6 +46,7 @@ export default async function DashboardPage() {
   const showFunnel = can(ctx, "leads.read");
   const showQuotes = can(ctx, "quotes.read");
   const canSeeAmounts = can(ctx, "quotes.read.amounts");
+  const canSeeJobs = can(ctx, "jobs.read");
 
   const [pipeline, recentQuotes, lastSent, lastAccepted] = await Promise.all([
     showFunnel ? leadPipelineSummary(ctx) : Promise.resolve([]),
@@ -64,6 +67,7 @@ export default async function DashboardPage() {
       status: QuoteStatus;
       total: unknown;
       currency: string;
+      job?: { status: string } | null;
     }>,
   ): QuoteRow[] =>
     quotes.map((quote) => ({
@@ -72,6 +76,7 @@ export default async function DashboardPage() {
       reference: formatQuoteNumber(ctx.company.quotePrefix, quote.number),
       statusLabel: tQuotes(`status.${quote.status}`),
       statusClass: QUOTE_STATUS_CLASS[quote.status],
+      jobCompletedLabel: isJobCompleted(quote, canSeeJobs) ? tQuotes("jobCompleted") : null,
       amount: canSeeAmounts ? (
         formatMoney(Number(quote.total), quote.currency, ctx.company.formatLocale)
       ) : (
@@ -216,6 +221,7 @@ function QuoteListCard({
                 <Badge variant="outline" className={row.statusClass}>
                   {row.statusLabel}
                 </Badge>
+                {row.jobCompletedLabel ? <JobCompletedMark label={row.jobCompletedLabel} /> : null}
                 <span className="tabular-nums">{row.amount}</span>
               </div>
             </Link>

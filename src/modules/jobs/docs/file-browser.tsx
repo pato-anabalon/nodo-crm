@@ -6,13 +6,6 @@ import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import {
   Download,
-  DraftingCompass,
-  File as FileIcon,
-  FileSpreadsheet,
-  FileText,
-  Film,
-  Presentation,
-  Folder,
   FolderInput,
   MoreHorizontal,
   Pencil,
@@ -32,10 +25,15 @@ import { Table, TableBody, TableCard, TableCell, TableHead, TableHeader, TableRo
 import type { Option } from "@/lib/intl/options";
 import { cn } from "@/lib/utils";
 import type { FileKind } from "../files";
+import { DocumentTile, FolderGlyph, KindIcon, documentTone } from "./document-tile";
+import { DraggableFile, DropTarget, useMovedFileIds, type DraggedFile } from "./file-dnd";
 import { PersonAvatar, type Person } from "../avatars";
 import type { JobActionState } from "../actions";
 import { Lightbox, type MediaItem } from "./lightbox";
 import { MoveDialog, NameDialog } from "./name-dialogs";
+
+// Kept importable from here: the tests and the Message Board read them from this module.
+export { DocumentTile, KindIcon, documentTone };
 
 export type BrowserFolder = {
   id: string;
@@ -64,6 +62,17 @@ export type BrowserFile = {
   canDelete: boolean;
 };
 
+function draggedFile(file: BrowserFile): DraggedFile {
+  return {
+    id: file.id,
+    name: file.name,
+    folderId: file.folderId,
+    kind: file.kind,
+    extension: file.extension,
+    thumbnailUrl: file.thumbnailUrl,
+  };
+}
+
 type BoundAction = (id: string, state: JobActionState, formData: FormData) => Promise<JobActionState>;
 
 /**
@@ -73,7 +82,7 @@ type BoundAction = (id: string, state: JobActionState, formData: FormData) => Pr
  */
 export function FileBrowser({
   folders,
-  files,
+  files: allFiles,
   view,
   emptyLabel,
   moveTargets,
@@ -95,6 +104,9 @@ export function FileBrowser({
   onDeleteFolder: (id: string) => Promise<JobActionState>;
 }) {
   const t = useTranslations("jobs.files");
+  // A file just dropped on a folder is gone from here before the server has said so.
+  const moved = useMovedFileIds();
+  const files = allFiles.filter((file) => !moved.has(file.id));
   const media: MediaItem[] = files
     .filter((file) => file.kind !== "document")
     .map((file) => ({
@@ -126,16 +138,26 @@ export function FileBrowser({
           {folders.length > 0 ? (
             <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
               {folders.map((folder) => (
-                <li key={folder.id} className="group relative rounded-lg border bg-card transition-colors hover:bg-accent/40">
-                  <Link href={folder.href} className="flex items-center gap-3 p-3 pr-10">
-                    <Folder className="size-8 shrink-0 fill-amber-200 text-amber-500 dark:fill-amber-500/30" />
-                    <span className="min-w-0">
-                      <span className="block truncate text-sm font-medium">{folder.name}</span>
-                      <span className="block truncate text-xs text-muted-foreground">{folder.contents}</span>
-                    </span>
-                  </Link>
-                  <FolderMenu folder={folder} onRename={onRenameFolder} onDelete={onDeleteFolder} className="absolute top-2 right-2" />
-                </li>
+                <DropTarget key={folder.id} folderId={folder.id}>
+                  {({ ref, over }) => (
+                    <li
+                      ref={ref}
+                      className={cn(
+                        "group relative rounded-lg border bg-card transition-colors hover:bg-accent/40",
+                        over && "border-primary bg-primary/10 ring-2 ring-primary",
+                      )}
+                    >
+                      <Link href={folder.href} draggable={false} className="flex items-center gap-3 p-3 pr-10">
+                        <FolderGlyph className="size-8" />
+                        <span className="min-w-0">
+                          <span className="block truncate text-sm font-medium">{folder.name}</span>
+                          <span className="block truncate text-xs text-muted-foreground">{folder.contents}</span>
+                        </span>
+                      </Link>
+                      <FolderMenu folder={folder} onRename={onRenameFolder} onDelete={onDeleteFolder} className="absolute top-2 right-2" />
+                    </li>
+                  )}
+                </DropTarget>
               ))}
             </ul>
           ) : null}
@@ -144,6 +166,7 @@ export function FileBrowser({
             <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
               {files.map((file) => (
                 <li key={file.id} className="group relative overflow-hidden rounded-lg border bg-card">
+                  <DraggableFile file={draggedFile(file)}>
                   <button
                     type="button"
                     onClick={() => openFile(file)}
@@ -156,6 +179,7 @@ export function FileBrowser({
                           src={file.thumbnailUrl}
                           alt=""
                           loading="lazy"
+                          draggable={false}
                           // A document's cover reads from the top: its title, not the middle of the page.
                           className={cn("size-full object-cover", file.kind === "pdf" && "object-top")}
                         />
@@ -179,6 +203,7 @@ export function FileBrowser({
                       </p>
                     </div>
                   </button>
+                  </DraggableFile>
                   <FileMenu
                     file={file}
                     {...menuProps}
@@ -203,14 +228,16 @@ export function FileBrowser({
             </TableHeader>
             <TableBody>
               {folders.map((folder) => (
-                <TableRow key={folder.id}>
+                <DropTarget key={folder.id} folderId={folder.id}>
+                  {({ ref, over }) => (
+                <TableRow ref={ref} className={cn(over && "bg-primary/10 ring-2 ring-primary ring-inset")}>
                   {/* `max-w-0` with `w-full` is what lets a long name truncate: a table
                       cell otherwise grows to its text's width, and the whole table
                       with it. On a phone the columns that don't fit move under the
                       name instead of disappearing. */}
                   <TableCell className="w-full max-w-0">
-                    <Link href={folder.href} className="group flex items-center gap-3 font-medium">
-                      <Folder className="size-5 shrink-0 fill-amber-200 text-amber-500 dark:fill-amber-500/30" />
+                    <Link href={folder.href} draggable={false} className="group flex items-center gap-3 font-medium">
+                      <FolderGlyph className="size-5" />
                       <span className="min-w-0">
                         <span className="block truncate group-hover:underline">{folder.name}</span>
                         <span className="block truncate text-xs font-normal text-muted-foreground sm:hidden">
@@ -226,14 +253,17 @@ export function FileBrowser({
                     <FolderMenu folder={folder} onRename={onRenameFolder} onDelete={onDeleteFolder} />
                   </TableCell>
                 </TableRow>
+                  )}
+                </DropTarget>
               ))}
               {files.map((file) => (
                 <TableRow key={file.id}>
                   <TableCell className="w-full max-w-0">
+                    <DraggableFile file={draggedFile(file)}>
                     <button type="button" onClick={() => openFile(file)} className="group flex w-full min-w-0 items-center gap-3 text-left">
                       {file.thumbnailUrl ? (
                         // eslint-disable-next-line @next/next/no-img-element -- already a small copy made at upload.
-                        <img src={file.thumbnailUrl} alt="" loading="lazy" className="size-9 shrink-0 rounded object-cover" />
+                        <img src={file.thumbnailUrl} alt="" loading="lazy" draggable={false} className="size-9 shrink-0 rounded object-cover" />
                       ) : (
                         <span className={cn("flex size-9 shrink-0 items-center justify-center rounded", documentTone(file.kind, file.extension).tile)}>
                           <KindIcon kind={file.kind} extension={file.extension} className="size-4" />
@@ -248,6 +278,7 @@ export function FileBrowser({
                         </span>
                       </span>
                     </button>
+                    </DraggableFile>
                   </TableCell>
                   <TableCell className="hidden sm:table-cell">
                     {file.uploadedBy ? (
@@ -272,54 +303,6 @@ export function FileBrowser({
       <Lightbox items={media} index={open} onIndexChange={setOpen} />
     </>
   );
-}
-
-/**
- * A file with no picture, told apart by colour: Word blue, Excel green,
- * PowerPoint orange, PDF red — the colours those programs already taught
- * everybody — and plans in slate. The extension is written large beside it,
- * so the colour is never the only thing saying what the file is.
- */
-export function DocumentTile({ kind, extension }: { kind: FileKind; extension: string }) {
-  const tone = documentTone(kind, extension);
-  // A video already carries the play button in the middle; the dark ground is enough.
-  if (kind === "video") return <span className={cn("size-full", tone.tile)} />;
-  return (
-    <span className={cn("flex size-full flex-col items-center justify-center gap-2", tone.tile)}>
-      <KindIcon kind={kind} extension={extension} className="size-9" />
-      {extension ? <span className="text-sm font-bold tracking-wider uppercase">{extension}</span> : null}
-    </span>
-  );
-}
-
-const TONES = {
-  word: "bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300",
-  sheet: "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300",
-  slides: "bg-orange-50 text-orange-700 dark:bg-orange-500/15 dark:text-orange-300",
-  pdf: "bg-red-50 text-red-700 dark:bg-red-500/15 dark:text-red-300",
-  plan: "bg-slate-200 text-slate-700 dark:bg-slate-500/20 dark:text-slate-300",
-  video: "bg-neutral-800 text-white/70",
-  other: "bg-muted text-muted-foreground",
-} as const;
-
-export function documentTone(kind: FileKind, extension: string): { tile: string } {
-  if (kind === "video") return { tile: TONES.video };
-  if (kind === "pdf") return { tile: TONES.pdf };
-  if (["doc", "docx"].includes(extension)) return { tile: TONES.word };
-  if (["xls", "xlsx", "csv"].includes(extension)) return { tile: TONES.sheet };
-  if (["ppt", "pptx"].includes(extension)) return { tile: TONES.slides };
-  if (["dwg", "dxf"].includes(extension)) return { tile: TONES.plan };
-  return { tile: TONES.other };
-}
-
-export function KindIcon({ kind, extension, className }: { kind: FileKind; extension: string; className?: string }) {
-  if (kind === "video") return <Film className={className} />;
-  if (kind === "pdf") return <FileText className={className} />;
-  if (["xls", "xlsx", "csv"].includes(extension)) return <FileSpreadsheet className={className} />;
-  if (["ppt", "pptx"].includes(extension)) return <Presentation className={className} />;
-  if (["dwg", "dxf"].includes(extension)) return <DraftingCompass className={className} />;
-  if (["doc", "docx", "txt"].includes(extension)) return <FileText className={className} />;
-  return <FileIcon className={className} />;
 }
 
 function FileMenu({

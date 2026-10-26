@@ -25,6 +25,7 @@ import {
 } from "@/modules/leads/actions";
 import { leadStatusVariant } from "@/modules/leads/constants";
 import { QUOTE_STATUS_CLASS } from "@/modules/quotes/constants";
+import { JobCompletedMark, isJobCompleted } from "@/modules/quotes/job-completed-mark";
 import { formatMoney, formatQuoteNumber } from "@/lib/format";
 
 export default async function LeadDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -43,6 +44,7 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
 
   const discarded = lead.discardedAt !== null;
   const canEdit = can(ctx, "leads.update") && !discarded;
+  const canSeeJobs = can(ctx, "jobs.read");
   const canAssign = can(ctx, "leads.assign");
   const members = canAssign ? await listCompanyMembers(ctx) : [];
 
@@ -212,6 +214,9 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
                       <Badge variant="outline" className={QUOTE_STATUS_CLASS[quote.status]}>
                         {tQuotes(`status.${quote.status}`)}
                       </Badge>
+                      {isJobCompleted(quote, canSeeJobs) ? (
+                        <JobCompletedMark label={tQuotes("jobCompleted")} />
+                      ) : null}
                       <span className="tabular-nums">
                         {formatMoney(Number(quote.total), quote.currency, ctx.company.formatLocale)}
                       </span>

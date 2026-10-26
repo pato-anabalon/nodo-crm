@@ -216,6 +216,8 @@ enum NotificationKind {
   JOB_TODO_COMPLETED
   JOB_EVENT
   JOB_CHAT_MENTION
+  JOB_FINISHED
+  JOB_TODO_DUE
 }
 
 /**
@@ -442,6 +444,7 @@ model Company {
   jobEvents               JobEvent[]
   jobEventParticipants    JobEventParticipant[]
   jobChatMessages         JobChatMessage[]
+  jobScopeItems           JobScopeItem[]
   trades                  Trade[]
 
   @@index([isActive])
@@ -508,6 +511,7 @@ model User {
   createdQuotes           Quote[]                  @relation("QuoteCreatedBy")
   activities              Activity[]
   jobsCreated             Job[]                    @relation("JobCreatedBy")
+  jobsClosed              Job[]                    @relation("JobClosedBy")
   jobMemberships          JobMember[]              @relation("JobMemberUser")
   jobMembersAdded         JobMember[]              @relation("JobMemberAddedBy")
   jobActivities           JobActivity[]
@@ -1984,6 +1988,13 @@ model Job {
   quoteId     String?   @unique
   leadId      String?
   status      JobStatus @default(ACTIVE)
+  /**
+   * When the job was finished, and by whom. `status = COMPLETED` is what locks it
+   * (`requireJobContext`); these two say who closed it and when, and go back to
+   * null on reopening. A job marked completed before closing existed has neither.
+   */
+  closedAt    DateTime?
+  closedById  String?
   // The job's bar on the Lineup.
   startsOn    DateTime? @db.Date
   endsOn      DateTime? @db.Date
@@ -1997,6 +2008,7 @@ model Job {
   quote        Quote?           @relation(fields: [quoteId], references: [id], onDelete: SetNull)
   lead         Lead?            @relation(fields: [leadId], references: [id], onDelete: SetNull)
   createdBy    User?            @relation("JobCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  closedBy     User?            @relation("JobClosedBy", fields: [closedById], references: [id], onDelete: SetNull)
   members      JobMember[]
   activities   JobActivity[]
   folders      JobFolder[]
@@ -2007,6 +2019,7 @@ model Job {
   todos        JobTodo[]
   events       JobEvent[]
   chatMessages JobChatMessage[]
+  scopeItems   JobScopeItem[]
 
   @@index([companyId, status])
 }
@@ -2082,6 +2095,14 @@ enum JobActivityType {
    * params: `{ from, to }`, both JobStatus.
    */
   STATUS_CHANGED
+  /**
+   * No params. The job was finished: from here on it only reads.
+   */
+  JOB_FINISHED
+  /**
+   * No params. A finished job was opened again.
+   */
+  JOB_REOPENED
   /**
    * params: `{ startsOn, endsOn }`, as `YYYY-MM-DD` or null.
    */
@@ -2495,4 +2516,28 @@ model JobChatMessage {
   files   JobFile[]
 
   @@index([companyId, jobId, createdAt])
+}
+
+/**
+ * One line of what was quoted — an item's description, or a section's title and
+ * write-up — copied onto the job when it starts. Never an amount: a job is read
+ * by people with no business seeing the price. Not editable: it is the frame
+ * the work was agreed in, and a copy that drifted from the quote would stop
+ * being a reference.
+ */
+model JobScopeItem {
+  id        String   @id @default(cuid())
+  companyId String
+  jobId     String
+  position  Int
+  title     String
+  // Sanitised rich-text HTML (basic profile). Null for a line of an itemised quote.
+  body      String?
+  createdAt DateTime @default(now())
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  job     Job     @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  @@index([jobId, position])
+  @@index([companyId])
 }

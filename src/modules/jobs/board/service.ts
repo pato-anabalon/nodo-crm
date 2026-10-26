@@ -1,6 +1,7 @@
 import type { CompanyContext } from "@/lib/auth/session";
 import { JobActivityType, NotificationKind } from "@/generated/prisma/client";
 import { notifyEach } from "@/modules/notifications/inbox";
+import { emailJobNotice } from "../emails";
 import { attachFiles, deleteStored, detachFiles, jobFileSelect, type UploadedFile } from "../files-service";
 import { logJobActivity } from "../service";
 import { jobName, readersAmong } from "../recipients";
@@ -210,12 +211,14 @@ async function publish(
   );
   if (recipients.length === 0) return;
 
-  await notifyEach(recipients, {
+  const params = { by: ctx.user.name ?? ctx.user.email, job: await jobName(ctx, jobId), title };
+  const raised = await notifyEach(recipients, {
     companyId: ctx.company.id,
     kind: NotificationKind.JOB_POST,
-    params: { by: ctx.user.name ?? ctx.user.email, job: await jobName(ctx, jobId), title },
+    params,
     href: `/jobs/${jobId}/messages/${postId}`,
   });
+  emailJobNotice(ctx, { userIds: raised, template: "post", params, path: `/jobs/${jobId}/messages/${postId}` });
 }
 
 /**

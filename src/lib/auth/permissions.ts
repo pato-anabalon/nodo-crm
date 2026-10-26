@@ -90,6 +90,11 @@ export const PERMISSIONS = [
   // because moving the plan is a different responsibility from fixing a typo.
   "jobs.dates",
   "jobs.members",
+  // Closing a job locks it: nothing in it can be added, changed or deleted. Its
+  // own pair, apart from `jobs.update`, because not everybody who may fix a
+  // typo may end the work — and undoing it is a bigger step still.
+  "jobs.finish",
+  "jobs.reopen",
   "jobs.delete",
   // Edit and delete what **somebody else** wrote or uploaded. Without it,
   // `*.update` and `*.delete` on authored content reach only one's own.

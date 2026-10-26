@@ -61,7 +61,15 @@ export async function getClientCompany(ctx: CompanyContext, id: string) {
         include: {
           quotes: {
             orderBy: { createdAt: "desc" },
-            select: { id: true, number: true, title: true, status: true, total: true, currency: true },
+            select: {
+          id: true,
+          number: true,
+          title: true,
+          status: true,
+          total: true,
+          currency: true,
+          job: { select: { status: true } },
+        },
           },
         },
       },

@@ -2,7 +2,8 @@
 
 import { useActionState, useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { CalendarDays, Pencil, Trash2 } from "lucide-react";
+import { CalendarDays, CheckCircle2, Pencil, RotateCcw, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -108,7 +109,10 @@ export function JobStatusSelect({ action, status }: { action: FormAction; status
         defaultValue={status}
         disabled={pending}
         className="h-8 w-auto text-sm"
-        options={Object.values(JobStatus).map((value) => ({ value, label: t(`status.${value}`) }))}
+        // COMPLETED is not here: finishing a job locks it, and that is the Finish button's.
+        options={Object.values(JobStatus)
+          .filter((value) => value !== JobStatus.COMPLETED)
+          .map((value) => ({ value, label: t(`status.${value}`) }))}
         onChange={(event) => event.currentTarget.form?.requestSubmit()}
       />
     </form>
@@ -131,6 +135,57 @@ export function DeleteJobButton({ name, onDelete }: { name: string; onDelete: ()
       description={t("deleteBody")}
       confirmLabel={t("delete")}
       onConfirm={() => startTransition(() => onDelete())}
+    />
+  );
+}
+
+/** Says what became of a one-shot action the way every other control here does: a snackbar. */
+function announce(result: JobActionState | undefined) {
+  if (result?.error) toast.error(result.error);
+  else if (result?.message) toast.success(result.message);
+}
+
+/** Locks the job. The question names it, and says what the lock costs. */
+export function FinishJobButton({ name, onFinish }: { name: string; onFinish: () => Promise<JobActionState> }) {
+  const t = useTranslations("jobs.closed");
+  const [pending, startTransition] = useTransition();
+
+  return (
+    <ConfirmButton
+      confirmVariant="default"
+      disabled={pending}
+      trigger={
+        <Button variant="outline" size="sm" disabled={pending}>
+          <CheckCircle2 className="size-4" />
+          {t("finish")}
+        </Button>
+      }
+      title={t("finishTitle", { name })}
+      description={t("finishBody")}
+      confirmLabel={t("finish")}
+      onConfirm={() => startTransition(async () => announce(await onFinish()))}
+    />
+  );
+}
+
+export function ReopenJobButton({ name, onReopen }: { name: string; onReopen: () => Promise<JobActionState> }) {
+  const t = useTranslations("jobs.closed");
+  const [pending, startTransition] = useTransition();
+
+  return (
+    <ConfirmButton
+      confirmVariant="default"
+      disabled={pending}
+      trigger={
+        <Button variant="outline" size="sm" disabled={pending}>
+          <RotateCcw className="size-4" />
+          {t("reopen")}
+        </Button>
+      }
+      title={t("reopenTitle", { name })}
+      description={t("reopenBody")}
+      confirmLabel={t("reopen")}
+      onConfirm={() => startTransition(async () => announce(await onReopen()))}
     />
   );
 }

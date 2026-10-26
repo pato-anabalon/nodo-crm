@@ -6,6 +6,7 @@ import { can, requireCompanyContext } from "@/lib/auth/session";
 import { Button } from "@/components/ui/button";
 import { personName } from "@/modules/jobs/avatars";
 import { jobColour } from "@/modules/jobs/colours";
+import { JobStatus } from "@/generated/prisma/enums";
 import { setJobDatesAction } from "@/modules/jobs/actions";
 import { dayIn } from "@/modules/jobs/timeline";
 import { addDays, isDay, monthStarts, weekStart } from "@/modules/jobs/schedule/calendar";
@@ -122,6 +123,7 @@ export default async function LineupPage({
               colour: jobColour(job),
               startsOn: job.startsOn,
               endsOn: job.endsOn,
+              locked: job.status === JobStatus.COMPLETED,
               milestones: milestones
                 .filter((m) => m.jobId === job.id)
                 .map((m) => ({ id: m.id, title: m.title, day: m.startsOn, href: `/jobs/${job.id}/schedule/${m.id}` })),

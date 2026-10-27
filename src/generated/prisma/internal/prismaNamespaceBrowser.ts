@@ -68,6 +68,8 @@ export const ModelName = {
   CatalogueItem: 'CatalogueItem',
   ClientCompany: 'ClientCompany',
   Contact: 'Contact',
+  LeadSourceOption: 'LeadSourceOption',
+  LeadAccessLog: 'LeadAccessLog',
   Lead: 'Lead',
   LeadSubmission: 'LeadSubmission',
   LeadAttachment: 'LeadAttachment',
@@ -404,6 +406,30 @@ export const ContactScalarFieldEnum = {
 export type ContactScalarFieldEnum = (typeof ContactScalarFieldEnum)[keyof typeof ContactScalarFieldEnum]
 
 
+export const LeadSourceOptionScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  label: 'label',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type LeadSourceOptionScalarFieldEnum = (typeof LeadSourceOptionScalarFieldEnum)[keyof typeof LeadSourceOptionScalarFieldEnum]
+
+
+export const LeadAccessLogScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  leadId: 'leadId',
+  userId: 'userId',
+  kind: 'kind',
+  detail: 'detail',
+  createdAt: 'createdAt'
+} as const
+
+export type LeadAccessLogScalarFieldEnum = (typeof LeadAccessLogScalarFieldEnum)[keyof typeof LeadAccessLogScalarFieldEnum]
+
+
 export const LeadScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
@@ -412,6 +438,7 @@ export const LeadScalarFieldEnum = {
   description: 'description',
   status: 'status',
   source: 'source',
+  sourceDetail: 'sourceDetail',
   score: 'score',
   estimatedValue: 'estimatedValue',
   currency: 'currency',
@@ -474,6 +501,7 @@ export const LeadAttachmentScalarFieldEnum = {
   status: 'status',
   error: 'error',
   position: 'position',
+  uploadedById: 'uploadedById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

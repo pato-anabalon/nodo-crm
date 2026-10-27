@@ -6,6 +6,9 @@ import { attachContact } from "@/modules/contacts/attach";
 import { canBecomeContact } from "@/modules/contacts/identity";
 import { attachClientCompany } from "@/modules/client-companies/attach";
 import { isClosedStatus } from "./constants";
+import { leadOptionLabel } from "./lead-label";
+import { resolveSourceDetail } from "./source-detail";
+import { changedLeadFields, recordLeadUpdate } from "./access-log";
 import type { LeadFilters, LeadFormValues } from "./schemas";
 
 export const LEADS_PAGE_SIZE = 20;
@@ -79,14 +82,14 @@ export async function listLeads(ctx: CompanyContext, filters: LeadFilters) {
   };
 }
 
-/** Just the title, to seed a lead combobox's initial selection — a full
+/** Just the label, to seed a lead combobox's initial selection — a full
  * `getLead` would be wasteful when the whole point is not over-fetching. */
 export async function leadTitle(ctx: CompanyContext, id: string): Promise<string | null> {
   const lead = await ctx.db.lead.findFirst({
     where: { id, ...visibilityWhere(ctx) },
-    select: { title: true },
+    select: { title: true, contactName: true, companyName: true },
   });
-  return lead?.title ?? null;
+  return lead ? leadOptionLabel(lead) : null;
 }
 
 export async function getLead(ctx: CompanyContext, id: string) {
@@ -107,6 +110,7 @@ export async function getLead(ctx: CompanyContext, id: string) {
           sourceUrl: true,
           url: true,
           status: true,
+          uploadedById: true,
         },
       },
       contact: true,
@@ -179,12 +183,35 @@ async function resolveLeadLinks(
   return { contactId, clientCompanyId };
 }
 
+/** The labels this company offers under "Other", in the order it set them. */
+export async function listSourceOptions(ctx: CompanyContext): Promise<string[]> {
+  const options = await ctx.db.leadSourceOption.findMany({
+    orderBy: { position: "asc" },
+    select: { label: true },
+  });
+  return options.map((option) => option.label);
+}
+
+async function sourceDetailFor(
+  ctx: CompanyContext,
+  values: Pick<LeadFormValues, "source" | "sourceDetail">,
+  current?: string | null,
+) {
+  return resolveSourceDetail({
+    source: values.source,
+    detail: values.sourceDetail,
+    offered: await listSourceOptions(ctx),
+    current,
+  });
+}
+
 export async function createLead(ctx: CompanyContext, values: LeadFormValues) {
   // Without permission to assign, the lead stays with whoever created it.
   const ownerId = ctx.permissions.has("leads.assign")
     ? values.ownerId ?? ctx.user.id
     : ctx.user.id;
   const { contactId, clientCompanyId } = await resolveLeadLinks(ctx, values);
+  const sourceDetail = await sourceDetailFor(ctx, values);
 
   const lead = await ctx.db.lead.create({
     data: {
@@ -196,6 +223,7 @@ export async function createLead(ctx: CompanyContext, values: LeadFormValues) {
       description: values.description ?? null,
       status: values.status,
       source: values.source,
+      sourceDetail,
       score: values.score,
       estimatedValue: values.estimatedValue ?? null,
       currency: ctx.company.currency,
@@ -228,13 +256,30 @@ export async function createLead(ctx: CompanyContext, values: LeadFormValues) {
 export async function updateLead(ctx: CompanyContext, id: string, values: LeadFormValues) {
   const current = await ctx.db.lead.findFirst({
     where: { id, ...visibilityWhere(ctx) },
-    select: { id: true, status: true, ownerId: true },
+    select: {
+      id: true,
+      status: true,
+      ownerId: true,
+      sourceDetail: true,
+      title: true,
+      description: true,
+      source: true,
+      score: true,
+      estimatedValue: true,
+      contactName: true,
+      contactEmail: true,
+      contactPhone: true,
+      companyName: true,
+      contactId: true,
+      lostReason: true,
+    },
   });
   if (!current) return null;
 
   const ownerId = ctx.permissions.has("leads.assign") ? values.ownerId ?? null : current.ownerId;
   const statusChanged = current.status !== values.status;
   const { contactId, clientCompanyId } = await resolveLeadLinks(ctx, values);
+  const sourceDetail = await sourceDetailFor(ctx, values, current.sourceDetail);
 
   const lead = await ctx.db.lead.update({
     where: { id },
@@ -243,6 +288,7 @@ export async function updateLead(ctx: CompanyContext, id: string, values: LeadFo
       description: values.description ?? null,
       status: values.status,
       source: values.source,
+      sourceDetail,
       score: values.score,
       estimatedValue: values.estimatedValue ?? null,
       contactName: values.contactName ?? null,
@@ -257,6 +303,10 @@ export async function updateLead(ctx: CompanyContext, id: string, values: LeadFo
       closedAt: isClosedStatus(values.status) ? new Date() : null,
     },
   });
+
+  // Who changed what: the field names only, never the values.
+  const changed = changedLeadFields(current, lead);
+  if (changed.length > 0) await recordLeadUpdate(ctx, lead.id, changed.join(","));
 
   if (statusChanged) {
     await ctx.db.activity.create({
@@ -280,7 +330,7 @@ export async function deleteLead(ctx: CompanyContext, id: string) {
 }
 
 /** Every action in the flow lands in the activity log with its author and time. */
-async function logActivity(
+export async function logActivity(
   ctx: CompanyContext,
   leadId: string,
   type: ActivityType,

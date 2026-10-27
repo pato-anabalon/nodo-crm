@@ -7,6 +7,14 @@ const t = (key: string, values?: Record<string, unknown>) =>
 
 const entry = (type: ActivityType, content: string) => ({ type, content });
 
+describe("describe: a follow-up scheduled from the log", () => {
+  it("names the follow-up", () => {
+    const out = describeActivity(entry(ActivityType.ACTION_SCHEDULED, "Call back about the quote"), t);
+    expect(out).toContain("activity.ACTION_SCHEDULED");
+    expect(out).toContain("Call back about the quote");
+  });
+});
+
 describe("describe: a lead's status change", () => {
   it("translates both halves", () => {
     const out = describeActivity(entry(ActivityType.STATUS_CHANGE, "QUALIFIED>PROPOSAL"), t);

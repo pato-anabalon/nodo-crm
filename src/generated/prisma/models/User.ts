@@ -240,6 +240,8 @@ export type UserWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   accounts?: Prisma.AccountListRelationFilter
   tasksAssigned?: Prisma.TaskListRelationFilter
+  leadAccessLogs?: Prisma.LeadAccessLogListRelationFilter
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentListRelationFilter
   tasksCreated?: Prisma.TaskListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
@@ -284,6 +286,8 @@ export type UserOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   tasksAssigned?: Prisma.TaskOrderByRelationAggregateInput
+  leadAccessLogs?: Prisma.LeadAccessLogOrderByRelationAggregateInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentOrderByRelationAggregateInput
   tasksCreated?: Prisma.TaskOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
@@ -331,6 +335,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   accounts?: Prisma.AccountListRelationFilter
   tasksAssigned?: Prisma.TaskListRelationFilter
+  leadAccessLogs?: Prisma.LeadAccessLogListRelationFilter
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentListRelationFilter
   tasksCreated?: Prisma.TaskListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
@@ -411,6 +417,8 @@ export type UserCreateInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -455,6 +463,8 @@ export type UserUncheckedCreateInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -499,6 +509,8 @@ export type UserUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -543,6 +555,8 @@ export type UserUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -764,6 +778,20 @@ export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
 }
 
+export type UserCreateNestedOneWithoutLeadAccessLogsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLeadAccessLogsInput, Prisma.UserUncheckedCreateWithoutLeadAccessLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLeadAccessLogsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutLeadAccessLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLeadAccessLogsInput, Prisma.UserUncheckedCreateWithoutLeadAccessLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLeadAccessLogsInput
+  upsert?: Prisma.UserUpsertWithoutLeadAccessLogsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLeadAccessLogsInput, Prisma.UserUpdateWithoutLeadAccessLogsInput>, Prisma.UserUncheckedUpdateWithoutLeadAccessLogsInput>
+}
+
 export type UserCreateNestedOneWithoutAssignedLeadsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedLeadsInput, Prisma.UserUncheckedCreateWithoutAssignedLeadsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedLeadsInput
@@ -794,6 +822,22 @@ export type UserUpdateOneWithoutDiscardedLeadsNestedInput = {
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDiscardedLeadsInput, Prisma.UserUpdateWithoutDiscardedLeadsInput>, Prisma.UserUncheckedUpdateWithoutDiscardedLeadsInput>
+}
+
+export type UserCreateNestedOneWithoutLeadAttachmentsUploadedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLeadAttachmentsUploadedInput, Prisma.UserUncheckedCreateWithoutLeadAttachmentsUploadedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLeadAttachmentsUploadedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutLeadAttachmentsUploadedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLeadAttachmentsUploadedInput, Prisma.UserUncheckedCreateWithoutLeadAttachmentsUploadedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLeadAttachmentsUploadedInput
+  upsert?: Prisma.UserUpsertWithoutLeadAttachmentsUploadedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLeadAttachmentsUploadedInput, Prisma.UserUpdateWithoutLeadAttachmentsUploadedInput>, Prisma.UserUncheckedUpdateWithoutLeadAttachmentsUploadedInput>
 }
 
 export type UserCreateNestedOneWithoutIngestKeysInput = {
@@ -1139,6 +1183,8 @@ export type UserCreateWithoutMembershipsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -1182,6 +1228,8 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -1241,6 +1289,8 @@ export type UserUpdateWithoutMembershipsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -1284,6 +1334,8 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -1326,6 +1378,8 @@ export type UserCreateWithoutAccountsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -1369,6 +1423,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -1428,6 +1484,8 @@ export type UserUpdateWithoutAccountsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -1471,6 +1529,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -1515,6 +1575,8 @@ export type UserCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
@@ -1558,6 +1620,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
@@ -1617,6 +1681,8 @@ export type UserUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
@@ -1660,6 +1726,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
@@ -1702,6 +1770,8 @@ export type UserCreateWithoutTasksAssignedInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -1745,6 +1815,8 @@ export type UserUncheckedCreateWithoutTasksAssignedInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -1794,6 +1866,8 @@ export type UserCreateWithoutTasksCreatedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
@@ -1837,6 +1911,8 @@ export type UserUncheckedCreateWithoutTasksCreatedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
@@ -1895,6 +1971,8 @@ export type UserUpdateWithoutTasksAssignedInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -1938,6 +2016,8 @@ export type UserUncheckedUpdateWithoutTasksAssignedInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -1993,6 +2073,8 @@ export type UserUpdateWithoutTasksCreatedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
@@ -2036,6 +2118,8 @@ export type UserUncheckedUpdateWithoutTasksCreatedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
@@ -2079,6 +2163,8 @@ export type UserCreateWithoutNotificationsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
@@ -2122,6 +2208,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
@@ -2181,6 +2269,8 @@ export type UserUpdateWithoutNotificationsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
@@ -2224,7 +2314,205 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
+  ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
+  createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
+  jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
+  jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
+  jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
+  jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
+  jobFoldersCreated?: Prisma.JobFolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobFilesUploaded?: Prisma.JobFileUncheckedUpdateManyWithoutUploadedByNestedInput
+  jobPostsWritten?: Prisma.JobPostUncheckedUpdateManyWithoutAuthorNestedInput
+  jobCommentsWritten?: Prisma.JobCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  jobTodoListsCreated?: Prisma.JobTodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobTodosCreated?: Prisma.JobTodoUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobTodosCompleted?: Prisma.JobTodoUncheckedUpdateManyWithoutCompletedByNestedInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUncheckedUpdateManyWithoutUserNestedInput
+  jobEventsCreated?: Prisma.JobEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobEventParticipations?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserCreateWithoutLeadAccessLogsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  passwordHash?: string | null
+  isSuperAdmin?: boolean
+  jobTitle?: string | null
+  phone?: string | null
+  language?: $Enums.Language | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
+  tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
+  ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
+  quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
+  createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
+  jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
+  jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
+  jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
+  jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
+  jobFoldersCreated?: Prisma.JobFolderCreateNestedManyWithoutCreatedByInput
+  jobFilesUploaded?: Prisma.JobFileCreateNestedManyWithoutUploadedByInput
+  jobPostsWritten?: Prisma.JobPostCreateNestedManyWithoutAuthorInput
+  jobCommentsWritten?: Prisma.JobCommentCreateNestedManyWithoutAuthorInput
+  jobTodoListsCreated?: Prisma.JobTodoListCreateNestedManyWithoutCreatedByInput
+  jobTodosCreated?: Prisma.JobTodoCreateNestedManyWithoutCreatedByInput
+  jobTodosCompleted?: Prisma.JobTodoCreateNestedManyWithoutCompletedByInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeCreateNestedManyWithoutUserInput
+  jobEventsCreated?: Prisma.JobEventCreateNestedManyWithoutCreatedByInput
+  jobEventParticipations?: Prisma.JobEventParticipantCreateNestedManyWithoutUserInput
+  jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutAuthorInput
+}
+
+export type UserUncheckedCreateWithoutLeadAccessLogsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  passwordHash?: string | null
+  isSuperAdmin?: boolean
+  jobTitle?: string | null
+  phone?: string | null
+  language?: $Enums.Language | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
+  ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
+  createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
+  jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
+  jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
+  jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
+  jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
+  jobFoldersCreated?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCreatedByInput
+  jobFilesUploaded?: Prisma.JobFileUncheckedCreateNestedManyWithoutUploadedByInput
+  jobPostsWritten?: Prisma.JobPostUncheckedCreateNestedManyWithoutAuthorInput
+  jobCommentsWritten?: Prisma.JobCommentUncheckedCreateNestedManyWithoutAuthorInput
+  jobTodoListsCreated?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutCreatedByInput
+  jobTodosCreated?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCreatedByInput
+  jobTodosCompleted?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCompletedByInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUncheckedCreateNestedManyWithoutUserInput
+  jobEventsCreated?: Prisma.JobEventUncheckedCreateNestedManyWithoutCreatedByInput
+  jobEventParticipations?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutUserInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+export type UserCreateOrConnectWithoutLeadAccessLogsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLeadAccessLogsInput, Prisma.UserUncheckedCreateWithoutLeadAccessLogsInput>
+}
+
+export type UserUpsertWithoutLeadAccessLogsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLeadAccessLogsInput, Prisma.UserUncheckedUpdateWithoutLeadAccessLogsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLeadAccessLogsInput, Prisma.UserUncheckedCreateWithoutLeadAccessLogsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLeadAccessLogsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLeadAccessLogsInput, Prisma.UserUncheckedUpdateWithoutLeadAccessLogsInput>
+}
+
+export type UserUpdateWithoutLeadAccessLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
+  tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
+  ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
+  quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
+  createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
+  jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
+  jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
+  jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
+  jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
+  jobFoldersCreated?: Prisma.JobFolderUpdateManyWithoutCreatedByNestedInput
+  jobFilesUploaded?: Prisma.JobFileUpdateManyWithoutUploadedByNestedInput
+  jobPostsWritten?: Prisma.JobPostUpdateManyWithoutAuthorNestedInput
+  jobCommentsWritten?: Prisma.JobCommentUpdateManyWithoutAuthorNestedInput
+  jobTodoListsCreated?: Prisma.JobTodoListUpdateManyWithoutCreatedByNestedInput
+  jobTodosCreated?: Prisma.JobTodoUpdateManyWithoutCreatedByNestedInput
+  jobTodosCompleted?: Prisma.JobTodoUpdateManyWithoutCompletedByNestedInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUpdateManyWithoutUserNestedInput
+  jobEventsCreated?: Prisma.JobEventUpdateManyWithoutCreatedByNestedInput
+  jobEventParticipations?: Prisma.JobEventParticipantUpdateManyWithoutUserNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLeadAccessLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
@@ -2267,6 +2555,8 @@ export type UserCreateWithoutAssignedLeadsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -2310,6 +2600,8 @@ export type UserUncheckedCreateWithoutAssignedLeadsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -2358,6 +2650,8 @@ export type UserCreateWithoutDiscardedLeadsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -2401,6 +2695,8 @@ export type UserUncheckedCreateWithoutDiscardedLeadsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -2460,6 +2756,8 @@ export type UserUpdateWithoutAssignedLeadsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -2503,6 +2801,8 @@ export type UserUncheckedUpdateWithoutAssignedLeadsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -2557,6 +2857,8 @@ export type UserUpdateWithoutDiscardedLeadsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -2600,6 +2902,8 @@ export type UserUncheckedUpdateWithoutDiscardedLeadsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -2608,6 +2912,202 @@ export type UserUncheckedUpdateWithoutDiscardedLeadsInput = {
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
+  jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
+  jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
+  jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
+  jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
+  jobFoldersCreated?: Prisma.JobFolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobFilesUploaded?: Prisma.JobFileUncheckedUpdateManyWithoutUploadedByNestedInput
+  jobPostsWritten?: Prisma.JobPostUncheckedUpdateManyWithoutAuthorNestedInput
+  jobCommentsWritten?: Prisma.JobCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  jobTodoListsCreated?: Prisma.JobTodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobTodosCreated?: Prisma.JobTodoUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobTodosCompleted?: Prisma.JobTodoUncheckedUpdateManyWithoutCompletedByNestedInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUncheckedUpdateManyWithoutUserNestedInput
+  jobEventsCreated?: Prisma.JobEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobEventParticipations?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserCreateWithoutLeadAttachmentsUploadedInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  passwordHash?: string | null
+  isSuperAdmin?: boolean
+  jobTitle?: string | null
+  phone?: string | null
+  language?: $Enums.Language | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
+  ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
+  quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
+  createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
+  jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
+  jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
+  jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
+  jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
+  jobFoldersCreated?: Prisma.JobFolderCreateNestedManyWithoutCreatedByInput
+  jobFilesUploaded?: Prisma.JobFileCreateNestedManyWithoutUploadedByInput
+  jobPostsWritten?: Prisma.JobPostCreateNestedManyWithoutAuthorInput
+  jobCommentsWritten?: Prisma.JobCommentCreateNestedManyWithoutAuthorInput
+  jobTodoListsCreated?: Prisma.JobTodoListCreateNestedManyWithoutCreatedByInput
+  jobTodosCreated?: Prisma.JobTodoCreateNestedManyWithoutCreatedByInput
+  jobTodosCompleted?: Prisma.JobTodoCreateNestedManyWithoutCompletedByInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeCreateNestedManyWithoutUserInput
+  jobEventsCreated?: Prisma.JobEventCreateNestedManyWithoutCreatedByInput
+  jobEventParticipations?: Prisma.JobEventParticipantCreateNestedManyWithoutUserInput
+  jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutAuthorInput
+}
+
+export type UserUncheckedCreateWithoutLeadAttachmentsUploadedInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  passwordHash?: string | null
+  isSuperAdmin?: boolean
+  jobTitle?: string | null
+  phone?: string | null
+  language?: $Enums.Language | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
+  ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
+  createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
+  jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
+  jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
+  jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
+  jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
+  jobFoldersCreated?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCreatedByInput
+  jobFilesUploaded?: Prisma.JobFileUncheckedCreateNestedManyWithoutUploadedByInput
+  jobPostsWritten?: Prisma.JobPostUncheckedCreateNestedManyWithoutAuthorInput
+  jobCommentsWritten?: Prisma.JobCommentUncheckedCreateNestedManyWithoutAuthorInput
+  jobTodoListsCreated?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutCreatedByInput
+  jobTodosCreated?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCreatedByInput
+  jobTodosCompleted?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCompletedByInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUncheckedCreateNestedManyWithoutUserInput
+  jobEventsCreated?: Prisma.JobEventUncheckedCreateNestedManyWithoutCreatedByInput
+  jobEventParticipations?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutUserInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+export type UserCreateOrConnectWithoutLeadAttachmentsUploadedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLeadAttachmentsUploadedInput, Prisma.UserUncheckedCreateWithoutLeadAttachmentsUploadedInput>
+}
+
+export type UserUpsertWithoutLeadAttachmentsUploadedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLeadAttachmentsUploadedInput, Prisma.UserUncheckedUpdateWithoutLeadAttachmentsUploadedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLeadAttachmentsUploadedInput, Prisma.UserUncheckedCreateWithoutLeadAttachmentsUploadedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLeadAttachmentsUploadedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLeadAttachmentsUploadedInput, Prisma.UserUncheckedUpdateWithoutLeadAttachmentsUploadedInput>
+}
+
+export type UserUpdateWithoutLeadAttachmentsUploadedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
+  ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
+  quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
+  createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
+  jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
+  jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
+  jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
+  jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
+  jobFoldersCreated?: Prisma.JobFolderUpdateManyWithoutCreatedByNestedInput
+  jobFilesUploaded?: Prisma.JobFileUpdateManyWithoutUploadedByNestedInput
+  jobPostsWritten?: Prisma.JobPostUpdateManyWithoutAuthorNestedInput
+  jobCommentsWritten?: Prisma.JobCommentUpdateManyWithoutAuthorNestedInput
+  jobTodoListsCreated?: Prisma.JobTodoListUpdateManyWithoutCreatedByNestedInput
+  jobTodosCreated?: Prisma.JobTodoUpdateManyWithoutCreatedByNestedInput
+  jobTodosCompleted?: Prisma.JobTodoUpdateManyWithoutCompletedByNestedInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUpdateManyWithoutUserNestedInput
+  jobEventsCreated?: Prisma.JobEventUpdateManyWithoutCreatedByNestedInput
+  jobEventParticipations?: Prisma.JobEventParticipantUpdateManyWithoutUserNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLeadAttachmentsUploadedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
+  ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2643,6 +3143,8 @@ export type UserCreateWithoutIngestKeysInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -2686,6 +3188,8 @@ export type UserUncheckedCreateWithoutIngestKeysInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -2745,6 +3249,8 @@ export type UserUpdateWithoutIngestKeysInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -2788,6 +3294,8 @@ export type UserUncheckedUpdateWithoutIngestKeysInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -2831,6 +3339,8 @@ export type UserCreateWithoutActivitiesInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -2874,6 +3384,8 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -2933,6 +3445,8 @@ export type UserUpdateWithoutActivitiesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -2976,6 +3490,8 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -3019,6 +3535,8 @@ export type UserCreateWithoutCreatedQuotesInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -3062,6 +3580,8 @@ export type UserUncheckedCreateWithoutCreatedQuotesInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -3121,6 +3641,8 @@ export type UserUpdateWithoutCreatedQuotesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -3164,6 +3686,8 @@ export type UserUncheckedUpdateWithoutCreatedQuotesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -3207,6 +3731,8 @@ export type UserCreateWithoutQuoteMessagesInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -3250,6 +3776,8 @@ export type UserUncheckedCreateWithoutQuoteMessagesInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -3309,6 +3837,8 @@ export type UserUpdateWithoutQuoteMessagesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -3352,6 +3882,8 @@ export type UserUncheckedUpdateWithoutQuoteMessagesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -3395,6 +3927,8 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -3438,6 +3972,8 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -3497,6 +4033,8 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -3540,6 +4078,8 @@ export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -3583,6 +4123,8 @@ export type UserCreateWithoutJobsCreatedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -3626,6 +4168,8 @@ export type UserUncheckedCreateWithoutJobsCreatedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -3674,6 +4218,8 @@ export type UserCreateWithoutJobsClosedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -3717,6 +4263,8 @@ export type UserUncheckedCreateWithoutJobsClosedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -3776,6 +4324,8 @@ export type UserUpdateWithoutJobsCreatedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -3819,6 +4369,8 @@ export type UserUncheckedUpdateWithoutJobsCreatedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -3873,6 +4425,8 @@ export type UserUpdateWithoutJobsClosedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -3916,6 +4470,8 @@ export type UserUncheckedUpdateWithoutJobsClosedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -3959,6 +4515,8 @@ export type UserCreateWithoutJobMembershipsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -4002,6 +4560,8 @@ export type UserUncheckedCreateWithoutJobMembershipsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -4050,6 +4610,8 @@ export type UserCreateWithoutJobMembersAddedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -4093,6 +4655,8 @@ export type UserUncheckedCreateWithoutJobMembersAddedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -4152,6 +4716,8 @@ export type UserUpdateWithoutJobMembershipsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -4195,6 +4761,8 @@ export type UserUncheckedUpdateWithoutJobMembershipsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -4249,6 +4817,8 @@ export type UserUpdateWithoutJobMembersAddedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -4292,6 +4862,8 @@ export type UserUncheckedUpdateWithoutJobMembersAddedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -4335,6 +4907,8 @@ export type UserCreateWithoutJobActivitiesInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -4378,6 +4952,8 @@ export type UserUncheckedCreateWithoutJobActivitiesInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -4437,6 +5013,8 @@ export type UserUpdateWithoutJobActivitiesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -4480,6 +5058,8 @@ export type UserUncheckedUpdateWithoutJobActivitiesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -4523,6 +5103,8 @@ export type UserCreateWithoutJobFoldersCreatedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -4566,6 +5148,8 @@ export type UserUncheckedCreateWithoutJobFoldersCreatedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -4625,6 +5209,8 @@ export type UserUpdateWithoutJobFoldersCreatedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -4668,6 +5254,8 @@ export type UserUncheckedUpdateWithoutJobFoldersCreatedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -4711,6 +5299,8 @@ export type UserCreateWithoutJobFilesUploadedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -4754,6 +5344,8 @@ export type UserUncheckedCreateWithoutJobFilesUploadedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -4813,6 +5405,8 @@ export type UserUpdateWithoutJobFilesUploadedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -4856,6 +5450,8 @@ export type UserUncheckedUpdateWithoutJobFilesUploadedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -4899,6 +5495,8 @@ export type UserCreateWithoutJobPostsWrittenInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -4942,6 +5540,8 @@ export type UserUncheckedCreateWithoutJobPostsWrittenInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -5001,6 +5601,8 @@ export type UserUpdateWithoutJobPostsWrittenInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -5044,6 +5646,8 @@ export type UserUncheckedUpdateWithoutJobPostsWrittenInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -5087,6 +5691,8 @@ export type UserCreateWithoutJobCommentsWrittenInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -5130,6 +5736,8 @@ export type UserUncheckedCreateWithoutJobCommentsWrittenInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -5189,6 +5797,8 @@ export type UserUpdateWithoutJobCommentsWrittenInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -5232,6 +5842,8 @@ export type UserUncheckedUpdateWithoutJobCommentsWrittenInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -5275,6 +5887,8 @@ export type UserCreateWithoutJobEventsCreatedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -5318,6 +5932,8 @@ export type UserUncheckedCreateWithoutJobEventsCreatedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -5377,6 +5993,8 @@ export type UserUpdateWithoutJobEventsCreatedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -5420,6 +6038,8 @@ export type UserUncheckedUpdateWithoutJobEventsCreatedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -5463,6 +6083,8 @@ export type UserCreateWithoutJobEventParticipationsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -5506,6 +6128,8 @@ export type UserUncheckedCreateWithoutJobEventParticipationsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -5565,6 +6189,8 @@ export type UserUpdateWithoutJobEventParticipationsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -5608,6 +6234,8 @@ export type UserUncheckedUpdateWithoutJobEventParticipationsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -5651,6 +6279,8 @@ export type UserCreateWithoutJobTodoListsCreatedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -5694,6 +6324,8 @@ export type UserUncheckedCreateWithoutJobTodoListsCreatedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -5753,6 +6385,8 @@ export type UserUpdateWithoutJobTodoListsCreatedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -5796,6 +6430,8 @@ export type UserUncheckedUpdateWithoutJobTodoListsCreatedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -5839,6 +6475,8 @@ export type UserCreateWithoutJobTodosCompletedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -5882,6 +6520,8 @@ export type UserUncheckedCreateWithoutJobTodosCompletedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -5930,6 +6570,8 @@ export type UserCreateWithoutJobTodosCreatedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -5973,6 +6615,8 @@ export type UserUncheckedCreateWithoutJobTodosCreatedInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -6032,6 +6676,8 @@ export type UserUpdateWithoutJobTodosCompletedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -6075,6 +6721,8 @@ export type UserUncheckedUpdateWithoutJobTodosCompletedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -6129,6 +6777,8 @@ export type UserUpdateWithoutJobTodosCreatedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -6172,6 +6822,8 @@ export type UserUncheckedUpdateWithoutJobTodosCreatedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -6215,6 +6867,8 @@ export type UserCreateWithoutJobTodoAssignmentsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -6258,6 +6912,8 @@ export type UserUncheckedCreateWithoutJobTodoAssignmentsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -6317,6 +6973,8 @@ export type UserUpdateWithoutJobTodoAssignmentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -6360,6 +7018,8 @@ export type UserUncheckedUpdateWithoutJobTodoAssignmentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -6403,6 +7063,8 @@ export type UserCreateWithoutJobChatMessagesInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -6446,6 +7108,8 @@ export type UserUncheckedCreateWithoutJobChatMessagesInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -6505,6 +7169,8 @@ export type UserUpdateWithoutJobChatMessagesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -6548,6 +7214,8 @@ export type UserUncheckedUpdateWithoutJobChatMessagesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -6584,6 +7252,8 @@ export type UserUncheckedUpdateWithoutJobChatMessagesInput = {
 export type UserCountOutputType = {
   accounts: number
   tasksAssigned: number
+  leadAccessLogs: number
+  leadAttachmentsUploaded: number
   tasksCreated: number
   notifications: number
   sessions: number
@@ -6616,6 +7286,8 @@ export type UserCountOutputType = {
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
   tasksAssigned?: boolean | UserCountOutputTypeCountTasksAssignedArgs
+  leadAccessLogs?: boolean | UserCountOutputTypeCountLeadAccessLogsArgs
+  leadAttachmentsUploaded?: boolean | UserCountOutputTypeCountLeadAttachmentsUploadedArgs
   tasksCreated?: boolean | UserCountOutputTypeCountTasksCreatedArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
@@ -6667,6 +7339,20 @@ export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends runtime.Types.E
  */
 export type UserCountOutputTypeCountTasksAssignedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.TaskWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLeadAccessLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LeadAccessLogWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLeadAttachmentsUploadedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LeadAttachmentWhereInput
 }
 
 /**
@@ -6874,6 +7560,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   tasksAssigned?: boolean | Prisma.User$tasksAssignedArgs<ExtArgs>
+  leadAccessLogs?: boolean | Prisma.User$leadAccessLogsArgs<ExtArgs>
+  leadAttachmentsUploaded?: boolean | Prisma.User$leadAttachmentsUploadedArgs<ExtArgs>
   tasksCreated?: boolean | Prisma.User$tasksCreatedArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -6953,6 +7641,8 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   tasksAssigned?: boolean | Prisma.User$tasksAssignedArgs<ExtArgs>
+  leadAccessLogs?: boolean | Prisma.User$leadAccessLogsArgs<ExtArgs>
+  leadAttachmentsUploaded?: boolean | Prisma.User$leadAttachmentsUploadedArgs<ExtArgs>
   tasksCreated?: boolean | Prisma.User$tasksCreatedArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -6990,6 +7680,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     accounts: Prisma.$AccountPayload<ExtArgs>[]
     tasksAssigned: Prisma.$TaskPayload<ExtArgs>[]
+    leadAccessLogs: Prisma.$LeadAccessLogPayload<ExtArgs>[]
+    leadAttachmentsUploaded: Prisma.$LeadAttachmentPayload<ExtArgs>[]
     tasksCreated: Prisma.$TaskPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
@@ -7427,6 +8119,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   tasksAssigned<T extends Prisma.User$tasksAssignedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tasksAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  leadAccessLogs<T extends Prisma.User$leadAccessLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$leadAccessLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeadAccessLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  leadAttachmentsUploaded<T extends Prisma.User$leadAttachmentsUploadedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$leadAttachmentsUploadedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeadAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   tasksCreated<T extends Prisma.User$tasksCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tasksCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -7933,6 +8627,54 @@ export type User$tasksAssignedArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.TaskScalarFieldEnum | Prisma.TaskScalarFieldEnum[]
+}
+
+/**
+ * User.leadAccessLogs
+ */
+export type User$leadAccessLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LeadAccessLog
+   */
+  select?: Prisma.LeadAccessLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LeadAccessLog
+   */
+  omit?: Prisma.LeadAccessLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LeadAccessLogInclude<ExtArgs> | null
+  where?: Prisma.LeadAccessLogWhereInput
+  orderBy?: Prisma.LeadAccessLogOrderByWithRelationInput | Prisma.LeadAccessLogOrderByWithRelationInput[]
+  cursor?: Prisma.LeadAccessLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LeadAccessLogScalarFieldEnum | Prisma.LeadAccessLogScalarFieldEnum[]
+}
+
+/**
+ * User.leadAttachmentsUploaded
+ */
+export type User$leadAttachmentsUploadedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LeadAttachment
+   */
+  select?: Prisma.LeadAttachmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LeadAttachment
+   */
+  omit?: Prisma.LeadAttachmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LeadAttachmentInclude<ExtArgs> | null
+  where?: Prisma.LeadAttachmentWhereInput
+  orderBy?: Prisma.LeadAttachmentOrderByWithRelationInput | Prisma.LeadAttachmentOrderByWithRelationInput[]
+  cursor?: Prisma.LeadAttachmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LeadAttachmentScalarFieldEnum | Prisma.LeadAttachmentScalarFieldEnum[]
 }
 
 /**

@@ -5,7 +5,8 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { requirePermission } from "@/lib/auth/session";
 import { translateFieldErrors } from "@/lib/i18n-errors";
-import { discardLeadSchema, leadFormDataToInput, leadFormSchema } from "./schemas";
+import { leadOptionLabel } from "./lead-label";
+import { discardLeadSchema, leadFormDataToInput, leadFormSchema, scheduleActionSchema } from "./schemas";
 import {
   addLeadNote,
   assignLead,
@@ -16,6 +17,7 @@ import {
   restoreLead,
   updateLead,
 } from "./service";
+import { scheduleLeadAction } from "./schedule";
 
 export type LeadActionState = {
   /** What became of the action, for the snackbar. */
@@ -100,6 +102,36 @@ export async function addLeadNoteAction(
 }
 
 
+/**
+ * Schedules a follow-up from the lead's log ("call back Thursday at 11").
+ * `leads.update`, the same door as a note and as the tasks themselves.
+ */
+export async function scheduleLeadActionAction(
+  leadId: string,
+  _prev: LeadActionState,
+  formData: FormData,
+): Promise<LeadActionState> {
+  const ctx = await requirePermission("leads.update");
+  const t = await getTranslations();
+
+  const parsed = scheduleActionSchema.safeParse({
+    title: formData.get("title"),
+    day: formData.get("day"),
+    time: formData.get("time"),
+    assigneeId: formData.get("assigneeId"),
+  });
+  if (!parsed.success) {
+    return { fieldErrors: translateFieldErrors(parsed.error.flatten().fieldErrors, t) };
+  }
+
+  const result = await scheduleLeadAction(ctx, leadId, parsed.data);
+  if (result !== "ok") return { error: t("leads.notFoundOrNoAccess") };
+
+  revalidatePath(`/leads/${leadId}`);
+  revalidatePath("/tasks");
+  return { message: t("leads.schedule.scheduled") };
+}
+
 export async function assignLeadAction(
   id: string,
   ownerId: string | null,
@@ -174,9 +206,6 @@ export async function searchLeadsAction(
   });
   return items.map((lead) => ({
     id: lead.id,
-    // Several leads can share a title ("Kitchen replaster"), so the picker
-    // needs the contact and company alongside it to tell them apart — missing
-    // pieces drop out instead of leaving stray " - " gaps.
-    label: [lead.title, lead.contactName, lead.companyName].filter(Boolean).join(" - "),
+    label: leadOptionLabel(lead),
   }));
 }

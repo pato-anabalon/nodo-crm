@@ -50,6 +50,7 @@ export function buildQuoteWhere(ctx: CompanyContext, filters: QuoteFilters): Pri
       OR: [
         { title: { contains: q, mode: "insensitive" } },
         { lead: { title: { contains: q, mode: "insensitive" } } },
+        { projectAddress: { contains: q, mode: "insensitive" } },
         ...(Number.isFinite(asNumber) && asNumber > 0 ? [{ number: asNumber }] : []),
       ],
     });

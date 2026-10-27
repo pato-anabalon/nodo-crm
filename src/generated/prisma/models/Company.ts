@@ -641,6 +641,8 @@ export type CompanyWhereInput = {
   emailTemplates?: Prisma.EmailTemplateListRelationFilter
   reviewLinks?: Prisma.ReviewLinkListRelationFilter
   quoteTypes?: Prisma.CompanyQuoteTypeListRelationFilter
+  leadSourceOptions?: Prisma.LeadSourceOptionListRelationFilter
+  leadAccessLogs?: Prisma.LeadAccessLogListRelationFilter
   jobs?: Prisma.JobListRelationFilter
   jobMembers?: Prisma.JobMemberListRelationFilter
   jobActivities?: Prisma.JobActivityListRelationFilter
@@ -741,6 +743,8 @@ export type CompanyOrderByWithRelationInput = {
   emailTemplates?: Prisma.EmailTemplateOrderByRelationAggregateInput
   reviewLinks?: Prisma.ReviewLinkOrderByRelationAggregateInput
   quoteTypes?: Prisma.CompanyQuoteTypeOrderByRelationAggregateInput
+  leadSourceOptions?: Prisma.LeadSourceOptionOrderByRelationAggregateInput
+  leadAccessLogs?: Prisma.LeadAccessLogOrderByRelationAggregateInput
   jobs?: Prisma.JobOrderByRelationAggregateInput
   jobMembers?: Prisma.JobMemberOrderByRelationAggregateInput
   jobActivities?: Prisma.JobActivityOrderByRelationAggregateInput
@@ -844,6 +848,8 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   emailTemplates?: Prisma.EmailTemplateListRelationFilter
   reviewLinks?: Prisma.ReviewLinkListRelationFilter
   quoteTypes?: Prisma.CompanyQuoteTypeListRelationFilter
+  leadSourceOptions?: Prisma.LeadSourceOptionListRelationFilter
+  leadAccessLogs?: Prisma.LeadAccessLogListRelationFilter
   jobs?: Prisma.JobListRelationFilter
   jobMembers?: Prisma.JobMemberListRelationFilter
   jobActivities?: Prisma.JobActivityListRelationFilter
@@ -1062,6 +1068,8 @@ export type CompanyCreateInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -1162,6 +1170,8 @@ export type CompanyUncheckedCreateInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -1262,6 +1272,8 @@ export type CompanyUpdateInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -1362,6 +1374,8 @@ export type CompanyUncheckedUpdateInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1959,6 +1973,34 @@ export type CompanyUpdateOneRequiredWithoutContactsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutContactsInput, Prisma.CompanyUpdateWithoutContactsInput>, Prisma.CompanyUncheckedUpdateWithoutContactsInput>
 }
 
+export type CompanyCreateNestedOneWithoutLeadSourceOptionsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLeadSourceOptionsInput, Prisma.CompanyUncheckedCreateWithoutLeadSourceOptionsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLeadSourceOptionsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutLeadSourceOptionsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLeadSourceOptionsInput, Prisma.CompanyUncheckedCreateWithoutLeadSourceOptionsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLeadSourceOptionsInput
+  upsert?: Prisma.CompanyUpsertWithoutLeadSourceOptionsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutLeadSourceOptionsInput, Prisma.CompanyUpdateWithoutLeadSourceOptionsInput>, Prisma.CompanyUncheckedUpdateWithoutLeadSourceOptionsInput>
+}
+
+export type CompanyCreateNestedOneWithoutLeadAccessLogsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLeadAccessLogsInput, Prisma.CompanyUncheckedCreateWithoutLeadAccessLogsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLeadAccessLogsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutLeadAccessLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLeadAccessLogsInput, Prisma.CompanyUncheckedCreateWithoutLeadAccessLogsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLeadAccessLogsInput
+  upsert?: Prisma.CompanyUpsertWithoutLeadAccessLogsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutLeadAccessLogsInput, Prisma.CompanyUpdateWithoutLeadAccessLogsInput>, Prisma.CompanyUncheckedUpdateWithoutLeadAccessLogsInput>
+}
+
 export type CompanyCreateNestedOneWithoutLeadsInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutLeadsInput, Prisma.CompanyUncheckedCreateWithoutLeadsInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLeadsInput
@@ -2532,6 +2574,8 @@ export type CompanyCreateWithoutQuoteTypesInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -2631,6 +2675,8 @@ export type CompanyUncheckedCreateWithoutQuoteTypesInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -2746,6 +2792,8 @@ export type CompanyUpdateWithoutQuoteTypesInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -2845,6 +2893,8 @@ export type CompanyUncheckedUpdateWithoutQuoteTypesInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2944,6 +2994,8 @@ export type CompanyCreateWithoutMembershipsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -3043,6 +3095,8 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -3158,6 +3212,8 @@ export type CompanyUpdateWithoutMembershipsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -3257,6 +3313,8 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -3356,6 +3414,8 @@ export type CompanyCreateWithoutLoginAttemptsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -3455,6 +3515,8 @@ export type CompanyUncheckedCreateWithoutLoginAttemptsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -3570,6 +3632,8 @@ export type CompanyUpdateWithoutLoginAttemptsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -3669,6 +3733,8 @@ export type CompanyUncheckedUpdateWithoutLoginAttemptsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -3768,6 +3834,8 @@ export type CompanyCreateWithoutRolesInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -3867,6 +3935,8 @@ export type CompanyUncheckedCreateWithoutRolesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -3982,6 +4052,8 @@ export type CompanyUpdateWithoutRolesInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -4081,6 +4153,8 @@ export type CompanyUncheckedUpdateWithoutRolesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -4180,6 +4254,8 @@ export type CompanyCreateWithoutInvitationsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -4279,6 +4355,8 @@ export type CompanyUncheckedCreateWithoutInvitationsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -4394,6 +4472,8 @@ export type CompanyUpdateWithoutInvitationsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -4493,6 +4573,8 @@ export type CompanyUncheckedUpdateWithoutInvitationsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -4592,6 +4674,8 @@ export type CompanyCreateWithoutTasksInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -4691,6 +4775,8 @@ export type CompanyUncheckedCreateWithoutTasksInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -4806,6 +4892,8 @@ export type CompanyUpdateWithoutTasksInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -4905,6 +4993,8 @@ export type CompanyUncheckedUpdateWithoutTasksInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -5004,6 +5094,8 @@ export type CompanyCreateWithoutNotificationsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -5103,6 +5195,8 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -5218,6 +5312,8 @@ export type CompanyUpdateWithoutNotificationsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -5317,6 +5413,8 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -5416,6 +5514,8 @@ export type CompanyCreateWithoutCatalogueInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -5515,6 +5615,8 @@ export type CompanyUncheckedCreateWithoutCatalogueInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -5630,6 +5732,8 @@ export type CompanyUpdateWithoutCatalogueInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -5729,6 +5833,8 @@ export type CompanyUncheckedUpdateWithoutCatalogueInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -5828,6 +5934,8 @@ export type CompanyCreateWithoutClientCompaniesInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -5927,6 +6035,8 @@ export type CompanyUncheckedCreateWithoutClientCompaniesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -6042,6 +6152,8 @@ export type CompanyUpdateWithoutClientCompaniesInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -6141,6 +6253,8 @@ export type CompanyUncheckedUpdateWithoutClientCompaniesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -6240,6 +6354,8 @@ export type CompanyCreateWithoutContactsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -6339,6 +6455,8 @@ export type CompanyUncheckedCreateWithoutContactsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -6454,6 +6572,8 @@ export type CompanyUpdateWithoutContactsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -6553,6 +6673,848 @@ export type CompanyUncheckedUpdateWithoutContactsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
+  jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
+  jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
+  jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
+  jobFolders?: Prisma.JobFolderUncheckedUpdateManyWithoutCompanyNestedInput
+  jobFiles?: Prisma.JobFileUncheckedUpdateManyWithoutCompanyNestedInput
+  jobPostCategories?: Prisma.JobPostCategoryUncheckedUpdateManyWithoutCompanyNestedInput
+  jobPosts?: Prisma.JobPostUncheckedUpdateManyWithoutCompanyNestedInput
+  jobComments?: Prisma.JobCommentUncheckedUpdateManyWithoutCompanyNestedInput
+  jobTodoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutCompanyNestedInput
+  jobTodos?: Prisma.JobTodoUncheckedUpdateManyWithoutCompanyNestedInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedUpdateManyWithoutCompanyNestedInput
+  jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
+  jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
+  trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutLeadSourceOptionsInput = {
+  id?: string
+  slug: string
+  name: string
+  legalName?: string | null
+  taxId?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  logoUrl?: string | null
+  pdfLogoUrl?: string | null
+  watermarkUrl?: string | null
+  primaryColor?: string
+  accentColor?: string
+  defaultLanguage?: $Enums.Language
+  currency?: string
+  formatLocale?: string
+  timezone?: string
+  defaultTaxType?: $Enums.TaxType
+  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: string
+  quoteValidityDays?: number
+  quoteNumberStart?: number
+  quoteFooter?: string | null
+  slogan?: string | null
+  senderNameStyle?: $Enums.SenderNameStyle
+  firstFollowUpDays?: number
+  secondFollowUpDays?: number
+  reviewRequestDays?: number
+  sendQuoteCopy?: boolean
+  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
+  quoteIntro?: string | null
+  quoteNotes?: string | null
+  quoteExclusions?: string | null
+  quoteTerms?: string | null
+  quoteScope?: string | null
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  acceptanceMode?: $Enums.AcceptanceMode
+  acceptanceStatement?: string | null
+  requireSignature?: boolean
+  askAdditionalComments?: boolean
+  askOrderReference?: boolean
+  isActive?: boolean
+  approvedAt?: Date | string | null
+  isDemo?: boolean
+  demoDays?: number | null
+  demoStartedAt?: Date | string | null
+  demoEndsAt?: Date | string | null
+  demoEndedAt?: Date | string | null
+  demoWarnedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipCreateNestedManyWithoutCompanyInput
+  loginAttempts?: Prisma.LoginAttemptCreateNestedManyWithoutCompanyInput
+  roles?: Prisma.RoleCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutCompanyInput
+  leads?: Prisma.LeadCreateNestedManyWithoutCompanyInput
+  quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
+  quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
+  clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
+  catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
+  quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
+  submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
+  ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
+  quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
+  acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
+  emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
+  reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
+  jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
+  jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
+  jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
+  jobFolders?: Prisma.JobFolderCreateNestedManyWithoutCompanyInput
+  jobFiles?: Prisma.JobFileCreateNestedManyWithoutCompanyInput
+  jobPostCategories?: Prisma.JobPostCategoryCreateNestedManyWithoutCompanyInput
+  jobPosts?: Prisma.JobPostCreateNestedManyWithoutCompanyInput
+  jobComments?: Prisma.JobCommentCreateNestedManyWithoutCompanyInput
+  jobTodoLists?: Prisma.JobTodoListCreateNestedManyWithoutCompanyInput
+  jobTodos?: Prisma.JobTodoCreateNestedManyWithoutCompanyInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeCreateNestedManyWithoutCompanyInput
+  jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
+  jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
+  jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
+  trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutLeadSourceOptionsInput = {
+  id?: string
+  slug: string
+  name: string
+  legalName?: string | null
+  taxId?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  logoUrl?: string | null
+  pdfLogoUrl?: string | null
+  watermarkUrl?: string | null
+  primaryColor?: string
+  accentColor?: string
+  defaultLanguage?: $Enums.Language
+  currency?: string
+  formatLocale?: string
+  timezone?: string
+  defaultTaxType?: $Enums.TaxType
+  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: string
+  quoteValidityDays?: number
+  quoteNumberStart?: number
+  quoteFooter?: string | null
+  slogan?: string | null
+  senderNameStyle?: $Enums.SenderNameStyle
+  firstFollowUpDays?: number
+  secondFollowUpDays?: number
+  reviewRequestDays?: number
+  sendQuoteCopy?: boolean
+  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
+  quoteIntro?: string | null
+  quoteNotes?: string | null
+  quoteExclusions?: string | null
+  quoteTerms?: string | null
+  quoteScope?: string | null
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  acceptanceMode?: $Enums.AcceptanceMode
+  acceptanceStatement?: string | null
+  requireSignature?: boolean
+  askAdditionalComments?: boolean
+  askOrderReference?: boolean
+  isActive?: boolean
+  approvedAt?: Date | string | null
+  isDemo?: boolean
+  demoDays?: number | null
+  demoStartedAt?: Date | string | null
+  demoEndsAt?: Date | string | null
+  demoEndedAt?: Date | string | null
+  demoWarnedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutCompanyInput
+  loginAttempts?: Prisma.LoginAttemptUncheckedCreateNestedManyWithoutCompanyInput
+  roles?: Prisma.RoleUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutCompanyInput
+  leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCompanyInput
+  quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
+  quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
+  clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
+  catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
+  submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
+  ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
+  quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
+  acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
+  emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
+  jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
+  jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
+  jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
+  jobFolders?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCompanyInput
+  jobFiles?: Prisma.JobFileUncheckedCreateNestedManyWithoutCompanyInput
+  jobPostCategories?: Prisma.JobPostCategoryUncheckedCreateNestedManyWithoutCompanyInput
+  jobPosts?: Prisma.JobPostUncheckedCreateNestedManyWithoutCompanyInput
+  jobComments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutCompanyInput
+  jobTodoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutCompanyInput
+  jobTodos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCompanyInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedCreateNestedManyWithoutCompanyInput
+  jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
+  jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
+  trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutLeadSourceOptionsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLeadSourceOptionsInput, Prisma.CompanyUncheckedCreateWithoutLeadSourceOptionsInput>
+}
+
+export type CompanyUpsertWithoutLeadSourceOptionsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutLeadSourceOptionsInput, Prisma.CompanyUncheckedUpdateWithoutLeadSourceOptionsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLeadSourceOptionsInput, Prisma.CompanyUncheckedCreateWithoutLeadSourceOptionsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutLeadSourceOptionsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutLeadSourceOptionsInput, Prisma.CompanyUncheckedUpdateWithoutLeadSourceOptionsInput>
+}
+
+export type CompanyUpdateWithoutLeadSourceOptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
+  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
+  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
+  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
+  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
+  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isDemo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  demoDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  demoStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoWarnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUpdateManyWithoutCompanyNestedInput
+  loginAttempts?: Prisma.LoginAttemptUpdateManyWithoutCompanyNestedInput
+  roles?: Prisma.RoleUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutCompanyNestedInput
+  leads?: Prisma.LeadUpdateManyWithoutCompanyNestedInput
+  quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
+  quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
+  clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
+  catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
+  quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
+  submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
+  ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
+  quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
+  acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
+  emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
+  reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
+  jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
+  jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
+  jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
+  jobFolders?: Prisma.JobFolderUpdateManyWithoutCompanyNestedInput
+  jobFiles?: Prisma.JobFileUpdateManyWithoutCompanyNestedInput
+  jobPostCategories?: Prisma.JobPostCategoryUpdateManyWithoutCompanyNestedInput
+  jobPosts?: Prisma.JobPostUpdateManyWithoutCompanyNestedInput
+  jobComments?: Prisma.JobCommentUpdateManyWithoutCompanyNestedInput
+  jobTodoLists?: Prisma.JobTodoListUpdateManyWithoutCompanyNestedInput
+  jobTodos?: Prisma.JobTodoUpdateManyWithoutCompanyNestedInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeUpdateManyWithoutCompanyNestedInput
+  jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
+  jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
+  trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutLeadSourceOptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
+  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
+  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
+  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
+  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
+  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isDemo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  demoDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  demoStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoWarnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutCompanyNestedInput
+  loginAttempts?: Prisma.LoginAttemptUncheckedUpdateManyWithoutCompanyNestedInput
+  roles?: Prisma.RoleUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  leads?: Prisma.LeadUncheckedUpdateManyWithoutCompanyNestedInput
+  quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
+  clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
+  catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
+  submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
+  ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
+  jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
+  jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
+  jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
+  jobFolders?: Prisma.JobFolderUncheckedUpdateManyWithoutCompanyNestedInput
+  jobFiles?: Prisma.JobFileUncheckedUpdateManyWithoutCompanyNestedInput
+  jobPostCategories?: Prisma.JobPostCategoryUncheckedUpdateManyWithoutCompanyNestedInput
+  jobPosts?: Prisma.JobPostUncheckedUpdateManyWithoutCompanyNestedInput
+  jobComments?: Prisma.JobCommentUncheckedUpdateManyWithoutCompanyNestedInput
+  jobTodoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutCompanyNestedInput
+  jobTodos?: Prisma.JobTodoUncheckedUpdateManyWithoutCompanyNestedInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedUpdateManyWithoutCompanyNestedInput
+  jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
+  jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
+  trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutLeadAccessLogsInput = {
+  id?: string
+  slug: string
+  name: string
+  legalName?: string | null
+  taxId?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  logoUrl?: string | null
+  pdfLogoUrl?: string | null
+  watermarkUrl?: string | null
+  primaryColor?: string
+  accentColor?: string
+  defaultLanguage?: $Enums.Language
+  currency?: string
+  formatLocale?: string
+  timezone?: string
+  defaultTaxType?: $Enums.TaxType
+  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: string
+  quoteValidityDays?: number
+  quoteNumberStart?: number
+  quoteFooter?: string | null
+  slogan?: string | null
+  senderNameStyle?: $Enums.SenderNameStyle
+  firstFollowUpDays?: number
+  secondFollowUpDays?: number
+  reviewRequestDays?: number
+  sendQuoteCopy?: boolean
+  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
+  quoteIntro?: string | null
+  quoteNotes?: string | null
+  quoteExclusions?: string | null
+  quoteTerms?: string | null
+  quoteScope?: string | null
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  acceptanceMode?: $Enums.AcceptanceMode
+  acceptanceStatement?: string | null
+  requireSignature?: boolean
+  askAdditionalComments?: boolean
+  askOrderReference?: boolean
+  isActive?: boolean
+  approvedAt?: Date | string | null
+  isDemo?: boolean
+  demoDays?: number | null
+  demoStartedAt?: Date | string | null
+  demoEndsAt?: Date | string | null
+  demoEndedAt?: Date | string | null
+  demoWarnedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipCreateNestedManyWithoutCompanyInput
+  loginAttempts?: Prisma.LoginAttemptCreateNestedManyWithoutCompanyInput
+  roles?: Prisma.RoleCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutCompanyInput
+  leads?: Prisma.LeadCreateNestedManyWithoutCompanyInput
+  quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
+  quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
+  clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
+  catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
+  quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
+  submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
+  ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
+  quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
+  acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
+  emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
+  reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
+  jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
+  jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
+  jobFolders?: Prisma.JobFolderCreateNestedManyWithoutCompanyInput
+  jobFiles?: Prisma.JobFileCreateNestedManyWithoutCompanyInput
+  jobPostCategories?: Prisma.JobPostCategoryCreateNestedManyWithoutCompanyInput
+  jobPosts?: Prisma.JobPostCreateNestedManyWithoutCompanyInput
+  jobComments?: Prisma.JobCommentCreateNestedManyWithoutCompanyInput
+  jobTodoLists?: Prisma.JobTodoListCreateNestedManyWithoutCompanyInput
+  jobTodos?: Prisma.JobTodoCreateNestedManyWithoutCompanyInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeCreateNestedManyWithoutCompanyInput
+  jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
+  jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
+  jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
+  trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutLeadAccessLogsInput = {
+  id?: string
+  slug: string
+  name: string
+  legalName?: string | null
+  taxId?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  logoUrl?: string | null
+  pdfLogoUrl?: string | null
+  watermarkUrl?: string | null
+  primaryColor?: string
+  accentColor?: string
+  defaultLanguage?: $Enums.Language
+  currency?: string
+  formatLocale?: string
+  timezone?: string
+  defaultTaxType?: $Enums.TaxType
+  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: string
+  quoteValidityDays?: number
+  quoteNumberStart?: number
+  quoteFooter?: string | null
+  slogan?: string | null
+  senderNameStyle?: $Enums.SenderNameStyle
+  firstFollowUpDays?: number
+  secondFollowUpDays?: number
+  reviewRequestDays?: number
+  sendQuoteCopy?: boolean
+  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
+  quoteIntro?: string | null
+  quoteNotes?: string | null
+  quoteExclusions?: string | null
+  quoteTerms?: string | null
+  quoteScope?: string | null
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  acceptanceMode?: $Enums.AcceptanceMode
+  acceptanceStatement?: string | null
+  requireSignature?: boolean
+  askAdditionalComments?: boolean
+  askOrderReference?: boolean
+  isActive?: boolean
+  approvedAt?: Date | string | null
+  isDemo?: boolean
+  demoDays?: number | null
+  demoStartedAt?: Date | string | null
+  demoEndsAt?: Date | string | null
+  demoEndedAt?: Date | string | null
+  demoWarnedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutCompanyInput
+  loginAttempts?: Prisma.LoginAttemptUncheckedCreateNestedManyWithoutCompanyInput
+  roles?: Prisma.RoleUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutCompanyInput
+  leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCompanyInput
+  quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
+  quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
+  clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
+  catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
+  submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
+  ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
+  quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
+  acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
+  emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
+  jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
+  jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
+  jobFolders?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCompanyInput
+  jobFiles?: Prisma.JobFileUncheckedCreateNestedManyWithoutCompanyInput
+  jobPostCategories?: Prisma.JobPostCategoryUncheckedCreateNestedManyWithoutCompanyInput
+  jobPosts?: Prisma.JobPostUncheckedCreateNestedManyWithoutCompanyInput
+  jobComments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutCompanyInput
+  jobTodoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutCompanyInput
+  jobTodos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCompanyInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedCreateNestedManyWithoutCompanyInput
+  jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
+  jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
+  trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutLeadAccessLogsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLeadAccessLogsInput, Prisma.CompanyUncheckedCreateWithoutLeadAccessLogsInput>
+}
+
+export type CompanyUpsertWithoutLeadAccessLogsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutLeadAccessLogsInput, Prisma.CompanyUncheckedUpdateWithoutLeadAccessLogsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLeadAccessLogsInput, Prisma.CompanyUncheckedCreateWithoutLeadAccessLogsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutLeadAccessLogsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutLeadAccessLogsInput, Prisma.CompanyUncheckedUpdateWithoutLeadAccessLogsInput>
+}
+
+export type CompanyUpdateWithoutLeadAccessLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
+  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
+  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
+  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
+  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
+  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isDemo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  demoDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  demoStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoWarnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUpdateManyWithoutCompanyNestedInput
+  loginAttempts?: Prisma.LoginAttemptUpdateManyWithoutCompanyNestedInput
+  roles?: Prisma.RoleUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutCompanyNestedInput
+  leads?: Prisma.LeadUpdateManyWithoutCompanyNestedInput
+  quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
+  quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
+  clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
+  catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
+  quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
+  submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
+  ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
+  quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
+  acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
+  emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
+  reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
+  jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
+  jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
+  jobFolders?: Prisma.JobFolderUpdateManyWithoutCompanyNestedInput
+  jobFiles?: Prisma.JobFileUpdateManyWithoutCompanyNestedInput
+  jobPostCategories?: Prisma.JobPostCategoryUpdateManyWithoutCompanyNestedInput
+  jobPosts?: Prisma.JobPostUpdateManyWithoutCompanyNestedInput
+  jobComments?: Prisma.JobCommentUpdateManyWithoutCompanyNestedInput
+  jobTodoLists?: Prisma.JobTodoListUpdateManyWithoutCompanyNestedInput
+  jobTodos?: Prisma.JobTodoUpdateManyWithoutCompanyNestedInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeUpdateManyWithoutCompanyNestedInput
+  jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
+  jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
+  trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutLeadAccessLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
+  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
+  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
+  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
+  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
+  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isDemo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  demoDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  demoStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoWarnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutCompanyNestedInput
+  loginAttempts?: Prisma.LoginAttemptUncheckedUpdateManyWithoutCompanyNestedInput
+  roles?: Prisma.RoleUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  leads?: Prisma.LeadUncheckedUpdateManyWithoutCompanyNestedInput
+  quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
+  clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
+  catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
+  submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
+  ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -6652,6 +7614,8 @@ export type CompanyCreateWithoutLeadsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -6751,6 +7715,8 @@ export type CompanyUncheckedCreateWithoutLeadsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -6866,6 +7832,8 @@ export type CompanyUpdateWithoutLeadsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -6965,6 +7933,8 @@ export type CompanyUncheckedUpdateWithoutLeadsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -7064,6 +8034,8 @@ export type CompanyCreateWithoutSubmissionsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -7163,6 +8135,8 @@ export type CompanyUncheckedCreateWithoutSubmissionsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -7278,6 +8252,8 @@ export type CompanyUpdateWithoutSubmissionsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -7377,6 +8353,8 @@ export type CompanyUncheckedUpdateWithoutSubmissionsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -7476,6 +8454,8 @@ export type CompanyCreateWithoutLeadAttachmentsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -7575,6 +8555,8 @@ export type CompanyUncheckedCreateWithoutLeadAttachmentsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -7690,6 +8672,8 @@ export type CompanyUpdateWithoutLeadAttachmentsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -7789,6 +8773,8 @@ export type CompanyUncheckedUpdateWithoutLeadAttachmentsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -7888,6 +8874,8 @@ export type CompanyCreateWithoutIngestKeysInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -7987,6 +8975,8 @@ export type CompanyUncheckedCreateWithoutIngestKeysInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -8102,6 +9092,8 @@ export type CompanyUpdateWithoutIngestKeysInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -8201,6 +9193,8 @@ export type CompanyUncheckedUpdateWithoutIngestKeysInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -8300,6 +9294,8 @@ export type CompanyCreateWithoutIngestAttemptsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -8399,6 +9395,8 @@ export type CompanyUncheckedCreateWithoutIngestAttemptsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -8514,6 +9512,8 @@ export type CompanyUpdateWithoutIngestAttemptsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -8613,6 +9613,8 @@ export type CompanyUncheckedUpdateWithoutIngestAttemptsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -8712,6 +9714,8 @@ export type CompanyCreateWithoutActivitiesInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -8811,6 +9815,8 @@ export type CompanyUncheckedCreateWithoutActivitiesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -8926,6 +9932,8 @@ export type CompanyUpdateWithoutActivitiesInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -9025,6 +10033,8 @@ export type CompanyUncheckedUpdateWithoutActivitiesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -9124,6 +10134,8 @@ export type CompanyCreateWithoutQuoteTemplatesInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -9223,6 +10235,8 @@ export type CompanyUncheckedCreateWithoutQuoteTemplatesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -9338,6 +10352,8 @@ export type CompanyUpdateWithoutQuoteTemplatesInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -9437,6 +10453,8 @@ export type CompanyUncheckedUpdateWithoutQuoteTemplatesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -9536,6 +10554,8 @@ export type CompanyCreateWithoutQuotesInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -9635,6 +10655,8 @@ export type CompanyUncheckedCreateWithoutQuotesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -9750,6 +10772,8 @@ export type CompanyUpdateWithoutQuotesInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -9849,6 +10873,8 @@ export type CompanyUncheckedUpdateWithoutQuotesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -9948,6 +10974,8 @@ export type CompanyCreateWithoutDocumentsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -10047,6 +11075,8 @@ export type CompanyUncheckedCreateWithoutDocumentsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -10162,6 +11192,8 @@ export type CompanyUpdateWithoutDocumentsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -10261,6 +11293,8 @@ export type CompanyUncheckedUpdateWithoutDocumentsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -10360,6 +11394,8 @@ export type CompanyCreateWithoutQuoteSharesInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -10459,6 +11495,8 @@ export type CompanyUncheckedCreateWithoutQuoteSharesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -10574,6 +11612,8 @@ export type CompanyUpdateWithoutQuoteSharesInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -10673,6 +11713,8 @@ export type CompanyUncheckedUpdateWithoutQuoteSharesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -10772,6 +11814,8 @@ export type CompanyCreateWithoutQuoteRecipientsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -10871,6 +11915,8 @@ export type CompanyUncheckedCreateWithoutQuoteRecipientsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -10986,6 +12032,8 @@ export type CompanyUpdateWithoutQuoteRecipientsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -11085,6 +12133,8 @@ export type CompanyUncheckedUpdateWithoutQuoteRecipientsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -11184,6 +12234,8 @@ export type CompanyCreateWithoutSignatureHandoffsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -11283,6 +12335,8 @@ export type CompanyUncheckedCreateWithoutSignatureHandoffsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -11398,6 +12452,8 @@ export type CompanyUpdateWithoutSignatureHandoffsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -11497,6 +12553,8 @@ export type CompanyUncheckedUpdateWithoutSignatureHandoffsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -11596,6 +12654,8 @@ export type CompanyCreateWithoutQuoteEventsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -11695,6 +12755,8 @@ export type CompanyUncheckedCreateWithoutQuoteEventsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -11810,6 +12872,8 @@ export type CompanyUpdateWithoutQuoteEventsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -11909,6 +12973,8 @@ export type CompanyUncheckedUpdateWithoutQuoteEventsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -12008,6 +13074,8 @@ export type CompanyCreateWithoutQuoteMessagesInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -12107,6 +13175,8 @@ export type CompanyUncheckedCreateWithoutQuoteMessagesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -12222,6 +13292,8 @@ export type CompanyUpdateWithoutQuoteMessagesInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -12321,6 +13393,8 @@ export type CompanyUncheckedUpdateWithoutQuoteMessagesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -12420,6 +13494,8 @@ export type CompanyCreateWithoutAcceptancesInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -12519,6 +13595,8 @@ export type CompanyUncheckedCreateWithoutAcceptancesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -12634,6 +13712,8 @@ export type CompanyUpdateWithoutAcceptancesInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -12733,6 +13813,8 @@ export type CompanyUncheckedUpdateWithoutAcceptancesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -12832,6 +13914,8 @@ export type CompanyCreateWithoutReviewLinksInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -12931,6 +14015,8 @@ export type CompanyUncheckedCreateWithoutReviewLinksInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -13046,6 +14132,8 @@ export type CompanyUpdateWithoutReviewLinksInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -13145,6 +14233,8 @@ export type CompanyUncheckedUpdateWithoutReviewLinksInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -13244,6 +14334,8 @@ export type CompanyCreateWithoutEmailTemplatesInput = {
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -13343,6 +14435,8 @@ export type CompanyUncheckedCreateWithoutEmailTemplatesInput = {
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -13458,6 +14552,8 @@ export type CompanyUpdateWithoutEmailTemplatesInput = {
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -13557,6 +14653,8 @@ export type CompanyUncheckedUpdateWithoutEmailTemplatesInput = {
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -13656,6 +14754,8 @@ export type CompanyCreateWithoutReviewsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -13755,6 +14855,8 @@ export type CompanyUncheckedCreateWithoutReviewsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -13870,6 +14972,8 @@ export type CompanyUpdateWithoutReviewsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -13969,6 +15073,8 @@ export type CompanyUncheckedUpdateWithoutReviewsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -14068,6 +15174,8 @@ export type CompanyCreateWithoutNotificationPreferencesInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -14167,6 +15275,8 @@ export type CompanyUncheckedCreateWithoutNotificationPreferencesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -14282,6 +15392,8 @@ export type CompanyUpdateWithoutNotificationPreferencesInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -14381,6 +15493,8 @@ export type CompanyUncheckedUpdateWithoutNotificationPreferencesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -14481,6 +15595,8 @@ export type CompanyCreateWithoutJobsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
   jobFolders?: Prisma.JobFolderCreateNestedManyWithoutCompanyInput
@@ -14580,6 +15696,8 @@ export type CompanyUncheckedCreateWithoutJobsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
   jobFolders?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCompanyInput
@@ -14695,6 +15813,8 @@ export type CompanyUpdateWithoutJobsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
   jobFolders?: Prisma.JobFolderUpdateManyWithoutCompanyNestedInput
@@ -14794,6 +15914,8 @@ export type CompanyUncheckedUpdateWithoutJobsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
   jobFolders?: Prisma.JobFolderUncheckedUpdateManyWithoutCompanyNestedInput
@@ -14893,6 +16015,8 @@ export type CompanyCreateWithoutJobMembersInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
   jobFolders?: Prisma.JobFolderCreateNestedManyWithoutCompanyInput
@@ -14992,6 +16116,8 @@ export type CompanyUncheckedCreateWithoutJobMembersInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
   jobFolders?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCompanyInput
@@ -15107,6 +16233,8 @@ export type CompanyUpdateWithoutJobMembersInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
   jobFolders?: Prisma.JobFolderUpdateManyWithoutCompanyNestedInput
@@ -15206,6 +16334,8 @@ export type CompanyUncheckedUpdateWithoutJobMembersInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
   jobFolders?: Prisma.JobFolderUncheckedUpdateManyWithoutCompanyNestedInput
@@ -15305,6 +16435,8 @@ export type CompanyCreateWithoutJobActivitiesInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobFolders?: Prisma.JobFolderCreateNestedManyWithoutCompanyInput
@@ -15404,6 +16536,8 @@ export type CompanyUncheckedCreateWithoutJobActivitiesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobFolders?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCompanyInput
@@ -15519,6 +16653,8 @@ export type CompanyUpdateWithoutJobActivitiesInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobFolders?: Prisma.JobFolderUpdateManyWithoutCompanyNestedInput
@@ -15618,6 +16754,8 @@ export type CompanyUncheckedUpdateWithoutJobActivitiesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobFolders?: Prisma.JobFolderUncheckedUpdateManyWithoutCompanyNestedInput
@@ -15717,6 +16855,8 @@ export type CompanyCreateWithoutJobFoldersInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -15816,6 +16956,8 @@ export type CompanyUncheckedCreateWithoutJobFoldersInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -15931,6 +17073,8 @@ export type CompanyUpdateWithoutJobFoldersInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -16030,6 +17174,8 @@ export type CompanyUncheckedUpdateWithoutJobFoldersInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -16129,6 +17275,8 @@ export type CompanyCreateWithoutJobFilesInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -16228,6 +17376,8 @@ export type CompanyUncheckedCreateWithoutJobFilesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -16343,6 +17493,8 @@ export type CompanyUpdateWithoutJobFilesInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -16442,6 +17594,8 @@ export type CompanyUncheckedUpdateWithoutJobFilesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -16541,6 +17695,8 @@ export type CompanyCreateWithoutJobPostCategoriesInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -16640,6 +17796,8 @@ export type CompanyUncheckedCreateWithoutJobPostCategoriesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -16755,6 +17913,8 @@ export type CompanyUpdateWithoutJobPostCategoriesInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -16854,6 +18014,8 @@ export type CompanyUncheckedUpdateWithoutJobPostCategoriesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -16953,6 +18115,8 @@ export type CompanyCreateWithoutJobPostsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -17052,6 +18216,8 @@ export type CompanyUncheckedCreateWithoutJobPostsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -17167,6 +18333,8 @@ export type CompanyUpdateWithoutJobPostsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -17266,6 +18434,8 @@ export type CompanyUncheckedUpdateWithoutJobPostsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -17365,6 +18535,8 @@ export type CompanyCreateWithoutJobCommentsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -17464,6 +18636,8 @@ export type CompanyUncheckedCreateWithoutJobCommentsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -17579,6 +18753,8 @@ export type CompanyUpdateWithoutJobCommentsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -17678,6 +18854,8 @@ export type CompanyUncheckedUpdateWithoutJobCommentsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -17777,6 +18955,8 @@ export type CompanyCreateWithoutJobEventsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -17876,6 +19056,8 @@ export type CompanyUncheckedCreateWithoutJobEventsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -17991,6 +19173,8 @@ export type CompanyUpdateWithoutJobEventsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -18090,6 +19274,8 @@ export type CompanyUncheckedUpdateWithoutJobEventsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -18189,6 +19375,8 @@ export type CompanyCreateWithoutJobEventParticipantsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -18288,6 +19476,8 @@ export type CompanyUncheckedCreateWithoutJobEventParticipantsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -18403,6 +19593,8 @@ export type CompanyUpdateWithoutJobEventParticipantsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -18502,6 +19694,8 @@ export type CompanyUncheckedUpdateWithoutJobEventParticipantsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -18601,6 +19795,8 @@ export type CompanyCreateWithoutJobTodoListsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -18700,6 +19896,8 @@ export type CompanyUncheckedCreateWithoutJobTodoListsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -18815,6 +20013,8 @@ export type CompanyUpdateWithoutJobTodoListsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -18914,6 +20114,8 @@ export type CompanyUncheckedUpdateWithoutJobTodoListsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -19013,6 +20215,8 @@ export type CompanyCreateWithoutJobTodosInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -19112,6 +20316,8 @@ export type CompanyUncheckedCreateWithoutJobTodosInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -19227,6 +20433,8 @@ export type CompanyUpdateWithoutJobTodosInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -19326,6 +20534,8 @@ export type CompanyUncheckedUpdateWithoutJobTodosInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -19425,6 +20635,8 @@ export type CompanyCreateWithoutJobTodoAssigneesInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -19524,6 +20736,8 @@ export type CompanyUncheckedCreateWithoutJobTodoAssigneesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -19639,6 +20853,8 @@ export type CompanyUpdateWithoutJobTodoAssigneesInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -19738,6 +20954,8 @@ export type CompanyUncheckedUpdateWithoutJobTodoAssigneesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -19837,6 +21055,8 @@ export type CompanyCreateWithoutTradesInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -19936,6 +21156,8 @@ export type CompanyUncheckedCreateWithoutTradesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -20051,6 +21273,8 @@ export type CompanyUpdateWithoutTradesInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -20150,6 +21374,8 @@ export type CompanyUncheckedUpdateWithoutTradesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -20249,6 +21475,8 @@ export type CompanyCreateWithoutJobChatMessagesInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -20348,6 +21576,8 @@ export type CompanyUncheckedCreateWithoutJobChatMessagesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -20463,6 +21693,8 @@ export type CompanyUpdateWithoutJobChatMessagesInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -20562,6 +21794,8 @@ export type CompanyUncheckedUpdateWithoutJobChatMessagesInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -20661,6 +21895,8 @@ export type CompanyCreateWithoutJobScopeItemsInput = {
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
@@ -20760,6 +21996,8 @@ export type CompanyUncheckedCreateWithoutJobScopeItemsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
   reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
   jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
@@ -20875,6 +22113,8 @@ export type CompanyUpdateWithoutJobScopeItemsInput = {
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
@@ -20974,6 +22214,8 @@ export type CompanyUncheckedUpdateWithoutJobScopeItemsInput = {
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
   reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
   quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
   jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
@@ -21026,6 +22268,8 @@ export type CompanyCountOutputType = {
   emailTemplates: number
   reviewLinks: number
   quoteTypes: number
+  leadSourceOptions: number
+  leadAccessLogs: number
   jobs: number
   jobMembers: number
   jobActivities: number
@@ -21074,6 +22318,8 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   emailTemplates?: boolean | CompanyCountOutputTypeCountEmailTemplatesArgs
   reviewLinks?: boolean | CompanyCountOutputTypeCountReviewLinksArgs
   quoteTypes?: boolean | CompanyCountOutputTypeCountQuoteTypesArgs
+  leadSourceOptions?: boolean | CompanyCountOutputTypeCountLeadSourceOptionsArgs
+  leadAccessLogs?: boolean | CompanyCountOutputTypeCountLeadAccessLogsArgs
   jobs?: boolean | CompanyCountOutputTypeCountJobsArgs
   jobMembers?: boolean | CompanyCountOutputTypeCountJobMembersArgs
   jobActivities?: boolean | CompanyCountOutputTypeCountJobActivitiesArgs
@@ -21308,6 +22554,20 @@ export type CompanyCountOutputTypeCountQuoteTypesArgs<ExtArgs extends runtime.Ty
 /**
  * CompanyCountOutputType without action
  */
+export type CompanyCountOutputTypeCountLeadSourceOptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LeadSourceOptionWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountLeadAccessLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LeadAccessLogWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
 export type CompanyCountOutputTypeCountJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.JobWhereInput
 }
@@ -21500,6 +22760,8 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   emailTemplates?: boolean | Prisma.Company$emailTemplatesArgs<ExtArgs>
   reviewLinks?: boolean | Prisma.Company$reviewLinksArgs<ExtArgs>
   quoteTypes?: boolean | Prisma.Company$quoteTypesArgs<ExtArgs>
+  leadSourceOptions?: boolean | Prisma.Company$leadSourceOptionsArgs<ExtArgs>
+  leadAccessLogs?: boolean | Prisma.Company$leadAccessLogsArgs<ExtArgs>
   jobs?: boolean | Prisma.Company$jobsArgs<ExtArgs>
   jobMembers?: boolean | Prisma.Company$jobMembersArgs<ExtArgs>
   jobActivities?: boolean | Prisma.Company$jobActivitiesArgs<ExtArgs>
@@ -21715,6 +22977,8 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   emailTemplates?: boolean | Prisma.Company$emailTemplatesArgs<ExtArgs>
   reviewLinks?: boolean | Prisma.Company$reviewLinksArgs<ExtArgs>
   quoteTypes?: boolean | Prisma.Company$quoteTypesArgs<ExtArgs>
+  leadSourceOptions?: boolean | Prisma.Company$leadSourceOptionsArgs<ExtArgs>
+  leadAccessLogs?: boolean | Prisma.Company$leadAccessLogsArgs<ExtArgs>
   jobs?: boolean | Prisma.Company$jobsArgs<ExtArgs>
   jobMembers?: boolean | Prisma.Company$jobMembersArgs<ExtArgs>
   jobActivities?: boolean | Prisma.Company$jobActivitiesArgs<ExtArgs>
@@ -21768,6 +23032,8 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     emailTemplates: Prisma.$EmailTemplatePayload<ExtArgs>[]
     reviewLinks: Prisma.$ReviewLinkPayload<ExtArgs>[]
     quoteTypes: Prisma.$CompanyQuoteTypePayload<ExtArgs>[]
+    leadSourceOptions: Prisma.$LeadSourceOptionPayload<ExtArgs>[]
+    leadAccessLogs: Prisma.$LeadAccessLogPayload<ExtArgs>[]
     jobs: Prisma.$JobPayload<ExtArgs>[]
     jobMembers: Prisma.$JobMemberPayload<ExtArgs>[]
     jobActivities: Prisma.$JobActivityPayload<ExtArgs>[]
@@ -22362,6 +23628,8 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   emailTemplates<T extends Prisma.Company$emailTemplatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$emailTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviewLinks<T extends Prisma.Company$reviewLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$reviewLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   quoteTypes<T extends Prisma.Company$quoteTypesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$quoteTypesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyQuoteTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  leadSourceOptions<T extends Prisma.Company$leadSourceOptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$leadSourceOptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeadSourceOptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  leadAccessLogs<T extends Prisma.Company$leadAccessLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$leadAccessLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeadAccessLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   jobs<T extends Prisma.Company$jobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$jobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   jobMembers<T extends Prisma.Company$jobMembersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$jobMembersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   jobActivities<T extends Prisma.Company$jobActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$jobActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -23545,6 +24813,54 @@ export type Company$quoteTypesArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.CompanyQuoteTypeScalarFieldEnum | Prisma.CompanyQuoteTypeScalarFieldEnum[]
+}
+
+/**
+ * Company.leadSourceOptions
+ */
+export type Company$leadSourceOptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LeadSourceOption
+   */
+  select?: Prisma.LeadSourceOptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LeadSourceOption
+   */
+  omit?: Prisma.LeadSourceOptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LeadSourceOptionInclude<ExtArgs> | null
+  where?: Prisma.LeadSourceOptionWhereInput
+  orderBy?: Prisma.LeadSourceOptionOrderByWithRelationInput | Prisma.LeadSourceOptionOrderByWithRelationInput[]
+  cursor?: Prisma.LeadSourceOptionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LeadSourceOptionScalarFieldEnum | Prisma.LeadSourceOptionScalarFieldEnum[]
+}
+
+/**
+ * Company.leadAccessLogs
+ */
+export type Company$leadAccessLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LeadAccessLog
+   */
+  select?: Prisma.LeadAccessLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LeadAccessLog
+   */
+  omit?: Prisma.LeadAccessLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LeadAccessLogInclude<ExtArgs> | null
+  where?: Prisma.LeadAccessLogWhereInput
+  orderBy?: Prisma.LeadAccessLogOrderByWithRelationInput | Prisma.LeadAccessLogOrderByWithRelationInput[]
+  cursor?: Prisma.LeadAccessLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LeadAccessLogScalarFieldEnum | Prisma.LeadAccessLogScalarFieldEnum[]
 }
 
 /**

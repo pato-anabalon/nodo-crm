@@ -17,6 +17,9 @@ const ALIASES = {
   companyName: ["company", "companyname", "company_name", "business", "organisation", "organization", "empresa"],
   message: ["message", "comments", "comment", "enquiry", "inquiry", "details", "description", "mensaje", "consulta"],
   serviceType: ["service", "servicetype", "service_type", "jobtype", "job_type", "servicio", "subject"],
+  // What the customer says about how they found the company. Not `utm_source`,
+  // which is the campaign's doing and is read separately below.
+  leadSource: ["source", "lead_source", "leadsource", "how_did_you_hear", "heard_about_us", "found_us", "origen"],
   address: ["address", "location", "suburb", "streetaddress", "street_address", "direccion", "ciudad", "city"],
 } as const;
 
@@ -51,6 +54,8 @@ export type NormalizedSubmission = {
   message: string | null;
   serviceType: string | null;
   address: string | null;
+  /** The raw answer to "how did you find us?", before it is matched to a list. */
+  leadSource: string | null;
   sourceUrl: string | null;
   referrer: string | null;
   utmSource: string | null;
@@ -109,6 +114,7 @@ export function normalizeSubmission(payload: Record<string, unknown>): Normalize
     message: pick(map, ALIASES.message),
     serviceType: pick(map, ALIASES.serviceType),
     address: pick(map, ALIASES.address),
+    leadSource: pick(map, ALIASES.leadSource),
     sourceUrl: pick(map, SOURCE_FIELDS.sourceUrl),
     referrer: pick(map, SOURCE_FIELDS.referrer),
     utmSource: pick(map, UTM_FIELDS.utmSource),

@@ -145,6 +145,26 @@ export type ClientCompany = Prisma.ClientCompanyModel
  */
 export type Contact = Prisma.ContactModel
 /**
+ * Model LeadSourceOption
+ * *
+ *  * The detail offered when a lead's source is "Other": "Billboard", "Home show",
+ *  * whatever this company wants to tell apart. Not an enum, for the same reason
+ *  * `CompanyQuoteType` isn't — every company draws this list differently.
+ *  * A lead freezes the label text (`Lead.sourceDetail`) rather than pointing
+ *  * here, so removing an option later can't change how an old lead reads.
+ */
+export type LeadSourceOption = Prisma.LeadSourceOptionModel
+/**
+ * Model LeadAccessLog
+ * *
+ *  * Who opened a lead and who changed it, and when. Kept apart from `Activity`
+ *  * on purpose: that is the lead's story (calls, notes, quotes) and reads as one;
+ *  * this is an audit trail, and mixing the two would bury the story in
+ *  * "María opened this" lines. A view is written at most once per person per
+ *  * half hour, or a reload would fill the log.
+ */
+export type LeadAccessLog = Prisma.LeadAccessLogModel
+/**
  * Model Lead
  * 
  */
@@ -253,7 +273,6 @@ export type QuoteShareToken = Prisma.QuoteShareTokenModel
  *  * Somebody a quote is sent to. One is the primary — the "For" on the
  *  * document, mirrored into `Quote.clientName/clientEmail/clientPhone` so every
  *  * reader of those keeps working — and any others are copies.
- *  *
  *  * Name and address are frozen, the same as the quote's own client fields: the
  *  * contact can change afterwards, and this is who was written to. Each one gets
  *  * their own email and their own link, so the portal knows which of them is
@@ -265,7 +284,6 @@ export type QuoteRecipient = Prisma.QuoteRecipientModel
  * Model SignatureHandoff
  * *
  *  * Signing on a phone for a quote open on a computer.
- *  *
  *  * The portal shows a QR; the phone opens `/sign/<token>` and sends its strokes
  *  * each time a finger lifts, replacing what it sent before; the portal polls
  *  * for a newer `version` and redraws. One way only. The token is its own, not

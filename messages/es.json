@@ -518,6 +518,7 @@
     "tabs": {
       "detail": "Detalle",
       "log": "Bitácora",
+      "files": "Archivos ({count})",
       "quotes": "Cotizaciones ({count})"
     },
     "form": {
@@ -530,6 +531,8 @@
       "source": "Origen",
       "lostReason": "Motivo de pérdida",
       "lostReasonHint": "Solo se guarda si el estado es Perdido.",
+      "sourceDetail": "Origen exacto",
+      "sourceDetailNone": "Sin especificar",
       "contact": "Contacto",
       "existingContact": "Contacto existente",
       "existingContactHint": "Busca para rellenar los campos de abajo desde un contacto ya registrado.",
@@ -597,6 +600,70 @@
       "failed": "Sin copiar",
       "failedHint": "No pudimos copiarlo; el enlace abre el original."
     },
+    "accessLog": {
+      "title": "Registro de accesos",
+      "subtitle": "Quién abrió este lead y quién lo modificó. Recargar dentro de 30 minutos cuenta como la misma visita.",
+      "empty": "Nadie ha abierto este lead todavía.",
+      "viewed": "abrió el lead",
+      "updated": "modificó {fields}",
+      "fields": {
+        "title": "el título",
+        "description": "la descripción",
+        "status": "el estado",
+        "source": "el origen",
+        "sourceDetail": "el detalle del origen",
+        "score": "la puntuación",
+        "estimatedValue": "el valor estimado",
+        "contactName": "el nombre del contacto",
+        "contactEmail": "el correo del contacto",
+        "contactPhone": "el teléfono del contacto",
+        "companyName": "la empresa",
+        "contactId": "el contacto vinculado",
+        "ownerId": "el responsable",
+        "lostReason": "el motivo de pérdida",
+        "files": "los archivos"
+      }
+    },
+    "schedule": {
+      "title": "Agendar una acción",
+      "what": "Qué hacer",
+      "whatPlaceholder": "Llamar de vuelta por la cotización",
+      "day": "Día",
+      "time": "Hora",
+      "assignee": "Para",
+      "hint": "En la zona horaria de la empresa. Aparece en Tareas y la campana avisa a quien corresponda cuando pasa la hora.",
+      "submit": "Agendar",
+      "scheduled": "Acción agendada.",
+      "pending": "Acciones agendadas",
+      "due": "para {date}",
+      "overdue": "vencida desde {date}",
+      "done": "Marcar \"{title}\" como hecha",
+      "remove": "Quitar \"{title}\""
+    },
+    "files": {
+      "title": "Archivos",
+      "subtitle": "Lo que el cliente te envió fuera de un formulario web: fotos, planos, un PDF de un correo.",
+      "empty": "Aún no hay archivos.",
+      "upload": "Agregar un archivo",
+      "choose": "Elegir archivo",
+      "noneChosen": "Ningún archivo elegido",
+      "submit": "Subir",
+      "uploading": "Subiendo…",
+      "uploaded": "Archivo subido.",
+      "deleted": "Archivo eliminado.",
+      "delete": "Quitar",
+      "deleteTitle": "¿Quitar este archivo?",
+      "deleteConfirm": "“{name}” se quitará del lead. No se puede deshacer.",
+      "hint": "PDF o imagen, hasta 20 MB. Máximo 30 por lead.",
+      "notFound": "No encontramos ese lead o archivo.",
+      "errors": {
+        "type": "El archivo debe ser un PDF o una imagen.",
+        "size": "El archivo pesa más de {max} MB.",
+        "tooMany": "Alcanzaste el máximo de {max} archivos.",
+        "empty": "Elige un archivo.",
+        "failed": "No se pudo subir el archivo. Revisa tu conexión e inténtalo de nuevo."
+      }
+    },
     "submission": {
       "title": "Formulario recibido",
       "subtitle": "Tal como lo envió el cliente. No se edita.",
@@ -620,7 +687,8 @@
       "CONVERTED": "Cotización {reference} creada",
       "QUOTE_DECIDED": "La cotización #{reference} fue {status, select, ACCEPTED {aceptada} REJECTED {rechazada} EXPIRED {dejada vencer} other {respondida}}",
       "QUOTE_EDITED": "Cotización #{reference} editada después de enviada",
-      "JOB_STARTED": "Trabajo iniciado desde la cotización #{reference}"
+      "JOB_STARTED": "Trabajo iniciado desde la cotización #{reference}",
+      "ACTION_SCHEDULED": "Acción agendada: {title}"
     },
     "ownerSaved": "Responsable actualizado.",
     "ownerCleared": "Responsable quitado.",
@@ -670,7 +738,7 @@
     "new": "Nueva cotización",
     "create": "Crear cotización",
     "noAccess": "Tu perfil no tiene acceso a las cotizaciones.",
-    "searchPlaceholder": "Buscar por título, lead o número…",
+    "searchPlaceholder": "Buscar por título, lead, número o dirección…",
     "empty": "Todavía no hay cotizaciones.",
     "backToQuotes": "Volver a cotizaciones",
     "loading": {
@@ -1347,6 +1415,15 @@
       "add": "Agregar",
       "remove": "Quitar {label}"
     },
+    "leadSources": {
+      "title": "Detalle del origen de un lead",
+      "subtitle": "Lo que dice el origen de un lead cuando es \"Otro\": una feria, un letrero, la recomendación de un proveedor. Cada lead conserva el texto que se le dio, así que quitar una opción no cambia nada ya registrado.",
+      "empty": "Aún no hay opciones. \"Otro\" se ofrece solo.",
+      "label": "Nombre",
+      "add": "Agregar",
+      "remove": "Quitar {label}",
+      "labelRequired": "Escribe un nombre"
+    },
     "acceptance": {
       "title": "Aceptación",
       "subtitle": "Qué se le pide al cliente para aceptar una cotización.",
@@ -1424,6 +1501,7 @@
       "unknownFormatLocale": "Elige un formato de números y fechas de la lista",
       "unknownTimezone": "Elige una zona horaria de la lista",
       "quoteTypeExists": "Ese tipo ya existe",
+      "leadSourceExists": "Esa opción ya existe",
       "platformNameRequired": "Ponle nombre a la plataforma",
       "oneLinkRequired": "Agrega al menos uno de los dos links"
     },

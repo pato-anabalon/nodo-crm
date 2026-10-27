@@ -414,6 +414,8 @@ export const ModelName = {
   CatalogueItem: 'CatalogueItem',
   ClientCompany: 'ClientCompany',
   Contact: 'Contact',
+  LeadSourceOption: 'LeadSourceOption',
+  LeadAccessLog: 'LeadAccessLog',
   Lead: 'Lead',
   LeadSubmission: 'LeadSubmission',
   LeadAttachment: 'LeadAttachment',
@@ -472,7 +474,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteRecipient" | "signatureHandoff" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem" | "job" | "jobMember" | "jobActivity" | "jobFolder" | "jobFile" | "jobPostCategory" | "jobPost" | "jobComment" | "jobEvent" | "jobEventParticipant" | "jobTodoList" | "jobTodo" | "jobTodoAssignee" | "trade" | "membershipTrade" | "jobChatMessage" | "jobScopeItem"
+    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "leadSourceOption" | "leadAccessLog" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteRecipient" | "signatureHandoff" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem" | "job" | "jobMember" | "jobActivity" | "jobFolder" | "jobFile" | "jobPostCategory" | "jobPost" | "jobComment" | "jobEvent" | "jobEventParticipant" | "jobTodoList" | "jobTodo" | "jobTodoAssignee" | "trade" | "membershipTrade" | "jobChatMessage" | "jobScopeItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1731,6 +1733,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ContactCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ContactCountAggregateOutputType> | number
+        }
+      }
+    }
+    LeadSourceOption: {
+      payload: Prisma.$LeadSourceOptionPayload<ExtArgs>
+      fields: Prisma.LeadSourceOptionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LeadSourceOptionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadSourceOptionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LeadSourceOptionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadSourceOptionPayload>
+        }
+        findFirst: {
+          args: Prisma.LeadSourceOptionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadSourceOptionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LeadSourceOptionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadSourceOptionPayload>
+        }
+        findMany: {
+          args: Prisma.LeadSourceOptionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadSourceOptionPayload>[]
+        }
+        create: {
+          args: Prisma.LeadSourceOptionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadSourceOptionPayload>
+        }
+        createMany: {
+          args: Prisma.LeadSourceOptionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LeadSourceOptionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadSourceOptionPayload>[]
+        }
+        delete: {
+          args: Prisma.LeadSourceOptionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadSourceOptionPayload>
+        }
+        update: {
+          args: Prisma.LeadSourceOptionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadSourceOptionPayload>
+        }
+        deleteMany: {
+          args: Prisma.LeadSourceOptionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LeadSourceOptionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LeadSourceOptionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadSourceOptionPayload>[]
+        }
+        upsert: {
+          args: Prisma.LeadSourceOptionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadSourceOptionPayload>
+        }
+        aggregate: {
+          args: Prisma.LeadSourceOptionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLeadSourceOption>
+        }
+        groupBy: {
+          args: Prisma.LeadSourceOptionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LeadSourceOptionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LeadSourceOptionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LeadSourceOptionCountAggregateOutputType> | number
+        }
+      }
+    }
+    LeadAccessLog: {
+      payload: Prisma.$LeadAccessLogPayload<ExtArgs>
+      fields: Prisma.LeadAccessLogFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LeadAccessLogFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAccessLogPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LeadAccessLogFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAccessLogPayload>
+        }
+        findFirst: {
+          args: Prisma.LeadAccessLogFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAccessLogPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LeadAccessLogFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAccessLogPayload>
+        }
+        findMany: {
+          args: Prisma.LeadAccessLogFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAccessLogPayload>[]
+        }
+        create: {
+          args: Prisma.LeadAccessLogCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAccessLogPayload>
+        }
+        createMany: {
+          args: Prisma.LeadAccessLogCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LeadAccessLogCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAccessLogPayload>[]
+        }
+        delete: {
+          args: Prisma.LeadAccessLogDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAccessLogPayload>
+        }
+        update: {
+          args: Prisma.LeadAccessLogUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAccessLogPayload>
+        }
+        deleteMany: {
+          args: Prisma.LeadAccessLogDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LeadAccessLogUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LeadAccessLogUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAccessLogPayload>[]
+        }
+        upsert: {
+          args: Prisma.LeadAccessLogUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeadAccessLogPayload>
+        }
+        aggregate: {
+          args: Prisma.LeadAccessLogAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLeadAccessLog>
+        }
+        groupBy: {
+          args: Prisma.LeadAccessLogGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LeadAccessLogGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LeadAccessLogCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LeadAccessLogCountAggregateOutputType> | number
         }
       }
     }
@@ -5230,6 +5380,30 @@ export const ContactScalarFieldEnum = {
 export type ContactScalarFieldEnum = (typeof ContactScalarFieldEnum)[keyof typeof ContactScalarFieldEnum]
 
 
+export const LeadSourceOptionScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  label: 'label',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type LeadSourceOptionScalarFieldEnum = (typeof LeadSourceOptionScalarFieldEnum)[keyof typeof LeadSourceOptionScalarFieldEnum]
+
+
+export const LeadAccessLogScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  leadId: 'leadId',
+  userId: 'userId',
+  kind: 'kind',
+  detail: 'detail',
+  createdAt: 'createdAt'
+} as const
+
+export type LeadAccessLogScalarFieldEnum = (typeof LeadAccessLogScalarFieldEnum)[keyof typeof LeadAccessLogScalarFieldEnum]
+
+
 export const LeadScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
@@ -5238,6 +5412,7 @@ export const LeadScalarFieldEnum = {
   description: 'description',
   status: 'status',
   source: 'source',
+  sourceDetail: 'sourceDetail',
   score: 'score',
   estimatedValue: 'estimatedValue',
   currency: 'currency',
@@ -5300,6 +5475,7 @@ export const LeadAttachmentScalarFieldEnum = {
   status: 'status',
   error: 'error',
   position: 'position',
+  uploadedById: 'uploadedById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -6202,6 +6378,20 @@ export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
 
 
 /**
+ * Reference to a field of type 'LeadAccessKind'
+ */
+export type EnumLeadAccessKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LeadAccessKind'>
+    
+
+
+/**
+ * Reference to a field of type 'LeadAccessKind[]'
+ */
+export type ListEnumLeadAccessKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LeadAccessKind[]'>
+    
+
+
+/**
  * Reference to a field of type 'LeadStatus'
  */
 export type EnumLeadStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LeadStatus'>
@@ -6634,6 +6824,8 @@ export type GlobalOmitConfig = {
   catalogueItem?: Prisma.CatalogueItemOmit
   clientCompany?: Prisma.ClientCompanyOmit
   contact?: Prisma.ContactOmit
+  leadSourceOption?: Prisma.LeadSourceOptionOmit
+  leadAccessLog?: Prisma.LeadAccessLogOmit
   lead?: Prisma.LeadOmit
   leadSubmission?: Prisma.LeadSubmissionOmit
   leadAttachment?: Prisma.LeadAttachmentOmit

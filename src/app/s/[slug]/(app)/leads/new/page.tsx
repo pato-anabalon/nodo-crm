@@ -7,6 +7,7 @@ import { LeadForm } from "@/modules/leads/lead-form";
 import { createLeadAction } from "@/modules/leads/actions";
 import { searchContactsAction } from "@/modules/contacts/actions";
 import { listCompanyMembers } from "@/modules/team/service";
+import { listSourceOptions } from "@/modules/leads/service";
 
 export async function generateMetadata() {
   const t = await getTranslations("leads");
@@ -19,6 +20,7 @@ export default async function NuevoLeadPage() {
 
   const canAssign = ctx.permissions.has("leads.assign");
   const members = canAssign ? await listCompanyMembers(ctx) : [];
+  const sourceOptions = await listSourceOptions(ctx);
 
   return (
     <div className="space-y-6">
@@ -38,6 +40,7 @@ export default async function NuevoLeadPage() {
         submitLabel={t("create")}
         currency={ctx.company.currency}
         searchContacts={searchContactsAction}
+        sourceOptions={sourceOptions}
         defaults={{ ownerId: ctx.user.id }}
       />
     </div>

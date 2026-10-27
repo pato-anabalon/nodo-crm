@@ -109,7 +109,7 @@ describe("isHoneypotFilled", () => {
 describe("buildLeadTitle", () => {
   const empty: NormalizedSubmission = {
     name: null, email: null, phone: null, companyName: null, message: null,
-    serviceType: null, address: null, sourceUrl: null, referrer: null,
+    serviceType: null, address: null, leadSource: null, sourceUrl: null, referrer: null,
     utmSource: null, utmMedium: null, utmCampaign: null,
   };
 
@@ -140,5 +140,23 @@ describe("buildLeadTitle", () => {
 
   it("falls back to the generic one with a form holding nothing useful", () => {
     expect(buildLeadTitle(empty, "Nuevo lead")).toBe("Nuevo lead");
+  });
+});
+
+describe("normalizeSubmission: how the customer found the company", () => {
+  it("reads `source` and the usual ways of asking", () => {
+    expect(normalizeSubmission({ source: "Referral" }).leadSource).toBe("Referral");
+    expect(normalizeSubmission({ "how-did-you-hear": "Google" }).leadSource).toBe("Google");
+    expect(normalizeSubmission({ origen: "Feria" }).leadSource).toBe("Feria");
+  });
+
+  it("is empty when the form doesn't ask", () => {
+    expect(normalizeSubmission({ name: "A" }).leadSource).toBeNull();
+  });
+
+  it("is not confused with the campaign's utm_source", () => {
+    const data = normalizeSubmission({ utm_source: "newsletter" });
+    expect(data.leadSource).toBeNull();
+    expect(data.utmSource).toBe("newsletter");
   });
 });

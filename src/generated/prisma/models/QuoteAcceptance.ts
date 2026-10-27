@@ -1140,18 +1140,19 @@ export type $QuoteAcceptancePayload<ExtArgs extends runtime.Types.Extensions.Int
      *    * The digital fingerprint: what backs the acceptance beyond the signature
      *    * itself. All nullable — acceptances from before it existed keep what they
      *    * had and show only that.
-     *    *
      *    * `verifiedEmail` is true when the link that accepted belonged to a
      *    * recipient: that token only ever travelled in the email to that address.
      */
     verifiedEmail: boolean | null
     /**
-     * * SHA-256 of `signatureData`: any change to the strokes changes it.
+     * *
+     *    * SHA-256 of `signatureData`: any change to the strokes changes it.
      */
     signatureDigest: string | null
     signatureDevice: $Enums.SignatureDevice | null
     /**
-     * * The phone's, when the signature was drawn there.
+     * *
+     *    * The phone's, when the signature was drawn there.
      */
     signatureDeviceUserAgent: string | null
     signatureDeviceIp: string | null

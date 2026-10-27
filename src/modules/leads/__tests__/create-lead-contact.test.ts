@@ -42,6 +42,8 @@ function fakeCtx(seed: { contacts?: Row[]; clientCompanies?: Row[]; leads?: Row[
       findFirst: async () => ({ id: "lead-0", status: "NEW", ownerId: "me" }),
       update: async ({ data }: { data: Row }) => ({ id: "lead-0", ...data }),
     },
+    leadSourceOption: { findMany: async () => [] },
+    leadAccessLog: { create: async () => ({}) },
     activity: { create: async () => ({}) },
   };
 

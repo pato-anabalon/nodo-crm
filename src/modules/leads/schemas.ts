@@ -19,6 +19,9 @@ export const leadFormSchema = z.object({
   description: optionalText,
   status: z.nativeEnum(LeadStatus).default(LeadStatus.NEW),
   source: z.nativeEnum(LeadSource).default(LeadSource.OTHER),
+  // Checked against the company's own list in the service, not here: the
+  // list lives in the database.
+  sourceDetail: optionalText,
   score: z.coerce.number().int().min(0, "validation.min|min=0").max(100, "validation.max|max=100").default(0),
   // `z.coerce.number()` would turn "" into 0, so it's normalised first:
   // an empty field means "no estimated value", not "worth zero".
@@ -80,6 +83,7 @@ export function leadFormDataToInput(formData: FormData): Record<string, unknown>
     description: get("description"),
     status: get("status"),
     source: get("source"),
+    sourceDetail: get("sourceDetail"),
     score: get("score") ?? 0,
     estimatedValue: get("estimatedValue"),
     contactName: get("contactName"),
@@ -91,3 +95,18 @@ export function leadFormDataToInput(formData: FormData): Record<string, unknown>
     lostReason: get("lostReason"),
   };
 }
+
+/**
+ * A follow-up left in a lead's log: what, and the day and wall-clock time it is
+ * for. Day and time stay separate strings here and become an instant in the
+ * company's own timezone in the service — a server in another zone must not
+ * decide that "11:00" means its own 11:00.
+ */
+export const scheduleActionSchema = z.object({
+  title: z.string().trim().min(3, "validation.required").max(200),
+  day: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "validation.invalidDate"),
+  time: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, "validation.invalidDate"),
+  assigneeId: optionalText,
+});
+
+export type ScheduleActionValues = z.output<typeof scheduleActionSchema>;

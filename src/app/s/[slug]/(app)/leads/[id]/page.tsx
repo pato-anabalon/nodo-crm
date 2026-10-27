@@ -7,20 +7,29 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getLead } from "@/modules/leads/service";
+import { getLead, listSourceOptions } from "@/modules/leads/service";
 import { listCompanyMembers } from "@/modules/team/service";
 import { LeadForm } from "@/modules/leads/lead-form";
 import { searchContactsAction } from "@/modules/contacts/actions";
 import { LeadNoteForm } from "@/modules/leads/lead-notes";
+import { LeadScheduleForm, LeadScheduledActions } from "@/modules/leads/lead-schedule";
+import { tasksFor } from "@/modules/tasks/service";
+import { deleteTaskAction, setTaskDoneAction } from "@/modules/tasks/actions";
+import { formatDateTime } from "@/lib/format";
 import { LeadActionsBar } from "@/modules/leads/lead-actions-bar";
 import { LeadActivityLog } from "@/modules/leads/lead-activity-log";
 import { LeadSubmissionPanel } from "@/modules/leads/lead-submission";
 import { LeadAttachmentsPanel } from "@/modules/leads/lead-attachments";
+import { LeadFilesManager } from "@/modules/leads/lead-files-manager";
+import { deleteLeadFileAction, prepareLeadFileUploadAction, registerLeadFileAction } from "@/modules/leads/file-actions";
+import { LeadAccessLogList } from "@/modules/leads/lead-access-log";
+import { listLeadAccessLog, recordLeadView } from "@/modules/leads/access-log";
 import {
   addLeadNoteAction,
   assignLeadAction,
   discardLeadAction,
   restoreLeadAction,
+  scheduleLeadActionAction,
   updateLeadAction,
 } from "@/modules/leads/actions";
 import { leadStatusVariant } from "@/modules/leads/constants";
@@ -42,14 +51,36 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
   const lead = await getLead(ctx, id);
   if (!lead) notFound();
 
+  // Written before the list is read so the visit shows in it. Reloads and the
+  // revalidation after every action fall inside the 30-minute window and
+  // write nothing.
+  await recordLeadView(ctx, lead.id);
+  const accessLog = await listLeadAccessLog(ctx, lead.id);
+
+  // Two kinds of file share the table: what a web form sent (shown with the
+  // submission it came with) and what the team attached by hand.
+  const heldFiles = lead.attachments.filter((a) => a.uploadedById !== null && a.url);
+  const formFiles = lead.attachments.filter((a) => a.uploadedById === null);
+
   const discarded = lead.discardedAt !== null;
   const canEdit = can(ctx, "leads.update") && !discarded;
   const canSeeJobs = can(ctx, "jobs.read");
   const canAssign = can(ctx, "leads.assign");
   const members = canAssign ? await listCompanyMembers(ctx) : [];
+  const sourceOptions = canEdit ? await listSourceOptions(ctx) : [];
 
   const updateAction = updateLeadAction.bind(null, lead.id);
   const noteAction = addLeadNoteAction.bind(null, lead.id);
+  const scheduleAction = scheduleLeadActionAction.bind(null, lead.id);
+
+  const now = new Date();
+  const scheduled = (await tasksFor(ctx, { leadId: lead.id })).map((task) => ({
+    id: task.id,
+    title: task.title,
+    dueLabel: task.dueAt ? formatDateTime(task.dueAt, ctx.company.formatLocale, ctx.company.timezone) : "",
+    overdue: task.dueAt ? task.dueAt <= now : false,
+    assignee: task.assignee?.name ?? task.assignee?.email ?? null,
+  }));
 
   return (
     <div className="space-y-6">
@@ -68,7 +99,10 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
               ) : (
                 <Badge variant={leadStatusVariant(lead.status)}>{t(`status.${lead.status}`)}</Badge>
               )}
-              <span>{t(`source.${lead.source}`)}</span>
+              <span>
+                {t(`source.${lead.source}`)}
+                {lead.sourceDetail ? ` · ${lead.sourceDetail}` : ""}
+              </span>
               {lead.companyName ? <span>· {lead.companyName}</span> : null}
               <span>
                 · {t("columns.owner")}: {lead.owner?.name ?? lead.owner?.email ?? tCommon("unassigned")}
@@ -124,6 +158,7 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
           ) : null}
           {canEdit ? <TabsTrigger value="detail">{t("tabs.detail")}</TabsTrigger> : null}
           <TabsTrigger value="log">{t("tabs.log")}</TabsTrigger>
+          <TabsTrigger value="files">{t("tabs.files", { count: heldFiles.length })}</TabsTrigger>
           <TabsTrigger value="quotes">
             {t("tabs.quotes", { count: lead.quotes.length })}
           </TabsTrigger>
@@ -137,7 +172,7 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
               timezone={ctx.company.timezone}
             />
             <LeadAttachmentsPanel
-              attachments={lead.attachments}
+              attachments={formFiles}
               formatLocale={ctx.company.formatLocale}
             />
           </TabsContent>
@@ -152,11 +187,13 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
               submitLabel={tCommon("saveChanges")}
               currency={ctx.company.currency}
               searchContacts={searchContactsAction}
+              sourceOptions={sourceOptions}
               defaults={{
                 title: lead.title,
                 description: lead.description,
                 status: lead.status,
                 source: lead.source,
+                sourceDetail: lead.sourceDetail,
                 score: lead.score,
                 estimatedValue: lead.estimatedValue ? Number(lead.estimatedValue) : null,
                 contactName: lead.contactName,
@@ -186,10 +223,58 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
             </Card>
           ) : null}
 
+          {canEdit || scheduled.length > 0 ? (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base">{t("schedule.title")}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-5">
+                <LeadScheduledActions
+                  rows={scheduled}
+                  completeAction={setTaskDoneAction}
+                  deleteAction={deleteTaskAction}
+                />
+                {canEdit ? (
+                  <LeadScheduleForm
+                    action={scheduleAction}
+                    members={members}
+                    currentUserId={ctx.user.id}
+                  />
+                ) : null}
+              </CardContent>
+            </Card>
+          ) : null}
+
           <LeadActivityLog
             activities={lead.activities}
             formatLocale={ctx.company.formatLocale}
             timezone={ctx.company.timezone}
+          />
+
+          <LeadAccessLogList
+            entries={accessLog}
+            formatLocale={ctx.company.formatLocale}
+            timezone={ctx.company.timezone}
+          />
+        </TabsContent>
+
+        <TabsContent value="files" className="mt-6">
+          <LeadFilesManager
+            leadId={lead.id}
+            files={heldFiles.map((file) => ({
+              id: file.id,
+              name: file.name,
+              url: file.url!,
+              size: file.size ?? 0,
+              contentType: file.contentType ?? "application/octet-stream",
+            }))}
+            canManage={canEdit}
+            formatLocale={ctx.company.formatLocale}
+            actions={{
+              prepare: prepareLeadFileUploadAction,
+              register: registerLeadFileAction,
+              remove: deleteLeadFileAction,
+            }}
           />
         </TabsContent>
 

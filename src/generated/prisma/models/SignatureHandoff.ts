@@ -16,7 +16,6 @@ import type * as Prisma from "../internal/prismaNamespace"
  * Model SignatureHandoff
  * *
  *  * Signing on a phone for a quote open on a computer.
- *  *
  *  * The portal shows a QR; the phone opens `/sign/<token>` and sends its strokes
  *  * each time a finger lifts, replacing what it sent before; the portal polls
  *  * for a newer `version` and redraws. One way only. The token is its own, not
@@ -1102,13 +1101,15 @@ export type $SignatureHandoffPayload<ExtArgs extends runtime.Types.Extensions.In
     recipientId: string | null
     hashedToken: string
     /**
-     * * Strokes in the 600×250 signature box (`portal/signature.ts`).
+     * *
+     *    * Strokes in the 600×250 signature box (`portal/signature.ts`).
      */
     paths: string
     version: number
     expiresAt: Date
     /**
-     * * The phone, as of its last send — what the fingerprint names.
+     * *
+     *    * The phone, as of its last send — what the fingerprint names.
      */
     deviceUserAgent: string | null
     deviceIp: string | null

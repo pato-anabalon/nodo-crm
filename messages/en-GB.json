@@ -518,6 +518,7 @@
     "tabs": {
       "detail": "Details",
       "log": "Activity",
+      "files": "Files ({count})",
       "quotes": "Quotes ({count})"
     },
     "form": {
@@ -530,6 +531,8 @@
       "source": "Source",
       "lostReason": "Reason lost",
       "lostReasonHint": "Only saved when the status is Lost.",
+      "sourceDetail": "Where from, exactly",
+      "sourceDetailNone": "Not specified",
       "contact": "Contact",
       "existingContact": "Existing contact",
       "existingContactHint": "Search to fill in the fields below from a contact already on file.",
@@ -597,6 +600,70 @@
       "failed": "Not copied",
       "failedHint": "We couldn't copy it; the link opens the original."
     },
+    "accessLog": {
+      "title": "Access log",
+      "subtitle": "Who opened this lead and who changed it. A reload within 30 minutes counts as the same visit.",
+      "empty": "Nobody has opened this lead yet.",
+      "viewed": "opened the lead",
+      "updated": "changed {fields}",
+      "fields": {
+        "title": "the title",
+        "description": "the description",
+        "status": "the status",
+        "source": "the source",
+        "sourceDetail": "the source detail",
+        "score": "the score",
+        "estimatedValue": "the estimated value",
+        "contactName": "the contact name",
+        "contactEmail": "the contact email",
+        "contactPhone": "the contact phone",
+        "companyName": "the company",
+        "contactId": "the linked contact",
+        "ownerId": "the owner",
+        "lostReason": "the reason lost",
+        "files": "the files"
+      }
+    },
+    "schedule": {
+      "title": "Schedule a follow-up",
+      "what": "What to do",
+      "whatPlaceholder": "Call back about the quote",
+      "day": "Day",
+      "time": "Time",
+      "assignee": "For",
+      "hint": "In your company's timezone. It appears in Tasks and the bell reminds whoever it is for once the time passes.",
+      "submit": "Schedule",
+      "scheduled": "Follow-up scheduled.",
+      "pending": "Scheduled follow-ups",
+      "due": "due {date}",
+      "overdue": "overdue since {date}",
+      "done": "Mark \"{title}\" as done",
+      "remove": "Remove \"{title}\""
+    },
+    "files": {
+      "title": "Files",
+      "subtitle": "What the customer sent you outside a web form: photos, plans, a PDF from an email.",
+      "empty": "No files yet.",
+      "upload": "Add a file",
+      "choose": "Choose file",
+      "noneChosen": "No file chosen",
+      "submit": "Upload",
+      "uploading": "Uploading…",
+      "uploaded": "File uploaded.",
+      "deleted": "File deleted.",
+      "delete": "Remove",
+      "deleteTitle": "Remove this file?",
+      "deleteConfirm": "“{name}” will be removed from the lead. It can't be undone.",
+      "hint": "PDF or image, up to 20 MB. Maximum 30 per lead.",
+      "notFound": "We couldn't find that lead or file.",
+      "errors": {
+        "type": "The file must be a PDF or an image.",
+        "size": "The file is larger than {max} MB.",
+        "tooMany": "You've reached the maximum of {max} files.",
+        "empty": "Choose a file.",
+        "failed": "The file couldn't be uploaded. Check your connection and try again."
+      }
+    },
     "submission": {
       "title": "Form received",
       "subtitle": "Exactly as the customer sent it. Not editable.",
@@ -620,7 +687,8 @@
       "CONVERTED": "Quote {reference} created",
       "QUOTE_DECIDED": "Quote #{reference} was {status, select, ACCEPTED {accepted} REJECTED {declined} EXPIRED {left to expire} other {answered}}",
       "QUOTE_EDITED": "Quote #{reference} edited after being sent",
-      "JOB_STARTED": "Job started from quote #{reference}"
+      "JOB_STARTED": "Job started from quote #{reference}",
+      "ACTION_SCHEDULED": "Follow-up scheduled: {title}"
     },
     "ownerSaved": "Owner updated.",
     "ownerCleared": "Owner removed.",
@@ -670,7 +738,7 @@
     "new": "New quote",
     "create": "Create quote",
     "noAccess": "Your profile doesn't have access to quotes.",
-    "searchPlaceholder": "Search by title, lead or number…",
+    "searchPlaceholder": "Search by title, lead, number or address…",
     "empty": "No quotes yet.",
     "backToQuotes": "Back to quotes",
     "loading": {
@@ -1347,6 +1415,15 @@
       "add": "Add",
       "remove": "Remove {label}"
     },
+    "leadSources": {
+      "title": "Lead source details",
+      "subtitle": "What a lead's source says when it is \"Other\" — a home show, a billboard, a supplier's referral. Leads keep the text they were given, so removing one changes nothing already recorded.",
+      "empty": "No options yet. \"Other\" is offered on its own.",
+      "label": "Name",
+      "add": "Add",
+      "remove": "Remove {label}",
+      "labelRequired": "Enter a name"
+    },
     "acceptance": {
       "title": "Acceptance",
       "subtitle": "What the customer is asked for in order to accept a quote.",
@@ -1424,6 +1501,7 @@
       "unknownFormatLocale": "Pick a number and date format from the list",
       "unknownTimezone": "Pick a timezone from the list",
       "quoteTypeExists": "That type already exists",
+      "leadSourceExists": "That option already exists",
       "platformNameRequired": "Name the platform",
       "oneLinkRequired": "Add at least one of the two links"
     },

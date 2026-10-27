@@ -20,6 +20,8 @@ export type LeadFormDefaults = {
   description?: string | null;
   status?: LeadStatus;
   source?: LeadSource;
+  /** The company's own detail under "Other", as the lead froze it. */
+  sourceDetail?: string | null;
   score?: number;
   estimatedValue?: number | null;
   contactName?: string | null;
@@ -42,6 +44,7 @@ export function LeadForm({
   submitLabel,
   currency,
   searchContacts,
+  sourceOptions = [],
 }: {
   action: (prev: LeadActionState, formData: FormData) => Promise<LeadActionState>;
   defaults?: LeadFormDefaults;
@@ -54,6 +57,8 @@ export function LeadForm({
    * too, which breaks this component's Jest tests even though it's harmless
    * in a real Next.js build. */
   searchContacts: (query: string) => Promise<ContactSearchItem[]>;
+  /** What this company offers under "Other" (Settings → Company). */
+  sourceOptions?: string[];
 }) {
   const [state, formAction, pending] = useActionState<LeadActionState, FormData>(action, {});
 
@@ -61,6 +66,17 @@ export function LeadForm({
   const t = useTranslations("leads");
   const tCommon = useTranslations("common");
   const errors = state.fieldErrors ?? {};
+  const [source, setSource] = useState<LeadSource>(defaults.source ?? LeadSource.OTHER);
+  // Controlled, like the source above: an uncontrolled select goes back to its
+  // first `defaultValue` when React resets the form after a save, and a new
+  // default arriving with the revalidated page does not move it.
+  const [sourceDetail, setSourceDetail] = useState(defaults.sourceDetail ?? "");
+  // A detail the lead already carries stays selectable after the company drops
+  // it from the list — otherwise opening the form would silently change it.
+  const detailChoices =
+    defaults.sourceDetail && !sourceOptions.includes(defaults.sourceDetail)
+      ? [defaults.sourceDetail, ...sourceOptions]
+      : sourceOptions;
 
   // Only `id`/`label` are known at this point — the rest only matters inside
   // `pickContact`, when the person actively picks something new, never for
@@ -140,14 +156,37 @@ export function LeadForm({
             </Field>
 
             <Field label={t("form.source")} name="source" error={errors.source?.[0]}>
-              <NativeSelect id="source" name="source" defaultValue={defaults.source ?? LeadSource.OTHER}>
-                {LEAD_SOURCES.map((source) => (
-                  <option key={source} value={source}>
-                    {t(`source.${source}`)}
+              <NativeSelect
+                id="source"
+                name="source"
+                value={source}
+                onChange={(event) => setSource(event.target.value as LeadSource)}
+              >
+                {LEAD_SOURCES.map((option) => (
+                  <option key={option} value={option}>
+                    {t(`source.${option}`)}
                   </option>
                 ))}
               </NativeSelect>
             </Field>
+
+            {source === LeadSource.OTHER && detailChoices.length > 0 ? (
+              <Field label={t("form.sourceDetail")} name="sourceDetail" error={errors.sourceDetail?.[0]}>
+                <NativeSelect
+                  id="sourceDetail"
+                  name="sourceDetail"
+                  value={sourceDetail}
+                  onChange={(event) => setSourceDetail(event.target.value)}
+                >
+                  <option value="">{t("form.sourceDetailNone")}</option>
+                  {detailChoices.map((label) => (
+                    <option key={label} value={label}>
+                      {label}
+                    </option>
+                  ))}
+                </NativeSelect>
+              </Field>
+            ) : null}
           </div>
 
           <Field

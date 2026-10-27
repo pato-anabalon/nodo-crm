@@ -18,7 +18,6 @@ import type * as Prisma from "../internal/prismaNamespace"
  *  * Somebody a quote is sent to. One is the primary — the "For" on the
  *  * document, mirrored into `Quote.clientName/clientEmail/clientPhone` so every
  *  * reader of those keeps working — and any others are copies.
- *  *
  *  * Name and address are frozen, the same as the quote's own client fields: the
  *  * contact can change afterwards, and this is who was written to. Each one gets
  *  * their own email and their own link, so the portal knows which of them is

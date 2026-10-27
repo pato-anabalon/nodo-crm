@@ -120,6 +120,9 @@ export function describe(
     case ActivityType.JOB_STARTED:
       return t("activity.JOB_STARTED", { reference: activity.content });
 
+    case ActivityType.ACTION_SCHEDULED:
+      return t("activity.ACTION_SCHEDULED", { title: activity.content });
+
     default:
       return t(`activity.${activity.type}`);
   }

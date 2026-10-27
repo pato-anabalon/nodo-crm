@@ -35,6 +35,7 @@ import {
 import { hasActiveCatalogue } from "@/modules/catalogue/service";
 import { searchCatalogueAction } from "@/modules/catalogue/actions";
 import { searchLeadsAction } from "@/modules/leads/actions";
+import { leadOptionLabel } from "@/modules/leads/lead-label";
 import { QuoteOwnerSelect } from "@/modules/quotes/quote-owner-select";
 import { QuoteActionsBar } from "@/modules/quotes/quote-actions-bar";
 import { jobForQuote, quoteHasJob } from "@/modules/jobs/service";
@@ -275,7 +276,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
             intro: quote.intro,
             exclusions: quote.exclusions,
             leadId: quote.leadId,
-            leadTitle: quote.lead?.title ?? null,
+            leadTitle: quote.lead ? leadOptionLabel(quote.lead) : null,
             termsDocumentId: quote.termsDocumentId,
             taxRate: Number(quote.taxRate),
             taxDisplayMode: quote.taxDisplayMode,

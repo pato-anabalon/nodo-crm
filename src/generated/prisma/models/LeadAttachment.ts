@@ -54,6 +54,7 @@ export type LeadAttachmentMinAggregateOutputType = {
   status: $Enums.LeadAttachmentStatus | null
   error: string | null
   position: number | null
+  uploadedById: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -71,6 +72,7 @@ export type LeadAttachmentMaxAggregateOutputType = {
   status: $Enums.LeadAttachmentStatus | null
   error: string | null
   position: number | null
+  uploadedById: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -88,6 +90,7 @@ export type LeadAttachmentCountAggregateOutputType = {
   status: number
   error: number
   position: number
+  uploadedById: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -117,6 +120,7 @@ export type LeadAttachmentMinAggregateInputType = {
   status?: true
   error?: true
   position?: true
+  uploadedById?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -134,6 +138,7 @@ export type LeadAttachmentMaxAggregateInputType = {
   status?: true
   error?: true
   position?: true
+  uploadedById?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -151,6 +156,7 @@ export type LeadAttachmentCountAggregateInputType = {
   status?: true
   error?: true
   position?: true
+  uploadedById?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -255,6 +261,7 @@ export type LeadAttachmentGroupByOutputType = {
   status: $Enums.LeadAttachmentStatus
   error: string | null
   position: number
+  uploadedById: string | null
   createdAt: Date
   updatedAt: Date
   _count: LeadAttachmentCountAggregateOutputType | null
@@ -295,10 +302,12 @@ export type LeadAttachmentWhereInput = {
   status?: Prisma.EnumLeadAttachmentStatusFilter<"LeadAttachment"> | $Enums.LeadAttachmentStatus
   error?: Prisma.StringNullableFilter<"LeadAttachment"> | string | null
   position?: Prisma.IntFilter<"LeadAttachment"> | number
+  uploadedById?: Prisma.StringNullableFilter<"LeadAttachment"> | string | null
   createdAt?: Prisma.DateTimeFilter<"LeadAttachment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"LeadAttachment"> | Date | string
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   lead?: Prisma.XOR<Prisma.LeadScalarRelationFilter, Prisma.LeadWhereInput>
+  uploadedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type LeadAttachmentOrderByWithRelationInput = {
@@ -314,10 +323,12 @@ export type LeadAttachmentOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   error?: Prisma.SortOrderInput | Prisma.SortOrder
   position?: Prisma.SortOrder
+  uploadedById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   company?: Prisma.CompanyOrderByWithRelationInput
   lead?: Prisma.LeadOrderByWithRelationInput
+  uploadedBy?: Prisma.UserOrderByWithRelationInput
 }
 
 export type LeadAttachmentWhereUniqueInput = Prisma.AtLeast<{
@@ -336,10 +347,12 @@ export type LeadAttachmentWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumLeadAttachmentStatusFilter<"LeadAttachment"> | $Enums.LeadAttachmentStatus
   error?: Prisma.StringNullableFilter<"LeadAttachment"> | string | null
   position?: Prisma.IntFilter<"LeadAttachment"> | number
+  uploadedById?: Prisma.StringNullableFilter<"LeadAttachment"> | string | null
   createdAt?: Prisma.DateTimeFilter<"LeadAttachment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"LeadAttachment"> | Date | string
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   lead?: Prisma.XOR<Prisma.LeadScalarRelationFilter, Prisma.LeadWhereInput>
+  uploadedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type LeadAttachmentOrderByWithAggregationInput = {
@@ -355,6 +368,7 @@ export type LeadAttachmentOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   error?: Prisma.SortOrderInput | Prisma.SortOrder
   position?: Prisma.SortOrder
+  uploadedById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.LeadAttachmentCountOrderByAggregateInput
@@ -380,6 +394,7 @@ export type LeadAttachmentScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumLeadAttachmentStatusWithAggregatesFilter<"LeadAttachment"> | $Enums.LeadAttachmentStatus
   error?: Prisma.StringNullableWithAggregatesFilter<"LeadAttachment"> | string | null
   position?: Prisma.IntWithAggregatesFilter<"LeadAttachment"> | number
+  uploadedById?: Prisma.StringNullableWithAggregatesFilter<"LeadAttachment"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"LeadAttachment"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"LeadAttachment"> | Date | string
 }
@@ -399,6 +414,7 @@ export type LeadAttachmentCreateInput = {
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutLeadAttachmentsInput
   lead: Prisma.LeadCreateNestedOneWithoutAttachmentsInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutLeadAttachmentsUploadedInput
 }
 
 export type LeadAttachmentUncheckedCreateInput = {
@@ -414,6 +430,7 @@ export type LeadAttachmentUncheckedCreateInput = {
   status?: $Enums.LeadAttachmentStatus
   error?: string | null
   position?: number
+  uploadedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -433,6 +450,7 @@ export type LeadAttachmentUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutLeadAttachmentsNestedInput
   lead?: Prisma.LeadUpdateOneRequiredWithoutAttachmentsNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutLeadAttachmentsUploadedNestedInput
 }
 
 export type LeadAttachmentUncheckedUpdateInput = {
@@ -448,6 +466,7 @@ export type LeadAttachmentUncheckedUpdateInput = {
   status?: Prisma.EnumLeadAttachmentStatusFieldUpdateOperationsInput | $Enums.LeadAttachmentStatus
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -465,6 +484,7 @@ export type LeadAttachmentCreateManyInput = {
   status?: $Enums.LeadAttachmentStatus
   error?: string | null
   position?: number
+  uploadedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -497,6 +517,7 @@ export type LeadAttachmentUncheckedUpdateManyInput = {
   status?: Prisma.EnumLeadAttachmentStatusFieldUpdateOperationsInput | $Enums.LeadAttachmentStatus
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -524,6 +545,7 @@ export type LeadAttachmentCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   error?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  uploadedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -546,6 +568,7 @@ export type LeadAttachmentMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   error?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  uploadedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -563,6 +586,7 @@ export type LeadAttachmentMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   error?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  uploadedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -611,6 +635,48 @@ export type LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput = {
   connect?: Prisma.LeadAttachmentWhereUniqueInput | Prisma.LeadAttachmentWhereUniqueInput[]
   update?: Prisma.LeadAttachmentUpdateWithWhereUniqueWithoutCompanyInput | Prisma.LeadAttachmentUpdateWithWhereUniqueWithoutCompanyInput[]
   updateMany?: Prisma.LeadAttachmentUpdateManyWithWhereWithoutCompanyInput | Prisma.LeadAttachmentUpdateManyWithWhereWithoutCompanyInput[]
+  deleteMany?: Prisma.LeadAttachmentScalarWhereInput | Prisma.LeadAttachmentScalarWhereInput[]
+}
+
+export type LeadAttachmentCreateNestedManyWithoutUploadedByInput = {
+  create?: Prisma.XOR<Prisma.LeadAttachmentCreateWithoutUploadedByInput, Prisma.LeadAttachmentUncheckedCreateWithoutUploadedByInput> | Prisma.LeadAttachmentCreateWithoutUploadedByInput[] | Prisma.LeadAttachmentUncheckedCreateWithoutUploadedByInput[]
+  connectOrCreate?: Prisma.LeadAttachmentCreateOrConnectWithoutUploadedByInput | Prisma.LeadAttachmentCreateOrConnectWithoutUploadedByInput[]
+  createMany?: Prisma.LeadAttachmentCreateManyUploadedByInputEnvelope
+  connect?: Prisma.LeadAttachmentWhereUniqueInput | Prisma.LeadAttachmentWhereUniqueInput[]
+}
+
+export type LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput = {
+  create?: Prisma.XOR<Prisma.LeadAttachmentCreateWithoutUploadedByInput, Prisma.LeadAttachmentUncheckedCreateWithoutUploadedByInput> | Prisma.LeadAttachmentCreateWithoutUploadedByInput[] | Prisma.LeadAttachmentUncheckedCreateWithoutUploadedByInput[]
+  connectOrCreate?: Prisma.LeadAttachmentCreateOrConnectWithoutUploadedByInput | Prisma.LeadAttachmentCreateOrConnectWithoutUploadedByInput[]
+  createMany?: Prisma.LeadAttachmentCreateManyUploadedByInputEnvelope
+  connect?: Prisma.LeadAttachmentWhereUniqueInput | Prisma.LeadAttachmentWhereUniqueInput[]
+}
+
+export type LeadAttachmentUpdateManyWithoutUploadedByNestedInput = {
+  create?: Prisma.XOR<Prisma.LeadAttachmentCreateWithoutUploadedByInput, Prisma.LeadAttachmentUncheckedCreateWithoutUploadedByInput> | Prisma.LeadAttachmentCreateWithoutUploadedByInput[] | Prisma.LeadAttachmentUncheckedCreateWithoutUploadedByInput[]
+  connectOrCreate?: Prisma.LeadAttachmentCreateOrConnectWithoutUploadedByInput | Prisma.LeadAttachmentCreateOrConnectWithoutUploadedByInput[]
+  upsert?: Prisma.LeadAttachmentUpsertWithWhereUniqueWithoutUploadedByInput | Prisma.LeadAttachmentUpsertWithWhereUniqueWithoutUploadedByInput[]
+  createMany?: Prisma.LeadAttachmentCreateManyUploadedByInputEnvelope
+  set?: Prisma.LeadAttachmentWhereUniqueInput | Prisma.LeadAttachmentWhereUniqueInput[]
+  disconnect?: Prisma.LeadAttachmentWhereUniqueInput | Prisma.LeadAttachmentWhereUniqueInput[]
+  delete?: Prisma.LeadAttachmentWhereUniqueInput | Prisma.LeadAttachmentWhereUniqueInput[]
+  connect?: Prisma.LeadAttachmentWhereUniqueInput | Prisma.LeadAttachmentWhereUniqueInput[]
+  update?: Prisma.LeadAttachmentUpdateWithWhereUniqueWithoutUploadedByInput | Prisma.LeadAttachmentUpdateWithWhereUniqueWithoutUploadedByInput[]
+  updateMany?: Prisma.LeadAttachmentUpdateManyWithWhereWithoutUploadedByInput | Prisma.LeadAttachmentUpdateManyWithWhereWithoutUploadedByInput[]
+  deleteMany?: Prisma.LeadAttachmentScalarWhereInput | Prisma.LeadAttachmentScalarWhereInput[]
+}
+
+export type LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput = {
+  create?: Prisma.XOR<Prisma.LeadAttachmentCreateWithoutUploadedByInput, Prisma.LeadAttachmentUncheckedCreateWithoutUploadedByInput> | Prisma.LeadAttachmentCreateWithoutUploadedByInput[] | Prisma.LeadAttachmentUncheckedCreateWithoutUploadedByInput[]
+  connectOrCreate?: Prisma.LeadAttachmentCreateOrConnectWithoutUploadedByInput | Prisma.LeadAttachmentCreateOrConnectWithoutUploadedByInput[]
+  upsert?: Prisma.LeadAttachmentUpsertWithWhereUniqueWithoutUploadedByInput | Prisma.LeadAttachmentUpsertWithWhereUniqueWithoutUploadedByInput[]
+  createMany?: Prisma.LeadAttachmentCreateManyUploadedByInputEnvelope
+  set?: Prisma.LeadAttachmentWhereUniqueInput | Prisma.LeadAttachmentWhereUniqueInput[]
+  disconnect?: Prisma.LeadAttachmentWhereUniqueInput | Prisma.LeadAttachmentWhereUniqueInput[]
+  delete?: Prisma.LeadAttachmentWhereUniqueInput | Prisma.LeadAttachmentWhereUniqueInput[]
+  connect?: Prisma.LeadAttachmentWhereUniqueInput | Prisma.LeadAttachmentWhereUniqueInput[]
+  update?: Prisma.LeadAttachmentUpdateWithWhereUniqueWithoutUploadedByInput | Prisma.LeadAttachmentUpdateWithWhereUniqueWithoutUploadedByInput[]
+  updateMany?: Prisma.LeadAttachmentUpdateManyWithWhereWithoutUploadedByInput | Prisma.LeadAttachmentUpdateManyWithWhereWithoutUploadedByInput[]
   deleteMany?: Prisma.LeadAttachmentScalarWhereInput | Prisma.LeadAttachmentScalarWhereInput[]
 }
 
@@ -674,6 +740,7 @@ export type LeadAttachmentCreateWithoutCompanyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   lead: Prisma.LeadCreateNestedOneWithoutAttachmentsInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutLeadAttachmentsUploadedInput
 }
 
 export type LeadAttachmentUncheckedCreateWithoutCompanyInput = {
@@ -688,6 +755,7 @@ export type LeadAttachmentUncheckedCreateWithoutCompanyInput = {
   status?: $Enums.LeadAttachmentStatus
   error?: string | null
   position?: number
+  uploadedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -734,8 +802,69 @@ export type LeadAttachmentScalarWhereInput = {
   status?: Prisma.EnumLeadAttachmentStatusFilter<"LeadAttachment"> | $Enums.LeadAttachmentStatus
   error?: Prisma.StringNullableFilter<"LeadAttachment"> | string | null
   position?: Prisma.IntFilter<"LeadAttachment"> | number
+  uploadedById?: Prisma.StringNullableFilter<"LeadAttachment"> | string | null
   createdAt?: Prisma.DateTimeFilter<"LeadAttachment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"LeadAttachment"> | Date | string
+}
+
+export type LeadAttachmentCreateWithoutUploadedByInput = {
+  id?: string
+  name: string
+  contentType?: string | null
+  size?: number | null
+  sourceUrl: string
+  url?: string | null
+  pathname?: string | null
+  status?: $Enums.LeadAttachmentStatus
+  error?: string | null
+  position?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutLeadAttachmentsInput
+  lead: Prisma.LeadCreateNestedOneWithoutAttachmentsInput
+}
+
+export type LeadAttachmentUncheckedCreateWithoutUploadedByInput = {
+  id?: string
+  companyId: string
+  leadId: string
+  name: string
+  contentType?: string | null
+  size?: number | null
+  sourceUrl: string
+  url?: string | null
+  pathname?: string | null
+  status?: $Enums.LeadAttachmentStatus
+  error?: string | null
+  position?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type LeadAttachmentCreateOrConnectWithoutUploadedByInput = {
+  where: Prisma.LeadAttachmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.LeadAttachmentCreateWithoutUploadedByInput, Prisma.LeadAttachmentUncheckedCreateWithoutUploadedByInput>
+}
+
+export type LeadAttachmentCreateManyUploadedByInputEnvelope = {
+  data: Prisma.LeadAttachmentCreateManyUploadedByInput | Prisma.LeadAttachmentCreateManyUploadedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type LeadAttachmentUpsertWithWhereUniqueWithoutUploadedByInput = {
+  where: Prisma.LeadAttachmentWhereUniqueInput
+  update: Prisma.XOR<Prisma.LeadAttachmentUpdateWithoutUploadedByInput, Prisma.LeadAttachmentUncheckedUpdateWithoutUploadedByInput>
+  create: Prisma.XOR<Prisma.LeadAttachmentCreateWithoutUploadedByInput, Prisma.LeadAttachmentUncheckedCreateWithoutUploadedByInput>
+}
+
+export type LeadAttachmentUpdateWithWhereUniqueWithoutUploadedByInput = {
+  where: Prisma.LeadAttachmentWhereUniqueInput
+  data: Prisma.XOR<Prisma.LeadAttachmentUpdateWithoutUploadedByInput, Prisma.LeadAttachmentUncheckedUpdateWithoutUploadedByInput>
+}
+
+export type LeadAttachmentUpdateManyWithWhereWithoutUploadedByInput = {
+  where: Prisma.LeadAttachmentScalarWhereInput
+  data: Prisma.XOR<Prisma.LeadAttachmentUpdateManyMutationInput, Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByInput>
 }
 
 export type LeadAttachmentCreateWithoutLeadInput = {
@@ -752,6 +881,7 @@ export type LeadAttachmentCreateWithoutLeadInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutLeadAttachmentsInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutLeadAttachmentsUploadedInput
 }
 
 export type LeadAttachmentUncheckedCreateWithoutLeadInput = {
@@ -766,6 +896,7 @@ export type LeadAttachmentUncheckedCreateWithoutLeadInput = {
   status?: $Enums.LeadAttachmentStatus
   error?: string | null
   position?: number
+  uploadedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -808,6 +939,7 @@ export type LeadAttachmentCreateManyCompanyInput = {
   status?: $Enums.LeadAttachmentStatus
   error?: string | null
   position?: number
+  uploadedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -826,6 +958,7 @@ export type LeadAttachmentUpdateWithoutCompanyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lead?: Prisma.LeadUpdateOneRequiredWithoutAttachmentsNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutLeadAttachmentsUploadedNestedInput
 }
 
 export type LeadAttachmentUncheckedUpdateWithoutCompanyInput = {
@@ -840,12 +973,82 @@ export type LeadAttachmentUncheckedUpdateWithoutCompanyInput = {
   status?: Prisma.EnumLeadAttachmentStatusFieldUpdateOperationsInput | $Enums.LeadAttachmentStatus
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LeadAttachmentUncheckedUpdateManyWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  leadId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  contentType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sourceUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumLeadAttachmentStatusFieldUpdateOperationsInput | $Enums.LeadAttachmentStatus
+  error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type LeadAttachmentCreateManyUploadedByInput = {
+  id?: string
+  companyId: string
+  leadId: string
+  name: string
+  contentType?: string | null
+  size?: number | null
+  sourceUrl: string
+  url?: string | null
+  pathname?: string | null
+  status?: $Enums.LeadAttachmentStatus
+  error?: string | null
+  position?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type LeadAttachmentUpdateWithoutUploadedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  contentType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sourceUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumLeadAttachmentStatusFieldUpdateOperationsInput | $Enums.LeadAttachmentStatus
+  error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutLeadAttachmentsNestedInput
+  lead?: Prisma.LeadUpdateOneRequiredWithoutAttachmentsNestedInput
+}
+
+export type LeadAttachmentUncheckedUpdateWithoutUploadedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  leadId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  contentType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sourceUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pathname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumLeadAttachmentStatusFieldUpdateOperationsInput | $Enums.LeadAttachmentStatus
+  error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type LeadAttachmentUncheckedUpdateManyWithoutUploadedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
   leadId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   contentType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -872,6 +1075,7 @@ export type LeadAttachmentCreateManyLeadInput = {
   status?: $Enums.LeadAttachmentStatus
   error?: string | null
   position?: number
+  uploadedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -890,6 +1094,7 @@ export type LeadAttachmentUpdateWithoutLeadInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutLeadAttachmentsNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutLeadAttachmentsUploadedNestedInput
 }
 
 export type LeadAttachmentUncheckedUpdateWithoutLeadInput = {
@@ -904,6 +1109,7 @@ export type LeadAttachmentUncheckedUpdateWithoutLeadInput = {
   status?: Prisma.EnumLeadAttachmentStatusFieldUpdateOperationsInput | $Enums.LeadAttachmentStatus
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -920,6 +1126,7 @@ export type LeadAttachmentUncheckedUpdateManyWithoutLeadInput = {
   status?: Prisma.EnumLeadAttachmentStatusFieldUpdateOperationsInput | $Enums.LeadAttachmentStatus
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -939,10 +1146,12 @@ export type LeadAttachmentSelect<ExtArgs extends runtime.Types.Extensions.Intern
   status?: boolean
   error?: boolean
   position?: boolean
+  uploadedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   lead?: boolean | Prisma.LeadDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.LeadAttachment$uploadedByArgs<ExtArgs>
 }, ExtArgs["result"]["leadAttachment"]>
 
 export type LeadAttachmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -958,10 +1167,12 @@ export type LeadAttachmentSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   status?: boolean
   error?: boolean
   position?: boolean
+  uploadedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   lead?: boolean | Prisma.LeadDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.LeadAttachment$uploadedByArgs<ExtArgs>
 }, ExtArgs["result"]["leadAttachment"]>
 
 export type LeadAttachmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -977,10 +1188,12 @@ export type LeadAttachmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   status?: boolean
   error?: boolean
   position?: boolean
+  uploadedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   lead?: boolean | Prisma.LeadDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.LeadAttachment$uploadedByArgs<ExtArgs>
 }, ExtArgs["result"]["leadAttachment"]>
 
 export type LeadAttachmentSelectScalar = {
@@ -996,22 +1209,26 @@ export type LeadAttachmentSelectScalar = {
   status?: boolean
   error?: boolean
   position?: boolean
+  uploadedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type LeadAttachmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "leadId" | "name" | "contentType" | "size" | "sourceUrl" | "url" | "pathname" | "status" | "error" | "position" | "createdAt" | "updatedAt", ExtArgs["result"]["leadAttachment"]>
+export type LeadAttachmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "leadId" | "name" | "contentType" | "size" | "sourceUrl" | "url" | "pathname" | "status" | "error" | "position" | "uploadedById" | "createdAt" | "updatedAt", ExtArgs["result"]["leadAttachment"]>
 export type LeadAttachmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   lead?: boolean | Prisma.LeadDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.LeadAttachment$uploadedByArgs<ExtArgs>
 }
 export type LeadAttachmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   lead?: boolean | Prisma.LeadDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.LeadAttachment$uploadedByArgs<ExtArgs>
 }
 export type LeadAttachmentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   lead?: boolean | Prisma.LeadDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.LeadAttachment$uploadedByArgs<ExtArgs>
 }
 
 export type $LeadAttachmentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1019,6 +1236,7 @@ export type $LeadAttachmentPayload<ExtArgs extends runtime.Types.Extensions.Inte
   objects: {
     company: Prisma.$CompanyPayload<ExtArgs>
     lead: Prisma.$LeadPayload<ExtArgs>
+    uploadedBy: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1033,6 +1251,7 @@ export type $LeadAttachmentPayload<ExtArgs extends runtime.Types.Extensions.Inte
     status: $Enums.LeadAttachmentStatus
     error: string | null
     position: number
+    uploadedById: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["leadAttachment"]>
@@ -1431,6 +1650,7 @@ export interface Prisma__LeadAttachmentClient<T, Null = never, ExtArgs extends r
   readonly [Symbol.toStringTag]: "PrismaPromise"
   company<T extends Prisma.CompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   lead<T extends Prisma.LeadDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LeadDefaultArgs<ExtArgs>>): Prisma.Prisma__LeadClient<runtime.Types.Result.GetResult<Prisma.$LeadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  uploadedBy<T extends Prisma.LeadAttachment$uploadedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LeadAttachment$uploadedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1472,6 +1692,7 @@ export interface LeadAttachmentFieldRefs {
   readonly status: Prisma.FieldRef<"LeadAttachment", 'LeadAttachmentStatus'>
   readonly error: Prisma.FieldRef<"LeadAttachment", 'String'>
   readonly position: Prisma.FieldRef<"LeadAttachment", 'Int'>
+  readonly uploadedById: Prisma.FieldRef<"LeadAttachment", 'String'>
   readonly createdAt: Prisma.FieldRef<"LeadAttachment", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"LeadAttachment", 'DateTime'>
 }
@@ -1872,6 +2093,25 @@ export type LeadAttachmentDeleteManyArgs<ExtArgs extends runtime.Types.Extension
    * Limit how many LeadAttachments to delete.
    */
   limit?: number
+}
+
+/**
+ * LeadAttachment.uploadedBy
+ */
+export type LeadAttachment$uploadedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

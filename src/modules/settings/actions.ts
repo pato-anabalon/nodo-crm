@@ -10,6 +10,7 @@ import {
   acceptanceSettingsSchema,
   checkbox,
   companyProfileSchema,
+  leadSourceOptionSchema,
   quoteSettingsSchema,
   quoteTypeSchema,
   reviewPlatformSchema,
@@ -238,6 +239,44 @@ export async function addQuoteTypeAction(
 export async function removeQuoteTypeAction(id: string): Promise<SettingsState> {
   const ctx = await requirePermission("settings.update");
   await ctx.db.companyQuoteType.deleteMany({ where: { id } });
+
+  revalidatePath("/settings", "layout");
+  return saved();
+}
+
+/**
+ * The detail offered when a lead's source is "Other". Same shape as the quote
+ * types above; a lead freezes the text, so removing one rewrites nothing.
+ */
+export async function addLeadSourceOptionAction(
+  _prev: SettingsState,
+  formData: FormData,
+): Promise<SettingsState> {
+  const ctx = await requirePermission("settings.update");
+  const t = await getTranslations();
+
+  const parsed = leadSourceOptionSchema.safeParse({ label: formData.get("label") });
+  if (!parsed.success) {
+    return { fieldErrors: translateFieldErrors(parsed.error.flatten().fieldErrors, t) };
+  }
+
+  const count = await ctx.db.leadSourceOption.count();
+  try {
+    await ctx.db.leadSourceOption.create({
+      data: { companyId: ctx.company.id, label: parsed.data.label, position: count },
+    });
+  } catch {
+    // The unique constraint on (companyId, label).
+    return { fieldErrors: { label: [t("settings.errors.leadSourceExists")] } };
+  }
+
+  revalidatePath("/settings", "layout");
+  return saved();
+}
+
+export async function removeLeadSourceOptionAction(id: string): Promise<SettingsState> {
+  const ctx = await requirePermission("settings.update");
+  await ctx.db.leadSourceOption.deleteMany({ where: { id } });
 
   revalidatePath("/settings", "layout");
   return saved();

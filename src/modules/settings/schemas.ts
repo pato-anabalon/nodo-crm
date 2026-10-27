@@ -84,6 +84,12 @@ export const quoteTypeSchema = z.object({
   label: z.string().trim().min(1, "quotes.form.quoteTypeLabelRequired").max(100),
 });
 
+/** An option offered under a lead's source "Other". Same shape and reason as
+ * `quoteTypeSchema`: one at a time, checked on the way in. */
+export const leadSourceOptionSchema = z.object({
+  label: z.string().trim().min(1, "settings.leadSources.labelRequired").max(100),
+});
+
 /** What the customer is asked for in order to accept. */
 export const acceptanceSettingsSchema = z.object({
   acceptanceMode: z.nativeEnum(AcceptanceMode),

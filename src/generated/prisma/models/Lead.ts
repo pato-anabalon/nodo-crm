@@ -46,6 +46,7 @@ export type LeadMinAggregateOutputType = {
   description: string | null
   status: $Enums.LeadStatus | null
   source: $Enums.LeadSource | null
+  sourceDetail: string | null
   score: number | null
   estimatedValue: runtime.Decimal | null
   currency: string | null
@@ -73,6 +74,7 @@ export type LeadMaxAggregateOutputType = {
   description: string | null
   status: $Enums.LeadStatus | null
   source: $Enums.LeadSource | null
+  sourceDetail: string | null
   score: number | null
   estimatedValue: runtime.Decimal | null
   currency: string | null
@@ -100,6 +102,7 @@ export type LeadCountAggregateOutputType = {
   description: number
   status: number
   source: number
+  sourceDetail: number
   score: number
   estimatedValue: number
   currency: number
@@ -141,6 +144,7 @@ export type LeadMinAggregateInputType = {
   description?: true
   status?: true
   source?: true
+  sourceDetail?: true
   score?: true
   estimatedValue?: true
   currency?: true
@@ -168,6 +172,7 @@ export type LeadMaxAggregateInputType = {
   description?: true
   status?: true
   source?: true
+  sourceDetail?: true
   score?: true
   estimatedValue?: true
   currency?: true
@@ -195,6 +200,7 @@ export type LeadCountAggregateInputType = {
   description?: true
   status?: true
   source?: true
+  sourceDetail?: true
   score?: true
   estimatedValue?: true
   currency?: true
@@ -309,6 +315,7 @@ export type LeadGroupByOutputType = {
   description: string | null
   status: $Enums.LeadStatus
   source: $Enums.LeadSource
+  sourceDetail: string | null
   score: number
   estimatedValue: runtime.Decimal | null
   currency: string
@@ -359,6 +366,7 @@ export type LeadWhereInput = {
   description?: Prisma.StringNullableFilter<"Lead"> | string | null
   status?: Prisma.EnumLeadStatusFilter<"Lead"> | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFilter<"Lead"> | $Enums.LeadSource
+  sourceDetail?: Prisma.StringNullableFilter<"Lead"> | string | null
   score?: Prisma.IntFilter<"Lead"> | number
   estimatedValue?: Prisma.DecimalNullableFilter<"Lead"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFilter<"Lead"> | string
@@ -383,6 +391,7 @@ export type LeadWhereInput = {
   discardedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   submission?: Prisma.XOR<Prisma.LeadSubmissionNullableScalarRelationFilter, Prisma.LeadSubmissionWhereInput> | null
   attachments?: Prisma.LeadAttachmentListRelationFilter
+  accessLogs?: Prisma.LeadAccessLogListRelationFilter
   quotes?: Prisma.QuoteListRelationFilter
   activities?: Prisma.ActivityListRelationFilter
   tasks?: Prisma.TaskListRelationFilter
@@ -397,6 +406,7 @@ export type LeadOrderByWithRelationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   source?: Prisma.SortOrder
+  sourceDetail?: Prisma.SortOrderInput | Prisma.SortOrder
   score?: Prisma.SortOrder
   estimatedValue?: Prisma.SortOrderInput | Prisma.SortOrder
   currency?: Prisma.SortOrder
@@ -421,6 +431,7 @@ export type LeadOrderByWithRelationInput = {
   discardedBy?: Prisma.UserOrderByWithRelationInput
   submission?: Prisma.LeadSubmissionOrderByWithRelationInput
   attachments?: Prisma.LeadAttachmentOrderByRelationAggregateInput
+  accessLogs?: Prisma.LeadAccessLogOrderByRelationAggregateInput
   quotes?: Prisma.QuoteOrderByRelationAggregateInput
   activities?: Prisma.ActivityOrderByRelationAggregateInput
   tasks?: Prisma.TaskOrderByRelationAggregateInput
@@ -438,6 +449,7 @@ export type LeadWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"Lead"> | string | null
   status?: Prisma.EnumLeadStatusFilter<"Lead"> | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFilter<"Lead"> | $Enums.LeadSource
+  sourceDetail?: Prisma.StringNullableFilter<"Lead"> | string | null
   score?: Prisma.IntFilter<"Lead"> | number
   estimatedValue?: Prisma.DecimalNullableFilter<"Lead"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFilter<"Lead"> | string
@@ -462,6 +474,7 @@ export type LeadWhereUniqueInput = Prisma.AtLeast<{
   discardedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   submission?: Prisma.XOR<Prisma.LeadSubmissionNullableScalarRelationFilter, Prisma.LeadSubmissionWhereInput> | null
   attachments?: Prisma.LeadAttachmentListRelationFilter
+  accessLogs?: Prisma.LeadAccessLogListRelationFilter
   quotes?: Prisma.QuoteListRelationFilter
   activities?: Prisma.ActivityListRelationFilter
   tasks?: Prisma.TaskListRelationFilter
@@ -476,6 +489,7 @@ export type LeadOrderByWithAggregationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   source?: Prisma.SortOrder
+  sourceDetail?: Prisma.SortOrderInput | Prisma.SortOrder
   score?: Prisma.SortOrder
   estimatedValue?: Prisma.SortOrderInput | Prisma.SortOrder
   currency?: Prisma.SortOrder
@@ -511,6 +525,7 @@ export type LeadScalarWhereWithAggregatesInput = {
   description?: Prisma.StringNullableWithAggregatesFilter<"Lead"> | string | null
   status?: Prisma.EnumLeadStatusWithAggregatesFilter<"Lead"> | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceWithAggregatesFilter<"Lead"> | $Enums.LeadSource
+  sourceDetail?: Prisma.StringNullableWithAggregatesFilter<"Lead"> | string | null
   score?: Prisma.IntWithAggregatesFilter<"Lead"> | number
   estimatedValue?: Prisma.DecimalNullableWithAggregatesFilter<"Lead"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringWithAggregatesFilter<"Lead"> | string
@@ -537,6 +552,7 @@ export type LeadCreateInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -557,6 +573,7 @@ export type LeadCreateInput = {
   discardedBy?: Prisma.UserCreateNestedOneWithoutDiscardedLeadsInput
   submission?: Prisma.LeadSubmissionCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskCreateNestedManyWithoutLeadInput
@@ -571,6 +588,7 @@ export type LeadUncheckedCreateInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -590,6 +608,7 @@ export type LeadUncheckedCreateInput = {
   updatedAt?: Date | string
   submission?: Prisma.LeadSubmissionUncheckedCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutLeadInput
@@ -603,6 +622,7 @@ export type LeadUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -623,6 +643,7 @@ export type LeadUpdateInput = {
   discardedBy?: Prisma.UserUpdateOneWithoutDiscardedLeadsNestedInput
   submission?: Prisma.LeadSubmissionUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutLeadNestedInput
@@ -637,6 +658,7 @@ export type LeadUncheckedUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -656,6 +678,7 @@ export type LeadUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submission?: Prisma.LeadSubmissionUncheckedUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutLeadNestedInput
@@ -670,6 +693,7 @@ export type LeadCreateManyInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -696,6 +720,7 @@ export type LeadUpdateManyMutationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -719,6 +744,7 @@ export type LeadUncheckedUpdateManyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -753,6 +779,11 @@ export type LeadNullableScalarRelationFilter = {
   isNot?: Prisma.LeadWhereInput | null
 }
 
+export type LeadScalarRelationFilter = {
+  is?: Prisma.LeadWhereInput
+  isNot?: Prisma.LeadWhereInput
+}
+
 export type LeadCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
@@ -761,6 +792,7 @@ export type LeadCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   status?: Prisma.SortOrder
   source?: Prisma.SortOrder
+  sourceDetail?: Prisma.SortOrder
   score?: Prisma.SortOrder
   estimatedValue?: Prisma.SortOrder
   currency?: Prisma.SortOrder
@@ -794,6 +826,7 @@ export type LeadMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   status?: Prisma.SortOrder
   source?: Prisma.SortOrder
+  sourceDetail?: Prisma.SortOrder
   score?: Prisma.SortOrder
   estimatedValue?: Prisma.SortOrder
   currency?: Prisma.SortOrder
@@ -821,6 +854,7 @@ export type LeadMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   status?: Prisma.SortOrder
   source?: Prisma.SortOrder
+  sourceDetail?: Prisma.SortOrder
   score?: Prisma.SortOrder
   estimatedValue?: Prisma.SortOrder
   currency?: Prisma.SortOrder
@@ -844,11 +878,6 @@ export type LeadSumOrderByAggregateInput = {
   legacyQuotientNumber?: Prisma.SortOrder
   score?: Prisma.SortOrder
   estimatedValue?: Prisma.SortOrder
-}
-
-export type LeadScalarRelationFilter = {
-  is?: Prisma.LeadWhereInput
-  isNot?: Prisma.LeadWhereInput
 }
 
 export type LeadCreateNestedManyWithoutCompanyInput = {
@@ -1077,6 +1106,20 @@ export type LeadUncheckedUpdateManyWithoutContactNestedInput = {
   deleteMany?: Prisma.LeadScalarWhereInput | Prisma.LeadScalarWhereInput[]
 }
 
+export type LeadCreateNestedOneWithoutAccessLogsInput = {
+  create?: Prisma.XOR<Prisma.LeadCreateWithoutAccessLogsInput, Prisma.LeadUncheckedCreateWithoutAccessLogsInput>
+  connectOrCreate?: Prisma.LeadCreateOrConnectWithoutAccessLogsInput
+  connect?: Prisma.LeadWhereUniqueInput
+}
+
+export type LeadUpdateOneRequiredWithoutAccessLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.LeadCreateWithoutAccessLogsInput, Prisma.LeadUncheckedCreateWithoutAccessLogsInput>
+  connectOrCreate?: Prisma.LeadCreateOrConnectWithoutAccessLogsInput
+  upsert?: Prisma.LeadUpsertWithoutAccessLogsInput
+  connect?: Prisma.LeadWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.LeadUpdateToOneWithWhereWithoutAccessLogsInput, Prisma.LeadUpdateWithoutAccessLogsInput>, Prisma.LeadUncheckedUpdateWithoutAccessLogsInput>
+}
+
 export type EnumLeadStatusFieldUpdateOperationsInput = {
   set?: $Enums.LeadStatus
 }
@@ -1176,6 +1219,7 @@ export type LeadCreateWithoutCompanyInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -1195,6 +1239,7 @@ export type LeadCreateWithoutCompanyInput = {
   discardedBy?: Prisma.UserCreateNestedOneWithoutDiscardedLeadsInput
   submission?: Prisma.LeadSubmissionCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskCreateNestedManyWithoutLeadInput
@@ -1208,6 +1253,7 @@ export type LeadUncheckedCreateWithoutCompanyInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -1227,6 +1273,7 @@ export type LeadUncheckedCreateWithoutCompanyInput = {
   updatedAt?: Date | string
   submission?: Prisma.LeadSubmissionUncheckedCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutLeadInput
@@ -1270,6 +1317,7 @@ export type LeadScalarWhereInput = {
   description?: Prisma.StringNullableFilter<"Lead"> | string | null
   status?: Prisma.EnumLeadStatusFilter<"Lead"> | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFilter<"Lead"> | $Enums.LeadSource
+  sourceDetail?: Prisma.StringNullableFilter<"Lead"> | string | null
   score?: Prisma.IntFilter<"Lead"> | number
   estimatedValue?: Prisma.DecimalNullableFilter<"Lead"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFilter<"Lead"> | string
@@ -1296,6 +1344,7 @@ export type LeadCreateWithoutOwnerInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -1315,6 +1364,7 @@ export type LeadCreateWithoutOwnerInput = {
   discardedBy?: Prisma.UserCreateNestedOneWithoutDiscardedLeadsInput
   submission?: Prisma.LeadSubmissionCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskCreateNestedManyWithoutLeadInput
@@ -1329,6 +1379,7 @@ export type LeadUncheckedCreateWithoutOwnerInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -1347,6 +1398,7 @@ export type LeadUncheckedCreateWithoutOwnerInput = {
   updatedAt?: Date | string
   submission?: Prisma.LeadSubmissionUncheckedCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutLeadInput
@@ -1370,6 +1422,7 @@ export type LeadCreateWithoutDiscardedByInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -1389,6 +1442,7 @@ export type LeadCreateWithoutDiscardedByInput = {
   owner?: Prisma.UserCreateNestedOneWithoutAssignedLeadsInput
   submission?: Prisma.LeadSubmissionCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskCreateNestedManyWithoutLeadInput
@@ -1403,6 +1457,7 @@ export type LeadUncheckedCreateWithoutDiscardedByInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -1421,6 +1476,7 @@ export type LeadUncheckedCreateWithoutDiscardedByInput = {
   updatedAt?: Date | string
   submission?: Prisma.LeadSubmissionUncheckedCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutLeadInput
@@ -1476,6 +1532,7 @@ export type LeadCreateWithoutTasksInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -1496,6 +1553,7 @@ export type LeadCreateWithoutTasksInput = {
   discardedBy?: Prisma.UserCreateNestedOneWithoutDiscardedLeadsInput
   submission?: Prisma.LeadSubmissionCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityCreateNestedManyWithoutLeadInput
   jobs?: Prisma.JobCreateNestedManyWithoutLeadInput
@@ -1509,6 +1567,7 @@ export type LeadUncheckedCreateWithoutTasksInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -1528,6 +1587,7 @@ export type LeadUncheckedCreateWithoutTasksInput = {
   updatedAt?: Date | string
   submission?: Prisma.LeadSubmissionUncheckedCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLeadInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutLeadInput
@@ -1556,6 +1616,7 @@ export type LeadUpdateWithoutTasksInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1576,6 +1637,7 @@ export type LeadUpdateWithoutTasksInput = {
   discardedBy?: Prisma.UserUpdateOneWithoutDiscardedLeadsNestedInput
   submission?: Prisma.LeadSubmissionUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutLeadNestedInput
   jobs?: Prisma.JobUpdateManyWithoutLeadNestedInput
@@ -1589,6 +1651,7 @@ export type LeadUncheckedUpdateWithoutTasksInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1608,6 +1671,7 @@ export type LeadUncheckedUpdateWithoutTasksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submission?: Prisma.LeadSubmissionUncheckedUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutLeadNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutLeadNestedInput
@@ -1620,6 +1684,7 @@ export type LeadCreateWithoutClientCompanyInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -1639,6 +1704,7 @@ export type LeadCreateWithoutClientCompanyInput = {
   discardedBy?: Prisma.UserCreateNestedOneWithoutDiscardedLeadsInput
   submission?: Prisma.LeadSubmissionCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskCreateNestedManyWithoutLeadInput
@@ -1653,6 +1719,7 @@ export type LeadUncheckedCreateWithoutClientCompanyInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -1671,6 +1738,7 @@ export type LeadUncheckedCreateWithoutClientCompanyInput = {
   updatedAt?: Date | string
   submission?: Prisma.LeadSubmissionUncheckedCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutLeadInput
@@ -1710,6 +1778,7 @@ export type LeadCreateWithoutContactInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -1729,6 +1798,7 @@ export type LeadCreateWithoutContactInput = {
   discardedBy?: Prisma.UserCreateNestedOneWithoutDiscardedLeadsInput
   submission?: Prisma.LeadSubmissionCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskCreateNestedManyWithoutLeadInput
@@ -1743,6 +1813,7 @@ export type LeadUncheckedCreateWithoutContactInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -1761,6 +1832,7 @@ export type LeadUncheckedCreateWithoutContactInput = {
   updatedAt?: Date | string
   submission?: Prisma.LeadSubmissionUncheckedCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutLeadInput
@@ -1793,6 +1865,158 @@ export type LeadUpdateManyWithWhereWithoutContactInput = {
   data: Prisma.XOR<Prisma.LeadUpdateManyMutationInput, Prisma.LeadUncheckedUpdateManyWithoutContactInput>
 }
 
+export type LeadCreateWithoutAccessLogsInput = {
+  id?: string
+  legacyQuotientNumber?: number | null
+  title: string
+  description?: string | null
+  status?: $Enums.LeadStatus
+  source?: $Enums.LeadSource
+  sourceDetail?: string | null
+  score?: number
+  estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  currency?: string
+  contactName?: string | null
+  contactEmail?: string | null
+  contactPhone?: string | null
+  companyName?: string | null
+  lostReason?: string | null
+  closedAt?: Date | string | null
+  discardedAt?: Date | string | null
+  discardReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutLeadsInput
+  contact?: Prisma.ContactCreateNestedOneWithoutLeadsInput
+  clientCompany?: Prisma.ClientCompanyCreateNestedOneWithoutLeadsInput
+  owner?: Prisma.UserCreateNestedOneWithoutAssignedLeadsInput
+  discardedBy?: Prisma.UserCreateNestedOneWithoutDiscardedLeadsInput
+  submission?: Prisma.LeadSubmissionCreateNestedOneWithoutLeadInput
+  attachments?: Prisma.LeadAttachmentCreateNestedManyWithoutLeadInput
+  quotes?: Prisma.QuoteCreateNestedManyWithoutLeadInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutLeadInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutLeadInput
+  jobs?: Prisma.JobCreateNestedManyWithoutLeadInput
+}
+
+export type LeadUncheckedCreateWithoutAccessLogsInput = {
+  id?: string
+  companyId: string
+  legacyQuotientNumber?: number | null
+  title: string
+  description?: string | null
+  status?: $Enums.LeadStatus
+  source?: $Enums.LeadSource
+  sourceDetail?: string | null
+  score?: number
+  estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  currency?: string
+  contactId?: string | null
+  clientCompanyId?: string | null
+  ownerId?: string | null
+  contactName?: string | null
+  contactEmail?: string | null
+  contactPhone?: string | null
+  companyName?: string | null
+  lostReason?: string | null
+  closedAt?: Date | string | null
+  discardedAt?: Date | string | null
+  discardedById?: string | null
+  discardReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  submission?: Prisma.LeadSubmissionUncheckedCreateNestedOneWithoutLeadInput
+  attachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutLeadInput
+  quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutLeadInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLeadInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutLeadInput
+  jobs?: Prisma.JobUncheckedCreateNestedManyWithoutLeadInput
+}
+
+export type LeadCreateOrConnectWithoutAccessLogsInput = {
+  where: Prisma.LeadWhereUniqueInput
+  create: Prisma.XOR<Prisma.LeadCreateWithoutAccessLogsInput, Prisma.LeadUncheckedCreateWithoutAccessLogsInput>
+}
+
+export type LeadUpsertWithoutAccessLogsInput = {
+  update: Prisma.XOR<Prisma.LeadUpdateWithoutAccessLogsInput, Prisma.LeadUncheckedUpdateWithoutAccessLogsInput>
+  create: Prisma.XOR<Prisma.LeadCreateWithoutAccessLogsInput, Prisma.LeadUncheckedCreateWithoutAccessLogsInput>
+  where?: Prisma.LeadWhereInput
+}
+
+export type LeadUpdateToOneWithWhereWithoutAccessLogsInput = {
+  where?: Prisma.LeadWhereInput
+  data: Prisma.XOR<Prisma.LeadUpdateWithoutAccessLogsInput, Prisma.LeadUncheckedUpdateWithoutAccessLogsInput>
+}
+
+export type LeadUpdateWithoutAccessLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+  source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  score?: Prisma.IntFieldUpdateOperationsInput | number
+  estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discardReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutLeadsNestedInput
+  contact?: Prisma.ContactUpdateOneWithoutLeadsNestedInput
+  clientCompany?: Prisma.ClientCompanyUpdateOneWithoutLeadsNestedInput
+  owner?: Prisma.UserUpdateOneWithoutAssignedLeadsNestedInput
+  discardedBy?: Prisma.UserUpdateOneWithoutDiscardedLeadsNestedInput
+  submission?: Prisma.LeadSubmissionUpdateOneWithoutLeadNestedInput
+  attachments?: Prisma.LeadAttachmentUpdateManyWithoutLeadNestedInput
+  quotes?: Prisma.QuoteUpdateManyWithoutLeadNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutLeadNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutLeadNestedInput
+  jobs?: Prisma.JobUpdateManyWithoutLeadNestedInput
+}
+
+export type LeadUncheckedUpdateWithoutAccessLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  legacyQuotientNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+  source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  score?: Prisma.IntFieldUpdateOperationsInput | number
+  estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ownerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lostReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discardedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discardReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submission?: Prisma.LeadSubmissionUncheckedUpdateOneWithoutLeadNestedInput
+  attachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutLeadNestedInput
+  quotes?: Prisma.QuoteUncheckedUpdateManyWithoutLeadNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutLeadNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutLeadNestedInput
+  jobs?: Prisma.JobUncheckedUpdateManyWithoutLeadNestedInput
+}
+
 export type LeadCreateWithoutSubmissionInput = {
   id?: string
   legacyQuotientNumber?: number | null
@@ -1800,6 +2024,7 @@ export type LeadCreateWithoutSubmissionInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -1819,6 +2044,7 @@ export type LeadCreateWithoutSubmissionInput = {
   owner?: Prisma.UserCreateNestedOneWithoutAssignedLeadsInput
   discardedBy?: Prisma.UserCreateNestedOneWithoutDiscardedLeadsInput
   attachments?: Prisma.LeadAttachmentCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskCreateNestedManyWithoutLeadInput
@@ -1833,6 +2059,7 @@ export type LeadUncheckedCreateWithoutSubmissionInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -1851,6 +2078,7 @@ export type LeadUncheckedCreateWithoutSubmissionInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   attachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutLeadInput
@@ -1880,6 +2108,7 @@ export type LeadUpdateWithoutSubmissionInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1899,6 +2128,7 @@ export type LeadUpdateWithoutSubmissionInput = {
   owner?: Prisma.UserUpdateOneWithoutAssignedLeadsNestedInput
   discardedBy?: Prisma.UserUpdateOneWithoutDiscardedLeadsNestedInput
   attachments?: Prisma.LeadAttachmentUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutLeadNestedInput
@@ -1913,6 +2143,7 @@ export type LeadUncheckedUpdateWithoutSubmissionInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1931,6 +2162,7 @@ export type LeadUncheckedUpdateWithoutSubmissionInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutLeadNestedInput
@@ -1944,6 +2176,7 @@ export type LeadCreateWithoutAttachmentsInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -1963,6 +2196,7 @@ export type LeadCreateWithoutAttachmentsInput = {
   owner?: Prisma.UserCreateNestedOneWithoutAssignedLeadsInput
   discardedBy?: Prisma.UserCreateNestedOneWithoutDiscardedLeadsInput
   submission?: Prisma.LeadSubmissionCreateNestedOneWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskCreateNestedManyWithoutLeadInput
@@ -1977,6 +2211,7 @@ export type LeadUncheckedCreateWithoutAttachmentsInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -1995,6 +2230,7 @@ export type LeadUncheckedCreateWithoutAttachmentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   submission?: Prisma.LeadSubmissionUncheckedCreateNestedOneWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutLeadInput
@@ -2024,6 +2260,7 @@ export type LeadUpdateWithoutAttachmentsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2043,6 +2280,7 @@ export type LeadUpdateWithoutAttachmentsInput = {
   owner?: Prisma.UserUpdateOneWithoutAssignedLeadsNestedInput
   discardedBy?: Prisma.UserUpdateOneWithoutDiscardedLeadsNestedInput
   submission?: Prisma.LeadSubmissionUpdateOneWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutLeadNestedInput
@@ -2057,6 +2295,7 @@ export type LeadUncheckedUpdateWithoutAttachmentsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2075,6 +2314,7 @@ export type LeadUncheckedUpdateWithoutAttachmentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submission?: Prisma.LeadSubmissionUncheckedUpdateOneWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutLeadNestedInput
@@ -2088,6 +2328,7 @@ export type LeadCreateWithoutActivitiesInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -2108,6 +2349,7 @@ export type LeadCreateWithoutActivitiesInput = {
   discardedBy?: Prisma.UserCreateNestedOneWithoutDiscardedLeadsInput
   submission?: Prisma.LeadSubmissionCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskCreateNestedManyWithoutLeadInput
   jobs?: Prisma.JobCreateNestedManyWithoutLeadInput
@@ -2121,6 +2363,7 @@ export type LeadUncheckedCreateWithoutActivitiesInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -2140,6 +2383,7 @@ export type LeadUncheckedCreateWithoutActivitiesInput = {
   updatedAt?: Date | string
   submission?: Prisma.LeadSubmissionUncheckedCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutLeadInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutLeadInput
@@ -2168,6 +2412,7 @@ export type LeadUpdateWithoutActivitiesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2188,6 +2433,7 @@ export type LeadUpdateWithoutActivitiesInput = {
   discardedBy?: Prisma.UserUpdateOneWithoutDiscardedLeadsNestedInput
   submission?: Prisma.LeadSubmissionUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutLeadNestedInput
   jobs?: Prisma.JobUpdateManyWithoutLeadNestedInput
@@ -2201,6 +2447,7 @@ export type LeadUncheckedUpdateWithoutActivitiesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2220,6 +2467,7 @@ export type LeadUncheckedUpdateWithoutActivitiesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submission?: Prisma.LeadSubmissionUncheckedUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutLeadNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutLeadNestedInput
@@ -2232,6 +2480,7 @@ export type LeadCreateWithoutQuotesInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -2252,6 +2501,7 @@ export type LeadCreateWithoutQuotesInput = {
   discardedBy?: Prisma.UserCreateNestedOneWithoutDiscardedLeadsInput
   submission?: Prisma.LeadSubmissionCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskCreateNestedManyWithoutLeadInput
   jobs?: Prisma.JobCreateNestedManyWithoutLeadInput
@@ -2265,6 +2515,7 @@ export type LeadUncheckedCreateWithoutQuotesInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -2284,6 +2535,7 @@ export type LeadUncheckedCreateWithoutQuotesInput = {
   updatedAt?: Date | string
   submission?: Prisma.LeadSubmissionUncheckedCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutLeadInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutLeadInput
@@ -2312,6 +2564,7 @@ export type LeadUpdateWithoutQuotesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2332,6 +2585,7 @@ export type LeadUpdateWithoutQuotesInput = {
   discardedBy?: Prisma.UserUpdateOneWithoutDiscardedLeadsNestedInput
   submission?: Prisma.LeadSubmissionUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutLeadNestedInput
   jobs?: Prisma.JobUpdateManyWithoutLeadNestedInput
@@ -2345,6 +2599,7 @@ export type LeadUncheckedUpdateWithoutQuotesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2364,6 +2619,7 @@ export type LeadUncheckedUpdateWithoutQuotesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submission?: Prisma.LeadSubmissionUncheckedUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutLeadNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutLeadNestedInput
@@ -2376,6 +2632,7 @@ export type LeadCreateWithoutJobsInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -2396,6 +2653,7 @@ export type LeadCreateWithoutJobsInput = {
   discardedBy?: Prisma.UserCreateNestedOneWithoutDiscardedLeadsInput
   submission?: Prisma.LeadSubmissionCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskCreateNestedManyWithoutLeadInput
@@ -2409,6 +2667,7 @@ export type LeadUncheckedCreateWithoutJobsInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -2428,6 +2687,7 @@ export type LeadUncheckedCreateWithoutJobsInput = {
   updatedAt?: Date | string
   submission?: Prisma.LeadSubmissionUncheckedCreateNestedOneWithoutLeadInput
   attachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutLeadInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutLeadInput
   quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutLeadInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutLeadInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutLeadInput
@@ -2456,6 +2716,7 @@ export type LeadUpdateWithoutJobsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2476,6 +2737,7 @@ export type LeadUpdateWithoutJobsInput = {
   discardedBy?: Prisma.UserUpdateOneWithoutDiscardedLeadsNestedInput
   submission?: Prisma.LeadSubmissionUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutLeadNestedInput
@@ -2489,6 +2751,7 @@ export type LeadUncheckedUpdateWithoutJobsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2508,6 +2771,7 @@ export type LeadUncheckedUpdateWithoutJobsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submission?: Prisma.LeadSubmissionUncheckedUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutLeadNestedInput
@@ -2520,6 +2784,7 @@ export type LeadCreateManyCompanyInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -2546,6 +2811,7 @@ export type LeadUpdateWithoutCompanyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2565,6 +2831,7 @@ export type LeadUpdateWithoutCompanyInput = {
   discardedBy?: Prisma.UserUpdateOneWithoutDiscardedLeadsNestedInput
   submission?: Prisma.LeadSubmissionUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutLeadNestedInput
@@ -2578,6 +2845,7 @@ export type LeadUncheckedUpdateWithoutCompanyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2597,6 +2865,7 @@ export type LeadUncheckedUpdateWithoutCompanyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submission?: Prisma.LeadSubmissionUncheckedUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutLeadNestedInput
@@ -2610,6 +2879,7 @@ export type LeadUncheckedUpdateManyWithoutCompanyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2637,6 +2907,7 @@ export type LeadCreateManyOwnerInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -2663,6 +2934,7 @@ export type LeadCreateManyDiscardedByInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -2688,6 +2960,7 @@ export type LeadUpdateWithoutOwnerInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2707,6 +2980,7 @@ export type LeadUpdateWithoutOwnerInput = {
   discardedBy?: Prisma.UserUpdateOneWithoutDiscardedLeadsNestedInput
   submission?: Prisma.LeadSubmissionUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutLeadNestedInput
@@ -2721,6 +2995,7 @@ export type LeadUncheckedUpdateWithoutOwnerInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2739,6 +3014,7 @@ export type LeadUncheckedUpdateWithoutOwnerInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submission?: Prisma.LeadSubmissionUncheckedUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutLeadNestedInput
@@ -2753,6 +3029,7 @@ export type LeadUncheckedUpdateManyWithoutOwnerInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2778,6 +3055,7 @@ export type LeadUpdateWithoutDiscardedByInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2797,6 +3075,7 @@ export type LeadUpdateWithoutDiscardedByInput = {
   owner?: Prisma.UserUpdateOneWithoutAssignedLeadsNestedInput
   submission?: Prisma.LeadSubmissionUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutLeadNestedInput
@@ -2811,6 +3090,7 @@ export type LeadUncheckedUpdateWithoutDiscardedByInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2829,6 +3109,7 @@ export type LeadUncheckedUpdateWithoutDiscardedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submission?: Prisma.LeadSubmissionUncheckedUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutLeadNestedInput
@@ -2843,6 +3124,7 @@ export type LeadUncheckedUpdateManyWithoutDiscardedByInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2869,6 +3151,7 @@ export type LeadCreateManyClientCompanyInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -2894,6 +3177,7 @@ export type LeadUpdateWithoutClientCompanyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2913,6 +3197,7 @@ export type LeadUpdateWithoutClientCompanyInput = {
   discardedBy?: Prisma.UserUpdateOneWithoutDiscardedLeadsNestedInput
   submission?: Prisma.LeadSubmissionUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutLeadNestedInput
@@ -2927,6 +3212,7 @@ export type LeadUncheckedUpdateWithoutClientCompanyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2945,6 +3231,7 @@ export type LeadUncheckedUpdateWithoutClientCompanyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submission?: Prisma.LeadSubmissionUncheckedUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutLeadNestedInput
@@ -2959,6 +3246,7 @@ export type LeadUncheckedUpdateManyWithoutClientCompanyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2985,6 +3273,7 @@ export type LeadCreateManyContactInput = {
   description?: string | null
   status?: $Enums.LeadStatus
   source?: $Enums.LeadSource
+  sourceDetail?: string | null
   score?: number
   estimatedValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
@@ -3010,6 +3299,7 @@ export type LeadUpdateWithoutContactInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3029,6 +3319,7 @@ export type LeadUpdateWithoutContactInput = {
   discardedBy?: Prisma.UserUpdateOneWithoutDiscardedLeadsNestedInput
   submission?: Prisma.LeadSubmissionUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutLeadNestedInput
@@ -3043,6 +3334,7 @@ export type LeadUncheckedUpdateWithoutContactInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3061,6 +3353,7 @@ export type LeadUncheckedUpdateWithoutContactInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submission?: Prisma.LeadSubmissionUncheckedUpdateOneWithoutLeadNestedInput
   attachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutLeadNestedInput
+  accessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutLeadNestedInput
   quotes?: Prisma.QuoteUncheckedUpdateManyWithoutLeadNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutLeadNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutLeadNestedInput
@@ -3075,6 +3368,7 @@ export type LeadUncheckedUpdateManyWithoutContactInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
   source?: Prisma.EnumLeadSourceFieldUpdateOperationsInput | $Enums.LeadSource
+  sourceDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   score?: Prisma.IntFieldUpdateOperationsInput | number
   estimatedValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3100,6 +3394,7 @@ export type LeadUncheckedUpdateManyWithoutContactInput = {
 
 export type LeadCountOutputType = {
   attachments: number
+  accessLogs: number
   quotes: number
   activities: number
   tasks: number
@@ -3108,6 +3403,7 @@ export type LeadCountOutputType = {
 
 export type LeadCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attachments?: boolean | LeadCountOutputTypeCountAttachmentsArgs
+  accessLogs?: boolean | LeadCountOutputTypeCountAccessLogsArgs
   quotes?: boolean | LeadCountOutputTypeCountQuotesArgs
   activities?: boolean | LeadCountOutputTypeCountActivitiesArgs
   tasks?: boolean | LeadCountOutputTypeCountTasksArgs
@@ -3129,6 +3425,13 @@ export type LeadCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
  */
 export type LeadCountOutputTypeCountAttachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.LeadAttachmentWhereInput
+}
+
+/**
+ * LeadCountOutputType without action
+ */
+export type LeadCountOutputTypeCountAccessLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LeadAccessLogWhereInput
 }
 
 /**
@@ -3168,6 +3471,7 @@ export type LeadSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   description?: boolean
   status?: boolean
   source?: boolean
+  sourceDetail?: boolean
   score?: boolean
   estimatedValue?: boolean
   currency?: boolean
@@ -3192,6 +3496,7 @@ export type LeadSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   discardedBy?: boolean | Prisma.Lead$discardedByArgs<ExtArgs>
   submission?: boolean | Prisma.Lead$submissionArgs<ExtArgs>
   attachments?: boolean | Prisma.Lead$attachmentsArgs<ExtArgs>
+  accessLogs?: boolean | Prisma.Lead$accessLogsArgs<ExtArgs>
   quotes?: boolean | Prisma.Lead$quotesArgs<ExtArgs>
   activities?: boolean | Prisma.Lead$activitiesArgs<ExtArgs>
   tasks?: boolean | Prisma.Lead$tasksArgs<ExtArgs>
@@ -3207,6 +3512,7 @@ export type LeadSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   description?: boolean
   status?: boolean
   source?: boolean
+  sourceDetail?: boolean
   score?: boolean
   estimatedValue?: boolean
   currency?: boolean
@@ -3239,6 +3545,7 @@ export type LeadSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   description?: boolean
   status?: boolean
   source?: boolean
+  sourceDetail?: boolean
   score?: boolean
   estimatedValue?: boolean
   currency?: boolean
@@ -3271,6 +3578,7 @@ export type LeadSelectScalar = {
   description?: boolean
   status?: boolean
   source?: boolean
+  sourceDetail?: boolean
   score?: boolean
   estimatedValue?: boolean
   currency?: boolean
@@ -3290,7 +3598,7 @@ export type LeadSelectScalar = {
   updatedAt?: boolean
 }
 
-export type LeadOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "legacyQuotientNumber" | "title" | "description" | "status" | "source" | "score" | "estimatedValue" | "currency" | "contactId" | "clientCompanyId" | "ownerId" | "contactName" | "contactEmail" | "contactPhone" | "companyName" | "lostReason" | "closedAt" | "discardedAt" | "discardedById" | "discardReason" | "createdAt" | "updatedAt", ExtArgs["result"]["lead"]>
+export type LeadOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "legacyQuotientNumber" | "title" | "description" | "status" | "source" | "sourceDetail" | "score" | "estimatedValue" | "currency" | "contactId" | "clientCompanyId" | "ownerId" | "contactName" | "contactEmail" | "contactPhone" | "companyName" | "lostReason" | "closedAt" | "discardedAt" | "discardedById" | "discardReason" | "createdAt" | "updatedAt", ExtArgs["result"]["lead"]>
 export type LeadInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   contact?: boolean | Prisma.Lead$contactArgs<ExtArgs>
@@ -3299,6 +3607,7 @@ export type LeadInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   discardedBy?: boolean | Prisma.Lead$discardedByArgs<ExtArgs>
   submission?: boolean | Prisma.Lead$submissionArgs<ExtArgs>
   attachments?: boolean | Prisma.Lead$attachmentsArgs<ExtArgs>
+  accessLogs?: boolean | Prisma.Lead$accessLogsArgs<ExtArgs>
   quotes?: boolean | Prisma.Lead$quotesArgs<ExtArgs>
   activities?: boolean | Prisma.Lead$activitiesArgs<ExtArgs>
   tasks?: boolean | Prisma.Lead$tasksArgs<ExtArgs>
@@ -3330,6 +3639,7 @@ export type $LeadPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     discardedBy: Prisma.$UserPayload<ExtArgs> | null
     submission: Prisma.$LeadSubmissionPayload<ExtArgs> | null
     attachments: Prisma.$LeadAttachmentPayload<ExtArgs>[]
+    accessLogs: Prisma.$LeadAccessLogPayload<ExtArgs>[]
     quotes: Prisma.$QuotePayload<ExtArgs>[]
     activities: Prisma.$ActivityPayload<ExtArgs>[]
     tasks: Prisma.$TaskPayload<ExtArgs>[]
@@ -3343,6 +3653,7 @@ export type $LeadPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     description: string | null
     status: $Enums.LeadStatus
     source: $Enums.LeadSource
+    sourceDetail: string | null
     score: number
     estimatedValue: runtime.Decimal | null
     currency: string
@@ -3761,6 +4072,7 @@ export interface Prisma__LeadClient<T, Null = never, ExtArgs extends runtime.Typ
   discardedBy<T extends Prisma.Lead$discardedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lead$discardedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   submission<T extends Prisma.Lead$submissionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lead$submissionArgs<ExtArgs>>): Prisma.Prisma__LeadSubmissionClient<runtime.Types.Result.GetResult<Prisma.$LeadSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   attachments<T extends Prisma.Lead$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lead$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeadAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  accessLogs<T extends Prisma.Lead$accessLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lead$accessLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeadAccessLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   quotes<T extends Prisma.Lead$quotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lead$quotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activities<T extends Prisma.Lead$activitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lead$activitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   tasks<T extends Prisma.Lead$tasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lead$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3801,6 +4113,7 @@ export interface LeadFieldRefs {
   readonly description: Prisma.FieldRef<"Lead", 'String'>
   readonly status: Prisma.FieldRef<"Lead", 'LeadStatus'>
   readonly source: Prisma.FieldRef<"Lead", 'LeadSource'>
+  readonly sourceDetail: Prisma.FieldRef<"Lead", 'String'>
   readonly score: Prisma.FieldRef<"Lead", 'Int'>
   readonly estimatedValue: Prisma.FieldRef<"Lead", 'Decimal'>
   readonly currency: Prisma.FieldRef<"Lead", 'String'>
@@ -4335,6 +4648,30 @@ export type Lead$attachmentsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.LeadAttachmentScalarFieldEnum | Prisma.LeadAttachmentScalarFieldEnum[]
+}
+
+/**
+ * Lead.accessLogs
+ */
+export type Lead$accessLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LeadAccessLog
+   */
+  select?: Prisma.LeadAccessLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LeadAccessLog
+   */
+  omit?: Prisma.LeadAccessLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LeadAccessLogInclude<ExtArgs> | null
+  where?: Prisma.LeadAccessLogWhereInput
+  orderBy?: Prisma.LeadAccessLogOrderByWithRelationInput | Prisma.LeadAccessLogOrderByWithRelationInput[]
+  cursor?: Prisma.LeadAccessLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LeadAccessLogScalarFieldEnum | Prisma.LeadAccessLogScalarFieldEnum[]
 }
 
 /**

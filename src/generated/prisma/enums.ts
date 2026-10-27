@@ -216,6 +216,14 @@ export const InvitationStatus = {
 export type InvitationStatus = (typeof InvitationStatus)[keyof typeof InvitationStatus]
 
 
+export const LeadAccessKind = {
+  VIEWED: 'VIEWED',
+  UPDATED: 'UPDATED'
+} as const
+
+export type LeadAccessKind = (typeof LeadAccessKind)[keyof typeof LeadAccessKind]
+
+
 export const LeadStatus = {
   NEW: 'NEW',
   CONTACTED: 'CONTACTED',
@@ -265,7 +273,8 @@ export const ActivityType = {
   DISCARDED: 'DISCARDED',
   RESTORED: 'RESTORED',
   CONVERTED: 'CONVERTED',
-  JOB_STARTED: 'JOB_STARTED'
+  JOB_STARTED: 'JOB_STARTED',
+  ACTION_SCHEDULED: 'ACTION_SCHEDULED'
 } as const
 
 export type ActivityType = (typeof ActivityType)[keyof typeof ActivityType]

@@ -26,6 +26,7 @@ import { LogoManager } from "@/modules/settings/logo-manager";
 import { PdfLogoManager } from "@/modules/settings/pdf-logo-manager";
 import { WatermarkManager } from "@/modules/settings/watermark-manager";
 import { QuoteTypesManager } from "@/modules/settings/quote-types-manager";
+import { LeadSourceOptionsManager } from "@/modules/settings/lead-source-options-manager";
 import { SettingsHeader } from "@/modules/settings/settings-header";
 
 export async function generateMetadata() {
@@ -51,6 +52,7 @@ export default async function CompanySettingsPage() {
   // Read directly: it's the settings of the company in the context itself.
   const company = await prisma.company.findUniqueOrThrow({ where: { id: ctx.company.id } });
   const quoteTypes = await ctx.db.companyQuoteType.findMany({ orderBy: { position: "asc" } });
+  const leadSourceOptions = await ctx.db.leadSourceOption.findMany({ orderBy: { position: "asc" } });
 
   return (
     <div className="space-y-6">
@@ -177,6 +179,11 @@ export default async function CompanySettingsPage() {
 
       <QuoteTypesManager
         types={quoteTypes}
+        canManage={can(ctx, "settings.update")}
+      />
+
+      <LeadSourceOptionsManager
+        options={leadSourceOptions}
         canManage={can(ctx, "settings.update")}
       />
 

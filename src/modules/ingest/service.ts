@@ -1,12 +1,13 @@
 import { prisma } from "@/lib/db/prisma";
 import { attachContact } from "@/modules/contacts/attach";
 import { attachClientCompany } from "@/modules/client-companies/attach";
-import { ActivityType, IngestOutcome, IngestKeyType, LeadSource, LeadStatus } from "@/generated/prisma/enums";
+import { ActivityType, IngestOutcome, IngestKeyType, LeadStatus } from "@/generated/prisma/enums";
 import { hashIngestKey, keyTypeFromToken } from "./keys";
 import { isOriginAllowed } from "./origins";
 import { checkRate, windowStart } from "./limits";
 import { buildLeadTitle, normalizeSubmission } from "./payload";
 import { extractAttachments } from "./attachments";
+import { resolveIngestSource } from "./source";
 
 export type AuthResult =
   | { ok: true; key: AuthenticatedKey }
@@ -158,6 +159,16 @@ export async function createLeadFromSubmission(input: {
 
   const data = normalizeSubmission(payload);
   const attachments = extractAttachments(payload);
+  // Explicit `companyId`: this path has no session to bound it, same as the rest.
+  const offered = data.leadSource
+    ? (
+        await prisma.leadSourceOption.findMany({
+          where: { companyId: key.companyId },
+          select: { label: true },
+        })
+      ).map((option) => option.label)
+    : [];
+  const { source, sourceDetail } = resolveIngestSource(data.leadSource, offered);
 
   const lead = await prisma.$transaction(async (tx) => {
     // Who this came from, before the lead exists: a returning customer lands on
@@ -176,7 +187,8 @@ export async function createLeadFromSubmission(input: {
         title: buildLeadTitle(data, input.fallbackTitle),
         description: data.message,
         status: LeadStatus.NEW,
-        source: LeadSource.WEB,
+        source,
+        sourceDetail,
         currency: input.currency,
         contactId,
         clientCompanyId,

@@ -1,5 +1,6 @@
 // The service pulls in the notifier, which opens a database client on import.
 jest.mock("@/modules/notifications/inbox", () => ({ notify: jest.fn() }));
+jest.mock("@/modules/notifications/email-notice", () => ({ emailNotice: jest.fn() }));
 
 import type { CompanyContext } from "@/lib/auth/session";
 import { createLead, updateLead } from "../service";

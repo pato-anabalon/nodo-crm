@@ -1910,9 +1910,19 @@
       "heading": "Una tarea pasó su fecha",
       "line": "{title}"
     },
+    "open": "Abrir en Nodo",
+    "manage": "Elige qué correos recibes",
+    "leadAssigned": {
+      "subject": "{by} te asignó un lead: {title}",
+      "heading": "Tienes un lead",
+      "line": "{by} te asignó el lead «{title}»."
+    },
+    "taskAssigned": {
+      "subject": "{by} te dejó una tarea: {title}",
+      "heading": "Tienes una tarea",
+      "line": "{by} te dejó la tarea «{title}»."
+    },
     "job": {
-      "open": "Abrir en Nodo",
-      "manage": "Elige qué correos recibes",
       "added": {
         "subject": "{by} te agregó a {job}",
         "heading": "Te agregaron a un trabajo",
@@ -1952,6 +1962,11 @@
         "subject": "{job} está finalizado",
         "heading": "Se finalizó un trabajo",
         "line": "{by} finalizó {job}. Ahora es de solo lectura."
+      },
+      "todoCompleted": {
+        "subject": "{by} completó una tarea en {job}",
+        "heading": "Se completó una tarea que escribiste",
+        "line": "{by} completó «{title}» en {job}."
       }
     }
   },

@@ -4,6 +4,7 @@ jest.mock("@/modules/tasks/service", () => ({ createTask: (...a: unknown[]) => c
 jest.mock("@/modules/team/service", () => ({ listCompanyMembers: () => listCompanyMembers() }));
 jest.mock("@/lib/db/prisma", () => ({ prisma: {} }));
 jest.mock("@/modules/notifications/inbox", () => ({ notify: jest.fn() }));
+jest.mock("@/modules/notifications/email-notice", () => ({ emailNotice: jest.fn() }));
 
 import type { CompanyContext } from "@/lib/auth/session";
 import { scheduleLeadAction } from "../schedule";

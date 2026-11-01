@@ -383,12 +383,15 @@ export async function setTodoCompleted(
   if (done) {
     const recipients = await recipientsOnJob(ctx, todo.jobId, [todo.createdById], "todos.read");
     if (recipients.length > 0) {
-      await notifyEach(recipients, {
+      const params = { by: ctx.user.name ?? ctx.user.email, job: await jobName(ctx, todo.jobId), title: todo.title };
+      const path = `/jobs/${todo.jobId}/todos/${todo.id}`;
+      const raised = await notifyEach(recipients, {
         companyId: ctx.company.id,
         kind: NotificationKind.JOB_TODO_COMPLETED,
-        params: { by: ctx.user.name ?? ctx.user.email, job: await jobName(ctx, todo.jobId), title: todo.title },
-        href: `/jobs/${todo.jobId}/todos/${todo.id}`,
+        params,
+        href: path,
       });
+      emailJobNotice(ctx, { userIds: raised, template: "todoCompleted", params, path });
     }
   }
   return true;

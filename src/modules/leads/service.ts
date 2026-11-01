@@ -2,6 +2,7 @@ import type { CompanyContext } from "@/lib/auth/session";
 import { ActivityType, LeadStatus, Prisma } from "@/generated/prisma/client";
 import { NotificationKind } from "@/generated/prisma/enums";
 import { notify } from "@/modules/notifications/inbox";
+import { emailNotice } from "@/modules/notifications/email-notice";
 import { attachContact } from "@/modules/contacts/attach";
 import { canBecomeContact } from "@/modules/contacts/identity";
 import { attachClientCompany } from "@/modules/client-companies/attach";
@@ -367,13 +368,15 @@ export async function assignLead(ctx: CompanyContext, id: string, ownerId: strin
   // the owner actually changed — reassigning to the same person says nothing.
   // Handing a lead to yourself is not news to you either.
   if (ownerId && ownerId !== ctx.user.id) {
-    await notify({
+    const params = { title: updated.title, by: ctx.user.name ?? ctx.user.email };
+    const raised = await notify({
       companyId: ctx.company.id,
       userId: ownerId,
       kind: NotificationKind.LEAD_ASSIGNED,
-      params: { title: updated.title, by: ctx.user.name ?? ctx.user.email },
+      params,
       href: `/leads/${id}`,
     });
+    if (raised) emailNotice(ctx, { userIds: [ownerId], template: "leadAssigned", params, path: `/leads/${id}` });
   }
 
   return updated;

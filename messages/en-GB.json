@@ -1910,9 +1910,19 @@
       "heading": "A task has passed its date",
       "line": "{title}"
     },
+    "open": "Open in Nodo",
+    "manage": "Choose which emails you get",
+    "leadAssigned": {
+      "subject": "{by} assigned you a lead: {title}",
+      "heading": "A lead is yours",
+      "line": "{by} assigned you the lead “{title}”."
+    },
+    "taskAssigned": {
+      "subject": "{by} gave you a task: {title}",
+      "heading": "A task is yours",
+      "line": "{by} gave you the task “{title}”."
+    },
     "job": {
-      "open": "Open in Nodo",
-      "manage": "Choose which emails you get",
       "added": {
         "subject": "{by} added you to {job}",
         "heading": "You’ve been added to a job",
@@ -1952,6 +1962,11 @@
         "subject": "{job} is finished",
         "heading": "A job has been finished",
         "line": "{by} finished {job}. It is now read-only."
+      },
+      "todoCompleted": {
+        "subject": "{by} completed a to-do on {job}",
+        "heading": "A to-do you wrote is done",
+        "line": "{by} completed “{title}” on {job}."
       }
     }
   },

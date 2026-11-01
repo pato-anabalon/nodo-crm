@@ -1,6 +1,7 @@
 import type { CompanyContext } from "@/lib/auth/session";
 import { NotificationKind, Prisma } from "@/generated/prisma/client";
 import { notify } from "@/modules/notifications/inbox";
+import { emailNotice } from "@/modules/notifications/email-notice";
 import { dueDedupeKey, isDue } from "@/modules/notifications/due";
 import type { TaskFilters, TaskFormValues } from "./schemas";
 import { taskWhere } from "./scope";
@@ -123,13 +124,15 @@ async function notifyAssignee(
   // Putting a task in your own name is not news to you.
   if (!task.assigneeId || task.assigneeId === ctx.user.id) return;
 
-  await notify({
+  const params = { title: task.title, by: ctx.user.name ?? ctx.user.email };
+  const raised = await notify({
     companyId: ctx.company.id,
     userId: task.assigneeId,
     kind: NotificationKind.TASK_ASSIGNED,
-    params: { title: task.title, by: ctx.user.name ?? ctx.user.email },
+    params,
     href: "/tasks",
   });
+  if (raised) emailNotice(ctx, { userIds: [task.assigneeId], template: "taskAssigned", params, path: "/tasks" });
 }
 
 /**

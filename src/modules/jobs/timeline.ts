@@ -80,6 +80,9 @@ export function describeJobActivity(
       const reference = str("quoteNumber");
       return reference ? t("CREATED_fromQuote", { actor, reference }) : t("CREATED", { actor });
     }
+    case JobActivityType.QUOTE_LINKED:
+    case JobActivityType.QUOTE_UNLINKED:
+      return t(line.type, { actor, reference: str("quoteNumber") ?? "" });
     case JobActivityType.MEMBERS_ADDED: {
       const ids = Array.isArray(params.userIds) ? params.userIds.filter((v): v is string => typeof v === "string") : [];
       return t("MEMBERS_ADDED", { actor, names: helpers.list(ids.map(helpers.nameOf)) });

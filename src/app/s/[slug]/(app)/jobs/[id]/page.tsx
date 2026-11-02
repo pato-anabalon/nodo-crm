@@ -12,11 +12,14 @@ import {
   addJobMembersAction,
   deleteJobAction,
   finishJobAction,
+  linkQuoteAction,
   removeJobMemberAction,
   reopenJobAction,
+  searchLinkableQuotesAction,
   setFollowingAction,
   setJobDatesAction,
   setJobStatusAction,
+  unlinkQuoteAction,
   updateJobAction,
 } from "@/modules/jobs/actions";
 import { dayKey } from "@/modules/jobs/schemas";
@@ -35,7 +38,16 @@ import { personName } from "@/modules/jobs/avatars";
 import { activityDescriber } from "@/modules/jobs/activity-feed";
 import { PersonAvatar } from "@/modules/jobs/avatars";
 import { JobPeople, type JobPerson } from "@/modules/jobs/job-people";
-import { DeleteJobButton, EditJobButton, FinishJobButton, JobDatesButton, JobStatusSelect, ReopenJobButton } from "@/modules/jobs/job-controls";
+import {
+  DeleteJobButton,
+  EditJobButton,
+  FinishJobButton,
+  JobDatesButton,
+  JobStatusSelect,
+  LinkQuoteButton,
+  ReopenJobButton,
+  UnlinkQuoteButton,
+} from "@/modules/jobs/job-controls";
 import { isJobClosed, withoutWrites } from "@/modules/jobs/closing";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
@@ -156,10 +168,29 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
               {/* The way back to the quote is only for whoever can open quotes;
                   the figures on it stay behind `quotes.read.amounts` as ever. */}
               {job.quote && reference && can(ctx, "quotes.read") ? (
-                <Link href={`/quotes/${job.quote.id}`} className="inline-flex items-center gap-1 hover:underline">
-                  <FileText className="size-4" />
-                  {t("fromQuote", { reference })}
-                </Link>
+                <span className="inline-flex items-center gap-1">
+                  <Link href={`/quotes/${job.quote.id}`} className="inline-flex items-center gap-1 hover:underline">
+                    <FileText className="size-4" />
+                    {t("fromQuote", { reference })}
+                  </Link>
+                  {can(ctx, "jobs.update") ? (
+                    <UnlinkQuoteButton
+                      reference={reference}
+                      onUnlink={async () => {
+                        "use server";
+                        return unlinkQuoteAction(jobId);
+                      }}
+                    />
+                  ) : null}
+                </span>
+              ) : null}
+              {/* A job made on its own can be tied to an accepted quote afterwards —
+                  one brought in from Quotient, whose work starts now. */}
+              {!job.quote && can(ctx, "jobs.update") && can(ctx, "quotes.read") ? (
+                <LinkQuoteButton
+                  action={linkQuoteAction.bind(null, jobId)}
+                  search={searchLinkableQuotesAction.bind(null, jobId)}
+                />
               ) : null}
             </div>
           </div>

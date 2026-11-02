@@ -2435,6 +2435,30 @@
       "not-accepted": "Solo una cotización aceptada puede convertirse en trabajo.",
       "already-started": "Esta cotización ya tiene un trabajo."
     },
+    "link": {
+      "action": "Vincular cotización",
+      "title": "Vincular una cotización aceptada",
+      "body": "Para trabajo cotizado antes de que existiera este trabajo, como una cotización traída desde Quotient. El trabajo toma el alcance y el lead de la cotización; su nombre no cambia, y la descripción y la dirección se completan solo si están vacías.",
+      "quote": "Cotización",
+      "placeholder": "Elige una cotización aceptada",
+      "search": "Busca por número, título o dirección",
+      "empty": "Ninguna cotización aceptada sin trabajo coincide.",
+      "submit": "Vincular cotización",
+      "linking": "Vinculando…",
+      "linked": "Cotización vinculada.",
+      "unlink": "Desvincular la cotización {reference}",
+      "unlinkTitle": "¿Desvincular la cotización {reference}?",
+      "unlinkBody": "El trabajo conserva su gente, su nombre y su historial, pero pierde el alcance que venía de la cotización. La cotización queda libre para vincularse de nuevo o iniciar su propio trabajo.",
+      "unlinkConfirm": "Desvincular",
+      "unlinked": "Cotización desvinculada.",
+      "errors": {
+        "no-quote": "Elige una cotización primero.",
+        "not-found": "Esa cotización no existe.",
+        "not-accepted": "Solo una cotización aceptada puede vincularse a un trabajo.",
+        "already-started": "Esa cotización ya tiene un trabajo.",
+        "already-linked": "Este trabajo ya está vinculado a una cotización."
+      }
+    },
     "delete": "Eliminar trabajo",
     "deleteTitle": "¿Eliminar {name}?",
     "deleteBody": "Se van con él su gente, su historial y todo lo que contiene. La cotización se queda.",
@@ -2481,13 +2505,15 @@
       "EVENT_CREATED": "{actor} agendó {title} para el {date}",
       "EVENT_CREATED_undated": "{actor} agendó {title}",
       "EVENT_COMMENTED": "{actor} comentó en {title}",
-      "CHAT_MESSAGES": "{actor} envió {count, plural, one {un mensaje} other {# mensajes}} en el chat"
+      "CHAT_MESSAGES": "{actor} envió {count, plural, one {un mensaje} other {# mensajes}} en el chat",
+      "QUOTE_LINKED": "{actor} vinculó este trabajo a la cotización {reference}",
+      "QUOTE_UNLINKED": "{actor} desvinculó la cotización {reference} de este trabajo"
     },
     "scope": {
       "title": "Alcance del trabajo",
       "count": "{count, plural, one {# ítem} other {# ítems}}",
       "intro": "Lo que se cotizó para este trabajo. Es una referencia: no se puede editar y no incluye precios.",
-      "empty": "Este trabajo no tiene alcance cotizado: no se inició desde una cotización.",
+      "empty": "Este trabajo no tiene alcance cotizado: no tiene una cotización vinculada.",
       "copy": "Copiar",
       "copyAll": "Copiar todo",
       "copied": "Copiado",

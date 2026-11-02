@@ -2435,6 +2435,30 @@
       "not-accepted": "Only an accepted quote can become a job.",
       "already-started": "This quote already has a job."
     },
+    "link": {
+      "action": "Link a quote",
+      "title": "Link an accepted quote",
+      "body": "For work quoted before this job existed — a quote brought in from Quotient, for instance. The job takes the quote's scope and its lead; its name stays as it is, and the description and address are filled in only where they are empty.",
+      "quote": "Quote",
+      "placeholder": "Choose an accepted quote",
+      "search": "Search by number, title or address",
+      "empty": "No accepted quote without a job matches.",
+      "submit": "Link quote",
+      "linking": "Linking…",
+      "linked": "Quote linked.",
+      "unlink": "Unlink quote {reference}",
+      "unlinkTitle": "Unlink quote {reference}?",
+      "unlinkBody": "The job keeps its people, name and timeline, but loses the scope that came from the quote. The quote is free to be linked again or to start a job of its own.",
+      "unlinkConfirm": "Unlink",
+      "unlinked": "Quote unlinked.",
+      "errors": {
+        "no-quote": "Choose a quote first.",
+        "not-found": "That quote doesn't exist.",
+        "not-accepted": "Only an accepted quote can be linked to a job.",
+        "already-started": "That quote already has a job.",
+        "already-linked": "This job is already linked to a quote."
+      }
+    },
     "delete": "Delete job",
     "deleteTitle": "Delete {name}?",
     "deleteBody": "Its people, timeline and everything on it go with it. The quote stays.",
@@ -2481,13 +2505,15 @@
       "EVENT_CREATED": "{actor} scheduled {title} for {date}",
       "EVENT_CREATED_undated": "{actor} scheduled {title}",
       "EVENT_COMMENTED": "{actor} commented on {title}",
-      "CHAT_MESSAGES": "{actor} sent {count, plural, one {a message} other {# messages}} in the chat"
+      "CHAT_MESSAGES": "{actor} sent {count, plural, one {a message} other {# messages}} in the chat",
+      "QUOTE_LINKED": "{actor} linked this job to quote {reference}",
+      "QUOTE_UNLINKED": "{actor} unlinked quote {reference} from this job"
     },
     "scope": {
       "title": "Scope of work",
       "count": "{count, plural, one {# item} other {# items}}",
       "intro": "What was quoted for this job. It is a reference: it cannot be edited and carries no prices.",
-      "empty": "This job has no quoted scope — it was not started from a quote.",
+      "empty": "This job has no quoted scope — it has no quote linked to it.",
       "copy": "Copy",
       "copyAll": "Copy all",
       "copied": "Copied",

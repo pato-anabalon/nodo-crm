@@ -2,7 +2,7 @@
 
 import { useActionState, useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { CalendarDays, CheckCircle2, Pencil, RotateCcw, Trash2 } from "lucide-react";
+import { CalendarDays, CheckCircle2, Link2, Pencil, RotateCcw, Trash2, Unlink } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { NativeSelect } from "@/components/ui/native-select";
 import { ConfirmButton } from "@/components/confirm-button";
+import { SearchCombobox, type SearchComboboxItem } from "@/components/search-combobox";
 import { useActionToast } from "@/lib/use-action-toast";
 import { JobStatus } from "@/generated/prisma/enums";
 import { DateFields, JobForm, type JobFormDefaults } from "./job-form";
@@ -186,6 +187,91 @@ export function ReopenJobButton({ name, onReopen }: { name: string; onReopen: ()
       description={t("reopenBody")}
       confirmLabel={t("reopen")}
       onConfirm={() => startTransition(async () => announce(await onReopen()))}
+    />
+  );
+}
+
+/**
+ * Ties a job made on its own to an accepted quote. The picker searches the
+ * server, since a company that came from Quotient has hundreds to choose from.
+ */
+export function LinkQuoteButton({
+  action,
+  search,
+}: {
+  action: FormAction;
+  search: (query: string) => Promise<SearchComboboxItem[]>;
+}) {
+  const t = useTranslations("jobs.link");
+  const [open, setOpen] = useState(false);
+  const [quote, setQuote] = useState<SearchComboboxItem | null>(null);
+  const [state, formAction, pending] = useActionState(async (prev: JobActionState, formData: FormData) => {
+    const next = await action(prev, formData);
+    if (next.message) {
+      setOpen(false);
+      setQuote(null);
+    }
+    return next;
+  }, {});
+  useActionToast(state);
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="ghost" size="sm" className="h-auto px-1.5 py-0.5 text-sm font-normal text-muted-foreground">
+          <Link2 className="size-4" />
+          {t("action")}
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>{t("title")}</DialogTitle>
+        </DialogHeader>
+        <form action={formAction} className="space-y-4">
+          <p className="text-sm text-muted-foreground">{t("body")}</p>
+          <SearchCombobox
+            name="quoteId"
+            aria-label={t("quote")}
+            value={quote}
+            onSelect={setQuote}
+            search={search}
+            placeholder={t("placeholder")}
+            searchPlaceholder={t("search")}
+            emptyLabel={t("empty")}
+          />
+          <Button type="submit" disabled={pending || !quote}>
+            {pending ? t("linking") : t("submit")}
+          </Button>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+/** Undoes a link. The question names the quote and says what goes with it. */
+export function UnlinkQuoteButton({
+  reference,
+  onUnlink,
+}: {
+  reference: string;
+  onUnlink: () => Promise<JobActionState>;
+}) {
+  const t = useTranslations("jobs.link");
+  const [pending, startTransition] = useTransition();
+
+  return (
+    <ConfirmButton
+      disabled={pending}
+      trigger={
+        <Button variant="ghost" size="icon" className="size-6 text-muted-foreground" disabled={pending}>
+          <Unlink className="size-3.5" />
+          <span className="sr-only">{t("unlink", { reference })}</span>
+        </Button>
+      }
+      title={t("unlinkTitle", { reference })}
+      description={t("unlinkBody")}
+      confirmLabel={t("unlinkConfirm")}
+      onConfirm={() => startTransition(async () => announce(await onUnlink()))}
     />
   );
 }

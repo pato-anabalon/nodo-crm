@@ -11,6 +11,7 @@ import {
 } from "@/generated/prisma/client";
 import { formatQuoteNumber } from "@/lib/format";
 import { notifyEach } from "@/modules/notifications/inbox";
+import { buildQuoteWhere, visibilityWhere as quoteVisibilityWhere } from "@/modules/quotes/service";
 import { emailJobNotice } from "./emails";
 import { recipientsOnJob } from "./recipients";
 import { jobNameFromQuote } from "./naming";
@@ -154,6 +155,57 @@ export async function tradesByUser(ctx: CompanyContext, userIds: string[]) {
   );
 }
 
+/**
+ * What a job takes from its quote, whether it is started from one or tied to
+ * one afterwards: who it is for, where, and what was sold.
+ */
+const quoteForJobSelect = {
+  id: true,
+  number: true,
+  title: true,
+  status: true,
+  projectAddress: true,
+  clientCompanyName: true,
+  clientName: true,
+  clientEmail: true,
+  clientPhone: true,
+  leadId: true,
+  lead: { select: { ownerId: true } },
+  job: { select: { id: true } },
+  // What was sold, to be kept on the job. The amounts are selected only because
+  // `resolveSelectedSectionAmounts` needs them to say what counts; none is stored.
+  pricingMode: true,
+  items: { select: { position: true, description: true } },
+  sections: {
+    select: {
+      id: true,
+      position: true,
+      title: true,
+      body: true,
+      kind: true,
+      selectedByDefault: true,
+      customerSelected: true,
+      amount: true,
+      discountType: true,
+      discountValue: true,
+    },
+  },
+} satisfies Prisma.QuoteSelect;
+
+type QuoteForJob = Prisma.QuoteGetPayload<{ select: typeof quoteForJobSelect }>;
+
+function scopeOf(quote: QuoteForJob) {
+  return scopeItemsFromQuote({
+    pricingMode: quote.pricingMode,
+    items: quote.items,
+    sections: quote.sections.map((section) => ({
+      ...section,
+      amount: Number(section.amount),
+      discountValue: Number(section.discountValue),
+    })),
+  });
+}
+
 export type StartJobOutcome =
   | { ok: true; jobId: string }
   | { ok: false; reason: "not-found" | "not-accepted" | "already-started"; jobId?: string };
@@ -167,56 +219,14 @@ export type StartJobOutcome =
  * constraint rather than making a second job.
  */
 export async function startJobFromQuote(ctx: CompanyContext, quoteId: string): Promise<StartJobOutcome> {
-  const quote = await ctx.db.quote.findFirst({
-    where: { id: quoteId },
-    select: {
-      id: true,
-      number: true,
-      title: true,
-      status: true,
-      projectAddress: true,
-      clientCompanyName: true,
-      clientName: true,
-      clientEmail: true,
-      clientPhone: true,
-      leadId: true,
-      lead: { select: { ownerId: true } },
-      job: { select: { id: true } },
-      // What was sold, to be kept on the job. The amounts are selected only because
-      // `resolveSelectedSectionAmounts` needs them to say what counts; none is stored.
-      pricingMode: true,
-      items: { select: { position: true, description: true } },
-      sections: {
-        select: {
-          id: true,
-          position: true,
-          title: true,
-          body: true,
-          kind: true,
-          selectedByDefault: true,
-          customerSelected: true,
-          amount: true,
-          discountType: true,
-          discountValue: true,
-        },
-      },
-    },
-  });
+  const quote = await ctx.db.quote.findFirst({ where: { id: quoteId }, select: quoteForJobSelect });
   if (!quote) return { ok: false, reason: "not-found" };
   if (quote.job) return { ok: false, reason: "already-started", jobId: quote.job.id };
   if (quote.status !== QuoteStatus.ACCEPTED) return { ok: false, reason: "not-accepted" };
 
   const reference = formatQuoteNumber(ctx.company.quotePrefix, quote.number);
   const companyId = ctx.company.id;
-  const scopeItems = scopeItemsFromQuote({
-    pricingMode: quote.pricingMode,
-    items: quote.items,
-    sections: quote.sections.map((section) => ({
-      ...section,
-      amount: Number(section.amount),
-      discountValue: Number(section.discountValue),
-    })),
-  });
+  const scopeItems = scopeOf(quote);
   const memberIds = [...new Set([ctx.user.id, quote.lead?.ownerId].filter((id): id is string => Boolean(id)))];
 
   try {
@@ -273,6 +283,154 @@ export async function startJobFromQuote(ctx: CompanyContext, quoteId: string): P
     }
     throw error;
   }
+}
+
+export type LinkQuoteOutcome =
+  | { ok: true; quoteId: string }
+  | { ok: false; reason: "not-found" | "not-accepted" | "already-started" | "already-linked" };
+
+/**
+ * Ties a job made on its own to an accepted quote — typically one brought in
+ * from Quotient whose work starts now, so "Start job" was never pressed here.
+ *
+ * The job ends up as if it had been started from the quote, minus what the
+ * person already wrote: the name stays theirs, and the description and address
+ * are filled only where they are empty. The scope is copied, the lead's owner
+ * joins, and the lead's history says a job started — the same three things
+ * `startJobFromQuote` does. `quoteId` is unique on `Job`, so two jobs racing
+ * for one quote land on the constraint.
+ *
+ * The quote must be one this person can open (`quotes.read`, and only their own
+ * without `quotes.read.all`): the link shows on the job as a way back to it.
+ */
+export async function linkQuoteToJob(ctx: CompanyContext, jobId: string, quoteId: string): Promise<LinkQuoteOutcome> {
+  const job = await ctx.db.job.findFirst({
+    where: { id: jobId },
+    select: { quoteId: true, leadId: true, description: true, address: true, members: { select: { userId: true } } },
+  });
+  if (!job) return { ok: false, reason: "not-found" };
+  if (job.quoteId) return { ok: false, reason: "already-linked" };
+
+  const quote = await ctx.db.quote.findFirst({
+    where: { id: quoteId, ...quoteVisibilityWhere(ctx) },
+    select: quoteForJobSelect,
+  });
+  if (!quote) return { ok: false, reason: "not-found" };
+  if (quote.job) return { ok: false, reason: "already-started" };
+  if (quote.status !== QuoteStatus.ACCEPTED) return { ok: false, reason: "not-accepted" };
+
+  const reference = formatQuoteNumber(ctx.company.quotePrefix, quote.number);
+  const companyId = ctx.company.id;
+  const scopeItems = scopeOf(quote);
+  const onJob = new Set(job.members.map((m) => m.userId));
+  const joining = quote.lead?.ownerId && !onJob.has(quote.lead.ownerId) ? [quote.lead.ownerId] : [];
+
+  try {
+    await prisma.$transaction(async (tx) => {
+      await tx.job.update({
+        where: { id: jobId, companyId },
+        data: {
+          quoteId: quote.id,
+          leadId: job.leadId ?? quote.leadId,
+          description: job.description?.trim() ? job.description : clientSummary(quote),
+          address: job.address?.trim() ? job.address : quote.projectAddress?.trim() || null,
+        },
+      });
+      // A job's scope only ever comes from its quote; anything left is a previous link's.
+      await tx.jobScopeItem.deleteMany({ where: { jobId, companyId } });
+      if (scopeItems.length > 0) {
+        await tx.jobScopeItem.createMany({ data: scopeItems.map((item) => ({ companyId, jobId, ...item })) });
+      }
+      if (joining.length > 0) {
+        await tx.jobMember.createMany({
+          data: joining.map((userId) => ({ companyId, jobId, userId, addedById: ctx.user.id })),
+          skipDuplicates: true,
+        });
+      }
+      await tx.jobActivity.create({
+        data: { companyId, jobId, actorId: ctx.user.id, type: JobActivityType.QUOTE_LINKED, params: { quoteNumber: reference } },
+      });
+      if (quote.leadId) {
+        await tx.activity.create({
+          data: {
+            companyId,
+            leadId: quote.leadId,
+            userId: ctx.user.id,
+            type: ActivityType.JOB_STARTED,
+            content: String(quote.number),
+          },
+        });
+      }
+    });
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
+      return { ok: false, reason: "already-started" };
+    }
+    throw error;
+  }
+
+  await notifyAdded(ctx, jobId, joining);
+  return { ok: true, quoteId: quote.id };
+}
+
+/**
+ * The quotes a job can be tied to: accepted, without a job of their own, and
+ * open to this person. Searched the way the quotes list searches — title,
+ * lead, address, number — and a page at a time, because a company that came
+ * from Quotient has hundreds of accepted quotes.
+ */
+export async function linkableQuotes(ctx: CompanyContext, q: string) {
+  const quotes = await ctx.db.quote.findMany({
+    where: {
+      ...buildQuoteWhere(ctx, { q: q.trim() || undefined, status: QuoteStatus.ACCEPTED, section: "all", page: 1 }),
+      job: null,
+    },
+    orderBy: { number: "desc" },
+    take: 20,
+    select: { id: true, number: true, title: true, clientName: true, projectAddress: true },
+  });
+  return quotes.map((quote) => ({
+    id: quote.id,
+    label: `${formatQuoteNumber(ctx.company.quotePrefix, quote.number)} · ${quote.title}`,
+    description: [quote.clientName, quote.projectAddress].map((v) => v?.trim()).filter(Boolean).join(" · ") || null,
+  }));
+}
+
+/**
+ * Undoes a link — the wrong quote picked from a list of hundreds is an easy
+ * mistake. The quote is free to be started or linked again, and the scope that
+ * came from it goes with it; the people, the name and what was filled in stay,
+ * because by now they are the job's own. Returns the quote it was tied to.
+ */
+export async function unlinkQuoteFromJob(ctx: CompanyContext, jobId: string): Promise<string | null> {
+  const job = await ctx.db.job.findFirst({
+    where: { id: jobId },
+    select: { leadId: true, quote: { select: { id: true, number: true, leadId: true } } },
+  });
+  if (!job?.quote) return null;
+
+  const { quote } = job;
+  const companyId = ctx.company.id;
+  const count = await prisma.$transaction(async (tx) => {
+    // Only if it is still tied to that quote: a double press is one line.
+    const { count } = await tx.job.updateMany({
+      where: { id: jobId, companyId, quoteId: quote.id },
+      data: { quoteId: null, leadId: job.leadId === quote.leadId ? null : job.leadId },
+    });
+    if (count === 0) return 0;
+    await tx.jobScopeItem.deleteMany({ where: { jobId, companyId } });
+    await tx.jobActivity.create({
+      data: {
+        companyId,
+        jobId,
+        actorId: ctx.user.id,
+        type: JobActivityType.QUOTE_UNLINKED,
+        params: { quoteNumber: formatQuoteNumber(ctx.company.quotePrefix, quote.number) },
+      },
+    });
+    return count;
+  });
+  return count > 0 ? quote.id : null;
 }
 
 /**

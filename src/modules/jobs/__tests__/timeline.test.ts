@@ -49,6 +49,15 @@ describe("describeJobActivity", () => {
     ).toBe('CREATED_fromQuote{"actor":"Rolando","reference":"COT-000123"}');
   });
 
+  it("names the quote a job was linked to, and unlinked from", () => {
+    expect(
+      describeJobActivity({ type: JobActivityType.QUOTE_LINKED, params: { quoteNumber: "COT-000042" }, actorName: "Ana" }, t, helpers),
+    ).toBe('QUOTE_LINKED{"actor":"Ana","reference":"COT-000042"}');
+    expect(
+      describeJobActivity({ type: JobActivityType.QUOTE_UNLINKED, params: { quoteNumber: "COT-000042" }, actorName: "Ana" }, t, helpers),
+    ).toBe('QUOTE_UNLINKED{"actor":"Ana","reference":"COT-000042"}');
+  });
+
   it("names the people added", () => {
     expect(
       describeJobActivity({ type: JobActivityType.MEMBERS_ADDED, params: { userIds: ["u1", "u2"] }, actorName: "R" }, t, helpers),

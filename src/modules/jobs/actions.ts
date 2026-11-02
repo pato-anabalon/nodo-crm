@@ -20,6 +20,9 @@ import {
   setJobStatus,
   finishJob,
   reopenJob,
+  linkableQuotes,
+  linkQuoteToJob,
+  unlinkQuoteFromJob,
   setMemberTrades,
   startJobFromQuote,
   updateJob,
@@ -54,6 +57,52 @@ export async function startJobAction(quoteId: string): Promise<JobActionState> {
   revalidatePath(`/quotes/${quoteId}`);
   refresh();
   redirect(`/jobs/${outcome.jobId}`);
+}
+
+/**
+ * Backs the quote picker on a job's page. Behind `jobs.update` on that job and
+ * `quotes.read` — the list is quotes, and only the ones this person may open.
+ */
+export async function searchLinkableQuotesAction(
+  jobId: string,
+  query: string,
+): Promise<Array<{ id: string; label: string; description: string | null }>> {
+  const { ctx } = await requireJobContext(jobId, "jobs.update");
+  if (!ctx.permissions.has("quotes.read")) return [];
+  return linkableQuotes(ctx, query);
+}
+
+/** Ties a job made on its own to an accepted quote — one brought in from Quotient, typically. */
+export async function linkQuoteAction(
+  jobId: string,
+  _prev: JobActionState,
+  formData: FormData,
+): Promise<JobActionState> {
+  const { ctx } = await requireJobContext(jobId, "jobs.update");
+  const t = await getTranslations("jobs.link");
+  if (!ctx.permissions.has("quotes.read")) return { error: t("errors.not-found") };
+
+  const quoteId = String(formData.get("quoteId") ?? "");
+  if (!quoteId) return { error: t("errors.no-quote") };
+
+  const outcome = await linkQuoteToJob(ctx, jobId, quoteId);
+  if (!outcome.ok) return { error: t(`errors.${outcome.reason}`) };
+
+  revalidatePath(`/quotes/${outcome.quoteId}`);
+  revalidatePath(`/jobs/${jobId}/scope`);
+  refresh(jobId);
+  return { message: t("linked") };
+}
+
+export async function unlinkQuoteAction(jobId: string): Promise<JobActionState> {
+  const { ctx } = await requireJobContext(jobId, "jobs.update");
+  const t = await getTranslations("jobs.link");
+
+  const quoteId = await unlinkQuoteFromJob(ctx, jobId);
+  if (quoteId) revalidatePath(`/quotes/${quoteId}`);
+  revalidatePath(`/jobs/${jobId}/scope`);
+  refresh(jobId);
+  return { message: t("unlinked") };
 }
 
 export async function createJobAction(_prev: JobActionState, formData: FormData): Promise<JobActionState> {

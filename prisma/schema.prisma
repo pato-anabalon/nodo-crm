@@ -2238,6 +2238,17 @@ enum JobActivityType {
    * is recounted from the messages on every send and delete.
    */
   CHAT_MESSAGES
+  /**
+   * params: `{ quoteNumber }` — a job created on its own was tied afterwards to
+   * an accepted quote: typically one brought in from Quotient, whose work starts
+   * now. `CREATED` keeps saying how the job began.
+   */
+  QUOTE_LINKED
+  /**
+   * params: `{ quoteNumber }` — the quote it was tied to, so the line still says
+   * which one after the link is gone.
+   */
+  QUOTE_UNLINKED
 }
 
 /**

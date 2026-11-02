@@ -792,6 +792,19 @@ written once and then the job's own text. A later change of `quotePrefix` doesn'
 rename work under way, whose reference is the one on the customer's quote. That
 is also why `Job` has no number of its own.
 
+**A job made on its own can be tied to an accepted quote afterwards**
+(`linkQuoteToJob`) — the case is a quote brought in from Quotient whose work
+starts now, so nobody ever pressed "Start job" on it. The job ends up as if it
+had been started from the quote — the scope copied, the lead set, the lead's
+owner on it, `JOB_STARTED` on the lead — minus what the person already wrote:
+the name stays theirs, and description and address are filled only where
+empty. The picker offers accepted quotes with no job that this person may open
+(`quotes.read`, and their own only without `quotes.read.all`). Unlinking is
+allowed, because the wrong quote out of hundreds is an easy pick: it frees the
+quote and takes the scope, which only ever comes from a quote, and leaves
+everything else as the job's own. Both leave a line on the timeline
+(`QUOTE_LINKED`, `QUOTE_UNLINKED`).
+
 `JobActivity` is the timeline, and like `Notification` it stores a type and its
 parameters, never a sentence. The day headings are drawn in the company's
 timezone (`groupByDay`), and the silence between them is said out loud — "No

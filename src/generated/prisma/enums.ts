@@ -320,7 +320,9 @@ export const JobActivityType = {
   TODO_COMMENTED: 'TODO_COMMENTED',
   EVENT_CREATED: 'EVENT_CREATED',
   EVENT_COMMENTED: 'EVENT_COMMENTED',
-  CHAT_MESSAGES: 'CHAT_MESSAGES'
+  CHAT_MESSAGES: 'CHAT_MESSAGES',
+  QUOTE_LINKED: 'QUOTE_LINKED',
+  QUOTE_UNLINKED: 'QUOTE_UNLINKED'
 } as const
 
 export type JobActivityType = (typeof JobActivityType)[keyof typeof JobActivityType]

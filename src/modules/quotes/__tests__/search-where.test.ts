@@ -19,6 +19,12 @@ describe("buildQuoteWhere — text search", () => {
     });
   });
 
+  it("searches the customer's name and company, as the list shows them", () => {
+    const clauses = searchClauses("Paula");
+    expect(clauses).toContainEqual({ clientName: { contains: "Paula", mode: "insensitive" } });
+    expect(clauses).toContainEqual({ clientCompanyName: { contains: "Paula", mode: "insensitive" } });
+  });
+
   it("keeps searching title, lead title and number", () => {
     const clauses = searchClauses("COT-000123");
     expect(clauses).toContainEqual({ title: { contains: "COT-000123", mode: "insensitive" } });

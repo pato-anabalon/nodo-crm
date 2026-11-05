@@ -510,6 +510,8 @@
     "notFoundOrNoAccess": "No encontramos ese lead o no tienes acceso a él.",
     "columns": {
       "opportunity": "Oportunidad",
+      "contact": "Contacto",
+      "source": "Origen",
       "status": "Estado",
       "owner": "Responsable",
       "estimatedValue": "Valor estimado",
@@ -738,7 +740,7 @@
     "new": "Nueva cotización",
     "create": "Crear cotización",
     "noAccess": "Tu perfil no tiene acceso a las cotizaciones.",
-    "searchPlaceholder": "Buscar por título, lead, número o dirección…",
+    "searchPlaceholder": "Buscar por título, cliente, lead, número o dirección…",
     "empty": "Todavía no hay cotizaciones.",
     "backToQuotes": "Volver a cotizaciones",
     "loading": {

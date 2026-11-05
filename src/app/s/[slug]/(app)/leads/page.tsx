@@ -20,6 +20,7 @@ import { UNASSIGNED_FILTER, listLeads } from "@/modules/leads/service";
 import { listCompanyMembers } from "@/modules/team/service";
 import { LEAD_PIPELINE, leadStatusVariant } from "@/modules/leads/constants";
 import { formatMoney } from "@/lib/format";
+import type { LeadSource } from "@/generated/prisma/enums";
 import { LeadCards } from "@/modules/leads/lead-cards";
 
 export async function generateMetadata() {
@@ -52,6 +53,9 @@ export default async function LeadsPage({
   });
 
   const { items, total, page, pageCount } = await listLeads(ctx, filters);
+  // Worded as the lead's own page words it: the source, then the company's detail.
+  const sourceLabel = (lead: { source: LeadSource; sourceDetail: string | null }) =>
+    `${t(`source.${lead.source}`)}${lead.sourceDetail ? ` · ${lead.sourceDetail}` : ""}`;
   const seesAll = can(ctx, "leads.read.all");
   // Filtering by person only means something to whoever sees more than their own.
   const members = seesAll ? await listCompanyMembers(ctx) : [];
@@ -128,7 +132,11 @@ export default async function LeadsPage({
           href: `/leads/${lead.id}`,
           title: lead.title,
           companyName: lead.companyName,
+          contactName: lead.contactName,
+          contactEmail: lead.contactEmail,
+          contactPhone: lead.contactPhone,
           owner: lead.owner?.name ?? lead.owner?.email ?? tCommon("unassigned"),
+          source: sourceLabel(lead),
           status: (
             <Badge variant={leadStatusVariant(lead.status)}>
               {t(`status.${lead.status}`)}
@@ -150,7 +158,9 @@ export default async function LeadsPage({
             <TableHeader>
               <TableRow>
                 <TableHead>{t("columns.opportunity")}</TableHead>
+                <TableHead>{t("columns.contact")}</TableHead>
                 <TableHead>{t("columns.status")}</TableHead>
+                <TableHead>{t("columns.source")}</TableHead>
                 <TableHead>{t("columns.owner")}</TableHead>
                 <TableHead className="text-right">{t("columns.estimatedValue")}</TableHead>
                 <TableHead className="text-right">{t("columns.quotes")}</TableHead>
@@ -159,7 +169,7 @@ export default async function LeadsPage({
             <TableBody>
               {items.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={5} className="py-10 text-center text-sm text-muted-foreground">
+                  <TableCell colSpan={7} className="py-10 text-center text-sm text-muted-foreground">
                     {filters.discarded ? t("emptyDiscarded") : t("empty")}
                   </TableCell>
                 </TableRow>
@@ -174,11 +184,34 @@ export default async function LeadsPage({
                         <p className="text-xs text-muted-foreground">{lead.companyName}</p>
                       ) : null}
                     </TableCell>
+                    <TableCell className="text-sm">
+                      {lead.contactName ? <p className="font-medium">{lead.contactName}</p> : null}
+                      {lead.contactEmail ? (
+                        <a
+                          href={`mailto:${lead.contactEmail}`}
+                          className="block break-all text-xs text-muted-foreground hover:underline"
+                        >
+                          {lead.contactEmail}
+                        </a>
+                      ) : null}
+                      {lead.contactPhone ? (
+                        <a
+                          href={`tel:${lead.contactPhone.replace(/[^\d+]/g, "")}`}
+                          className="block text-xs text-muted-foreground tabular-nums hover:underline"
+                        >
+                          {lead.contactPhone}
+                        </a>
+                      ) : null}
+                      {!lead.contactName && !lead.contactEmail && !lead.contactPhone ? (
+                        <span className="text-muted-foreground">{tCommon("none")}</span>
+                      ) : null}
+                    </TableCell>
                     <TableCell>
                       <Badge variant={leadStatusVariant(lead.status)}>
                         {t(`status.${lead.status}`)}
                       </Badge>
                     </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">{sourceLabel(lead)}</TableCell>
                     <TableCell className="text-sm text-muted-foreground">
                       {lead.owner?.name ?? lead.owner?.email ?? tCommon("unassigned")}
                     </TableCell>

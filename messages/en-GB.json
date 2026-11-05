@@ -510,6 +510,8 @@
     "notFoundOrNoAccess": "We couldn't find that lead, or you don't have access to it.",
     "columns": {
       "opportunity": "Opportunity",
+      "contact": "Contact",
+      "source": "Source",
       "status": "Status",
       "owner": "Owner",
       "estimatedValue": "Estimated value",
@@ -738,7 +740,7 @@
     "new": "New quote",
     "create": "Create quote",
     "noAccess": "Your profile doesn't have access to quotes.",
-    "searchPlaceholder": "Search by title, lead, number or address…",
+    "searchPlaceholder": "Search by title, customer, lead, number or address…",
     "empty": "No quotes yet.",
     "backToQuotes": "Back to quotes",
     "loading": {

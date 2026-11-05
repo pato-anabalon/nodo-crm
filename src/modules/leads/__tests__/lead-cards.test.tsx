@@ -9,7 +9,11 @@ function lead(overrides: Partial<LeadCardData> = {}): LeadCardData {
     href: "/leads/l1",
     title: "Kitchen replaster",
     companyName: "Scott Builders",
+    contactName: "Paula Rivas",
+    contactEmail: "paula@example.com",
+    contactPhone: "021 555 0101",
     owner: "Ana",
+    source: "Website · Google Ads",
     status: <span>Qualified</span>,
     quoteCount: 2,
     value: "$8,000.00",
@@ -20,7 +24,17 @@ function lead(overrides: Partial<LeadCardData> = {}): LeadCardData {
 describe("LeadCard", () => {
   it.each(["balanced", "compact"] as const)("%s shows every datum", (variant) => {
     renderWithIntl(<LeadCard lead={lead()} variant={variant} />);
-    for (const text of ["Kitchen replaster", "Scott Builders", "Ana", "Qualified", "$8,000.00"]) {
+    for (const text of [
+      "Kitchen replaster",
+      "Scott Builders",
+      "Paula Rivas",
+      "paula@example.com",
+      "021 555 0101",
+      "Ana",
+      "Website · Google Ads",
+      "Qualified",
+      "$8,000.00",
+    ]) {
       expect(screen.getByText(text)).toBeInTheDocument();
     }
     // Balanced prints the number under its column's name; compact words it.
@@ -33,6 +47,16 @@ describe("LeadCard", () => {
     expect(links).toHaveLength(1);
     expect(links[0]).toHaveAttribute("href", "/leads/l1");
     expect(links[0]?.className).toContain("after:inset-0");
+  });
+
+  it("leaves out the contact entirely when the lead has none", () => {
+    renderWithIntl(
+      <LeadCard
+        lead={lead({ contactName: null, contactEmail: null, contactPhone: null })}
+        variant="balanced"
+      />,
+    );
+    expect(screen.queryByText("Contact")).toBeNull();
   });
 
   it("reads well with no company", () => {

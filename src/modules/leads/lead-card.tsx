@@ -17,7 +17,12 @@ export type LeadCardData = {
   href: string;
   title: string;
   companyName: string | null;
+  contactName: string | null;
+  contactEmail: string | null;
+  contactPhone: string | null;
   owner: string;
+  /** Already worded: the source's name, with the company's own detail beside it. */
+  source: string;
   status: ReactNode;
   quoteCount: number;
   /** The formatted estimate, or the "none" dash. */
@@ -44,6 +49,25 @@ export function LeadCard({ lead, variant }: { lead: LeadCardData; variant: CardV
         <p className="mt-0.5 text-sm break-words text-muted-foreground">{lead.companyName}</p>
       ) : null}
 
+      {/* Plain text, not mailto/tel: the card is one stretched link, and a second
+          control inside it would sit under that link's overlay. */}
+      {lead.contactName || lead.contactEmail || lead.contactPhone ? (
+        <div className={cn("min-w-0", balanced ? "mt-5" : "mt-3")}>
+          {balanced ? <div className="text-xs text-muted-foreground">{t("columns.contact")}</div> : null}
+          {lead.contactName ? (
+            <div className={cn("break-words", balanced ? "mt-0.5 font-medium" : "text-sm")}>
+              {lead.contactName}
+            </div>
+          ) : null}
+          {lead.contactEmail ? (
+            <div className="text-xs break-all text-muted-foreground">{lead.contactEmail}</div>
+          ) : null}
+          {lead.contactPhone ? (
+            <div className="text-xs text-muted-foreground tabular-nums">{lead.contactPhone}</div>
+          ) : null}
+        </div>
+      ) : null}
+
       <div className={cn("flex items-start justify-between gap-3", balanced ? "mt-5" : "mt-3")}>
         <div className="min-w-0">
           {balanced ? <div className="text-xs text-muted-foreground">{t("columns.owner")}</div> : null}
@@ -62,14 +86,22 @@ export function LeadCard({ lead, variant }: { lead: LeadCardData; variant: CardV
       </div>
 
       {balanced ? (
-        <dl className="mt-5 border-t pt-4 text-sm">
-          <dt className="text-xs text-muted-foreground">{t("columns.quotes")}</dt>
-          <dd className="mt-0.5 tabular-nums">{lead.quoteCount}</dd>
+        <dl className="mt-5 grid grid-cols-2 gap-3 border-t pt-4 text-sm">
+          <div className="min-w-0">
+            <dt className="text-xs text-muted-foreground">{t("columns.source")}</dt>
+            <dd className="mt-0.5 break-words">{lead.source}</dd>
+          </div>
+          <div className="text-right">
+            <dt className="text-xs text-muted-foreground">{t("columns.quotes")}</dt>
+            <dd className="mt-0.5 tabular-nums">{lead.quoteCount}</dd>
+          </div>
         </dl>
       ) : (
-        <p className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
+        <p className="mt-2 flex flex-wrap items-center gap-x-1.5 text-xs text-muted-foreground">
           <FileText aria-hidden className="size-3.5" />
-          {t("cards.quotes", { count: lead.quoteCount })}
+          <span>{t("cards.quotes", { count: lead.quoteCount })}</span>
+          <span aria-hidden>·</span>
+          <span className="break-words">{lead.source}</span>
         </p>
       )}
 

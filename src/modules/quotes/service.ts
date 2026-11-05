@@ -51,6 +51,9 @@ export function buildQuoteWhere(ctx: CompanyContext, filters: QuoteFilters): Pri
         { title: { contains: q, mode: "insensitive" } },
         { lead: { title: { contains: q, mode: "insensitive" } } },
         { projectAddress: { contains: q, mode: "insensitive" } },
+        // What the Customer column shows: the primary's name and their company.
+        { clientName: { contains: q, mode: "insensitive" } },
+        { clientCompanyName: { contains: q, mode: "insensitive" } },
         ...(Number.isFinite(asNumber) && asNumber > 0 ? [{ number: asNumber }] : []),
       ],
     });

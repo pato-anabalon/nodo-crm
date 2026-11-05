@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { JobStatus } from "@/generated/prisma/enums";
 import { isJobColour } from "./colours";
+import { normaliseJobPage, normaliseJobQuery, type JobListShow } from "./search";
 
 const optional = (max: number) =>
   z
@@ -58,8 +59,12 @@ export function dayKey(date: Date | null): string | null {
   return date ? date.toISOString().slice(0, 10) : null;
 }
 
-export type JobListFilter = "active" | "done";
+export type JobListFilter = { show: JobListShow; q?: string; page: number };
 
 export function jobListFilterFromParams(params: Record<string, string | string[] | undefined>): JobListFilter {
-  return params.show === "done" ? "done" : "active";
+  return {
+    show: params.show === "done" ? "done" : "active",
+    q: normaliseJobQuery(params.q),
+    page: normaliseJobPage(params.page),
+  };
 }

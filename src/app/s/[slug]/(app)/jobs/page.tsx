@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Plus } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { can, requireCompanyContext } from "@/lib/auth/session";
@@ -7,7 +8,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { elapsedLabel } from "@/lib/elapsed-label";
 import { jobListFilterFromParams } from "@/modules/jobs/schemas";
 import { listJobs, recentJobActivity } from "@/modules/jobs/service";
-import { AvatarStack, PersonAvatar } from "@/modules/jobs/avatars";
+import { PersonAvatar } from "@/modules/jobs/avatars";
+import { JobCards, JobListControls } from "@/modules/jobs/job-list";
+import { jobsHref } from "@/modules/jobs/search";
 import { activityDescriber } from "@/modules/jobs/activity-feed";
 import { activityHref } from "@/modules/jobs/timeline";
 
@@ -22,14 +25,24 @@ export default async function JobsPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const ctx = await requireCompanyContext();
-  const [t, tElapsed] = await Promise.all([getTranslations("jobs"), getTranslations("common.elapsed")]);
+const [t, tElapsed, tCommon] = await Promise.all([
+    getTranslations("jobs"),
+    getTranslations("common.elapsed"),
+    getTranslations("common"),
+  ]);
 
   if (!can(ctx, "jobs.read")) {
     return <p className="text-sm text-muted-foreground">{t("noAccess")}</p>;
   }
 
   const filter = jobListFilterFromParams(await searchParams);
-  const [jobs, recent] = await Promise.all([listJobs(ctx, filter), recentJobActivity(ctx)]);
+  const [{ items: jobs, page, pageCount }, recent] = await Promise.all([
+    listJobs(ctx, filter),
+    recentJobActivity(ctx),
+  ]);
+  // A page past the end — an old link, a search that now finds fewer — would
+  // read as "no finished jobs yet", which isn't true. The last page is.
+  if (page > pageCount) redirect(jobsHref(filter.show, filter.q, pageCount));
   const describe = await activityDescriber(ctx, recent);
   const ago = (date: Date) => elapsedLabel(date, tElapsed, ctx.company.formatLocale, ctx.company.timezone);
 
@@ -50,42 +63,39 @@ export default async function JobsPage({
         ) : null}
       </div>
 
-      <div className="flex flex-wrap gap-2">
-        {(["active", "done"] as const).map((show) => (
-          <Button key={show} asChild size="sm" variant={filter === show ? "secondary" : "ghost"}>
-            <Link href={show === "active" ? "/jobs" : "/jobs?show=done"}>{t(`show.${show}`)}</Link>
-          </Button>
-        ))}
-      </div>
+      <JobListControls key={filter.show} show={filter.show} />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
-        {jobs.length === 0 ? (
-          <p className="text-sm italic text-muted-foreground">{filter === "done" ? t("emptyDone") : t("empty")}</p>
-        ) : (
-          <ul className="grid grid-cols-1 content-start gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {jobs.map((job) => (
-              <li key={job.id}>
-                <Link
-                  href={`/jobs/${job.id}`}
-                  className="flex h-full flex-col gap-2 rounded-xl border bg-card p-4 transition-colors hover:border-primary/40 hover:bg-accent/40"
-                >
-                  <span className="line-clamp-2 font-semibold leading-snug">{job.name}</span>
-                  {job.description ? (
-                    <span className="line-clamp-2 whitespace-pre-line text-xs text-muted-foreground">
-                      {job.description}
-                    </span>
-                  ) : null}
-                  <span className="mt-auto flex items-center justify-between gap-2 pt-2">
-                    <AvatarStack people={job.members.map((m) => m.user)} />
-                    {job.status !== "ACTIVE" ? (
-                      <span className="text-xs text-muted-foreground">{t(`status.${job.status}`)}</span>
-                    ) : null}
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
+        <div className="min-w-0 space-y-4">
+          <JobCards
+            show={filter.show}
+            jobs={jobs.map((job) => ({
+              id: job.id,
+              name: job.name,
+              description: job.description,
+              statusLabel: job.status !== "ACTIVE" ? t(`status.${job.status}`) : null,
+              people: job.members.map((m) => m.user),
+            }))}
+          />
+
+          {pageCount > 1 ? (
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-muted-foreground">{tCommon("pageOf", { page, total: pageCount })}</span>
+              <div className="flex gap-2">
+                {page > 1 ? (
+                  <Button asChild variant="outline" size="sm">
+                    <Link href={jobsHref(filter.show, filter.q, page - 1)}>{tCommon("previous")}</Link>
+                  </Button>
+                ) : null}
+                {page < pageCount ? (
+                  <Button asChild variant="outline" size="sm">
+                    <Link href={jobsHref(filter.show, filter.q, page + 1)}>{tCommon("next")}</Link>
+                  </Button>
+                ) : null}
+              </div>
+            </div>
+          ) : null}
+        </div>
 
         <Card className="h-fit">
           <CardContent className="space-y-4">
@@ -122,3 +132,4 @@ export default async function JobsPage({
     </div>
   );
 }
+

@@ -18,6 +18,7 @@ import { jobNameFromQuote } from "./naming";
 import { jobVisibilityWhere } from "./scope";
 import { activityPermission } from "./timeline";
 import { scopeItemsFromQuote } from "./scope-items";
+import { DONE_PAGE_SIZE, SEARCHED_ON } from "./search";
 import { dayKey, type JobDates, type JobFormValues, type JobListFilter } from "./schemas";
 
 const OPEN_STATUSES: JobStatus[] = [JobStatus.ACTIVE, JobStatus.ON_HOLD];
@@ -30,22 +31,41 @@ export function visibleJobs(ctx: CompanyContext): Prisma.JobWhereInput {
 const personSelect = { id: true, name: true, email: true, image: true } as const;
 
 export async function listJobs(ctx: CompanyContext, filter: JobListFilter) {
-  return ctx.db.job.findMany({
-    where: {
-      ...visibleJobs(ctx),
-      status: { in: filter === "done" ? DONE_STATUSES : OPEN_STATUSES },
-    },
-    orderBy: { updatedAt: "desc" },
-    select: {
-      id: true,
-      name: true,
-      description: true,
-      status: true,
-      startsOn: true,
-      endsOn: true,
-      members: { orderBy: { createdAt: "asc" }, select: { user: { select: personSelect } } },
-    },
-  });
+  const inDatabase = SEARCHED_ON[filter.show] === "database";
+  const where = {
+    ...visibleJobs(ctx),
+    status: { in: filter.show === "done" ? DONE_STATUSES : OPEN_STATUSES },
+    // In progress is searched in the browser over the whole list (see `search.ts`).
+    ...(filter.q && inDatabase ? { name: { contains: filter.q, mode: "insensitive" as const } } : {}),
+  };
+  // Paged exactly where it is searched in the database: In progress has to
+  // reach the browser whole for its search to find everything.
+  const paged = inDatabase;
+
+  const [items, total] = await Promise.all([
+    ctx.db.job.findMany({
+      where,
+      // The id breaks ties, so a job can't appear on two pages or on none.
+      orderBy: [{ updatedAt: "desc" }, { id: "desc" }],
+      ...(paged ? { skip: (filter.page - 1) * DONE_PAGE_SIZE, take: DONE_PAGE_SIZE } : {}),
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        status: true,
+        startsOn: true,
+        endsOn: true,
+        members: { orderBy: { createdAt: "asc" }, select: { user: { select: personSelect } } },
+      },
+    }),
+    paged ? ctx.db.job.count({ where }) : null,
+  ]);
+
+  return {
+    items,
+    page: paged ? filter.page : 1,
+    pageCount: total === null ? 1 : Math.max(1, Math.ceil(total / DONE_PAGE_SIZE)),
+  };
 }
 
 /**

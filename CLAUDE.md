@@ -22,7 +22,23 @@ brand colour maths, and the jobs rules both sides apply — who may touch what,
 the file-type table, the calendar geometry, mention parsing. It ships TypeScript
 source, not a build (`transpilePackages` in Next), and its tests run on their
 own (`pnpm --filter @nodo/core test`). **`packages/messages`** is the two
-message files, `@nodo/messages/<locale>.json`. A rule moves into core when the
+message files, `@nodo/messages/<locale>.json`.
+
+**`packages/tokens`** (`@nodo/tokens/<path>`) is the design system both apps
+draw with: the colours (same names as always — `--panel`, `--brand-ink`,
+`--status-*-text`), the type scale by role (`callout`, `title-2`…), radii,
+spacing, touch targets and springs. The web's `src/app/tokens.css` is
+**generated** from it (`pnpm --filter web tokens`) and `globals.css` imports it;
+`tokens-css.test.ts` fails when the file is behind the package or edited by
+hand. The app gets the same values as hex (`palette`, `colorVars` for
+NativeWind's `vars()`, `nativeTheme`), because React Native has no OKLCH. The
+company's colour is `brandVars` for both — `BrandTheme` on the web, the root of
+the app — so `--brand-ink` is worked out by one function against each scheme's
+real card. A test measures every text token against the grounds it is written
+on, in both schemes, and lists the shortfalls that exist today with their value
+(light `muted-foreground` on the panel, a field or `muted`; dark
+`destructive-foreground` on its button): a new one fails, and a fixed one fails
+until it comes off the list. A rule moves into core when the
 second app needs it, not before; until then it stays in `apps/web`.
 
 ## Stack

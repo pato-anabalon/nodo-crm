@@ -18,6 +18,7 @@
     "db:studio": "prisma studio",
     "db:push": "prisma db push",
     "bootstrap:company": "tsx scripts/bootstrap-company.ts",
+    "tokens": "tsx scripts/build-tokens.ts",
     "import:quotient-data": "tsx scripts/import-quotient-data.ts",
     "import:quotient-pdfs": "tsx scripts/download-quotient-pdfs.ts"
   },
@@ -29,6 +30,7 @@
     "@hookform/resolvers": "^5.9.1",
     "@nodo/core": "workspace:*",
     "@nodo/messages": "workspace:*",
+    "@nodo/tokens": "workspace:*",
     "@prisma/adapter-pg": "^7.10.0",
     "@prisma/client": "^7.10.0",
     "@react-pdf/renderer": "^4.9.0",

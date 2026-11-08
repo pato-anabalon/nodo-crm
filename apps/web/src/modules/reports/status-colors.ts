@@ -7,7 +7,7 @@
  * brand colour.
  *
  * "expired" reuses the badge's own `--status-expired` grey — see the comment
- * on `--quote-expired` in `globals.css` for why it's fixed at the light
+ * on `quote-expired` in `@nodo/tokens/colors` for why it's fixed at the light
  * value in both themes rather than switching to the dark badge's inverted
  * one, and the simulated ΔE that choice is based on.
  */

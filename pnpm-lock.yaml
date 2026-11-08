@@ -31,6 +31,9 @@ importers:
       '@nodo/messages':
         specifier: workspace:*
         version: link:../../packages/messages
+      '@nodo/tokens':
+        specifier: workspace:*
+        version: link:../../packages/tokens
       '@prisma/adapter-pg':
         specifier: ^7.10.0
         version: 7.10.0
@@ -247,6 +250,28 @@ importers:
         version: 5.9.3
 
   packages/messages: {}
+
+  packages/tokens:
+    dependencies:
+      '@nodo/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      '@swc/core':
+        specifier: ^1
+        version: 1.16.2(@swc/helpers@0.5.23)
+      '@swc/jest':
+        specifier: ^0.2
+        version: 0.2.39(@swc/core@1.16.2(@swc/helpers@0.5.23))
+      '@types/jest':
+        specifier: ^30.0.0
+        version: 30.0.0
+      jest:
+        specifier: ^30.5.1
+        version: 30.5.1(@types/node@20.19.43)(supports-color@8.1.1)(ts-node@10.9.2(@swc/core@1.16.2(@swc/helpers@0.5.23))(@types/node@20.19.43)(typescript@5.9.3))
+      typescript:
+        specifier: ^5
+        version: 5.9.3
 
 packages:
 

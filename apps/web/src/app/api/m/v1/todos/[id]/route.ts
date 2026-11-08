@@ -62,8 +62,8 @@ export const PATCH = mobileRoute({
     const outcome = await updateTodo(ctx, row, values, {
       listId: body.listId ?? row.listId,
       assigneeIds: body.assigneeIds ?? current.assignees.map((assignee) => assignee.user.id),
-      uploads: [],
-      removeFileIds: [],
+      uploads: body.uploads ?? [],
+      removeFileIds: body.removeFileIds ?? [],
     });
     if (!outcome.ok) throw outcome.reason === "list" ? new MobileError(404, "not_found") : new MobileError(422, "files_refused");
     return { id: row.id };

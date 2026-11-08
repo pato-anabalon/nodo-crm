@@ -1094,8 +1094,16 @@ the notices and the emails come out identical whichever side did it.
 - **Ticking off is `PUT …/completion` with the state wanted**, not a toggle: a
   retry after a dropped connection can't undo the first press, and `changed`
   says whether this one did anything.
-- Files are not in this yet: the bearer variant of the upload comes next, and
-  until then everything here posts none.
+- **Files go straight to the store, as from the web.** `POST
+  /jobs/<id>/uploads` with a name and a size hands out a Blob client token
+  for **one** file, at a path the server builds under the job's prefix — the
+  app never names a path — and the app `put()`s to Blob with it. What came
+  back then travels as `uploads` with the to-do, comment or message it
+  belongs to, or to `POST /jobs/<id>/files` to file it in Docs, and is
+  checked all over again by `verifyUploads`. The size is the one after the
+  phone compressed it, so it is held to the stored cap (`uploadRefusal`)
+  and a HEIC, a `.exe` or a 30 MB photo is refused before a byte goes up;
+  the store holds the token to the same type, path and cap.
 
 ## Lead ingestion API
 

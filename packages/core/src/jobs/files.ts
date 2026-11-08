@@ -146,6 +146,20 @@ export function renameForType(name: string, contentType: string): string {
   return `${stem}.${ext}`;
 }
 
+/**
+ * Any of these is a reason to put a file in a job's store: filing into Docs,
+ * posting, commenting, writing a to-do, chatting. Which one it was is checked
+ * again when the file is registered, against the thing it is attached to.
+ */
+export const JOB_UPLOAD_PERMISSIONS = [
+  "files.create",
+  "messages.create",
+  "comments.create",
+  "todos.create",
+  "todos.update",
+  "chat.create",
+] as const;
+
 /** Everything a job stores lives under this, which is what the server checks before trusting a path. */
 export function jobUploadPrefix(companyId: string, jobId: string): string {
   return `companies/${companyId}/jobs/${jobId}/`;

@@ -1,18 +1,8 @@
 import { NextResponse } from "next/server";
 import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
-import type { Permission } from "@nodo/core/auth/permissions";
 import { can, getCompanyContext } from "@/lib/auth/session";
 import { jobAccess } from "@/modules/jobs/access";
-import { jobUploadPrefix, uploadAllowance } from "@nodo/core/jobs/files";
-
-const UPLOAD_PERMISSIONS: Permission[] = [
-  "files.create",
-  "messages.create",
-  "comments.create",
-  "todos.create",
-  "todos.update",
-  "chat.create",
-];
+import { JOB_UPLOAD_PERMISSIONS, jobUploadPrefix, uploadAllowance } from "@nodo/core/jobs/files";
 
 /**
  * Hands the browser a token to upload one file straight to Blob.
@@ -33,11 +23,7 @@ export async function POST(request: Request, context: { params: Promise<{ id: st
   if (!ctx) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
 
   const { id } = await context.params;
-  // Somebody filing into Docs, posting, commenting, writing a to-do or chatting:
-  // any of them is a reason to put a file in this job's store. Which one it was
-  // is checked again when the file is registered, against the thing it is
-  // attached to.
-  const permission = UPLOAD_PERMISSIONS.find((key) => can(ctx, key));
+  const permission = JOB_UPLOAD_PERMISSIONS.find((key) => can(ctx, key));
   const job = permission ? await jobAccess(ctx, id, permission) : null;
   if (!job) return NextResponse.json({ error: "not-found" }, { status: 404 });
 

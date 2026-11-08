@@ -39,7 +39,7 @@ export function notifyModeFrom(value: FormDataEntryValue | null): NotifyMode {
   return NOTIFY_MODES.includes(value as NotifyMode) ? (value as NotifyMode) : "followers";
 }
 
-const uploadSchema = z.object({
+export const uploadSchema = z.object({
   url: z.string().max(2000),
   pathname: z.string().max(1000),
   name: z.string().max(255),
@@ -51,6 +51,9 @@ const uploadSchema = z.object({
 /** How many files one post or comment may carry: a day's photos, not an archive. */
 export const MAX_ATTACHMENTS = 40;
 
+/** The attachments one thing carries — what the app posts as JSON, and the web's hidden field holds. */
+export const uploadsSchema = z.array(uploadSchema).max(MAX_ATTACHMENTS);
+
 /**
  * The files an attachment field posts, as JSON in one hidden input. Shape only:
  * whether each really is this job's stored file is `verifyUploads`' question.
@@ -60,7 +63,7 @@ export const MAX_ATTACHMENTS = 40;
 export function parseUploads(raw: FormDataEntryValue | null): UploadedFile[] {
   if (typeof raw !== "string" || raw === "") return [];
   try {
-    const parsed = z.array(uploadSchema).max(MAX_ATTACHMENTS).safeParse(JSON.parse(raw));
+    const parsed = uploadsSchema.safeParse(JSON.parse(raw));
     return parsed.success ? parsed.data : [];
   } catch {
     return [];

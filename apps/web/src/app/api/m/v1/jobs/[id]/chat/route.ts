@@ -40,7 +40,7 @@ export const POST = mobileRoute({
   body: textSchema,
   handler: async ({ ctx: base, params, body }) => {
     const { ctx, job } = await jobIn(base, String(params.id), "chat.create", "chat.read");
-    const outcome = await sendChatMessage(ctx, job.id, chatBody(body.body), []);
+    const outcome = await sendChatMessage(ctx, job.id, chatBody(body.body), body.uploads ?? []);
     if (!outcome.ok) throw new MobileError(422, outcome.reason === "empty" ? "empty" : "files_refused");
     return { id: outcome.messageId };
   },

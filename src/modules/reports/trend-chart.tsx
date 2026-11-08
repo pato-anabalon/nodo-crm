@@ -327,7 +327,7 @@ export function TrendChart({ points, format }: { points: SeriesPoint[]; format: 
                   x={PADDING.left - 8}
                   y={plot.y(value) + 4}
                   textAnchor="end"
-                  className="fill-muted-foreground text-[10px] tabular-nums"
+                  className="fill-muted-foreground text-2xs tabular-nums"
                 >
                   {formatAxisValue(value)}
                 </text>
@@ -412,7 +412,7 @@ export function TrendChart({ points, format }: { points: SeriesPoint[]; format: 
                 height={TOOLTIP_HEIGHT}
                 style={{ overflow: "visible" }}
               >
-                <div className="pointer-events-none rounded-md border bg-card px-3 py-2 text-[11px] leading-tight shadow-md">
+                <div className="pointer-events-none rounded-md border bg-card px-3 py-2 text-2xs leading-tight shadow-md">
                   <p className="text-sm font-semibold tabular-nums text-foreground">
                     {formatValue(tooltip.value)}
                   </p>
@@ -425,14 +425,14 @@ export function TrendChart({ points, format }: { points: SeriesPoint[]; format: 
             </g>
           ) : null}
 
-          <text x={PADDING.left} y={HEIGHT - 6} className="fill-muted-foreground text-[10px]">
+          <text x={PADDING.left} y={HEIGHT - 6} className="fill-muted-foreground text-2xs">
             {formatDate(points[0].date)}
           </text>
           <text
             x={width - PADDING.right}
             y={HEIGHT - 6}
             textAnchor="end"
-            className="fill-muted-foreground text-[10px]"
+            className="fill-muted-foreground text-2xs"
           >
             {formatDate(points[points.length - 1].date)}
           </text>

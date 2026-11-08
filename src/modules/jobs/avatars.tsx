@@ -26,7 +26,7 @@ export function PersonAvatar({
   return (
     <Avatar size={size} className={className} title={name}>
       {person.image ? <AvatarImage src={person.image} alt={name} /> : null}
-      <AvatarFallback className="text-[0.65rem] font-semibold text-white" style={{ backgroundColor: avatarColour(person.id) }}>
+      <AvatarFallback className="text-2xs font-semibold text-white" style={{ backgroundColor: avatarColour(person.id) }}>
         {initials(name)}
       </AvatarFallback>
     </Avatar>
@@ -43,7 +43,7 @@ export function AvatarStack({ people, max = 8, className }: { people: Person[]; 
         <PersonAvatar key={person.id} person={person} size="sm" className="ring-2 ring-card" />
       ))}
       {rest > 0 ? (
-        <span className="relative flex size-6 items-center justify-center rounded-full bg-muted text-[0.65rem] font-medium text-muted-foreground ring-2 ring-card">
+        <span className="relative flex size-6 items-center justify-center rounded-full bg-muted text-2xs font-medium text-muted-foreground ring-2 ring-card">
           +{rest}
         </span>
       ) : null}

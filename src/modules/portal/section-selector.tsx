@@ -203,7 +203,7 @@ export function SectionSelector({
                 </div>
               ) : null}
               {section.id === firstMultipleChoiceId ? (
-                <p className="text-[11px] font-medium tracking-wide text-muted-foreground uppercase">
+                <p className="text-2xs font-medium tracking-wide text-muted-foreground uppercase">
                   {t("chooseOne")}
                 </p>
               ) : null}

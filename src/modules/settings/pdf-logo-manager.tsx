@@ -33,7 +33,7 @@ export async function PdfLogoManager({
             <img src={pdfLogoUrl} alt={companyName} className="max-h-full max-w-full object-contain" />
           </div>
         ) : (
-          <div className="flex h-14 w-28 items-center justify-center rounded-md border border-dashed px-2 text-center text-[10px] text-muted-foreground">
+          <div className="flex h-14 w-28 items-center justify-center rounded-md border border-dashed px-2 text-center text-2xs text-muted-foreground">
             {t("none")}
           </div>
         )

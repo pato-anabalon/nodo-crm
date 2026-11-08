@@ -305,7 +305,7 @@ function MessageRow({
     >
       <div className="w-8 shrink-0">
         {continued ? (
-          <span className="block pt-0.5 text-[0.65rem] text-muted-foreground opacity-0 group-hover:opacity-100">
+          <span className="block pt-0.5 text-2xs text-muted-foreground opacity-0 group-hover:opacity-100">
             {message.time}
           </span>
         ) : message.author ? (

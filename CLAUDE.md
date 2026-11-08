@@ -41,7 +41,48 @@ on, in both schemes, and lists the shortfalls that exist today with their value
 until it comes off the list. A rule moves into core when the
 second app needs it, not before; until then it stays in `apps/web`.
 
-## Stack
+## The app
+
+`apps/mobile` is Expo (SDK 58) with Expo Router, for the people on site. It
+never touches the database: everything goes through `/api/m/v1` (see "The
+app's sign-in" below), with the token in the Keychain/Keystore
+(`expo-secure-store`).
+
+- **Run it** with `pnpm mobile` and open it in Expo Go — every native module it
+  uses ships there, so no build is needed yet. `apps/mobile/.env.local` sets
+  `EXPO_PUBLIC_API_URL` to the laptop on the LAN (`http://<ip>:3100`): a phone
+  can't reach `localhost`, and `/api` skips the subdomain proxy, so the bare IP
+  is enough. Without it the app talks to production.
+- **One stack per state of the session** (`Stack.Protected` in
+  `app/_layout.tsx`): signed out, the emailed code, choosing a company, and
+  the tabs. Nothing redirects by hand, so no screen can be reached in the
+  wrong state. The company opened is the last one chosen while it still
+  works there, the only one if there is just one, otherwise asked
+  (`pickCompany`).
+- **`/me` brands and words it.** Its company's colour goes through the same
+  `brandVars` as the web, into NativeWind's `vars()` at the root; its
+  `locale` picks the messages — `@nodo/messages` through use-intl, next-intl's
+  own core, so an ICU `plural` reads the same on both sides (Hermes gets
+  `Intl.PluralRules` from a polyfill that installs only where it's missing).
+  Before sign-in the phone's language decides. use-intl is typed with the
+  messages, so a key that doesn't exist fails `tsc`; arguments aren't checked.
+- **Classes mean what they mean on the web.** `tailwind.config.ts` extends
+  `nativeTheme` from packages/tokens, so `bg-card`, `text-callout` and
+  `rounded-xl` are the same tokens, and a rem is 16 on both sides
+  (`inlineRem` in `metro.config.js`).
+- **TanStack Query, kept on the phone.** Every key starts with the company's
+  slug, so switching company can't show the last one's jobs; the cache is
+  persisted, so what was opened yesterday opens without signal; a 401 from
+  anything signs the phone out; signing out clears it all.
+- **Tabs follow the profile**: Jobs with `jobs.read`, the bell and Profile for
+  everybody. The clock arrives with time control, not before as a tab that
+  does nothing.
+- `pnpm --filter mobile exec expo export` bundles both platforms, which is
+  the check that Metro, NativeWind and the workspace packages resolve without
+  a phone. pnpm keeps dependencies isolated, which is why
+  `react-native-css-interop` is a direct dependency: NativeWind's Babel
+  output imports it by name.
+
 
 | Piece | Choice |
 |---|---|

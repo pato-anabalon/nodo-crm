@@ -2852,6 +2852,60 @@
       "heading": "Your sign-in code",
       "line1": "Enter {code} in the Nodo app to finish signing in.",
       "line2": "It expires in {minutes} minutes. If you didn't try to sign in, somebody knows your password: tell your company's administrator."
-    }
+    },
+    "signIn": {
+      "title": "Sign in",
+      "subtitle": "With the email and password you use on the web.",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "submitting": "Signing in…"
+    },
+    "codeScreen": {
+      "title": "Check your email",
+      "body": "We sent a six-digit code to {email}.",
+      "label": "Code",
+      "trust": "Trust this phone for 30 days",
+      "submit": "Continue",
+      "submitting": "Checking…",
+      "restart": "Use a different account"
+    },
+    "companies": {
+      "title": "Choose a company",
+      "subtitle": "You can switch later from your profile."
+    },
+    "tabs": {
+      "jobs": "Jobs",
+      "notifications": "Notifications",
+      "profile": "Profile"
+    },
+    "jobsList": {
+      "empty": "No jobs in progress.",
+      "showDone": "Done",
+      "showActive": "In progress"
+    },
+    "notificationsList": {
+      "empty": "Nothing new.",
+      "markAllRead": "Mark all as read"
+    },
+    "profile": {
+      "company": "Company",
+      "switchCompany": "Switch company",
+      "signOut": "Sign out",
+      "version": "Version {version}"
+    },
+    "errors": {
+      "invalid_credentials": "The email or the password isn't right.",
+      "too_many_attempts": "Too many attempts. Try again in a quarter of an hour.",
+      "too_many_codes": "Too many codes asked for. Try again in a quarter of an hour.",
+      "no_access": "This account has no active access to a company.",
+      "code_expired": "That code has expired. Sign in again for a new one.",
+      "invalid_code": "That code isn't right.",
+      "code_not_sent": "The code couldn't be sent. Try again in a moment.",
+      "unauthenticated": "Your session ended. Sign in again.",
+      "network": "No connection to Nodo. Check your signal and try again.",
+      "generic": "Something went wrong. Try again in a moment."
+    },
+    "retry": "Try again"
   }
 }

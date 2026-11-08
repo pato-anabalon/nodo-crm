@@ -57,17 +57,15 @@ export const nativeTheme = {
   fontSize: Object.fromEntries(
     (Object.keys(TYPE_SCALE) as TypeRoleName[]).map((role) => {
       const style = textStyle(role);
-      return [
-        role,
-        [
-          `${style.fontSize}px`,
-          {
-            lineHeight: `${style.lineHeight}px`,
-            letterSpacing: `${style.letterSpacing}px`,
-            ...("fontWeight" in style ? { fontWeight: style.fontWeight } : {}),
-          },
-        ],
+      const size: [string, { lineHeight: string; letterSpacing: string; fontWeight?: string }] = [
+        `${style.fontSize}px`,
+        {
+          lineHeight: `${style.lineHeight}px`,
+          letterSpacing: `${style.letterSpacing}px`,
+          ...("fontWeight" in style ? { fontWeight: style.fontWeight } : {}),
+        },
       ];
+      return [role, size];
     }),
   ),
   borderRadius: Object.fromEntries(Object.entries(RADII).map(([name, px]) => [name, `${px}px`])),

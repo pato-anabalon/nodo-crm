@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Nodo",
+    "slug": "nodo",
+    "scheme": "nodo",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "bundleIdentifier": "nz.co.nodo.app",
+      "supportsTablet": false
+    },
+    "android": {
+      "package": "nz.co.nodo.app"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-status-bar",
+      "expo-secure-store",
+      "expo-localization",
+      "expo-image"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

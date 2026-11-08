@@ -137,7 +137,7 @@ export async function findTodo(ctx: CompanyContext, todoId: string) {
 export async function findTodoList(ctx: CompanyContext, listId: string) {
   return ctx.db.jobTodoList.findFirst({
     where: { id: listId },
-    select: { id: true, jobId: true, name: true, createdById: true },
+    select: { id: true, jobId: true, name: true, description: true, createdById: true },
   });
 }
 

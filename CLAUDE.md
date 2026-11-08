@@ -1070,8 +1070,8 @@ company the person is an active member of; `GET /companies` is what to choose fr
 ### Jobs from the app
 
 `/api/m/v1/jobs…`, `/todos/<id>…`, `/todo-lists/<id>/todos`, `/chat/<id>`,
-`/posts/<id>…`: the list, a job, its timeline, its to-dos, its chat, its
-schedule, its files and its Message Board. **Every
+`/posts/<id>…`: the list, a job, its timeline, its to-dos and their lists,
+its chat, its schedule, its files and its Message Board. **Every
 one calls the same services the web's actions do**, so the timeline lines,
 the notices and the emails come out identical whichever side did it.
 
@@ -1098,6 +1098,10 @@ the notices and the emails come out identical whichever side did it.
   answers 404 even to its author, who has no way to finish it from the
   phone. Categories travel as stored — a standard one is its `key`, which
   the app translates.
+- **Lists are made and renamed from the phone, not deleted or reordered.**
+  `POST /jobs/<id>/todo-lists` and `PATCH /todo-lists/<id>`, field by field
+  like a to-do. Deleting a list takes every to-do on it, and its order is a
+  plan laid out where there is room to see it; both stay on the web.
 - **Ticking off is `PUT …/completion` with the state wanted**, not a toggle: a
   retry after a dropped connection can't undo the first press, and `changed`
   says whether this one did anything.

@@ -36,6 +36,18 @@ export const todoUpdateSchema = z.object({
   removeFileIds: ids.optional(),
 });
 
+/** A to-do list: a stage of the work. The description is plain text, like a to-do's notes. */
+export const todoListCreateSchema = z.object({
+  name: z.string(),
+  description: z.string().max(20_000).optional(),
+});
+
+/** Only what is sent changes, so renaming from the phone keeps a description formatted on the web. */
+export const todoListUpdateSchema = z.object({
+  name: z.string().optional(),
+  description: z.string().max(20_000).optional(),
+});
+
 export const completionSchema = z.object({ done: z.boolean() });
 
 /** A comment or a chat message: text, files, or both. */

@@ -76,6 +76,13 @@ export type Membership = Prisma.MembershipModel
  */
 export type MobileSession = Prisma.MobileSessionModel
 /**
+ * Model PushDevice
+ * Where a signed-in phone takes push notices: its Expo push token. One per
+ * session, so signing out of the phone stops them; and one row per token, so a
+ * phone handed to somebody else stops receiving the previous person's.
+ */
+export type PushDevice = Prisma.PushDeviceModel
+/**
  * Model MobileChallenge
  * A one-time code emailed after a correct password, the second factor.
  */

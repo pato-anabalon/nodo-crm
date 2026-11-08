@@ -584,9 +584,24 @@ model MobileSession {
   expiresAt    DateTime
   revokedAt    DateTime?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pushDevice PushDevice?
 
   @@index([userId])
+}
+
+/// Where a signed-in phone takes push notices: its Expo push token. One per
+/// session, so signing out of the phone stops them; and one row per token, so a
+/// phone handed to somebody else stops receiving the previous person's.
+model PushDevice {
+  id        String   @id @default(cuid())
+  sessionId String   @unique
+  expoToken String   @unique
+  platform  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  session MobileSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 }
 
 /// A one-time code emailed after a correct password, the second factor.

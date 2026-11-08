@@ -96,6 +96,7 @@ export const GLOBAL_MODELS = new Set([
   "MobileChallenge",
   "MobileTrustedDevice",
   "MobileLoginFailure",
+  "PushDevice",
 ]);
 
 /** Operations whose `where` decides which rows are affected. */

@@ -402,6 +402,7 @@ export const ModelName = {
   User: 'User',
   Membership: 'Membership',
   MobileSession: 'MobileSession',
+  PushDevice: 'PushDevice',
   MobileChallenge: 'MobileChallenge',
   MobileTrustedDevice: 'MobileTrustedDevice',
   MobileLoginFailure: 'MobileLoginFailure',
@@ -478,7 +479,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "mobileSession" | "mobileChallenge" | "mobileTrustedDevice" | "mobileLoginFailure" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "leadSourceOption" | "leadAccessLog" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteRecipient" | "signatureHandoff" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem" | "job" | "jobMember" | "jobActivity" | "jobFolder" | "jobFile" | "jobPostCategory" | "jobPost" | "jobComment" | "jobEvent" | "jobEventParticipant" | "jobTodoList" | "jobTodo" | "jobTodoAssignee" | "trade" | "membershipTrade" | "jobChatMessage" | "jobScopeItem"
+    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "mobileSession" | "pushDevice" | "mobileChallenge" | "mobileTrustedDevice" | "mobileLoginFailure" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "leadSourceOption" | "leadAccessLog" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteRecipient" | "signatureHandoff" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem" | "job" | "jobMember" | "jobActivity" | "jobFolder" | "jobFile" | "jobPostCategory" | "jobPost" | "jobComment" | "jobEvent" | "jobEventParticipant" | "jobTodoList" | "jobTodo" | "jobTodoAssignee" | "trade" | "membershipTrade" | "jobChatMessage" | "jobScopeItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -849,6 +850,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.MobileSessionCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.MobileSessionCountAggregateOutputType> | number
+        }
+      }
+    }
+    PushDevice: {
+      payload: Prisma.$PushDevicePayload<ExtArgs>
+      fields: Prisma.PushDeviceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PushDeviceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PushDevicePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PushDeviceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PushDevicePayload>
+        }
+        findFirst: {
+          args: Prisma.PushDeviceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PushDevicePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PushDeviceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PushDevicePayload>
+        }
+        findMany: {
+          args: Prisma.PushDeviceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PushDevicePayload>[]
+        }
+        create: {
+          args: Prisma.PushDeviceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PushDevicePayload>
+        }
+        createMany: {
+          args: Prisma.PushDeviceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PushDeviceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PushDevicePayload>[]
+        }
+        delete: {
+          args: Prisma.PushDeviceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PushDevicePayload>
+        }
+        update: {
+          args: Prisma.PushDeviceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PushDevicePayload>
+        }
+        deleteMany: {
+          args: Prisma.PushDeviceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PushDeviceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PushDeviceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PushDevicePayload>[]
+        }
+        upsert: {
+          args: Prisma.PushDeviceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PushDevicePayload>
+        }
+        aggregate: {
+          args: Prisma.PushDeviceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePushDevice>
+        }
+        groupBy: {
+          args: Prisma.PushDeviceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PushDeviceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PushDeviceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PushDeviceCountAggregateOutputType> | number
         }
       }
     }
@@ -5521,6 +5596,18 @@ export const MobileSessionScalarFieldEnum = {
 export type MobileSessionScalarFieldEnum = (typeof MobileSessionScalarFieldEnum)[keyof typeof MobileSessionScalarFieldEnum]
 
 
+export const PushDeviceScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  expoToken: 'expoToken',
+  platform: 'platform',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PushDeviceScalarFieldEnum = (typeof PushDeviceScalarFieldEnum)[keyof typeof PushDeviceScalarFieldEnum]
+
+
 export const MobileChallengeScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -7164,6 +7251,7 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   membership?: Prisma.MembershipOmit
   mobileSession?: Prisma.MobileSessionOmit
+  pushDevice?: Prisma.PushDeviceOmit
   mobileChallenge?: Prisma.MobileChallengeOmit
   mobileTrustedDevice?: Prisma.MobileTrustedDeviceOmit
   mobileLoginFailure?: Prisma.MobileLoginFailureOmit

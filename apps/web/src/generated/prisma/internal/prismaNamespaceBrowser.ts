@@ -56,6 +56,7 @@ export const ModelName = {
   User: 'User',
   Membership: 'Membership',
   MobileSession: 'MobileSession',
+  PushDevice: 'PushDevice',
   MobileChallenge: 'MobileChallenge',
   MobileTrustedDevice: 'MobileTrustedDevice',
   MobileLoginFailure: 'MobileLoginFailure',
@@ -249,6 +250,18 @@ export const MobileSessionScalarFieldEnum = {
 } as const
 
 export type MobileSessionScalarFieldEnum = (typeof MobileSessionScalarFieldEnum)[keyof typeof MobileSessionScalarFieldEnum]
+
+
+export const PushDeviceScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  expoToken: 'expoToken',
+  platform: 'platform',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PushDeviceScalarFieldEnum = (typeof PushDeviceScalarFieldEnum)[keyof typeof PushDeviceScalarFieldEnum]
 
 
 export const MobileChallengeScalarFieldEnum = {

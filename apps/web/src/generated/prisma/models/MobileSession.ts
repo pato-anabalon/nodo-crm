@@ -223,6 +223,7 @@ export type MobileSessionWhereInput = {
   expiresAt?: Prisma.DateTimeFilter<"MobileSession"> | Date | string
   revokedAt?: Prisma.DateTimeNullableFilter<"MobileSession"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  pushDevice?: Prisma.XOR<Prisma.PushDeviceNullableScalarRelationFilter, Prisma.PushDeviceWhereInput> | null
 }
 
 export type MobileSessionOrderByWithRelationInput = {
@@ -237,6 +238,7 @@ export type MobileSessionOrderByWithRelationInput = {
   expiresAt?: Prisma.SortOrder
   revokedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  pushDevice?: Prisma.PushDeviceOrderByWithRelationInput
 }
 
 export type MobileSessionWhereUniqueInput = Prisma.AtLeast<{
@@ -254,6 +256,7 @@ export type MobileSessionWhereUniqueInput = Prisma.AtLeast<{
   expiresAt?: Prisma.DateTimeFilter<"MobileSession"> | Date | string
   revokedAt?: Prisma.DateTimeNullableFilter<"MobileSession"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  pushDevice?: Prisma.XOR<Prisma.PushDeviceNullableScalarRelationFilter, Prisma.PushDeviceWhereInput> | null
 }, "id" | "tokenHash">
 
 export type MobileSessionOrderByWithAggregationInput = {
@@ -299,6 +302,7 @@ export type MobileSessionCreateInput = {
   expiresAt: Date | string
   revokedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutMobileSessionsInput
+  pushDevice?: Prisma.PushDeviceCreateNestedOneWithoutSessionInput
 }
 
 export type MobileSessionUncheckedCreateInput = {
@@ -312,6 +316,7 @@ export type MobileSessionUncheckedCreateInput = {
   lastUsedAt?: Date | string
   expiresAt: Date | string
   revokedAt?: Date | string | null
+  pushDevice?: Prisma.PushDeviceUncheckedCreateNestedOneWithoutSessionInput
 }
 
 export type MobileSessionUpdateInput = {
@@ -325,6 +330,7 @@ export type MobileSessionUpdateInput = {
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutMobileSessionsNestedInput
+  pushDevice?: Prisma.PushDeviceUpdateOneWithoutSessionNestedInput
 }
 
 export type MobileSessionUncheckedUpdateInput = {
@@ -338,6 +344,7 @@ export type MobileSessionUncheckedUpdateInput = {
   lastUsedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pushDevice?: Prisma.PushDeviceUncheckedUpdateOneWithoutSessionNestedInput
 }
 
 export type MobileSessionCreateManyInput = {
@@ -427,6 +434,11 @@ export type MobileSessionMinOrderByAggregateInput = {
   revokedAt?: Prisma.SortOrder
 }
 
+export type MobileSessionScalarRelationFilter = {
+  is?: Prisma.MobileSessionWhereInput
+  isNot?: Prisma.MobileSessionWhereInput
+}
+
 export type MobileSessionCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.MobileSessionCreateWithoutUserInput, Prisma.MobileSessionUncheckedCreateWithoutUserInput> | Prisma.MobileSessionCreateWithoutUserInput[] | Prisma.MobileSessionUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.MobileSessionCreateOrConnectWithoutUserInput | Prisma.MobileSessionCreateOrConnectWithoutUserInput[]
@@ -469,6 +481,20 @@ export type MobileSessionUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.MobileSessionScalarWhereInput | Prisma.MobileSessionScalarWhereInput[]
 }
 
+export type MobileSessionCreateNestedOneWithoutPushDeviceInput = {
+  create?: Prisma.XOR<Prisma.MobileSessionCreateWithoutPushDeviceInput, Prisma.MobileSessionUncheckedCreateWithoutPushDeviceInput>
+  connectOrCreate?: Prisma.MobileSessionCreateOrConnectWithoutPushDeviceInput
+  connect?: Prisma.MobileSessionWhereUniqueInput
+}
+
+export type MobileSessionUpdateOneRequiredWithoutPushDeviceNestedInput = {
+  create?: Prisma.XOR<Prisma.MobileSessionCreateWithoutPushDeviceInput, Prisma.MobileSessionUncheckedCreateWithoutPushDeviceInput>
+  connectOrCreate?: Prisma.MobileSessionCreateOrConnectWithoutPushDeviceInput
+  upsert?: Prisma.MobileSessionUpsertWithoutPushDeviceInput
+  connect?: Prisma.MobileSessionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MobileSessionUpdateToOneWithWhereWithoutPushDeviceInput, Prisma.MobileSessionUpdateWithoutPushDeviceInput>, Prisma.MobileSessionUncheckedUpdateWithoutPushDeviceInput>
+}
+
 export type MobileSessionCreateWithoutUserInput = {
   id?: string
   tokenHash: string
@@ -479,6 +505,7 @@ export type MobileSessionCreateWithoutUserInput = {
   lastUsedAt?: Date | string
   expiresAt: Date | string
   revokedAt?: Date | string | null
+  pushDevice?: Prisma.PushDeviceCreateNestedOneWithoutSessionInput
 }
 
 export type MobileSessionUncheckedCreateWithoutUserInput = {
@@ -491,6 +518,7 @@ export type MobileSessionUncheckedCreateWithoutUserInput = {
   lastUsedAt?: Date | string
   expiresAt: Date | string
   revokedAt?: Date | string | null
+  pushDevice?: Prisma.PushDeviceUncheckedCreateNestedOneWithoutSessionInput
 }
 
 export type MobileSessionCreateOrConnectWithoutUserInput = {
@@ -535,6 +563,74 @@ export type MobileSessionScalarWhereInput = {
   revokedAt?: Prisma.DateTimeNullableFilter<"MobileSession"> | Date | string | null
 }
 
+export type MobileSessionCreateWithoutPushDeviceInput = {
+  id?: string
+  tokenHash: string
+  deviceIdHash: string
+  deviceName?: string | null
+  platform: string
+  createdAt?: Date | string
+  lastUsedAt?: Date | string
+  expiresAt: Date | string
+  revokedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutMobileSessionsInput
+}
+
+export type MobileSessionUncheckedCreateWithoutPushDeviceInput = {
+  id?: string
+  userId: string
+  tokenHash: string
+  deviceIdHash: string
+  deviceName?: string | null
+  platform: string
+  createdAt?: Date | string
+  lastUsedAt?: Date | string
+  expiresAt: Date | string
+  revokedAt?: Date | string | null
+}
+
+export type MobileSessionCreateOrConnectWithoutPushDeviceInput = {
+  where: Prisma.MobileSessionWhereUniqueInput
+  create: Prisma.XOR<Prisma.MobileSessionCreateWithoutPushDeviceInput, Prisma.MobileSessionUncheckedCreateWithoutPushDeviceInput>
+}
+
+export type MobileSessionUpsertWithoutPushDeviceInput = {
+  update: Prisma.XOR<Prisma.MobileSessionUpdateWithoutPushDeviceInput, Prisma.MobileSessionUncheckedUpdateWithoutPushDeviceInput>
+  create: Prisma.XOR<Prisma.MobileSessionCreateWithoutPushDeviceInput, Prisma.MobileSessionUncheckedCreateWithoutPushDeviceInput>
+  where?: Prisma.MobileSessionWhereInput
+}
+
+export type MobileSessionUpdateToOneWithWhereWithoutPushDeviceInput = {
+  where?: Prisma.MobileSessionWhereInput
+  data: Prisma.XOR<Prisma.MobileSessionUpdateWithoutPushDeviceInput, Prisma.MobileSessionUncheckedUpdateWithoutPushDeviceInput>
+}
+
+export type MobileSessionUpdateWithoutPushDeviceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceIdHash?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  platform?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastUsedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutMobileSessionsNestedInput
+}
+
+export type MobileSessionUncheckedUpdateWithoutPushDeviceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceIdHash?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  platform?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastUsedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
 export type MobileSessionCreateManyUserInput = {
   id?: string
   tokenHash: string
@@ -557,6 +653,7 @@ export type MobileSessionUpdateWithoutUserInput = {
   lastUsedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pushDevice?: Prisma.PushDeviceUpdateOneWithoutSessionNestedInput
 }
 
 export type MobileSessionUncheckedUpdateWithoutUserInput = {
@@ -569,6 +666,7 @@ export type MobileSessionUncheckedUpdateWithoutUserInput = {
   lastUsedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pushDevice?: Prisma.PushDeviceUncheckedUpdateOneWithoutSessionNestedInput
 }
 
 export type MobileSessionUncheckedUpdateManyWithoutUserInput = {
@@ -597,6 +695,7 @@ export type MobileSessionSelect<ExtArgs extends runtime.Types.Extensions.Interna
   expiresAt?: boolean
   revokedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  pushDevice?: boolean | Prisma.MobileSession$pushDeviceArgs<ExtArgs>
 }, ExtArgs["result"]["mobileSession"]>
 
 export type MobileSessionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -643,6 +742,7 @@ export type MobileSessionSelectScalar = {
 export type MobileSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "tokenHash" | "deviceIdHash" | "deviceName" | "platform" | "createdAt" | "lastUsedAt" | "expiresAt" | "revokedAt", ExtArgs["result"]["mobileSession"]>
 export type MobileSessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  pushDevice?: boolean | Prisma.MobileSession$pushDeviceArgs<ExtArgs>
 }
 export type MobileSessionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -655,6 +755,7 @@ export type $MobileSessionPayload<ExtArgs extends runtime.Types.Extensions.Inter
   name: "MobileSession"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    pushDevice: Prisma.$PushDevicePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1068,6 +1169,7 @@ readonly fields: MobileSessionFieldRefs;
 export interface Prisma__MobileSessionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  pushDevice<T extends Prisma.MobileSession$pushDeviceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MobileSession$pushDeviceArgs<ExtArgs>>): Prisma.Prisma__PushDeviceClient<runtime.Types.Result.GetResult<Prisma.$PushDevicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1505,6 +1607,25 @@ export type MobileSessionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many MobileSessions to delete.
    */
   limit?: number
+}
+
+/**
+ * MobileSession.pushDevice
+ */
+export type MobileSession$pushDeviceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PushDevice
+   */
+  select?: Prisma.PushDeviceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PushDevice
+   */
+  omit?: Prisma.PushDeviceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PushDeviceInclude<ExtArgs> | null
+  where?: Prisma.PushDeviceWhereInput
 }
 
 /**

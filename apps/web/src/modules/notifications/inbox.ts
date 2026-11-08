@@ -2,6 +2,7 @@ import type { CompanyContext } from "@/lib/auth/session";
 import { prisma } from "@/lib/db/prisma";
 import { NotificationKind, Prisma } from "@/generated/prisma/client";
 import { wantsNotice } from "./preferences";
+import { queuePush } from "./push";
 
 /** How many the bell holds. Past this it's a report, not a notice. */
 export const INBOX_LIMIT = 30;
@@ -48,7 +49,8 @@ export async function notify(input: NotifyInput): Promise<boolean> {
   };
 
   if (!input.dedupeKey) {
-    await prisma.notification.create({ data });
+    const { id } = await prisma.notification.create({ data, select: { id: true } });
+    queuePush({ ...data, id, params: input.params ?? {} });
     return true;
   }
 
@@ -65,7 +67,8 @@ export async function notify(input: NotifyInput): Promise<boolean> {
   const existing = await prisma.notification.findUnique({ where, select: { id: true } });
   if (existing) return false;
 
-  await prisma.notification.upsert({ where, create: data, update: {} });
+  const { id } = await prisma.notification.upsert({ where, create: data, update: {}, select: { id: true } });
+  queuePush({ ...data, id, params: input.params ?? {} });
   return true;
 }
 

@@ -321,7 +321,19 @@ The unread count is read on the server so the bell is right on the first paint;
 the effect in the component only subscribes to updates from there.
 
 The same opt-out governs both doorways: a kind somebody turned off stops
-arriving by email **and** in the bell. A test asserts `NOTIFICATION_KINDS` covers
+arriving by email **and** in the bell.
+
+**Push is the third doorway, and it hangs off the bell.** `notify` queues a
+push (`notifications/push.ts`, behind `after()`) for every notice it actually
+raises, to every phone whose session still opens — so every kind that reaches
+the bell reaches the phone, under the same opt-out, with no list of kinds to
+keep in step, and a repeat or a turned-off kind buzzes nobody. It is worded
+when it is sent, in the recipient's language, with the same
+`notifications.inApp` message the bell renders, and carries the company's slug
+and the notice's `href` for the app to open. A token Expo answers
+`DeviceNotRegistered` for is forgotten; any other failure is left alone, and a
+push that fails is a notice still in the bell. `EXPO_ACCESS_TOKEN` is only
+needed once push security is switched on in the Expo project. A test asserts `NOTIFICATION_KINDS` covers
 the whole enum — a notice you can receive and cannot turn off is not a setting.
 
 ### Whose task is it
@@ -1064,7 +1076,13 @@ company the person is an active member of; `GET /companies` is what to choose fr
 - **Only hashes are stored**, of the token and of the app's device id. A
   session lasts 90 days and slides forward at most once a day of use; signing
   out revokes this phone and no other.
-- The four tables belong to the person, not a company, so they are
+- **A phone's push token hangs off its session** (`PushDevice`, `PUT
+  /push-device`): signing out stops its notices, and a token is held by one
+  session only, so a phone handed to somebody else stops getting the
+  previous person's. No company — a notice from any of them reaches it. The
+  app's bell is `GET /notifications` (kind and parameters, worded by the app)
+  with `POST /notifications/<id>/read` and `/notifications/read-all`.
+- The five tables belong to the person, not a company, so they are
   `GLOBAL_MODELS`.
 
 ### Jobs from the app

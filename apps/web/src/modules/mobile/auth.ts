@@ -5,6 +5,7 @@ import { activeCompaniesFor, type CompanyChoice } from "@/lib/auth/session";
 import { languageToLocale } from "@/i18n/config";
 import { Language, MembershipStatus } from "@/generated/prisma/enums";
 import { sendNotice } from "@/modules/notifications/service";
+import { forgetPushDevice } from "./push";
 import { MobileError } from "./route";
 import type { CodeSignIn, DeviceInput, PasswordSignIn } from "./schemas";
 import {
@@ -168,9 +169,10 @@ export async function signInWithCode(input: CodeSignIn, now: Date = new Date()):
   return { kind: "session", ...(await issueSession(challenge.userId, input, now)), companies };
 }
 
-/** Signing out of this phone only; the others stay signed in. */
+/** Signing out of this phone only; the others stay signed in. Its notices stop with it. */
 export async function signOut(sessionId: string, now: Date = new Date()): Promise<void> {
   await prisma.mobileSession.update({ where: { id: sessionId }, data: { revokedAt: now } });
+  await forgetPushDevice(sessionId);
 }
 
 async function issueSession(userId: string, device: DeviceInput, now: Date) {

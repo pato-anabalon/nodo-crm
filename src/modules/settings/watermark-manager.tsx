@@ -36,7 +36,7 @@ export async function WatermarkManager({
             />
           </div>
         ) : (
-          <div className="flex size-14 items-center justify-center rounded-md border border-dashed text-[10px] text-muted-foreground">
+          <div className="flex size-14 items-center justify-center rounded-md border border-dashed text-2xs text-muted-foreground">
             {t("none")}
           </div>
         )

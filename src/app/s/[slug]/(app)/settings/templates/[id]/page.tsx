@@ -193,7 +193,7 @@ export default async function TemplatePage({ params }: { params: Promise<{ id: s
 function Field({ label, value }: { label: string; value: string }) {
   return (
     <div className="space-y-0.5">
-      <p className="text-[11px] font-medium tracking-wide text-muted-foreground uppercase">
+      <p className="text-2xs font-medium tracking-wide text-muted-foreground uppercase">
         {label}
       </p>
       <p className="break-words">{value}</p>

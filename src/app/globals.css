@@ -191,6 +191,11 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  /* The smallest step: uppercase labels, badges, chart axes. 11px is the
+     floor — the smallest size iOS ships (caption2) and the size the
+     --brand-ink contrast was worked out for. */
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 0.875rem;
   --color-background: var(--background);
   --color-panel: var(--panel);
   --color-field: var(--field);

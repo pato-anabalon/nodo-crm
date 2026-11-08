@@ -211,7 +211,7 @@ export function StatusDonut({
           <span className="text-2xl font-semibold tabular-nums">
             {Math.round(animatedRate)}%
           </span>
-          <span className="max-w-24 text-center text-[11px] leading-tight text-muted-foreground">
+          <span className="max-w-24 text-center text-2xs leading-tight text-muted-foreground">
             {t("acceptanceRate")}
           </span>
         </div>
@@ -223,7 +223,7 @@ export function StatusDonut({
           // inside it. The ring isn't scaled from its viewBox (width/height
           // equal SIZE), so the anchor's units are already real pixels here.
           <div
-            className="pointer-events-none absolute z-10 rounded-md border bg-card px-3 py-2 text-[11px] leading-tight shadow-md"
+            className="pointer-events-none absolute z-10 rounded-md border bg-card px-3 py-2 text-2xs leading-tight shadow-md"
             style={{
               left: Math.min(Math.max(tooltip.x - TOOLTIP_WIDTH / 2, -TOOLTIP_GAP), SIZE - TOOLTIP_WIDTH + TOOLTIP_GAP),
               top: Math.min(Math.max(tooltip.y - TOOLTIP_HEIGHT / 2, -TOOLTIP_GAP), SIZE - TOOLTIP_HEIGHT + TOOLTIP_GAP),

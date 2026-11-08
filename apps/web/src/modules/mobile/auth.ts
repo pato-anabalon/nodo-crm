@@ -115,12 +115,11 @@ async function sendCode(
     lines: [t("line1", values), t("line2", values)],
   });
 
-  if (!sent) {
-    // Locally there is usually no Resend key; the code goes to the terminal so
-    // the flow can be tried end to end. Never in production.
-    if (process.env.NODE_ENV !== "production") console.info(`[mobile] sign-in code for ${user.email}: ${code}`);
-    else throw new MobileError(503, "code_not_sent");
-  }
+  // Locally the code also goes to the terminal, sent or not: the demo users'
+  // addresses reach nobody, and a real one shouldn't need a trip to the inbox
+  // to try the flow. Never in production (Vercel's previews included).
+  if (process.env.NODE_ENV !== "production") console.info(`[mobile] sign-in code for ${user.email}: ${code}`);
+  if (!sent && process.env.NODE_ENV === "production") throw new MobileError(503, "code_not_sent");
 
   return { kind: "code", challengeId: challenge.id, email: maskEmail(user.email), expiresAt };
 }

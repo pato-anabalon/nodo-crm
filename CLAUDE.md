@@ -1125,8 +1125,8 @@ company the person is an active member of; `GET /companies` is what to choose fr
   last 30 days. Six digits, ten minutes, five tries, three codes per quarter
   hour — Resend's free plan is 100 emails a day for everything. The code is an
   HMAC keyed by `AUTH_SECRET` and salted with the challenge, and is good only on
-  the phone that asked for it. Locally, with no Resend key, it is printed to the
-  terminal.
+  the phone that asked for it. Locally it is also printed to the Next terminal,
+  whether or not the email went out.
 - **No session and no code without an active membership** in a company that is
   on. Wrong passwords are counted by email and by IP (`MobileLoginFailure`); an
   unknown email is compared against a decoy hash so it takes as long to refuse.

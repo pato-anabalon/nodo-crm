@@ -3,6 +3,19 @@
 Multi-company CRM. Each company operates on its own subdomain, with its logo,
 its colours, its users and its profiles, and **never sees the others' data**.
 
+## Where things live
+
+A pnpm workspace. The Next app — and with it the database, the migrations, the
+scripts and the messages — is `apps/web`, and **every path in this document is
+relative to it** (`src/proxy.ts` is `apps/web/src/proxy.ts`). The mobile app
+goes in `apps/mobile`, and code both of them use in `packages/*`.
+
+The scripts run from the root as before (`pnpm dev -p 3100`, `pnpm test`,
+`pnpm db:deploy`) and are passed to the app with `--filter web`. A one-off
+script still runs from inside the app, because that is where `.env.local` is:
+`cd apps/web && pnpm tsx --env-file=.env.local scripts/<name>.ts`. On Vercel the
+project's *Root Directory* is `apps/web`.
+
 ## Stack
 
 | Piece | Choice |
@@ -1357,6 +1370,8 @@ sender.
 Resend's free plan allows 3,000 emails a month and **100 a day**.
 
 ## Structure
+
+Inside `apps/web`:
 
 ```
 src/

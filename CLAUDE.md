@@ -1069,8 +1069,9 @@ company the person is an active member of; `GET /companies` is what to choose fr
 
 ### Jobs from the app
 
-`/api/m/v1/jobs…`, `/todos/<id>…`, `/todo-lists/<id>/todos`, `/chat/<id>`:
-the list, a job, its timeline, its to-dos, its chat and its schedule. **Every
+`/api/m/v1/jobs…`, `/todos/<id>…`, `/todo-lists/<id>/todos`, `/chat/<id>`,
+`/posts/<id>…`: the list, a job, its timeline, its to-dos, its chat, its
+schedule, its files and its Message Board. **Every
 one calls the same services the web's actions do**, so the timeline lines,
 the notices and the emails come out identical whichever side did it.
 
@@ -1091,6 +1092,12 @@ the notices and the emails come out identical whichever side did it.
   changes only what it sends, so fixing a date from the phone keeps the notes
   somebody formatted on the web. Rich text comes back sanitised, for the app
   to render read-only.
+- **The Message Board is read-only but for comments.** Posts are written on
+  the web, where the editor is; the app reads published ones (the body
+  sanitised with the `full` profile) and comments in plain text. A draft
+  answers 404 even to its author, who has no way to finish it from the
+  phone. Categories travel as stored — a standard one is its `key`, which
+  the app translates.
 - **Ticking off is `PUT …/completion` with the state wanted**, not a toggle: a
   retry after a dropped connection can't undo the first press, and `changed`
   says whether this one did anything.

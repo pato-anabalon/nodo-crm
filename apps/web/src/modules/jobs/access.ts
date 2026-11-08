@@ -26,12 +26,23 @@ export type JobContext = {
  * (see `closing.ts`).
  */
 export async function requireJobContext(jobId: string, permission: Permission = "jobs.read"): Promise<JobContext> {
-  const ctx = await requireCompanyContext();
+  const found = await jobContextFor(await requireCompanyContext(), jobId, permission);
+  if (!found) notFound();
+  return found;
+}
+
+/**
+ * The same questions for a context already in hand — the app's routes, which
+ * answer with a status rather than a 404 page. It throws what the web throws
+ * (`ForbiddenError`, `JobClosedError`) and returns null for a job this person
+ * can't see, which the caller turns into its own "not found".
+ */
+export async function jobContextFor(ctx: CompanyContext, jobId: string, permission: Permission): Promise<JobContext | null> {
   if (!can(ctx, "jobs.read")) throw new ForbiddenError("jobs.read");
   if (!can(ctx, permission)) throw new ForbiddenError(permission);
 
   const job = await visibleJob(ctx, jobId);
-  if (!job) notFound();
+  if (!job) return null;
   if (job.closed && isWritePermission(permission)) throw new JobClosedError(job.id);
   // A finished job is read with a read-only context, so nothing on its pages offers what would be refused.
   return { ctx: job.closed ? withoutWrites(ctx) : ctx, job };

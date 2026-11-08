@@ -94,7 +94,12 @@ async function readBody<Body>(request: Request, schema: ZodType<Body> | undefine
   } catch {
     throw new MobileError(400, "invalid_json");
   }
-  const parsed = schema.safeParse(raw);
+  return validate(schema, raw);
+}
+
+/** Parses with a schema, or refuses with 422 and the fields' message keys — for values a handler builds itself. */
+export function validate<T>(schema: ZodType<T>, value: unknown): T {
+  const parsed = schema.safeParse(value);
   if (!parsed.success) {
     throw new MobileError(422, "invalid", { fields: fieldErrors(parsed.error) });
   }
@@ -106,10 +111,13 @@ async function readBody<Body>(request: Request, schema: ZodType<Body> | undefine
  * are English sentences, and a field without a message of its own is a bug in
  * the app rather than something to show the person. Those become one key.
  */
+// `validation.required`, or a module's own (`jobs.validation.endBeforeStart`).
+const MESSAGE_KEY = /^(\w+\.)*validation\.\w+$/;
+
 function fieldErrors(error: z.ZodError): Record<string, string[]> {
   const fields: Record<string, string[]> = {};
   for (const [field, messages] of Object.entries(z.flattenError(error).fieldErrors)) {
-    fields[field] = (messages as string[]).map((message) => (/^validation\.\w+$/.test(message) ? message : "validation.invalid"));
+    fields[field] = (messages as string[]).map((message) => (MESSAGE_KEY.test(message) ? message : "validation.invalid"));
   }
   return fields;
 }

@@ -1067,6 +1067,36 @@ company the person is an active member of; `GET /companies` is what to choose fr
 - The four tables belong to the person, not a company, so they are
   `GLOBAL_MODELS`.
 
+### Jobs from the app
+
+`/api/m/v1/jobs…`, `/todos/<id>…`, `/todo-lists/<id>/todos`, `/chat/<id>`:
+the list, a job, its timeline, its to-dos, its chat and its schedule. **Every
+one calls the same services the web's actions do**, so the timeline lines,
+the notices and the emails come out identical whichever side did it.
+
+- **One guard for both sides.** `jobContextFor(ctx, jobId, permission)` in
+  `jobs/access.ts` asks the three questions and returns null for a job this
+  person can't see; `requireJobContext` turns that into the web's 404 page and
+  `jobIn` (`mobile/jobs/guard.ts`) into the app's `404 not_found`. Something
+  inside a job — a to-do, a message — is found first and the job read off its
+  row, as on the web, and the tool's read permission is asked for too.
+- **Data, not text.** Instants are ISO, days `YYYY-MM-DD`, a timeline line is
+  its type and parameters, and nothing is formatted: the app has the
+  company's format and the person's language from `/me`. Whatever depends on
+  the reader's permissions comes as a flag (`canDelete`), and a job's own
+  `permissions` are the context the guard settled on — a finished job's with
+  the writes taken off.
+- **The app writes plain text.** To-do notes and comments become HTML through
+  the web's own schemas (`plainTextToHtml`, then `todoSchema`), and a `PATCH`
+  changes only what it sends, so fixing a date from the phone keeps the notes
+  somebody formatted on the web. Rich text comes back sanitised, for the app
+  to render read-only.
+- **Ticking off is `PUT …/completion` with the state wanted**, not a toggle: a
+  retry after a dropped connection can't undo the first press, and `changed`
+  says whether this one did anything.
+- Files are not in this yet: the bearer variant of the upload comes next, and
+  until then everything here posts none.
+
 ## Lead ingestion API
 
 `POST /api/v1/leads` on the root domain. The key identifies the company, so the

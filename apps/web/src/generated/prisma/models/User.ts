@@ -245,6 +245,9 @@ export type UserWhereInput = {
   tasksCreated?: Prisma.TaskListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
+  mobileSessions?: Prisma.MobileSessionListRelationFilter
+  mobileChallenges?: Prisma.MobileChallengeListRelationFilter
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceListRelationFilter
   memberships?: Prisma.MembershipListRelationFilter
   assignedLeads?: Prisma.LeadListRelationFilter
   ingestKeys?: Prisma.IngestKeyListRelationFilter
@@ -291,6 +294,9 @@ export type UserOrderByWithRelationInput = {
   tasksCreated?: Prisma.TaskOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
+  mobileSessions?: Prisma.MobileSessionOrderByRelationAggregateInput
+  mobileChallenges?: Prisma.MobileChallengeOrderByRelationAggregateInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceOrderByRelationAggregateInput
   memberships?: Prisma.MembershipOrderByRelationAggregateInput
   assignedLeads?: Prisma.LeadOrderByRelationAggregateInput
   ingestKeys?: Prisma.IngestKeyOrderByRelationAggregateInput
@@ -340,6 +346,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   tasksCreated?: Prisma.TaskListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
+  mobileSessions?: Prisma.MobileSessionListRelationFilter
+  mobileChallenges?: Prisma.MobileChallengeListRelationFilter
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceListRelationFilter
   memberships?: Prisma.MembershipListRelationFilter
   assignedLeads?: Prisma.LeadListRelationFilter
   ingestKeys?: Prisma.IngestKeyListRelationFilter
@@ -422,6 +431,9 @@ export type UserCreateInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -468,6 +480,9 @@ export type UserUncheckedCreateInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -514,6 +529,9 @@ export type UserUpdateInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -560,6 +578,9 @@ export type UserUncheckedUpdateInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -702,6 +723,48 @@ export type UserUpdateOneRequiredWithoutMembershipsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutMembershipsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMembershipsInput, Prisma.UserUpdateWithoutMembershipsInput>, Prisma.UserUncheckedUpdateWithoutMembershipsInput>
+}
+
+export type UserCreateNestedOneWithoutMobileSessionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMobileSessionsInput, Prisma.UserUncheckedCreateWithoutMobileSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMobileSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMobileSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMobileSessionsInput, Prisma.UserUncheckedCreateWithoutMobileSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMobileSessionsInput
+  upsert?: Prisma.UserUpsertWithoutMobileSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMobileSessionsInput, Prisma.UserUpdateWithoutMobileSessionsInput>, Prisma.UserUncheckedUpdateWithoutMobileSessionsInput>
+}
+
+export type UserCreateNestedOneWithoutMobileChallengesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMobileChallengesInput, Prisma.UserUncheckedCreateWithoutMobileChallengesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMobileChallengesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMobileChallengesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMobileChallengesInput, Prisma.UserUncheckedCreateWithoutMobileChallengesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMobileChallengesInput
+  upsert?: Prisma.UserUpsertWithoutMobileChallengesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMobileChallengesInput, Prisma.UserUpdateWithoutMobileChallengesInput>, Prisma.UserUncheckedUpdateWithoutMobileChallengesInput>
+}
+
+export type UserCreateNestedOneWithoutMobileTrustedDevicesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMobileTrustedDevicesInput, Prisma.UserUncheckedCreateWithoutMobileTrustedDevicesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMobileTrustedDevicesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMobileTrustedDevicesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMobileTrustedDevicesInput, Prisma.UserUncheckedCreateWithoutMobileTrustedDevicesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMobileTrustedDevicesInput
+  upsert?: Prisma.UserUpsertWithoutMobileTrustedDevicesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMobileTrustedDevicesInput, Prisma.UserUpdateWithoutMobileTrustedDevicesInput>, Prisma.UserUncheckedUpdateWithoutMobileTrustedDevicesInput>
 }
 
 export type UserCreateNestedOneWithoutAccountsInput = {
@@ -1188,6 +1251,9 @@ export type UserCreateWithoutMembershipsInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
@@ -1233,6 +1299,9 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
@@ -1294,6 +1363,9 @@ export type UserUpdateWithoutMembershipsInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
@@ -1339,6 +1411,633 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
+  assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
+  ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
+  createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
+  jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
+  jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
+  jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
+  jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
+  jobFoldersCreated?: Prisma.JobFolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobFilesUploaded?: Prisma.JobFileUncheckedUpdateManyWithoutUploadedByNestedInput
+  jobPostsWritten?: Prisma.JobPostUncheckedUpdateManyWithoutAuthorNestedInput
+  jobCommentsWritten?: Prisma.JobCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  jobTodoListsCreated?: Prisma.JobTodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobTodosCreated?: Prisma.JobTodoUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobTodosCompleted?: Prisma.JobTodoUncheckedUpdateManyWithoutCompletedByNestedInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUncheckedUpdateManyWithoutUserNestedInput
+  jobEventsCreated?: Prisma.JobEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobEventParticipations?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserCreateWithoutMobileSessionsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  passwordHash?: string | null
+  isSuperAdmin?: boolean
+  jobTitle?: string | null
+  phone?: string | null
+  language?: $Enums.Language | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
+  tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
+  ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
+  quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
+  createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
+  jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
+  jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
+  jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
+  jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
+  jobFoldersCreated?: Prisma.JobFolderCreateNestedManyWithoutCreatedByInput
+  jobFilesUploaded?: Prisma.JobFileCreateNestedManyWithoutUploadedByInput
+  jobPostsWritten?: Prisma.JobPostCreateNestedManyWithoutAuthorInput
+  jobCommentsWritten?: Prisma.JobCommentCreateNestedManyWithoutAuthorInput
+  jobTodoListsCreated?: Prisma.JobTodoListCreateNestedManyWithoutCreatedByInput
+  jobTodosCreated?: Prisma.JobTodoCreateNestedManyWithoutCreatedByInput
+  jobTodosCompleted?: Prisma.JobTodoCreateNestedManyWithoutCompletedByInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeCreateNestedManyWithoutUserInput
+  jobEventsCreated?: Prisma.JobEventCreateNestedManyWithoutCreatedByInput
+  jobEventParticipations?: Prisma.JobEventParticipantCreateNestedManyWithoutUserInput
+  jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutAuthorInput
+}
+
+export type UserUncheckedCreateWithoutMobileSessionsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  passwordHash?: string | null
+  isSuperAdmin?: boolean
+  jobTitle?: string | null
+  phone?: string | null
+  language?: $Enums.Language | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
+  ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
+  createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
+  jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
+  jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
+  jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
+  jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
+  jobFoldersCreated?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCreatedByInput
+  jobFilesUploaded?: Prisma.JobFileUncheckedCreateNestedManyWithoutUploadedByInput
+  jobPostsWritten?: Prisma.JobPostUncheckedCreateNestedManyWithoutAuthorInput
+  jobCommentsWritten?: Prisma.JobCommentUncheckedCreateNestedManyWithoutAuthorInput
+  jobTodoListsCreated?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutCreatedByInput
+  jobTodosCreated?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCreatedByInput
+  jobTodosCompleted?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCompletedByInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUncheckedCreateNestedManyWithoutUserInput
+  jobEventsCreated?: Prisma.JobEventUncheckedCreateNestedManyWithoutCreatedByInput
+  jobEventParticipations?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutUserInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+export type UserCreateOrConnectWithoutMobileSessionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMobileSessionsInput, Prisma.UserUncheckedCreateWithoutMobileSessionsInput>
+}
+
+export type UserUpsertWithoutMobileSessionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMobileSessionsInput, Prisma.UserUncheckedUpdateWithoutMobileSessionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMobileSessionsInput, Prisma.UserUncheckedCreateWithoutMobileSessionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMobileSessionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMobileSessionsInput, Prisma.UserUncheckedUpdateWithoutMobileSessionsInput>
+}
+
+export type UserUpdateWithoutMobileSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
+  tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
+  ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
+  quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
+  createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
+  jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
+  jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
+  jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
+  jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
+  jobFoldersCreated?: Prisma.JobFolderUpdateManyWithoutCreatedByNestedInput
+  jobFilesUploaded?: Prisma.JobFileUpdateManyWithoutUploadedByNestedInput
+  jobPostsWritten?: Prisma.JobPostUpdateManyWithoutAuthorNestedInput
+  jobCommentsWritten?: Prisma.JobCommentUpdateManyWithoutAuthorNestedInput
+  jobTodoListsCreated?: Prisma.JobTodoListUpdateManyWithoutCreatedByNestedInput
+  jobTodosCreated?: Prisma.JobTodoUpdateManyWithoutCreatedByNestedInput
+  jobTodosCompleted?: Prisma.JobTodoUpdateManyWithoutCompletedByNestedInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUpdateManyWithoutUserNestedInput
+  jobEventsCreated?: Prisma.JobEventUpdateManyWithoutCreatedByNestedInput
+  jobEventParticipations?: Prisma.JobEventParticipantUpdateManyWithoutUserNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMobileSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
+  ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
+  createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
+  jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
+  jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
+  jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
+  jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
+  jobFoldersCreated?: Prisma.JobFolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobFilesUploaded?: Prisma.JobFileUncheckedUpdateManyWithoutUploadedByNestedInput
+  jobPostsWritten?: Prisma.JobPostUncheckedUpdateManyWithoutAuthorNestedInput
+  jobCommentsWritten?: Prisma.JobCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  jobTodoListsCreated?: Prisma.JobTodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobTodosCreated?: Prisma.JobTodoUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobTodosCompleted?: Prisma.JobTodoUncheckedUpdateManyWithoutCompletedByNestedInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUncheckedUpdateManyWithoutUserNestedInput
+  jobEventsCreated?: Prisma.JobEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobEventParticipations?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserCreateWithoutMobileChallengesInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  passwordHash?: string | null
+  isSuperAdmin?: boolean
+  jobTitle?: string | null
+  phone?: string | null
+  language?: $Enums.Language | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
+  tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
+  ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
+  quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
+  createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
+  jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
+  jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
+  jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
+  jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
+  jobFoldersCreated?: Prisma.JobFolderCreateNestedManyWithoutCreatedByInput
+  jobFilesUploaded?: Prisma.JobFileCreateNestedManyWithoutUploadedByInput
+  jobPostsWritten?: Prisma.JobPostCreateNestedManyWithoutAuthorInput
+  jobCommentsWritten?: Prisma.JobCommentCreateNestedManyWithoutAuthorInput
+  jobTodoListsCreated?: Prisma.JobTodoListCreateNestedManyWithoutCreatedByInput
+  jobTodosCreated?: Prisma.JobTodoCreateNestedManyWithoutCreatedByInput
+  jobTodosCompleted?: Prisma.JobTodoCreateNestedManyWithoutCompletedByInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeCreateNestedManyWithoutUserInput
+  jobEventsCreated?: Prisma.JobEventCreateNestedManyWithoutCreatedByInput
+  jobEventParticipations?: Prisma.JobEventParticipantCreateNestedManyWithoutUserInput
+  jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutAuthorInput
+}
+
+export type UserUncheckedCreateWithoutMobileChallengesInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  passwordHash?: string | null
+  isSuperAdmin?: boolean
+  jobTitle?: string | null
+  phone?: string | null
+  language?: $Enums.Language | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
+  ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
+  createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
+  jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
+  jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
+  jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
+  jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
+  jobFoldersCreated?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCreatedByInput
+  jobFilesUploaded?: Prisma.JobFileUncheckedCreateNestedManyWithoutUploadedByInput
+  jobPostsWritten?: Prisma.JobPostUncheckedCreateNestedManyWithoutAuthorInput
+  jobCommentsWritten?: Prisma.JobCommentUncheckedCreateNestedManyWithoutAuthorInput
+  jobTodoListsCreated?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutCreatedByInput
+  jobTodosCreated?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCreatedByInput
+  jobTodosCompleted?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCompletedByInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUncheckedCreateNestedManyWithoutUserInput
+  jobEventsCreated?: Prisma.JobEventUncheckedCreateNestedManyWithoutCreatedByInput
+  jobEventParticipations?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutUserInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+export type UserCreateOrConnectWithoutMobileChallengesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMobileChallengesInput, Prisma.UserUncheckedCreateWithoutMobileChallengesInput>
+}
+
+export type UserUpsertWithoutMobileChallengesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMobileChallengesInput, Prisma.UserUncheckedUpdateWithoutMobileChallengesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMobileChallengesInput, Prisma.UserUncheckedCreateWithoutMobileChallengesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMobileChallengesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMobileChallengesInput, Prisma.UserUncheckedUpdateWithoutMobileChallengesInput>
+}
+
+export type UserUpdateWithoutMobileChallengesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
+  tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
+  ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
+  quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
+  createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
+  jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
+  jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
+  jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
+  jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
+  jobFoldersCreated?: Prisma.JobFolderUpdateManyWithoutCreatedByNestedInput
+  jobFilesUploaded?: Prisma.JobFileUpdateManyWithoutUploadedByNestedInput
+  jobPostsWritten?: Prisma.JobPostUpdateManyWithoutAuthorNestedInput
+  jobCommentsWritten?: Prisma.JobCommentUpdateManyWithoutAuthorNestedInput
+  jobTodoListsCreated?: Prisma.JobTodoListUpdateManyWithoutCreatedByNestedInput
+  jobTodosCreated?: Prisma.JobTodoUpdateManyWithoutCreatedByNestedInput
+  jobTodosCompleted?: Prisma.JobTodoUpdateManyWithoutCompletedByNestedInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUpdateManyWithoutUserNestedInput
+  jobEventsCreated?: Prisma.JobEventUpdateManyWithoutCreatedByNestedInput
+  jobEventParticipations?: Prisma.JobEventParticipantUpdateManyWithoutUserNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMobileChallengesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
+  ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
+  createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
+  jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
+  jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
+  jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
+  jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
+  jobFoldersCreated?: Prisma.JobFolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobFilesUploaded?: Prisma.JobFileUncheckedUpdateManyWithoutUploadedByNestedInput
+  jobPostsWritten?: Prisma.JobPostUncheckedUpdateManyWithoutAuthorNestedInput
+  jobCommentsWritten?: Prisma.JobCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  jobTodoListsCreated?: Prisma.JobTodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobTodosCreated?: Prisma.JobTodoUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobTodosCompleted?: Prisma.JobTodoUncheckedUpdateManyWithoutCompletedByNestedInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUncheckedUpdateManyWithoutUserNestedInput
+  jobEventsCreated?: Prisma.JobEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobEventParticipations?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserCreateWithoutMobileTrustedDevicesInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  passwordHash?: string | null
+  isSuperAdmin?: boolean
+  jobTitle?: string | null
+  phone?: string | null
+  language?: $Enums.Language | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
+  tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
+  ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
+  quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
+  createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
+  jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
+  jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
+  jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
+  jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
+  jobFoldersCreated?: Prisma.JobFolderCreateNestedManyWithoutCreatedByInput
+  jobFilesUploaded?: Prisma.JobFileCreateNestedManyWithoutUploadedByInput
+  jobPostsWritten?: Prisma.JobPostCreateNestedManyWithoutAuthorInput
+  jobCommentsWritten?: Prisma.JobCommentCreateNestedManyWithoutAuthorInput
+  jobTodoListsCreated?: Prisma.JobTodoListCreateNestedManyWithoutCreatedByInput
+  jobTodosCreated?: Prisma.JobTodoCreateNestedManyWithoutCreatedByInput
+  jobTodosCompleted?: Prisma.JobTodoCreateNestedManyWithoutCompletedByInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeCreateNestedManyWithoutUserInput
+  jobEventsCreated?: Prisma.JobEventCreateNestedManyWithoutCreatedByInput
+  jobEventParticipations?: Prisma.JobEventParticipantCreateNestedManyWithoutUserInput
+  jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutAuthorInput
+}
+
+export type UserUncheckedCreateWithoutMobileTrustedDevicesInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  passwordHash?: string | null
+  isSuperAdmin?: boolean
+  jobTitle?: string | null
+  phone?: string | null
+  language?: $Enums.Language | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
+  ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
+  createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
+  jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
+  jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
+  jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
+  jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
+  jobFoldersCreated?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCreatedByInput
+  jobFilesUploaded?: Prisma.JobFileUncheckedCreateNestedManyWithoutUploadedByInput
+  jobPostsWritten?: Prisma.JobPostUncheckedCreateNestedManyWithoutAuthorInput
+  jobCommentsWritten?: Prisma.JobCommentUncheckedCreateNestedManyWithoutAuthorInput
+  jobTodoListsCreated?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutCreatedByInput
+  jobTodosCreated?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCreatedByInput
+  jobTodosCompleted?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCompletedByInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUncheckedCreateNestedManyWithoutUserInput
+  jobEventsCreated?: Prisma.JobEventUncheckedCreateNestedManyWithoutCreatedByInput
+  jobEventParticipations?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutUserInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+export type UserCreateOrConnectWithoutMobileTrustedDevicesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMobileTrustedDevicesInput, Prisma.UserUncheckedCreateWithoutMobileTrustedDevicesInput>
+}
+
+export type UserUpsertWithoutMobileTrustedDevicesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMobileTrustedDevicesInput, Prisma.UserUncheckedUpdateWithoutMobileTrustedDevicesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMobileTrustedDevicesInput, Prisma.UserUncheckedCreateWithoutMobileTrustedDevicesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMobileTrustedDevicesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMobileTrustedDevicesInput, Prisma.UserUncheckedUpdateWithoutMobileTrustedDevicesInput>
+}
+
+export type UserUpdateWithoutMobileTrustedDevicesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
+  tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
+  ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
+  quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
+  createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
+  jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
+  jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
+  jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
+  jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
+  jobFoldersCreated?: Prisma.JobFolderUpdateManyWithoutCreatedByNestedInput
+  jobFilesUploaded?: Prisma.JobFileUpdateManyWithoutUploadedByNestedInput
+  jobPostsWritten?: Prisma.JobPostUpdateManyWithoutAuthorNestedInput
+  jobCommentsWritten?: Prisma.JobCommentUpdateManyWithoutAuthorNestedInput
+  jobTodoListsCreated?: Prisma.JobTodoListUpdateManyWithoutCreatedByNestedInput
+  jobTodosCreated?: Prisma.JobTodoUpdateManyWithoutCreatedByNestedInput
+  jobTodosCompleted?: Prisma.JobTodoUpdateManyWithoutCompletedByNestedInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUpdateManyWithoutUserNestedInput
+  jobEventsCreated?: Prisma.JobEventUpdateManyWithoutCreatedByNestedInput
+  jobEventParticipations?: Prisma.JobEventParticipantUpdateManyWithoutUserNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMobileTrustedDevicesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
@@ -1383,6 +2082,9 @@ export type UserCreateWithoutAccountsInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -1428,6 +2130,9 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1489,6 +2194,9 @@ export type UserUpdateWithoutAccountsInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -1534,6 +2242,9 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1579,6 +2290,9 @@ export type UserCreateWithoutSessionsInput = {
   leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -1624,6 +2338,9 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1685,6 +2402,9 @@ export type UserUpdateWithoutSessionsInput = {
   leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -1730,6 +2450,9 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1775,6 +2498,9 @@ export type UserCreateWithoutTasksAssignedInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -1820,6 +2546,9 @@ export type UserUncheckedCreateWithoutTasksAssignedInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1870,6 +2599,9 @@ export type UserCreateWithoutTasksCreatedInput = {
   leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -1915,6 +2647,9 @@ export type UserUncheckedCreateWithoutTasksCreatedInput = {
   leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1976,6 +2711,9 @@ export type UserUpdateWithoutTasksAssignedInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -2021,6 +2759,9 @@ export type UserUncheckedUpdateWithoutTasksAssignedInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2077,6 +2818,9 @@ export type UserUpdateWithoutTasksCreatedInput = {
   leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -2122,6 +2866,9 @@ export type UserUncheckedUpdateWithoutTasksCreatedInput = {
   leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2167,6 +2914,9 @@ export type UserCreateWithoutNotificationsInput = {
   leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -2212,6 +2962,9 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2273,6 +3026,9 @@ export type UserUpdateWithoutNotificationsInput = {
   leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -2318,6 +3074,9 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2363,6 +3122,9 @@ export type UserCreateWithoutLeadAccessLogsInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -2408,6 +3170,9 @@ export type UserUncheckedCreateWithoutLeadAccessLogsInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2469,6 +3234,9 @@ export type UserUpdateWithoutLeadAccessLogsInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -2514,6 +3282,9 @@ export type UserUncheckedUpdateWithoutLeadAccessLogsInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2560,6 +3331,9 @@ export type UserCreateWithoutAssignedLeadsInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
@@ -2605,6 +3379,9 @@ export type UserUncheckedCreateWithoutAssignedLeadsInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
@@ -2655,6 +3432,9 @@ export type UserCreateWithoutDiscardedLeadsInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -2700,6 +3480,9 @@ export type UserUncheckedCreateWithoutDiscardedLeadsInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2761,6 +3544,9 @@ export type UserUpdateWithoutAssignedLeadsInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
@@ -2806,6 +3592,9 @@ export type UserUncheckedUpdateWithoutAssignedLeadsInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
@@ -2862,6 +3651,9 @@ export type UserUpdateWithoutDiscardedLeadsInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -2907,6 +3699,9 @@ export type UserUncheckedUpdateWithoutDiscardedLeadsInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2951,6 +3746,9 @@ export type UserCreateWithoutLeadAttachmentsUploadedInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -2996,6 +3794,9 @@ export type UserUncheckedCreateWithoutLeadAttachmentsUploadedInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3057,6 +3858,9 @@ export type UserUpdateWithoutLeadAttachmentsUploadedInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -3102,6 +3906,9 @@ export type UserUncheckedUpdateWithoutLeadAttachmentsUploadedInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3148,6 +3955,9 @@ export type UserCreateWithoutIngestKeysInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
@@ -3193,6 +4003,9 @@ export type UserUncheckedCreateWithoutIngestKeysInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
@@ -3254,6 +4067,9 @@ export type UserUpdateWithoutIngestKeysInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
@@ -3299,6 +4115,9 @@ export type UserUncheckedUpdateWithoutIngestKeysInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
@@ -3344,6 +4163,9 @@ export type UserCreateWithoutActivitiesInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -3389,6 +4211,9 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3450,6 +4275,9 @@ export type UserUpdateWithoutActivitiesInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -3495,6 +4323,9 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3540,6 +4371,9 @@ export type UserCreateWithoutCreatedQuotesInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -3585,6 +4419,9 @@ export type UserUncheckedCreateWithoutCreatedQuotesInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3646,6 +4483,9 @@ export type UserUpdateWithoutCreatedQuotesInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -3691,6 +4531,9 @@ export type UserUncheckedUpdateWithoutCreatedQuotesInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3736,6 +4579,9 @@ export type UserCreateWithoutQuoteMessagesInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -3781,6 +4627,9 @@ export type UserUncheckedCreateWithoutQuoteMessagesInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3842,6 +4691,9 @@ export type UserUpdateWithoutQuoteMessagesInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -3887,6 +4739,9 @@ export type UserUncheckedUpdateWithoutQuoteMessagesInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3932,6 +4787,9 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -3977,6 +4835,9 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -4038,6 +4899,9 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -4083,6 +4947,9 @@ export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4128,6 +4995,9 @@ export type UserCreateWithoutJobsCreatedInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -4173,6 +5043,9 @@ export type UserUncheckedCreateWithoutJobsCreatedInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -4223,6 +5096,9 @@ export type UserCreateWithoutJobsClosedInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -4268,6 +5144,9 @@ export type UserUncheckedCreateWithoutJobsClosedInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -4329,6 +5208,9 @@ export type UserUpdateWithoutJobsCreatedInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -4374,6 +5256,9 @@ export type UserUncheckedUpdateWithoutJobsCreatedInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4430,6 +5315,9 @@ export type UserUpdateWithoutJobsClosedInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -4475,6 +5363,9 @@ export type UserUncheckedUpdateWithoutJobsClosedInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4520,6 +5411,9 @@ export type UserCreateWithoutJobMembershipsInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -4565,6 +5459,9 @@ export type UserUncheckedCreateWithoutJobMembershipsInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -4615,6 +5512,9 @@ export type UserCreateWithoutJobMembersAddedInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -4660,6 +5560,9 @@ export type UserUncheckedCreateWithoutJobMembersAddedInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -4721,6 +5624,9 @@ export type UserUpdateWithoutJobMembershipsInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -4766,6 +5672,9 @@ export type UserUncheckedUpdateWithoutJobMembershipsInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4822,6 +5731,9 @@ export type UserUpdateWithoutJobMembersAddedInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -4867,6 +5779,9 @@ export type UserUncheckedUpdateWithoutJobMembersAddedInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4912,6 +5827,9 @@ export type UserCreateWithoutJobActivitiesInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -4957,6 +5875,9 @@ export type UserUncheckedCreateWithoutJobActivitiesInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -5018,6 +5939,9 @@ export type UserUpdateWithoutJobActivitiesInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -5063,6 +5987,9 @@ export type UserUncheckedUpdateWithoutJobActivitiesInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -5108,6 +6035,9 @@ export type UserCreateWithoutJobFoldersCreatedInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -5153,6 +6083,9 @@ export type UserUncheckedCreateWithoutJobFoldersCreatedInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -5214,6 +6147,9 @@ export type UserUpdateWithoutJobFoldersCreatedInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -5259,6 +6195,9 @@ export type UserUncheckedUpdateWithoutJobFoldersCreatedInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -5304,6 +6243,9 @@ export type UserCreateWithoutJobFilesUploadedInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -5349,6 +6291,9 @@ export type UserUncheckedCreateWithoutJobFilesUploadedInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -5410,6 +6355,9 @@ export type UserUpdateWithoutJobFilesUploadedInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -5455,6 +6403,9 @@ export type UserUncheckedUpdateWithoutJobFilesUploadedInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -5500,6 +6451,9 @@ export type UserCreateWithoutJobPostsWrittenInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -5545,6 +6499,9 @@ export type UserUncheckedCreateWithoutJobPostsWrittenInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -5606,6 +6563,9 @@ export type UserUpdateWithoutJobPostsWrittenInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -5651,6 +6611,9 @@ export type UserUncheckedUpdateWithoutJobPostsWrittenInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -5696,6 +6659,9 @@ export type UserCreateWithoutJobCommentsWrittenInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -5741,6 +6707,9 @@ export type UserUncheckedCreateWithoutJobCommentsWrittenInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -5802,6 +6771,9 @@ export type UserUpdateWithoutJobCommentsWrittenInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -5847,6 +6819,9 @@ export type UserUncheckedUpdateWithoutJobCommentsWrittenInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -5892,6 +6867,9 @@ export type UserCreateWithoutJobEventsCreatedInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -5937,6 +6915,9 @@ export type UserUncheckedCreateWithoutJobEventsCreatedInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -5998,6 +6979,9 @@ export type UserUpdateWithoutJobEventsCreatedInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -6043,6 +7027,9 @@ export type UserUncheckedUpdateWithoutJobEventsCreatedInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -6088,6 +7075,9 @@ export type UserCreateWithoutJobEventParticipationsInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -6133,6 +7123,9 @@ export type UserUncheckedCreateWithoutJobEventParticipationsInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -6194,6 +7187,9 @@ export type UserUpdateWithoutJobEventParticipationsInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -6239,6 +7235,9 @@ export type UserUncheckedUpdateWithoutJobEventParticipationsInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -6284,6 +7283,9 @@ export type UserCreateWithoutJobTodoListsCreatedInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -6329,6 +7331,9 @@ export type UserUncheckedCreateWithoutJobTodoListsCreatedInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -6390,6 +7395,9 @@ export type UserUpdateWithoutJobTodoListsCreatedInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -6435,6 +7443,9 @@ export type UserUncheckedUpdateWithoutJobTodoListsCreatedInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -6480,6 +7491,9 @@ export type UserCreateWithoutJobTodosCompletedInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -6525,6 +7539,9 @@ export type UserUncheckedCreateWithoutJobTodosCompletedInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -6575,6 +7592,9 @@ export type UserCreateWithoutJobTodosCreatedInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -6620,6 +7640,9 @@ export type UserUncheckedCreateWithoutJobTodosCreatedInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -6681,6 +7704,9 @@ export type UserUpdateWithoutJobTodosCompletedInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -6726,6 +7752,9 @@ export type UserUncheckedUpdateWithoutJobTodosCompletedInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -6782,6 +7811,9 @@ export type UserUpdateWithoutJobTodosCreatedInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -6827,6 +7859,9 @@ export type UserUncheckedUpdateWithoutJobTodosCreatedInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -6872,6 +7907,9 @@ export type UserCreateWithoutJobTodoAssignmentsInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -6917,6 +7955,9 @@ export type UserUncheckedCreateWithoutJobTodoAssignmentsInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -6978,6 +8019,9 @@ export type UserUpdateWithoutJobTodoAssignmentsInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -7023,6 +8067,9 @@ export type UserUncheckedUpdateWithoutJobTodoAssignmentsInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -7068,6 +8115,9 @@ export type UserCreateWithoutJobChatMessagesInput = {
   tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
@@ -7113,6 +8163,9 @@ export type UserUncheckedCreateWithoutJobChatMessagesInput = {
   tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
@@ -7174,6 +8227,9 @@ export type UserUpdateWithoutJobChatMessagesInput = {
   tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
@@ -7219,6 +8275,9 @@ export type UserUncheckedUpdateWithoutJobChatMessagesInput = {
   tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -7257,6 +8316,9 @@ export type UserCountOutputType = {
   tasksCreated: number
   notifications: number
   sessions: number
+  mobileSessions: number
+  mobileChallenges: number
+  mobileTrustedDevices: number
   memberships: number
   assignedLeads: number
   ingestKeys: number
@@ -7291,6 +8353,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   tasksCreated?: boolean | UserCountOutputTypeCountTasksCreatedArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+  mobileSessions?: boolean | UserCountOutputTypeCountMobileSessionsArgs
+  mobileChallenges?: boolean | UserCountOutputTypeCountMobileChallengesArgs
+  mobileTrustedDevices?: boolean | UserCountOutputTypeCountMobileTrustedDevicesArgs
   memberships?: boolean | UserCountOutputTypeCountMembershipsArgs
   assignedLeads?: boolean | UserCountOutputTypeCountAssignedLeadsArgs
   ingestKeys?: boolean | UserCountOutputTypeCountIngestKeysArgs
@@ -7374,6 +8439,27 @@ export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Ty
  */
 export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SessionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMobileSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MobileSessionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMobileChallengesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MobileChallengeWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMobileTrustedDevicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MobileTrustedDeviceWhereInput
 }
 
 /**
@@ -7565,6 +8651,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   tasksCreated?: boolean | Prisma.User$tasksCreatedArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  mobileSessions?: boolean | Prisma.User$mobileSessionsArgs<ExtArgs>
+  mobileChallenges?: boolean | Prisma.User$mobileChallengesArgs<ExtArgs>
+  mobileTrustedDevices?: boolean | Prisma.User$mobileTrustedDevicesArgs<ExtArgs>
   memberships?: boolean | Prisma.User$membershipsArgs<ExtArgs>
   assignedLeads?: boolean | Prisma.User$assignedLeadsArgs<ExtArgs>
   ingestKeys?: boolean | Prisma.User$ingestKeysArgs<ExtArgs>
@@ -7646,6 +8735,9 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   tasksCreated?: boolean | Prisma.User$tasksCreatedArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  mobileSessions?: boolean | Prisma.User$mobileSessionsArgs<ExtArgs>
+  mobileChallenges?: boolean | Prisma.User$mobileChallengesArgs<ExtArgs>
+  mobileTrustedDevices?: boolean | Prisma.User$mobileTrustedDevicesArgs<ExtArgs>
   memberships?: boolean | Prisma.User$membershipsArgs<ExtArgs>
   assignedLeads?: boolean | Prisma.User$assignedLeadsArgs<ExtArgs>
   ingestKeys?: boolean | Prisma.User$ingestKeysArgs<ExtArgs>
@@ -7685,6 +8777,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     tasksCreated: Prisma.$TaskPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
+    mobileSessions: Prisma.$MobileSessionPayload<ExtArgs>[]
+    mobileChallenges: Prisma.$MobileChallengePayload<ExtArgs>[]
+    mobileTrustedDevices: Prisma.$MobileTrustedDevicePayload<ExtArgs>[]
     memberships: Prisma.$MembershipPayload<ExtArgs>[]
     assignedLeads: Prisma.$LeadPayload<ExtArgs>[]
     ingestKeys: Prisma.$IngestKeyPayload<ExtArgs>[]
@@ -8124,6 +9219,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   tasksCreated<T extends Prisma.User$tasksCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tasksCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  mobileSessions<T extends Prisma.User$mobileSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$mobileSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MobileSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  mobileChallenges<T extends Prisma.User$mobileChallengesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$mobileChallengesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MobileChallengePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  mobileTrustedDevices<T extends Prisma.User$mobileTrustedDevicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$mobileTrustedDevicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MobileTrustedDevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   memberships<T extends Prisma.User$membershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assignedLeads<T extends Prisma.User$assignedLeadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedLeadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ingestKeys<T extends Prisma.User$ingestKeysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ingestKeysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IngestKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -8747,6 +9845,78 @@ export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
+}
+
+/**
+ * User.mobileSessions
+ */
+export type User$mobileSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MobileSession
+   */
+  select?: Prisma.MobileSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MobileSession
+   */
+  omit?: Prisma.MobileSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MobileSessionInclude<ExtArgs> | null
+  where?: Prisma.MobileSessionWhereInput
+  orderBy?: Prisma.MobileSessionOrderByWithRelationInput | Prisma.MobileSessionOrderByWithRelationInput[]
+  cursor?: Prisma.MobileSessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MobileSessionScalarFieldEnum | Prisma.MobileSessionScalarFieldEnum[]
+}
+
+/**
+ * User.mobileChallenges
+ */
+export type User$mobileChallengesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MobileChallenge
+   */
+  select?: Prisma.MobileChallengeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MobileChallenge
+   */
+  omit?: Prisma.MobileChallengeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MobileChallengeInclude<ExtArgs> | null
+  where?: Prisma.MobileChallengeWhereInput
+  orderBy?: Prisma.MobileChallengeOrderByWithRelationInput | Prisma.MobileChallengeOrderByWithRelationInput[]
+  cursor?: Prisma.MobileChallengeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MobileChallengeScalarFieldEnum | Prisma.MobileChallengeScalarFieldEnum[]
+}
+
+/**
+ * User.mobileTrustedDevices
+ */
+export type User$mobileTrustedDevicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MobileTrustedDevice
+   */
+  select?: Prisma.MobileTrustedDeviceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MobileTrustedDevice
+   */
+  omit?: Prisma.MobileTrustedDeviceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MobileTrustedDeviceInclude<ExtArgs> | null
+  where?: Prisma.MobileTrustedDeviceWhereInput
+  orderBy?: Prisma.MobileTrustedDeviceOrderByWithRelationInput | Prisma.MobileTrustedDeviceOrderByWithRelationInput[]
+  cursor?: Prisma.MobileTrustedDeviceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MobileTrustedDeviceScalarFieldEnum | Prisma.MobileTrustedDeviceScalarFieldEnum[]
 }
 
 /**

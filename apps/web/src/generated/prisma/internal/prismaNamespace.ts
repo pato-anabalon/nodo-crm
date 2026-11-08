@@ -401,6 +401,10 @@ export const ModelName = {
   CompanyQuoteType: 'CompanyQuoteType',
   User: 'User',
   Membership: 'Membership',
+  MobileSession: 'MobileSession',
+  MobileChallenge: 'MobileChallenge',
+  MobileTrustedDevice: 'MobileTrustedDevice',
+  MobileLoginFailure: 'MobileLoginFailure',
   LoginAttempt: 'LoginAttempt',
   Role: 'Role',
   Permission: 'Permission',
@@ -474,7 +478,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "leadSourceOption" | "leadAccessLog" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteRecipient" | "signatureHandoff" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem" | "job" | "jobMember" | "jobActivity" | "jobFolder" | "jobFile" | "jobPostCategory" | "jobPost" | "jobComment" | "jobEvent" | "jobEventParticipant" | "jobTodoList" | "jobTodo" | "jobTodoAssignee" | "trade" | "membershipTrade" | "jobChatMessage" | "jobScopeItem"
+    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "mobileSession" | "mobileChallenge" | "mobileTrustedDevice" | "mobileLoginFailure" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "leadSourceOption" | "leadAccessLog" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteRecipient" | "signatureHandoff" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem" | "job" | "jobMember" | "jobActivity" | "jobFolder" | "jobFile" | "jobPostCategory" | "jobPost" | "jobComment" | "jobEvent" | "jobEventParticipant" | "jobTodoList" | "jobTodo" | "jobTodoAssignee" | "trade" | "membershipTrade" | "jobChatMessage" | "jobScopeItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -771,6 +775,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.MembershipCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.MembershipCountAggregateOutputType> | number
+        }
+      }
+    }
+    MobileSession: {
+      payload: Prisma.$MobileSessionPayload<ExtArgs>
+      fields: Prisma.MobileSessionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MobileSessionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileSessionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MobileSessionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileSessionPayload>
+        }
+        findFirst: {
+          args: Prisma.MobileSessionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileSessionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MobileSessionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileSessionPayload>
+        }
+        findMany: {
+          args: Prisma.MobileSessionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileSessionPayload>[]
+        }
+        create: {
+          args: Prisma.MobileSessionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileSessionPayload>
+        }
+        createMany: {
+          args: Prisma.MobileSessionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MobileSessionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileSessionPayload>[]
+        }
+        delete: {
+          args: Prisma.MobileSessionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileSessionPayload>
+        }
+        update: {
+          args: Prisma.MobileSessionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileSessionPayload>
+        }
+        deleteMany: {
+          args: Prisma.MobileSessionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MobileSessionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MobileSessionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileSessionPayload>[]
+        }
+        upsert: {
+          args: Prisma.MobileSessionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileSessionPayload>
+        }
+        aggregate: {
+          args: Prisma.MobileSessionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMobileSession>
+        }
+        groupBy: {
+          args: Prisma.MobileSessionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MobileSessionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MobileSessionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MobileSessionCountAggregateOutputType> | number
+        }
+      }
+    }
+    MobileChallenge: {
+      payload: Prisma.$MobileChallengePayload<ExtArgs>
+      fields: Prisma.MobileChallengeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MobileChallengeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileChallengePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MobileChallengeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileChallengePayload>
+        }
+        findFirst: {
+          args: Prisma.MobileChallengeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileChallengePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MobileChallengeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileChallengePayload>
+        }
+        findMany: {
+          args: Prisma.MobileChallengeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileChallengePayload>[]
+        }
+        create: {
+          args: Prisma.MobileChallengeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileChallengePayload>
+        }
+        createMany: {
+          args: Prisma.MobileChallengeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MobileChallengeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileChallengePayload>[]
+        }
+        delete: {
+          args: Prisma.MobileChallengeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileChallengePayload>
+        }
+        update: {
+          args: Prisma.MobileChallengeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileChallengePayload>
+        }
+        deleteMany: {
+          args: Prisma.MobileChallengeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MobileChallengeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MobileChallengeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileChallengePayload>[]
+        }
+        upsert: {
+          args: Prisma.MobileChallengeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileChallengePayload>
+        }
+        aggregate: {
+          args: Prisma.MobileChallengeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMobileChallenge>
+        }
+        groupBy: {
+          args: Prisma.MobileChallengeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MobileChallengeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MobileChallengeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MobileChallengeCountAggregateOutputType> | number
+        }
+      }
+    }
+    MobileTrustedDevice: {
+      payload: Prisma.$MobileTrustedDevicePayload<ExtArgs>
+      fields: Prisma.MobileTrustedDeviceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MobileTrustedDeviceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileTrustedDevicePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MobileTrustedDeviceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileTrustedDevicePayload>
+        }
+        findFirst: {
+          args: Prisma.MobileTrustedDeviceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileTrustedDevicePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MobileTrustedDeviceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileTrustedDevicePayload>
+        }
+        findMany: {
+          args: Prisma.MobileTrustedDeviceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileTrustedDevicePayload>[]
+        }
+        create: {
+          args: Prisma.MobileTrustedDeviceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileTrustedDevicePayload>
+        }
+        createMany: {
+          args: Prisma.MobileTrustedDeviceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MobileTrustedDeviceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileTrustedDevicePayload>[]
+        }
+        delete: {
+          args: Prisma.MobileTrustedDeviceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileTrustedDevicePayload>
+        }
+        update: {
+          args: Prisma.MobileTrustedDeviceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileTrustedDevicePayload>
+        }
+        deleteMany: {
+          args: Prisma.MobileTrustedDeviceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MobileTrustedDeviceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MobileTrustedDeviceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileTrustedDevicePayload>[]
+        }
+        upsert: {
+          args: Prisma.MobileTrustedDeviceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileTrustedDevicePayload>
+        }
+        aggregate: {
+          args: Prisma.MobileTrustedDeviceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMobileTrustedDevice>
+        }
+        groupBy: {
+          args: Prisma.MobileTrustedDeviceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MobileTrustedDeviceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MobileTrustedDeviceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MobileTrustedDeviceCountAggregateOutputType> | number
+        }
+      }
+    }
+    MobileLoginFailure: {
+      payload: Prisma.$MobileLoginFailurePayload<ExtArgs>
+      fields: Prisma.MobileLoginFailureFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MobileLoginFailureFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileLoginFailurePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MobileLoginFailureFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileLoginFailurePayload>
+        }
+        findFirst: {
+          args: Prisma.MobileLoginFailureFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileLoginFailurePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MobileLoginFailureFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileLoginFailurePayload>
+        }
+        findMany: {
+          args: Prisma.MobileLoginFailureFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileLoginFailurePayload>[]
+        }
+        create: {
+          args: Prisma.MobileLoginFailureCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileLoginFailurePayload>
+        }
+        createMany: {
+          args: Prisma.MobileLoginFailureCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MobileLoginFailureCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileLoginFailurePayload>[]
+        }
+        delete: {
+          args: Prisma.MobileLoginFailureDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileLoginFailurePayload>
+        }
+        update: {
+          args: Prisma.MobileLoginFailureUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileLoginFailurePayload>
+        }
+        deleteMany: {
+          args: Prisma.MobileLoginFailureDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MobileLoginFailureUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MobileLoginFailureUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileLoginFailurePayload>[]
+        }
+        upsert: {
+          args: Prisma.MobileLoginFailureUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MobileLoginFailurePayload>
+        }
+        aggregate: {
+          args: Prisma.MobileLoginFailureAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMobileLoginFailure>
+        }
+        groupBy: {
+          args: Prisma.MobileLoginFailureGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MobileLoginFailureGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MobileLoginFailureCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MobileLoginFailureCountAggregateOutputType> | number
         }
       }
     }
@@ -5205,6 +5505,58 @@ export const MembershipScalarFieldEnum = {
 export type MembershipScalarFieldEnum = (typeof MembershipScalarFieldEnum)[keyof typeof MembershipScalarFieldEnum]
 
 
+export const MobileSessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tokenHash: 'tokenHash',
+  deviceIdHash: 'deviceIdHash',
+  deviceName: 'deviceName',
+  platform: 'platform',
+  createdAt: 'createdAt',
+  lastUsedAt: 'lastUsedAt',
+  expiresAt: 'expiresAt',
+  revokedAt: 'revokedAt'
+} as const
+
+export type MobileSessionScalarFieldEnum = (typeof MobileSessionScalarFieldEnum)[keyof typeof MobileSessionScalarFieldEnum]
+
+
+export const MobileChallengeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  codeHash: 'codeHash',
+  deviceIdHash: 'deviceIdHash',
+  ipAddress: 'ipAddress',
+  attempts: 'attempts',
+  expiresAt: 'expiresAt',
+  consumedAt: 'consumedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type MobileChallengeScalarFieldEnum = (typeof MobileChallengeScalarFieldEnum)[keyof typeof MobileChallengeScalarFieldEnum]
+
+
+export const MobileTrustedDeviceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  deviceIdHash: 'deviceIdHash',
+  trustedUntil: 'trustedUntil',
+  createdAt: 'createdAt'
+} as const
+
+export type MobileTrustedDeviceScalarFieldEnum = (typeof MobileTrustedDeviceScalarFieldEnum)[keyof typeof MobileTrustedDeviceScalarFieldEnum]
+
+
+export const MobileLoginFailureScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  ipAddress: 'ipAddress',
+  createdAt: 'createdAt'
+} as const
+
+export type MobileLoginFailureScalarFieldEnum = (typeof MobileLoginFailureScalarFieldEnum)[keyof typeof MobileLoginFailureScalarFieldEnum]
+
+
 export const LoginAttemptScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
@@ -6811,6 +7163,10 @@ export type GlobalOmitConfig = {
   companyQuoteType?: Prisma.CompanyQuoteTypeOmit
   user?: Prisma.UserOmit
   membership?: Prisma.MembershipOmit
+  mobileSession?: Prisma.MobileSessionOmit
+  mobileChallenge?: Prisma.MobileChallengeOmit
+  mobileTrustedDevice?: Prisma.MobileTrustedDeviceOmit
+  mobileLoginFailure?: Prisma.MobileLoginFailureOmit
   loginAttempt?: Prisma.LoginAttemptOmit
   role?: Prisma.RoleOmit
   permission?: Prisma.PermissionOmit

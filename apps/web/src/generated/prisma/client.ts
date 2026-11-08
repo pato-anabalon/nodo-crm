@@ -71,14 +71,28 @@ export type User = Prisma.UserModel
  */
 export type Membership = Prisma.MembershipModel
 /**
+ * Model MobileSession
+ * One signed-in phone. Only the token's hash is stored, like every other token here.
+ */
+export type MobileSession = Prisma.MobileSessionModel
+/**
+ * Model MobileChallenge
+ * A one-time code emailed after a correct password, the second factor.
+ */
+export type MobileChallenge = Prisma.MobileChallengeModel
+/**
+ * Model MobileTrustedDevice
+ * "Trust this device": a code once a month rather than every morning.
+ */
+export type MobileTrustedDevice = Prisma.MobileTrustedDeviceModel
+/**
+ * Model MobileLoginFailure
+ * A wrong password from the app. Counted by email and by IP to slow guessing.
+ */
+export type MobileLoginFailure = Prisma.MobileLoginFailureModel
+/**
  * Model LoginAttempt
- * *
- *  * One row per magic-link request, kept only to rate-limit by IP.
- *  * The limit is deliberately global — not scoped per company the way the
- *  * ingest API's is — because what it protects is Resend's own account-wide
- *  * daily send cap, shared across every company on this instance. An attacker
- *  * spreading requests across several companies' subdomains would slip under
- *  * a per-company limit while still running the shared quota down.
+ * 
  */
 export type LoginAttempt = Prisma.LoginAttemptModel
 /**

@@ -355,7 +355,9 @@
     "max": "Máximo {max}",
     "writeSomething": "Escribe algo",
     "maxChars": "Máximo {max} caracteres",
-    "invalidDate": "Ingresa una fecha válida"
+    "invalidDate": "Ingresa una fecha válida",
+    "invalidCode": "Escribe el código de seis dígitos",
+    "invalid": "Este valor no es válido"
   },
   "roles": {
     "OWNER": {
@@ -2843,5 +2845,13 @@
     "deleteTitle": "¿Eliminar {name}?",
     "deleteBody": "{count, plural, =0 {Ningún mensaje la usa.} one {El mensaje que la usa se queda, sin categoría.} other {Los # mensajes que la usan se quedan, sin categoría.}}",
     "delete": "Eliminar"
+  },
+  "mobile": {
+    "code": {
+      "subject": "{code} es tu código para entrar a Nodo",
+      "heading": "Tu código para entrar",
+      "line1": "Escribe {code} en la app de Nodo para terminar de entrar.",
+      "line2": "Vence en {minutes} minutos. Si no fuiste tú, alguien conoce tu contraseña: avísale al administrador de tu empresa."
+    }
   }
 }

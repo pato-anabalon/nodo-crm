@@ -355,7 +355,9 @@
     "max": "Maximum {max}",
     "writeSomething": "Write something",
     "maxChars": "Maximum {max} characters",
-    "invalidDate": "Enter a valid date"
+    "invalidDate": "Enter a valid date",
+    "invalidCode": "Enter the six-digit code",
+    "invalid": "This value isn't valid"
   },
   "roles": {
     "OWNER": {
@@ -2843,5 +2845,13 @@
     "deleteTitle": "Remove {name}?",
     "deleteBody": "{count, plural, =0 {No post uses it.} one {The post that uses it stays, without a category.} other {The # posts that use it stay, without a category.}}",
     "delete": "Remove"
+  },
+  "mobile": {
+    "code": {
+      "subject": "{code} is your Nodo sign-in code",
+      "heading": "Your sign-in code",
+      "line1": "Enter {code} in the Nodo app to finish signing in.",
+      "line2": "It expires in {minutes} minutes. If you didn't try to sign in, somebody knows your password: tell your company's administrator."
+    }
   }
 }

@@ -499,12 +499,15 @@ model User {
   updatedAt     DateTime  @updatedAt
 
   accounts                Account[]
-  tasksAssigned           Task[]           @relation("TaskAssignee")
+  tasksAssigned           Task[]                @relation("TaskAssignee")
   leadAccessLogs          LeadAccessLog[]
-  leadAttachmentsUploaded LeadAttachment[] @relation("LeadAttachmentUploader")
-  tasksCreated            Task[]           @relation("TaskCreatedBy")
+  leadAttachmentsUploaded LeadAttachment[]      @relation("LeadAttachmentUploader")
+  tasksCreated            Task[]                @relation("TaskCreatedBy")
   notifications           Notification[]
   sessions                Session[]
+  mobileSessions          MobileSession[]
+  mobileChallenges        MobileChallenge[]
+  mobileTrustedDevices    MobileTrustedDevice[]
   memberships             Membership[]
 
   assignedLeads           Lead[]                   @relation("LeadOwner")
@@ -559,6 +562,75 @@ model Membership {
  * spreading requests across several companies' subdomains would slip under
  * a per-company limit while still running the shared quota down.
  */
+// ---------------------------------------------------------------------------
+// The mobile app's own sign-in. A phone has no subdomain and no cookie, so it
+// carries a bearer token and names the company in a header on every request.
+// All four belong to a person, not a company: one token reaches every company
+// the person is an active member of, and membership is still checked per request.
+// ---------------------------------------------------------------------------
+
+/// One signed-in phone. Only the token's hash is stored, like every other token here.
+model MobileSession {
+  id           String    @id @default(cuid())
+  userId       String
+  tokenHash    String    @unique
+  /// The app's own random id for the install, hashed. Ties a session to a device.
+  deviceIdHash String
+  deviceName   String?
+  platform     String
+  createdAt    DateTime  @default(now())
+  lastUsedAt   DateTime  @default(now())
+  /// Slides forward while the phone is in use; a phone left in a drawer runs out.
+  expiresAt    DateTime
+  revokedAt    DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+/// A one-time code emailed after a correct password, the second factor.
+model MobileChallenge {
+  id           String    @id @default(cuid())
+  userId       String
+  /// HMAC of the code with the challenge id, keyed by AUTH_SECRET.
+  codeHash     String
+  deviceIdHash String
+  ipAddress    String?
+  attempts     Int       @default(0)
+  expiresAt    DateTime
+  consumedAt   DateTime?
+  createdAt    DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+/// "Trust this device": a code once a month rather than every morning.
+model MobileTrustedDevice {
+  id           String   @id @default(cuid())
+  userId       String
+  deviceIdHash String
+  trustedUntil DateTime
+  createdAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, deviceIdHash])
+}
+
+/// A wrong password from the app. Counted by email and by IP to slow guessing.
+model MobileLoginFailure {
+  id        String   @id @default(cuid())
+  email     String
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  @@index([email, createdAt])
+  @@index([ipAddress, createdAt])
+}
+
 model LoginAttempt {
   id        String   @id @default(cuid())
   companyId String

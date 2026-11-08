@@ -14,13 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model LoginAttempt
- * *
- *  * One row per magic-link request, kept only to rate-limit by IP.
- *  * The limit is deliberately global — not scoped per company the way the
- *  * ingest API's is — because what it protects is Resend's own account-wide
- *  * daily send cap, shared across every company on this instance. An attacker
- *  * spreading requests across several companies' subdomains would slip under
- *  * a per-company limit while still running the shared quota down.
+ * 
  */
 export type LoginAttemptModel = runtime.Types.Result.DefaultSelection<Prisma.$LoginAttemptPayload>
 

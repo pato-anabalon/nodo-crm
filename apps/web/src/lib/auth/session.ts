@@ -80,7 +80,15 @@ export const getCompanyContext = cache(async (): Promise<CompanyContext | null> 
 
   const userId = session?.user?.id;
   if (!userId || !slug) return null;
+  return buildCompanyContext(userId, slug);
+});
 
+/**
+ * The context for one person in one company, however they proved who they are —
+ * the web's cookie and subdomain, or the app's bearer token and header. Both
+ * doors end here, so this stays the one place that works out membership.
+ */
+export async function buildCompanyContext(userId: string, slug: string): Promise<CompanyContext | null> {
   // A deliberately cross-company query: this is the one place where we work out
   // which company the user belongs to. From here on everything goes through `db`.
   const membership = await prisma.membership.findFirst({
@@ -141,7 +149,28 @@ export const getCompanyContext = cache(async (): Promise<CompanyContext | null> 
     permissions,
     db: forCompany(company.id),
   };
-});
+}
+
+export type CompanyChoice = {
+  slug: string;
+  name: string;
+  logoUrl: string | null;
+  primaryColor: string;
+};
+
+/**
+ * Every company this person may work in right now — what the app offers to
+ * choose from after signing in. Same two conditions as `buildCompanyContext`:
+ * an active membership in a company that is switched on.
+ */
+export async function activeCompaniesFor(userId: string): Promise<CompanyChoice[]> {
+  const memberships = await prisma.membership.findMany({
+    where: { userId, status: MembershipStatus.ACTIVE, company: { isActive: true } },
+    select: { company: { select: { slug: true, name: true, logoUrl: true, primaryColor: true } } },
+    orderBy: { company: { name: "asc" } },
+  });
+  return memberships.map((membership) => membership.company);
+}
 
 /** For pages and server actions: guarantees session + membership, or redirects. */
 export async function requireCompanyContext(): Promise<CompanyContext> {
@@ -162,7 +191,7 @@ export function can(ctx: CompanyContext, permission: Permission): boolean {
 
 export class ForbiddenError extends Error {
   constructor(public readonly permission: Permission) {
-    super(`Falta el permiso ${permission}`);
+    super(`Missing permission ${permission}`);
     this.name = "ForbiddenError";
   }
 }

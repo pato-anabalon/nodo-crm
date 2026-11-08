@@ -91,6 +91,11 @@ export const GLOBAL_MODELS = new Set([
   "Account",
   "Session",
   "VerificationToken",
+  // The mobile app's sign-in belongs to the person; membership is checked per request.
+  "MobileSession",
+  "MobileChallenge",
+  "MobileTrustedDevice",
+  "MobileLoginFailure",
 ]);
 
 /** Operations whose `where` decides which rows are affected. */

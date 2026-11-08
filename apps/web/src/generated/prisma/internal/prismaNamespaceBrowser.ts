@@ -55,6 +55,10 @@ export const ModelName = {
   CompanyQuoteType: 'CompanyQuoteType',
   User: 'User',
   Membership: 'Membership',
+  MobileSession: 'MobileSession',
+  MobileChallenge: 'MobileChallenge',
+  MobileTrustedDevice: 'MobileTrustedDevice',
+  MobileLoginFailure: 'MobileLoginFailure',
   LoginAttempt: 'LoginAttempt',
   Role: 'Role',
   Permission: 'Permission',
@@ -229,6 +233,58 @@ export const MembershipScalarFieldEnum = {
 } as const
 
 export type MembershipScalarFieldEnum = (typeof MembershipScalarFieldEnum)[keyof typeof MembershipScalarFieldEnum]
+
+
+export const MobileSessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tokenHash: 'tokenHash',
+  deviceIdHash: 'deviceIdHash',
+  deviceName: 'deviceName',
+  platform: 'platform',
+  createdAt: 'createdAt',
+  lastUsedAt: 'lastUsedAt',
+  expiresAt: 'expiresAt',
+  revokedAt: 'revokedAt'
+} as const
+
+export type MobileSessionScalarFieldEnum = (typeof MobileSessionScalarFieldEnum)[keyof typeof MobileSessionScalarFieldEnum]
+
+
+export const MobileChallengeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  codeHash: 'codeHash',
+  deviceIdHash: 'deviceIdHash',
+  ipAddress: 'ipAddress',
+  attempts: 'attempts',
+  expiresAt: 'expiresAt',
+  consumedAt: 'consumedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type MobileChallengeScalarFieldEnum = (typeof MobileChallengeScalarFieldEnum)[keyof typeof MobileChallengeScalarFieldEnum]
+
+
+export const MobileTrustedDeviceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  deviceIdHash: 'deviceIdHash',
+  trustedUntil: 'trustedUntil',
+  createdAt: 'createdAt'
+} as const
+
+export type MobileTrustedDeviceScalarFieldEnum = (typeof MobileTrustedDeviceScalarFieldEnum)[keyof typeof MobileTrustedDeviceScalarFieldEnum]
+
+
+export const MobileLoginFailureScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  ipAddress: 'ipAddress',
+  createdAt: 'createdAt'
+} as const
+
+export type MobileLoginFailureScalarFieldEnum = (typeof MobileLoginFailureScalarFieldEnum)[keyof typeof MobileLoginFailureScalarFieldEnum]
 
 
 export const LoginAttemptScalarFieldEnum = {

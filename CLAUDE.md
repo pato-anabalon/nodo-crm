@@ -1028,10 +1028,44 @@ this company?". Layers 4 and 5 brought two more actors on stage:
 | `requireCompanyContext()` | the company's team | session + membership + profile permissions |
 | `resolveShare(token)` | the end customer, with no account | view and reply to **one** quote |
 | `authenticateKey(token, origin)` | the web form | create a lead, nothing else |
+| `mobileRoute(…)` | the team, from the phone app | the same as the first, through a bearer token |
 
 All three lead into the same `ctx.db` bounded by company. Isolation isn't
 reinvented for the new actors: what changes is who comes in, not how it is
 filtered.
+
+## The app's sign-in
+
+A phone has no subdomain and no cookie, so the app sends
+`Authorization: Bearer nodo_mt_…` and names the company in `X-Nodo-Company:
+<slug>` on every request, to `/api/m/v1/…` on the root domain. The token says
+who; the header says where, and **membership is checked per request by the same
+`buildCompanyContext` the web goes through** — so `session.ts` is still the one
+place that works out which company somebody belongs to. One token reaches every
+company the person is an active member of; `GET /companies` is what to choose from.
+
+- **Every handler is built by `mobileRoute`, `mobileUserRoute` or
+  `mobilePublicRoute`** (`modules/mobile/route.ts`), and `route-coverage.test.ts`
+  reads `app/api/m` and fails on one written by hand: it would skip the bearer
+  check and work perfectly in every test that sends a valid token.
+- **Errors are codes, never sentences** — `{ error: "invalid_credentials" }`,
+  `403 no_access`, `409 job_closed`, and field errors as the same `validation.*`
+  keys the web's schemas emit. The app carries `@nodo/messages` and translates
+  them; signing in, the server doesn't know the person's language yet.
+- **A password, then a code by email**, unless this phone was trusted in the
+  last 30 days. Six digits, ten minutes, five tries, three codes per quarter
+  hour — Resend's free plan is 100 emails a day for everything. The code is an
+  HMAC keyed by `AUTH_SECRET` and salted with the challenge, and is good only on
+  the phone that asked for it. Locally, with no Resend key, it is printed to the
+  terminal.
+- **No session and no code without an active membership** in a company that is
+  on. Wrong passwords are counted by email and by IP (`MobileLoginFailure`); an
+  unknown email is compared against a decoy hash so it takes as long to refuse.
+- **Only hashes are stored**, of the token and of the app's device id. A
+  session lasts 90 days and slides forward at most once a day of use; signing
+  out revokes this phone and no other.
+- The four tables belong to the person, not a company, so they are
+  `GLOBAL_MODELS`.
 
 ## Lead ingestion API
 

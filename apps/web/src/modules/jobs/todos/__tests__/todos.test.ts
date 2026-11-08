@@ -1,6 +1,6 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { isOverdue, isPermutationOf, newlyAssigned, progressOf } from "../rules";
+import { isOverdue, isPermutationOf, newlyAssigned, progressOf } from "@nodo/core/jobs/todos/rules";
 import { orderSchema, todoListSchema, todoSchema } from "../schemas";
 import { todoDatesLabel } from "../view";
 import { commentHref, commentSubject, subjectPath, subjectReadPermission } from "../../comments/subject";

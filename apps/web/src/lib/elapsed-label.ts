@@ -1,4 +1,4 @@
-import { elapsed } from "./relative-time";
+import { elapsed } from "@nodo/core/relative-time";
 import { formatDate } from "./format";
 
 /**

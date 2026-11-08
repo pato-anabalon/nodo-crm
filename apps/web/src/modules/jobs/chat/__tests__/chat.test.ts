@@ -1,7 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { chatBody } from "../schemas";
-import { chatExcerpt, chatSegments, mentionedIn, mentionQuery, MAX_CHAT_LENGTH } from "../text";
+import { chatExcerpt, chatSegments, mentionedIn, mentionQuery, MAX_CHAT_LENGTH } from "@nodo/core/jobs/chat/text";
 
 const ana = { id: "u1", name: "Ana" };
 const anaMaria = { id: "u2", name: "Ana María" };

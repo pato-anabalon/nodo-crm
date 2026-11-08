@@ -1,4 +1,4 @@
-import { PDF_THUMBNAIL_WIDTH } from "../files";
+import { PDF_THUMBNAIL_WIDTH } from "@nodo/core/jobs/files";
 
 /**
  * The first page of a PDF as a WebP, drawn in the browser at upload — the

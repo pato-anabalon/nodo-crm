@@ -25,13 +25,13 @@ import {
 import { dayKey } from "@/modules/jobs/schemas";
 import { activityFileIds, activityHref, dateRange, dayIn, groupByDay } from "@/modules/jobs/timeline";
 import { filesByIds, filesSummary } from "@/modules/jobs/files-service";
-import { extensionOf, kindOfContentType } from "@/modules/jobs/files";
+import { extensionOf, kindOfContentType } from "@nodo/core/jobs/files";
 import { DocumentTile, FolderGlyph } from "@/modules/jobs/docs/document-tile";
 import { latestPosts } from "@/modules/jobs/board/service";
 import { todosSummary } from "@/modules/jobs/todos/service";
 import { upcomingEvents } from "@/modules/jobs/schedule/service";
 import { chatSummary } from "@/modules/jobs/chat/service";
-import { chatExcerpt } from "@/modules/jobs/chat/text";
+import { chatExcerpt } from "@nodo/core/jobs/chat/text";
 import { scheduleFormatters } from "@/modules/jobs/schedule/view";
 import { postCategoryName } from "@/modules/jobs/categories";
 import { personName } from "@/modules/jobs/avatars";

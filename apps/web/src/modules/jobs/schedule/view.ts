@@ -1,5 +1,5 @@
 import { dayKey } from "../schemas";
-import type { Span } from "./calendar";
+import type { Span } from "@nodo/core/jobs/schedule/calendar";
 
 /** One thing on a calendar day: an event, a milestone, or a to-do falling due. */
 export type CalendarItem = Span & {

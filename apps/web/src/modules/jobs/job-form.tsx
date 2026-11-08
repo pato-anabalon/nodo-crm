@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useActionToast } from "@/lib/use-action-toast";
 import type { JobActionState } from "./actions";
-import { JOB_COLOURS } from "./colours";
+import { JOB_COLOURS } from "@nodo/core/jobs/colours";
 
 export type JobFormDefaults = {
   name?: string;

@@ -55,7 +55,7 @@ import { QuoteReuseCard } from "@/modules/quote-templates/quote-actions";
 import { isQuoteEditable, QUOTE_STATUS_CLASS } from "@/modules/quotes/constants";
 import { taxIsInTotal } from "@/modules/quotes/totals";
 import { HiddenAmount } from "@/modules/quotes/hidden-amount";
-import { currencyOptions } from "@/lib/intl/options";
+import { currencyOptions } from "@nodo/core/intl/options";
 import { EmailTemplateKind, MessageAuthor, PricingMode, QuoteStatus } from "@/generated/prisma/enums";
 import { Celebrate } from "@/components/celebrate";
 import { acceptedKey } from "@/lib/celebrate";

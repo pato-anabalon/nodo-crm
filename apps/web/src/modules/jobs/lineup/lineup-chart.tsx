@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import type { JobActionState } from "../actions";
-import { barInWindow, daysBetween, shiftDates } from "../schedule/calendar";
+import { barInWindow, daysBetween, shiftDates } from "@nodo/core/jobs/schedule/calendar";
 
 /**
  * The narrowest a day is drawn, in pixels. Twelve weeks are then a little over

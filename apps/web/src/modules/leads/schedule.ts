@@ -1,6 +1,6 @@
 import type { CompanyContext } from "@/lib/auth/session";
 import { ActivityType } from "@/generated/prisma/enums";
-import { zonedInstant } from "@/lib/zoned-time";
+import { zonedInstant } from "@nodo/core/zoned-time";
 import { createTask } from "@/modules/tasks/service";
 import { listCompanyMembers } from "@/modules/team/service";
 import type { ScheduleActionValues } from "./schemas";

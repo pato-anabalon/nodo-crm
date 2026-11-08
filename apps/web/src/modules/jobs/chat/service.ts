@@ -1,14 +1,14 @@
 import type { CompanyContext } from "@/lib/auth/session";
 import { JobActivityType, NotificationKind } from "@/generated/prisma/enums";
-import { zonedInstant } from "@/lib/zoned-time";
+import { zonedInstant } from "@nodo/core/zoned-time";
 import { notifyEach } from "@/modules/notifications/inbox";
 import { emailJobNotice } from "../emails";
 import { attachFiles, deleteStored, jobFileSelect, type UploadedFile } from "../files-service";
 import { jobName, recipientsOnJob } from "../recipients";
-import { addDays } from "../schedule/calendar";
+import { addDays } from "@nodo/core/jobs/schedule/calendar";
 import { dayIn } from "../timeline";
 import { personName } from "../avatars";
-import { chatExcerpt, mentionedIn, type Mentionable } from "./text";
+import { chatExcerpt, mentionedIn, type Mentionable } from "@nodo/core/jobs/chat/text";
 
 /**
  * The job's Chat. Messages are written and deleted, never edited — there is

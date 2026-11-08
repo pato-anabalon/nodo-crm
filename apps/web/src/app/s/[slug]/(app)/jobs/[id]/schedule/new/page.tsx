@@ -6,7 +6,7 @@ import { can } from "@/lib/auth/session";
 import { Button } from "@/components/ui/button";
 import { requireJobContext } from "@/modules/jobs/access";
 import { dayIn } from "@/modules/jobs/timeline";
-import { isDay } from "@/modules/jobs/schedule/calendar";
+import { isDay } from "@nodo/core/jobs/schedule/calendar";
 import { createEventAction } from "@/modules/jobs/schedule/actions";
 import { EventForm } from "@/modules/jobs/schedule/event-form";
 import { assignableMembers } from "@/modules/jobs/todos/service";

@@ -1,6 +1,6 @@
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
-import { PERMISSIONS, type Permission } from "@/lib/auth/permissions";
+import { PERMISSIONS, type Permission } from "@nodo/core/auth/permissions";
 import { isJobClosed, isWritePermission, withoutWrites } from "../closing";
 
 describe("isJobClosed", () => {

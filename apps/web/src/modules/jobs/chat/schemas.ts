@@ -1,4 +1,4 @@
-import { MAX_CHAT_LENGTH } from "./text";
+import { MAX_CHAT_LENGTH } from "@nodo/core/jobs/chat/text";
 
 /**
  * A message's text as it is stored: plain, trimmed, and cut at the limit

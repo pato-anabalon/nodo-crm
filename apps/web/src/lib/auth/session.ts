@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/db/prisma";
 import { forCompany, type TenantClient } from "@/lib/db/tenant";
 import { companySlugFromHost, companyUrl } from "@/lib/tenant/host";
-import { isPermission, type Permission } from "./permissions";
+import { isPermission, type Permission } from "@nodo/core/auth/permissions";
 import { languageToLocale, type Locale } from "@/i18n/config";
 import {
   Language,

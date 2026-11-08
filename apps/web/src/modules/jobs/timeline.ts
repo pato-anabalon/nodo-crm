@@ -1,5 +1,5 @@
 import { JobActivityType, JobStatus } from "@/generated/prisma/enums";
-import type { Permission } from "@/lib/auth/permissions";
+import type { Permission } from "@nodo/core/auth/permissions";
 
 /**
  * The job's timeline, as Basecamp lays it out: a heading per day, and between

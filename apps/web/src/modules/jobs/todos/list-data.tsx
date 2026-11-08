@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { can, type CompanyContext } from "@/lib/auth/session";
 import { RichText } from "@/components/rich-text";
 import type { Person } from "../avatars";
-import { jobUploadPrefix } from "../files";
+import { jobUploadPrefix } from "@nodo/core/jobs/files";
 import { dayIn } from "../timeline";
 import { createTodoAction, reorderTodosAction } from "./actions";
 import type { TodoListView } from "./service";

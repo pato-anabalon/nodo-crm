@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { RichText } from "@/components/rich-text";
 import { formatDateTime } from "@/lib/format";
 import { requireJobContext } from "@/modules/jobs/access";
-import { canTouch } from "@/modules/jobs/rules";
+import { canTouch } from "@nodo/core/jobs/rules";
 import { PersonAvatar, personName } from "@/modules/jobs/avatars";
 import { postCategoryName } from "@/modules/jobs/categories";
 import { getPost } from "@/modules/jobs/board/service";

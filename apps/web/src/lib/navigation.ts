@@ -1,4 +1,4 @@
-import type { Permission } from "@/lib/auth/permissions";
+import type { Permission } from "@nodo/core/auth/permissions";
 
 export type NavItem = {
   href: string;

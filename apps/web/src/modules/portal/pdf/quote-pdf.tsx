@@ -20,7 +20,7 @@ import {
   formatMoney,
   formatQuoteNumber,
 } from "@/lib/format";
-import { hexToOklch, inkOn, oklchToHex } from "@/lib/theme/color";
+import { hexToOklch, inkOn, oklchToHex } from "@nodo/core/theme/color";
 import { initials } from "@/components/company-logo";
 import {
   resolveSelectedSectionAmounts,

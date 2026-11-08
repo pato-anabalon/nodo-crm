@@ -45,7 +45,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { NativeSelect } from "@/components/ui/native-select";
 import { ConfirmButton } from "@/components/confirm-button";
-import type { Option } from "@/lib/intl/options";
+import type { Option } from "@nodo/core/intl/options";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   DiscountType,

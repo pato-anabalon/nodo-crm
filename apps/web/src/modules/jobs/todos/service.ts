@@ -7,7 +7,7 @@ import { logJobActivity } from "../service";
 import { jobName, membersAmong, recipientsOnJob } from "../recipients";
 import { addComment, commenters, commentThreadArgs, notifyConversation, type CommentOutcome } from "../comments/service";
 import { commentHref } from "../comments/subject";
-import { isPermutationOf, newlyAssigned } from "./rules";
+import { isPermutationOf, newlyAssigned } from "@nodo/core/jobs/todos/rules";
 import type { TodoListValues, TodoValues } from "./schemas";
 
 /**

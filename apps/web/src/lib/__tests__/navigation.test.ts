@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 
 import { isNavItemActive, NAV_ITEMS, visibleNavItems } from "../navigation";
-import type { Permission } from "../auth/permissions";
+import type { Permission } from "@nodo/core/auth/permissions";
 
 const perms = (...list: Permission[]) => new Set<Permission>(list);
 

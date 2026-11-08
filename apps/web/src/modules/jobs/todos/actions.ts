@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import type { Permission } from "@/lib/auth/permissions";
+import type { Permission } from "@nodo/core/auth/permissions";
 import { can, requireCompanyContext } from "@/lib/auth/session";
 import { translateFieldErrors } from "@/lib/i18n-errors";
 import { requireJobContext } from "../access";

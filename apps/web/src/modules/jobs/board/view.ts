@@ -1,5 +1,5 @@
 import { formatBytes } from "@/modules/documents/constants";
-import { kindOfContentType } from "../files";
+import { kindOfContentType } from "@nodo/core/jobs/files";
 import type { JobFileRow } from "../files-service";
 import type { Attachment } from "./attachments";
 

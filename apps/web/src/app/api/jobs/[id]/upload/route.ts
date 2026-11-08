@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
-import type { Permission } from "@/lib/auth/permissions";
+import type { Permission } from "@nodo/core/auth/permissions";
 import { can, getCompanyContext } from "@/lib/auth/session";
 import { jobAccess } from "@/modules/jobs/access";
-import { jobUploadPrefix, uploadAllowance } from "@/modules/jobs/files";
+import { jobUploadPrefix, uploadAllowance } from "@nodo/core/jobs/files";
 
 const UPLOAD_PERMISSIONS: Permission[] = [
   "files.create",

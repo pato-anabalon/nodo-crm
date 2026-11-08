@@ -1,4 +1,4 @@
-import type messages from "../../../messages/en-GB.json";
+import type messages from "@nodo/messages/en-GB.json";
 
 /**
  * The shapes of the public page's copy, read from the British English file:

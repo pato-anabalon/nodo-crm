@@ -1,6 +1,6 @@
 import { DraftingCompass, File as FileIcon, FileSpreadsheet, FileText, Film, Folder, Presentation } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { FileKind } from "../files";
+import type { FileKind } from "@nodo/core/jobs/files";
 
 /**
  * A file with no picture, told apart by colour: Word blue, Excel green,

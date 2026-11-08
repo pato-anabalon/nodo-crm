@@ -7,7 +7,7 @@ import {
   currencyOptions,
   formatLocaleOptions,
   timezoneOptions,
-} from "@/lib/intl/options";
+} from "@nodo/core/intl/options";
 import {
   AreaField,
   CheckField,

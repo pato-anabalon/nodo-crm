@@ -8,7 +8,7 @@ import { requireJobContext } from "@/modules/jobs/access";
 import { AvatarStack } from "@/modules/jobs/avatars";
 import { dayIn } from "@/modules/jobs/timeline";
 import { dayKey } from "@/modules/jobs/schemas";
-import { addDays, calendarWeeks, isDay, weekStart } from "@/modules/jobs/schedule/calendar";
+import { addDays, calendarWeeks, isDay, weekStart } from "@nodo/core/jobs/schedule/calendar";
 import { eventsBetween, todosDueBetween } from "@/modules/jobs/schedule/service";
 import { calendarItems, eventWhen, scheduleFormatters } from "@/modules/jobs/schedule/view";
 import { CalendarGrid } from "@/modules/jobs/schedule/calendar-grid";

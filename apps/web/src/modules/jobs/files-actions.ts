@@ -6,7 +6,7 @@ import { z } from "zod";
 import { requireCompanyContext } from "@/lib/auth/session";
 import { translateFieldErrors } from "@/lib/i18n-errors";
 import { requireJobContext } from "./access";
-import { canTouch } from "./rules";
+import { canTouch } from "@nodo/core/jobs/rules";
 import type { JobActionState } from "./actions";
 import {
   createFolder,

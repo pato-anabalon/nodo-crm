@@ -1,8 +1,8 @@
 import type { ReactElement } from "react";
 import { render, type RenderOptions } from "@testing-library/react";
 import { NextIntlClientProvider } from "next-intl";
-import enGB from "../../messages/en-GB.json";
-import es from "../../messages/es.json";
+import enGB from "@nodo/messages/en-GB.json";
+import es from "@nodo/messages/es.json";
 import type { Locale } from "@/i18n/config";
 
 const MESSAGES = { "en-GB": enGB, es } as const;

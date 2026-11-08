@@ -14,7 +14,7 @@ import {
   shouldCompress,
   THUMBNAIL_EDGE,
   type FileRule,
-} from "../files";
+} from "@nodo/core/jobs/files";
 import type { UploadedFile } from "../files-service";
 import { pdfThumbnail } from "./pdf-thumbnail";
 

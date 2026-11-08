@@ -1,5 +1,5 @@
 import { RoleKey } from "@/generated/prisma/enums";
-import { ALL_PERMISSIONS, type Permission } from "./permissions";
+import { ALL_PERMISSIONS, type Permission } from "@nodo/core/auth/permissions";
 
 /**
  * Templates for the standard profiles.

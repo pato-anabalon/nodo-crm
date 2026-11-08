@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { CheckSquare, Flag } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { layoutWeek } from "./calendar";
+import { layoutWeek } from "@nodo/core/jobs/schedule/calendar";
 import type { CalendarItem } from "./view";
 
 /**

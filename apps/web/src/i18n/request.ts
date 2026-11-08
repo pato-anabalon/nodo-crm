@@ -8,6 +8,14 @@ import {
   type Locale,
 } from "./config";
 
+// One loader per language rather than a template import: the files live in a
+// workspace package, and a bundler can only see which files to include from a
+// literal path.
+const MESSAGES: Record<Locale, () => Promise<{ default: Record<string, unknown> }>> = {
+  "en-GB": () => import("@nodo/messages/en-GB.json"),
+  es: () => import("@nodo/messages/es.json"),
+};
+
 /**
  * The language isn't in the URL: the CRM is private, needs no SEO, and putting
  * `/en-GB/` in the path would mean touching the subdomain proxy.
@@ -39,7 +47,7 @@ export default getRequestConfig(async ({ locale, requestLocale }) => {
 
   return {
     locale: resolved,
-    messages: (await import(`../../messages/${resolved}.json`)).default,
+    messages: (await MESSAGES[resolved]()).default,
     now: new Date(),
   };
 });

@@ -1,4 +1,4 @@
-import type { Permission } from "@/lib/auth/permissions";
+import type { Permission } from "@nodo/core/auth/permissions";
 
 /**
  * A finished job is read-only. `COMPLETED` is the one status that locks: it is

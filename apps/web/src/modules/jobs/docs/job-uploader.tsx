@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { FileImage, FileText, FileVideo, Loader2, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { JOB_FILE_ACCEPT } from "../files";
+import { JOB_FILE_ACCEPT } from "@nodo/core/jobs/files";
 import type { UploadedFile } from "../files-service";
 import type { JobActionState } from "../actions";
 import { UploadProgress, useUploadQueue } from "./upload-queue";

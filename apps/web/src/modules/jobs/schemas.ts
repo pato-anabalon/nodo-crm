@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { JobStatus } from "@/generated/prisma/enums";
-import { isJobColour } from "./colours";
+import { isJobColour } from "@nodo/core/jobs/colours";
 import { normaliseJobPage, normaliseJobQuery, type JobListShow } from "./search";
 
 const optional = (max: number) =>

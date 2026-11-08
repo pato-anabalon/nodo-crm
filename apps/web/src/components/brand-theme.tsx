@@ -1,4 +1,4 @@
-import { hexToOklch, inkOn } from "@/lib/theme/color";
+import { hexToOklch, inkOn } from "@nodo/core/theme/color";
 
 /**
  * Applies the company's colour over the theme tokens.

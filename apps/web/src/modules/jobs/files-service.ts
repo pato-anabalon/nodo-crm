@@ -1,7 +1,7 @@
 import { del, head } from "@vercel/blob";
 import type { CompanyContext } from "@/lib/auth/session";
 import { JobActivityType } from "@/generated/prisma/enums";
-import { fileRule, isBlobUrlFor, isUnderPrefix, jobUploadPrefix } from "./files";
+import { fileRule, isBlobUrlFor, isUnderPrefix, jobUploadPrefix } from "@nodo/core/jobs/files";
 import { subtreeIds } from "./folders";
 import { logJobActivity } from "./service";
 

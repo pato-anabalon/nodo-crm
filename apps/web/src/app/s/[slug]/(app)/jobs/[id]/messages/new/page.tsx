@@ -6,7 +6,7 @@ import { can } from "@/lib/auth/session";
 import { Button } from "@/components/ui/button";
 import { requireJobContext } from "@/modules/jobs/access";
 import { postCategoryName } from "@/modules/jobs/categories";
-import { jobUploadPrefix } from "@/modules/jobs/files";
+import { jobUploadPrefix } from "@nodo/core/jobs/files";
 import { createPostAction } from "@/modules/jobs/board/actions";
 import { listPostCategories, otherMembers } from "@/modules/jobs/board/service";
 import { PostForm } from "@/modules/jobs/board/post-form";

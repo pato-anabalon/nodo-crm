@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { NativeSelect } from "@/components/ui/native-select";
-import type { Option } from "@/lib/intl/options";
+import type { Option } from "@nodo/core/intl/options";
 
 /**
  * The Lineup's filters: a plain GET form, so a filtered view is a link that

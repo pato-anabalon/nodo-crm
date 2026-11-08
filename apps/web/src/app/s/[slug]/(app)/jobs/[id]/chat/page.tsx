@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { can } from "@/lib/auth/session";
 import { Button } from "@/components/ui/button";
 import { requireJobContext } from "@/modules/jobs/access";
-import { jobUploadPrefix } from "@/modules/jobs/files";
+import { jobUploadPrefix } from "@nodo/core/jobs/files";
 import { chatPage, mentionablePeople } from "@/modules/jobs/chat/service";
 import { chatFeed } from "@/modules/jobs/chat/view";
 import { deleteChatMessageAction, sendChatMessageAction } from "@/modules/jobs/chat/actions";

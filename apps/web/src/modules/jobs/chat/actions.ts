@@ -6,7 +6,7 @@ import { can, requireCompanyContext } from "@/lib/auth/session";
 import { requireJobContext } from "../access";
 import type { JobActionState } from "../actions";
 import { parseUploads } from "../board/schemas";
-import { canTouch } from "../rules";
+import { canTouch } from "@nodo/core/jobs/rules";
 import { chatBody } from "./schemas";
 import { deleteChatMessage, findChatMessage, sendChatMessage } from "./service";
 

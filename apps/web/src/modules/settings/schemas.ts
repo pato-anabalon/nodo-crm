@@ -10,7 +10,7 @@ import {
   isSupportedCurrency,
   isSupportedFormatLocale,
   isSupportedTimezone,
-} from "@/lib/intl/options";
+} from "@nodo/core/intl/options";
 
 const optionalText = (max: number) =>
   z

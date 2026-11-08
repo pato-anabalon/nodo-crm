@@ -1,6 +1,6 @@
 import type { CompanyContext } from "@/lib/auth/session";
 import { InvitationStatus, RoleKey } from "@/generated/prisma/enums";
-import { isPermission, type Permission } from "@/lib/auth/permissions";
+import { isPermission, type Permission } from "@nodo/core/auth/permissions";
 import { isRoleEditable } from "./rules";
 
 /** One profile with the features it currently holds. */

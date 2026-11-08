@@ -3,6 +3,9 @@ import createNextIntlPlugin from "next-intl/plugin";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Workspace packages ship TypeScript source, not a build: Next compiles them
+  // like its own files.
+  transpilePackages: ["@nodo/core"],
   // Next's dev server blocks cross-origin requests to its own assets by
   // default. Needed for the lvh.me trick (see .env.example) that lets
   // cross-subdomain auth — and so `/admin` — be exercised locally over plain

@@ -5,7 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { can } from "@/lib/auth/session";
 import { Button } from "@/components/ui/button";
 import { requireJobContext } from "@/modules/jobs/access";
-import { jobUploadPrefix } from "@/modules/jobs/files";
+import { jobUploadPrefix } from "@nodo/core/jobs/files";
 import { dayKey } from "@/modules/jobs/schemas";
 import { toAttachment } from "@/modules/jobs/board/view";
 import { updateTodoAction } from "@/modules/jobs/todos/actions";

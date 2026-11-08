@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { NativeSelect } from "@/components/ui/native-select";
-import type { Option, OptionGroup } from "@/lib/intl/options";
+import type { Option, OptionGroup } from "@nodo/core/intl/options";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RichTextEditor } from "@/components/rich-text-editor";

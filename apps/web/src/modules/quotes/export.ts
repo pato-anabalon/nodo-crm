@@ -1,4 +1,4 @@
-import { wallClock, zonedInstant } from "@/lib/zoned-time";
+import { wallClock, zonedInstant } from "@nodo/core/zoned-time";
 import { formatQuoteNumber } from "@/lib/format";
 
 /**

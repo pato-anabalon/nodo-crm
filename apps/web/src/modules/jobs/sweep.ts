@@ -3,7 +3,7 @@ import { JobStatus, MembershipStatus, NotificationKind } from "@/generated/prism
 import type { Language } from "@/generated/prisma/enums";
 import { notify } from "@/modules/notifications/inbox";
 import { sendJobEmails } from "./emails";
-import { addDays } from "./schedule/calendar";
+import { addDays } from "@nodo/core/jobs/schedule/calendar";
 import { dayIn } from "./timeline";
 
 type CompanyRow = { id: string; name: string; slug: string; timezone: string; defaultLanguage: Language };

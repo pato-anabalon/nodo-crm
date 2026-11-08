@@ -1,5 +1,5 @@
 import type { Prisma } from "@/generated/prisma/client";
-import type { Permission } from "@/lib/auth/permissions";
+import type { Permission } from "@nodo/core/auth/permissions";
 
 /**
  * Which jobs somebody can see: every one with `jobs.read.all`, otherwise only

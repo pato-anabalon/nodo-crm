@@ -16,6 +16,15 @@ script still runs from inside the app, because that is where `.env.local` is:
 `cd apps/web && pnpm tsx --env-file=.env.local scripts/<name>.ts`. On Vercel the
 project's *Root Directory* is `apps/web`.
 
+**`packages/core`** (`@nodo/core/<path>`) holds what both apps need and touches
+neither Next nor Prisma nor a DOM: permissions, zoned time, the intl options, the
+brand colour maths, and the jobs rules both sides apply — who may touch what,
+the file-type table, the calendar geometry, mention parsing. It ships TypeScript
+source, not a build (`transpilePackages` in Next), and its tests run on their
+own (`pnpm --filter @nodo/core test`). **`packages/messages`** is the two
+message files, `@nodo/messages/<locale>.json`. A rule moves into core when the
+second app needs it, not before; until then it stays in `apps/web`.
+
 ## Stack
 
 | Piece | Choice |
@@ -74,7 +83,7 @@ tests (`applyTenantScope`).
 
 Comments, test names, internal error messages, routes and the Prisma schema:
 **all in English**, no matter which language the person reading works in. The
-only thing in Spanish is `messages/es.json`, which is interface translation, not
+only thing in Spanish is `packages/messages/src/es.json`, which is interface translation, not
 code.
 
 Routes too: `/quotes`, `/reports`, `/settings`, `/leads/new`. A user with the
@@ -427,7 +436,7 @@ They were three text fields, which is how a company ends up with `NZ$` where
 `NZD` belongs, or `Pacific/Aukland` with the letters swapped. Nothing complains:
 the amount quietly stops formatting and every due date lands a day out.
 
-`src/lib/intl/options.ts` is the single source, used both to **render** the
+`packages/core/src/intl/options.ts` is the single source, used both to **render** the
 options and to **validate** what comes back — so a hand-crafted POST is checked
 against exactly what the select offered, not merely for shape. `XYZ` is three
 letters and passes a length check.
@@ -450,7 +459,7 @@ is used by nothing — which is why every screen had hand-rolled a `<select>`.
 
 ### How to add text
 
-- Text lives in `messages/en-GB.json` and `messages/es.json`, never in the code.
+- Text lives in `packages/messages/src/en-GB.json` and `packages/messages/src/es.json`, never in the code.
 - Validation schemas emit **keys**, not text (`validation.invalidEmail`); server
   actions translate them with `translateFieldErrors` before replying.
 - Permission keys carry a dot (`leads.read`), and next-intl uses the dot as a
@@ -793,7 +802,7 @@ reaches leads, quotes, contacts or reports, and `/` sends them to `/jobs`.
   carrying a due date can't come in through the "complete" door.
 - **Own and somebody else's.** On authored content (posts, comments, chat,
   files) `*.update`/`*.delete` reach what the person wrote; anybody else's needs
-  `jobs.moderate` too. `canTouch` in `jobs/rules.ts` is the one place that says so.
+  `jobs.moderate` too. `canTouch` in `@nodo/core/jobs/rules` is the one place that says so.
 - **`requireJobContext(jobId, permission)`** is the guard every job page and
   action goes through: the job exists in this company, this person may be on it,
   and their profile holds the permission. `ctx.db` draws the line between
@@ -841,7 +850,7 @@ through a function: the browser uploads to Blob directly (`upload()` from
 `@vercel/blob/client`), and `/api/jobs/<id>/upload` only decides whether to hand
 it a token — the same `jobAccess` questions as every job page, a path under
 `companies/<companyId>/jobs/<jobId>/`, and the type and cap that
-`jobs/files.ts` allows for that extension. Blob enforces the token: a different
+`@nodo/core/jobs/files` allows for that extension. Blob enforces the token: a different
 path or content type is refused by the store, not by us.
 
 - **The type comes from the extension**, from one table read on both sides.
@@ -945,12 +954,12 @@ Events on a job (`modules/jobs/schedule/`), and every job on one timeline
   are the days it covers on the company's own calendar, and every view lays it
   out by them; a timed event also keeps `startsAt`/`endsAt`. The form sends days
   and wall-clock times and the server turns them into instants in the company's
-  timezone (`lib/zoned-time.ts`, which asks `Intl` rather than doing offset
+  timezone (`@nodo/core/zoned-time`, which asks `Intl` rather than doing offset
   arithmetic — the tests cross a daylight-saving change). A day is then the same
   day wherever the server runs, and the calendar never needs a timezone at all.
   Two checks in the migration hold the shape: the end isn't before the start,
   and a timed event has both instants while an all-day one has neither.
-- **The geometry is pure** (`schedule/calendar.ts`): which weeks a view shows
+- **The geometry is pure** (`@nodo/core/jobs/schedule/calendar`): which weeks a view shows
   (weeks start on Monday), which row of a week each event takes so that
   something running several days is one bar rather than a copy per cell, where
   a job's bar sits in the Lineup's window, and what dragging an end does. Days
@@ -1298,7 +1307,7 @@ are a row per platform, added one at a time so each is checked on the way in.
 
 ### Two kinds of braces, and they must not meet
 
-- `{name}` in `messages/*.json` is **ICU**, interpolated by next-intl.
+- `{name}` in `packages/messages/src/*.json` is **ICU**, interpolated by next-intl.
 - `{{name}}` in a stored template is a **field**, substituted by `applyFields`.
 
 Putting `{{name}}` in a message file throws `MALFORMED_ARGUMENT`: ICU reads `{`
@@ -1552,7 +1561,7 @@ lightened.
 
 ### How long ago
 
-`elapsed` in `lib/relative-time.ts` returns a **descriptor**, not a string: the
+`elapsed` in `@nodo/core/relative-time` returns a **descriptor**, not a string: the
 words belong to whoever is reading and the date format to the company, and a
 pure function that returned text would need both handed to it and would stop
 being checkable without them. `elapsedLabel` does the phrasing.
@@ -1955,7 +1964,7 @@ Profiles are **standard** (`OWNER`, `ADMIN`, `MANAGER`, `SALES`, `VIEWER`), but
 each company has its own `Role` row, so it can reassign features without
 affecting the others.
 
-- Feature catalogue: `src/lib/auth/permissions.ts` (source of truth).
+- Feature catalogue: `packages/core/src/auth/permissions.ts` (source of truth).
 - Initial templates per profile: `src/lib/auth/role-templates.ts`.
 - When adding a permission: add it to the catalogue, translate it in both
   languages and run `pnpm db:seed`. **That syncs the catalogue only** —
@@ -2217,7 +2226,7 @@ src/
     reports/                  periods, series and charts
     settings/  team/
   i18n/                       language configuration and cookie
-messages/                     en-GB.json and es.json
+(the messages are in packages/messages)
 ```
 
 Every module follows the same pattern: `schemas.ts` (validation), `service.ts`

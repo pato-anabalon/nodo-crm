@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { NativeSelect } from "@/components/ui/native-select";
 import { useActionToast } from "@/lib/use-action-toast";
-import type { Option } from "@/lib/intl/options";
+import type { Option } from "@nodo/core/intl/options";
 import type { JobActionState } from "../actions";
 
 export type FormAction = (state: JobActionState, formData: FormData) => Promise<JobActionState>;

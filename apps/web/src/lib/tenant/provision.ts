@@ -1,6 +1,6 @@
 import type { PrismaClient } from "@/generated/prisma/client";
 import { RoleKey } from "@/generated/prisma/enums";
-import { ALL_PERMISSIONS, isPermission, permissionModule, type Permission } from "@/lib/auth/permissions";
+import { ALL_PERMISSIONS, isPermission, permissionModule, type Permission } from "@nodo/core/auth/permissions";
 import { ROLE_TEMPLATES, templatePermissions } from "@/lib/auth/role-templates";
 import { STANDARD_POST_CATEGORIES } from "@/modules/jobs/categories";
 

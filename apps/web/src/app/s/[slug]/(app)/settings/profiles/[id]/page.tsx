@@ -6,7 +6,7 @@ import {
   PERMISSION_MODULES,
   permissionMessageKey,
   permissionsByModule,
-} from "@/lib/auth/permissions";
+} from "@nodo/core/auth/permissions";
 import { getRoleDetail } from "@/modules/team/roles";
 import { deleteRoleAction, renameRoleAction, saveRolePermissionsAction } from "@/modules/team/actions";
 import { DeleteRoleButton } from "@/modules/team/delete-role-button";

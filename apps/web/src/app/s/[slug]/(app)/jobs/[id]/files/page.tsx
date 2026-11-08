@@ -8,8 +8,8 @@ import { formatDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { formatBytes } from "@/modules/documents/constants";
 import { requireJobContext } from "@/modules/jobs/access";
-import { canTouch } from "@/modules/jobs/rules";
-import { extensionOf, fileFilterFromParam, jobUploadPrefix, kindOfContentType, matchesFilter, type FileFilter } from "@/modules/jobs/files";
+import { canTouch } from "@nodo/core/jobs/rules";
+import { extensionOf, fileFilterFromParam, jobUploadPrefix, kindOfContentType, matchesFilter, type FileFilter } from "@nodo/core/jobs/files";
 import { folderPaths, folderTrail } from "@/modules/jobs/folders";
 import { allJobFiles, folderContents, jobFolders, type JobFileRow } from "@/modules/jobs/files-service";
 import {

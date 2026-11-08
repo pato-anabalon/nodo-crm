@@ -1,0 +1,19 @@
+{
+  "name": "@nodo/core",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "test": "jest",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@swc/core": "^1",
+    "@swc/jest": "^0.2",
+    "@types/jest": "^30.0.0",
+    "jest": "^30.5.1",
+    "typescript": "^5"
+  }
+}

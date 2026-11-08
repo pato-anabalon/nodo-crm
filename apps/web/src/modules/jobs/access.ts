@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import type { Permission } from "@/lib/auth/permissions";
+import type { Permission } from "@nodo/core/auth/permissions";
 import { requireCompanyContext, ForbiddenError, can, type CompanyContext } from "@/lib/auth/session";
 import { isJobClosed, isWritePermission, JobClosedError, withoutWrites } from "./closing";
 import { jobVisibilityWhere } from "./scope";

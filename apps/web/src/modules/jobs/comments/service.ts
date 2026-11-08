@@ -1,5 +1,5 @@
 import type { CompanyContext } from "@/lib/auth/session";
-import type { Permission } from "@/lib/auth/permissions";
+import type { Permission } from "@nodo/core/auth/permissions";
 import { NotificationKind } from "@/generated/prisma/client";
 import { notifyEach } from "@/modules/notifications/inbox";
 import { emailJobNotice } from "../emails";

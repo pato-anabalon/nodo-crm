@@ -1,5 +1,5 @@
 import type { CompanyContext } from "@/lib/auth/session";
-import { zonedInstant } from "@/lib/zoned-time";
+import { zonedInstant } from "@nodo/core/zoned-time";
 import { JobActivityType, JobStatus, NotificationKind, type Prisma } from "@/generated/prisma/client";
 import { notifyEach } from "@/modules/notifications/inbox";
 import { emailJobNotice } from "../emails";
@@ -10,7 +10,7 @@ import { dayKey } from "../schemas";
 import { jobName, membersAmong, recipientsOnJob } from "../recipients";
 import { addComment, commenters, commentThreadArgs, notifyConversation, type CommentOutcome } from "../comments/service";
 import { commentHref } from "../comments/subject";
-import { newlyAssigned } from "../todos/rules";
+import { newlyAssigned } from "@nodo/core/jobs/todos/rules";
 import type { EventValues } from "./schemas";
 
 /**

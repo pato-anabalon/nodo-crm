@@ -1,7 +1,7 @@
-import { addDays, barInWindow, calendarWeeks, daysBetween, isDay, layoutWeek, monthStarts, shiftDates, weekStart } from "../calendar";
+import { addDays, barInWindow, calendarWeeks, daysBetween, isDay, layoutWeek, monthStarts, shiftDates, weekStart } from "@nodo/core/jobs/schedule/calendar";
 import { eventFromForm } from "../schemas";
 import { eventWhen, scheduleFormatters } from "../view";
-import { JOB_COLOURS, isJobColour, jobColour } from "../../colours";
+import { JOB_COLOURS, isJobColour, jobColour } from "@nodo/core/jobs/colours";
 import { jobFormSchema } from "../../schemas";
 
 describe("days", () => {

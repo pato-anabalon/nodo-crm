@@ -16,7 +16,7 @@ import {
 } from "@dnd-kit/core";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-import type { FileKind } from "../files";
+import type { FileKind } from "@nodo/core/jobs/files";
 import type { JobActionState } from "../actions";
 import { DocumentTile } from "./document-tile";
 

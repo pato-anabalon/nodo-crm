@@ -24,7 +24,7 @@ import type { JobActionState } from "../actions";
 import type { FormAction } from "../docs/name-dialogs";
 import { PersonAvatar, personName, type Person } from "../avatars";
 import { AttachmentField, AttachmentGallery } from "../board/attachments";
-import { mentionQuery, type ChatSegment, type Mentionable } from "./text";
+import { mentionQuery, type ChatSegment, type Mentionable } from "@nodo/core/jobs/chat/text";
 import type { ChatFeed, ChatMessageView } from "./view";
 
 /** How often an open chat asks for news, while its tab is on screen. */

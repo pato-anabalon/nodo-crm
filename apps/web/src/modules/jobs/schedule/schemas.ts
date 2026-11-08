@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { isRichTextEmpty, sanitizeRichText } from "@/lib/rich-text";
-import { isDay } from "./calendar";
+import { isDay } from "@nodo/core/jobs/schedule/calendar";
 
 const notes = z
   .string()

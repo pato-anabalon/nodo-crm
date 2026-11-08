@@ -1407,7 +1407,7 @@ src/
     reports/                  periods, series and charts
     settings/  team/
   i18n/                       language configuration and cookie
-messages/                     en-GB.json and es.json
+(the messages are in packages/messages)
 ```
 
 Every module follows the same pattern: `schemas.ts` (validation), `service.ts`

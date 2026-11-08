@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Loader2, Paperclip, Play, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { extensionOf, JOB_FILE_ACCEPT, type FileKind } from "../files";
+import { extensionOf, JOB_FILE_ACCEPT, type FileKind } from "@nodo/core/jobs/files";
 import type { UploadedFile } from "../files-service";
 import { DocumentTile } from "../docs/file-browser";
 import { Lightbox, type MediaItem } from "../docs/lightbox";

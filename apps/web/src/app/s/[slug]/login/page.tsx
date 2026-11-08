@@ -5,7 +5,7 @@ import { getCompanyBySlug } from "@/lib/tenant/company";
 import { getCompanyContext } from "@/lib/auth/session";
 import { CompanyLogo } from "@/components/company-logo";
 import { AuroraBackground } from "@/components/aurora-background";
-import { auroraPalette } from "@/lib/theme/color";
+import { auroraPalette } from "@nodo/core/theme/color";
 import { LoginForm } from "./login-form";
 import { requestMagicLink } from "./actions";
 

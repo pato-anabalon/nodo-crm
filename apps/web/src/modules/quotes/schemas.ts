@@ -6,7 +6,7 @@ import {
   QuoteStatus,
   TaxDisplayMode,
 } from "@/generated/prisma/enums";
-import { isSupportedCurrency } from "@/lib/intl/options";
+import { isSupportedCurrency } from "@nodo/core/intl/options";
 import { QUOTE_SECTIONS } from "./constants";
 
 /** Blank left empty rather than coerced to 0 — "nothing typed" has to stay

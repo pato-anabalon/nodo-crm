@@ -1,6 +1,6 @@
 import type { Person } from "../avatars";
 import { dayKey } from "../schemas";
-import { isOverdue } from "./rules";
+import { isOverdue } from "@nodo/core/jobs/todos/rules";
 import type { TodoRow } from "./service";
 
 /** A to-do as a row of a list draws it — plain data, safe to hand to the browser. */

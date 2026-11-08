@@ -17,7 +17,7 @@
  * what comes out — the same colour the rest of their quote is wearing.
  */
 
-import { oklchToHex } from "@/lib/theme/color";
+import { oklchToHex } from "@nodo/core/theme/color";
 
 const STORAGE_PREFIX = "nodo.celebrated.";
 

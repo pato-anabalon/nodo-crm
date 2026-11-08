@@ -18,7 +18,7 @@ import { getTodo } from "@/modules/jobs/todos/service";
 import { createTodoCommentAction, deleteTodoAction, setTodoCompletedAction } from "@/modules/jobs/todos/actions";
 import { DeleteTodoButton } from "@/modules/jobs/todos/list-controls";
 import { TodoPageCheck } from "@/modules/jobs/todos/todo-lists";
-import { isOverdue } from "@/modules/jobs/todos/rules";
+import { isOverdue } from "@nodo/core/jobs/todos/rules";
 import { todoDatesLabel } from "@/modules/jobs/todos/view";
 
 type Params = { id: string; todoId: string };

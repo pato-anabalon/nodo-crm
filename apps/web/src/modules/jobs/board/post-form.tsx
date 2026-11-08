@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { NativeSelect } from "@/components/ui/native-select";
 import { RichTextEditor } from "@/components/rich-text-editor";
 import { useActionToast } from "@/lib/use-action-toast";
-import type { Option } from "@/lib/intl/options";
+import type { Option } from "@nodo/core/intl/options";
 import type { JobActionState } from "../actions";
 import type { FormAction } from "../docs/name-dialogs";
 import { PersonAvatar, personName, type Person } from "../avatars";

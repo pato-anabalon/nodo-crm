@@ -4,7 +4,7 @@ import {
   permissionModule,
   permissionsByModule,
   PERMISSION_MODULES,
-} from "../permissions";
+} from "@nodo/core/auth/permissions";
 import { ROLE_TEMPLATES, roleTemplate, templatePermissions } from "../role-templates";
 import { RoleKey } from "@/generated/prisma/enums";
 

@@ -22,9 +22,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Table, TableBody, TableCard, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import type { Option } from "@/lib/intl/options";
+import type { Option } from "@nodo/core/intl/options";
 import { cn } from "@/lib/utils";
-import type { FileKind } from "../files";
+import type { FileKind } from "@nodo/core/jobs/files";
 import { DocumentTile, FolderGlyph, KindIcon, documentTone } from "./document-tile";
 import { DraggableFile, DropTarget, useMovedFileIds, type DraggedFile } from "./file-dnd";
 import { PersonAvatar, type Person } from "../avatars";

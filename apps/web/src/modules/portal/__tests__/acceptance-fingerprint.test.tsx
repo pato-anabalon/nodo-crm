@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { createTranslator } from "next-intl";
-import enGB from "../../../../messages/en-GB.json";
+import enGB from "@nodo/messages/en-GB.json";
 import { AcceptanceFingerprint, type FingerprintAcceptance } from "../acceptance-fingerprint";
 
 jest.mock("next-intl/server", () => ({

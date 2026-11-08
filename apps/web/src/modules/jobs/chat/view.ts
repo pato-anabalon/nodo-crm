@@ -1,11 +1,11 @@
-import type { Permission } from "@/lib/auth/permissions";
+import type { Permission } from "@nodo/core/auth/permissions";
 import type { Person } from "../avatars";
 import type { Attachment } from "../board/attachments";
 import { toAttachment } from "../board/view";
-import { canTouch } from "../rules";
+import { canTouch } from "@nodo/core/jobs/rules";
 import { dayIn } from "../timeline";
 import type { ChatPage } from "./service";
-import { chatSegments, type ChatSegment } from "./text";
+import { chatSegments, type ChatSegment } from "@nodo/core/jobs/chat/text";
 
 /**
  * A message as the chat screen draws it. Everything that needs the company's

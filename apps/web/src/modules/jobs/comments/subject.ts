@@ -1,4 +1,4 @@
-import type { Permission } from "@/lib/auth/permissions";
+import type { Permission } from "@nodo/core/auth/permissions";
 
 /**
  * What a comment is about. A `JobComment` carries one nullable key per thing

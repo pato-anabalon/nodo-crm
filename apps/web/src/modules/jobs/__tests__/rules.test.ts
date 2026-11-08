@@ -1,5 +1,5 @@
-import type { Permission } from "@/lib/auth/permissions";
-import { canTouch } from "../rules";
+import type { Permission } from "@nodo/core/auth/permissions";
+import { canTouch } from "@nodo/core/jobs/rules";
 import { jobVisibilityWhere } from "../scope";
 import { jobNameFromQuote } from "../naming";
 

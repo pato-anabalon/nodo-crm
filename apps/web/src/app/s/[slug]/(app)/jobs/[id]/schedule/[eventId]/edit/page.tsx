@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { can } from "@/lib/auth/session";
-import { wallClock } from "@/lib/zoned-time";
+import { wallClock } from "@nodo/core/zoned-time";
 import { Button } from "@/components/ui/button";
 import { requireJobContext } from "@/modules/jobs/access";
 import { dayKey } from "@/modules/jobs/schemas";

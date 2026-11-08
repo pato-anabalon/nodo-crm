@@ -17,7 +17,7 @@ import { searchLeadsAction } from "@/modules/leads/actions";
 import { searchCatalogueAction } from "@/modules/catalogue/actions";
 import { defaultDocumentId, listCompanyDocuments } from "@/modules/documents/service";
 import { defaultValidUntil } from "@/modules/quotes/constants";
-import { currencyOptions } from "@/lib/intl/options";
+import { currencyOptions } from "@nodo/core/intl/options";
 
 export async function generateMetadata() {
   const t = await getTranslations("quotes");

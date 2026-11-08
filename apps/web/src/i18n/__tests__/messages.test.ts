@@ -108,7 +108,7 @@ describe("message catalogues", () => {
   });
 
   it("covers every permission in the catalogue", async () => {
-    const { PERMISSIONS, permissionMessageKey } = await import("@/lib/auth/permissions");
+    const { PERMISSIONS, permissionMessageKey } = await import("@nodo/core/auth/permissions");
     for (const locale of LOCALES) {
       const messages = MESSAGES[locale] as { permissions: Record<string, string> };
       for (const permission of PERMISSIONS) {

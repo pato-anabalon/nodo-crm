@@ -3,7 +3,7 @@
 import * as React from "react"
 import { ChevronDown } from "lucide-react"
 import { cn } from "cn"
-import type { Option, OptionGroup } from "@/lib/intl/options"
+import type { Option, OptionGroup } from "@nodo/core/intl/options"
 
 /**
  * A real `<select>`, not the Radix one next door.

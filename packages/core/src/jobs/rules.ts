@@ -1,4 +1,4 @@
-import type { Permission } from "@/lib/auth/permissions";
+import type { Permission } from "../auth/permissions";
 
 /**
  * Whether somebody may edit or delete a piece of authored content — a post, a

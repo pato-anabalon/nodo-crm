@@ -2931,14 +2931,19 @@
       "open": "Abrir"
     },
     "attach": {
-      "add": "Agregar fotos o videos",
+      "add": "Adjuntar archivos",
       "camera": "Tomar una foto o video",
       "library": "Elegir de la galería",
+      "files": "Elegir un archivo",
       "cancel": "Cancelar",
       "remove": "Quitar",
       "retry": "Reintentar",
       "cameraDenied": "Nodo no puede usar la cámara. Permítelo en Ajustes.",
       "openSettings": "Abrir Ajustes"
+    },
+    "todoFiles": {
+      "title": "Archivos",
+      "keep": "Mantener"
     },
     "schedule": {
       "continues": "Continúa"

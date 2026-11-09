@@ -14,9 +14,9 @@ import type { Folder } from "@/lib/types";
 
 /**
  * Docs & Files: one folder at a time, each opening as its own screen so the
- * back gesture climbs the tree. Photos and videos taken here are filed into
- * the folder on screen as soon as they are up — one timeline line for the
- * batch. Documents, moving and deleting stay on the web for now.
+ * back gesture climbs the tree. Photos, videos and documents added here are
+ * filed into the folder on screen as soon as they are up — one timeline line
+ * for the batch. Moving and deleting stay on the web for now.
  */
 export default function FilesScreen() {
   const { id, folder } = useLocalSearchParams<{ id: string; folder?: string }>();

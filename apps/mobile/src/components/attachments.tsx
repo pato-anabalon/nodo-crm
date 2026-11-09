@@ -1,22 +1,26 @@
 import { Image } from "expo-image";
-import { ImagePlus, RotateCcw, Video, X } from "lucide-react-native";
+import { FileText, Paperclip, RotateCcw, Video, X } from "lucide-react-native";
 import { ActionSheetIOS, ActivityIndicator, Alert, Linking, Platform, Pressable, ScrollView, Text, View } from "react-native";
 import { useTranslations } from "use-intl";
 import { useColor } from "@/lib/brand";
 import { useErrorText } from "@/lib/errors";
-import { pickMedia, type Attachment } from "@/lib/uploads";
-import type { ImagePickerAsset } from "expo-image-picker";
+import { pickDocuments, pickMedia, type Attachment, type PickedFile } from "@/lib/uploads";
 
 /**
- * The button that adds photos: the camera or the library, asked the way each
- * platform asks — an action sheet on iOS, a dialog on Android. A refused
+ * The button that adds files: the camera, the photo library or Files, asked
+ * the way each platform asks — an action sheet on iOS, a dialog on Android. A refused
  * camera says where to allow it rather than doing nothing.
  */
-export function AttachButton({ onPicked, disabled }: { onPicked: (assets: ImagePickerAsset[]) => void; disabled?: boolean }) {
+export function AttachButton({ onPicked, disabled }: { onPicked: (files: PickedFile[]) => void; disabled?: boolean }) {
   const t = useTranslations("mobile.attach");
   const icon = useColor("brand-ink");
 
-  const pick = async (source: "camera" | "library") => {
+  const pick = async (source: "camera" | "library" | "files") => {
+    if (source === "files") {
+      const files = await pickDocuments();
+      if (files.length) onPicked(files);
+      return;
+    }
     const result = await pickMedia(source);
     if ("denied" in result) {
       Alert.alert(t("cameraDenied"), undefined, [
@@ -25,16 +29,17 @@ export function AttachButton({ onPicked, disabled }: { onPicked: (assets: ImageP
       ]);
       return;
     }
-    if (result.assets.length) onPicked(result.assets);
+    if (result.files.length) onPicked(result.files);
   };
 
   const ask = () => {
     if (Platform.OS === "ios") {
       ActionSheetIOS.showActionSheetWithOptions(
-        { options: [t("camera"), t("library"), t("cancel")], cancelButtonIndex: 2 },
+        { options: [t("camera"), t("library"), t("files"), t("cancel")], cancelButtonIndex: 3 },
         (index) => {
           if (index === 0) void pick("camera");
           if (index === 1) void pick("library");
+          if (index === 2) void pick("files");
         },
       );
       return;
@@ -42,6 +47,7 @@ export function AttachButton({ onPicked, disabled }: { onPicked: (assets: ImageP
     Alert.alert(t("add"), undefined, [
       { text: t("camera"), onPress: () => void pick("camera") },
       { text: t("library"), onPress: () => void pick("library") },
+      { text: t("files"), onPress: () => void pick("files") },
       { text: t("cancel"), style: "cancel" },
     ]);
   };
@@ -55,7 +61,7 @@ export function AttachButton({ onPicked, disabled }: { onPicked: (assets: ImageP
       hitSlop={4}
       className={`size-12 items-center justify-center rounded-xl active:bg-muted ${disabled ? "opacity-50" : ""}`}
     >
-      <ImagePlus size={24} color={icon} />
+      <Paperclip size={24} color={icon} />
     </Pressable>
   );
 }
@@ -96,9 +102,16 @@ function Tile({ item, onRemove, onRetry }: { item: Attachment; onRemove: () => v
     <View className={`size-16 overflow-hidden rounded-lg ${item.status === "failed" ? "border-2 border-destructive" : ""}`}>
       {item.kind === "image" ? (
         <Image source={item.preview} style={{ width: "100%", height: "100%" }} contentFit="cover" />
-      ) : (
+      ) : item.kind === "video" ? (
         <View className="flex-1 items-center justify-center bg-muted">
           <Video size={22} color={muted} />
+        </View>
+      ) : (
+        <View className="flex-1 items-center justify-center gap-0.5 bg-muted px-1">
+          <FileText size={18} color={muted} />
+          <Text className="text-center text-caption text-foreground" numberOfLines={2}>
+            {item.name}
+          </Text>
         </View>
       )}
       {item.status === "uploading" ? (

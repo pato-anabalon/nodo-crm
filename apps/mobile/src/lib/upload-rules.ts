@@ -38,6 +38,19 @@ export function mediaName(media: Pick<PickedMedia, "name" | "mimeType" | "kind">
   return `${media.kind === "video" ? "video" : "photo"}-${stamp}.${ext}`;
 }
 
+/**
+ * How a file chosen from Files is treated. A photo is still a photo — drawn
+ * down and given its gallery copy, a HEIC turned into a JPEG — and a video
+ * still goes as it is; everything else goes up untouched, and the server
+ * decides whether the job takes it.
+ */
+export function pickedKind(name: string): "image" | "video" | "document" {
+  const ext = extensionOf(name);
+  if (ext === "heic" || ext === "heif") return "image";
+  const kind = fileRule(name)?.kind;
+  return kind === "image" || kind === "video" ? kind : "document";
+}
+
 export type PhotoPlan = {
   /** Whether it is drawn again — too big, or a format the store doesn't take (HEIC). */
   reencode: boolean;

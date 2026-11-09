@@ -2931,14 +2931,19 @@
       "open": "Open"
     },
     "attach": {
-      "add": "Add photos or videos",
+      "add": "Attach files",
       "camera": "Take a photo or video",
       "library": "Choose from library",
+      "files": "Choose a file",
       "cancel": "Cancel",
       "remove": "Remove",
       "retry": "Try again",
       "cameraDenied": "Nodo can't use the camera. Allow it in Settings.",
       "openSettings": "Open Settings"
+    },
+    "todoFiles": {
+      "title": "Files",
+      "keep": "Keep"
     },
     "schedule": {
       "continues": "Continues"

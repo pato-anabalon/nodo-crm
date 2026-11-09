@@ -3,7 +3,7 @@ import { useTranslations } from "use-intl";
 import { Failed, Loading } from "@/components/screen";
 import { TodoForm } from "@/components/todo-form";
 import { useErrorText } from "@/lib/errors";
-import { useJob, useMe } from "@/lib/queries";
+import { canAttach, useJob, useMe } from "@/lib/queries";
 
 /** A new to-do at the bottom of a list, assigned to whoever adds it unless they say otherwise — as on the web. */
 export default function NewTodo() {
@@ -25,6 +25,7 @@ export default function NewTodo() {
       target={{ listId: id }}
       initial={{ title: "", notes: "", startsOn: null, dueOn: null, assigneeIds: mine }}
       members={members}
+      canAttach={canAttach(job.data)}
       submitLabel={t("jobs.todos.addThisTodo")}
     />
   );

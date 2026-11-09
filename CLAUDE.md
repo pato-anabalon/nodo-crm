@@ -103,8 +103,12 @@ app's sign-in" below), with the token in the Keychain/Keystore
   out the same request: the store's API version, the store id read off the
   token, the type the server chose. A photo is drawn again only when it's
   large or a HEIC (2560 px, JPEG stays JPEG, PNG becomes WebP), with a 480 px
-  JPEG beside it; a video goes as it is. Files start going up when picked,
-  so Send only waits for the ones still on their way.
+  JPEG beside it; a video goes as it is. Documents come from Files
+  (`expo-document-picker`) and go up untouched, with no cover drawn — the
+  server's table decides whether the job takes them — while a photo chosen
+  there is still treated as a photo (`pickedKind`). Files start going up
+  when picked, so Send only waits for the ones still on their way; on a
+  to-do's form, the ones already on it come off only when it is saved.
 - **The chat polls while it is on screen** (`useChat`, every 5 s, an
   infinite query paged with `?before=`) and is drawn upside down so the
   newest sits by the box. A sent message shows at once, faded, and a refusal

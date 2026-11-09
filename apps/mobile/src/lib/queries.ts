@@ -1,4 +1,5 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient, type InfiniteData } from "@tanstack/react-query";
+import { JOB_UPLOAD_PERMISSIONS } from "@nodo/core/jobs/files";
 import { api } from "./api";
 import { useAuth } from "./session";
 import { markRead } from "./inbox";
@@ -90,6 +91,11 @@ export function canOn(job: JobDetail | undefined, permission: string): boolean {
   return job?.permissions.includes(permission) ?? false;
 }
 
+/** Whether this job hands this person an upload token: any one of the tools that take files will do, as on the server. */
+export function canAttach(job: JobDetail | undefined): boolean {
+  return JOB_UPLOAD_PERMISSIONS.some((permission) => canOn(job, permission));
+}
+
 export function useActivity(jobId: string) {
   const auth = useAuth();
   return useQuery({
@@ -156,6 +162,10 @@ export type TodoInput = {
   startsOn?: string | null;
   dueOn?: string | null;
   assigneeIds?: string[];
+  /** Uploaded beforehand, added to what it carries. */
+  uploads?: UploadedFile[];
+  /** Files already on it, taken off. */
+  removeFileIds?: string[];
 };
 
 /** A new to-do at the bottom of a list, or the fields of one that changed — only those are sent. */

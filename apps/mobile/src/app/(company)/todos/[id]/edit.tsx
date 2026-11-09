@@ -3,7 +3,7 @@ import { useTranslations } from "use-intl";
 import { Failed, Loading } from "@/components/screen";
 import { TodoForm } from "@/components/todo-form";
 import { useErrorText } from "@/lib/errors";
-import { useJob, useTodo } from "@/lib/queries";
+import { canAttach, useJob, useTodo } from "@/lib/queries";
 import { htmlToPlainText, isFormatted } from "@/lib/todos";
 
 export default function EditTodo() {
@@ -33,6 +33,8 @@ export default function EditTodo() {
       }}
       members={job.data.job.members}
       notesFormatted={isFormatted(detail.notes)}
+      files={detail.files}
+      canAttach={canAttach(job.data)}
       submitLabel={t("jobs.todos.saveTodo")}
     />
   );

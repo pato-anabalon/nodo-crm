@@ -1,4 +1,4 @@
-import { blobPut, mediaName, planPhoto, storeIdOf, thumbnailName, thumbnailSize } from "../upload-rules";
+import { blobPut, mediaName, pickedKind, planPhoto, storeIdOf, thumbnailName, thumbnailSize } from "../upload-rules";
 
 const MB = 1024 * 1024;
 const photo = (name: string, size: number, width = 4032, height = 3024) => ({
@@ -8,6 +8,21 @@ const photo = (name: string, size: number, width = 4032, height = 3024) => ({
   size,
   width,
   height,
+});
+
+describe("pickedKind", () => {
+  it("keeps a photo or a video from Files what it is, a HEIC included", () => {
+    expect(pickedKind("IMG_0001.HEIC")).toBe("image");
+    expect(pickedKind("site.png")).toBe("image");
+    expect(pickedKind("walkthrough.mov")).toBe("video");
+  });
+
+  it("sends anything else as a document, for the server to accept or refuse", () => {
+    expect(pickedKind("Plan A-101.pdf")).toBe("document");
+    expect(pickedKind("quantities.xlsx")).toBe("document");
+    expect(pickedKind("setup.exe")).toBe("document");
+    expect(pickedKind("README")).toBe("document");
+  });
 });
 
 describe("planPhoto", () => {

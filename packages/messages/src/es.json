@@ -2904,8 +2904,20 @@
       "code_not_sent": "No se pudo enviar el código. Vuelve a intentarlo en un momento.",
       "unauthenticated": "Tu sesión terminó. Inicia sesión de nuevo.",
       "network": "No hay conexión con Nodo. Revisa la señal y vuelve a intentarlo.",
-      "generic": "Algo salió mal. Vuelve a intentarlo en un momento."
+      "generic": "Algo salió mal. Vuelve a intentarlo en un momento.",
+      "job_closed": "Este trabajo está terminado, así que no se puede cambiar.",
+      "not_found": "Esto ya no está. Puede que lo hayan borrado.",
+      "forbidden": "Tu perfil no permite hacer eso.",
+      "files_refused": "No se pudo adjuntar un archivo. Inténtalo de nuevo."
     },
-    "retry": "Reintentar"
+    "retry": "Reintentar",
+    "job": {
+      "closed": "Este trabajo está terminado: solo se puede leer.",
+      "tools": "Herramientas",
+      "notesFormatted": "Estas notas tienen formato de la web. Si las editas aquí se conserva el texto y se pierde el formato.",
+      "clearDate": "Quitar",
+      "pickDate": "Elegir una fecha",
+      "open": "Abrir"
+    }
   }
 }

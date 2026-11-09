@@ -2904,8 +2904,20 @@
       "code_not_sent": "The code couldn't be sent. Try again in a moment.",
       "unauthenticated": "Your session ended. Sign in again.",
       "network": "No connection to Nodo. Check your signal and try again.",
-      "generic": "Something went wrong. Try again in a moment."
+      "generic": "Something went wrong. Try again in a moment.",
+      "job_closed": "This job is finished, so it can't be changed.",
+      "not_found": "This isn't here any more. It may have been deleted.",
+      "forbidden": "Your profile doesn't allow that.",
+      "files_refused": "A file couldn't be attached. Try it again."
     },
-    "retry": "Try again"
+    "retry": "Try again",
+    "job": {
+      "closed": "This job is finished, so it can only be read.",
+      "tools": "Tools",
+      "notesFormatted": "These notes were formatted on the web. Editing them here keeps the words and drops the formatting.",
+      "clearDate": "Clear",
+      "pickDate": "Pick a date",
+      "open": "Open"
+    }
   }
 }

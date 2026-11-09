@@ -18,7 +18,9 @@
       "expo-status-bar",
       "expo-secure-store",
       "expo-localization",
-      "expo-image"
+      "expo-image",
+      "expo-web-browser",
+      "@react-native-community/datetimepicker"
     ],
     "experiments": {
       "typedRoutes": true

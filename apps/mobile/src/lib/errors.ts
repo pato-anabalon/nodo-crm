@@ -12,6 +12,10 @@ const KNOWN = new Set([
   "code_not_sent",
   "unauthenticated",
   "network",
+  "job_closed",
+  "not_found",
+  "forbidden",
+  "files_refused",
 ]);
 
 export function errorKey(error: unknown): string {

@@ -1,4 +1,5 @@
-import { Redirect } from "expo-router";
+import { Link, Redirect } from "expo-router";
+import { ChevronRight } from "lucide-react-native";
 import { useState } from "react";
 import { FlatList, Pressable, RefreshControl, Text, View } from "react-native";
 import { useTranslations } from "use-intl";
@@ -10,8 +11,7 @@ import { can, useJobs, useMe } from "@/lib/queries";
 import type { JobSummary } from "@/lib/types";
 
 /**
- * The jobs this person can see, in progress first. Opening one comes with the
- * job screens (Fase 4); this is the list they will open from.
+ * The jobs this person can see, in progress or done, each opening the job.
  */
 export default function Jobs() {
   const t = useTranslations();
@@ -59,20 +59,29 @@ export default function Jobs() {
 
 function JobRow({ job, formatLocale }: { job: JobSummary; formatLocale: string }) {
   const t = useTranslations("jobs");
+  const chevron = useColor("muted-foreground");
   const start = job.startsOn ? formatDay(job.startsOn, formatLocale) : null;
   const end = job.endsOn ? formatDay(job.endsOn, formatLocale) : null;
   const dates =
     start && end ? t("dateRange", { start, end }) : start ? t("startsOnly", { start }) : end ? t("endsOnly", { end }) : t("noDates");
 
   return (
-    <View className="gap-1 rounded-xl border border-border bg-card px-card-pad py-3">
-      <Text className="text-headline text-card-foreground" numberOfLines={2}>
-        {job.name}
-      </Text>
-      <Text className="text-footnote text-muted-foreground">
-        {t(`status.${job.status}`)} · {dates}
-      </Text>
-    </View>
+    <Link href={{ pathname: "/jobs/[id]", params: { id: job.id } }} asChild>
+      <Pressable
+        accessibilityRole="button"
+        className="flex-row items-center gap-3 rounded-xl border border-border bg-card py-3 pl-card-pad pr-3 active:opacity-80"
+      >
+        <View className="flex-1 gap-1">
+          <Text className="text-headline text-card-foreground" numberOfLines={2}>
+            {job.name}
+          </Text>
+          <Text className="text-footnote text-muted-foreground">
+            {t(`status.${job.status}`)} · {dates}
+          </Text>
+        </View>
+        <ChevronRight size={20} color={chevron} />
+      </Pressable>
+    </Link>
   );
 }
 

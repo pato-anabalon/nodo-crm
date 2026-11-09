@@ -1,5 +1,14 @@
-import { JobActivityType } from "@/generated/prisma/enums";
-import { activityFileIds, activityHref, activityPermission, dayIn, describeJobActivity, groupByDay } from "../timeline";
+import { JobActivityType, JobStatus } from "@/generated/prisma/enums";
+import {
+  activityFileIds,
+  activityHref,
+  activityPermission,
+  dayIn,
+  describeJobActivity,
+  groupByDay,
+  JOB_ACTIVITY_TYPES,
+  JOB_STATUSES,
+} from "../timeline";
 
 const at = (iso: string) => ({ createdAt: new Date(iso) });
 
@@ -229,5 +238,12 @@ describe("Chat lines", () => {
   it("belongs to the Chat, and leads to it", () => {
     expect(activityPermission(JobActivityType.CHAT_MESSAGES)).toBe("chat.read");
     expect(activityHref("j1", JobActivityType.CHAT_MESSAGES, { day: "2026-10-15", count: 1 })).toBe("/jobs/j1/chat");
+  });
+});
+
+describe("the lists core keeps of the database's enums", () => {
+  it("are the database's, in full", () => {
+    expect([...JOB_ACTIVITY_TYPES].sort()).toEqual(Object.values(JobActivityType).sort());
+    expect([...JOB_STATUSES].sort()).toEqual(Object.values(JobStatus).sort());
   });
 });

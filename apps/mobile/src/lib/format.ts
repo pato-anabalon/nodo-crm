@@ -24,3 +24,15 @@ export function useElapsed(formatLocale: string, timeZone: string) {
     return gap.unit === "now" ? t("now") : t(gap.unit, { value: gap.value });
   };
 }
+
+/** A timeline heading: the weekday too, since "Tuesday" is how people place last week. */
+export function formatDayHeading(day: string, formatLocale: string): string {
+  return new Intl.DateTimeFormat(formatLocale, { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" }).format(
+    new Date(`${day}T00:00:00Z`),
+  );
+}
+
+/** The time of an instant, on the company's clock. */
+export function formatTime(iso: string, formatLocale: string, timeZone: string): string {
+  return new Intl.DateTimeFormat(formatLocale, { hour: "numeric", minute: "2-digit", timeZone }).format(new Date(iso));
+}

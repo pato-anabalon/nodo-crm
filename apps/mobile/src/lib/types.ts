@@ -53,3 +53,102 @@ export type Notice = {
 };
 
 export type Inbox = { unread: number; items: Notice[] };
+
+export type Person = { id: string; name: string | null; email: string; image: string | null };
+
+export type JobDetail = {
+  job: {
+    id: string;
+    name: string;
+    description: string | null;
+    address: string | null;
+    status: JobStatus;
+    closed: boolean;
+    closedAt: string | null;
+    closedBy: { name: string | null; email: string } | null;
+    startsOn: string | null;
+    endsOn: string | null;
+    color: string | null;
+    quote: { id: string; reference: string } | null;
+    members: (Person & { following: boolean })[];
+  };
+  /** What this person may do on this job; a finished job's writes are already off. */
+  permissions: string[];
+};
+
+export type ActivityRow = {
+  id: string;
+  type: string;
+  params: Record<string, unknown> | null;
+  createdAt: string;
+  actor: Person | null;
+  thumbnails: string[];
+};
+
+export type TodoRow = {
+  id: string;
+  listId: string;
+  title: string;
+  position: number;
+  hasNotes: boolean;
+  startsOn: string | null;
+  dueOn: string | null;
+  done: boolean;
+  completedAt: string | null;
+  overdue: boolean;
+  assignees: Person[];
+  comments: number;
+  files: number;
+};
+
+export type TodoList = {
+  id: string;
+  name: string;
+  description: string | null;
+  comments: number;
+  open: TodoRow[];
+  done: TodoRow[];
+};
+
+export type JobFile = {
+  id: string;
+  name: string;
+  url: string;
+  contentType: string;
+  kind: string;
+  size: number;
+  width: number | null;
+  height: number | null;
+  thumbnailUrl: string | null;
+  createdAt: string;
+};
+
+export type Comment = {
+  id: string;
+  body: string;
+  author: Person | null;
+  createdAt: string;
+  editedAt: string | null;
+  files: JobFile[];
+  canUpdate: boolean;
+  canDelete: boolean;
+};
+
+export type TodoDetail = {
+  id: string;
+  jobId: string;
+  list: { id: string; name: string };
+  title: string;
+  notes: string | null;
+  startsOn: string | null;
+  dueOn: string | null;
+  done: boolean;
+  completedAt: string | null;
+  completedBy: Person | null;
+  overdue: boolean;
+  createdAt: string;
+  createdBy: Person | null;
+  assignees: Person[];
+  files: JobFile[];
+  comments: Comment[];
+};

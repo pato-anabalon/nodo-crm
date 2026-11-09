@@ -77,6 +77,18 @@ app's sign-in" below), with the token in the Keychain/Keystore
 - **Tabs follow the profile**: Jobs with `jobs.read`, the bell and Profile for
   everybody. The clock arrives with time control, not before as a tab that
   does nothing.
+- **A job opens on its own permissions**, the list `GET /jobs/<id>` returns —
+  a finished job's with the writes already off — so the app offers nothing
+  the server would refuse. Its timeline is worded by the web's own
+  `describeJobActivity`, moved to `@nodo/core/jobs/timeline` for it (the web
+  re-exports it; a test holds core's lists of `JobActivityType` and
+  `JobStatus` to the database's).
+- **To-dos tick on press** (`useSetDone`): the list and the to-do move at once
+  (`tickInLists`, pure and tested), the server is sent the state wanted, and a
+  refusal puts them back and says why. Notes and comments are drawn from the
+  stored HTML by a small walker over the web's fixed tag set
+  (`components/rich-text.tsx`); editing notes sends them only if they
+  changed, and warns first when the web had formatted them.
 - `pnpm --filter mobile exec expo export` bundles both platforms, which is
   the check that Metro, NativeWind and the workspace packages resolve without
   a phone. pnpm keeps dependencies isolated, which is why

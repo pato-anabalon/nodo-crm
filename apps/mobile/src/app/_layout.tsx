@@ -56,7 +56,7 @@ function Shell() {
         <Stack.Screen name="companies" />
       </Stack.Protected>
       <Stack.Protected guard={inCompany}>
-        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="(company)" />
       </Stack.Protected>
     </Stack>
   );

@@ -20,7 +20,15 @@
       "expo-localization",
       "expo-image",
       "expo-web-browser",
-      "@react-native-community/datetimepicker"
+      "@react-native-community/datetimepicker",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Nodo opens your photos so you can attach them to a job.",
+          "cameraPermission": "Nodo uses the camera so you can photograph the work on a job.",
+          "microphonePermission": "Nodo records sound with the videos you take of a job."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { KeyboardAvoidingView, Platform, Pressable, RefreshControl, ScrollView, Text, TextInput, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTranslations } from "use-intl";
+import { AttachButton, AttachmentStrip } from "@/components/attachments";
 import { Avatar, personName } from "@/components/avatars";
 import { Button } from "@/components/button";
 import { TodoCheck } from "@/components/check";
@@ -14,6 +15,7 @@ import { useErrorText } from "@/lib/errors";
 import { formatDay, useElapsed } from "@/lib/format";
 import { canOn, useAddTodoComment, useJob, useMe, useSetDone, useTodo } from "@/lib/queries";
 import type { Comment, TodoDetail } from "@/lib/types";
+import { useAttachments } from "@/lib/uploads";
 
 /** One to-do: ticking it, what it is, who has it, its notes and files, and its conversation. */
 export default function TodoScreen() {
@@ -78,7 +80,7 @@ export default function TodoScreen() {
 
           <Comments comments={detail.comments} />
         </ScrollView>
-        {canComment ? <Composer todoId={detail.id} /> : null}
+        {canComment ? <Composer todoId={detail.id} jobId={detail.jobId} /> : null}
       </KeyboardAvoidingView>
     </>
   );
@@ -162,24 +164,36 @@ function Comments({ comments }: { comments: Comment[] }) {
   );
 }
 
-/** Pinned under the conversation, above the keyboard: what the thumb reaches. */
-function Composer({ todoId }: { todoId: string }) {
+/** Pinned under the conversation, above the keyboard: what the thumb reaches. Photos go up as they're picked. */
+function Composer({ todoId, jobId }: { todoId: string; jobId: string }) {
   const t = useTranslations("jobs.board");
   const errorText = useErrorText();
   const add = useAddTodoComment(todoId);
+  const files = useAttachments(jobId);
   const insets = useSafeAreaInsets();
   const placeholder = useColor("muted-foreground");
   const [body, setBody] = useState("");
+  const ready = (body.trim() !== "" || files.ready.length > 0) && !files.busy && !files.failed;
 
-  const send = () =>
-    add.mutate(body.trim(), {
-      onSuccess: () => setBody(""),
-    });
+  const send = () => {
+    const uploads = files.ready;
+    add.mutate(
+      { body: body.trim(), uploads },
+      {
+        onSuccess: () => {
+          setBody("");
+          files.drop(uploads);
+        },
+      },
+    );
+  };
 
   return (
     <View style={{ paddingBottom: Math.max(insets.bottom, 12) }} className="gap-2 border-t border-border bg-card px-gutter pt-3">
       <ErrorText>{add.error ? errorText(add.error) : null}</ErrorText>
+      <AttachmentStrip items={files.items} onRemove={files.remove} onRetry={(key) => void files.retry(key)} />
       <View className="flex-row items-end gap-2">
+        <AttachButton onPicked={(assets) => void files.add(assets)} />
         <TextInput
           value={body}
           onChangeText={setBody}
@@ -189,7 +203,7 @@ function Composer({ todoId }: { todoId: string }) {
           multiline
           className="max-h-32 min-h-12 flex-1 rounded-xl border border-input bg-field px-4 py-3 text-body text-foreground"
         />
-        <Button label={t("comment")} busy={add.isPending} disabled={!body.trim()} onPress={send} />
+        <Button label={t("comment")} busy={add.isPending} disabled={!ready} onPress={send} />
       </View>
     </View>
   );

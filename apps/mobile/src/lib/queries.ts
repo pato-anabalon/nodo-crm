@@ -1,9 +1,11 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient, type InfiniteData } from "@tanstack/react-query";
 import { api } from "./api";
 import { useAuth } from "./session";
 import { markRead } from "./inbox";
 import { tickInLists, tickTodo } from "./todos";
-import type { ActivityRow, Inbox, JobDetail, JobList, Me, TodoDetail, TodoList } from "./types";
+import { withoutMessage, withPending } from "./chat";
+import type { UploadedFile } from "./uploads";
+import type { ActivityRow, ChatMessage, ChatPage, FolderContents, Inbox, JobDetail, JobList, Me, TodoDetail, TodoList } from "./types";
 
 /**
  * Every query is keyed by the company first, so switching company can't show
@@ -64,6 +66,8 @@ export function useJob(id: string) {
   return useQuery({
     queryKey: [auth.company, "job", id],
     queryFn: ({ signal }) => api<JobDetail>(`/jobs/${id}`, { auth, signal }),
+    // A screen that learns its job from something else passes "" until it knows.
+    enabled: id !== "",
   });
 }
 
@@ -85,6 +89,7 @@ export function useTodoLists(jobId: string) {
   return useQuery({
     queryKey: [auth.company, "job", jobId, "todos"],
     queryFn: ({ signal }) => api<{ lists: TodoList[] }>(`/jobs/${jobId}/todos`, { auth, signal }),
+    enabled: jobId !== "",
   });
 }
 
@@ -162,7 +167,101 @@ export function useAddTodoComment(todoId: string) {
   const client = useQueryClient();
 
   return useMutation({
-    mutationFn: (body: string) => api<{ id: string }>(`/todos/${todoId}/comments`, { method: "POST", body: { body }, auth }),
+    mutationFn: (input: { body: string; uploads: UploadedFile[] }) =>
+      api<{ id: string }>(`/todos/${todoId}/comments`, { method: "POST", body: input, auth }),
     onSuccess: () => client.invalidateQueries({ queryKey: [auth.company, "todo", todoId] }),
+  });
+}
+
+const chatKey = (company: string | null | undefined, jobId: string) => [company, "job", jobId, "chat"];
+
+/**
+ * The chat, newest page first and older pages as the list is scrolled up —
+ * the web's feed with `?before=`. It polls while `live` (the screen is in
+ * front), the same few seconds the web's tab waits; a socket would need
+ * something behind it for two phones to meet across instances.
+ */
+export function useChat(jobId: string, live: boolean) {
+  const auth = useAuth();
+  return useInfiniteQuery({
+    queryKey: chatKey(auth.company, jobId),
+    queryFn: ({ pageParam, signal }) =>
+      api<ChatPage>(`/jobs/${jobId}/chat${pageParam ? `?before=${encodeURIComponent(pageParam)}` : ""}`, { auth, signal }),
+    initialPageParam: null as string | null,
+    getNextPageParam: (page) => (page.hasEarlier ? (page.messages[0]?.id ?? null) : null),
+    refetchInterval: live ? 5000 : false,
+    staleTime: 0,
+  });
+}
+
+/**
+ * Sending. The message shows at once, faded, and the next poll replaces it
+ * with the real one; refused, it comes off and the words go back in the box.
+ */
+export function useSendChat(jobId: string, me: ChatMessage["author"]) {
+  const auth = useAuth();
+  const client = useQueryClient();
+  const key = chatKey(auth.company, jobId);
+
+  return useMutation({
+    mutationFn: (input: { body: string; uploads: UploadedFile[] }) =>
+      api<{ id: string }>(`/jobs/${jobId}/chat`, { method: "POST", body: input, auth }),
+    onMutate: async ({ body }) => {
+      await client.cancelQueries({ queryKey: key });
+      const before = client.getQueryData<InfiniteData<ChatPage>>(key);
+      if (before) client.setQueryData(key, withPending(before, body, me, new Date()));
+      return { before };
+    },
+    onError: (_error, _input, context) => context?.before && client.setQueryData(key, context.before),
+    onSettled: () =>
+      Promise.all([
+        client.invalidateQueries({ queryKey: key }),
+        client.invalidateQueries({ queryKey: [auth.company, "job", jobId, "activity"] }),
+      ]),
+  });
+}
+
+/** Deleting goes at once too, and comes back if the server says no. */
+export function useDeleteChat(jobId: string) {
+  const auth = useAuth();
+  const client = useQueryClient();
+  const key = chatKey(auth.company, jobId);
+
+  return useMutation({
+    mutationFn: (id: string) => api(`/chat/${id}`, { method: "DELETE", auth }),
+    onMutate: async (id) => {
+      await client.cancelQueries({ queryKey: key });
+      const before = client.getQueryData<InfiniteData<ChatPage>>(key);
+      if (before) client.setQueryData(key, withoutMessage(before, id));
+      return { before };
+    },
+    onError: (_error, _id, context) => context?.before && client.setQueryData(key, context.before),
+    onSettled: () => client.invalidateQueries({ queryKey: key }),
+  });
+}
+
+/** Docs & Files: one folder (the top without one), as the web's page reads it. */
+export function useFolder(jobId: string, folderId: string | null) {
+  const auth = useAuth();
+  return useQuery({
+    queryKey: [auth.company, "job", jobId, "files", folderId],
+    queryFn: ({ signal }) =>
+      api<FolderContents>(`/jobs/${jobId}/files${folderId ? `?folder=${encodeURIComponent(folderId)}` : ""}`, { auth, signal }),
+  });
+}
+
+/** Files already in the store, filed into this folder: one timeline line for the batch. */
+export function useFileUploads(jobId: string, folderId: string | null) {
+  const auth = useAuth();
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: (uploads: UploadedFile[]) =>
+      api<{ count: number }>(`/jobs/${jobId}/files`, { method: "POST", body: { folderId, uploads }, auth }),
+    onSuccess: () =>
+      Promise.all([
+        client.invalidateQueries({ queryKey: [auth.company, "job", jobId, "files"] }),
+        client.invalidateQueries({ queryKey: [auth.company, "job", jobId, "activity"] }),
+      ]),
   });
 }

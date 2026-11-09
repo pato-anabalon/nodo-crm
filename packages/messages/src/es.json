@@ -2908,7 +2908,12 @@
       "job_closed": "Este trabajo está terminado, así que no se puede cambiar.",
       "not_found": "Esto ya no está. Puede que lo hayan borrado.",
       "forbidden": "Tu perfil no permite hacer eso.",
-      "files_refused": "No se pudo adjuntar un archivo. Inténtalo de nuevo."
+      "files_refused": "No se pudo adjuntar un archivo. Inténtalo de nuevo.",
+      "empty": "Escribe algo o adjunta una foto.",
+      "file_type": "Este tipo de archivo no se puede subir.",
+      "file_too_large": "Este archivo es demasiado grande.",
+      "file_heic": "El formato de esta foto no se puede subir. Prueba tomarla de nuevo.",
+      "upload_failed": "La subida no terminó. Inténtalo de nuevo."
     },
     "retry": "Reintentar",
     "job": {
@@ -2918,6 +2923,16 @@
       "clearDate": "Quitar",
       "pickDate": "Elegir una fecha",
       "open": "Abrir"
+    },
+    "attach": {
+      "add": "Agregar fotos o videos",
+      "camera": "Tomar una foto o video",
+      "library": "Elegir de la galería",
+      "cancel": "Cancelar",
+      "remove": "Quitar",
+      "retry": "Reintentar",
+      "cameraDenied": "Nodo no puede usar la cámara. Permítelo en Ajustes.",
+      "openSettings": "Abrir Ajustes"
     }
   }
 }

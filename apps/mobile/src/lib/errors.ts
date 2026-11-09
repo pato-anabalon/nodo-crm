@@ -16,6 +16,11 @@ const KNOWN = new Set([
   "not_found",
   "forbidden",
   "files_refused",
+  "empty",
+  "file_type",
+  "file_too_large",
+  "file_heic",
+  "upload_failed",
 ]);
 
 export function errorKey(error: unknown): string {

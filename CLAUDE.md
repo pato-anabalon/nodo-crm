@@ -89,6 +89,22 @@ app's sign-in" below), with the token in the Keychain/Keystore
   stored HTML by a small walker over the web's fixed tag set
   (`components/rich-text.tsx`); editing notes sends them only if they
   changed, and warns first when the web had formatted them.
+- **Photos go up from the phone straight to the store** (`lib/uploads.ts`),
+  as from the web: `POST /jobs/<id>/uploads` hands out a token for one file
+  and the phone PUTs the bytes, streamed from disk by `expo-file-system`.
+  `put()` from `@vercel/blob/client` is not used — it leans on Node modules
+  React Native lacks — so `blobPut` (`lib/upload-rules.ts`, tested) writes
+  out the same request: the store's API version, the store id read off the
+  token, the type the server chose. A photo is drawn again only when it's
+  large or a HEIC (2560 px, JPEG stays JPEG, PNG becomes WebP), with a 480 px
+  JPEG beside it; a video goes as it is. Files start going up when picked,
+  so Send only waits for the ones still on their way.
+- **The chat polls while it is on screen** (`useChat`, every 5 s, an
+  infinite query paged with `?before=`) and is drawn upside down so the
+  newest sits by the box. A sent message shows at once, faded, and a refusal
+  puts the words back; the `@` list matches the name the server matches on
+  (`mentionName`: the name, or the whole address). Long-press deletes what
+  `canDelete` allows.
 - `pnpm --filter mobile exec expo export` bundles both platforms, which is
   the check that Metro, NativeWind and the workspace packages resolve without
   a phone. pnpm keeps dependencies isolated, which is why

@@ -1,3 +1,5 @@
+import type { ChatSegment } from "@nodo/core/jobs/chat/text";
+
 /**
  * The responses the app reads, as `/api/m/v1` sends them: instants as ISO,
  * days as `YYYY-MM-DD`, notices as kind and parameters. Written by hand from
@@ -151,4 +153,26 @@ export type TodoDetail = {
   assignees: Person[];
   files: JobFile[];
   comments: Comment[];
+};
+
+export type ChatMessage = {
+  id: string;
+  author: Person | null;
+  /** The text already cut into plain words, links and mentions, against the people stored on it. */
+  segments: ChatSegment[];
+  files: JobFile[];
+  createdAt: string;
+  canDelete: boolean;
+  /** Sent from this phone and not yet confirmed. */
+  pending?: true;
+};
+
+export type ChatPage = { hasEarlier: boolean; messages: ChatMessage[] };
+
+export type Folder = { id: string; name: string; fileCount: number; folderCount: number; updatedAt: string };
+
+export type FolderContents = {
+  trail: { id: string; name: string }[];
+  folders: Folder[];
+  files: (JobFile & { uploadedBy: Person | null })[];
 };

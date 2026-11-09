@@ -1,6 +1,6 @@
 import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams } from "expo-router";
-import { ChevronRight, ListChecks, MapPin } from "lucide-react-native";
+import { ChevronRight, FolderOpen, ListChecks, MapPin, MessagesSquare } from "lucide-react-native";
 import type { ReactNode } from "react";
 import { Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
 import { useTranslations } from "use-intl";
@@ -81,20 +81,39 @@ function Header({ detail, formatLocale }: { detail: JobDetail; formatLocale: str
 /** Only the tools this profile reads; the rest arrive as their screens do. */
 function Tools({ detail }: { detail: JobDetail }) {
   const t = useTranslations("jobs");
-  const todos = useTodoLists(detail.job.id);
+  const readsTodos = canOn(detail, "todos.read");
+  const todos = useTodoLists(readsTodos ? detail.job.id : "");
   const open = todos.data?.lists.reduce((sum, list) => sum + list.open.length, 0);
   const icon = useColor("brand-ink");
+  const params = { id: detail.job.id };
 
-  if (!canOn(detail, "todos.read")) return null;
-
-  return (
-    <View className="overflow-hidden rounded-xl border border-border bg-card">
+  const rows = [
+    readsTodos ? (
       <ToolRow
-        href={{ pathname: "/jobs/[id]/todos", params: { id: detail.job.id } }}
+        key="todos"
+        href={{ pathname: "/jobs/[id]/todos", params }}
         icon={<ListChecks size={22} color={icon} />}
         title={t("todos.title")}
         detail={open === undefined ? undefined : t("todos.openCount", { count: open })}
       />
+    ) : null,
+    canOn(detail, "chat.read") ? (
+      <ToolRow key="chat" href={{ pathname: "/jobs/[id]/chat", params }} icon={<MessagesSquare size={22} color={icon} />} title={t("chat.title")} />
+    ) : null,
+    canOn(detail, "files.read") ? (
+      <ToolRow key="files" href={{ pathname: "/jobs/[id]/files", params }} icon={<FolderOpen size={22} color={icon} />} title={t("files.title")} />
+    ) : null,
+  ].filter((row) => row !== null);
+
+  if (rows.length === 0) return null;
+
+  return (
+    <View className="overflow-hidden rounded-xl border border-border bg-card">
+      {rows.map((row, index) => (
+        <View key={row.key} className={index ? "border-t border-border" : ""}>
+          {row}
+        </View>
+      ))}
     </View>
   );
 }

@@ -2908,7 +2908,12 @@
       "job_closed": "This job is finished, so it can't be changed.",
       "not_found": "This isn't here any more. It may have been deleted.",
       "forbidden": "Your profile doesn't allow that.",
-      "files_refused": "A file couldn't be attached. Try it again."
+      "files_refused": "A file couldn't be attached. Try it again.",
+      "empty": "Write something or attach a photo.",
+      "file_type": "This kind of file can't be uploaded.",
+      "file_too_large": "This file is too large.",
+      "file_heic": "This photo's format can't be uploaded. Try taking it again.",
+      "upload_failed": "The upload didn't finish. Try again."
     },
     "retry": "Try again",
     "job": {
@@ -2918,6 +2923,16 @@
       "clearDate": "Clear",
       "pickDate": "Pick a date",
       "open": "Open"
+    },
+    "attach": {
+      "add": "Add photos or videos",
+      "camera": "Take a photo or video",
+      "library": "Choose from library",
+      "cancel": "Cancel",
+      "remove": "Remove",
+      "retry": "Try again",
+      "cameraDenied": "Nodo can't use the camera. Allow it in Settings.",
+      "openSettings": "Open Settings"
     }
   }
 }

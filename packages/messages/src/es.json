@@ -2933,6 +2933,9 @@
       "retry": "Reintentar",
       "cameraDenied": "Nodo no puede usar la cámara. Permítelo en Ajustes.",
       "openSettings": "Abrir Ajustes"
+    },
+    "schedule": {
+      "continues": "Continúa"
     }
   }
 }

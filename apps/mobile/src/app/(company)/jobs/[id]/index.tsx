@@ -1,6 +1,6 @@
 import { Image } from "expo-image";
 import { Link, Stack, useLocalSearchParams } from "expo-router";
-import { ChevronRight, FolderOpen, ListChecks, MapPin, MessagesSquare } from "lucide-react-native";
+import { CalendarDays, ChevronRight, FolderOpen, ListChecks, MapPin, Megaphone, MessagesSquare } from "lucide-react-native";
 import type { ReactNode } from "react";
 import { Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
 import { useTranslations } from "use-intl";
@@ -87,7 +87,11 @@ function Tools({ detail }: { detail: JobDetail }) {
   const icon = useColor("brand-ink");
   const params = { id: detail.job.id };
 
+  // Basecamp's order, which the people moving over already know.
   const rows = [
+    canOn(detail, "messages.read") ? (
+      <ToolRow key="board" href={{ pathname: "/jobs/[id]/board", params }} icon={<Megaphone size={22} color={icon} />} title={t("board.title")} />
+    ) : null,
     readsTodos ? (
       <ToolRow
         key="todos"
@@ -97,11 +101,14 @@ function Tools({ detail }: { detail: JobDetail }) {
         detail={open === undefined ? undefined : t("todos.openCount", { count: open })}
       />
     ) : null,
+    canOn(detail, "files.read") ? (
+      <ToolRow key="files" href={{ pathname: "/jobs/[id]/files", params }} icon={<FolderOpen size={22} color={icon} />} title={t("files.title")} />
+    ) : null,
     canOn(detail, "chat.read") ? (
       <ToolRow key="chat" href={{ pathname: "/jobs/[id]/chat", params }} icon={<MessagesSquare size={22} color={icon} />} title={t("chat.title")} />
     ) : null,
-    canOn(detail, "files.read") ? (
-      <ToolRow key="files" href={{ pathname: "/jobs/[id]/files", params }} icon={<FolderOpen size={22} color={icon} />} title={t("files.title")} />
+    canOn(detail, "schedule.read") ? (
+      <ToolRow key="schedule" href={{ pathname: "/jobs/[id]/schedule", params }} icon={<CalendarDays size={22} color={icon} />} title={t("schedule.title")} />
     ) : null,
   ].filter((row) => row !== null);
 

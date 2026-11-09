@@ -176,3 +176,50 @@ export type FolderContents = {
   folders: Folder[];
   files: (JobFile & { uploadedBy: Person | null })[];
 };
+
+export type ScheduleEvent = {
+  id: string;
+  title: string;
+  allDay: boolean;
+  milestone: boolean;
+  /** The days it covers on the company's calendar; a timed one also has its instants. */
+  startsOn: string;
+  endsOn: string;
+  startsAt: string | null;
+  endsAt: string | null;
+  participants: Person[];
+  comments: number;
+};
+
+export type TodoDue = { id: string; title: string; dueOn: string };
+
+export type Schedule = { from: string; to: string; events: ScheduleEvent[]; todosDue: TodoDue[] };
+
+/** A standard category carries its `key` and no name, and is translated; the company's own has a name. */
+export type PostCategory = { id: string; key: string | null; name: string | null; emoji: string };
+
+export type PostSummary = {
+  id: string;
+  title: string;
+  excerpt: string;
+  publishedAt: string;
+  author: Person | null;
+  category: PostCategory | null;
+  commentCount: number;
+  fileCount: number;
+};
+
+export type Board = { categories: PostCategory[]; categoryId: string | null; posts: PostSummary[] };
+
+export type Post = {
+  id: string;
+  jobId: string;
+  title: string;
+  body: string;
+  publishedAt: string;
+  editedAt: string | null;
+  author: Person | null;
+  category: PostCategory | null;
+  files: JobFile[];
+  comments: Comment[];
+};

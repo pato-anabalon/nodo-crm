@@ -2933,6 +2933,9 @@
       "retry": "Try again",
       "cameraDenied": "Nodo can't use the camera. Allow it in Settings.",
       "openSettings": "Open Settings"
+    },
+    "schedule": {
+      "continues": "Continues"
     }
   }
 }

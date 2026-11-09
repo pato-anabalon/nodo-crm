@@ -105,6 +105,13 @@ app's sign-in" below), with the token in the Keychain/Keystore
   puts the words back; the `@` list matches the name the server matches on
   (`mentionName`: the name, or the whole address). Long-press deletes what
   `canDelete` allows.
+- **The schedule is an agenda, read only** (`agendaDays`, pure and
+  tested): four weeks from today, paged by four, only the days with
+  something on them. An event is listed once, on the first day of it the
+  window shows ("continues" when it began earlier), and to-dos falling due
+  sit beside the events and open. The Message Board is read and commented
+  on, never written: posts are the web's, where the editor is. Comments on
+  a post and on a to-do are one component (`components/comments.tsx`).
 - `pnpm --filter mobile exec expo export` bundles both platforms, which is
   the check that Metro, NativeWind and the workspace packages resolve without
   a phone. pnpm keeps dependencies isolated, which is why

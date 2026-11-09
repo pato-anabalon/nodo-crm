@@ -5,7 +5,21 @@ import { markRead } from "./inbox";
 import { tickInLists, tickTodo } from "./todos";
 import { withoutMessage, withPending } from "./chat";
 import type { UploadedFile } from "./uploads";
-import type { ActivityRow, ChatMessage, ChatPage, FolderContents, Inbox, JobDetail, JobList, Me, TodoDetail, TodoList } from "./types";
+import type {
+  ActivityRow,
+  Board,
+  ChatMessage,
+  ChatPage,
+  FolderContents,
+  Inbox,
+  JobDetail,
+  JobList,
+  Me,
+  Post,
+  Schedule,
+  TodoDetail,
+  TodoList,
+} from "./types";
 
 /**
  * Every query is keyed by the company first, so switching company can't show
@@ -262,6 +276,51 @@ export function useFileUploads(jobId: string, folderId: string | null) {
       Promise.all([
         client.invalidateQueries({ queryKey: [auth.company, "job", jobId, "files"] }),
         client.invalidateQueries({ queryKey: [auth.company, "job", jobId, "activity"] }),
+      ]),
+  });
+}
+
+/** Four weeks of the schedule from `from`, which the server reads as days on the company's calendar. */
+export function useSchedule(jobId: string, from: string, to: string) {
+  const auth = useAuth();
+  return useQuery({
+    queryKey: [auth.company, "job", jobId, "schedule", from, to],
+    queryFn: ({ signal }) => api<Schedule>(`/jobs/${jobId}/schedule?from=${from}&to=${to}`, { auth, signal }),
+    // The next window is asked for with the last one still showing, so paging doesn't flash empty.
+    placeholderData: (previous) => previous,
+  });
+}
+
+/** The Message Board's published posts, newest first, narrowed to a category or not. */
+export function useBoard(jobId: string, categoryId: string | null) {
+  const auth = useAuth();
+  return useQuery({
+    queryKey: [auth.company, "job", jobId, "board", categoryId],
+    queryFn: ({ signal }) =>
+      api<Board>(`/jobs/${jobId}/posts${categoryId ? `?category=${encodeURIComponent(categoryId)}` : ""}`, { auth, signal }),
+    placeholderData: (previous) => previous,
+  });
+}
+
+export function usePost(id: string) {
+  const auth = useAuth();
+  return useQuery({
+    queryKey: [auth.company, "post", id],
+    queryFn: ({ signal }) => api<{ post: Post }>(`/posts/${id}`, { auth, signal }),
+  });
+}
+
+export function useAddPostComment(postId: string, jobId: string) {
+  const auth = useAuth();
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: (input: { body: string; uploads: UploadedFile[] }) =>
+      api<{ id: string }>(`/posts/${postId}/comments`, { method: "POST", body: input, auth }),
+    onSuccess: () =>
+      Promise.all([
+        client.invalidateQueries({ queryKey: [auth.company, "post", postId] }),
+        client.invalidateQueries({ queryKey: [auth.company, "job", jobId, "board"] }),
       ]),
   });
 }

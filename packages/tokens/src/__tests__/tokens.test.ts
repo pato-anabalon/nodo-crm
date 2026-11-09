@@ -30,7 +30,7 @@ describe("the web's stylesheet", () => {
   const block = (selector: string) => css.slice(css.indexOf(`${selector} {`), css.indexOf("}", css.indexOf(`${selector} {`)));
 
   it("says in dark only what differs", () => {
-    expect(block(".dark")).toContain("--panel: oklch(0.169 0.042 264.695);");
+    expect(block(".dark")).toContain("--panel: oklch(0.178 0 0);");
     expect(block(".dark")).not.toContain("--status-sent:");
     expect(block(":root")).toContain("--status-sent: #1d4ed8;");
   });
@@ -55,12 +55,12 @@ describe("the web's stylesheet", () => {
 describe("the company's colour", () => {
   it("works the ink out against each scheme's real card", () => {
     expect(cardHex("light")).toBe("#ffffff");
-    expect(cardHex("dark")).toBe("#0f172b");
+    expect(cardHex("dark")).toBe("#171717");
 
     const orange = hexToOklch("#f97316")!;
     const vars = brandVars("#f97316", null)!;
     expect(vars.light["brand-ink"]).toBe(inkOn(orange, "#ffffff"));
-    expect(vars.dark["brand-ink"]).toBe(inkOn(orange, "#0f172b"));
+    expect(vars.dark["brand-ink"]).toBe(inkOn(orange, "#171717"));
     expect(vars.light.primary).toBe(orange.css);
     expect(vars.light["chart-1"]).toBeUndefined();
   });

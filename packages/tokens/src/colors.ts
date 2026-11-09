@@ -19,34 +19,43 @@ const ink = "oklch(0.129 0.042 264.695)";
 const paper = "oklch(0.984 0.003 247.858)";
 const slate = "oklch(0.208 0.042 265.755)";
 const mist = "oklch(0.968 0.007 247.896)";
-const night = "oklch(0.279 0.041 260.031)";
 const blue = "oklch(0.546 0.245 262.881)";
 const line = "oklch(0.929 0.013 255.508)";
 const hairline = "oklch(1 0 0 / 10%)";
-const darkRing = "oklch(0.551 0.027 264.364)";
+const darkRing = "oklch(0.556 0 0)";
+
+/*
+ * Dark is neutral grey, not slate: the light theme's greys lean blue, and
+ * darkened they read as navy rather than as black. Lightness still steps
+ * chrome → panel → card → raised, the same stack as in light.
+ */
+const black = "oklch(0.145 0 0)";
+const coal = "oklch(0.205 0 0)";
+const graphite = "oklch(0.269 0 0)";
+const chalk = "oklch(0.985 0 0)";
 
 export const COLORS = {
-  background: { light: "oklch(1 0 0)", dark: ink, utility: true },
-  foreground: { light: ink, dark: paper, utility: true },
-  card: { light: "oklch(1 0 0)", dark: slate, utility: true },
-  "card-foreground": { light: ink, dark: paper, utility: true },
-  popover: { light: "oklch(1 0 0)", dark: slate, utility: true },
-  "popover-foreground": { light: ink, dark: paper, utility: true },
+  background: { light: "oklch(1 0 0)", dark: black, utility: true },
+  foreground: { light: ink, dark: chalk, utility: true },
+  card: { light: "oklch(1 0 0)", dark: coal, utility: true },
+  "card-foreground": { light: ink, dark: chalk, utility: true },
+  popover: { light: "oklch(1 0 0)", dark: coal, utility: true },
+  "popover-foreground": { light: ink, dark: chalk, utility: true },
   primary: { light: blue, dark: "oklch(0.707 0.165 254.624)", utility: true },
-  "primary-foreground": { light: paper, dark: slate, utility: true },
+  "primary-foreground": { light: paper, dark: coal, utility: true },
   /*
    * A step below the field beside it, so a secondary button reads as a solid
    * thing rather than as a hole in the row. It used to sit at 0.968 — all but
    * the white of the card — with no border and no shadow to give it an edge.
    */
-  secondary: { light: "oklch(0.92 0.014 255.5)", dark: night, utility: true },
-  "secondary-foreground": { light: slate, dark: paper, utility: true },
-  muted: { light: mist, dark: night, utility: true },
-  "muted-foreground": { light: "oklch(0.554 0.046 257.417)", dark: "oklch(0.704 0.04 256.788)", utility: true },
-  accent: { light: mist, dark: night, utility: true },
-  "accent-foreground": { light: slate, dark: paper, utility: true },
+  secondary: { light: "oklch(0.92 0.014 255.5)", dark: graphite, utility: true },
+  "secondary-foreground": { light: slate, dark: chalk, utility: true },
+  muted: { light: mist, dark: graphite, utility: true },
+  "muted-foreground": { light: "oklch(0.554 0.046 257.417)", dark: "oklch(0.708 0 0)", utility: true },
+  accent: { light: mist, dark: graphite, utility: true },
+  "accent-foreground": { light: slate, dark: chalk, utility: true },
   destructive: { light: "oklch(0.577 0.245 27.325)", dark: "oklch(0.704 0.191 22.216)", utility: true },
-  "destructive-foreground": { light: paper, dark: paper, utility: true },
+  "destructive-foreground": { light: paper, dark: chalk, utility: true },
   border: { light: line, dark: hairline, utility: true },
   /*
    * Form controls get a surface of their own, a step below the card they sit on
@@ -57,7 +66,7 @@ export const COLORS = {
    * above the card rather than below it: on a dark surface a control reads as
    * raised, not as a hole.
    */
-  field: { light: "oklch(0.945 0.01 255.5)", dark: night, utility: true },
+  field: { light: "oklch(0.945 0.01 255.5)", dark: graphite, utility: true },
   input: { light: "oklch(0.87 0.015 255.5)", dark: "oklch(1 0 0 / 15%)", utility: true },
   /*
    * The working surface behind the main pane — and only behind it. Cards, inputs
@@ -65,19 +74,19 @@ export const COLORS = {
    * rather than being tinted by it. In dark, a shade above the chrome and still
    * below the cards: the same three-layer stack, not an inversion of it.
    */
-  panel: { light: "#f2f2f2", dark: "oklch(0.169 0.042 264.695)", utility: true },
+  panel: { light: "#f2f2f2", dark: "oklch(0.178 0 0)", utility: true },
   ring: { light: blue, dark: darkRing, utility: true },
   "chart-1": { light: "oklch(0.646 0.222 41.116)", dark: "oklch(0.488 0.243 264.376)", utility: true },
   "chart-2": { light: "oklch(0.6 0.118 184.704)", dark: "oklch(0.696 0.17 162.48)", utility: true },
   "chart-3": { light: "oklch(0.398 0.07 227.392)", dark: "oklch(0.769 0.188 70.08)", utility: true },
   "chart-4": { light: "oklch(0.828 0.189 84.429)", dark: "oklch(0.627 0.265 303.9)", utility: true },
   "chart-5": { light: "oklch(0.769 0.188 70.08)", dark: "oklch(0.645 0.246 16.439)", utility: true },
-  sidebar: { light: paper, dark: slate, utility: true },
-  "sidebar-foreground": { light: ink, dark: paper, utility: true },
+  sidebar: { light: paper, dark: coal, utility: true },
+  "sidebar-foreground": { light: ink, dark: chalk, utility: true },
   "sidebar-primary": { light: blue, dark: "oklch(0.488 0.243 264.376)", utility: true },
-  "sidebar-primary-foreground": { light: paper, dark: paper, utility: true },
-  "sidebar-accent": { light: mist, dark: night, utility: true },
-  "sidebar-accent-foreground": { light: slate, dark: paper, utility: true },
+  "sidebar-primary-foreground": { light: paper, dark: chalk, utility: true },
+  "sidebar-accent": { light: mist, dark: graphite, utility: true },
+  "sidebar-accent-foreground": { light: slate, dark: chalk, utility: true },
   "sidebar-border": { light: line, dark: hairline, utility: true },
   "sidebar-ring": { light: blue, dark: darkRing, utility: true },
 
@@ -88,7 +97,7 @@ export const COLORS = {
    *
    * "expired" reuses the badge's own `status-expired`, fixed at its *light*
    * value (#1f2937) in both themes rather than switching to the dark
-   * variant's inverted #cbd5e1 — that one reads fine as a badge fill under
+   * variant's inverted #d4d4d4 — that one reads fine as a badge fill under
    * dark text, but simulated for deuteranopia it sits only ΔE 16.7 from
    * `quote-awaiting`'s dark grey, worse than any existing pair. The fixed
    * value stays ΔE 54+ from everything in both themes, same reasoning
@@ -111,7 +120,7 @@ export const COLORS = {
    * so "expired" inverts to a light fill with dark text, and "draft" lifts
    * enough to separate from the row it sits on.
    */
-  "status-draft": { light: "#475569", dark: "#64748b" },
+  "status-draft": { light: "#475569", dark: "#737373" },
   "status-draft-fg": { light: "#ffffff" },
   "status-sent": { light: "#1d4ed8" },
   "status-sent-fg": { light: "#ffffff" },
@@ -119,8 +128,8 @@ export const COLORS = {
   "status-accepted-fg": { light: "#ffffff" },
   "status-declined": { light: "#be123c" },
   "status-declined-fg": { light: "#ffffff" },
-  "status-expired": { light: "#1f2937", dark: "#cbd5e1" },
-  "status-expired-fg": { light: "#ffffff", dark: "#0f172b" },
+  "status-expired": { light: "#1f2937", dark: "#d4d4d4" },
+  "status-expired-fg": { light: "#ffffff", dark: "#171717" },
 
   /*
    * The same statuses written as text rather than filled behind it.
@@ -131,11 +140,11 @@ export const COLORS = {
    * work, so the values match; in dark they are chosen for the ground they sit
    * on, and range from 5.8 to 10.6.
    */
-  "status-draft-text": { light: "#475569", dark: "#94a3b8" },
+  "status-draft-text": { light: "#475569", dark: "#a3a3a3" },
   "status-sent-text": { light: "#1d4ed8", dark: "#60a5fa" },
   "status-accepted-text": { light: "#15803d", dark: "#4ade80" },
   "status-declined-text": { light: "#be123c", dark: "#fb7185" },
-  "status-expired-text": { light: "#1f2937", dark: "#cbd5e1" },
+  "status-expired-text": { light: "#1f2937", dark: "#d4d4d4" },
 
   /* The brand colour as text; `brandVars` replaces it per company. */
   "brand-ink": { light: "var(--primary)" },

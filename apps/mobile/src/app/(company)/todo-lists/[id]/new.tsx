@@ -1,4 +1,4 @@
-import { Stack, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useTranslations } from "use-intl";
 import { Failed, Loading } from "@/components/screen";
 import { TodoForm } from "@/components/todo-form";
@@ -20,15 +20,12 @@ export default function NewTodo() {
   const mine = me && members.some((member) => member.id === me.user.id) ? [me.user.id] : [];
 
   return (
-    <>
-      <Stack.Screen options={{ title: t("jobs.todos.addTodo") }} />
-      <TodoForm
-        jobId={jobId}
-        target={{ listId: id }}
-        initial={{ title: "", notes: "", startsOn: null, dueOn: null, assigneeIds: mine }}
-        members={members}
-        submitLabel={t("jobs.todos.addThisTodo")}
-      />
-    </>
+    <TodoForm
+      jobId={jobId}
+      target={{ listId: id }}
+      initial={{ title: "", notes: "", startsOn: null, dueOn: null, assigneeIds: mine }}
+      members={members}
+      submitLabel={t("jobs.todos.addThisTodo")}
+    />
   );
 }

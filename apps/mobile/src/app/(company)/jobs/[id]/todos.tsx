@@ -1,4 +1,4 @@
-import { Link, Stack, useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { Plus } from "lucide-react-native";
 import { useState } from "react";
 import { Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
@@ -32,7 +32,6 @@ export default function Todos() {
 
   return (
     <>
-      <Stack.Screen options={{ title: t("jobs.todos.title") }} />
       {lists.isPending ? (
         <Loading />
       ) : !lists.data ? (

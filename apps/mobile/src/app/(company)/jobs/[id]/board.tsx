@@ -1,4 +1,4 @@
-import { Link, Stack, useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { MessageCircle, Paperclip } from "lucide-react-native";
 import { useState } from "react";
 import { Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
@@ -31,24 +31,21 @@ export default function BoardScreen() {
   const { categories, posts } = board.data;
 
   return (
-    <>
-      <Stack.Screen options={{ title: t("jobs.board.title") }} />
-      <ScrollView
-        contentContainerClassName="gap-stack-loose pb-section pt-stack"
-        refreshControl={<RefreshControl refreshing={board.isRefetching} onRefresh={() => void board.refetch()} tintColor={spinner} />}
-      >
-        {categories.length ? <Categories categories={categories} selected={categoryId} onSelect={setCategoryId} /> : null}
-        <View className={`gap-stack px-gutter ${board.isPlaceholderData ? "opacity-50" : ""}`}>
-          {posts.length === 0 ? (
-            <Text className="py-section text-center text-callout text-muted-foreground">
-              {t(categoryId ? "jobs.board.emptyCategory" : "jobs.board.empty")}
-            </Text>
-          ) : (
-            posts.map((post) => <PostRow key={post.id} post={post} />)
-          )}
-        </View>
-      </ScrollView>
-    </>
+    <ScrollView
+      contentContainerClassName="gap-stack-loose pb-section pt-stack"
+      refreshControl={<RefreshControl refreshing={board.isRefetching} onRefresh={() => void board.refetch()} tintColor={spinner} />}
+    >
+      {categories.length ? <Categories categories={categories} selected={categoryId} onSelect={setCategoryId} /> : null}
+      <View className={`gap-stack px-gutter ${board.isPlaceholderData ? "opacity-50" : ""}`}>
+        {posts.length === 0 ? (
+          <Text className="py-section text-center text-callout text-muted-foreground">
+            {t(categoryId ? "jobs.board.emptyCategory" : "jobs.board.empty")}
+          </Text>
+        ) : (
+          posts.map((post) => <PostRow key={post.id} post={post} />)
+        )}
+      </View>
+    </ScrollView>
   );
 }
 

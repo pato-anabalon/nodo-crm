@@ -1,5 +1,5 @@
 import { Image } from "expo-image";
-import { Link, Stack, useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { CalendarDays, ChevronRight, FolderOpen, ListChecks, MapPin, Megaphone, MessagesSquare } from "lucide-react-native";
 import type { ReactNode } from "react";
 import { Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
@@ -30,19 +30,16 @@ export default function JobScreen() {
   if (!job.data) return <Failed text={errorText(job.error)} retry={() => job.refetch()} retryLabel={t("mobile.retry")} />;
 
   return (
-    <>
-      <Stack.Screen options={{ title: "" }} />
-      <ScrollView
-        contentContainerClassName="gap-section px-gutter pb-section pt-stack"
-        refreshControl={<RefreshControl refreshing={job.isRefetching} onRefresh={() => void job.refetch()} tintColor={spinner} />}
-      >
-        <Header detail={job.data} formatLocale={formatLocale} />
-        <Tools detail={job.data} />
-        {canOn(job.data, "jobs.read") ? (
-          <Activity detail={job.data} formatLocale={formatLocale} timeZone={me?.company.timezone ?? "UTC"} />
-        ) : null}
-      </ScrollView>
-    </>
+    <ScrollView
+      contentContainerClassName="gap-section px-gutter pb-section pt-stack"
+      refreshControl={<RefreshControl refreshing={job.isRefetching} onRefresh={() => void job.refetch()} tintColor={spinner} />}
+    >
+      <Header detail={job.data} formatLocale={formatLocale} />
+      <Tools detail={job.data} />
+      {canOn(job.data, "jobs.read") ? (
+        <Activity detail={job.data} formatLocale={formatLocale} timeZone={me?.company.timezone ?? "UTC"} />
+      ) : null}
+    </ScrollView>
   );
 }
 

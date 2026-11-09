@@ -74,6 +74,12 @@ app's sign-in" below), with the token in the Keychain/Keystore
   slug, so switching company can't show the last one's jobs; the cache is
   persisted, so what was opened yesterday opens without signal; a 401 from
   anything signs the phone out; signing out clears it all.
+- **Light or dark is the phone's, unless Profile says otherwise**
+  (`lib/appearance.ts`): the choice goes through `Appearance.setColorScheme`,
+  so `useColorScheme` and everything drawn from it follow with no other
+  code aware of it. Header titles that don't depend on data are set in the
+  company layout, not by the screen, so a screen still loading shows its
+  name rather than its route's file name.
 - **Tabs follow the profile**: Jobs with `jobs.read`, the bell and Profile for
   everybody. The clock arrives with time control, not before as a tab that
   does nothing.

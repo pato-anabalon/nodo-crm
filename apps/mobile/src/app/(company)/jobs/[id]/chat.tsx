@@ -1,6 +1,6 @@
 import type { ChatSegment } from "@nodo/core/jobs/chat/text";
 import * as WebBrowser from "expo-web-browser";
-import { Stack, useFocusEffect, useLocalSearchParams } from "expo-router";
+import { useFocusEffect, useLocalSearchParams } from "expo-router";
 import { ArrowUp } from "lucide-react-native";
 import { memo, useCallback, useMemo, useState } from "react";
 import { ActivityIndicator, Alert, FlatList, KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from "react-native";
@@ -72,35 +72,32 @@ export default function ChatScreen() {
   if (!chat.data) return <Failed text={errorText(chat.error)} retry={() => chat.refetch()} retryLabel={t("mobile.retry")} />;
 
   return (
-    <>
-      <Stack.Screen options={{ title: t("jobs.chat.title") }} />
-      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} keyboardVerticalOffset={100} className="flex-1">
-        {items.length === 0 ? (
-          <Empty text={t("jobs.chat.empty")} />
-        ) : (
-          <FlatList
-            inverted
-            data={items}
-            keyExtractor={(item) => item.message.id}
-            renderItem={renderItem}
-            contentContainerClassName="px-gutter py-stack"
-            keyboardShouldPersistTaps="handled"
-            keyboardDismissMode="interactive"
-            onEndReachedThreshold={0.4}
-            onEndReached={() => {
-              if (chat.hasNextPage && !chat.isFetchingNextPage) void chat.fetchNextPage();
-            }}
-            ListFooterComponent={chat.isFetchingNextPage ? <ActivityIndicator color={spinner} className="py-stack" /> : undefined}
-          />
-        )}
-        <ErrorText>{remove.error ? errorText(remove.error) : null}</ErrorText>
-        {canOn(job.data, "chat.create") ? (
-          <Composer jobId={id} people={job.data?.job.members ?? []} me={me?.user ?? null} />
-        ) : (
-          <ReadOnly />
-        )}
-      </KeyboardAvoidingView>
-    </>
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} keyboardVerticalOffset={100} className="flex-1">
+      {items.length === 0 ? (
+        <Empty text={t("jobs.chat.empty")} />
+      ) : (
+        <FlatList
+          inverted
+          data={items}
+          keyExtractor={(item) => item.message.id}
+          renderItem={renderItem}
+          contentContainerClassName="px-gutter py-stack"
+          keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="interactive"
+          onEndReachedThreshold={0.4}
+          onEndReached={() => {
+            if (chat.hasNextPage && !chat.isFetchingNextPage) void chat.fetchNextPage();
+          }}
+          ListFooterComponent={chat.isFetchingNextPage ? <ActivityIndicator color={spinner} className="py-stack" /> : undefined}
+        />
+      )}
+      <ErrorText>{remove.error ? errorText(remove.error) : null}</ErrorText>
+      {canOn(job.data, "chat.create") ? (
+        <Composer jobId={id} people={job.data?.job.members ?? []} me={me?.user ?? null} />
+      ) : (
+        <ReadOnly />
+      )}
+    </KeyboardAvoidingView>
   );
 }
 

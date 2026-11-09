@@ -5,12 +5,15 @@ import { StatusBar } from "expo-status-bar";
 import type { ReactNode } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { restoreAppearance } from "@/lib/appearance";
 import { BrandRoot } from "@/lib/brand";
 import { deviceLocale, I18n } from "@/lib/i18n";
 import { persister, queryClient } from "@/lib/query";
 import { useMe } from "@/lib/queries";
 import { SessionProvider, useSession } from "@/lib/session";
 import { Loading } from "@/components/screen";
+
+void restoreAppearance();
 
 export default function RootLayout() {
   return (

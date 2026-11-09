@@ -2892,7 +2892,13 @@
       "company": "Empresa",
       "switchCompany": "Cambiar de empresa",
       "signOut": "Cerrar sesión",
-      "version": "Versión {version}"
+      "version": "Versión {version}",
+      "appearance": {
+        "title": "Apariencia",
+        "system": "Automático",
+        "light": "Claro",
+        "dark": "Oscuro"
+      }
     },
     "errors": {
       "invalid_credentials": "El email o la contraseña no son correctos.",

@@ -1,4 +1,4 @@
-import { Stack, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { KeyboardAvoidingView, Platform, RefreshControl, ScrollView, Text, View } from "react-native";
 import { useTranslations } from "use-intl";
 import { Avatar, personName } from "@/components/avatars";
@@ -32,39 +32,36 @@ export default function PostScreen() {
   const detail = post.data.post;
 
   return (
-    <>
-      <Stack.Screen options={{ title: t("jobs.board.title") }} />
-      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} keyboardVerticalOffset={100} className="flex-1">
-        <ScrollView
-          contentContainerClassName="gap-section px-gutter pb-section pt-stack"
-          keyboardShouldPersistTaps="handled"
-          refreshControl={<RefreshControl refreshing={post.isRefetching} onRefresh={() => void post.refetch()} tintColor={spinner} />}
-        >
-          <View className="gap-stack-loose">
-            {detail.category ? (
-              <Text className="text-label uppercase text-muted-foreground">
-                {detail.category.emoji} {categoryName(detail.category)}
-              </Text>
-            ) : null}
-            <Text accessibilityRole="header" className="text-title-2 text-foreground">
-              {detail.title}
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} keyboardVerticalOffset={100} className="flex-1">
+      <ScrollView
+        contentContainerClassName="gap-section px-gutter pb-section pt-stack"
+        keyboardShouldPersistTaps="handled"
+        refreshControl={<RefreshControl refreshing={post.isRefetching} onRefresh={() => void post.refetch()} tintColor={spinner} />}
+      >
+        <View className="gap-stack-loose">
+          {detail.category ? (
+            <Text className="text-label uppercase text-muted-foreground">
+              {detail.category.emoji} {categoryName(detail.category)}
             </Text>
-            <View className="flex-row items-center gap-2">
-              {detail.author ? <Avatar person={detail.author} size={28} /> : null}
-              <Text className="flex-1 text-footnote text-muted-foreground">
-                <Text className="font-semibold text-foreground">{personName(detail.author, t("jobs.board.someone"))}</Text> ·{" "}
-                {ago(detail.publishedAt)}
-                {detail.editedAt ? ` · ${t("jobs.board.edited")}` : ""}
-              </Text>
-            </View>
+          ) : null}
+          <Text accessibilityRole="header" className="text-title-2 text-foreground">
+            {detail.title}
+          </Text>
+          <View className="flex-row items-center gap-2">
+            {detail.author ? <Avatar person={detail.author} size={28} /> : null}
+            <Text className="flex-1 text-footnote text-muted-foreground">
+              <Text className="font-semibold text-foreground">{personName(detail.author, t("jobs.board.someone"))}</Text> ·{" "}
+              {ago(detail.publishedAt)}
+              {detail.editedAt ? ` · ${t("jobs.board.edited")}` : ""}
+            </Text>
           </View>
+        </View>
 
-          {detail.body ? <RichText html={detail.body} /> : null}
-          <FileGrid files={detail.files} />
-          <Comments comments={detail.comments} />
-        </ScrollView>
-        {canOn(job.data, "comments.create") ? <CommentComposer jobId={detail.jobId} send={addComment} /> : null}
-      </KeyboardAvoidingView>
-    </>
+        {detail.body ? <RichText html={detail.body} /> : null}
+        <FileGrid files={detail.files} />
+        <Comments comments={detail.comments} />
+      </ScrollView>
+      {canOn(job.data, "comments.create") ? <CommentComposer jobId={detail.jobId} send={addComment} /> : null}
+    </KeyboardAvoidingView>
   );
 }

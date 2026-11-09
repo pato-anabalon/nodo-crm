@@ -1,6 +1,6 @@
 import { addDays } from "@nodo/core/jobs/schedule/calendar";
 import { dayIn } from "@nodo/core/jobs/timeline";
-import { Link, Stack, useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { ChevronLeft, ChevronRight, Diamond, ListChecks } from "lucide-react-native";
 import { useState } from "react";
 import { Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
@@ -41,44 +41,41 @@ export default function ScheduleScreen() {
   const range = t("jobs.dateRange", { start: formatDay(from, formatLocale), end: formatDay(to, formatLocale) });
 
   return (
-    <>
-      <Stack.Screen options={{ title: t("jobs.schedule.title") }} />
-      <ScrollView
-        contentContainerClassName="gap-section px-gutter pb-section pt-stack"
-        refreshControl={<RefreshControl refreshing={schedule.isRefetching} onRefresh={() => void schedule.refetch()} tintColor={spinner} />}
-      >
-        <Pager
-          range={range}
-          busy={schedule.isPlaceholderData}
-          onEarlier={() => setFrom(addDays(from, -WINDOW_DAYS))}
-          onLater={() => setFrom(addDays(from, WINDOW_DAYS))}
-          onToday={from === today ? undefined : () => setFrom(today)}
-        />
-        {days.length === 0 ? (
-          <Text className="text-center text-callout text-muted-foreground">{t("jobs.schedule.agendaEmpty", { range })}</Text>
-        ) : (
-          days.map(({ day, entries }) => (
-            <View key={day} className="gap-stack">
-              <Text className={`text-label uppercase ${day === today ? "text-brand-ink" : "text-muted-foreground"}`}>
-                {day === today ? `${t("jobs.schedule.today")} · ` : ""}
-                {formatDayHeading(day, formatLocale)}
-              </Text>
-              <View className="overflow-hidden rounded-xl border border-border bg-card">
-                {entries.map((entry, index) => (
-                  <Entry
-                    key={entry.kind === "event" ? entry.event.id : `todo-${entry.todo.id}`}
-                    entry={entry}
-                    first={index === 0}
-                    formatLocale={formatLocale}
-                    timeZone={timeZone}
-                  />
-                ))}
-              </View>
+    <ScrollView
+      contentContainerClassName="gap-section px-gutter pb-section pt-stack"
+      refreshControl={<RefreshControl refreshing={schedule.isRefetching} onRefresh={() => void schedule.refetch()} tintColor={spinner} />}
+    >
+      <Pager
+        range={range}
+        busy={schedule.isPlaceholderData}
+        onEarlier={() => setFrom(addDays(from, -WINDOW_DAYS))}
+        onLater={() => setFrom(addDays(from, WINDOW_DAYS))}
+        onToday={from === today ? undefined : () => setFrom(today)}
+      />
+      {days.length === 0 ? (
+        <Text className="text-center text-callout text-muted-foreground">{t("jobs.schedule.agendaEmpty", { range })}</Text>
+      ) : (
+        days.map(({ day, entries }) => (
+          <View key={day} className="gap-stack">
+            <Text className={`text-label uppercase ${day === today ? "text-brand-ink" : "text-muted-foreground"}`}>
+              {day === today ? `${t("jobs.schedule.today")} · ` : ""}
+              {formatDayHeading(day, formatLocale)}
+            </Text>
+            <View className="overflow-hidden rounded-xl border border-border bg-card">
+              {entries.map((entry, index) => (
+                <Entry
+                  key={entry.kind === "event" ? entry.event.id : `todo-${entry.todo.id}`}
+                  entry={entry}
+                  first={index === 0}
+                  formatLocale={formatLocale}
+                  timeZone={timeZone}
+                />
+              ))}
             </View>
-          ))
-        )}
-      </ScrollView>
-    </>
+          </View>
+        ))
+      )}
+    </ScrollView>
   );
 }
 

@@ -1,9 +1,10 @@
 import Constants from "expo-constants";
-import { ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
 import { useTranslations } from "use-intl";
 import { Button } from "@/components/button";
 import { CompanyMark } from "@/components/company-mark";
 import { Screen } from "@/components/screen";
+import { useAppearance } from "@/lib/appearance";
 import { useMe } from "@/lib/queries";
 import { useSession } from "@/lib/session";
 
@@ -38,6 +39,8 @@ export default function Profile() {
           </View>
         ) : null}
 
+        <AppearancePicker />
+
         <View className="gap-stack">
           {several ? <Button label={t("profile.switchCompany")} variant="secondary" onPress={leaveCompany} /> : null}
           <Button label={t("profile.signOut")} variant="ghost" onPress={signOut} />
@@ -48,5 +51,33 @@ export default function Profile() {
         </Text>
       </ScrollView>
     </Screen>
+  );
+}
+
+/** Three segments: the phone's own setting, or always light, or always dark. */
+function AppearancePicker() {
+  const t = useTranslations("mobile.profile.appearance");
+  const { choice, choose, choices } = useAppearance();
+
+  return (
+    <View className="gap-stack">
+      <Text className="text-label uppercase text-muted-foreground">{t("title")}</Text>
+      <View accessibilityRole="radiogroup" className="flex-row gap-1 rounded-xl border border-border bg-card p-1">
+        {choices.map((option) => {
+          const on = option === choice;
+          return (
+            <Pressable
+              key={option}
+              accessibilityRole="radio"
+              accessibilityState={{ checked: on }}
+              onPress={() => choose(option)}
+              className={`min-h-11 flex-1 items-center justify-center rounded-lg ${on ? "bg-muted" : "active:bg-muted"}`}
+            >
+              <Text className={`text-callout ${on ? "font-semibold text-foreground" : "text-muted-foreground"}`}>{t(option)}</Text>
+            </Pressable>
+          );
+        })}
+      </View>
+    </View>
   );
 }

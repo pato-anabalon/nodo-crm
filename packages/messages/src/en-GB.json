@@ -2892,7 +2892,13 @@
       "company": "Company",
       "switchCompany": "Switch company",
       "signOut": "Sign out",
-      "version": "Version {version}"
+      "version": "Version {version}",
+      "appearance": {
+        "title": "Appearance",
+        "system": "Automatic",
+        "light": "Light",
+        "dark": "Dark"
+      }
     },
     "errors": {
       "invalid_credentials": "The email or the password isn't right.",

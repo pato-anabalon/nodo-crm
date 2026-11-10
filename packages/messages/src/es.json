@@ -2947,6 +2947,9 @@
     },
     "schedule": {
       "continues": "Continúa"
+    },
+    "push": {
+      "channel": "Avisos"
     }
   }
 }

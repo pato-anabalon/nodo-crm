@@ -49,7 +49,10 @@ app's sign-in" below), with the token in the Keychain/Keystore
 (`expo-secure-store`).
 
 - **Run it** with `pnpm mobile` and open it in Expo Go — every native module it
-  uses ships there, so no build is needed yet. `apps/mobile/.env.local` sets
+  uses ships there. Push is the exception: Expo Go stopped receiving it in
+  SDK 53, so it needs a development build (`eas build --profile
+  development`, profiles in `eas.json`) served by `pnpm --filter mobile
+  start:dev`; `start` stays on Expo Go (`--go`). `apps/mobile/.env.local` sets
   `EXPO_PUBLIC_API_URL` to the laptop on the LAN (`http://<ip>:3100`): a phone
   can't reach `localhost`, and `/api` skips the subdomain proxy, so the bare IP
   is enough. Without it the app talks to production.
@@ -80,6 +83,14 @@ app's sign-in" below), with the token in the Keychain/Keystore
   code aware of it. Header titles that don't depend on data are set in the
   company layout, not by the screen, so a screen still loading shows its
   name rather than its route's file name.
+- **Push opens what it is about** (`lib/push.ts`): the phone registers its
+  token after sign-in and on every start, a notice arriving while the app
+  is open still shows and refreshes the bell, and a tap marks it read and
+  opens its screen — switching to its company first. The web's `href` is
+  turned into the app's screen by `appHref` (pure, tested), which the bell
+  uses too; a lead or a quote has none and stays in the bell. Outside a
+  build of our own (Expo Go, a simulator, no EAS project id)
+  `expo-notifications` isn't even loaded.
 - **Tabs follow the profile**: Jobs with `jobs.read`, the bell and Profile for
   everybody. The clock arrives with time control, not before as a tab that
   does nothing.

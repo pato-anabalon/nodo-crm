@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
 import { useTranslations } from "use-intl";
 import { useColor } from "@/lib/brand";
+import { usePush } from "@/lib/push";
 
 /**
  * Everything inside a company: the tabs, and what opens on top of them — a
@@ -16,6 +17,9 @@ export default function CompanyLayout() {
   const foreground = useColor("foreground");
   const tint = useColor("brand-ink");
   const t = useTranslations("jobs");
+  const tm = useTranslations("mobile");
+  // Here, inside the navigator, so a tapped notice can be opened as soon as it is read.
+  usePush(tm("push.channel"));
 
   return (
     <Stack

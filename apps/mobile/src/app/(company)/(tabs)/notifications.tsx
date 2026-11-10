@@ -1,3 +1,4 @@
+import { router, type Href } from "expo-router";
 import { FlatList, Pressable, RefreshControl, Text, View } from "react-native";
 import { useTranslations } from "use-intl";
 import { Button } from "@/components/button";
@@ -5,13 +6,15 @@ import { Empty, Failed, Loading, Screen } from "@/components/screen";
 import { useColor } from "@/lib/brand";
 import { useErrorText } from "@/lib/errors";
 import { useElapsed } from "@/lib/format";
+import { appHref } from "@/lib/links";
 import { useInbox, useMarkRead, useMe } from "@/lib/queries";
 import type { Notice } from "@/lib/types";
 
 /**
  * The bell. Each notice arrives as its kind and parameters and is worded here
  * with the same `notifications.inApp` message the web renders, in this
- * person's language. Opening what it points at comes with the job screens.
+ * person's language. A press marks it read and opens what it is about, when
+ * the app has a screen for it (`appHref`); a lead or a quote stays on the web.
  */
 export default function Notifications() {
   const t = useTranslations("mobile");
@@ -43,7 +46,15 @@ export default function Notifications() {
           ListEmptyComponent={<Empty text={t("notificationsList.empty")} />}
           ItemSeparatorComponent={() => <View className="ml-gutter h-px bg-border" />}
           renderItem={({ item }) => (
-            <NoticeRow notice={item} ago={ago(item.createdAt)} onPress={() => !item.read && markRead.mutate(item.id)} />
+            <NoticeRow
+              notice={item}
+              ago={ago(item.createdAt)}
+              onPress={() => {
+                if (!item.read) markRead.mutate(item.id);
+                const to = appHref(item.href);
+                if (to) router.push(to as Href);
+              }}
+            />
           )}
         />
       )}

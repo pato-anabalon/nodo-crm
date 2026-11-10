@@ -2947,6 +2947,9 @@
     },
     "schedule": {
       "continues": "Continues"
+    },
+    "push": {
+      "channel": "Notices"
     }
   }
 }

@@ -2162,6 +2162,18 @@ model Job {
   endsOn      DateTime? @db.Date
   // One of `JOB_COLOURS`, or null for the one derived from the id: the bar on the Lineup.
   color       String?
+  /**
+   * Where the work is, and how near counts as being there — what a punch on
+   * the clock is measured against (`@nodo/core/timeclock/geofence`). Placed
+   * from the address when it changes (`GEOCODED`, with `geocodedAddress` the
+   * address it was read from), or by hand (`MANUAL`), which a later change of
+   * address doesn't move without somebody asking. No place, no punching.
+   */
+  latitude        Float?
+  longitude       Float?
+  locationSource  JobLocationSource?
+  geocodedAddress String?
+  geofenceRadiusM Int                @default(300)
   createdById String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
@@ -2238,6 +2250,12 @@ model JobActivity {
 
   @@index([companyId, jobId, createdAt])
   @@index([companyId, createdAt])
+}
+
+/// How a job's place on the map was set: read from its address, or put there by a person.
+enum JobLocationSource {
+  GEOCODED
+  MANUAL
 }
 
 enum JobActivityType {

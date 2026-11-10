@@ -15,6 +15,7 @@ import { buildQuoteWhere, visibilityWhere as quoteVisibilityWhere } from "@/modu
 import { emailJobNotice } from "./emails";
 import { recipientsOnJob } from "./recipients";
 import { jobNameFromQuote } from "./naming";
+import { syncJobLocation } from "./location";
 import { jobVisibilityWhere } from "./scope";
 import { activityPermission } from "./timeline";
 import { scopeItemsFromQuote } from "./scope-items";
@@ -294,6 +295,7 @@ export async function startJobFromQuote(ctx: CompanyContext, quoteId: string): P
       return job;
     });
 
+    await syncJobLocation(ctx, job.id);
     await notifyAdded(ctx, job.id, memberIds);
     return { ok: true, jobId: job.id };
   } catch (error) {
@@ -389,6 +391,7 @@ export async function linkQuoteToJob(ctx: CompanyContext, jobId: string, quoteId
     throw error;
   }
 
+  await syncJobLocation(ctx, jobId);
   await notifyAdded(ctx, jobId, joining);
   return { ok: true, quoteId: quote.id };
 }
@@ -505,6 +508,7 @@ export async function createJob(ctx: CompanyContext, values: JobFormValues & Job
     });
     return job;
   });
+  await syncJobLocation(ctx, job.id);
   return job.id;
 }
 
@@ -518,6 +522,7 @@ export async function updateJob(ctx: CompanyContext, jobId: string, values: JobF
       color: values.color ?? null,
     },
   });
+  await syncJobLocation(ctx, jobId);
 }
 
 export async function setJobStatus(ctx: CompanyContext, jobId: string, to: JobStatus): Promise<boolean> {

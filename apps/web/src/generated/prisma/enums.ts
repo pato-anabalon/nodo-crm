@@ -301,6 +301,14 @@ export const JobStatus = {
 export type JobStatus = (typeof JobStatus)[keyof typeof JobStatus]
 
 
+export const JobLocationSource = {
+  GEOCODED: 'GEOCODED',
+  MANUAL: 'MANUAL'
+} as const
+
+export type JobLocationSource = (typeof JobLocationSource)[keyof typeof JobLocationSource]
+
+
 export const JobActivityType = {
   CREATED: 'CREATED',
   MEMBERS_ADDED: 'MEMBERS_ADDED',

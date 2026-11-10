@@ -25,8 +25,22 @@ export type JobModel = runtime.Types.Result.DefaultSelection<Prisma.$JobPayload>
 
 export type AggregateJob = {
   _count: JobCountAggregateOutputType | null
+  _avg: JobAvgAggregateOutputType | null
+  _sum: JobSumAggregateOutputType | null
   _min: JobMinAggregateOutputType | null
   _max: JobMaxAggregateOutputType | null
+}
+
+export type JobAvgAggregateOutputType = {
+  latitude: number | null
+  longitude: number | null
+  geofenceRadiusM: number | null
+}
+
+export type JobSumAggregateOutputType = {
+  latitude: number | null
+  longitude: number | null
+  geofenceRadiusM: number | null
 }
 
 export type JobMinAggregateOutputType = {
@@ -43,6 +57,11 @@ export type JobMinAggregateOutputType = {
   startsOn: Date | null
   endsOn: Date | null
   color: string | null
+  latitude: number | null
+  longitude: number | null
+  locationSource: $Enums.JobLocationSource | null
+  geocodedAddress: string | null
+  geofenceRadiusM: number | null
   createdById: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -62,6 +81,11 @@ export type JobMaxAggregateOutputType = {
   startsOn: Date | null
   endsOn: Date | null
   color: string | null
+  latitude: number | null
+  longitude: number | null
+  locationSource: $Enums.JobLocationSource | null
+  geocodedAddress: string | null
+  geofenceRadiusM: number | null
   createdById: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -81,12 +105,29 @@ export type JobCountAggregateOutputType = {
   startsOn: number
   endsOn: number
   color: number
+  latitude: number
+  longitude: number
+  locationSource: number
+  geocodedAddress: number
+  geofenceRadiusM: number
   createdById: number
   createdAt: number
   updatedAt: number
   _all: number
 }
 
+
+export type JobAvgAggregateInputType = {
+  latitude?: true
+  longitude?: true
+  geofenceRadiusM?: true
+}
+
+export type JobSumAggregateInputType = {
+  latitude?: true
+  longitude?: true
+  geofenceRadiusM?: true
+}
 
 export type JobMinAggregateInputType = {
   id?: true
@@ -102,6 +143,11 @@ export type JobMinAggregateInputType = {
   startsOn?: true
   endsOn?: true
   color?: true
+  latitude?: true
+  longitude?: true
+  locationSource?: true
+  geocodedAddress?: true
+  geofenceRadiusM?: true
   createdById?: true
   createdAt?: true
   updatedAt?: true
@@ -121,6 +167,11 @@ export type JobMaxAggregateInputType = {
   startsOn?: true
   endsOn?: true
   color?: true
+  latitude?: true
+  longitude?: true
+  locationSource?: true
+  geocodedAddress?: true
+  geofenceRadiusM?: true
   createdById?: true
   createdAt?: true
   updatedAt?: true
@@ -140,6 +191,11 @@ export type JobCountAggregateInputType = {
   startsOn?: true
   endsOn?: true
   color?: true
+  latitude?: true
+  longitude?: true
+  locationSource?: true
+  geocodedAddress?: true
+  geofenceRadiusM?: true
   createdById?: true
   createdAt?: true
   updatedAt?: true
@@ -184,6 +240,18 @@ export type JobAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: JobAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: JobSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: JobMinAggregateInputType
@@ -214,6 +282,8 @@ export type JobGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   _count?: JobCountAggregateInputType | true
+  _avg?: JobAvgAggregateInputType
+  _sum?: JobSumAggregateInputType
   _min?: JobMinAggregateInputType
   _max?: JobMaxAggregateInputType
 }
@@ -232,10 +302,17 @@ export type JobGroupByOutputType = {
   startsOn: Date | null
   endsOn: Date | null
   color: string | null
+  latitude: number | null
+  longitude: number | null
+  locationSource: $Enums.JobLocationSource | null
+  geocodedAddress: string | null
+  geofenceRadiusM: number
   createdById: string | null
   createdAt: Date
   updatedAt: Date
   _count: JobCountAggregateOutputType | null
+  _avg: JobAvgAggregateOutputType | null
+  _sum: JobSumAggregateOutputType | null
   _min: JobMinAggregateOutputType | null
   _max: JobMaxAggregateOutputType | null
 }
@@ -272,6 +349,11 @@ export type JobWhereInput = {
   startsOn?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   endsOn?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   color?: Prisma.StringNullableFilter<"Job"> | string | null
+  latitude?: Prisma.FloatNullableFilter<"Job"> | number | null
+  longitude?: Prisma.FloatNullableFilter<"Job"> | number | null
+  locationSource?: Prisma.EnumJobLocationSourceNullableFilter<"Job"> | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.StringNullableFilter<"Job"> | string | null
+  geofenceRadiusM?: Prisma.IntFilter<"Job"> | number
   createdById?: Prisma.StringNullableFilter<"Job"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Job"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Job"> | Date | string
@@ -307,6 +389,11 @@ export type JobOrderByWithRelationInput = {
   startsOn?: Prisma.SortOrderInput | Prisma.SortOrder
   endsOn?: Prisma.SortOrderInput | Prisma.SortOrder
   color?: Prisma.SortOrderInput | Prisma.SortOrder
+  latitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  longitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  locationSource?: Prisma.SortOrderInput | Prisma.SortOrder
+  geocodedAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  geofenceRadiusM?: Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -345,6 +432,11 @@ export type JobWhereUniqueInput = Prisma.AtLeast<{
   startsOn?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   endsOn?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   color?: Prisma.StringNullableFilter<"Job"> | string | null
+  latitude?: Prisma.FloatNullableFilter<"Job"> | number | null
+  longitude?: Prisma.FloatNullableFilter<"Job"> | number | null
+  locationSource?: Prisma.EnumJobLocationSourceNullableFilter<"Job"> | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.StringNullableFilter<"Job"> | string | null
+  geofenceRadiusM?: Prisma.IntFilter<"Job"> | number
   createdById?: Prisma.StringNullableFilter<"Job"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Job"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Job"> | Date | string
@@ -380,12 +472,19 @@ export type JobOrderByWithAggregationInput = {
   startsOn?: Prisma.SortOrderInput | Prisma.SortOrder
   endsOn?: Prisma.SortOrderInput | Prisma.SortOrder
   color?: Prisma.SortOrderInput | Prisma.SortOrder
+  latitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  longitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  locationSource?: Prisma.SortOrderInput | Prisma.SortOrder
+  geocodedAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  geofenceRadiusM?: Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.JobCountOrderByAggregateInput
+  _avg?: Prisma.JobAvgOrderByAggregateInput
   _max?: Prisma.JobMaxOrderByAggregateInput
   _min?: Prisma.JobMinOrderByAggregateInput
+  _sum?: Prisma.JobSumOrderByAggregateInput
 }
 
 export type JobScalarWhereWithAggregatesInput = {
@@ -405,6 +504,11 @@ export type JobScalarWhereWithAggregatesInput = {
   startsOn?: Prisma.DateTimeNullableWithAggregatesFilter<"Job"> | Date | string | null
   endsOn?: Prisma.DateTimeNullableWithAggregatesFilter<"Job"> | Date | string | null
   color?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null
+  latitude?: Prisma.FloatNullableWithAggregatesFilter<"Job"> | number | null
+  longitude?: Prisma.FloatNullableWithAggregatesFilter<"Job"> | number | null
+  locationSource?: Prisma.EnumJobLocationSourceNullableWithAggregatesFilter<"Job"> | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null
+  geofenceRadiusM?: Prisma.IntWithAggregatesFilter<"Job"> | number
   createdById?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Job"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Job"> | Date | string
@@ -420,6 +524,11 @@ export type JobCreateInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutJobsInput
@@ -454,6 +563,11 @@ export type JobUncheckedCreateInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -480,6 +594,11 @@ export type JobUpdateInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -514,6 +633,11 @@ export type JobUncheckedUpdateInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -544,6 +668,11 @@ export type JobCreateManyInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -559,6 +688,11 @@ export type JobUpdateManyMutationInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -577,6 +711,11 @@ export type JobUncheckedUpdateManyInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -611,9 +750,20 @@ export type JobCountOrderByAggregateInput = {
   startsOn?: Prisma.SortOrder
   endsOn?: Prisma.SortOrder
   color?: Prisma.SortOrder
+  latitude?: Prisma.SortOrder
+  longitude?: Prisma.SortOrder
+  locationSource?: Prisma.SortOrder
+  geocodedAddress?: Prisma.SortOrder
+  geofenceRadiusM?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type JobAvgOrderByAggregateInput = {
+  latitude?: Prisma.SortOrder
+  longitude?: Prisma.SortOrder
+  geofenceRadiusM?: Prisma.SortOrder
 }
 
 export type JobMaxOrderByAggregateInput = {
@@ -630,6 +780,11 @@ export type JobMaxOrderByAggregateInput = {
   startsOn?: Prisma.SortOrder
   endsOn?: Prisma.SortOrder
   color?: Prisma.SortOrder
+  latitude?: Prisma.SortOrder
+  longitude?: Prisma.SortOrder
+  locationSource?: Prisma.SortOrder
+  geocodedAddress?: Prisma.SortOrder
+  geofenceRadiusM?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -649,9 +804,20 @@ export type JobMinOrderByAggregateInput = {
   startsOn?: Prisma.SortOrder
   endsOn?: Prisma.SortOrder
   color?: Prisma.SortOrder
+  latitude?: Prisma.SortOrder
+  longitude?: Prisma.SortOrder
+  locationSource?: Prisma.SortOrder
+  geocodedAddress?: Prisma.SortOrder
+  geofenceRadiusM?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type JobSumOrderByAggregateInput = {
+  latitude?: Prisma.SortOrder
+  longitude?: Prisma.SortOrder
+  geofenceRadiusM?: Prisma.SortOrder
 }
 
 export type JobScalarRelationFilter = {
@@ -863,6 +1029,18 @@ export type EnumJobStatusFieldUpdateOperationsInput = {
   set?: $Enums.JobStatus
 }
 
+export type NullableFloatFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type NullableEnumJobLocationSourceFieldUpdateOperationsInput = {
+  set?: $Enums.JobLocationSource | null
+}
+
 export type JobCreateNestedOneWithoutMembersInput = {
   create?: Prisma.XOR<Prisma.JobCreateWithoutMembersInput, Prisma.JobUncheckedCreateWithoutMembersInput>
   connectOrCreate?: Prisma.JobCreateOrConnectWithoutMembersInput
@@ -1027,6 +1205,11 @@ export type JobCreateWithoutCompanyInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   quote?: Prisma.QuoteCreateNestedOneWithoutJobInput
@@ -1059,6 +1242,11 @@ export type JobUncheckedCreateWithoutCompanyInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1118,6 +1306,11 @@ export type JobScalarWhereInput = {
   startsOn?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   endsOn?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   color?: Prisma.StringNullableFilter<"Job"> | string | null
+  latitude?: Prisma.FloatNullableFilter<"Job"> | number | null
+  longitude?: Prisma.FloatNullableFilter<"Job"> | number | null
+  locationSource?: Prisma.EnumJobLocationSourceNullableFilter<"Job"> | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.StringNullableFilter<"Job"> | string | null
+  geofenceRadiusM?: Prisma.IntFilter<"Job"> | number
   createdById?: Prisma.StringNullableFilter<"Job"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Job"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Job"> | Date | string
@@ -1133,6 +1326,11 @@ export type JobCreateWithoutCreatedByInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutJobsInput
@@ -1166,6 +1364,11 @@ export type JobUncheckedCreateWithoutCreatedByInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   members?: Prisma.JobMemberUncheckedCreateNestedManyWithoutJobInput
@@ -1201,6 +1404,11 @@ export type JobCreateWithoutClosedByInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutJobsInput
@@ -1233,6 +1441,11 @@ export type JobUncheckedCreateWithoutClosedByInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1301,6 +1514,11 @@ export type JobCreateWithoutLeadInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutJobsInput
@@ -1333,6 +1551,11 @@ export type JobUncheckedCreateWithoutLeadInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1385,6 +1608,11 @@ export type JobCreateWithoutQuoteInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutJobsInput
@@ -1417,6 +1645,11 @@ export type JobUncheckedCreateWithoutQuoteInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1459,6 +1692,11 @@ export type JobUpdateWithoutQuoteInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -1491,6 +1729,11 @@ export type JobUncheckedUpdateWithoutQuoteInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1517,6 +1760,11 @@ export type JobCreateWithoutMembersInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutJobsInput
@@ -1550,6 +1798,11 @@ export type JobUncheckedCreateWithoutMembersInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1591,6 +1844,11 @@ export type JobUpdateWithoutMembersInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -1624,6 +1882,11 @@ export type JobUncheckedUpdateWithoutMembersInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1649,6 +1912,11 @@ export type JobCreateWithoutActivitiesInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutJobsInput
@@ -1682,6 +1950,11 @@ export type JobUncheckedCreateWithoutActivitiesInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1723,6 +1996,11 @@ export type JobUpdateWithoutActivitiesInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -1756,6 +2034,11 @@ export type JobUncheckedUpdateWithoutActivitiesInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1781,6 +2064,11 @@ export type JobCreateWithoutFoldersInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutJobsInput
@@ -1814,6 +2102,11 @@ export type JobUncheckedCreateWithoutFoldersInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1855,6 +2148,11 @@ export type JobUpdateWithoutFoldersInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -1888,6 +2186,11 @@ export type JobUncheckedUpdateWithoutFoldersInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1913,6 +2216,11 @@ export type JobCreateWithoutFilesInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutJobsInput
@@ -1946,6 +2254,11 @@ export type JobUncheckedCreateWithoutFilesInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1987,6 +2300,11 @@ export type JobUpdateWithoutFilesInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -2020,6 +2338,11 @@ export type JobUncheckedUpdateWithoutFilesInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2045,6 +2368,11 @@ export type JobCreateWithoutPostsInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutJobsInput
@@ -2078,6 +2406,11 @@ export type JobUncheckedCreateWithoutPostsInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2119,6 +2452,11 @@ export type JobUpdateWithoutPostsInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -2152,6 +2490,11 @@ export type JobUncheckedUpdateWithoutPostsInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2177,6 +2520,11 @@ export type JobCreateWithoutCommentsInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutJobsInput
@@ -2210,6 +2558,11 @@ export type JobUncheckedCreateWithoutCommentsInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2251,6 +2604,11 @@ export type JobUpdateWithoutCommentsInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -2284,6 +2642,11 @@ export type JobUncheckedUpdateWithoutCommentsInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2309,6 +2672,11 @@ export type JobCreateWithoutEventsInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutJobsInput
@@ -2342,6 +2710,11 @@ export type JobUncheckedCreateWithoutEventsInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2383,6 +2756,11 @@ export type JobUpdateWithoutEventsInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -2416,6 +2794,11 @@ export type JobUncheckedUpdateWithoutEventsInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2441,6 +2824,11 @@ export type JobCreateWithoutTodoListsInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutJobsInput
@@ -2474,6 +2862,11 @@ export type JobUncheckedCreateWithoutTodoListsInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2515,6 +2908,11 @@ export type JobUpdateWithoutTodoListsInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -2548,6 +2946,11 @@ export type JobUncheckedUpdateWithoutTodoListsInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2573,6 +2976,11 @@ export type JobCreateWithoutTodosInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutJobsInput
@@ -2606,6 +3014,11 @@ export type JobUncheckedCreateWithoutTodosInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2647,6 +3060,11 @@ export type JobUpdateWithoutTodosInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -2680,6 +3098,11 @@ export type JobUncheckedUpdateWithoutTodosInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2705,6 +3128,11 @@ export type JobCreateWithoutChatMessagesInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutJobsInput
@@ -2738,6 +3166,11 @@ export type JobUncheckedCreateWithoutChatMessagesInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2779,6 +3212,11 @@ export type JobUpdateWithoutChatMessagesInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -2812,6 +3250,11 @@ export type JobUncheckedUpdateWithoutChatMessagesInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2837,6 +3280,11 @@ export type JobCreateWithoutScopeItemsInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutJobsInput
@@ -2870,6 +3318,11 @@ export type JobUncheckedCreateWithoutScopeItemsInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2911,6 +3364,11 @@ export type JobUpdateWithoutScopeItemsInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -2944,6 +3402,11 @@ export type JobUncheckedUpdateWithoutScopeItemsInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2972,6 +3435,11 @@ export type JobCreateManyCompanyInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2987,6 +3455,11 @@ export type JobUpdateWithoutCompanyInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quote?: Prisma.QuoteUpdateOneWithoutJobNestedInput
@@ -3019,6 +3492,11 @@ export type JobUncheckedUpdateWithoutCompanyInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3048,6 +3526,11 @@ export type JobUncheckedUpdateManyWithoutCompanyInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3067,6 +3550,11 @@ export type JobCreateManyCreatedByInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -3084,6 +3572,11 @@ export type JobCreateManyClosedByInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3099,6 +3592,11 @@ export type JobUpdateWithoutCreatedByInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -3132,6 +3630,11 @@ export type JobUncheckedUpdateWithoutCreatedByInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.JobMemberUncheckedUpdateManyWithoutJobNestedInput
@@ -3161,6 +3664,11 @@ export type JobUncheckedUpdateManyWithoutCreatedByInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -3175,6 +3683,11 @@ export type JobUpdateWithoutClosedByInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -3207,6 +3720,11 @@ export type JobUncheckedUpdateWithoutClosedByInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3236,6 +3754,11 @@ export type JobUncheckedUpdateManyWithoutClosedByInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3254,6 +3777,11 @@ export type JobCreateManyLeadInput = {
   startsOn?: Date | string | null
   endsOn?: Date | string | null
   color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3269,6 +3797,11 @@ export type JobUpdateWithoutLeadInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -3301,6 +3834,11 @@ export type JobUncheckedUpdateWithoutLeadInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3330,6 +3868,11 @@ export type JobUncheckedUpdateManyWithoutLeadInput = {
   startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3470,6 +4013,11 @@ export type JobSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   startsOn?: boolean
   endsOn?: boolean
   color?: boolean
+  latitude?: boolean
+  longitude?: boolean
+  locationSource?: boolean
+  geocodedAddress?: boolean
+  geofenceRadiusM?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -3506,6 +4054,11 @@ export type JobSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   startsOn?: boolean
   endsOn?: boolean
   color?: boolean
+  latitude?: boolean
+  longitude?: boolean
+  locationSource?: boolean
+  geocodedAddress?: boolean
+  geofenceRadiusM?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -3530,6 +4083,11 @@ export type JobSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   startsOn?: boolean
   endsOn?: boolean
   color?: boolean
+  latitude?: boolean
+  longitude?: boolean
+  locationSource?: boolean
+  geocodedAddress?: boolean
+  geofenceRadiusM?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -3554,12 +4112,17 @@ export type JobSelectScalar = {
   startsOn?: boolean
   endsOn?: boolean
   color?: boolean
+  latitude?: boolean
+  longitude?: boolean
+  locationSource?: boolean
+  geocodedAddress?: boolean
+  geofenceRadiusM?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type JobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "name" | "description" | "address" | "quoteId" | "leadId" | "status" | "closedAt" | "closedById" | "startsOn" | "endsOn" | "color" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["job"]>
+export type JobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "name" | "description" | "address" | "quoteId" | "leadId" | "status" | "closedAt" | "closedById" | "startsOn" | "endsOn" | "color" | "latitude" | "longitude" | "locationSource" | "geocodedAddress" | "geofenceRadiusM" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["job"]>
 export type JobInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   quote?: boolean | Prisma.Job$quoteArgs<ExtArgs>
@@ -3640,6 +4203,19 @@ export type $JobPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     startsOn: Date | null
     endsOn: Date | null
     color: string | null
+    /**
+     * *
+     *    * Where the work is, and how near counts as being there — what a punch on
+     *    * the clock is measured against (`@nodo/core/timeclock/geofence`). Placed
+     *    * from the address when it changes (`GEOCODED`, with `geocodedAddress` the
+     *    * address it was read from), or by hand (`MANUAL`), which a later change of
+     *    * address doesn't move without somebody asking. No place, no punching.
+     */
+    latitude: number | null
+    longitude: number | null
+    locationSource: $Enums.JobLocationSource | null
+    geocodedAddress: string | null
+    geofenceRadiusM: number
     createdById: string | null
     createdAt: Date
     updatedAt: Date
@@ -4095,6 +4671,11 @@ export interface JobFieldRefs {
   readonly startsOn: Prisma.FieldRef<"Job", 'DateTime'>
   readonly endsOn: Prisma.FieldRef<"Job", 'DateTime'>
   readonly color: Prisma.FieldRef<"Job", 'String'>
+  readonly latitude: Prisma.FieldRef<"Job", 'Float'>
+  readonly longitude: Prisma.FieldRef<"Job", 'Float'>
+  readonly locationSource: Prisma.FieldRef<"Job", 'JobLocationSource'>
+  readonly geocodedAddress: Prisma.FieldRef<"Job", 'String'>
+  readonly geofenceRadiusM: Prisma.FieldRef<"Job", 'Int'>
   readonly createdById: Prisma.FieldRef<"Job", 'String'>
   readonly createdAt: Prisma.FieldRef<"Job", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Job", 'DateTime'>

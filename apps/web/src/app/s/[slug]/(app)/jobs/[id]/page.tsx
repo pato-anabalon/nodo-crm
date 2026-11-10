@@ -49,6 +49,9 @@ import {
   UnlinkQuoteButton,
 } from "@/modules/jobs/job-controls";
 import { isJobClosed, withoutWrites } from "@/modules/jobs/closing";
+import { JobLocationCard } from "@/modules/jobs/location-card";
+import { addressMovedSincePin } from "@/modules/jobs/location";
+import { clearJobLocationAction, placeJobFromAddressAction, saveJobLocationAction } from "@/modules/jobs/location-actions";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -263,6 +266,28 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
           return setFollowingAction(jobId, following);
         }}
       />
+
+      {/* Where the clock measures punches against; for whoever places the job, which is whoever edits it. */}
+      {can(ctx, "jobs.update") ? (
+        <JobLocationCard
+          location={{
+            point: job.latitude !== null && job.longitude !== null ? { latitude: job.latitude, longitude: job.longitude } : null,
+            source: job.locationSource,
+            radiusM: job.geofenceRadiusM,
+            addressMoved: addressMovedSincePin(job),
+          }}
+          hasAddress={Boolean(job.address?.trim())}
+          save={saveJobLocationAction.bind(null, jobId)}
+          placeFromAddress={async () => {
+            "use server";
+            return placeJobFromAddressAction(jobId);
+          }}
+          clear={async () => {
+            "use server";
+            return clearJobLocationAction(jobId);
+          }}
+        />
+      ) : null}
 
       {scope.length > 0 ? (
         <Link

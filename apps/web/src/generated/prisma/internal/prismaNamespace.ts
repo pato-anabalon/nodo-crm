@@ -6323,6 +6323,11 @@ export const JobScalarFieldEnum = {
   startsOn: 'startsOn',
   endsOn: 'endsOn',
   color: 'color',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  locationSource: 'locationSource',
+  geocodedAddress: 'geocodedAddress',
+  geofenceRadiusM: 'geofenceRadiusM',
   createdById: 'createdById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -7069,20 +7074,6 @@ export type ListEnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
 
 
 /**
- * Reference to a field of type 'JobActivityType'
- */
-export type EnumJobActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobActivityType'>
-    
-
-
-/**
- * Reference to a field of type 'JobActivityType[]'
- */
-export type ListEnumJobActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobActivityType[]'>
-    
-
-
-/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -7093,6 +7084,34 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
+ * Reference to a field of type 'JobLocationSource'
+ */
+export type EnumJobLocationSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobLocationSource'>
+    
+
+
+/**
+ * Reference to a field of type 'JobLocationSource[]'
+ */
+export type ListEnumJobLocationSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobLocationSource[]'>
+    
+
+
+/**
+ * Reference to a field of type 'JobActivityType'
+ */
+export type EnumJobActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobActivityType'>
+    
+
+
+/**
+ * Reference to a field of type 'JobActivityType[]'
+ */
+export type ListEnumJobActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobActivityType[]'>
     
 
 /**

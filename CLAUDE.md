@@ -967,6 +967,39 @@ person can plaster for one company and do the marketing for another.
 > permissions. It leaves alone any profile that already holds a job permission,
 > so running it twice — or after a company trimmed a profile — changes nothing.
 
+### Where a job is
+
+What the clock measures a punch against: `latitude`/`longitude`, a
+`geofenceRadiusM` (300 by default, one of `GEOFENCE_RADII_M`) and how the
+place was set (`locationSource`). The rule for "at the job" is
+`geofenceVerdict` in `@nodo/core/timeclock/geofence`, pure and shared, so the
+phone and the server give one answer: inside when `distance − accuracy ≤
+radius`, so a vague GPS on site isn't turned away, and "wait for a better
+fix" when the phone's guess is wider than the circle. A job with no place
+can't be clocked into.
+
+- **Read from the address when the address changes**, never when it is read
+  (`syncJobLocation` after creating, editing, starting from a quote or
+  linking one). `geocodedAddress` is the address it was read from, which is
+  what tells a changed address from the same one saved again, and an address
+  that found nothing isn't asked about again until it changes. Google's
+  Geocoding API, with the server key `GOOGLE_GEOCODING_API_KEY` and the
+  company's country as the bias; without the key nothing is asked. A failure
+  never fails the save.
+- **A pin placed by hand stays where it was put** (`MANUAL`): a later change
+  of address only says so on the job, with "Place from the address" beside
+  it. Dragging the pin or pasting coordinates makes it manual; changing the
+  radius alone doesn't.
+- **The card on the job is `jobs.update`'s**, like the address. The map is
+  Maps JavaScript (`NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`, a browser key restricted
+  by referrer — a different key from the server's), loaded only by the
+  screen that draws one; without it a job is placed by pasting coordinates.
+  A check in the migration holds the place whole: both halves and a source,
+  or none.
+- Jobs made before this have no place until saved again;
+  `scripts/geocode-jobs.ts` asks once for each unfinished one (counts unless
+  `--apply`).
+
 ### Files go straight to the store
 
 A Vercel function's body stops at **4.5 MB**, whatever `bodySizeLimit` says, and

@@ -979,6 +979,11 @@ export const JobScalarFieldEnum = {
   startsOn: 'startsOn',
   endsOn: 'endsOn',
   color: 'color',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  locationSource: 'locationSource',
+  geocodedAddress: 'geocodedAddress',
+  geofenceRadiusM: 'geofenceRadiusM',
   createdById: 'createdById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

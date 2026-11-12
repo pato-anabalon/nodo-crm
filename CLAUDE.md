@@ -1000,6 +1000,40 @@ can't be clocked into.
   `scripts/geocode-jobs.ts` asks once for each unfinished one (counts unless
   `--apply`).
 
+### The clock
+
+A shift (`TimeEntry`) is clocked in on site from the phone and clocked out
+wherever the day ends; the positions in between are `LocationPing`s
+(`modules/timeclock/`, `/api/m/v1/timeclock…`). The rules are pure, in
+`@nodo/core/timeclock/punch`, so the phone asks them before it queues a punch
+and the server again when it arrives.
+
+- **Every punch is the phone's own**: the time the button was pressed, the
+  fix, and a `clientId` made once per clock-in. Sent again it finds the
+  shift the first one made, so a punch queued without signal is sent until it
+  lands. The time is taken within limits — not more than five minutes ahead
+  of the server, not older than a week — and `*ReceivedAt` says when it
+  arrived, so the timesheet can call a punch late without refusing it.
+- **Clocking in is refused away from the job** (`outside`, with how far), on a
+  fix wider than the circle (`imprecise`), on a job with no place
+  (`no_site`), before consent and with a shift already open. **Clocking out
+  is taken anywhere** — somebody who forgot and drove home must still end the
+  day — and `clockOutInside` records where. It isn't behind the job's guard
+  either: a job finished mid-shift can't trap the clock.
+- **One open shift per person per company**, a partial unique index written
+  by hand. Per company, so a refusal can't tell one company somebody is
+  clocked in at another. `jobName` is frozen at clock-in and the job is
+  `SetNull`: deleting a job doesn't take the hours worked on it.
+- **Consent is per company** (`Membership.locationConsentAt`), asked before
+  the first punch, and can't be withdrawn while a shift is open.
+- **Positions belong to a shift**: a batch keeps only what was recorded
+  between its clock-in and clock-out, and `(timeEntryId, recordedAt)` is
+  unique, so a batch sent twice is stored once.
+- `timeclock.punch` is everybody's who works on site; seeing and correcting
+  other people's hours (`timeclock.read.all`, `timeclock.update`) is Admin,
+  Manager and Project Lead's; exporting them is Owner's alone. Companies that
+  already exist get them from `scripts/grant-timeclock.ts`.
+
 ### Files go straight to the store
 
 A Vercel function's body stops at **4.5 MB**, whatever `bodySizeLimit` says, and

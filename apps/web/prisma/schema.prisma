@@ -448,6 +448,8 @@ model Company {
   jobChatMessages         JobChatMessage[]
   jobScopeItems           JobScopeItem[]
   trades                  Trade[]
+  timeEntries             TimeEntry[]
+  locationPings           LocationPing[]
 
   @@index([isActive])
 }
@@ -533,17 +535,27 @@ model User {
   jobEventsCreated        JobEvent[]               @relation("JobEventCreatedBy")
   jobEventParticipations  JobEventParticipant[]    @relation("JobEventParticipantUser")
   jobChatMessages         JobChatMessage[]         @relation("JobChatMessageAuthor")
+  timeEntries             TimeEntry[]              @relation("TimeEntryUser")
+  timeEntriesCreated      TimeEntry[]              @relation("TimeEntryCreatedBy")
+  timeEntriesEdited       TimeEntry[]              @relation("TimeEntryEditedBy")
 }
 
 // A user can belong to several companies, with a different profile in each.
 model Membership {
-  id        String           @id @default(cuid())
-  userId    String
-  companyId String
-  roleId    String
-  status    MembershipStatus @default(ACTIVE)
-  createdAt DateTime         @default(now())
-  updatedAt DateTime         @updatedAt
+  id                String           @id @default(cuid())
+  userId            String
+  companyId         String
+  roleId            String
+  status            MembershipStatus @default(ACTIVE)
+  /**
+   * When this person agreed, in this company, to their position being recorded
+   * between clocking in and clocking out. Asked before the first punch and
+   * withdrawn by them; null means no punching. Per company, like the profile:
+   * agreeing with one employer says nothing about another.
+   */
+  locationConsentAt DateTime?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
 
   user    User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   company Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
@@ -2136,32 +2148,32 @@ model QuoteItem {
  * permissions, per tool and per verb. Being a member grants nothing by itself.
  */
 model Job {
-  id          String    @id @default(cuid())
-  companyId   String
+  id              String             @id @default(cuid())
+  companyId       String
   /**
    * From a quote: `<address or title> - <quote reference>`, written once and
    * then the job's own text. A later change of `quotePrefix` must not rename
    * work already under way, whose reference is the one the customer holds.
    */
-  name        String
-  description String?
-  address     String?
+  name            String
+  description     String?
+  address         String?
   // One job per quote: a double click on "Start job" can't make two.
-  quoteId     String?   @unique
-  leadId      String?
-  status      JobStatus @default(ACTIVE)
+  quoteId         String?            @unique
+  leadId          String?
+  status          JobStatus          @default(ACTIVE)
   /**
    * When the job was finished, and by whom. `status = COMPLETED` is what locks it
    * (`requireJobContext`); these two say who closed it and when, and go back to
    * null on reopening. A job marked completed before closing existed has neither.
    */
-  closedAt    DateTime?
-  closedById  String?
+  closedAt        DateTime?
+  closedById      String?
   // The job's bar on the Lineup.
-  startsOn    DateTime? @db.Date
-  endsOn      DateTime? @db.Date
+  startsOn        DateTime?          @db.Date
+  endsOn          DateTime?          @db.Date
   // One of `JOB_COLOURS`, or null for the one derived from the id: the bar on the Lineup.
-  color       String?
+  color           String?
   /**
    * Where the work is, and how near counts as being there — what a punch on
    * the clock is measured against (`@nodo/core/timeclock/geofence`). Placed
@@ -2174,9 +2186,9 @@ model Job {
   locationSource  JobLocationSource?
   geocodedAddress String?
   geofenceRadiusM Int                @default(300)
-  createdById String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdById     String?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
 
   company      Company          @relation(fields: [companyId], references: [id], onDelete: Cascade)
   quote        Quote?           @relation(fields: [quoteId], references: [id], onDelete: SetNull)
@@ -2194,6 +2206,7 @@ model Job {
   events       JobEvent[]
   chatMessages JobChatMessage[]
   scopeItems   JobScopeItem[]
+  timeEntries  TimeEntry[]
 
   @@index([companyId, status])
 }
@@ -2731,4 +2744,101 @@ model JobScopeItem {
 
   @@index([jobId, position])
   @@index([companyId])
+}
+
+// ---------------------------------------------------------------------------
+// Time control. A shift is clocked in on site from the phone and clocked out
+// wherever the day ends; the position is recorded only in between.
+
+enum TimeEntrySource {
+  // Clocked in from the phone, on site.
+  MOBILE
+  // Entered by somebody with `timeclock.update`, for a phone that failed.
+  MANUAL
+}
+
+/**
+ * One shift: somebody on a job from clock-in to clock-out. What hours are paid
+ * on, so it is never deleted by the retention sweep the positions go through.
+ * The times are the phone's — when the button was pressed — and `*ReceivedAt`
+ * when the server heard of it, so a punch made without signal keeps its time
+ * and the timesheet can say it arrived late. `clientId` is the phone's own id
+ * for the clock-in: sent again, it finds the same shift instead of a second.
+ * A check in the migration keeps one open shift per person per company.
+ * `jobName` is frozen at clock-in, as the log freezes names: deleting a job
+ * must not take the hours worked on it, nor leave them nameless.
+ */
+model TimeEntry {
+  id        String          @id @default(cuid())
+  companyId String
+  userId    String
+  jobId     String?
+  jobName   String
+  source    TimeEntrySource @default(MOBILE)
+  clientId  String?
+
+  clockInAt         DateTime
+  clockInReceivedAt DateTime @default(now())
+  // Where the phone was, how sure it was, and how far from the job. Always
+  // inside the circle for a clock-in from the phone: outside is refused.
+  clockInLatitude   Float?
+  clockInLongitude  Float?
+  clockInAccuracyM  Float?
+  clockInDistanceM  Float?
+  // 0 to 1, from the phone: what tells a gap in the track from a flat battery.
+  clockInBattery    Float?
+
+  clockOutAt         DateTime?
+  clockOutReceivedAt DateTime?
+  clockOutLatitude   Float?
+  clockOutLongitude  Float?
+  clockOutAccuracyM  Float?
+  clockOutDistanceM  Float?
+  // Clocking out away from the job is taken — somebody who forgot and drove
+  // home must still end the day — and recorded here for the timesheet.
+  clockOutInside     Boolean?
+  clockOutBattery    Float?
+
+  note        String?
+  createdById String?
+  editedById  String?
+  editedAt    DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  company   Company        @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  user      User           @relation("TimeEntryUser", fields: [userId], references: [id], onDelete: Cascade)
+  job       Job?           @relation(fields: [jobId], references: [id], onDelete: SetNull)
+  createdBy User?          @relation("TimeEntryCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  editedBy  User?          @relation("TimeEntryEditedBy", fields: [editedById], references: [id], onDelete: SetNull)
+  pings     LocationPing[]
+
+  @@unique([companyId, clientId])
+  @@index([companyId, userId, clockInAt])
+  @@index([companyId, clockInAt])
+  @@index([jobId])
+}
+
+/**
+ * Where the phone was during a shift. Exists only inside one — recorded
+ * between its clock-in and clock-out, never outside — and kept for the
+ * company's retention period, then thinned into a line on the shift.
+ * `(timeEntryId, recordedAt)` is unique, so a batch sent twice is stored once.
+ */
+model LocationPing {
+  id          String   @id @default(cuid())
+  companyId   String
+  timeEntryId String
+  recordedAt  DateTime
+  latitude    Float
+  longitude   Float
+  accuracyM   Float
+  speedMps    Float?
+  createdAt   DateTime @default(now())
+
+  company   Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  timeEntry TimeEntry @relation(fields: [timeEntryId], references: [id], onDelete: Cascade)
+
+  @@unique([timeEntryId, recordedAt])
+  @@index([companyId, recordedAt])
 }

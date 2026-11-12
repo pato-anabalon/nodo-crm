@@ -3,6 +3,7 @@ import { z, type ZodType } from "zod";
 import type { Permission } from "@nodo/core/auth/permissions";
 import { buildCompanyContext, can, ForbiddenError, type CompanyContext } from "@/lib/auth/session";
 import { JobClosedError } from "@/modules/jobs/closing";
+import { TimeclockRefusal } from "@/modules/timeclock/errors";
 import { mobileSessionFrom, type MobileSession } from "./session";
 
 /**
@@ -143,6 +144,10 @@ export function errorResponse(error: unknown): Response {
   }
   if (error instanceof JobClosedError) {
     return NextResponse.json({ error: "job_closed" }, { status: 409 });
+  }
+  if (error instanceof TimeclockRefusal) {
+    const status = error.code === "not_found" ? 404 : error.conflict ? 409 : 422;
+    return NextResponse.json({ error: error.code, ...error.extra }, { status });
   }
   console.error("Mobile API error", error);
   return NextResponse.json({ error: "server_error" }, { status: 500 });

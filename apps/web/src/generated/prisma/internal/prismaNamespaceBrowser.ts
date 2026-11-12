@@ -117,7 +117,9 @@ export const ModelName = {
   Trade: 'Trade',
   MembershipTrade: 'MembershipTrade',
   JobChatMessage: 'JobChatMessage',
-  JobScopeItem: 'JobScopeItem'
+  JobScopeItem: 'JobScopeItem',
+  TimeEntry: 'TimeEntry',
+  LocationPing: 'LocationPing'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -229,6 +231,7 @@ export const MembershipScalarFieldEnum = {
   companyId: 'companyId',
   roleId: 'roleId',
   status: 'status',
+  locationConsentAt: 'locationConsentAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1226,6 +1229,55 @@ export const JobScopeItemScalarFieldEnum = {
 } as const
 
 export type JobScopeItemScalarFieldEnum = (typeof JobScopeItemScalarFieldEnum)[keyof typeof JobScopeItemScalarFieldEnum]
+
+
+export const TimeEntryScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  userId: 'userId',
+  jobId: 'jobId',
+  jobName: 'jobName',
+  source: 'source',
+  clientId: 'clientId',
+  clockInAt: 'clockInAt',
+  clockInReceivedAt: 'clockInReceivedAt',
+  clockInLatitude: 'clockInLatitude',
+  clockInLongitude: 'clockInLongitude',
+  clockInAccuracyM: 'clockInAccuracyM',
+  clockInDistanceM: 'clockInDistanceM',
+  clockInBattery: 'clockInBattery',
+  clockOutAt: 'clockOutAt',
+  clockOutReceivedAt: 'clockOutReceivedAt',
+  clockOutLatitude: 'clockOutLatitude',
+  clockOutLongitude: 'clockOutLongitude',
+  clockOutAccuracyM: 'clockOutAccuracyM',
+  clockOutDistanceM: 'clockOutDistanceM',
+  clockOutInside: 'clockOutInside',
+  clockOutBattery: 'clockOutBattery',
+  note: 'note',
+  createdById: 'createdById',
+  editedById: 'editedById',
+  editedAt: 'editedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TimeEntryScalarFieldEnum = (typeof TimeEntryScalarFieldEnum)[keyof typeof TimeEntryScalarFieldEnum]
+
+
+export const LocationPingScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  timeEntryId: 'timeEntryId',
+  recordedAt: 'recordedAt',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  accuracyM: 'accuracyM',
+  speedMps: 'speedMps',
+  createdAt: 'createdAt'
+} as const
+
+export type LocationPingScalarFieldEnum = (typeof LocationPingScalarFieldEnum)[keyof typeof LocationPingScalarFieldEnum]
 
 
 export const SortOrder = {

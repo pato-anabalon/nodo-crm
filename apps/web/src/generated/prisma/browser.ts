@@ -565,3 +565,26 @@ export type JobChatMessage = Prisma.JobChatMessageModel
  *  * being a reference.
  */
 export type JobScopeItem = Prisma.JobScopeItemModel
+/**
+ * Model TimeEntry
+ * *
+ *  * One shift: somebody on a job from clock-in to clock-out. What hours are paid
+ *  * on, so it is never deleted by the retention sweep the positions go through.
+ *  * The times are the phone's — when the button was pressed — and `*ReceivedAt`
+ *  * when the server heard of it, so a punch made without signal keeps its time
+ *  * and the timesheet can say it arrived late. `clientId` is the phone's own id
+ *  * for the clock-in: sent again, it finds the same shift instead of a second.
+ *  * A check in the migration keeps one open shift per person per company.
+ *  * `jobName` is frozen at clock-in, as the log freezes names: deleting a job
+ *  * must not take the hours worked on it, nor leave them nameless.
+ */
+export type TimeEntry = Prisma.TimeEntryModel
+/**
+ * Model LocationPing
+ * *
+ *  * Where the phone was during a shift. Exists only inside one — recorded
+ *  * between its clock-in and clock-out, never outside — and kept for the
+ *  * company's retention period, then thinned into a line on the shift.
+ *  * `(timeEntryId, recordedAt)` is unique, so a batch sent twice is stored once.
+ */
+export type LocationPing = Prisma.LocationPingModel

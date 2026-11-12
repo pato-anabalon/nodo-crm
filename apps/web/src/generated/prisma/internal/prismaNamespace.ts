@@ -463,7 +463,9 @@ export const ModelName = {
   Trade: 'Trade',
   MembershipTrade: 'MembershipTrade',
   JobChatMessage: 'JobChatMessage',
-  JobScopeItem: 'JobScopeItem'
+  JobScopeItem: 'JobScopeItem',
+  TimeEntry: 'TimeEntry',
+  LocationPing: 'LocationPing'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -479,7 +481,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "mobileSession" | "pushDevice" | "mobileChallenge" | "mobileTrustedDevice" | "mobileLoginFailure" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "leadSourceOption" | "leadAccessLog" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteRecipient" | "signatureHandoff" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem" | "job" | "jobMember" | "jobActivity" | "jobFolder" | "jobFile" | "jobPostCategory" | "jobPost" | "jobComment" | "jobEvent" | "jobEventParticipant" | "jobTodoList" | "jobTodo" | "jobTodoAssignee" | "trade" | "membershipTrade" | "jobChatMessage" | "jobScopeItem"
+    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "mobileSession" | "pushDevice" | "mobileChallenge" | "mobileTrustedDevice" | "mobileLoginFailure" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "leadSourceOption" | "leadAccessLog" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteRecipient" | "signatureHandoff" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem" | "job" | "jobMember" | "jobActivity" | "jobFolder" | "jobFile" | "jobPostCategory" | "jobPost" | "jobComment" | "jobEvent" | "jobEventParticipant" | "jobTodoList" | "jobTodo" | "jobTodoAssignee" | "trade" | "membershipTrade" | "jobChatMessage" | "jobScopeItem" | "timeEntry" | "locationPing"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -5441,6 +5443,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TimeEntry: {
+      payload: Prisma.$TimeEntryPayload<ExtArgs>
+      fields: Prisma.TimeEntryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TimeEntryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TimeEntryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryPayload>
+        }
+        findFirst: {
+          args: Prisma.TimeEntryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TimeEntryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryPayload>
+        }
+        findMany: {
+          args: Prisma.TimeEntryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryPayload>[]
+        }
+        create: {
+          args: Prisma.TimeEntryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryPayload>
+        }
+        createMany: {
+          args: Prisma.TimeEntryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TimeEntryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryPayload>[]
+        }
+        delete: {
+          args: Prisma.TimeEntryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryPayload>
+        }
+        update: {
+          args: Prisma.TimeEntryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryPayload>
+        }
+        deleteMany: {
+          args: Prisma.TimeEntryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TimeEntryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TimeEntryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryPayload>[]
+        }
+        upsert: {
+          args: Prisma.TimeEntryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryPayload>
+        }
+        aggregate: {
+          args: Prisma.TimeEntryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTimeEntry>
+        }
+        groupBy: {
+          args: Prisma.TimeEntryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TimeEntryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TimeEntryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TimeEntryCountAggregateOutputType> | number
+        }
+      }
+    }
+    LocationPing: {
+      payload: Prisma.$LocationPingPayload<ExtArgs>
+      fields: Prisma.LocationPingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LocationPingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LocationPingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPingPayload>
+        }
+        findFirst: {
+          args: Prisma.LocationPingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LocationPingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPingPayload>
+        }
+        findMany: {
+          args: Prisma.LocationPingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPingPayload>[]
+        }
+        create: {
+          args: Prisma.LocationPingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPingPayload>
+        }
+        createMany: {
+          args: Prisma.LocationPingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LocationPingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPingPayload>[]
+        }
+        delete: {
+          args: Prisma.LocationPingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPingPayload>
+        }
+        update: {
+          args: Prisma.LocationPingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPingPayload>
+        }
+        deleteMany: {
+          args: Prisma.LocationPingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LocationPingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LocationPingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPingPayload>[]
+        }
+        upsert: {
+          args: Prisma.LocationPingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPingPayload>
+        }
+        aggregate: {
+          args: Prisma.LocationPingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLocationPing>
+        }
+        groupBy: {
+          args: Prisma.LocationPingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LocationPingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LocationPingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LocationPingCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -5573,6 +5723,7 @@ export const MembershipScalarFieldEnum = {
   companyId: 'companyId',
   roleId: 'roleId',
   status: 'status',
+  locationConsentAt: 'locationConsentAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -6572,6 +6723,55 @@ export const JobScopeItemScalarFieldEnum = {
 export type JobScopeItemScalarFieldEnum = (typeof JobScopeItemScalarFieldEnum)[keyof typeof JobScopeItemScalarFieldEnum]
 
 
+export const TimeEntryScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  userId: 'userId',
+  jobId: 'jobId',
+  jobName: 'jobName',
+  source: 'source',
+  clientId: 'clientId',
+  clockInAt: 'clockInAt',
+  clockInReceivedAt: 'clockInReceivedAt',
+  clockInLatitude: 'clockInLatitude',
+  clockInLongitude: 'clockInLongitude',
+  clockInAccuracyM: 'clockInAccuracyM',
+  clockInDistanceM: 'clockInDistanceM',
+  clockInBattery: 'clockInBattery',
+  clockOutAt: 'clockOutAt',
+  clockOutReceivedAt: 'clockOutReceivedAt',
+  clockOutLatitude: 'clockOutLatitude',
+  clockOutLongitude: 'clockOutLongitude',
+  clockOutAccuracyM: 'clockOutAccuracyM',
+  clockOutDistanceM: 'clockOutDistanceM',
+  clockOutInside: 'clockOutInside',
+  clockOutBattery: 'clockOutBattery',
+  note: 'note',
+  createdById: 'createdById',
+  editedById: 'editedById',
+  editedAt: 'editedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TimeEntryScalarFieldEnum = (typeof TimeEntryScalarFieldEnum)[keyof typeof TimeEntryScalarFieldEnum]
+
+
+export const LocationPingScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  timeEntryId: 'timeEntryId',
+  recordedAt: 'recordedAt',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  accuracyM: 'accuracyM',
+  speedMps: 'speedMps',
+  createdAt: 'createdAt'
+} as const
+
+export type LocationPingScalarFieldEnum = (typeof LocationPingScalarFieldEnum)[keyof typeof LocationPingScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -7114,6 +7314,20 @@ export type EnumJobActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$
 export type ListEnumJobActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobActivityType[]'>
     
 
+
+/**
+ * Reference to a field of type 'TimeEntrySource'
+ */
+export type EnumTimeEntrySourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TimeEntrySource'>
+    
+
+
+/**
+ * Reference to a field of type 'TimeEntrySource[]'
+ */
+export type ListEnumTimeEntrySourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TimeEntrySource[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -7332,6 +7546,8 @@ export type GlobalOmitConfig = {
   membershipTrade?: Prisma.MembershipTradeOmit
   jobChatMessage?: Prisma.JobChatMessageOmit
   jobScopeItem?: Prisma.JobScopeItemOmit
+  timeEntry?: Prisma.TimeEntryOmit
+  locationPing?: Prisma.LocationPingOmit
 }
 
 /* Types for Logging */

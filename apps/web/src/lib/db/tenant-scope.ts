@@ -62,6 +62,8 @@ export const DIRECT_TENANT_MODELS = new Set([
   "QuoteShare",
   "Role",
   "Task",
+  "TimeEntry",
+  "LocationPing",
   "Trade",
 ]);
 

@@ -25,6 +25,8 @@ export const PERMISSION_MODULES = [
   "schedule",
   "chat",
   "lineup",
+  // Time control: clocking in and out on site, and the hours that come of it.
+  "timeclock",
 ] as const;
 
 export type PermissionModule = (typeof PERMISSION_MODULES)[number];
@@ -138,6 +140,17 @@ export const PERMISSIONS = [
 
   // The calendar across every job somebody can see
   "lineup.read",
+
+  // Time control. Clocking in is one's own; the rest is about everybody else's
+  // hours, and hours are what people are paid on.
+  "timeclock.punch",
+  // Every person's hours, not just one's own.
+  "timeclock.read.all",
+  // Correcting a shift, or entering one by hand for somebody whose phone failed —
+  // recorded with who did it.
+  "timeclock.update",
+  // Takes the hours out for payroll; like `quotes.export`, nobody's by default but `OWNER`'s.
+  "timeclock.export",
 ] as const;
 
 export type Permission = (typeof PERMISSIONS)[number];

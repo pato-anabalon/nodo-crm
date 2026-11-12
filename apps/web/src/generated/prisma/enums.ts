@@ -334,3 +334,11 @@ export const JobActivityType = {
 } as const
 
 export type JobActivityType = (typeof JobActivityType)[keyof typeof JobActivityType]
+
+
+export const TimeEntrySource = {
+  MOBILE: 'MOBILE',
+  MANUAL: 'MANUAL'
+} as const
+
+export type TimeEntrySource = (typeof TimeEntrySource)[keyof typeof TimeEntrySource]

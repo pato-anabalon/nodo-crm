@@ -32,6 +32,12 @@ const JOB_TOOLS_READ: readonly Permission[] = [
   "messages.read", "todos.read", "files.read", "schedule.read", "lineup.read",
 ];
 
+/**
+ * Looking after other people's hours: seeing and correcting them. Exporting
+ * them is `OWNER`'s alone until a company hands it on, like `quotes.export`.
+ */
+const TIMECLOCK_SUPERVISE: readonly Permission[] = ["timeclock.punch", "timeclock.read.all", "timeclock.update"];
+
 const JOBS_ALL: readonly Permission[] = [
   "jobs.read", "jobs.read.all", "jobs.create", "jobs.update", "jobs.dates", "jobs.members", "jobs.finish", "jobs.reopen", "jobs.delete", "jobs.moderate",
 ];
@@ -53,6 +59,7 @@ export const ROLE_TEMPLATES: readonly RoleTemplate[] = [
       "reports.read",
       ...JOBS_ALL,
       ...JOB_TOOLS_ALL,
+      ...TIMECLOCK_SUPERVISE,
     ],
   },
   {
@@ -65,6 +72,7 @@ export const ROLE_TEMPLATES: readonly RoleTemplate[] = [
       "reports.read",
       ...JOBS_ALL,
       ...JOB_TOOLS_ALL,
+      ...TIMECLOCK_SUPERVISE,
     ],
   },
   {
@@ -98,6 +106,7 @@ export const ROLE_TEMPLATES: readonly RoleTemplate[] = [
     permissions: [
       "jobs.read", "jobs.read.all", "jobs.create", "jobs.update", "jobs.dates", "jobs.members", "jobs.finish", "jobs.moderate",
       ...JOB_TOOLS_ALL,
+      ...TIMECLOCK_SUPERVISE,
     ],
   },
   {
@@ -113,6 +122,7 @@ export const ROLE_TEMPLATES: readonly RoleTemplate[] = [
       "schedule.read", "schedule.create", "schedule.update",
       "chat.read", "chat.create", "chat.delete",
       "lineup.read",
+      "timeclock.punch",
     ],
   },
   {
@@ -127,6 +137,7 @@ export const ROLE_TEMPLATES: readonly RoleTemplate[] = [
       "schedule.read",
       "chat.read", "chat.create", "chat.delete",
       "lineup.read",
+      "timeclock.punch",
     ],
   },
   {

@@ -874,6 +874,50 @@ export type EnumJobActivityTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumJobActivityTypeFilter<$PrismaModel>
 }
 
+export type EnumTimeEntrySourceFilter<$PrismaModel = never> = {
+  equals?: $Enums.TimeEntrySource | Prisma.EnumTimeEntrySourceFieldRefInput<$PrismaModel>
+  in?: $Enums.TimeEntrySource[] | Prisma.ListEnumTimeEntrySourceFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TimeEntrySource[] | Prisma.ListEnumTimeEntrySourceFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTimeEntrySourceFilter<$PrismaModel> | $Enums.TimeEntrySource
+}
+
+export type EnumTimeEntrySourceWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TimeEntrySource | Prisma.EnumTimeEntrySourceFieldRefInput<$PrismaModel>
+  in?: $Enums.TimeEntrySource[] | Prisma.ListEnumTimeEntrySourceFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TimeEntrySource[] | Prisma.ListEnumTimeEntrySourceFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTimeEntrySourceWithAggregatesFilter<$PrismaModel> | $Enums.TimeEntrySource
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTimeEntrySourceFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTimeEntrySourceFilter<$PrismaModel>
+}
+
+export type FloatFilter<$PrismaModel = never> = {
+  equals?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>
+  notIn?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>
+  lt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  lte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedFloatFilter<$PrismaModel> | number
+}
+
+export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>
+  notIn?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>
+  lt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  lte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedFloatWithAggregatesFilter<$PrismaModel> | number
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _avg?: Prisma.NestedFloatFilter<$PrismaModel>
+  _sum?: Prisma.NestedFloatFilter<$PrismaModel>
+  _min?: Prisma.NestedFloatFilter<$PrismaModel>
+  _max?: Prisma.NestedFloatFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -1707,6 +1751,39 @@ export type NestedEnumJobActivityTypeWithAggregatesFilter<$PrismaModel = never> 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumJobActivityTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumJobActivityTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumTimeEntrySourceFilter<$PrismaModel = never> = {
+  equals?: $Enums.TimeEntrySource | Prisma.EnumTimeEntrySourceFieldRefInput<$PrismaModel>
+  in?: $Enums.TimeEntrySource[] | Prisma.ListEnumTimeEntrySourceFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TimeEntrySource[] | Prisma.ListEnumTimeEntrySourceFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTimeEntrySourceFilter<$PrismaModel> | $Enums.TimeEntrySource
+}
+
+export type NestedEnumTimeEntrySourceWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TimeEntrySource | Prisma.EnumTimeEntrySourceFieldRefInput<$PrismaModel>
+  in?: $Enums.TimeEntrySource[] | Prisma.ListEnumTimeEntrySourceFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TimeEntrySource[] | Prisma.ListEnumTimeEntrySourceFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTimeEntrySourceWithAggregatesFilter<$PrismaModel> | $Enums.TimeEntrySource
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTimeEntrySourceFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTimeEntrySourceFilter<$PrismaModel>
+}
+
+export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>
+  notIn?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>
+  lt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  lte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedFloatWithAggregatesFilter<$PrismaModel> | number
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _avg?: Prisma.NestedFloatFilter<$PrismaModel>
+  _sum?: Prisma.NestedFloatFilter<$PrismaModel>
+  _min?: Prisma.NestedFloatFilter<$PrismaModel>
+  _max?: Prisma.NestedFloatFilter<$PrismaModel>
 }
 
 

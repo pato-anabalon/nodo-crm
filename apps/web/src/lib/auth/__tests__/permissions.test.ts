@@ -96,7 +96,7 @@ describe("profile templates", () => {
   it("the people carrying out the work reach nothing of the sales side", () => {
     for (const key of JOB_PROFILES) {
       const granted = templatePermissions(roleTemplate(key));
-      const outside = granted.filter((p) => !["jobs", "messages", "comments", "todos", "files", "schedule", "chat", "lineup"].includes(permissionModule(p)));
+      const outside = granted.filter((p) => !["jobs", "messages", "comments", "todos", "files", "schedule", "chat", "lineup", "timeclock"].includes(permissionModule(p)));
       expect({ key, outside }).toEqual({ key, outside: [] });
     }
   });

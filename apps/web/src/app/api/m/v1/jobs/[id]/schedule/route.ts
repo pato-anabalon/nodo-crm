@@ -4,15 +4,8 @@ import { eventsBetween, todosDueBetween } from "@/modules/jobs/schedule/service"
 import { dayKey } from "@/modules/jobs/schemas";
 import { jobIn } from "@/modules/mobile/jobs/guard";
 import { MAX_SCHEDULE_DAYS } from "@/modules/mobile/jobs/schemas";
-import { today } from "@/modules/mobile/jobs/views";
+import { isDay, today } from "@/modules/mobile/jobs/views";
 import { mobileRoute, MobileError } from "@/modules/mobile/route";
-
-/** A real calendar day, not just its shape: `2026-02-30` would read as March. */
-function isDay(value: string): boolean {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
-  const date = new Date(`${value}T00:00:00Z`);
-  return !Number.isNaN(date.getTime()) && date.toISOString().startsWith(value);
-}
 
 /**
  * The job's schedule from `?from=` to `?to=` (days, inclusive; four weeks from

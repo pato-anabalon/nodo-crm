@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useRef, useState, useTransition } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { AlertTriangle, MapPin, Pencil } from "lucide-react";
 import { toast } from "sonner";
@@ -227,6 +227,7 @@ function LocationEditor({
  */
 function SiteMap({ point, radiusM, onMove }: { point: Point; radiusM: number; onMove?: (point: Point) => void }) {
   const t = useTranslations("jobs.location");
+  const locale = useLocale();
   const box = useRef<HTMLDivElement>(null);
   const parts = useRef<{ map: google.maps.Map; marker: google.maps.marker.AdvancedMarkerElement; circle: google.maps.Circle } | null>(null);
   const [failed, setFailed] = useState(false);
@@ -242,7 +243,7 @@ function SiteMap({ point, radiusM, onMove }: { point: Point; radiusM: number; on
   useEffect(() => {
     let cancelled = false;
     const listeners: google.maps.MapsEventListener[] = [];
-    loadGoogleMaps()
+    loadGoogleMaps(locale)
       .then(async (maps) => {
         if (cancelled || !box.current) return;
         const [{ Map, Circle }, { AdvancedMarkerElement }, { ColorScheme }] = await Promise.all([

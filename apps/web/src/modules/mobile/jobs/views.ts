@@ -26,6 +26,13 @@ export function today(ctx: CompanyContext): string {
   return dayIn(new Date(), ctx.company.timezone);
 }
 
+/** A real calendar day, not just its shape: `2026-02-30` would read as March. */
+export function isDay(value: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const date = new Date(`${value}T00:00:00Z`);
+  return !Number.isNaN(date.getTime()) && date.toISOString().startsWith(value);
+}
+
 /** What this person may do on this job — a finished job's context has the writes taken off already. */
 export function permissionList(permissions: ReadonlySet<Permission>): Permission[] {
   return [...permissions].sort();

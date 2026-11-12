@@ -412,7 +412,8 @@
     "files": "Trabajos › Documentos y archivos",
     "schedule": "Trabajos › Agenda",
     "chat": "Trabajos › Chat",
-    "lineup": "Trabajos › Lineup"
+    "lineup": "Trabajos › Lineup",
+    "timeclock": "Control horario"
   },
   "permissions": {
     "leads_read": "Ver leads",
@@ -476,7 +477,11 @@
     "chat_read": "Leer el chat",
     "chat_create": "Escribir en el chat",
     "chat_delete": "Eliminar sus propios mensajes del chat",
-    "lineup_read": "Ver el lineup de todos los trabajos que puede ver"
+    "lineup_read": "Ver el lineup de todos los trabajos que puede ver",
+    "timeclock_punch": "Marcar entrada y salida en obra desde la app",
+    "timeclock_read_all": "Ver las horas de todos, no solo las propias",
+    "timeclock_update": "Corregir jornadas e ingresarlas a mano",
+    "timeclock_export": "Exportar las horas a CSV para el pago"
   },
   "dashboard": {
     "title": "Resumen",

@@ -412,7 +412,8 @@
     "files": "Jobs › Docs & files",
     "schedule": "Jobs › Schedule",
     "chat": "Jobs › Chat",
-    "lineup": "Jobs › Lineup"
+    "lineup": "Jobs › Lineup",
+    "timeclock": "Time control"
   },
   "permissions": {
     "leads_read": "View leads",
@@ -476,7 +477,11 @@
     "chat_read": "Read the chat",
     "chat_create": "Write in the chat",
     "chat_delete": "Delete their own chat messages",
-    "lineup_read": "View the lineup of every job they can see"
+    "lineup_read": "View the lineup of every job they can see",
+    "timeclock_punch": "Clock in and out on site from the app",
+    "timeclock_read_all": "View everybody's hours, not just their own",
+    "timeclock_update": "Correct shifts and enter them by hand",
+    "timeclock_export": "Export hours to CSV for payroll"
   },
   "dashboard": {
     "title": "Overview",

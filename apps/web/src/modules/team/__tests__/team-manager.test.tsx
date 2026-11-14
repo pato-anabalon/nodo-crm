@@ -17,7 +17,7 @@ jest.mock("@/modules/jobs/member-trades", () => ({ MemberTrades: () => null }));
 
 import { TeamManager } from "../team-manager";
 
-function renderTeam() {
+function renderTeam(rates?: Parameters<typeof TeamManager>[0]["rates"]) {
   return renderWithIntl(
     <TeamManager
       members={[
@@ -29,6 +29,8 @@ function renderTeam() {
           status: MembershipStatus.ACTIVE,
           isSelf: false,
           tradeIds: [],
+          hourlyRate: 32.5,
+          hourlyRateLabel: "$32.50 / h",
         },
       ]}
       invitations={[]}
@@ -42,6 +44,7 @@ function renderTeam() {
       canRemove
       trades={[]}
       onSetTrades={jest.fn()}
+      rates={rates}
     />,
   );
 }
@@ -75,5 +78,19 @@ describe("removing somebody from the team", () => {
     fireEvent.click(within(dialog).getByRole("button", { name: "Remove" }));
 
     await waitFor(() => expect(removeMemberAction).toHaveBeenCalledWith("u2"));
+  });
+});
+
+describe("the pay column", () => {
+  it("is absent, not blank, for a profile that can't see pay", () => {
+    renderTeam();
+    expect(screen.queryByRole("columnheader", { name: "Hourly rate" })).not.toBeInTheDocument();
+    expect(screen.queryByText("$32.50 / h")).not.toBeInTheDocument();
+  });
+
+  it("shows each person's rate to a profile that can", () => {
+    renderTeam({ currency: "NZD", canEdit: false, onSet: jest.fn() });
+    expect(screen.getByRole("columnheader", { name: "Hourly rate" })).toBeInTheDocument();
+    expect(screen.getByText("$32.50 / h")).toBeInTheDocument();
   });
 });

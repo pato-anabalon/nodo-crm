@@ -27,6 +27,8 @@ export type AggregateCompany = {
 }
 
 export type CompanyAvgAggregateOutputType = {
+  restBreakMinutes: number | null
+  mealBreakMinutes: number | null
   defaultTaxRate: runtime.Decimal | null
   quoteValidityDays: number | null
   quoteNumberStart: number | null
@@ -37,6 +39,8 @@ export type CompanyAvgAggregateOutputType = {
 }
 
 export type CompanySumAggregateOutputType = {
+  restBreakMinutes: number | null
+  mealBreakMinutes: number | null
   defaultTaxRate: runtime.Decimal | null
   quoteValidityDays: number | null
   quoteNumberStart: number | null
@@ -65,6 +69,8 @@ export type CompanyMinAggregateOutputType = {
   currency: string | null
   formatLocale: string | null
   timezone: string | null
+  restBreakMinutes: number | null
+  mealBreakMinutes: number | null
   defaultTaxType: $Enums.TaxType | null
   defaultTaxRate: runtime.Decimal | null
   quotePrefix: string | null
@@ -119,6 +125,8 @@ export type CompanyMaxAggregateOutputType = {
   currency: string | null
   formatLocale: string | null
   timezone: string | null
+  restBreakMinutes: number | null
+  mealBreakMinutes: number | null
   defaultTaxType: $Enums.TaxType | null
   defaultTaxRate: runtime.Decimal | null
   quotePrefix: string | null
@@ -173,6 +181,8 @@ export type CompanyCountAggregateOutputType = {
   currency: number
   formatLocale: number
   timezone: number
+  restBreakMinutes: number
+  mealBreakMinutes: number
   defaultTaxType: number
   defaultTaxRate: number
   quotePrefix: number
@@ -212,6 +222,8 @@ export type CompanyCountAggregateOutputType = {
 
 
 export type CompanyAvgAggregateInputType = {
+  restBreakMinutes?: true
+  mealBreakMinutes?: true
   defaultTaxRate?: true
   quoteValidityDays?: true
   quoteNumberStart?: true
@@ -222,6 +234,8 @@ export type CompanyAvgAggregateInputType = {
 }
 
 export type CompanySumAggregateInputType = {
+  restBreakMinutes?: true
+  mealBreakMinutes?: true
   defaultTaxRate?: true
   quoteValidityDays?: true
   quoteNumberStart?: true
@@ -250,6 +264,8 @@ export type CompanyMinAggregateInputType = {
   currency?: true
   formatLocale?: true
   timezone?: true
+  restBreakMinutes?: true
+  mealBreakMinutes?: true
   defaultTaxType?: true
   defaultTaxRate?: true
   quotePrefix?: true
@@ -304,6 +320,8 @@ export type CompanyMaxAggregateInputType = {
   currency?: true
   formatLocale?: true
   timezone?: true
+  restBreakMinutes?: true
+  mealBreakMinutes?: true
   defaultTaxType?: true
   defaultTaxRate?: true
   quotePrefix?: true
@@ -358,6 +376,8 @@ export type CompanyCountAggregateInputType = {
   currency?: true
   formatLocale?: true
   timezone?: true
+  restBreakMinutes?: true
+  mealBreakMinutes?: true
   defaultTaxType?: true
   defaultTaxRate?: true
   quotePrefix?: true
@@ -500,6 +520,8 @@ export type CompanyGroupByOutputType = {
   currency: string
   formatLocale: string
   timezone: string
+  restBreakMinutes: number
+  mealBreakMinutes: number
   defaultTaxType: $Enums.TaxType
   defaultTaxRate: runtime.Decimal
   quotePrefix: string
@@ -578,6 +600,8 @@ export type CompanyWhereInput = {
   currency?: Prisma.StringFilter<"Company"> | string
   formatLocale?: Prisma.StringFilter<"Company"> | string
   timezone?: Prisma.StringFilter<"Company"> | string
+  restBreakMinutes?: Prisma.IntFilter<"Company"> | number
+  mealBreakMinutes?: Prisma.IntFilter<"Company"> | number
   defaultTaxType?: Prisma.EnumTaxTypeFilter<"Company"> | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFilter<"Company"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFilter<"Company"> | string
@@ -682,6 +706,8 @@ export type CompanyOrderByWithRelationInput = {
   currency?: Prisma.SortOrder
   formatLocale?: Prisma.SortOrder
   timezone?: Prisma.SortOrder
+  restBreakMinutes?: Prisma.SortOrder
+  mealBreakMinutes?: Prisma.SortOrder
   defaultTaxType?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
@@ -789,6 +815,8 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   currency?: Prisma.StringFilter<"Company"> | string
   formatLocale?: Prisma.StringFilter<"Company"> | string
   timezone?: Prisma.StringFilter<"Company"> | string
+  restBreakMinutes?: Prisma.IntFilter<"Company"> | number
+  mealBreakMinutes?: Prisma.IntFilter<"Company"> | number
   defaultTaxType?: Prisma.EnumTaxTypeFilter<"Company"> | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFilter<"Company"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFilter<"Company"> | string
@@ -893,6 +921,8 @@ export type CompanyOrderByWithAggregationInput = {
   currency?: Prisma.SortOrder
   formatLocale?: Prisma.SortOrder
   timezone?: Prisma.SortOrder
+  restBreakMinutes?: Prisma.SortOrder
+  mealBreakMinutes?: Prisma.SortOrder
   defaultTaxType?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
@@ -956,6 +986,8 @@ export type CompanyScalarWhereWithAggregatesInput = {
   currency?: Prisma.StringWithAggregatesFilter<"Company"> | string
   formatLocale?: Prisma.StringWithAggregatesFilter<"Company"> | string
   timezone?: Prisma.StringWithAggregatesFilter<"Company"> | string
+  restBreakMinutes?: Prisma.IntWithAggregatesFilter<"Company"> | number
+  mealBreakMinutes?: Prisma.IntWithAggregatesFilter<"Company"> | number
   defaultTaxType?: Prisma.EnumTaxTypeWithAggregatesFilter<"Company"> | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalWithAggregatesFilter<"Company"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringWithAggregatesFilter<"Company"> | string
@@ -1011,6 +1043,8 @@ export type CompanyCreateInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -1115,6 +1149,8 @@ export type CompanyUncheckedCreateInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -1219,6 +1255,8 @@ export type CompanyUpdateInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1323,6 +1361,8 @@ export type CompanyUncheckedUpdateInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1427,6 +1467,8 @@ export type CompanyCreateManyInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -1482,6 +1524,8 @@ export type CompanyUpdateManyMutationInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1537,6 +1581,8 @@ export type CompanyUncheckedUpdateManyInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1600,6 +1646,8 @@ export type CompanyCountOrderByAggregateInput = {
   currency?: Prisma.SortOrder
   formatLocale?: Prisma.SortOrder
   timezone?: Prisma.SortOrder
+  restBreakMinutes?: Prisma.SortOrder
+  mealBreakMinutes?: Prisma.SortOrder
   defaultTaxType?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
@@ -1637,6 +1685,8 @@ export type CompanyCountOrderByAggregateInput = {
 }
 
 export type CompanyAvgOrderByAggregateInput = {
+  restBreakMinutes?: Prisma.SortOrder
+  mealBreakMinutes?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quoteValidityDays?: Prisma.SortOrder
   quoteNumberStart?: Prisma.SortOrder
@@ -1665,6 +1715,8 @@ export type CompanyMaxOrderByAggregateInput = {
   currency?: Prisma.SortOrder
   formatLocale?: Prisma.SortOrder
   timezone?: Prisma.SortOrder
+  restBreakMinutes?: Prisma.SortOrder
+  mealBreakMinutes?: Prisma.SortOrder
   defaultTaxType?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
@@ -1719,6 +1771,8 @@ export type CompanyMinOrderByAggregateInput = {
   currency?: Prisma.SortOrder
   formatLocale?: Prisma.SortOrder
   timezone?: Prisma.SortOrder
+  restBreakMinutes?: Prisma.SortOrder
+  mealBreakMinutes?: Prisma.SortOrder
   defaultTaxType?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
@@ -1755,6 +1809,8 @@ export type CompanyMinOrderByAggregateInput = {
 }
 
 export type CompanySumOrderByAggregateInput = {
+  restBreakMinutes?: Prisma.SortOrder
+  mealBreakMinutes?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quoteValidityDays?: Prisma.SortOrder
   quoteNumberStart?: Prisma.SortOrder
@@ -1790,6 +1846,14 @@ export type EnumLanguageFieldUpdateOperationsInput = {
   set?: $Enums.Language
 }
 
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type EnumTaxTypeFieldUpdateOperationsInput = {
   set?: $Enums.TaxType
 }
@@ -1800,14 +1864,6 @@ export type DecimalFieldUpdateOperationsInput = {
   decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
   multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
-}
-
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
 }
 
 export type EnumSenderNameStyleFieldUpdateOperationsInput = {
@@ -2554,6 +2610,8 @@ export type CompanyCreateWithoutQuoteTypesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -2657,6 +2715,8 @@ export type CompanyUncheckedCreateWithoutQuoteTypesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -2776,6 +2836,8 @@ export type CompanyUpdateWithoutQuoteTypesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2879,6 +2941,8 @@ export type CompanyUncheckedUpdateWithoutQuoteTypesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2982,6 +3046,8 @@ export type CompanyCreateWithoutMembershipsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -3085,6 +3151,8 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -3204,6 +3272,8 @@ export type CompanyUpdateWithoutMembershipsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3307,6 +3377,8 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3410,6 +3482,8 @@ export type CompanyCreateWithoutLoginAttemptsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -3513,6 +3587,8 @@ export type CompanyUncheckedCreateWithoutLoginAttemptsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -3632,6 +3708,8 @@ export type CompanyUpdateWithoutLoginAttemptsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3735,6 +3813,8 @@ export type CompanyUncheckedUpdateWithoutLoginAttemptsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3838,6 +3918,8 @@ export type CompanyCreateWithoutRolesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -3941,6 +4023,8 @@ export type CompanyUncheckedCreateWithoutRolesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -4060,6 +4144,8 @@ export type CompanyUpdateWithoutRolesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4163,6 +4249,8 @@ export type CompanyUncheckedUpdateWithoutRolesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4266,6 +4354,8 @@ export type CompanyCreateWithoutInvitationsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -4369,6 +4459,8 @@ export type CompanyUncheckedCreateWithoutInvitationsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -4488,6 +4580,8 @@ export type CompanyUpdateWithoutInvitationsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4591,6 +4685,8 @@ export type CompanyUncheckedUpdateWithoutInvitationsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4694,6 +4790,8 @@ export type CompanyCreateWithoutTasksInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -4797,6 +4895,8 @@ export type CompanyUncheckedCreateWithoutTasksInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -4916,6 +5016,8 @@ export type CompanyUpdateWithoutTasksInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5019,6 +5121,8 @@ export type CompanyUncheckedUpdateWithoutTasksInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5122,6 +5226,8 @@ export type CompanyCreateWithoutNotificationsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -5225,6 +5331,8 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -5344,6 +5452,8 @@ export type CompanyUpdateWithoutNotificationsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5447,6 +5557,8 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5550,6 +5662,8 @@ export type CompanyCreateWithoutCatalogueInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -5653,6 +5767,8 @@ export type CompanyUncheckedCreateWithoutCatalogueInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -5772,6 +5888,8 @@ export type CompanyUpdateWithoutCatalogueInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5875,6 +5993,8 @@ export type CompanyUncheckedUpdateWithoutCatalogueInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5978,6 +6098,8 @@ export type CompanyCreateWithoutClientCompaniesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -6081,6 +6203,8 @@ export type CompanyUncheckedCreateWithoutClientCompaniesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -6200,6 +6324,8 @@ export type CompanyUpdateWithoutClientCompaniesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6303,6 +6429,8 @@ export type CompanyUncheckedUpdateWithoutClientCompaniesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6406,6 +6534,8 @@ export type CompanyCreateWithoutContactsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -6509,6 +6639,8 @@ export type CompanyUncheckedCreateWithoutContactsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -6628,6 +6760,8 @@ export type CompanyUpdateWithoutContactsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6731,6 +6865,8 @@ export type CompanyUncheckedUpdateWithoutContactsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6834,6 +6970,8 @@ export type CompanyCreateWithoutLeadSourceOptionsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -6937,6 +7075,8 @@ export type CompanyUncheckedCreateWithoutLeadSourceOptionsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -7056,6 +7196,8 @@ export type CompanyUpdateWithoutLeadSourceOptionsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7159,6 +7301,8 @@ export type CompanyUncheckedUpdateWithoutLeadSourceOptionsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7262,6 +7406,8 @@ export type CompanyCreateWithoutLeadAccessLogsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -7365,6 +7511,8 @@ export type CompanyUncheckedCreateWithoutLeadAccessLogsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -7484,6 +7632,8 @@ export type CompanyUpdateWithoutLeadAccessLogsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7587,6 +7737,8 @@ export type CompanyUncheckedUpdateWithoutLeadAccessLogsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7690,6 +7842,8 @@ export type CompanyCreateWithoutLeadsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -7793,6 +7947,8 @@ export type CompanyUncheckedCreateWithoutLeadsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -7912,6 +8068,8 @@ export type CompanyUpdateWithoutLeadsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8015,6 +8173,8 @@ export type CompanyUncheckedUpdateWithoutLeadsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8118,6 +8278,8 @@ export type CompanyCreateWithoutSubmissionsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -8221,6 +8383,8 @@ export type CompanyUncheckedCreateWithoutSubmissionsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -8340,6 +8504,8 @@ export type CompanyUpdateWithoutSubmissionsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8443,6 +8609,8 @@ export type CompanyUncheckedUpdateWithoutSubmissionsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8546,6 +8714,8 @@ export type CompanyCreateWithoutLeadAttachmentsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -8649,6 +8819,8 @@ export type CompanyUncheckedCreateWithoutLeadAttachmentsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -8768,6 +8940,8 @@ export type CompanyUpdateWithoutLeadAttachmentsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8871,6 +9045,8 @@ export type CompanyUncheckedUpdateWithoutLeadAttachmentsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8974,6 +9150,8 @@ export type CompanyCreateWithoutIngestKeysInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -9077,6 +9255,8 @@ export type CompanyUncheckedCreateWithoutIngestKeysInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -9196,6 +9376,8 @@ export type CompanyUpdateWithoutIngestKeysInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9299,6 +9481,8 @@ export type CompanyUncheckedUpdateWithoutIngestKeysInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9402,6 +9586,8 @@ export type CompanyCreateWithoutIngestAttemptsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -9505,6 +9691,8 @@ export type CompanyUncheckedCreateWithoutIngestAttemptsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -9624,6 +9812,8 @@ export type CompanyUpdateWithoutIngestAttemptsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9727,6 +9917,8 @@ export type CompanyUncheckedUpdateWithoutIngestAttemptsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9830,6 +10022,8 @@ export type CompanyCreateWithoutActivitiesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -9933,6 +10127,8 @@ export type CompanyUncheckedCreateWithoutActivitiesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -10052,6 +10248,8 @@ export type CompanyUpdateWithoutActivitiesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10155,6 +10353,8 @@ export type CompanyUncheckedUpdateWithoutActivitiesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10258,6 +10458,8 @@ export type CompanyCreateWithoutQuoteTemplatesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -10361,6 +10563,8 @@ export type CompanyUncheckedCreateWithoutQuoteTemplatesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -10480,6 +10684,8 @@ export type CompanyUpdateWithoutQuoteTemplatesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10583,6 +10789,8 @@ export type CompanyUncheckedUpdateWithoutQuoteTemplatesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10686,6 +10894,8 @@ export type CompanyCreateWithoutQuotesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -10789,6 +10999,8 @@ export type CompanyUncheckedCreateWithoutQuotesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -10908,6 +11120,8 @@ export type CompanyUpdateWithoutQuotesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11011,6 +11225,8 @@ export type CompanyUncheckedUpdateWithoutQuotesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11114,6 +11330,8 @@ export type CompanyCreateWithoutDocumentsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -11217,6 +11435,8 @@ export type CompanyUncheckedCreateWithoutDocumentsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -11336,6 +11556,8 @@ export type CompanyUpdateWithoutDocumentsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11439,6 +11661,8 @@ export type CompanyUncheckedUpdateWithoutDocumentsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11542,6 +11766,8 @@ export type CompanyCreateWithoutQuoteSharesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -11645,6 +11871,8 @@ export type CompanyUncheckedCreateWithoutQuoteSharesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -11764,6 +11992,8 @@ export type CompanyUpdateWithoutQuoteSharesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11867,6 +12097,8 @@ export type CompanyUncheckedUpdateWithoutQuoteSharesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11970,6 +12202,8 @@ export type CompanyCreateWithoutQuoteRecipientsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -12073,6 +12307,8 @@ export type CompanyUncheckedCreateWithoutQuoteRecipientsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -12192,6 +12428,8 @@ export type CompanyUpdateWithoutQuoteRecipientsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12295,6 +12533,8 @@ export type CompanyUncheckedUpdateWithoutQuoteRecipientsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12398,6 +12638,8 @@ export type CompanyCreateWithoutSignatureHandoffsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -12501,6 +12743,8 @@ export type CompanyUncheckedCreateWithoutSignatureHandoffsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -12620,6 +12864,8 @@ export type CompanyUpdateWithoutSignatureHandoffsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12723,6 +12969,8 @@ export type CompanyUncheckedUpdateWithoutSignatureHandoffsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12826,6 +13074,8 @@ export type CompanyCreateWithoutQuoteEventsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -12929,6 +13179,8 @@ export type CompanyUncheckedCreateWithoutQuoteEventsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -13048,6 +13300,8 @@ export type CompanyUpdateWithoutQuoteEventsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13151,6 +13405,8 @@ export type CompanyUncheckedUpdateWithoutQuoteEventsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13254,6 +13510,8 @@ export type CompanyCreateWithoutQuoteMessagesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -13357,6 +13615,8 @@ export type CompanyUncheckedCreateWithoutQuoteMessagesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -13476,6 +13736,8 @@ export type CompanyUpdateWithoutQuoteMessagesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13579,6 +13841,8 @@ export type CompanyUncheckedUpdateWithoutQuoteMessagesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13682,6 +13946,8 @@ export type CompanyCreateWithoutAcceptancesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -13785,6 +14051,8 @@ export type CompanyUncheckedCreateWithoutAcceptancesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -13904,6 +14172,8 @@ export type CompanyUpdateWithoutAcceptancesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14007,6 +14277,8 @@ export type CompanyUncheckedUpdateWithoutAcceptancesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14110,6 +14382,8 @@ export type CompanyCreateWithoutReviewLinksInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -14213,6 +14487,8 @@ export type CompanyUncheckedCreateWithoutReviewLinksInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -14332,6 +14608,8 @@ export type CompanyUpdateWithoutReviewLinksInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14435,6 +14713,8 @@ export type CompanyUncheckedUpdateWithoutReviewLinksInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14538,6 +14818,8 @@ export type CompanyCreateWithoutEmailTemplatesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -14641,6 +14923,8 @@ export type CompanyUncheckedCreateWithoutEmailTemplatesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -14760,6 +15044,8 @@ export type CompanyUpdateWithoutEmailTemplatesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14863,6 +15149,8 @@ export type CompanyUncheckedUpdateWithoutEmailTemplatesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14966,6 +15254,8 @@ export type CompanyCreateWithoutReviewsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -15069,6 +15359,8 @@ export type CompanyUncheckedCreateWithoutReviewsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -15188,6 +15480,8 @@ export type CompanyUpdateWithoutReviewsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15291,6 +15585,8 @@ export type CompanyUncheckedUpdateWithoutReviewsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15394,6 +15690,8 @@ export type CompanyCreateWithoutNotificationPreferencesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -15497,6 +15795,8 @@ export type CompanyUncheckedCreateWithoutNotificationPreferencesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -15616,6 +15916,8 @@ export type CompanyUpdateWithoutNotificationPreferencesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15719,6 +16021,8 @@ export type CompanyUncheckedUpdateWithoutNotificationPreferencesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15822,6 +16126,8 @@ export type CompanyCreateWithoutJobsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -15925,6 +16231,8 @@ export type CompanyUncheckedCreateWithoutJobsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -16044,6 +16352,8 @@ export type CompanyUpdateWithoutJobsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16147,6 +16457,8 @@ export type CompanyUncheckedUpdateWithoutJobsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16250,6 +16562,8 @@ export type CompanyCreateWithoutJobMembersInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -16353,6 +16667,8 @@ export type CompanyUncheckedCreateWithoutJobMembersInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -16472,6 +16788,8 @@ export type CompanyUpdateWithoutJobMembersInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16575,6 +16893,8 @@ export type CompanyUncheckedUpdateWithoutJobMembersInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16678,6 +16998,8 @@ export type CompanyCreateWithoutJobActivitiesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -16781,6 +17103,8 @@ export type CompanyUncheckedCreateWithoutJobActivitiesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -16900,6 +17224,8 @@ export type CompanyUpdateWithoutJobActivitiesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17003,6 +17329,8 @@ export type CompanyUncheckedUpdateWithoutJobActivitiesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17106,6 +17434,8 @@ export type CompanyCreateWithoutJobFoldersInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -17209,6 +17539,8 @@ export type CompanyUncheckedCreateWithoutJobFoldersInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -17328,6 +17660,8 @@ export type CompanyUpdateWithoutJobFoldersInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17431,6 +17765,8 @@ export type CompanyUncheckedUpdateWithoutJobFoldersInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17534,6 +17870,8 @@ export type CompanyCreateWithoutJobFilesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -17637,6 +17975,8 @@ export type CompanyUncheckedCreateWithoutJobFilesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -17756,6 +18096,8 @@ export type CompanyUpdateWithoutJobFilesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17859,6 +18201,8 @@ export type CompanyUncheckedUpdateWithoutJobFilesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17962,6 +18306,8 @@ export type CompanyCreateWithoutJobPostCategoriesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -18065,6 +18411,8 @@ export type CompanyUncheckedCreateWithoutJobPostCategoriesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -18184,6 +18532,8 @@ export type CompanyUpdateWithoutJobPostCategoriesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18287,6 +18637,8 @@ export type CompanyUncheckedUpdateWithoutJobPostCategoriesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18390,6 +18742,8 @@ export type CompanyCreateWithoutJobPostsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -18493,6 +18847,8 @@ export type CompanyUncheckedCreateWithoutJobPostsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -18612,6 +18968,8 @@ export type CompanyUpdateWithoutJobPostsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18715,6 +19073,8 @@ export type CompanyUncheckedUpdateWithoutJobPostsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18818,6 +19178,8 @@ export type CompanyCreateWithoutJobCommentsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -18921,6 +19283,8 @@ export type CompanyUncheckedCreateWithoutJobCommentsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -19040,6 +19404,8 @@ export type CompanyUpdateWithoutJobCommentsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19143,6 +19509,8 @@ export type CompanyUncheckedUpdateWithoutJobCommentsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19246,6 +19614,8 @@ export type CompanyCreateWithoutJobEventsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -19349,6 +19719,8 @@ export type CompanyUncheckedCreateWithoutJobEventsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -19468,6 +19840,8 @@ export type CompanyUpdateWithoutJobEventsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19571,6 +19945,8 @@ export type CompanyUncheckedUpdateWithoutJobEventsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19674,6 +20050,8 @@ export type CompanyCreateWithoutJobEventParticipantsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -19777,6 +20155,8 @@ export type CompanyUncheckedCreateWithoutJobEventParticipantsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -19896,6 +20276,8 @@ export type CompanyUpdateWithoutJobEventParticipantsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19999,6 +20381,8 @@ export type CompanyUncheckedUpdateWithoutJobEventParticipantsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20102,6 +20486,8 @@ export type CompanyCreateWithoutJobTodoListsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -20205,6 +20591,8 @@ export type CompanyUncheckedCreateWithoutJobTodoListsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -20324,6 +20712,8 @@ export type CompanyUpdateWithoutJobTodoListsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20427,6 +20817,8 @@ export type CompanyUncheckedUpdateWithoutJobTodoListsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20530,6 +20922,8 @@ export type CompanyCreateWithoutJobTodosInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -20633,6 +21027,8 @@ export type CompanyUncheckedCreateWithoutJobTodosInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -20752,6 +21148,8 @@ export type CompanyUpdateWithoutJobTodosInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20855,6 +21253,8 @@ export type CompanyUncheckedUpdateWithoutJobTodosInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20958,6 +21358,8 @@ export type CompanyCreateWithoutJobTodoAssigneesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -21061,6 +21463,8 @@ export type CompanyUncheckedCreateWithoutJobTodoAssigneesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -21180,6 +21584,8 @@ export type CompanyUpdateWithoutJobTodoAssigneesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21283,6 +21689,8 @@ export type CompanyUncheckedUpdateWithoutJobTodoAssigneesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21386,6 +21794,8 @@ export type CompanyCreateWithoutTradesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -21489,6 +21899,8 @@ export type CompanyUncheckedCreateWithoutTradesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -21608,6 +22020,8 @@ export type CompanyUpdateWithoutTradesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21711,6 +22125,8 @@ export type CompanyUncheckedUpdateWithoutTradesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21814,6 +22230,8 @@ export type CompanyCreateWithoutJobChatMessagesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -21917,6 +22335,8 @@ export type CompanyUncheckedCreateWithoutJobChatMessagesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -22036,6 +22456,8 @@ export type CompanyUpdateWithoutJobChatMessagesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22139,6 +22561,8 @@ export type CompanyUncheckedUpdateWithoutJobChatMessagesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22242,6 +22666,8 @@ export type CompanyCreateWithoutJobScopeItemsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -22345,6 +22771,8 @@ export type CompanyUncheckedCreateWithoutJobScopeItemsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -22464,6 +22892,8 @@ export type CompanyUpdateWithoutJobScopeItemsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22567,6 +22997,8 @@ export type CompanyUncheckedUpdateWithoutJobScopeItemsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22670,6 +23102,8 @@ export type CompanyCreateWithoutTimeEntriesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -22773,6 +23207,8 @@ export type CompanyUncheckedCreateWithoutTimeEntriesInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -22892,6 +23328,8 @@ export type CompanyUpdateWithoutTimeEntriesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22995,6 +23433,8 @@ export type CompanyUncheckedUpdateWithoutTimeEntriesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23098,6 +23538,8 @@ export type CompanyCreateWithoutLocationPingsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -23201,6 +23643,8 @@ export type CompanyUncheckedCreateWithoutLocationPingsInput = {
   currency?: string
   formatLocale?: string
   timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -23320,6 +23764,8 @@ export type CompanyUpdateWithoutLocationPingsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23423,6 +23869,8 @@ export type CompanyUncheckedUpdateWithoutLocationPingsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23989,6 +24437,8 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   currency?: boolean
   formatLocale?: boolean
   timezone?: boolean
+  restBreakMinutes?: boolean
+  mealBreakMinutes?: boolean
   defaultTaxType?: boolean
   defaultTaxRate?: boolean
   quotePrefix?: boolean
@@ -24094,6 +24544,8 @@ export type CompanySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   currency?: boolean
   formatLocale?: boolean
   timezone?: boolean
+  restBreakMinutes?: boolean
+  mealBreakMinutes?: boolean
   defaultTaxType?: boolean
   defaultTaxRate?: boolean
   quotePrefix?: boolean
@@ -24149,6 +24601,8 @@ export type CompanySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   currency?: boolean
   formatLocale?: boolean
   timezone?: boolean
+  restBreakMinutes?: boolean
+  mealBreakMinutes?: boolean
   defaultTaxType?: boolean
   defaultTaxRate?: boolean
   quotePrefix?: boolean
@@ -24204,6 +24658,8 @@ export type CompanySelectScalar = {
   currency?: boolean
   formatLocale?: boolean
   timezone?: boolean
+  restBreakMinutes?: boolean
+  mealBreakMinutes?: boolean
   defaultTaxType?: boolean
   defaultTaxRate?: boolean
   quotePrefix?: boolean
@@ -24240,7 +24696,7 @@ export type CompanySelectScalar = {
   updatedAt?: boolean
 }
 
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "legalName" | "taxId" | "email" | "phone" | "website" | "address" | "logoUrl" | "pdfLogoUrl" | "watermarkUrl" | "primaryColor" | "accentColor" | "defaultLanguage" | "currency" | "formatLocale" | "timezone" | "defaultTaxType" | "defaultTaxRate" | "quotePrefix" | "quoteValidityDays" | "quoteNumberStart" | "quoteFooter" | "slogan" | "senderNameStyle" | "firstFollowUpDays" | "secondFollowUpDays" | "reviewRequestDays" | "sendQuoteCopy" | "leadNotificationEmails" | "quoteIntro" | "quoteNotes" | "quoteExclusions" | "quoteTerms" | "quoteScope" | "taxDisplayMode" | "acceptanceMode" | "acceptanceStatement" | "requireSignature" | "askAdditionalComments" | "askOrderReference" | "isActive" | "approvedAt" | "isDemo" | "demoDays" | "demoStartedAt" | "demoEndsAt" | "demoEndedAt" | "demoWarnedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "legalName" | "taxId" | "email" | "phone" | "website" | "address" | "logoUrl" | "pdfLogoUrl" | "watermarkUrl" | "primaryColor" | "accentColor" | "defaultLanguage" | "currency" | "formatLocale" | "timezone" | "restBreakMinutes" | "mealBreakMinutes" | "defaultTaxType" | "defaultTaxRate" | "quotePrefix" | "quoteValidityDays" | "quoteNumberStart" | "quoteFooter" | "slogan" | "senderNameStyle" | "firstFollowUpDays" | "secondFollowUpDays" | "reviewRequestDays" | "sendQuoteCopy" | "leadNotificationEmails" | "quoteIntro" | "quoteNotes" | "quoteExclusions" | "quoteTerms" | "quoteScope" | "taxDisplayMode" | "acceptanceMode" | "acceptanceStatement" | "requireSignature" | "askAdditionalComments" | "askOrderReference" | "isActive" | "approvedAt" | "isDemo" | "demoDays" | "demoStartedAt" | "demoEndsAt" | "demoEndedAt" | "demoWarnedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   memberships?: boolean | Prisma.Company$membershipsArgs<ExtArgs>
   loginAttempts?: boolean | Prisma.Company$loginAttemptsArgs<ExtArgs>
@@ -24381,6 +24837,16 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     currency: string
     formatLocale: string
     timezone: string
+    /**
+     * *
+     *    * How long the breaks of a day on the clock last (`@nodo/core/timeclock/pay`).
+     *    * Which breaks a day carries is the law's, by the hours worked; how long
+     *    * each is, the company's — 10 and 30 minutes are the legal floor, and a
+     *    * company may give longer paid ones. The meal break comes off the hours
+     *    * paid; 0 when the company pays it.
+     */
+    restBreakMinutes: number
+    mealBreakMinutes: number
     defaultTaxType: $Enums.TaxType
     defaultTaxRate: runtime.Decimal
     quotePrefix: string
@@ -24993,6 +25459,8 @@ export interface CompanyFieldRefs {
   readonly currency: Prisma.FieldRef<"Company", 'String'>
   readonly formatLocale: Prisma.FieldRef<"Company", 'String'>
   readonly timezone: Prisma.FieldRef<"Company", 'String'>
+  readonly restBreakMinutes: Prisma.FieldRef<"Company", 'Int'>
+  readonly mealBreakMinutes: Prisma.FieldRef<"Company", 'Int'>
   readonly defaultTaxType: Prisma.FieldRef<"Company", 'TaxType'>
   readonly defaultTaxRate: Prisma.FieldRef<"Company", 'Decimal'>
   readonly quotePrefix: Prisma.FieldRef<"Company", 'String'>

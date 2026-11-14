@@ -20,8 +20,18 @@ export type MembershipModel = runtime.Types.Result.DefaultSelection<Prisma.$Memb
 
 export type AggregateMembership = {
   _count: MembershipCountAggregateOutputType | null
+  _avg: MembershipAvgAggregateOutputType | null
+  _sum: MembershipSumAggregateOutputType | null
   _min: MembershipMinAggregateOutputType | null
   _max: MembershipMaxAggregateOutputType | null
+}
+
+export type MembershipAvgAggregateOutputType = {
+  hourlyRate: runtime.Decimal | null
+}
+
+export type MembershipSumAggregateOutputType = {
+  hourlyRate: runtime.Decimal | null
 }
 
 export type MembershipMinAggregateOutputType = {
@@ -31,6 +41,7 @@ export type MembershipMinAggregateOutputType = {
   roleId: string | null
   status: $Enums.MembershipStatus | null
   locationConsentAt: Date | null
+  hourlyRate: runtime.Decimal | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -42,6 +53,7 @@ export type MembershipMaxAggregateOutputType = {
   roleId: string | null
   status: $Enums.MembershipStatus | null
   locationConsentAt: Date | null
+  hourlyRate: runtime.Decimal | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -53,11 +65,20 @@ export type MembershipCountAggregateOutputType = {
   roleId: number
   status: number
   locationConsentAt: number
+  hourlyRate: number
   createdAt: number
   updatedAt: number
   _all: number
 }
 
+
+export type MembershipAvgAggregateInputType = {
+  hourlyRate?: true
+}
+
+export type MembershipSumAggregateInputType = {
+  hourlyRate?: true
+}
 
 export type MembershipMinAggregateInputType = {
   id?: true
@@ -66,6 +87,7 @@ export type MembershipMinAggregateInputType = {
   roleId?: true
   status?: true
   locationConsentAt?: true
+  hourlyRate?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -77,6 +99,7 @@ export type MembershipMaxAggregateInputType = {
   roleId?: true
   status?: true
   locationConsentAt?: true
+  hourlyRate?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -88,6 +111,7 @@ export type MembershipCountAggregateInputType = {
   roleId?: true
   status?: true
   locationConsentAt?: true
+  hourlyRate?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -131,6 +155,18 @@ export type MembershipAggregateArgs<ExtArgs extends runtime.Types.Extensions.Int
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: MembershipAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: MembershipSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: MembershipMinAggregateInputType
@@ -161,6 +197,8 @@ export type MembershipGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   _count?: MembershipCountAggregateInputType | true
+  _avg?: MembershipAvgAggregateInputType
+  _sum?: MembershipSumAggregateInputType
   _min?: MembershipMinAggregateInputType
   _max?: MembershipMaxAggregateInputType
 }
@@ -172,9 +210,12 @@ export type MembershipGroupByOutputType = {
   roleId: string
   status: $Enums.MembershipStatus
   locationConsentAt: Date | null
+  hourlyRate: runtime.Decimal | null
   createdAt: Date
   updatedAt: Date
   _count: MembershipCountAggregateOutputType | null
+  _avg: MembershipAvgAggregateOutputType | null
+  _sum: MembershipSumAggregateOutputType | null
   _min: MembershipMinAggregateOutputType | null
   _max: MembershipMaxAggregateOutputType | null
 }
@@ -204,6 +245,7 @@ export type MembershipWhereInput = {
   roleId?: Prisma.StringFilter<"Membership"> | string
   status?: Prisma.EnumMembershipStatusFilter<"Membership"> | $Enums.MembershipStatus
   locationConsentAt?: Prisma.DateTimeNullableFilter<"Membership"> | Date | string | null
+  hourlyRate?: Prisma.DecimalNullableFilter<"Membership"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFilter<"Membership"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Membership"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -219,6 +261,7 @@ export type MembershipOrderByWithRelationInput = {
   roleId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   locationConsentAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  hourlyRate?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -238,6 +281,7 @@ export type MembershipWhereUniqueInput = Prisma.AtLeast<{
   roleId?: Prisma.StringFilter<"Membership"> | string
   status?: Prisma.EnumMembershipStatusFilter<"Membership"> | $Enums.MembershipStatus
   locationConsentAt?: Prisma.DateTimeNullableFilter<"Membership"> | Date | string | null
+  hourlyRate?: Prisma.DecimalNullableFilter<"Membership"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFilter<"Membership"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Membership"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -253,11 +297,14 @@ export type MembershipOrderByWithAggregationInput = {
   roleId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   locationConsentAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  hourlyRate?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.MembershipCountOrderByAggregateInput
+  _avg?: Prisma.MembershipAvgOrderByAggregateInput
   _max?: Prisma.MembershipMaxOrderByAggregateInput
   _min?: Prisma.MembershipMinOrderByAggregateInput
+  _sum?: Prisma.MembershipSumOrderByAggregateInput
 }
 
 export type MembershipScalarWhereWithAggregatesInput = {
@@ -270,6 +317,7 @@ export type MembershipScalarWhereWithAggregatesInput = {
   roleId?: Prisma.StringWithAggregatesFilter<"Membership"> | string
   status?: Prisma.EnumMembershipStatusWithAggregatesFilter<"Membership"> | $Enums.MembershipStatus
   locationConsentAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Membership"> | Date | string | null
+  hourlyRate?: Prisma.DecimalNullableWithAggregatesFilter<"Membership"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Membership"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Membership"> | Date | string
 }
@@ -278,6 +326,7 @@ export type MembershipCreateInput = {
   id?: string
   status?: $Enums.MembershipStatus
   locationConsentAt?: Date | string | null
+  hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMembershipsInput
@@ -293,6 +342,7 @@ export type MembershipUncheckedCreateInput = {
   roleId: string
   status?: $Enums.MembershipStatus
   locationConsentAt?: Date | string | null
+  hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   trades?: Prisma.MembershipTradeUncheckedCreateNestedManyWithoutMembershipInput
@@ -302,6 +352,7 @@ export type MembershipUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   locationConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
@@ -317,6 +368,7 @@ export type MembershipUncheckedUpdateInput = {
   roleId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   locationConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   trades?: Prisma.MembershipTradeUncheckedUpdateManyWithoutMembershipNestedInput
@@ -329,6 +381,7 @@ export type MembershipCreateManyInput = {
   roleId: string
   status?: $Enums.MembershipStatus
   locationConsentAt?: Date | string | null
+  hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -337,6 +390,7 @@ export type MembershipUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   locationConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -348,6 +402,7 @@ export type MembershipUncheckedUpdateManyInput = {
   roleId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   locationConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -374,8 +429,13 @@ export type MembershipCountOrderByAggregateInput = {
   roleId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   locationConsentAt?: Prisma.SortOrder
+  hourlyRate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type MembershipAvgOrderByAggregateInput = {
+  hourlyRate?: Prisma.SortOrder
 }
 
 export type MembershipMaxOrderByAggregateInput = {
@@ -385,6 +445,7 @@ export type MembershipMaxOrderByAggregateInput = {
   roleId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   locationConsentAt?: Prisma.SortOrder
+  hourlyRate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -396,8 +457,13 @@ export type MembershipMinOrderByAggregateInput = {
   roleId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   locationConsentAt?: Prisma.SortOrder
+  hourlyRate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type MembershipSumOrderByAggregateInput = {
+  hourlyRate?: Prisma.SortOrder
 }
 
 export type MembershipScalarRelationFilter = {
@@ -493,6 +559,14 @@ export type EnumMembershipStatusFieldUpdateOperationsInput = {
   set?: $Enums.MembershipStatus
 }
 
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
 export type MembershipCreateNestedManyWithoutRoleInput = {
   create?: Prisma.XOR<Prisma.MembershipCreateWithoutRoleInput, Prisma.MembershipUncheckedCreateWithoutRoleInput> | Prisma.MembershipCreateWithoutRoleInput[] | Prisma.MembershipUncheckedCreateWithoutRoleInput[]
   connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutRoleInput | Prisma.MembershipCreateOrConnectWithoutRoleInput[]
@@ -553,6 +627,7 @@ export type MembershipCreateWithoutCompanyInput = {
   id?: string
   status?: $Enums.MembershipStatus
   locationConsentAt?: Date | string | null
+  hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMembershipsInput
@@ -566,6 +641,7 @@ export type MembershipUncheckedCreateWithoutCompanyInput = {
   roleId: string
   status?: $Enums.MembershipStatus
   locationConsentAt?: Date | string | null
+  hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   trades?: Prisma.MembershipTradeUncheckedCreateNestedManyWithoutMembershipInput
@@ -607,6 +683,7 @@ export type MembershipScalarWhereInput = {
   roleId?: Prisma.StringFilter<"Membership"> | string
   status?: Prisma.EnumMembershipStatusFilter<"Membership"> | $Enums.MembershipStatus
   locationConsentAt?: Prisma.DateTimeNullableFilter<"Membership"> | Date | string | null
+  hourlyRate?: Prisma.DecimalNullableFilter<"Membership"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFilter<"Membership"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Membership"> | Date | string
 }
@@ -615,6 +692,7 @@ export type MembershipCreateWithoutUserInput = {
   id?: string
   status?: $Enums.MembershipStatus
   locationConsentAt?: Date | string | null
+  hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutMembershipsInput
@@ -628,6 +706,7 @@ export type MembershipUncheckedCreateWithoutUserInput = {
   roleId: string
   status?: $Enums.MembershipStatus
   locationConsentAt?: Date | string | null
+  hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   trades?: Prisma.MembershipTradeUncheckedCreateNestedManyWithoutMembershipInput
@@ -663,6 +742,7 @@ export type MembershipCreateWithoutRoleInput = {
   id?: string
   status?: $Enums.MembershipStatus
   locationConsentAt?: Date | string | null
+  hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMembershipsInput
@@ -676,6 +756,7 @@ export type MembershipUncheckedCreateWithoutRoleInput = {
   companyId: string
   status?: $Enums.MembershipStatus
   locationConsentAt?: Date | string | null
+  hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   trades?: Prisma.MembershipTradeUncheckedCreateNestedManyWithoutMembershipInput
@@ -711,6 +792,7 @@ export type MembershipCreateWithoutTradesInput = {
   id?: string
   status?: $Enums.MembershipStatus
   locationConsentAt?: Date | string | null
+  hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMembershipsInput
@@ -725,6 +807,7 @@ export type MembershipUncheckedCreateWithoutTradesInput = {
   roleId: string
   status?: $Enums.MembershipStatus
   locationConsentAt?: Date | string | null
+  hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -749,6 +832,7 @@ export type MembershipUpdateWithoutTradesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   locationConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
@@ -763,6 +847,7 @@ export type MembershipUncheckedUpdateWithoutTradesInput = {
   roleId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   locationConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -773,6 +858,7 @@ export type MembershipCreateManyCompanyInput = {
   roleId: string
   status?: $Enums.MembershipStatus
   locationConsentAt?: Date | string | null
+  hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -781,6 +867,7 @@ export type MembershipUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   locationConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
@@ -794,6 +881,7 @@ export type MembershipUncheckedUpdateWithoutCompanyInput = {
   roleId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   locationConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   trades?: Prisma.MembershipTradeUncheckedUpdateManyWithoutMembershipNestedInput
@@ -805,6 +893,7 @@ export type MembershipUncheckedUpdateManyWithoutCompanyInput = {
   roleId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   locationConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -815,6 +904,7 @@ export type MembershipCreateManyUserInput = {
   roleId: string
   status?: $Enums.MembershipStatus
   locationConsentAt?: Date | string | null
+  hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -823,6 +913,7 @@ export type MembershipUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   locationConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutMembershipsNestedInput
@@ -836,6 +927,7 @@ export type MembershipUncheckedUpdateWithoutUserInput = {
   roleId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   locationConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   trades?: Prisma.MembershipTradeUncheckedUpdateManyWithoutMembershipNestedInput
@@ -847,6 +939,7 @@ export type MembershipUncheckedUpdateManyWithoutUserInput = {
   roleId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   locationConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -857,6 +950,7 @@ export type MembershipCreateManyRoleInput = {
   companyId: string
   status?: $Enums.MembershipStatus
   locationConsentAt?: Date | string | null
+  hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -865,6 +959,7 @@ export type MembershipUpdateWithoutRoleInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   locationConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
@@ -878,6 +973,7 @@ export type MembershipUncheckedUpdateWithoutRoleInput = {
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   locationConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   trades?: Prisma.MembershipTradeUncheckedUpdateManyWithoutMembershipNestedInput
@@ -889,6 +985,7 @@ export type MembershipUncheckedUpdateManyWithoutRoleInput = {
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
   locationConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -931,6 +1028,7 @@ export type MembershipSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   roleId?: boolean
   status?: boolean
   locationConsentAt?: boolean
+  hourlyRate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -947,6 +1045,7 @@ export type MembershipSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   roleId?: boolean
   status?: boolean
   locationConsentAt?: boolean
+  hourlyRate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -961,6 +1060,7 @@ export type MembershipSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   roleId?: boolean
   status?: boolean
   locationConsentAt?: boolean
+  hourlyRate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -975,11 +1075,12 @@ export type MembershipSelectScalar = {
   roleId?: boolean
   status?: boolean
   locationConsentAt?: boolean
+  hourlyRate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type MembershipOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "companyId" | "roleId" | "status" | "locationConsentAt" | "createdAt" | "updatedAt", ExtArgs["result"]["membership"]>
+export type MembershipOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "companyId" | "roleId" | "status" | "locationConsentAt" | "hourlyRate" | "createdAt" | "updatedAt", ExtArgs["result"]["membership"]>
 export type MembershipInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -1020,6 +1121,15 @@ export type $MembershipPayload<ExtArgs extends runtime.Types.Extensions.Internal
      *    * agreeing with one employer says nothing about another.
      */
     locationConsentAt: Date | null
+    /**
+     * *
+     *    * What this person is paid an hour here, in the company's currency. On the
+     *    * membership, not the person nor the job: the same person can be paid
+     *    * differently by two companies, and the same on every job of one. Null
+     *    * means no amount on the timesheet, only hours. Seen and set only with
+     *    * `timeclock.export`.
+     */
+    hourlyRate: runtime.Decimal | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["membership"]>
@@ -1455,6 +1565,7 @@ export interface MembershipFieldRefs {
   readonly roleId: Prisma.FieldRef<"Membership", 'String'>
   readonly status: Prisma.FieldRef<"Membership", 'MembershipStatus'>
   readonly locationConsentAt: Prisma.FieldRef<"Membership", 'DateTime'>
+  readonly hourlyRate: Prisma.FieldRef<"Membership", 'Decimal'>
   readonly createdAt: Prisma.FieldRef<"Membership", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Membership", 'DateTime'>
 }

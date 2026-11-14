@@ -157,6 +157,8 @@ export const CompanyScalarFieldEnum = {
   currency: 'currency',
   formatLocale: 'formatLocale',
   timezone: 'timezone',
+  restBreakMinutes: 'restBreakMinutes',
+  mealBreakMinutes: 'mealBreakMinutes',
   defaultTaxType: 'defaultTaxType',
   defaultTaxRate: 'defaultTaxRate',
   quotePrefix: 'quotePrefix',
@@ -232,6 +234,7 @@ export const MembershipScalarFieldEnum = {
   roleId: 'roleId',
   status: 'status',
   locationConsentAt: 'locationConsentAt',
+  hourlyRate: 'hourlyRate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

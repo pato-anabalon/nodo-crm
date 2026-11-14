@@ -22,6 +22,8 @@ import {
 import { MembershipStatus } from "@/generated/prisma/enums";
 import { MemberTrades } from "@/modules/jobs/member-trades";
 import type { JobActionState } from "@/modules/jobs/actions";
+import type { TimeclockState } from "@/modules/timeclock/actions";
+import { MemberRate } from "@/modules/timeclock/member-rate";
 import {
   changeMemberRoleAction,
   inviteMemberAction,
@@ -40,6 +42,10 @@ export type MemberRow = {
   status: MembershipStatus;
   isSelf: boolean;
   tradeIds: string[];
+  /** Only filled for a profile that may see pay. */
+  hourlyRate: number | null;
+  /** The rate as the company writes money, formatted on the server. */
+  hourlyRateLabel: string | null;
 };
 
 export type InvitationRow = {
@@ -68,6 +74,7 @@ export function TeamManager({
   canRemove,
   trades,
   onSetTrades,
+  rates,
 }: {
   members: MemberRow[];
   invitations: InvitationRow[];
@@ -81,6 +88,15 @@ export function TeamManager({
   /** The company's trades, in their own order. */
   trades: { id: string; name: string }[];
   onSetTrades: (userId: string, state: JobActionState, formData: FormData) => Promise<JobActionState>;
+  /**
+   * The pay column, only for a profile with `timeclock.export`: without it the
+   * column is absent, not blank, and the rates never reached the page.
+   */
+  rates?: {
+    currency: string;
+    canEdit: boolean;
+    onSet: (userId: string, state: TimeclockState, formData: FormData) => Promise<TimeclockState>;
+  };
 }) {
   const t = useTranslations("team");
   const labelOf = (roleId: string) => roles.find((role) => role.id === roleId)?.label ?? "";
@@ -155,6 +171,7 @@ export function TeamManager({
                   <TableHead>{t("columns.person")}</TableHead>
                   <TableHead>{t("columns.role")}</TableHead>
                   <TableHead>{t("columns.trades")}</TableHead>
+                  {rates ? <TableHead>{t("columns.rate")}</TableHead> : null}
                   <TableHead>{t("columns.status")}</TableHead>
                   <TableHead className="text-right">
                     {/* Named for screen readers, blank for everyone else: the
@@ -204,6 +221,19 @@ export function TeamManager({
                           action={onSetTrades.bind(null, member.userId)}
                         />
                       </TableCell>
+
+                      {rates ? (
+                        <TableCell label={t("columns.rate")}>
+                          <MemberRate
+                            name={member.name ?? member.email}
+                            rate={member.hourlyRate}
+                            label={member.hourlyRateLabel}
+                            currency={rates.currency}
+                            canEdit={rates.canEdit}
+                            action={rates.onSet.bind(null, member.userId)}
+                          />
+                        </TableCell>
+                      ) : null}
 
                       <TableCell label={t("columns.status")}>
                         <Badge variant={suspended ? "secondary" : "outline"}>

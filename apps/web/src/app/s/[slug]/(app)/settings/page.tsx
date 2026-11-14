@@ -3,6 +3,7 @@ import type { LucideIcon } from "lucide-react";
 import {
   Bell,
   Building2,
+  Clock,
   FileText,
   HardHat,
   Tags,
@@ -55,6 +56,7 @@ export default async function SettingsPage() {
       getTranslations("trades"),
       getTranslations("postCategories"),
     ]);
+  const tClock = await getTranslations("timeclockSettings");
 
   const has = await settingsOverview(ctx);
   const tState = await getTranslations("settings.state");
@@ -101,6 +103,21 @@ export default async function SettingsPage() {
           description: tTrades("subtitle"),
           status: tState("trades", { count: has.trades }),
           filled: has.trades > 0,
+        },
+        {
+          href: "/settings/timeclock",
+          icon: Clock,
+          title: tClock("title"),
+          description: tClock("subtitle"),
+          // Read off the context: the two durations are already in hand, no count to ask for.
+          status:
+            ctx.company.breakPolicy.mealBreakMinutes === 0
+              ? tState("timeclockMealPaid", { rest: ctx.company.breakPolicy.restBreakMinutes })
+              : tState("timeclock", {
+                  rest: ctx.company.breakPolicy.restBreakMinutes,
+                  meal: ctx.company.breakPolicy.mealBreakMinutes,
+                }),
+          filled: true,
         },
         {
           href: "/settings/post-categories",

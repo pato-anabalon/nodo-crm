@@ -5649,6 +5649,8 @@ export const CompanyScalarFieldEnum = {
   currency: 'currency',
   formatLocale: 'formatLocale',
   timezone: 'timezone',
+  restBreakMinutes: 'restBreakMinutes',
+  mealBreakMinutes: 'mealBreakMinutes',
   defaultTaxType: 'defaultTaxType',
   defaultTaxRate: 'defaultTaxRate',
   quotePrefix: 'quotePrefix',
@@ -5724,6 +5726,7 @@ export const MembershipScalarFieldEnum = {
   roleId: 'roleId',
   status: 'status',
   locationConsentAt: 'locationConsentAt',
+  hourlyRate: 'hourlyRate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -6847,6 +6850,20 @@ export type ListEnumLanguageFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
 
 
 /**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
  * Reference to a field of type 'TaxType'
  */
 export type EnumTaxTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TaxType'>
@@ -6871,20 +6888,6 @@ export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
  * Reference to a field of type 'Decimal[]'
  */
 export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
-    
-
-
-/**
- * Reference to a field of type 'Int'
- */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-/**
- * Reference to a field of type 'Int[]'
- */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 

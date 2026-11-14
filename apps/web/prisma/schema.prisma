@@ -272,6 +272,16 @@ model Company {
   formatLocale String @default("en-NZ") @map("locale")
   timezone     String @default("Pacific/Auckland")
 
+  /**
+   * How long the breaks of a day on the clock last (`@nodo/core/timeclock/pay`).
+   * Which breaks a day carries is the law's, by the hours worked; how long
+   * each is, the company's — 10 and 30 minutes are the legal floor, and a
+   * company may give longer paid ones. The meal break comes off the hours
+   * paid; 0 when the company pays it.
+   */
+  restBreakMinutes Int @default(10)
+  mealBreakMinutes Int @default(30)
+
   // Values suggested when creating a quote; the quote keeps its own copy.
   defaultTaxType TaxType @default(GST)
   defaultTaxRate Decimal @default(15) @db.Decimal(5, 2)
@@ -554,6 +564,14 @@ model Membership {
    * agreeing with one employer says nothing about another.
    */
   locationConsentAt DateTime?
+  /**
+   * What this person is paid an hour here, in the company's currency. On the
+   * membership, not the person nor the job: the same person can be paid
+   * differently by two companies, and the same on every job of one. Null
+   * means no amount on the timesheet, only hours. Seen and set only with
+   * `timeclock.export`.
+   */
+  hourlyRate        Decimal?         @db.Decimal(10, 2)
   createdAt         DateTime         @default(now())
   updatedAt         DateTime         @updatedAt
 

@@ -9,6 +9,7 @@ export type NavItem = {
     | "quotes"
     | "jobs"
     | "lineup"
+    | "timesheets"
     | "contacts"
     | "clients"
     | "tasks"
@@ -20,6 +21,7 @@ export type NavItem = {
     | "file-text"
     | "briefcase"
     | "calendar-range"
+    | "clock"
     | "contact"
     | "building"
     | "check"
@@ -40,6 +42,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: "/quotes", labelKey: "quotes", icon: "file-text", permission: "quotes.read" },
   { href: "/jobs", labelKey: "jobs", icon: "briefcase", permission: "jobs.read" },
   { href: "/lineup", labelKey: "lineup", icon: "calendar-range", permission: "lineup.read" },
+  { href: "/timesheets", labelKey: "timesheets", icon: "clock", permission: "timeclock.read.all" },
   { href: "/contacts", labelKey: "contacts", icon: "contact", permission: "contacts.read" },
   { href: "/clients", labelKey: "clients", icon: "building", permission: "contacts.read" },
   { href: "/tasks", labelKey: "tasks", icon: "check", permission: "leads.read" },

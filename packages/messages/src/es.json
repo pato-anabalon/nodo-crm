@@ -39,7 +39,8 @@
     "tasks": "Tareas",
     "openMenu": "Abrir menú",
     "jobs": "Trabajos",
-    "lineup": "Lineup"
+    "lineup": "Lineup",
+    "timesheets": "Horas"
   },
   "theme": {
     "toDark": "Cambiar a oscuro",
@@ -1535,7 +1536,9 @@
       "notices": "{count, plural, =0 {Recibes todos los avisos} one {# aviso desactivado} other {# avisos desactivados}}",
       "profileNoName": "Todavía sin nombre",
       "trades": "{count, plural, =0 {Sin oficios aún} one {# oficio} other {# oficios}}",
-      "postCategories": "{count, plural, =0 {Sin categorías} one {# categoría} other {# categorías}}"
+      "postCategories": "{count, plural, =0 {Sin categorías} one {# categoría} other {# categorías}}",
+      "timeclock": "Descansos de {rest} min · almuerzo de {meal} min no pagado",
+      "timeclockMealPaid": "Descansos de {rest} min · almuerzo pagado"
     },
     "back": "Volver a {section}"
   },
@@ -1605,7 +1608,8 @@
       "role": "Perfil",
       "status": "Estado",
       "actions": "Acciones",
-      "trades": "Oficios"
+      "trades": "Oficios",
+      "rate": "Tarifa por hora"
     },
     "status": {
       "ACTIVE": "Activo",
@@ -1679,6 +1683,16 @@
     "confirmRemove": {
       "title": "¿Quitar a {name}?",
       "description": "{name} pierde el acceso a esta empresa de inmediato y sale de sus jobs y de sus tareas. Lo que escribió se conserva. Su cuenta no se elimina, pero para recuperarlo hay que volver a invitarlo. Si prefieres que sea reversible, suspéndelo en su lugar."
+    },
+    "rate": {
+      "none": "Sin tarifa",
+      "edit": "Tarifa por hora de {name}",
+      "hint": "Lo que se le paga por hora aquí, en {currency}, antes de impuestos. Déjala vacía para ver solo horas.",
+      "label": "Tarifa por hora ({currency})",
+      "perHour": "{amount} / h",
+      "invalid": "Escribe un monto como 32.50.",
+      "notFound": "Esa persona ya no está en el equipo.",
+      "saved": "Tarifa guardada"
     }
   },
   "ingest": {
@@ -2988,5 +3002,109 @@
     "push": {
       "channel": "Avisos"
     }
+  },
+  "timeclockSettings": {
+    "title": "Control horario",
+    "subtitle": "Cuánto duran los descansos al calcular las horas desde el reloj.",
+    "breaks": "Descansos",
+    "breaksHint": "Qué descansos tiene un día lo dice la ley, según las horas trabajadas ese día. Cuánto dura cada uno lo decides tú.",
+    "rest": "Cada descanso pagado",
+    "restHint": "Es pagado, así que no cambia las horas pagadas; la planilla muestra cuántos le correspondían al día.",
+    "meal": "Almuerzo",
+    "mealHint": "No pagado: se descuenta de las horas pagadas en los días de más de 4 horas. Elige \"Pagado\" si lo pagas.",
+    "mealPaid": "Pagado, no se descuenta",
+    "minutes": "{minutes} minutos",
+    "saved": "Descansos guardados",
+    "invalid": "Elige una de las duraciones ofrecidas.",
+    "law": {
+      "title": "Descansos según las horas trabajadas",
+      "subtitle": "El mínimo en Nueva Zelanda, contado sobre todo el día.",
+      "under2": "Menos de 2 horas",
+      "from2to4": "2 a 4 horas",
+      "over4to6": "Más de 4 y hasta 6 horas",
+      "over6under10": "Más de 6 y menos de 10 horas",
+      "from10": "10 horas o más",
+      "none": "Ninguno",
+      "rest": "{count, plural, one {1 descanso pagado} other {# descansos pagados}}",
+      "restAndMeal": "{count, plural, one {1 descanso pagado} other {# descansos pagados}} + 1 almuerzo no pagado"
+    }
+  },
+  "timesheets": {
+    "title": "Horas",
+    "subtitle": "Horas pagadas cada día, descontado el almuerzo no pagado.",
+    "noAccess": "Tu perfil no incluye ver las horas de todos.",
+    "export": {
+      "title": "Exportar horas",
+      "subtitle": "Un CSV para el pago: horas en decimal, el almuerzo descontado y el monto según la tarifa de cada persona.",
+      "noAccess": "Tu perfil no incluye exportar horas.",
+      "back": "Volver a {section}",
+      "from": "Desde",
+      "to": "Hasta",
+      "group": "Una fila por",
+      "groups": {
+        "day": "Persona y día",
+        "person": "Persona"
+      },
+      "download": "Descargar CSV",
+      "hint": "Hasta {days} días a la vez. Las jornadas abiertas no se cuentan, y el archivo lo dice.",
+      "invalidRange": "Elige una fecha de inicio igual o anterior a la de término, con {days} días como máximo entre ambas.",
+      "openShifts": "{count, plural, one {1 jornada abierta, no contada} other {# jornadas abiertas, no contadas}}",
+      "columns": {
+        "person": "Persona",
+        "email": "Email",
+        "date": "Fecha",
+        "jobs": "Trabajos",
+        "shifts": "Jornadas",
+        "firstIn": "Primera entrada",
+        "lastOut": "Última salida",
+        "worked": "Horas trabajadas",
+        "restBreaks": "Descansos pagados",
+        "mealBreak": "Almuerzo no pagado (min)",
+        "paid": "Horas pagadas",
+        "rate": "Tarifa por hora ({currency})",
+        "amount": "Monto ({currency})",
+        "days": "Días",
+        "notes": "Notas"
+      }
+    },
+    "previousWeek": "Semana anterior",
+    "nextWeek": "Semana siguiente",
+    "thisWeek": "Esta semana",
+    "empty": "Nadie marcó entrada esta semana.",
+    "emptyPerson": "Sin jornadas esta semana.",
+    "columns": {
+      "person": "Persona",
+      "total": "Total",
+      "amount": "Monto"
+    },
+    "flagged": "Algo que revisar: una jornada abierta, enviada tarde o cerrada lejos de la obra",
+    "open": "Abierta",
+    "noRate": "Sin tarifa",
+    "paidNote": "Horas pagadas: en los días de más de 4 horas se descuenta el almuerzo de {meal} minutos. Una jornada abierta cuenta cuando se cierra.",
+    "paidNoteMealPaid": "Horas pagadas: el almuerzo es pagado, así que no se descuenta nada. Una jornada abierta cuenta cuando se cierra.",
+    "back": "Volver a Horas",
+    "summary": {
+      "worked": "Trabajadas",
+      "meal": "Almuerzos",
+      "paid": "Pagadas",
+      "amount": "Monto"
+    },
+    "day": {
+      "paid": "{hours} pagadas",
+      "breaks": "Trabajó {worked} · {rest, plural, =0 {sin descansos pagados} one {1 descanso pagado de {restMinutes} min} other {# descansos pagados de {restMinutes} min}} · {meal, plural, =0 {sin almuerzo descontado} other {# min de almuerzo no pagado}}"
+    },
+    "flags": {
+      "open": "Abierta",
+      "manual": "Ingresada a mano",
+      "edited": "Corregida",
+      "late": "Enviada tarde",
+      "leftAway": "Salida lejos de la obra"
+    },
+    "shift": {
+      "range": "{start} – {end}",
+      "since": "Desde las {start}",
+      "distance": "entrada a {metres} m de la obra"
+    },
+    "exportHours": "Exportar"
   }
 }

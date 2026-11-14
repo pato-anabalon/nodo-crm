@@ -1,10 +1,10 @@
 import { can } from "@/lib/auth/session";
-import { addDays } from "@nodo/core/jobs/schedule/calendar";
+import { addDays, isDay } from "@nodo/core/jobs/schedule/calendar";
 import { eventsBetween, todosDueBetween } from "@/modules/jobs/schedule/service";
 import { dayKey } from "@/modules/jobs/schemas";
 import { jobIn } from "@/modules/mobile/jobs/guard";
 import { MAX_SCHEDULE_DAYS } from "@/modules/mobile/jobs/schemas";
-import { isDay, today } from "@/modules/mobile/jobs/views";
+import { today } from "@/modules/mobile/jobs/views";
 import { mobileRoute, MobileError } from "@/modules/mobile/route";
 
 /**

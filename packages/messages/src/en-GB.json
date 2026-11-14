@@ -39,7 +39,8 @@
     "tasks": "Tasks",
     "openMenu": "Open menu",
     "jobs": "Jobs",
-    "lineup": "Lineup"
+    "lineup": "Lineup",
+    "timesheets": "Timesheets"
   },
   "theme": {
     "toDark": "Switch to dark",
@@ -1535,7 +1536,9 @@
       "notices": "{count, plural, =0 {You get every notice} one {# notice turned off} other {# notices turned off}}",
       "profileNoName": "No name set yet",
       "trades": "{count, plural, =0 {No trades yet} one {# trade} other {# trades}}",
-      "postCategories": "{count, plural, =0 {No categories} one {# category} other {# categories}}"
+      "postCategories": "{count, plural, =0 {No categories} one {# category} other {# categories}}",
+      "timeclock": "Rest breaks {rest} min · meal {meal} min unpaid",
+      "timeclockMealPaid": "Rest breaks {rest} min · meal break paid"
     },
     "back": "Back to {section}"
   },
@@ -1605,7 +1608,8 @@
       "role": "Profile",
       "status": "Status",
       "actions": "Actions",
-      "trades": "Trades"
+      "trades": "Trades",
+      "rate": "Hourly rate"
     },
     "status": {
       "ACTIVE": "Active",
@@ -1679,6 +1683,16 @@
     "confirmRemove": {
       "title": "Remove {name}?",
       "description": "{name} loses access to this company straight away, and is taken off its jobs and their to-dos. What they wrote stays. Their account isn't deleted, but getting them back means inviting them again. To keep it reversible, suspend them instead."
+    },
+    "rate": {
+      "none": "No rate",
+      "edit": "Hourly rate for {name}",
+      "hint": "What they are paid an hour here, in {currency}, before tax. Leave it empty for hours only.",
+      "label": "Hourly rate ({currency})",
+      "perHour": "{amount} / h",
+      "invalid": "Write an amount like 32.50.",
+      "notFound": "That person is no longer on the team.",
+      "saved": "Rate saved"
     }
   },
   "ingest": {
@@ -2988,5 +3002,109 @@
     "push": {
       "channel": "Notices"
     }
+  },
+  "timeclockSettings": {
+    "title": "Time control",
+    "subtitle": "How long breaks last when hours are worked out from the clock.",
+    "breaks": "Breaks",
+    "breaksHint": "Which breaks a day has follows the law, by the hours worked that day. How long each one lasts is yours to set.",
+    "rest": "Each paid rest break",
+    "restHint": "Paid, so it doesn't change the hours paid; the timesheet shows how many a day was owed.",
+    "meal": "Meal break",
+    "mealHint": "Unpaid: it comes off the hours paid on any day over 4 hours. Choose \"Paid\" if you pay it.",
+    "mealPaid": "Paid, nothing deducted",
+    "minutes": "{minutes} minutes",
+    "saved": "Breaks saved",
+    "invalid": "Choose one of the durations offered.",
+    "law": {
+      "title": "Breaks by hours worked",
+      "subtitle": "The minimum in New Zealand, counted over the whole day.",
+      "under2": "Under 2 hours",
+      "from2to4": "2 to 4 hours",
+      "over4to6": "Over 4, up to 6 hours",
+      "over6under10": "Over 6, under 10 hours",
+      "from10": "10 hours or more",
+      "none": "None",
+      "rest": "{count, plural, one {1 paid rest break} other {# paid rest breaks}}",
+      "restAndMeal": "{count, plural, one {1 paid rest break} other {# paid rest breaks}} + 1 unpaid meal break"
+    }
+  },
+  "timesheets": {
+    "title": "Timesheets",
+    "subtitle": "Hours paid each day, after the unpaid meal break.",
+    "noAccess": "Your profile doesn't include seeing everybody's hours.",
+    "export": {
+      "title": "Export hours",
+      "subtitle": "A CSV for payroll: decimal hours, the meal break taken off, and the amount at each person's rate.",
+      "noAccess": "Your profile doesn't include exporting hours.",
+      "back": "Back to {section}",
+      "from": "From",
+      "to": "To",
+      "group": "One row per",
+      "groups": {
+        "day": "Person and day",
+        "person": "Person"
+      },
+      "download": "Download CSV",
+      "hint": "Up to {days} days at a time. Shifts still open aren't counted, and the file says so.",
+      "invalidRange": "Choose a start date on or before the end date, at most {days} days apart.",
+      "openShifts": "{count, plural, one {1 shift still open, not counted} other {# shifts still open, not counted}}",
+      "columns": {
+        "person": "Person",
+        "email": "Email",
+        "date": "Date",
+        "jobs": "Jobs",
+        "shifts": "Shifts",
+        "firstIn": "First in",
+        "lastOut": "Last out",
+        "worked": "Hours worked",
+        "restBreaks": "Paid rest breaks",
+        "mealBreak": "Unpaid meal break (min)",
+        "paid": "Hours paid",
+        "rate": "Hourly rate ({currency})",
+        "amount": "Amount ({currency})",
+        "days": "Days",
+        "notes": "Notes"
+      }
+    },
+    "previousWeek": "Previous week",
+    "nextWeek": "Next week",
+    "thisWeek": "This week",
+    "empty": "Nobody clocked in this week.",
+    "emptyPerson": "No shifts this week.",
+    "columns": {
+      "person": "Person",
+      "total": "Total",
+      "amount": "Amount"
+    },
+    "flagged": "Something to check: a shift still open, sent late or ended away from the job",
+    "open": "Open",
+    "noRate": "No rate",
+    "paidNote": "Hours paid: on days over 4 hours the {meal}-minute meal break comes off. A shift still open counts once it ends.",
+    "paidNoteMealPaid": "Hours paid: the meal break is paid, so nothing comes off. A shift still open counts once it ends.",
+    "back": "Back to Timesheets",
+    "summary": {
+      "worked": "Worked",
+      "meal": "Meal breaks",
+      "paid": "Paid",
+      "amount": "Amount"
+    },
+    "day": {
+      "paid": "{hours} paid",
+      "breaks": "Worked {worked} · {rest, plural, =0 {no paid rest breaks} one {1 paid rest break of {restMinutes} min} other {# paid rest breaks of {restMinutes} min}} · {meal, plural, =0 {no meal break deducted} other {# min meal break unpaid}}"
+    },
+    "flags": {
+      "open": "Still open",
+      "manual": "Entered by hand",
+      "edited": "Corrected",
+      "late": "Sent late",
+      "leftAway": "Clocked out away from the job"
+    },
+    "shift": {
+      "range": "{start} – {end}",
+      "since": "Since {start}",
+      "distance": "clocked in {metres} m from the job"
+    },
+    "exportHours": "Export"
   }
 }

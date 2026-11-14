@@ -1,0 +1,124 @@
+import { DEFAULT_BREAK_POLICY } from "@nodo/core/timeclock/pay";
+import { parseHourlyRate } from "../rate";
+import { hoursAndMinutes, personTimesheet, toShift, type ShiftInput } from "../timesheet";
+import { timesheetCsv } from "../timesheet-export";
+import { weekFrom } from "../week";
+
+/**
+ * The timesheet adds up what payroll pays, so its rules are pinned here: a
+ * shift is the day it started on in the company's zone, a day's breaks come
+ * from the whole day, and an open shift counts nothing until it ends.
+ */
+
+const zone = "Pacific/Auckland";
+// 2026-11-09 is a Monday; Auckland is UTC+13 in November.
+const at = (local: string) => new Date(`${local}+13:00`);
+
+function shift(id: string, start: string, end: string | null, overrides: Partial<ShiftInput> = {}): ShiftInput {
+  return {
+    id,
+    userId: "u1",
+    jobId: "j1",
+    jobName: "12 Kegworth Pl",
+    source: "MOBILE",
+    clockInAt: at(start),
+    clockInReceivedAt: at(start),
+    clockInDistanceM: 40,
+    clockOutAt: end ? at(end) : null,
+    clockOutReceivedAt: end ? at(end) : null,
+    clockOutInside: end ? true : null,
+    editedAt: null,
+    note: null,
+    ...overrides,
+  };
+}
+
+const week = { from: "2026-11-09", to: "2026-11-15" };
+
+describe("personTimesheet", () => {
+  it("adds a day's shifts on two jobs before taking the meal break off once", () => {
+    const shifts = [
+      shift("a", "2026-11-09T07:00:00", "2026-11-09T11:00:00"),
+      shift("b", "2026-11-09T11:30:00", "2026-11-09T15:30:00", { jobId: "j2", jobName: "3 Beach Rd" }),
+    ].map((input) => toShift(input, zone));
+    const sheet = personTimesheet("u1", shifts, week.from, week.to, DEFAULT_BREAK_POLICY);
+
+    expect(sheet.days).toHaveLength(7);
+    expect(sheet.days[0]).toMatchObject({ day: "2026-11-09", workedMinutes: 480, unpaidMinutes: 30, paidMinutes: 450, restBreaks: 2 });
+    expect(sheet).toMatchObject({ workedMinutes: 480, paidMinutes: 450, daysWorked: 1, flagged: false });
+  });
+
+  it("puts a shift on the company's day, not UTC's", () => {
+    // 06:30 on Tuesday in Auckland is still Monday in UTC.
+    const [tuesday] = [shift("a", "2026-11-10T06:30:00", "2026-11-10T09:30:00")].map((input) => toShift(input, zone));
+    expect(tuesday.day).toBe("2026-11-10");
+  });
+
+  it("counts an open shift as nothing yet, and flags it", () => {
+    const shifts = [shift("a", "2026-11-11T07:00:00", null)].map((input) => toShift(input, zone));
+    const sheet = personTimesheet("u1", shifts, week.from, week.to, DEFAULT_BREAK_POLICY);
+    expect(sheet.days[2]).toMatchObject({ open: true, workedMinutes: 0, paidMinutes: 0 });
+    expect(sheet.flagged).toBe(true);
+  });
+
+  it("flags a punch sent late and a clock-out away from the job", () => {
+    const late = toShift(shift("a", "2026-11-09T07:00:00", "2026-11-09T09:00:00", { clockOutReceivedAt: at("2026-11-09T18:00:00") }), zone);
+    const away = toShift(shift("b", "2026-11-10T07:00:00", "2026-11-10T09:00:00", { clockOutInside: false }), zone);
+    expect(late).toMatchObject({ late: true, leftAway: false });
+    expect(away).toMatchObject({ late: false, leftAway: true });
+  });
+});
+
+it("writes durations the way a timesheet reads them", () => {
+  expect(hoursAndMinutes(450)).toBe("7:30");
+  expect(hoursAndMinutes(5)).toBe("0:05");
+});
+
+it("opens on the Monday of whatever day it is given, and on this week for nonsense", () => {
+  expect(weekFrom("2026-11-12", "2026-01-01")).toEqual(week);
+  expect(weekFrom("2026-02-30", "2026-11-15")).toEqual(week);
+  expect(weekFrom(undefined, "2026-11-09")).toEqual(week);
+});
+
+it("reads an hourly rate as people type it", () => {
+  expect(parseHourlyRate("32.5")).toBe(32.5);
+  expect(parseHourlyRate("$32.50")).toBe(32.5);
+  expect(parseHourlyRate("32,50")).toBe(32.5);
+  expect(parseHourlyRate("  ")).toBeNull();
+  expect(parseHourlyRate("32.505")).toBeUndefined();
+  expect(parseHourlyRate("-3")).toBeUndefined();
+  expect(parseHourlyRate("100000")).toBeUndefined();
+});
+
+describe("timesheetCsv", () => {
+  const shifts = [
+    shift("a", "2026-11-09T07:00:00", "2026-11-09T15:00:00"),
+    shift("b", "2026-11-10T07:00:00", null),
+  ].map((input) => toShift(input, zone));
+  const people = [
+    {
+      userId: "u1",
+      name: "=Wendy",
+      email: "wendy@example.com",
+      hourlyRate: 30,
+      sheet: personTimesheet("u1", shifts, week.from, week.to, DEFAULT_BREAK_POLICY),
+    },
+  ];
+  const labels = { column: (column: string) => column, openShifts: (count: number) => `${count} open` };
+  const lines = (group: "day" | "person") => timesheetCsv(people, group, zone, labels).replace(/^﻿/, "").trim().split("\r\n");
+
+  it("writes a row per day worked, in decimal hours, the amount from the minutes", () => {
+    const [header, monday, tuesday] = lines("day");
+    expect(header).toBe("person,email,date,jobs,shifts,firstIn,lastOut,worked,restBreaks,mealBreak,paid,rate,amount,notes");
+    // A name a spreadsheet would run as a formula goes in as text.
+    expect(monday).toBe("'=Wendy,wendy@example.com,2026-11-09,12 Kegworth Pl,1,07:00,15:00,8,2,30,7.5,30,225,");
+    expect(tuesday).toBe("'=Wendy,wendy@example.com,2026-11-10,12 Kegworth Pl,1,07:00,,0,0,0,0,30,0,1 open");
+  });
+
+  it("writes one row per person with the window's totals", () => {
+    expect(lines("person")).toEqual([
+      "person,email,days,worked,mealBreak,paid,rate,amount,notes",
+      "'=Wendy,wendy@example.com,1,8,30,7.5,30,225,1 open",
+    ]);
+  });
+});

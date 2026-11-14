@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { can, requirePermission } from "@/lib/auth/session";
-import { formatDate } from "@/lib/format";
+import { formatDate, formatMoney } from "@/lib/format";
 import { RoleKey } from "@/generated/prisma/enums";
 import { roleDisplayName } from "@/lib/auth/role-name";
 import { listCompanyRoles, listTeam } from "@/modules/team/service";
@@ -8,6 +8,7 @@ import { TeamManager } from "@/modules/team/team-manager";
 import { SettingsHeader } from "@/modules/settings/settings-header";
 import { listTrades } from "@/modules/jobs/service";
 import { setMemberTradesAction } from "@/modules/jobs/actions";
+import { setHourlyRateAction } from "@/modules/timeclock/actions";
 
 export async function generateMetadata() {
   const t = await getTranslations("team");
@@ -38,7 +39,13 @@ export default async function TeamPage() {
       <SettingsHeader title={t("title")} subtitle={t("subtitle")} />
 
       <TeamManager
-        members={members}
+        members={members.map((member) => ({
+          ...member,
+          hourlyRateLabel:
+            member.hourlyRate === null
+              ? null
+              : t("rate.perHour", { amount: formatMoney(member.hourlyRate, ctx.company.currency, ctx.company.formatLocale) }),
+        }))}
         invitations={invitations.map((invitation) => ({
           id: invitation.id,
           email: invitation.email,
@@ -58,6 +65,11 @@ export default async function TeamPage() {
         canRemove={can(ctx, "users.remove")}
         trades={trades.map((trade) => ({ id: trade.id, name: trade.name }))}
         onSetTrades={setMemberTradesAction}
+        rates={
+          can(ctx, "timeclock.export")
+            ? { currency: ctx.company.currency, canEdit: can(ctx, "users.update"), onSet: setHourlyRateAction }
+            : undefined
+        }
       />
     </div>
   );

@@ -1,6 +1,6 @@
-import { addDays } from "@nodo/core/jobs/schedule/calendar";
+import { addDays, isDay } from "@nodo/core/jobs/schedule/calendar";
 import { zonedInstant } from "@nodo/core/zoned-time";
-import { isDay, today } from "@/modules/mobile/jobs/views";
+import { today } from "@/modules/mobile/jobs/views";
 import { mobileRoute, MobileError } from "@/modules/mobile/route";
 import { ownEntries } from "@/modules/timeclock/service";
 

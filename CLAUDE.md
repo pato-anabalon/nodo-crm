@@ -1034,6 +1034,34 @@ and the server again when it arrives.
   Manager and Project Lead's; exporting them is Owner's alone. Companies that
   already exist get them from `scripts/grant-timeclock.ts`.
 
+### Hours and pay
+
+`/timesheets` is everybody's week (`timeclock.read.all`), a person's shifts
+under it (also one's own with `timeclock.punch`), and `/timesheets/export`
+the CSV for payroll (`timeclock.export`). The rules are pure:
+`@nodo/core/timeclock/pay` for the arithmetic, `modules/timeclock/timesheet.ts`
+for laying shifts out, so the screen and the file add up identically.
+
+- **To the minute, per day.** A shift is rounded to the nearest minute and
+  belongs to the day it started on, on the company's calendar. A day's
+  breaks come from all its shifts together — two jobs of three hours is a
+  six-hour day — by the law's table (`breakAllowance`). Paid rest breaks are
+  listed, never deducted; the unpaid meal break comes off any day over four
+  hours. How long each lasts is the company's (`/settings/timeclock`,
+  `Company.restBreakMinutes`/`mealBreakMinutes`; a meal break of 0 is a paid
+  one), carried in `ctx.company.breakPolicy`.
+- **An open shift counts nothing** until it ends, and says so: on the screen
+  and as a note in the file, so a total is never read as complete when it
+  isn't.
+- **The hourly rate is the membership's** (`Membership.hourlyRate`), set in
+  Settings → Team. Pay is `timeclock.export`'s: without it the rate is not
+  read from the database at all and the column is absent, not blank — the
+  same shape as `quotes.read.amounts`. The amount is worked out from the
+  minutes, not from the rounded hours, so it is right to the cent.
+- The file writes decimal hours (7.75, not 7:45), which is what payroll
+  multiplies, one row per person and day or per person, at most a quarter at
+  a time.
+
 ### Files go straight to the store
 
 A Vercel function's body stops at **4.5 MB**, whatever `bodySizeLimit` says, and

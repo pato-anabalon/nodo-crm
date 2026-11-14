@@ -61,6 +61,8 @@ export async function listTeam(ctx: CompanyContext) {
       status: m.status,
       isSelf: m.user.id === ctx.user.id,
       tradeIds: m.trades.map((t) => t.tradeId),
+      // Pay is `timeclock.export`'s: without it the rate never leaves the server.
+      hourlyRate: ctx.permissions.has("timeclock.export") && m.hourlyRate !== null ? Number(m.hourlyRate) : null,
     })),
     invitations: invitations.map((i) => ({
       id: i.id,

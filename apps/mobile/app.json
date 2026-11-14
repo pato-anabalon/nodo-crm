@@ -29,6 +29,12 @@
           "cameraPermission": "Nodo uses the camera so you can photograph the work on a job.",
           "microphonePermission": "Nodo records sound with the videos you take of a job."
         }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Nodo checks that you are on site when you clock in, and records where you clock out."
+        }
       ]
     ],
     "experiments": {

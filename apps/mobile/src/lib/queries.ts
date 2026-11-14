@@ -21,6 +21,7 @@ import type {
   TodoDetail,
   TodoList,
 } from "./types";
+import type { ClockOverview, EntriesPage } from "./clock";
 
 /**
  * Every query is keyed by the company first, so switching company can't show
@@ -332,5 +333,38 @@ export function useAddPostComment(postId: string, jobId: string) {
         client.invalidateQueries({ queryKey: [auth.company, "post", postId] }),
         client.invalidateQueries({ queryKey: [auth.company, "job", jobId, "board"] }),
       ]),
+  });
+}
+
+/**
+ * The clock: consent, the shift open on the server and the jobs to clock into
+ * with where each is. Kept on the phone like everything else, so the circles
+ * are there to measure against on a site with no signal.
+ */
+export function useClock() {
+  const auth = useAuth();
+  return useQuery({
+    queryKey: [auth.company, "timeclock"],
+    queryFn: ({ signal }) => api<ClockOverview>("/timeclock", { auth, signal }),
+  });
+}
+
+/** This person's shifts of the last seven days. */
+export function useClockEntries() {
+  const auth = useAuth();
+  return useQuery({
+    queryKey: [auth.company, "timeclock", "entries"],
+    queryFn: ({ signal }) => api<EntriesPage>("/timeclock/entries", { auth, signal }),
+  });
+}
+
+export function useClockConsent() {
+  const auth = useAuth();
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: (consent: boolean) => api<{ consentAt: string | null }>("/timeclock/consent", { method: "PUT", auth, body: { consent } }),
+    onSuccess: ({ consentAt }) => {
+      client.setQueryData<ClockOverview>([auth.company, "timeclock"], (before) => (before ? { ...before, consentAt } : before));
+    },
   });
 }

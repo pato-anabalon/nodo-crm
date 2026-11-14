@@ -2928,7 +2928,8 @@
     "tabs": {
       "jobs": "Jobs",
       "notifications": "Notifications",
-      "profile": "Profile"
+      "profile": "Profile",
+      "clock": "Clock"
     },
     "jobsList": {
       "empty": "No jobs in progress.",
@@ -3001,6 +3002,67 @@
     },
     "push": {
       "channel": "Notices"
+    },
+    "clock": {
+      "title": "Clock",
+      "waiting": "{count, plural, one {1 punch waiting for signal} other {# punches waiting for signal}}. It goes as soon as there is a connection.",
+      "noJobs": "You're not on any job that can be clocked into yet.",
+      "accuracy": "Location within {metres} m",
+      "locating": "Finding where you are…",
+      "choose": "Choose the job you're on.",
+      "clockIn": "Clock in",
+      "clockOut": "Clock out",
+      "noSite": "Not on the map yet",
+      "onShift": "On shift",
+      "elapsedLabel": "Time on shift",
+      "since": "Since {time}",
+      "metres": "{metres} m",
+      "kilometres": "{km} km",
+      "consent": {
+        "title": "Before you clock in",
+        "what": "Nodo records where your phone is when you clock in and out, and every few minutes while you're on shift.",
+        "when": "Only between clocking in and clocking out. Nothing is recorded while you're off the clock.",
+        "who": "Your company sees it with your hours, to check the time and the place.",
+        "keep": "Positions during a shift are kept for 90 days; your clock-in and clock-out times stay with your hours.",
+        "agree": "I agree"
+      },
+      "permission": {
+        "title": "Location is needed to clock in",
+        "why": "Nodo checks that you're at the job when you clock in.",
+        "denied": "Location is turned off for Nodo. Turn it on in the phone's settings to clock in.",
+        "allow": "Allow location",
+        "openSettings": "Open settings"
+      },
+      "verdict": {
+        "waiting": "Waiting for your location…",
+        "inside": "You're on site.",
+        "outside": "You're {metres} m away. Clocking in works within {radius} m of the job.",
+        "imprecise": "The location isn't precise enough yet. Wait a moment, or step outside.",
+        "noSite": "This job isn't on the map yet. Ask the office to place it."
+      },
+      "confirmOut": {
+        "title": "Clock out?",
+        "body": "This ends your shift on {job}.",
+        "cancel": "Keep working"
+      },
+      "refused": {
+        "outside": "Clock-in not taken: you were {metres} m from the job, and it works within {radius} m.",
+        "imprecise": "Clock-in not taken: the location wasn't precise enough.",
+        "no_site": "Clock-in not taken: the job isn't on the map.",
+        "consent_required": "Clock-in not taken: agree to location first.",
+        "already_clocked_in": "Clock-in not taken: you already had a shift open.",
+        "job_closed": "Not taken: the job has been finished.",
+        "punch_too_old": "Not taken: the punch was more than a week old by the time it was sent.",
+        "punch_in_future": "Not taken: the phone's clock is ahead. Check its date and time.",
+        "generic": "A punch wasn't taken. Try again.",
+        "dismiss": "Dismiss"
+      },
+      "week": {
+        "title": "Last seven days",
+        "range": "{start} – {end} · {job}",
+        "open": "Since {start} · {job}",
+        "hint": "Time on the clock, before breaks. The hours paid are on your timesheet."
+      }
     }
   },
   "timeclockSettings": {

@@ -2928,7 +2928,8 @@
     "tabs": {
       "jobs": "Trabajos",
       "notifications": "Avisos",
-      "profile": "Perfil"
+      "profile": "Perfil",
+      "clock": "Reloj"
     },
     "jobsList": {
       "empty": "No hay trabajos en curso.",
@@ -3001,6 +3002,67 @@
     },
     "push": {
       "channel": "Avisos"
+    },
+    "clock": {
+      "title": "Reloj",
+      "waiting": "{count, plural, one {1 marca esperando señal} other {# marcas esperando señal}}. Se envía apenas haya conexión.",
+      "noJobs": "Todavía no estás en ningún trabajo donde se pueda marcar.",
+      "accuracy": "Ubicación con un margen de {metres} m",
+      "locating": "Buscando dónde estás…",
+      "choose": "Elige el trabajo donde estás.",
+      "clockIn": "Marcar entrada",
+      "clockOut": "Marcar salida",
+      "noSite": "Todavía no está en el mapa",
+      "onShift": "En jornada",
+      "elapsedLabel": "Tiempo en jornada",
+      "since": "Desde las {time}",
+      "metres": "{metres} m",
+      "kilometres": "{km} km",
+      "consent": {
+        "title": "Antes de marcar",
+        "what": "Nodo registra dónde está tu teléfono al marcar entrada y salida, y cada pocos minutos mientras estás en jornada.",
+        "when": "Solo entre la entrada y la salida. Fuera de la jornada no se registra nada.",
+        "who": "Tu empresa lo ve junto a tus horas, para revisar el tiempo y el lugar.",
+        "keep": "Las posiciones de una jornada se guardan 90 días; tus horas de entrada y salida quedan con tus horas.",
+        "agree": "Estoy de acuerdo"
+      },
+      "permission": {
+        "title": "Se necesita la ubicación para marcar",
+        "why": "Nodo revisa que estés en la obra al marcar entrada.",
+        "denied": "La ubicación está desactivada para Nodo. Actívala en los ajustes del teléfono para marcar.",
+        "allow": "Permitir ubicación",
+        "openSettings": "Abrir ajustes"
+      },
+      "verdict": {
+        "waiting": "Esperando tu ubicación…",
+        "inside": "Estás en la obra.",
+        "outside": "Estás a {metres} m. Se puede marcar a menos de {radius} m de la obra.",
+        "imprecise": "La ubicación todavía no es precisa. Espera un momento o sal al exterior.",
+        "noSite": "Este trabajo todavía no está en el mapa. Pide a la oficina que lo ubique."
+      },
+      "confirmOut": {
+        "title": "¿Marcar salida?",
+        "body": "Esto termina tu jornada en {job}.",
+        "cancel": "Seguir trabajando"
+      },
+      "refused": {
+        "outside": "No se tomó la entrada: estabas a {metres} m de la obra, y se puede marcar a menos de {radius} m.",
+        "imprecise": "No se tomó la entrada: la ubicación no era lo bastante precisa.",
+        "no_site": "No se tomó la entrada: el trabajo no está en el mapa.",
+        "consent_required": "No se tomó la entrada: primero acepta el uso de la ubicación.",
+        "already_clocked_in": "No se tomó la entrada: ya tenías una jornada abierta.",
+        "job_closed": "No se tomó: el trabajo ya está terminado.",
+        "punch_too_old": "No se tomó: la marca tenía más de una semana cuando se envió.",
+        "punch_in_future": "No se tomó: el reloj del teléfono está adelantado. Revisa su fecha y hora.",
+        "generic": "Una marca no se tomó. Inténtalo de nuevo.",
+        "dismiss": "Cerrar"
+      },
+      "week": {
+        "title": "Últimos siete días",
+        "range": "{start} – {end} · {job}",
+        "open": "Desde las {start} · {job}",
+        "hint": "Tiempo en el reloj, antes de descansos. Las horas pagadas están en tu planilla."
+      }
     }
   },
   "timeclockSettings": {

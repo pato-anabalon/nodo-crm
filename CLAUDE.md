@@ -91,9 +91,21 @@ app's sign-in" below), with the token in the Keychain/Keystore
   uses too; a lead or a quote has none and stays in the bell. Outside a
   build of our own (Expo Go, a simulator, no EAS project id)
   `expo-notifications` isn't even loaded.
-- **Tabs follow the profile**: Jobs with `jobs.read`, the bell and Profile for
-  everybody. The clock arrives with time control, not before as a tab that
-  does nothing.
+- **Tabs follow the profile**: Jobs with `jobs.read`, Clock with
+  `timeclock.punch`, the bell and Profile for everybody.
+- **The clock decides on the phone and keeps the punch** (`lib/clock.ts`,
+  `lib/punches.ts`). `/timeclock` hands over the jobs with their circles, kept
+  with the rest of the cache, so `geofenceVerdict` answers inside or not with
+  no signal; the GPS runs only while the Clock screen is on show
+  (`useFix`). A punch goes into a queue on the phone the moment it is pressed
+  — its time, fix, battery and its own `clientId` — and is sent in order
+  until the server has it: from the tabs layout too, and whenever the app
+  comes back to the front. The queue is per company **and per person**, so a
+  phone handed over never sends the last person's punches. A refusal takes
+  the punch off (and a clock-out that depended on it) and is said on screen;
+  no signal leaves it for the next try. What the screen shows is the
+  server's open shift with the queue laid on top (`clockState`). Consent is
+  asked once per company before anything else.
 - **A job opens on its own permissions**, the list `GET /jobs/<id>` returns —
   a finished job's with the writes already off — so the app offers nothing
   the server would refuse. Its timeline is worded by the web's own

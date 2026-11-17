@@ -3,7 +3,159 @@
 Multi-company CRM. Each company operates on its own subdomain, with its logo,
 its colours, its users and its profiles, and **never sees the others' data**.
 
-## Stack
+## Where things live
+
+A pnpm workspace. The Next app — and with it the database, the migrations, the
+scripts and the messages — is `apps/web`, and **every path in this document is
+relative to it** (`src/proxy.ts` is `apps/web/src/proxy.ts`). The mobile app
+goes in `apps/mobile`, and code both of them use in `packages/*`.
+
+The scripts run from the root as before (`pnpm dev -p 3100`, `pnpm test`,
+`pnpm db:deploy`) and are passed to the app with `--filter web`. A one-off
+script still runs from inside the app, because that is where `.env.local` is:
+`cd apps/web && pnpm tsx --env-file=.env.local scripts/<name>.ts`. On Vercel the
+project's *Root Directory* is `apps/web`.
+
+**`packages/core`** (`@nodo/core/<path>`) holds what both apps need and touches
+neither Next nor Prisma nor a DOM: permissions, zoned time, the intl options, the
+brand colour maths, and the jobs rules both sides apply — who may touch what,
+the file-type table, the calendar geometry, mention parsing. It ships TypeScript
+source, not a build (`transpilePackages` in Next), and its tests run on their
+own (`pnpm --filter @nodo/core test`). **`packages/messages`** is the two
+message files, `@nodo/messages/<locale>.json`.
+
+**`packages/tokens`** (`@nodo/tokens/<path>`) is the design system both apps
+draw with: the colours (same names as always — `--panel`, `--brand-ink`,
+`--status-*-text`), the type scale by role (`callout`, `title-2`…), radii,
+spacing, touch targets and springs. The web's `src/app/tokens.css` is
+**generated** from it (`pnpm --filter web tokens`) and `globals.css` imports it;
+`tokens-css.test.ts` fails when the file is behind the package or edited by
+hand. The app gets the same values as hex (`palette`, `colorVars` for
+NativeWind's `vars()`, `nativeTheme`), because React Native has no OKLCH. The
+company's colour is `brandVars` for both — `BrandTheme` on the web, the root of
+the app — so `--brand-ink` is worked out by one function against each scheme's
+real card. A test measures every text token against the grounds it is written
+on, in both schemes, and lists the shortfalls that exist today with their value
+(light `muted-foreground` on the panel, a field or `muted`; dark
+`destructive-foreground` on its button): a new one fails, and a fixed one fails
+until it comes off the list. A rule moves into core when the
+second app needs it, not before; until then it stays in `apps/web`.
+
+## The app
+
+`apps/mobile` is Expo (SDK 58) with Expo Router, for the people on site. It
+never touches the database: everything goes through `/api/m/v1` (see "The
+app's sign-in" below), with the token in the Keychain/Keystore
+(`expo-secure-store`).
+
+- **Run it** with `pnpm mobile` and open it in Expo Go — every native module it
+  uses ships there. Push is the exception: Expo Go stopped receiving it in
+  SDK 53, so it needs a development build (`eas build --profile
+  development`, profiles in `eas.json`; `development-simulator` for the
+  Mac's iOS simulator, no Apple account needed) served by `pnpm --filter
+  mobile start:dev`; `start` stays on Expo Go (`--go`). `app.config.ts` adds
+  Firebase's `google-services.json` to the Android build only once that file
+  is in `apps/mobile` — naming a missing one fails the build — and it is
+  committed; the FCM service account key goes to `eas credentials` and is
+  ignored by git. `apps/mobile/.env.local` sets
+  `EXPO_PUBLIC_API_URL` to the laptop on the LAN (`http://<ip>:3100`): a phone
+  can't reach `localhost`, and `/api` skips the subdomain proxy, so the bare IP
+  is enough. Without it the app talks to production.
+- **One stack per state of the session** (`Stack.Protected` in
+  `app/_layout.tsx`): signed out, the emailed code, choosing a company, and
+  the tabs. Nothing redirects by hand, so no screen can be reached in the
+  wrong state. The company opened is the last one chosen while it still
+  works there, the only one if there is just one, otherwise asked
+  (`pickCompany`).
+- **`/me` brands and words it.** Its company's colour goes through the same
+  `brandVars` as the web, into NativeWind's `vars()` at the root; its
+  `locale` picks the messages — `@nodo/messages` through use-intl, next-intl's
+  own core, so an ICU `plural` reads the same on both sides (Hermes gets
+  `Intl.PluralRules` from a polyfill that installs only where it's missing).
+  Before sign-in the phone's language decides. use-intl is typed with the
+  messages, so a key that doesn't exist fails `tsc`; arguments aren't checked.
+- **Classes mean what they mean on the web.** `tailwind.config.ts` extends
+  `nativeTheme` from packages/tokens, so `bg-card`, `text-callout` and
+  `rounded-xl` are the same tokens, and a rem is 16 on both sides
+  (`inlineRem` in `metro.config.js`).
+- **TanStack Query, kept on the phone.** Every key starts with the company's
+  slug, so switching company can't show the last one's jobs; the cache is
+  persisted, so what was opened yesterday opens without signal; a 401 from
+  anything signs the phone out; signing out clears it all.
+- **Light or dark is the phone's, unless Profile says otherwise**
+  (`lib/appearance.ts`): the choice goes through `Appearance.setColorScheme`,
+  so `useColorScheme` and everything drawn from it follow with no other
+  code aware of it. Header titles that don't depend on data are set in the
+  company layout, not by the screen, so a screen still loading shows its
+  name rather than its route's file name.
+- **Push opens what it is about** (`lib/push.ts`): the phone registers its
+  token after sign-in and on every start, a notice arriving while the app
+  is open still shows and refreshes the bell, and a tap marks it read and
+  opens its screen — switching to its company first. The web's `href` is
+  turned into the app's screen by `appHref` (pure, tested), which the bell
+  uses too; a lead or a quote has none and stays in the bell. Outside a
+  build of our own (Expo Go, a simulator, no EAS project id)
+  `expo-notifications` isn't even loaded.
+- **Tabs follow the profile**: Jobs with `jobs.read`, Clock with
+  `timeclock.punch`, the bell and Profile for everybody.
+- **The clock decides on the phone and keeps the punch** (`lib/clock.ts`,
+  `lib/punches.ts`). `/timeclock` hands over the jobs with their circles, kept
+  with the rest of the cache, so `geofenceVerdict` answers inside or not with
+  no signal; the GPS runs only while the Clock screen is on show
+  (`useFix`). A punch goes into a queue on the phone the moment it is pressed
+  — its time, fix, battery and its own `clientId` — and is sent in order
+  until the server has it: from the tabs layout too, and whenever the app
+  comes back to the front. The queue is per company **and per person**, so a
+  phone handed over never sends the last person's punches. A refusal takes
+  the punch off (and a clock-out that depended on it) and is said on screen;
+  no signal leaves it for the next try. What the screen shows is the
+  server's open shift with the queue laid on top (`clockState`). Consent is
+  asked once per company before anything else.
+- **A job opens on its own permissions**, the list `GET /jobs/<id>` returns —
+  a finished job's with the writes already off — so the app offers nothing
+  the server would refuse. Its timeline is worded by the web's own
+  `describeJobActivity`, moved to `@nodo/core/jobs/timeline` for it (the web
+  re-exports it; a test holds core's lists of `JobActivityType` and
+  `JobStatus` to the database's).
+- **To-dos tick on press** (`useSetDone`): the list and the to-do move at once
+  (`tickInLists`, pure and tested), the server is sent the state wanted, and a
+  refusal puts them back and says why. Notes and comments are drawn from the
+  stored HTML by a small walker over the web's fixed tag set
+  (`components/rich-text.tsx`); editing notes sends them only if they
+  changed, and warns first when the web had formatted them.
+- **Photos go up from the phone straight to the store** (`lib/uploads.ts`),
+  as from the web: `POST /jobs/<id>/uploads` hands out a token for one file
+  and the phone PUTs the bytes, streamed from disk by `expo-file-system`.
+  `put()` from `@vercel/blob/client` is not used — it leans on Node modules
+  React Native lacks — so `blobPut` (`lib/upload-rules.ts`, tested) writes
+  out the same request: the store's API version, the store id read off the
+  token, the type the server chose. A photo is drawn again only when it's
+  large or a HEIC (2560 px, JPEG stays JPEG, PNG becomes WebP), with a 480 px
+  JPEG beside it; a video goes as it is. Documents come from Files
+  (`expo-document-picker`) and go up untouched, with no cover drawn — the
+  server's table decides whether the job takes them — while a photo chosen
+  there is still treated as a photo (`pickedKind`). Files start going up
+  when picked, so Send only waits for the ones still on their way; on a
+  to-do's form, the ones already on it come off only when it is saved.
+- **The chat polls while it is on screen** (`useChat`, every 5 s, an
+  infinite query paged with `?before=`) and is drawn upside down so the
+  newest sits by the box. A sent message shows at once, faded, and a refusal
+  puts the words back; the `@` list matches the name the server matches on
+  (`mentionName`: the name, or the whole address). Long-press deletes what
+  `canDelete` allows.
+- **The schedule is an agenda, read only** (`agendaDays`, pure and
+  tested): four weeks from today, paged by four, only the days with
+  something on them. An event is listed once, on the first day of it the
+  window shows ("continues" when it began earlier), and to-dos falling due
+  sit beside the events and open. The Message Board is read and commented
+  on, never written: posts are the web's, where the editor is. Comments on
+  a post and on a to-do are one component (`components/comments.tsx`).
+- `pnpm --filter mobile exec expo export` bundles both platforms, which is
+  the check that Metro, NativeWind and the workspace packages resolve without
+  a phone. pnpm keeps dependencies isolated, which is why
+  `react-native-css-interop` is a direct dependency: NativeWind's Babel
+  output imports it by name.
+
 
 | Piece | Choice |
 |---|---|
@@ -61,7 +213,7 @@ tests (`applyTenantScope`).
 
 Comments, test names, internal error messages, routes and the Prisma schema:
 **all in English**, no matter which language the person reading works in. The
-only thing in Spanish is `messages/es.json`, which is interface translation, not
+only thing in Spanish is `packages/messages/src/es.json`, which is interface translation, not
 code.
 
 Routes too: `/quotes`, `/reports`, `/settings`, `/leads/new`. A user with the
@@ -299,7 +451,19 @@ The unread count is read on the server so the bell is right on the first paint;
 the effect in the component only subscribes to updates from there.
 
 The same opt-out governs both doorways: a kind somebody turned off stops
-arriving by email **and** in the bell. A test asserts `NOTIFICATION_KINDS` covers
+arriving by email **and** in the bell.
+
+**Push is the third doorway, and it hangs off the bell.** `notify` queues a
+push (`notifications/push.ts`, behind `after()`) for every notice it actually
+raises, to every phone whose session still opens — so every kind that reaches
+the bell reaches the phone, under the same opt-out, with no list of kinds to
+keep in step, and a repeat or a turned-off kind buzzes nobody. It is worded
+when it is sent, in the recipient's language, with the same
+`notifications.inApp` message the bell renders, and carries the company's slug
+and the notice's `href` for the app to open. A token Expo answers
+`DeviceNotRegistered` for is forgotten; any other failure is left alone, and a
+push that fails is a notice still in the bell. `EXPO_ACCESS_TOKEN` is only
+needed once push security is switched on in the Expo project. A test asserts `NOTIFICATION_KINDS` covers
 the whole enum — a notice you can receive and cannot turn off is not a setting.
 
 ### Whose task is it
@@ -414,7 +578,7 @@ They were three text fields, which is how a company ends up with `NZ$` where
 `NZD` belongs, or `Pacific/Aukland` with the letters swapped. Nothing complains:
 the amount quietly stops formatting and every due date lands a day out.
 
-`src/lib/intl/options.ts` is the single source, used both to **render** the
+`packages/core/src/intl/options.ts` is the single source, used both to **render** the
 options and to **validate** what comes back — so a hand-crafted POST is checked
 against exactly what the select offered, not merely for shape. `XYZ` is three
 letters and passes a length check.
@@ -437,7 +601,7 @@ is used by nothing — which is why every screen had hand-rolled a `<select>`.
 
 ### How to add text
 
-- Text lives in `messages/en-GB.json` and `messages/es.json`, never in the code.
+- Text lives in `packages/messages/src/en-GB.json` and `packages/messages/src/es.json`, never in the code.
 - Validation schemas emit **keys**, not text (`validation.invalidEmail`); server
   actions translate them with `translateFieldErrors` before replying.
 - Permission keys carry a dot (`leads.read`), and next-intl uses the dot as a
@@ -780,7 +944,7 @@ reaches leads, quotes, contacts or reports, and `/` sends them to `/jobs`.
   carrying a due date can't come in through the "complete" door.
 - **Own and somebody else's.** On authored content (posts, comments, chat,
   files) `*.update`/`*.delete` reach what the person wrote; anybody else's needs
-  `jobs.moderate` too. `canTouch` in `jobs/rules.ts` is the one place that says so.
+  `jobs.moderate` too. `canTouch` in `@nodo/core/jobs/rules` is the one place that says so.
 - **`requireJobContext(jobId, permission)`** is the guard every job page and
   action goes through: the job exists in this company, this person may be on it,
   and their profile holds the permission. `ctx.db` draws the line between
@@ -820,6 +984,101 @@ person can plaster for one company and do the marketing for another.
 > permissions. It leaves alone any profile that already holds a job permission,
 > so running it twice — or after a company trimmed a profile — changes nothing.
 
+### Where a job is
+
+What the clock measures a punch against: `latitude`/`longitude`, a
+`geofenceRadiusM` (300 by default, one of `GEOFENCE_RADII_M`) and how the
+place was set (`locationSource`). The rule for "at the job" is
+`geofenceVerdict` in `@nodo/core/timeclock/geofence`, pure and shared, so the
+phone and the server give one answer: inside when `distance − accuracy ≤
+radius`, so a vague GPS on site isn't turned away, and "wait for a better
+fix" when the phone's guess is wider than the circle. A job with no place
+can't be clocked into.
+
+- **Read from the address when the address changes**, never when it is read
+  (`syncJobLocation` after creating, editing, starting from a quote or
+  linking one). `geocodedAddress` is the address it was read from, which is
+  what tells a changed address from the same one saved again, and an address
+  that found nothing isn't asked about again until it changes. Google's
+  Geocoding API, with the server key `GOOGLE_GEOCODING_API_KEY` and the
+  company's country as the bias; without the key nothing is asked. A failure
+  never fails the save.
+- **A pin placed by hand stays where it was put** (`MANUAL`): a later change
+  of address only says so on the job, with "Place from the address" beside
+  it. Dragging the pin or pasting coordinates makes it manual; changing the
+  radius alone doesn't.
+- **The card on the job is `jobs.update`'s**, like the address. The map is
+  Maps JavaScript (`NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`, a browser key restricted
+  by referrer — a different key from the server's), loaded only by the
+  screen that draws one; without it a job is placed by pasting coordinates.
+  A check in the migration holds the place whole: both halves and a source,
+  or none.
+- Jobs made before this have no place until saved again;
+  `scripts/geocode-jobs.ts` asks once for each unfinished one (counts unless
+  `--apply`).
+
+### The clock
+
+A shift (`TimeEntry`) is clocked in on site from the phone and clocked out
+wherever the day ends; the positions in between are `LocationPing`s
+(`modules/timeclock/`, `/api/m/v1/timeclock…`). The rules are pure, in
+`@nodo/core/timeclock/punch`, so the phone asks them before it queues a punch
+and the server again when it arrives.
+
+- **Every punch is the phone's own**: the time the button was pressed, the
+  fix, and a `clientId` made once per clock-in. Sent again it finds the
+  shift the first one made, so a punch queued without signal is sent until it
+  lands. The time is taken within limits — not more than five minutes ahead
+  of the server, not older than a week — and `*ReceivedAt` says when it
+  arrived, so the timesheet can call a punch late without refusing it.
+- **Clocking in is refused away from the job** (`outside`, with how far), on a
+  fix wider than the circle (`imprecise`), on a job with no place
+  (`no_site`), before consent and with a shift already open. **Clocking out
+  is taken anywhere** — somebody who forgot and drove home must still end the
+  day — and `clockOutInside` records where. It isn't behind the job's guard
+  either: a job finished mid-shift can't trap the clock.
+- **One open shift per person per company**, a partial unique index written
+  by hand. Per company, so a refusal can't tell one company somebody is
+  clocked in at another. `jobName` is frozen at clock-in and the job is
+  `SetNull`: deleting a job doesn't take the hours worked on it.
+- **Consent is per company** (`Membership.locationConsentAt`), asked before
+  the first punch, and can't be withdrawn while a shift is open.
+- **Positions belong to a shift**: a batch keeps only what was recorded
+  between its clock-in and clock-out, and `(timeEntryId, recordedAt)` is
+  unique, so a batch sent twice is stored once.
+- `timeclock.punch` is everybody's who works on site; seeing and correcting
+  other people's hours (`timeclock.read.all`, `timeclock.update`) is Admin,
+  Manager and Project Lead's; exporting them is Owner's alone. Companies that
+  already exist get them from `scripts/grant-timeclock.ts`.
+
+### Hours and pay
+
+`/timesheets` is everybody's week (`timeclock.read.all`), a person's shifts
+under it (also one's own with `timeclock.punch`), and `/timesheets/export`
+the CSV for payroll (`timeclock.export`). The rules are pure:
+`@nodo/core/timeclock/pay` for the arithmetic, `modules/timeclock/timesheet.ts`
+for laying shifts out, so the screen and the file add up identically.
+
+- **To the minute, per day.** A shift is rounded to the nearest minute and
+  belongs to the day it started on, on the company's calendar. A day's
+  breaks come from all its shifts together — two jobs of three hours is a
+  six-hour day — by the law's table (`breakAllowance`). Paid rest breaks are
+  listed, never deducted; the unpaid meal break comes off any day over four
+  hours. How long each lasts is the company's (`/settings/timeclock`,
+  `Company.restBreakMinutes`/`mealBreakMinutes`; a meal break of 0 is a paid
+  one), carried in `ctx.company.breakPolicy`.
+- **An open shift counts nothing** until it ends, and says so: on the screen
+  and as a note in the file, so a total is never read as complete when it
+  isn't.
+- **The hourly rate is the membership's** (`Membership.hourlyRate`), set in
+  Settings → Team. Pay is `timeclock.export`'s: without it the rate is not
+  read from the database at all and the column is absent, not blank — the
+  same shape as `quotes.read.amounts`. The amount is worked out from the
+  minutes, not from the rounded hours, so it is right to the cent.
+- The file writes decimal hours (7.75, not 7:45), which is what payroll
+  multiplies, one row per person and day or per person, at most a quarter at
+  a time.
+
 ### Files go straight to the store
 
 A Vercel function's body stops at **4.5 MB**, whatever `bodySizeLimit` says, and
@@ -828,7 +1087,7 @@ through a function: the browser uploads to Blob directly (`upload()` from
 `@vercel/blob/client`), and `/api/jobs/<id>/upload` only decides whether to hand
 it a token — the same `jobAccess` questions as every job page, a path under
 `companies/<companyId>/jobs/<jobId>/`, and the type and cap that
-`jobs/files.ts` allows for that extension. Blob enforces the token: a different
+`@nodo/core/jobs/files` allows for that extension. Blob enforces the token: a different
 path or content type is refused by the store, not by us.
 
 - **The type comes from the extension**, from one table read on both sides.
@@ -932,12 +1191,12 @@ Events on a job (`modules/jobs/schedule/`), and every job on one timeline
   are the days it covers on the company's own calendar, and every view lays it
   out by them; a timed event also keeps `startsAt`/`endsAt`. The form sends days
   and wall-clock times and the server turns them into instants in the company's
-  timezone (`lib/zoned-time.ts`, which asks `Intl` rather than doing offset
+  timezone (`@nodo/core/zoned-time`, which asks `Intl` rather than doing offset
   arithmetic — the tests cross a daylight-saving change). A day is then the same
   day wherever the server runs, and the calendar never needs a timezone at all.
   Two checks in the migration hold the shape: the end isn't before the start,
   and a timed event has both instants while an all-day one has neither.
-- **The geometry is pure** (`schedule/calendar.ts`): which weeks a view shows
+- **The geometry is pure** (`@nodo/core/jobs/schedule/calendar`): which weeks a view shows
   (weeks start on Monday), which row of a week each event takes so that
   something running several days is one bar rather than a copy per cell, where
   a job's bar sits in the Lineup's window, and what dragging an end does. Days
@@ -1006,10 +1265,99 @@ this company?". Layers 4 and 5 brought two more actors on stage:
 | `requireCompanyContext()` | the company's team | session + membership + profile permissions |
 | `resolveShare(token)` | the end customer, with no account | view and reply to **one** quote |
 | `authenticateKey(token, origin)` | the web form | create a lead, nothing else |
+| `mobileRoute(…)` | the team, from the phone app | the same as the first, through a bearer token |
 
 All three lead into the same `ctx.db` bounded by company. Isolation isn't
 reinvented for the new actors: what changes is who comes in, not how it is
 filtered.
+
+## The app's sign-in
+
+A phone has no subdomain and no cookie, so the app sends
+`Authorization: Bearer nodo_mt_…` and names the company in `X-Nodo-Company:
+<slug>` on every request, to `/api/m/v1/…` on the root domain. The token says
+who; the header says where, and **membership is checked per request by the same
+`buildCompanyContext` the web goes through** — so `session.ts` is still the one
+place that works out which company somebody belongs to. One token reaches every
+company the person is an active member of; `GET /companies` is what to choose from.
+
+- **Every handler is built by `mobileRoute`, `mobileUserRoute` or
+  `mobilePublicRoute`** (`modules/mobile/route.ts`), and `route-coverage.test.ts`
+  reads `app/api/m` and fails on one written by hand: it would skip the bearer
+  check and work perfectly in every test that sends a valid token.
+- **Errors are codes, never sentences** — `{ error: "invalid_credentials" }`,
+  `403 no_access`, `409 job_closed`, and field errors as the same `validation.*`
+  keys the web's schemas emit. The app carries `@nodo/messages` and translates
+  them; signing in, the server doesn't know the person's language yet.
+- **A password, then a code by email**, unless this phone was trusted in the
+  last 30 days. Six digits, ten minutes, five tries, three codes per quarter
+  hour — Resend's free plan is 100 emails a day for everything. The code is an
+  HMAC keyed by `AUTH_SECRET` and salted with the challenge, and is good only on
+  the phone that asked for it. Locally it is also printed to the Next terminal,
+  whether or not the email went out.
+- **No session and no code without an active membership** in a company that is
+  on. Wrong passwords are counted by email and by IP (`MobileLoginFailure`); an
+  unknown email is compared against a decoy hash so it takes as long to refuse.
+- **Only hashes are stored**, of the token and of the app's device id. A
+  session lasts 90 days and slides forward at most once a day of use; signing
+  out revokes this phone and no other.
+- **A phone's push token hangs off its session** (`PushDevice`, `PUT
+  /push-device`): signing out stops its notices, and a token is held by one
+  session only, so a phone handed to somebody else stops getting the
+  previous person's. No company — a notice from any of them reaches it. The
+  app's bell is `GET /notifications` (kind and parameters, worded by the app)
+  with `POST /notifications/<id>/read` and `/notifications/read-all`.
+- The five tables belong to the person, not a company, so they are
+  `GLOBAL_MODELS`.
+
+### Jobs from the app
+
+`/api/m/v1/jobs…`, `/todos/<id>…`, `/todo-lists/<id>/todos`, `/chat/<id>`,
+`/posts/<id>…`: the list, a job, its timeline, its to-dos and their lists,
+its chat, its schedule, its files and its Message Board. **Every
+one calls the same services the web's actions do**, so the timeline lines,
+the notices and the emails come out identical whichever side did it.
+
+- **One guard for both sides.** `jobContextFor(ctx, jobId, permission)` in
+  `jobs/access.ts` asks the three questions and returns null for a job this
+  person can't see; `requireJobContext` turns that into the web's 404 page and
+  `jobIn` (`mobile/jobs/guard.ts`) into the app's `404 not_found`. Something
+  inside a job — a to-do, a message — is found first and the job read off its
+  row, as on the web, and the tool's read permission is asked for too.
+- **Data, not text.** Instants are ISO, days `YYYY-MM-DD`, a timeline line is
+  its type and parameters, and nothing is formatted: the app has the
+  company's format and the person's language from `/me`. Whatever depends on
+  the reader's permissions comes as a flag (`canDelete`), and a job's own
+  `permissions` are the context the guard settled on — a finished job's with
+  the writes taken off.
+- **The app writes plain text.** To-do notes and comments become HTML through
+  the web's own schemas (`plainTextToHtml`, then `todoSchema`), and a `PATCH`
+  changes only what it sends, so fixing a date from the phone keeps the notes
+  somebody formatted on the web. Rich text comes back sanitised, for the app
+  to render read-only.
+- **The Message Board is read-only but for comments.** Posts are written on
+  the web, where the editor is; the app reads published ones (the body
+  sanitised with the `full` profile) and comments in plain text. A draft
+  answers 404 even to its author, who has no way to finish it from the
+  phone. Categories travel as stored — a standard one is its `key`, which
+  the app translates.
+- **Lists are made and renamed from the phone, not deleted or reordered.**
+  `POST /jobs/<id>/todo-lists` and `PATCH /todo-lists/<id>`, field by field
+  like a to-do. Deleting a list takes every to-do on it, and its order is a
+  plan laid out where there is room to see it; both stay on the web.
+- **Ticking off is `PUT …/completion` with the state wanted**, not a toggle: a
+  retry after a dropped connection can't undo the first press, and `changed`
+  says whether this one did anything.
+- **Files go straight to the store, as from the web.** `POST
+  /jobs/<id>/uploads` with a name and a size hands out a Blob client token
+  for **one** file, at a path the server builds under the job's prefix — the
+  app never names a path — and the app `put()`s to Blob with it. What came
+  back then travels as `uploads` with the to-do, comment or message it
+  belongs to, or to `POST /jobs/<id>/files` to file it in Docs, and is
+  checked all over again by `verifyUploads`. The size is the one after the
+  phone compressed it, so it is held to the stored cap (`uploadRefusal`)
+  and a HEIC, a `.exe` or a 30 MB photo is refused before a byte goes up;
+  the store holds the token to the same type, path and cap.
 
 ## Lead ingestion API
 
@@ -1289,7 +1637,7 @@ are a row per platform, added one at a time so each is checked on the way in.
 
 ### Two kinds of braces, and they must not meet
 
-- `{name}` in `messages/*.json` is **ICU**, interpolated by next-intl.
+- `{name}` in `packages/messages/src/*.json` is **ICU**, interpolated by next-intl.
 - `{{name}}` in a stored template is a **field**, substituted by `applyFields`.
 
 Putting `{{name}}` in a message file throws `MALFORMED_ARGUMENT`: ICU reads `{`
@@ -1543,7 +1891,7 @@ lightened.
 
 ### How long ago
 
-`elapsed` in `lib/relative-time.ts` returns a **descriptor**, not a string: the
+`elapsed` in `@nodo/core/relative-time` returns a **descriptor**, not a string: the
 words belong to whoever is reading and the date format to the company, and a
 pure function that returned text would need both handed to it and would stop
 being checkable without them. `elapsedLabel` does the phrasing.
@@ -1946,7 +2294,7 @@ Profiles are **standard** (`OWNER`, `ADMIN`, `MANAGER`, `SALES`, `VIEWER`), but
 each company has its own `Role` row, so it can reassign features without
 affecting the others.
 
-- Feature catalogue: `src/lib/auth/permissions.ts` (source of truth).
+- Feature catalogue: `packages/core/src/auth/permissions.ts` (source of truth).
 - Initial templates per profile: `src/lib/auth/role-templates.ts`.
 - When adding a permission: add it to the catalogue, translate it in both
   languages and run `pnpm db:seed`. **That syncs the catalogue only** —
@@ -2172,6 +2520,8 @@ Resend's free plan allows 3,000 emails a month and **100 a day**.
 
 ## Structure
 
+Inside `apps/web`:
+
 ```
 src/
   app/
@@ -2206,7 +2556,7 @@ src/
     reports/                  periods, series and charts
     settings/  team/
   i18n/                       language configuration and cookie
-messages/                     en-GB.json and es.json
+(the messages are in packages/messages)
 ```
 
 Every module follows the same pattern: `schemas.ts` (validation), `service.ts`

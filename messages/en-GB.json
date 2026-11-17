@@ -1830,7 +1830,15 @@
       "drawHere": "Draw your signature in the box",
       "clear": "Clear"
     },
+    "acceptanceRecord": {
+      "title": "Acceptance",
+      "acceptedBy": "Accepted by",
+      "statement": "Statement accepted",
+      "orderReference": "Order or reference number",
+      "comments": "Comments"
+    },
     "fingerprint": {
+      "title": "Digital fingerprint",
       "show": "Show digital fingerprint",
       "hide": "Hide digital fingerprint",
       "timestamp": "Timestamp",

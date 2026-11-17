@@ -1174,7 +1174,10 @@ way only, as in Quotient: drawing on the computer doesn't go back.
 
 What backs an acceptance beyond the signature, shown folded under it on the
 customer's page and the team's card (`AcceptanceFingerprint`, one component
-for both). Time in UTC and the company's zone, the address, IP, browser, and:
+for both). The PDF prints the same rows open, under the signature and the
+statement accepted — the rows come from `fingerprintRows`, which both read, so
+paper and screen can't describe one acceptance differently. Time in UTC and
+the company's zone, the address, IP, browser, and:
 
 - **"Verified by email" only when it is true** — the accepting link belonged to
   a recipient, so that token only ever travelled in the email to that address.

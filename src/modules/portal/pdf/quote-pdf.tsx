@@ -1,4 +1,5 @@
 import {
+  Circle,
   Document,
   Image,
   Link,
@@ -227,13 +228,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
   },
   banner: {
+    flexDirection: "row",
+    alignItems: "center",
     marginTop: 16,
+    marginBottom: 16,
     borderWidth: 1,
     borderStyle: "solid",
     borderColor: BORDER,
-    borderRadius: 8,
-    padding: 10,
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
   },
+  bannerIcon: { marginRight: 10 },
   reviewsGrid: { flexDirection: "row", flexWrap: "wrap", marginTop: 20 },
   reviewCard: { width: "50%", paddingRight: 16, marginBottom: 14 },
   stars: { flexDirection: "row", marginBottom: 4 },
@@ -427,6 +433,33 @@ export async function buildQuotePdfDocument({
           </View>
         ) : null}
 
+        {/* Under the title, where the portal puts it: the first thing anybody
+            opening an answered quote wants to know is that it was answered. */}
+        {quote.status === QuoteStatus.ACCEPTED && quote.acceptance ? (
+          <Banner icon="accepted" color={company.primaryColor}>
+            {t("accepted", {
+              date: formatDateTime(
+                quote.acceptance.acceptedAt,
+                company.formatLocale,
+                company.timezone,
+              ),
+            })}
+          </Banner>
+        ) : null}
+        {quote.status === QuoteStatus.REJECTED ? (
+          <Banner icon="declined" color={company.primaryColor}>
+            {t("declined", {
+              date: quote.decidedAt
+                ? formatDateTime(
+                    quote.decidedAt,
+                    company.formatLocale,
+                    company.timezone,
+                  )
+                : "",
+            })}
+          </Banner>
+        ) : null}
+
         <View style={styles.introSection}>
           <RichTextPdf html={quote.intro} />
         </View>
@@ -500,45 +533,6 @@ export async function buildQuotePdfDocument({
           </View>
         </View>
 
-        {quote.status === QuoteStatus.ACCEPTED && quote.acceptance ? (
-          <View style={styles.banner}>
-            <Text>
-              {t("accepted", {
-                date: formatDateTime(
-                  quote.acceptance.acceptedAt,
-                  company.formatLocale,
-                  company.timezone,
-                ),
-              })}
-            </Text>
-          </View>
-        ) : null}
-        {quote.status === QuoteStatus.ACCEPTED && quote.acceptance ? (
-          <AcceptanceRecord
-            acceptance={quote.acceptance}
-            company={company}
-            t={t}
-            tRecord={tRecord}
-            tFingerprint={tFingerprint}
-            ink={ink}
-            border={border}
-          />
-        ) : null}
-        {quote.status === QuoteStatus.REJECTED ? (
-          <View style={styles.banner}>
-            <Text>
-              {t("declined", {
-                date: quote.decidedAt
-                  ? formatDateTime(
-                      quote.decidedAt,
-                      company.formatLocale,
-                      company.timezone,
-                    )
-                  : "",
-              })}
-            </Text>
-          </View>
-        ) : null}
 
         {quote.notes ? (
           <Block title={t("notes")}>
@@ -600,6 +594,18 @@ export async function buildQuotePdfDocument({
               </View>
             ) : null}
           </View>
+        ) : null}
+
+        {quote.status === QuoteStatus.ACCEPTED && quote.acceptance ? (
+          <AcceptanceRecord
+            acceptance={quote.acceptance}
+            company={company}
+            t={t}
+            tRecord={tRecord}
+            tFingerprint={tFingerprint}
+            ink={ink}
+            border={border}
+          />
         ) : null}
 
         {company.watermarkUrl ? (
@@ -893,7 +899,11 @@ const SIGNATURE_FRAME = { width: 220, height: 70 };
  * What the customer accepted with, on paper: who, the statement exactly as it
  * stood, the signature, and the fingerprint behind it — the same rows
  * `AcceptanceFingerprint` shows on the web (`fingerprintRows`), laid out open
- * because a page has nothing to fold them into.
+ * because a page has nothing to fold them into. It closes the document:
+ * everything the quote says comes first, then the record of it being accepted.
+ *
+ * Translations are resolved by the caller: React PDF renders synchronously, so
+ * nothing inside the document can await.
  */
 function AcceptanceRecord({
   acceptance,
@@ -912,8 +922,6 @@ function AcceptanceRecord({
   ink: string;
   border: string;
 }) {
-  // Translations are resolved by the caller: React PDF renders synchronously,
-  // so nothing inside the document can await.
   const rows = fingerprintRows(acceptance, tf, {
     formatLocale: company.formatLocale,
     timezone: company.timezone,
@@ -1022,6 +1030,43 @@ function DrawnSignature({ data }: { data: string }) {
         strokeLinejoin="round"
       />
     </Svg>
+  );
+}
+
+/**
+ * The answered-quote notice, drawn like the portal's: the company's colour as
+ * the frame and the check, the same lucide marks (`CheckCircle2`, `XCircle`)
+ * redrawn as PDF paths. Declined keeps a grey frame and icon, as it does there.
+ */
+function Banner({
+  icon,
+  color,
+  children,
+}: {
+  icon: "accepted" | "declined";
+  color: string;
+  children: string;
+}) {
+  const accepted = icon === "accepted";
+  const stroke = accepted ? color : MUTED;
+  return (
+    <View
+      style={[styles.banner, accepted ? { borderColor: color } : undefined]}
+      wrap={false}
+    >
+      <Svg width={14} height={14} viewBox="0 0 24 24" style={styles.bannerIcon}>
+        <Circle cx={12} cy={12} r={10} fill="none" stroke={stroke} strokeWidth={2} />
+        <Path
+          d={accepted ? "m9 12 2 2 4-4" : "m15 9-6 6M9 9l6 6"}
+          fill="none"
+          stroke={stroke}
+          strokeWidth={2}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </Svg>
+      <Text style={{ flex: 1 }}>{children}</Text>
+    </View>
   );
 }
 

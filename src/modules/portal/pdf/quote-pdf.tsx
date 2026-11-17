@@ -9,6 +9,7 @@ import {
   Text,
   View,
   renderToBuffer,
+  type Styles,
 } from "@react-pdf/renderer";
 import { getTranslations } from "next-intl/server";
 import type { Prisma } from "@/generated/prisma/client";
@@ -38,6 +39,11 @@ import {
 import { bundleFrom } from "@/modules/quotes/service";
 import { ensureFontsRegistered } from "./fonts";
 import { readLinks } from "@/modules/settings/review-platforms";
+import {
+  fingerprintRows,
+  type FingerprintTone,
+} from "@/modules/portal/fingerprint-rows";
+import { signatureViewBox } from "@/modules/portal/signature";
 import { RichTextPdf } from "./rich-text";
 
 export type PdfCompany = Prisma.CompanyGetPayload<{
@@ -243,6 +249,29 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textDecoration: "underline",
   },
+  acceptanceCard: {
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderRadius: 10,
+    padding: 12,
+  },
+  statement: {
+    marginTop: 2,
+    padding: 8,
+    borderRadius: 6,
+    backgroundColor: "#f9fafb",
+    fontSize: 9,
+  },
+  typedSignature: { fontSize: 20, fontStyle: "italic", marginTop: 2 },
+  fingerprintRow: {
+    flexDirection: "row",
+    paddingVertical: 5,
+    borderTopWidth: 1,
+    borderTopColor: BORDER,
+    borderTopStyle: "solid",
+  },
+  fingerprintLabel: { width: 130, paddingRight: 8, fontSize: 8, color: MUTED },
+  fingerprintValue: { flex: 1 },
   watermark: {
     position: "absolute",
     width: 170,
@@ -297,7 +326,11 @@ export async function buildQuotePdfDocument({
   locale: Locale;
 }) {
   ensureFontsRegistered();
-  const t = await getTranslations({ locale, namespace: "portal" });
+  const [t, tRecord, tFingerprint] = await Promise.all([
+    getTranslations({ locale, namespace: "portal" }),
+    getTranslations({ locale, namespace: "portal.acceptanceRecord" }),
+    getTranslations({ locale, namespace: "portal.fingerprint" }),
+  ]);
   const money = (value: number) =>
     formatMoney(value, quote.currency, company.formatLocale);
   const ink = brandInk(company.primaryColor);
@@ -479,6 +512,17 @@ export async function buildQuotePdfDocument({
               })}
             </Text>
           </View>
+        ) : null}
+        {quote.status === QuoteStatus.ACCEPTED && quote.acceptance ? (
+          <AcceptanceRecord
+            acceptance={quote.acceptance}
+            company={company}
+            t={t}
+            tRecord={tRecord}
+            tFingerprint={tFingerprint}
+            ink={ink}
+            border={border}
+          />
         ) : null}
         {quote.status === QuoteStatus.REJECTED ? (
           <View style={styles.banner}>
@@ -840,6 +884,144 @@ function Attachments({
         ))}
       </View>
     </View>
+  );
+}
+
+const SIGNATURE_FRAME = { width: 220, height: 70 };
+
+/**
+ * What the customer accepted with, on paper: who, the statement exactly as it
+ * stood, the signature, and the fingerprint behind it — the same rows
+ * `AcceptanceFingerprint` shows on the web (`fingerprintRows`), laid out open
+ * because a page has nothing to fold them into.
+ */
+function AcceptanceRecord({
+  acceptance,
+  company,
+  t,
+  tRecord: tr,
+  tFingerprint: tf,
+  ink,
+  border,
+}: {
+  acceptance: NonNullable<PdfQuote["acceptance"]>;
+  company: PdfCompany;
+  t: Awaited<ReturnType<typeof getTranslations<"portal">>>;
+  tRecord: Awaited<ReturnType<typeof getTranslations<"portal.acceptanceRecord">>>;
+  tFingerprint: Awaited<ReturnType<typeof getTranslations<"portal.fingerprint">>>;
+  ink: string;
+  border: string;
+}) {
+  // Translations are resolved by the caller: React PDF renders synchronously,
+  // so nothing inside the document can await.
+  const rows = fingerprintRows(acceptance, tf, {
+    formatLocale: company.formatLocale,
+    timezone: company.timezone,
+  });
+
+  return (
+    <>
+      <KeepTogether presence={SECTION_MIN_PRESENCE} gap={18} />
+      <View style={[styles.acceptanceCard, { borderColor: border }]}>
+        <Text style={styles.blockTitle}>{tr("title")}</Text>
+
+        <Text style={[styles.label, { color: ink }]}>{tr("acceptedBy")}</Text>
+        <Text style={[styles.strong, { marginTop: 1 }]}>
+          {acceptance.acceptedByName}
+        </Text>
+
+        <View style={styles.fieldSpacer}>
+          <Text style={[styles.label, { color: ink }]}>{tr("statement")}</Text>
+          <Text style={styles.statement}>{acceptance.statementText}</Text>
+        </View>
+
+        {acceptance.signatureData && acceptance.signatureType !== "NONE" ? (
+          <View style={styles.fieldSpacer} wrap={false}>
+            <Text style={[styles.label, { color: ink }]}>{t("signature")}</Text>
+            {acceptance.signatureType === "DRAWN" ? (
+              <DrawnSignature data={acceptance.signatureData} />
+            ) : (
+              <Text style={styles.typedSignature}>
+                {acceptance.signatureData}
+              </Text>
+            )}
+          </View>
+        ) : null}
+
+        {acceptance.orderReference ? (
+          <Field label={tr("orderReference")} ink={ink}>
+            {acceptance.orderReference}
+          </Field>
+        ) : null}
+        {acceptance.additionalComments ? (
+          <Field label={tr("comments")} ink={ink}>
+            {acceptance.additionalComments}
+          </Field>
+        ) : null}
+
+        <View style={{ marginTop: 12 }}>
+          <Text style={[styles.label, { color: ink, marginBottom: 4 }]}>
+            {tf("title")}
+          </Text>
+          {rows.map((row) => (
+            <View key={row.key} style={styles.fingerprintRow} wrap={false}>
+              <Text style={styles.fingerprintLabel}>{row.label}</Text>
+              <View style={styles.fingerprintValue}>
+                {row.lines.map((line, index) => (
+                  <Text key={index} style={FINGERPRINT_TONE[line.tone]}>
+                    {line.text}
+                  </Text>
+                ))}
+              </View>
+            </View>
+          ))}
+        </View>
+      </View>
+    </>
+  );
+}
+
+const FINGERPRINT_TONE: Record<FingerprintTone, Styles[string]> = {
+  time: { fontSize: 9 },
+  address: { fontSize: 9 },
+  addressStrong: { fontSize: 9, fontWeight: "bold" },
+  code: { fontSize: 8 },
+  codeMuted: { fontSize: 8, color: MUTED },
+  hint: { fontSize: 8, color: MUTED },
+  strong: { fontSize: 9, fontWeight: "bold" },
+  plain: { fontSize: 9 },
+};
+
+/**
+ * The drawn strokes, framed by their own extent like on the web
+ * (`signatureViewBox`). React PDF has no `vector-effect`, so the line's weight
+ * is set in the viewBox's own units, divided by the zoom the frame applies —
+ * which keeps it the same on paper however small or large the signature was.
+ */
+function DrawnSignature({ data }: { data: string }) {
+  const viewBox = signatureViewBox(data);
+  const [, , width, height] = viewBox.split(" ").map(Number);
+  const scale = Math.min(
+    SIGNATURE_FRAME.width / width,
+    SIGNATURE_FRAME.height / height,
+  );
+  return (
+    <Svg
+      width={SIGNATURE_FRAME.width}
+      height={SIGNATURE_FRAME.height}
+      viewBox={viewBox}
+      preserveAspectRatio="xMinYMid meet"
+      style={{ marginTop: 4 }}
+    >
+      <Path
+        d={data}
+        fill="none"
+        stroke={FOREGROUND}
+        strokeWidth={1.5 / scale}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Svg>
   );
 }
 

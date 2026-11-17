@@ -236,7 +236,7 @@ export default async function SettingsPage() {
 function Group({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <section className="space-y-2">
-      <h2 className="font-mono text-[0.65rem] tracking-wider text-muted-foreground uppercase">
+      <h2 className="font-mono text-2xs tracking-wider text-muted-foreground uppercase">
         {label}
       </h2>
       {/*

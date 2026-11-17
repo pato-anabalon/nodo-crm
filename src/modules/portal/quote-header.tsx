@@ -263,7 +263,7 @@ function Field({
  */
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-[11px] font-medium tracking-wide text-[var(--brand-ink)] uppercase">
+    <p className="text-2xs font-medium tracking-wide text-[var(--brand-ink)] uppercase">
       {children}
     </p>
   );

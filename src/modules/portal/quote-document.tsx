@@ -104,7 +104,7 @@ export async function QuoteDocument({
   const attachmentsBlock =
     quote.attachments.length > 0 ? (
       <div className="space-y-2">
-        <p className="text-[11px] font-medium tracking-wide text-[var(--brand-ink)] uppercase">
+        <p className="text-2xs font-medium tracking-wide text-[var(--brand-ink)] uppercase">
           {t("attachments")}
         </p>
         <ul className="flex flex-wrap gap-2">

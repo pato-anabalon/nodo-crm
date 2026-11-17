@@ -1830,7 +1830,15 @@
       "drawHere": "Dibuja tu firma en el recuadro",
       "clear": "Borrar"
     },
+    "acceptanceRecord": {
+      "title": "Aceptación",
+      "acceptedBy": "Aceptada por",
+      "statement": "Declaración aceptada",
+      "orderReference": "Número de orden o referencia",
+      "comments": "Comentarios"
+    },
     "fingerprint": {
+      "title": "Huella digital",
       "show": "Ver huella digital",
       "hide": "Ocultar huella digital",
       "timestamp": "Fecha y hora",

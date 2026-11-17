@@ -51,8 +51,13 @@ app's sign-in" below), with the token in the Keychain/Keystore
 - **Run it** with `pnpm mobile` and open it in Expo Go — every native module it
   uses ships there. Push is the exception: Expo Go stopped receiving it in
   SDK 53, so it needs a development build (`eas build --profile
-  development`, profiles in `eas.json`) served by `pnpm --filter mobile
-  start:dev`; `start` stays on Expo Go (`--go`). `apps/mobile/.env.local` sets
+  development`, profiles in `eas.json`; `development-simulator` for the
+  Mac's iOS simulator, no Apple account needed) served by `pnpm --filter
+  mobile start:dev`; `start` stays on Expo Go (`--go`). `app.config.ts` adds
+  Firebase's `google-services.json` to the Android build only once that file
+  is in `apps/mobile` — naming a missing one fails the build — and it is
+  committed; the FCM service account key goes to `eas credentials` and is
+  ignored by git. `apps/mobile/.env.local` sets
   `EXPO_PUBLIC_API_URL` to the laptop on the LAN (`http://<ip>:3100`): a phone
   can't reach `localhost`, and `/api` skips the subdomain proxy, so the bare IP
   is enough. Without it the app talks to production.

@@ -8,3 +8,7 @@ expo-env.d.ts
 
 # The template is documentation, not a secret.
 !.env.example
+
+# Firebase service account keys are sent to `eas credentials`, never committed.
+*firebase-adminsdk*.json
+service-account*.json

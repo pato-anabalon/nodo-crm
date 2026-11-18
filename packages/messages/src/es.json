@@ -407,6 +407,7 @@
     "roles": "Perfiles",
     "reports": "Reportes",
     "jobs": "Trabajos",
+    "scope": "Jobs › Alcance del trabajo",
     "messages": "Trabajos › Mensajes",
     "comments": "Trabajos › Comentarios",
     "todos": "Trabajos › To-dos",
@@ -455,6 +456,8 @@
     "jobs_finish": "Finalizar un trabajo, lo que lo bloquea",
     "jobs_reopen": "Reabrir un trabajo finalizado",
     "jobs_moderate": "Editar y eliminar lo que escribieron o subieron otras personas",
+    "scope_read": "Ver el alcance del trabajo",
+    "scope_update": "Cambiar el alcance del trabajo: agregar, editar y borrar sus líneas",
     "messages_read": "Ver el tablero de mensajes",
     "messages_create": "Publicar mensajes",
     "messages_update": "Editar sus propios mensajes",
@@ -751,6 +754,11 @@
     "searchPlaceholder": "Buscar por título, cliente, lead, número o dirección…",
     "empty": "Todavía no hay cotizaciones.",
     "backToQuotes": "Volver a cotizaciones",
+    "tabs": {
+      "quote": "Cotización",
+      "activity": "Seguimiento",
+      "viewingNow": "El cliente la está viendo ahora"
+    },
     "loading": {
       "title": "Preparando tu cotización",
       "subtitle": "Cargando los datos de la cotización…"
@@ -995,16 +1003,36 @@
       "title": "Enlace del cliente",
       "sentState": "El cliente recibió esta cotización por correo.",
       "revokedState": "El enlace está cerrado. El cliente ya no puede abrir la cotización.",
-      "expiresOn": "El enlace vence el {date}.",
+      "expiredState": "La cotización venció. El cliente todavía puede abrir el enlace para leerla y escribirte, pero no aceptarla.",
       "preview": "Ver como cliente",
       "previewHint": "Abre la cotización tal como la ve el cliente. No cuenta como apertura.",
       "resend": "Volver a enviar",
-      "resendHint": "Sale un enlace nuevo y el anterior deja de funcionar.",
+      "resendHint": "Sale un correo nuevo con su propio enlace; los enviados antes siguen funcionando.",
       "resentTo": "Reenviada a {email}",
       "onlySentCanBeResent": "Solo se puede volver a enviar una cotización ya enviada.",
+      "expiredCantResend": "Esta cotización venció. Para cotizar de nuevo, haz una nueva a partir de ella.",
       "revoke": "Cerrar el enlace",
       "revoked": "Enlace cerrado",
       "nothingToRevoke": "No hay un enlace abierto que cerrar."
+    },
+    "followUps": {
+      "title": "Seguimientos",
+      "first": "Primer seguimiento",
+      "second": "Segundo seguimiento",
+      "notSent": "Sin enviar",
+      "sentOn": "Enviado {date}",
+      "sendFirst": "Enviar primer seguimiento",
+      "sendSecond": "Enviar segundo seguimiento",
+      "hint": "Le llega a todos los de la cotización, con un enlace a ella, con el texto de Settings → Emails. Enviado a mano, no vuelve a salir solo.",
+      "confirmTitle": "¿Enviar el {kind, select, FIRST_FOLLOW_UP {primer} other {segundo}} seguimiento?",
+      "confirmBody": "{recipients} lo recibirá por correo ahora.",
+      "confirm": "Enviar",
+      "sent": "Seguimiento enviado.",
+      "errors": {
+        "notAvailable": "No se puede hacer seguimiento: la cotización no está esperando respuesta o su enlace está cerrado.",
+        "alreadySent": "Ese seguimiento ya se envió.",
+        "failed": "No se pudo enviar el correo. Intenta de nuevo en un momento."
+      }
     },
     "attachments": {
       "title": "Archivos adjuntos",
@@ -1754,7 +1782,8 @@
     "yourQuote": "Tu cotización",
     "from": "De",
     "validUntil": "Válida hasta el {date}",
-    "expired": "Esta cotización venció el {date}.",
+    "expired": "Esta cotización venció el {date}. Ya no se puede aceptar: escríbele a {company} si todavía quieres seguir adelante.",
+    "expiredUndated": "Esta cotización venció. Ya no se puede aceptar: escríbele a {company} si todavía quieres seguir adelante.",
     "notFoundTitle": "Enlace no válido",
     "notFoundBody": "Este enlace no existe o ya no está disponible. Pídele a la empresa que te envíe uno nuevo.",
     "revokedBody": "La empresa retiró este enlace. Escríbele si necesitas ver la cotización otra vez.",
@@ -1887,6 +1916,11 @@
       "subject": "{reference} fue abierta",
       "heading": "{client} abrió tu cotización"
     },
+    "quoteExpiredOpened": {
+      "subject": "{customer} abrió {reference}, que ya venció",
+      "heading": "{customer} volvió a una cotización vencida",
+      "line": "{reference} — {title}{date, select, none {} other { — venció el {date}}}. Es buen momento para contactarle{contact, select, none {} other {: {contact}}}."
+    },
     "quoteDecided": {
       "subject_accepted": "{reference} fue aceptada",
       "subject_declined": "{reference} fue rechazada",
@@ -1911,6 +1945,7 @@
       "LEAD_ASSIGNED": "{by} te asignó el lead «{title}»",
       "QUOTE_OPENED": "{customer} abrió la cotización {reference}",
       "QUOTE_DECIDED": "La cotización {reference} fue {decision, select, accepted {aceptada} declined {rechazada} other {respondida}}",
+      "QUOTE_EXPIRED_OPENED": "{customer} abrió la cotización vencida {reference}",
       "CLIENT_MESSAGE": "{customer} respondió en la cotización {reference}",
       "TASK_ASSIGNED": "{by} te dejó la tarea «{title}»",
       "TASK_DUE": "Tarea atrasada: {title}",
@@ -2143,6 +2178,8 @@
       "QUOTE_OPENED_hint": "La primera vez de cada día que el cliente abre una cotización tuya.",
       "QUOTE_DECIDED": "Cotización aceptada o rechazada",
       "QUOTE_DECIDED_hint": "Cuando el cliente responde.",
+      "QUOTE_EXPIRED_OPENED": "Cotización vencida abierta",
+      "QUOTE_EXPIRED_OPENED_hint": "Una vez al día, cuando un cliente abre una cotización que venció. A Owners, Admins y a quien hizo la cotización.",
       "CLIENT_MESSAGE": "Mensaje del cliente",
       "CLIENT_MESSAGE_hint": "Cuando te escriben en el hilo de una cotización.",
       "TASK_ASSIGNED": "Me asignan una tarea",
@@ -2541,17 +2578,38 @@
       "EVENT_COMMENTED": "{actor} comentó en {title}",
       "CHAT_MESSAGES": "{actor} envió {count, plural, one {un mensaje} other {# mensajes}} en el chat",
       "QUOTE_LINKED": "{actor} vinculó este trabajo a la cotización {reference}",
-      "QUOTE_UNLINKED": "{actor} desvinculó la cotización {reference} de este trabajo"
+      "QUOTE_UNLINKED": "{actor} desvinculó la cotización {reference} de este trabajo",
+      "SCOPE_CHANGED": "{actor} {action, select, added {agregó una línea al alcance} deleted {borró una línea del alcance} other {cambió el alcance}}: {title}"
     },
     "scope": {
       "title": "Alcance del trabajo",
       "count": "{count, plural, one {# ítem} other {# ítems}}",
-      "intro": "Lo que se cotizó para este trabajo. Es una referencia: no se puede editar y no incluye precios.",
-      "empty": "Este trabajo no tiene alcance cotizado: no tiene una cotización vinculada.",
+      "intro": "Lo que se cotizó para este trabajo, tal como está ahora. No lleva precios.",
+      "empty": "Este trabajo todavía no tiene alcance.",
       "copy": "Copiar",
       "copyAll": "Copiar todo",
       "copied": "Copiado",
-      "backToJob": "Volver a {name}"
+      "backToJob": "Volver a {name}",
+      "introEditable": "Lo que se cotizó para este trabajo, tal como está ahora. No lleva precios. Cambia una línea cuando en obra se acuerde algo distinto: cada cambio queda abajo, con quién lo hizo y qué decía antes.",
+      "emptyEditable": "Este trabajo todavía no tiene alcance. Se copia de la cotización al vincular una, o agrega la primera línea abajo.",
+      "cardEmpty": "Nada todavía: agrega la primera línea.",
+      "add": "Agregar una línea",
+      "edit": "Editar línea",
+      "delete": "Borrar línea",
+      "save": "Guardar línea",
+      "lineTitle": "Título",
+      "lineBody": "Descripción",
+      "deleteTitle": "¿Borrar “{title}”?",
+      "deleteBody": "Sale del alcance del trabajo. El historial de abajo guarda lo que decía.",
+      "editedBy": "Último cambio de {person}, {date}",
+      "someone": "Alguien",
+      "history": "Cambios",
+      "historyLine": "{person} {kind, select, ADDED {agregó} DELETED {borró} other {cambió}} “{title}”",
+      "added": "Línea agregada.",
+      "saved": "Línea guardada.",
+      "deleted": "Línea borrada.",
+      "gone": "Esa línea ya no está en este trabajo.",
+      "notAllowed": "No puedes cambiar el alcance de este trabajo."
     },
     "files": {
       "title": "Docs y archivos",
@@ -2851,7 +2909,7 @@
       "coordinatesHint": "En Google Maps, haz clic derecho sobre la obra y luego en los números para copiarlos.",
       "radiusLabel": "Radio para marcar",
       "radiusOption": "{metres} m",
-      "radiusHint": "Qué tan cerca de la obra tiene que estar el teléfono para marcar entrada.",
+      "radiusHint": "Qué tan cerca de la obra tiene que estar el teléfono para marcar entrada. Bajo 200 m, un teléfono con poca señal —adentro, bajo techo— puede tener que esperar una mejor.",
       "pin": "La obra",
       "mapLabel": "Mapa de la obra",
       "mapFailed": "No se pudo cargar el mapa.",
@@ -3135,7 +3193,9 @@
         "amount": "Monto ({currency})",
         "days": "Días",
         "notes": "Notas"
-      }
+      },
+      "correctedShifts": "{count, plural, one {1 jornada ingresada o corregida a mano} other {# jornadas ingresadas o corregidas a mano}}",
+      "mealAdjusted": "Almuerzo fijado en {minutes} min: {reason}"
     },
     "previousWeek": "Semana anterior",
     "nextWeek": "Semana siguiente",
@@ -3161,7 +3221,8 @@
     },
     "day": {
       "paid": "{hours} pagadas",
-      "breaks": "Trabajó {worked} · {rest, plural, =0 {sin descansos pagados} one {1 descanso pagado de {restMinutes} min} other {# descansos pagados de {restMinutes} min}} · {meal, plural, =0 {sin almuerzo descontado} other {# min de almuerzo no pagado}}"
+      "breaks": "Trabajó {worked} · {rest, plural, =0 {sin descansos pagados} one {1 descanso pagado de {restMinutes} min} other {# descansos pagados de {restMinutes} min}} · {meal, plural, =0 {sin almuerzo descontado} other {# min de almuerzo no pagado}}",
+      "mealAdjusted": "Almuerzo fijado en {minutes} min por un supervisor: “{reason}”"
     },
     "flags": {
       "open": "Abierta",
@@ -3175,6 +3236,71 @@
       "since": "Desde las {start}",
       "distance": "entrada a {metres} m de la obra"
     },
-    "exportHours": "Exportar"
+    "exportHours": "Exportar",
+    "shiftPage": {
+      "back": "Volver a la semana",
+      "where": "Dónde",
+      "trackCount": "{count, plural, one {1 posición registrada durante la jornada} other {# posiciones registradas durante la jornada}}",
+      "noTrack": "No hay posiciones registradas entre la entrada y la salida.",
+      "clockIn": "Entrada",
+      "clockOut": "Salida",
+      "distance": "a {metres} m del trabajo",
+      "noPlace": "Sin posición registrada",
+      "history": "Historial",
+      "correctedBy": "Corregida por {person}",
+      "enteredBy": "Ingresada a mano por {person}",
+      "fromPhone": "Marcada desde el teléfono",
+      "someone": "alguien que ya no está en el equipo",
+      "map": {
+        "label": "Mapa de la jornada",
+        "noMap": "El mapa todavía no está configurado en esta plataforma.",
+        "failed": "No se pudo cargar el mapa.",
+        "clockIn": "Entrada",
+        "clockOut": "Salida",
+        "inGlyph": "E",
+        "outGlyph": "S"
+      }
+    },
+    "corrections": {
+      "saved": "Horas guardadas",
+      "reason": "Motivo",
+      "reasonHint": "Queda guardado con el cambio. Lo pueden leer la persona y quien paga.",
+      "deleteReasonHint": "Queda en el historial después de borrar la jornada.",
+      "job": "Trabajo",
+      "chooseJob": "Elige un trabajo",
+      "day": "Día",
+      "start": "Entrada",
+      "end": "Salida",
+      "endHint": "Una salida anterior a la entrada es a la mañana siguiente.",
+      "endHintOpen": "Deja la salida vacía si todavía está trabajando. Una salida anterior a la entrada es a la mañana siguiente.",
+      "add": "Agregar jornada",
+      "addTitle": "Agregar una jornada para {person}",
+      "addDescription": "Para un día que el teléfono no registró. Aparece como ingresada a mano.",
+      "correct": "Guardar corrección",
+      "correctTitle": "Corregir esta jornada",
+      "correctDescription": "Una salida olvidada, el trabajo equivocado, una hora mal marcada. Lo que era queda en el historial.",
+      "meal": "Almuerzo",
+      "mealTitle": "Almuerzo del {day}",
+      "mealDescription": "El almuerzo no pagado que se tomó ese día. El de la empresa es de {minutes} min en días de más de 4 horas.",
+      "mealMinutes": "Minutos no pagados",
+      "mealHint": "0 si no almorzó. Vacío vuelve al de la empresa.",
+      "delete": "Borrar jornada",
+      "deleteTitle": "¿Borrar esta jornada?",
+      "deleteDescription": "{shift} sale del timesheet y no se paga. Su línea queda en el historial.",
+      "deleteHint": "Para una jornada marcada por error o ingresada dos veces.",
+      "validation": {
+        "time": "Escribe una hora como 07:30",
+        "meal": "Escribe minutos enteros, de 0 a 240"
+      },
+      "errors": {
+        "own_hours": "No puedes corregir tus propias horas. Tiene que hacerlo otro supervisor.",
+        "not_found": "Esa persona o jornada ya no está.",
+        "job_not_found": "Ese trabajo ya no está. Elige otro.",
+        "in_future": "Una jornada no puede empezar ni terminar en el futuro.",
+        "too_long": "Son más de 24 horas. Revisa el día y las horas.",
+        "overlaps": "Se cruza con otra jornada de esa persona.",
+        "reopen": "Una jornada terminada no se puede reabrir. Ponle una hora de salida."
+      }
+    }
   }
 }

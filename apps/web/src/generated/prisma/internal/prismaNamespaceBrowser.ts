@@ -118,8 +118,11 @@ export const ModelName = {
   MembershipTrade: 'MembershipTrade',
   JobChatMessage: 'JobChatMessage',
   JobScopeItem: 'JobScopeItem',
+  JobScopeChange: 'JobScopeChange',
   TimeEntry: 'TimeEntry',
-  LocationPing: 'LocationPing'
+  LocationPing: 'LocationPing',
+  TimesheetDay: 'TimesheetDay',
+  TimesheetChange: 'TimesheetChange'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1228,10 +1231,27 @@ export const JobScopeItemScalarFieldEnum = {
   position: 'position',
   title: 'title',
   body: 'body',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  editedById: 'editedById',
+  editedAt: 'editedAt'
 } as const
 
 export type JobScopeItemScalarFieldEnum = (typeof JobScopeItemScalarFieldEnum)[keyof typeof JobScopeItemScalarFieldEnum]
+
+
+export const JobScopeChangeScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  jobId: 'jobId',
+  scopeItemId: 'scopeItemId',
+  kind: 'kind',
+  before: 'before',
+  after: 'after',
+  authorId: 'authorId',
+  createdAt: 'createdAt'
+} as const
+
+export type JobScopeChangeScalarFieldEnum = (typeof JobScopeChangeScalarFieldEnum)[keyof typeof JobScopeChangeScalarFieldEnum]
 
 
 export const TimeEntryScalarFieldEnum = {
@@ -1283,6 +1303,37 @@ export const LocationPingScalarFieldEnum = {
 export type LocationPingScalarFieldEnum = (typeof LocationPingScalarFieldEnum)[keyof typeof LocationPingScalarFieldEnum]
 
 
+export const TimesheetDayScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  userId: 'userId',
+  day: 'day',
+  mealBreakMinutes: 'mealBreakMinutes',
+  reason: 'reason',
+  editedById: 'editedById',
+  editedAt: 'editedAt'
+} as const
+
+export type TimesheetDayScalarFieldEnum = (typeof TimesheetDayScalarFieldEnum)[keyof typeof TimesheetDayScalarFieldEnum]
+
+
+export const TimesheetChangeScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  userId: 'userId',
+  timeEntryId: 'timeEntryId',
+  day: 'day',
+  kind: 'kind',
+  before: 'before',
+  after: 'after',
+  reason: 'reason',
+  authorId: 'authorId',
+  createdAt: 'createdAt'
+} as const
+
+export type TimesheetChangeScalarFieldEnum = (typeof TimesheetChangeScalarFieldEnum)[keyof typeof TimesheetChangeScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1296,6 +1347,14 @@ export const JsonNullValueInput = {
 } as const
 
 export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {

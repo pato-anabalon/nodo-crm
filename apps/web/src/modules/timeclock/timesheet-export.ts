@@ -41,7 +41,17 @@ export type ExportLabels = {
   column: (column: ExportColumn) => string;
   /** A shift still open, not counted: said in the row so the total isn't read as complete. */
   openShifts: (count: number) => string;
+  /** Shifts a person entered or corrected: payroll should know which figures were typed. */
+  correctedShifts: (count: number) => string;
+  /** A day whose meal break a supervisor set, with why. */
+  mealAdjusted: (minutes: number, reason: string) => string;
 };
+
+const byHand = (shifts: readonly { source: string; editedAt: Date | null }[]) =>
+  shifts.filter((shift) => shift.source === "MANUAL" || shift.editedAt !== null).length;
+
+/** The row's notes, joined: nothing to say is an empty cell. */
+const notes = (parts: readonly (string | null)[]) => parts.filter(Boolean).join("; ") || null;
 
 export function timesheetCsv(people: readonly TimesheetPerson[], group: TimesheetGroup, timeZone: string, labels: ExportLabels): string {
   const columns = group === "day" ? DAY_COLUMNS : PERSON_COLUMNS;
@@ -52,6 +62,7 @@ export function timesheetCsv(people: readonly TimesheetPerson[], group: Timeshee
     if (group === "person") {
       const open = person.sheet.days.reduce((count, day) => count + day.shifts.filter((shift) => shift.minutes === null).length, 0);
       if (person.sheet.daysWorked === 0 && open === 0) continue;
+      const corrected = byHand(person.sheet.days.flatMap((day) => day.shifts));
       rows.push(
         csvRow([
           name,
@@ -62,7 +73,10 @@ export function timesheetCsv(people: readonly TimesheetPerson[], group: Timeshee
           decimalHours(person.sheet.paidMinutes),
           person.hourlyRate,
           payAmount(person.sheet.paidMinutes, person.hourlyRate),
-          open ? labels.openShifts(open) : null,
+          notes([
+            open ? labels.openShifts(open) : null,
+            corrected ? labels.correctedShifts(corrected) : null,
+          ]),
         ]),
       );
       continue;
@@ -72,6 +86,7 @@ export function timesheetCsv(people: readonly TimesheetPerson[], group: Timeshee
       if (day.shifts.length === 0) continue;
       const closed = day.shifts.filter((shift) => shift.clockOutAt !== null);
       const open = day.shifts.length - closed.length;
+      const corrected = byHand(day.shifts);
       const lastOut = closed.reduce<Date | null>((latest, shift) => (!latest || shift.clockOutAt! > latest ? shift.clockOutAt : latest), null);
       rows.push(
         csvRow([
@@ -88,7 +103,11 @@ export function timesheetCsv(people: readonly TimesheetPerson[], group: Timeshee
           decimalHours(day.paidMinutes),
           person.hourlyRate,
           payAmount(day.paidMinutes, person.hourlyRate),
-          open ? labels.openShifts(open) : null,
+          notes([
+            open ? labels.openShifts(open) : null,
+            corrected ? labels.correctedShifts(corrected) : null,
+            day.mealReason !== null ? labels.mealAdjusted(day.unpaidMinutes, day.mealReason) : null,
+          ]),
         ]),
       );
     }

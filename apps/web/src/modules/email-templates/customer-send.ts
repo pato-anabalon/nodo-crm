@@ -40,10 +40,15 @@ const NEEDS_LINK = new Set<string>([
  *
  * Returns whether it actually sent, which is what lets the sweep report a real
  * count rather than the number of quotes it looked at.
+ *
+ * `byHand` is somebody pressing "Send follow-up" on the quote. The template's
+ * switch is the scheduler's — whether it chases on its own — so a person
+ * deciding to send one now isn't stopped by it.
  */
 export async function sendToCustomer(
   quoteId: string,
   kind: EmailTemplateKind,
+  options: { byHand?: boolean } = {},
 ): Promise<boolean> {
   const quote = await prisma.quote.findUnique({
     where: { id: quoteId },
@@ -51,7 +56,6 @@ export async function sendToCustomer(
       id: true,
       number: true,
       language: true,
-      validUntil: true,
       clientName: true,
       companyId: true,
       lead: { select: { contactId: true, contactName: true, contactEmail: true } },
@@ -91,7 +95,7 @@ export async function sendToCustomer(
     where: { companyId_kind: { companyId: quote.companyId, kind } },
     select: { subject: true, bodyHtml: true, enabled: true },
   });
-  if (!isEnabled(kind, stored)) return false;
+  if (!options.byHand && !isEnabled(kind, stored)) return false;
 
   // Asking for a review with nowhere to leave one is an email that wastes
   // somebody's goodwill, which is the one thing it was sent to collect.
@@ -147,14 +151,15 @@ export async function sendToCustomer(
 
   for (const recipient of recipients) {
     /*
-     * A follow-up mints a fresh link, which kills the one the first email carried.
+     * A follow-up mints a fresh link, beside the one the first email carried.
      *
-     * There is no way around it: only the hash is stored, so an issued token can
-     * never be read back. It is the same property a resend already has, and this
-     * way the customer's most recent email is always the one that works — which is
-     * the one they will click. A follow-up with no way to see the quote would be
-     * an email asking somebody to look at something it doesn't show them. Each
-     * recipient gets their own, so the portal still knows who is reading.
+     * There is no way around minting one: only the hash is stored, so an issued
+     * token can never be read back to put in this email. The first email's link
+     * keeps working — the share holds every hash it handed out — so whichever of
+     * them the customer clicks opens the same quote. A follow-up with no way to
+     * see the quote would be an email asking somebody to look at something it
+     * doesn't show them. Each recipient gets their own, so the portal still
+     * knows who is reading.
      */
     const cta = NEEDS_LINK.has(kind)
       ? {
@@ -165,7 +170,6 @@ export async function sendToCustomer(
               await issueShare({
                 companyId: quote.companyId,
                 quoteId: quote.id,
-                expiresAt: quote.validUntil,
                 recipientId: recipient.id,
               })
             ).token,

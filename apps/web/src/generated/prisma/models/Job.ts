@@ -373,6 +373,7 @@ export type JobWhereInput = {
   events?: Prisma.JobEventListRelationFilter
   chatMessages?: Prisma.JobChatMessageListRelationFilter
   scopeItems?: Prisma.JobScopeItemListRelationFilter
+  scopeChanges?: Prisma.JobScopeChangeListRelationFilter
   timeEntries?: Prisma.TimeEntryListRelationFilter
 }
 
@@ -414,6 +415,7 @@ export type JobOrderByWithRelationInput = {
   events?: Prisma.JobEventOrderByRelationAggregateInput
   chatMessages?: Prisma.JobChatMessageOrderByRelationAggregateInput
   scopeItems?: Prisma.JobScopeItemOrderByRelationAggregateInput
+  scopeChanges?: Prisma.JobScopeChangeOrderByRelationAggregateInput
   timeEntries?: Prisma.TimeEntryOrderByRelationAggregateInput
 }
 
@@ -458,6 +460,7 @@ export type JobWhereUniqueInput = Prisma.AtLeast<{
   events?: Prisma.JobEventListRelationFilter
   chatMessages?: Prisma.JobChatMessageListRelationFilter
   scopeItems?: Prisma.JobScopeItemListRelationFilter
+  scopeChanges?: Prisma.JobScopeChangeListRelationFilter
   timeEntries?: Prisma.TimeEntryListRelationFilter
 }, "id" | "quoteId">
 
@@ -550,6 +553,7 @@ export type JobCreateInput = {
   events?: Prisma.JobEventCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutJobInput
 }
 
@@ -586,6 +590,7 @@ export type JobUncheckedCreateInput = {
   events?: Prisma.JobEventUncheckedCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutJobInput
 }
 
@@ -622,6 +627,7 @@ export type JobUpdateInput = {
   events?: Prisma.JobEventUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutJobNestedInput
 }
 
@@ -658,6 +664,7 @@ export type JobUncheckedUpdateInput = {
   events?: Prisma.JobEventUncheckedUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutJobNestedInput
 }
 
@@ -1202,6 +1209,20 @@ export type JobUpdateOneRequiredWithoutScopeItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.JobUpdateToOneWithWhereWithoutScopeItemsInput, Prisma.JobUpdateWithoutScopeItemsInput>, Prisma.JobUncheckedUpdateWithoutScopeItemsInput>
 }
 
+export type JobCreateNestedOneWithoutScopeChangesInput = {
+  create?: Prisma.XOR<Prisma.JobCreateWithoutScopeChangesInput, Prisma.JobUncheckedCreateWithoutScopeChangesInput>
+  connectOrCreate?: Prisma.JobCreateOrConnectWithoutScopeChangesInput
+  connect?: Prisma.JobWhereUniqueInput
+}
+
+export type JobUpdateOneRequiredWithoutScopeChangesNestedInput = {
+  create?: Prisma.XOR<Prisma.JobCreateWithoutScopeChangesInput, Prisma.JobUncheckedCreateWithoutScopeChangesInput>
+  connectOrCreate?: Prisma.JobCreateOrConnectWithoutScopeChangesInput
+  upsert?: Prisma.JobUpsertWithoutScopeChangesInput
+  connect?: Prisma.JobWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.JobUpdateToOneWithWhereWithoutScopeChangesInput, Prisma.JobUpdateWithoutScopeChangesInput>, Prisma.JobUncheckedUpdateWithoutScopeChangesInput>
+}
+
 export type JobCreateNestedOneWithoutTimeEntriesInput = {
   create?: Prisma.XOR<Prisma.JobCreateWithoutTimeEntriesInput, Prisma.JobUncheckedCreateWithoutTimeEntriesInput>
   connectOrCreate?: Prisma.JobCreateOrConnectWithoutTimeEntriesInput
@@ -1250,6 +1271,7 @@ export type JobCreateWithoutCompanyInput = {
   events?: Prisma.JobEventCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutJobInput
 }
 
@@ -1285,6 +1307,7 @@ export type JobUncheckedCreateWithoutCompanyInput = {
   events?: Prisma.JobEventUncheckedCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutJobInput
 }
 
@@ -1373,6 +1396,7 @@ export type JobCreateWithoutCreatedByInput = {
   events?: Prisma.JobEventCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutJobInput
 }
 
@@ -1408,6 +1432,7 @@ export type JobUncheckedCreateWithoutCreatedByInput = {
   events?: Prisma.JobEventUncheckedCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutJobInput
 }
 
@@ -1453,6 +1478,7 @@ export type JobCreateWithoutClosedByInput = {
   events?: Prisma.JobEventCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutJobInput
 }
 
@@ -1488,6 +1514,7 @@ export type JobUncheckedCreateWithoutClosedByInput = {
   events?: Prisma.JobEventUncheckedCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutJobInput
 }
 
@@ -1565,6 +1592,7 @@ export type JobCreateWithoutLeadInput = {
   events?: Prisma.JobEventCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutJobInput
 }
 
@@ -1600,6 +1628,7 @@ export type JobUncheckedCreateWithoutLeadInput = {
   events?: Prisma.JobEventUncheckedCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutJobInput
 }
 
@@ -1661,6 +1690,7 @@ export type JobCreateWithoutQuoteInput = {
   events?: Prisma.JobEventCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutJobInput
 }
 
@@ -1696,6 +1726,7 @@ export type JobUncheckedCreateWithoutQuoteInput = {
   events?: Prisma.JobEventUncheckedCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutJobInput
 }
 
@@ -1747,6 +1778,7 @@ export type JobUpdateWithoutQuoteInput = {
   events?: Prisma.JobEventUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutJobNestedInput
 }
 
@@ -1782,6 +1814,7 @@ export type JobUncheckedUpdateWithoutQuoteInput = {
   events?: Prisma.JobEventUncheckedUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutJobNestedInput
 }
 
@@ -1817,6 +1850,7 @@ export type JobCreateWithoutMembersInput = {
   events?: Prisma.JobEventCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutJobInput
 }
 
@@ -1852,6 +1886,7 @@ export type JobUncheckedCreateWithoutMembersInput = {
   events?: Prisma.JobEventUncheckedCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutJobInput
 }
 
@@ -1903,6 +1938,7 @@ export type JobUpdateWithoutMembersInput = {
   events?: Prisma.JobEventUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutJobNestedInput
 }
 
@@ -1938,6 +1974,7 @@ export type JobUncheckedUpdateWithoutMembersInput = {
   events?: Prisma.JobEventUncheckedUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutJobNestedInput
 }
 
@@ -1973,6 +2010,7 @@ export type JobCreateWithoutActivitiesInput = {
   events?: Prisma.JobEventCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutJobInput
 }
 
@@ -2008,6 +2046,7 @@ export type JobUncheckedCreateWithoutActivitiesInput = {
   events?: Prisma.JobEventUncheckedCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutJobInput
 }
 
@@ -2059,6 +2098,7 @@ export type JobUpdateWithoutActivitiesInput = {
   events?: Prisma.JobEventUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutJobNestedInput
 }
 
@@ -2094,6 +2134,7 @@ export type JobUncheckedUpdateWithoutActivitiesInput = {
   events?: Prisma.JobEventUncheckedUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutJobNestedInput
 }
 
@@ -2129,6 +2170,7 @@ export type JobCreateWithoutFoldersInput = {
   events?: Prisma.JobEventCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutJobInput
 }
 
@@ -2164,6 +2206,7 @@ export type JobUncheckedCreateWithoutFoldersInput = {
   events?: Prisma.JobEventUncheckedCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutJobInput
 }
 
@@ -2215,6 +2258,7 @@ export type JobUpdateWithoutFoldersInput = {
   events?: Prisma.JobEventUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutJobNestedInput
 }
 
@@ -2250,6 +2294,7 @@ export type JobUncheckedUpdateWithoutFoldersInput = {
   events?: Prisma.JobEventUncheckedUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutJobNestedInput
 }
 
@@ -2285,6 +2330,7 @@ export type JobCreateWithoutFilesInput = {
   events?: Prisma.JobEventCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutJobInput
 }
 
@@ -2320,6 +2366,7 @@ export type JobUncheckedCreateWithoutFilesInput = {
   events?: Prisma.JobEventUncheckedCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutJobInput
 }
 
@@ -2371,6 +2418,7 @@ export type JobUpdateWithoutFilesInput = {
   events?: Prisma.JobEventUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutJobNestedInput
 }
 
@@ -2406,6 +2454,7 @@ export type JobUncheckedUpdateWithoutFilesInput = {
   events?: Prisma.JobEventUncheckedUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutJobNestedInput
 }
 
@@ -2441,6 +2490,7 @@ export type JobCreateWithoutPostsInput = {
   events?: Prisma.JobEventCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutJobInput
 }
 
@@ -2476,6 +2526,7 @@ export type JobUncheckedCreateWithoutPostsInput = {
   events?: Prisma.JobEventUncheckedCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutJobInput
 }
 
@@ -2527,6 +2578,7 @@ export type JobUpdateWithoutPostsInput = {
   events?: Prisma.JobEventUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutJobNestedInput
 }
 
@@ -2562,6 +2614,7 @@ export type JobUncheckedUpdateWithoutPostsInput = {
   events?: Prisma.JobEventUncheckedUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutJobNestedInput
 }
 
@@ -2597,6 +2650,7 @@ export type JobCreateWithoutCommentsInput = {
   events?: Prisma.JobEventCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutJobInput
 }
 
@@ -2632,6 +2686,7 @@ export type JobUncheckedCreateWithoutCommentsInput = {
   events?: Prisma.JobEventUncheckedCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutJobInput
 }
 
@@ -2683,6 +2738,7 @@ export type JobUpdateWithoutCommentsInput = {
   events?: Prisma.JobEventUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutJobNestedInput
 }
 
@@ -2718,6 +2774,7 @@ export type JobUncheckedUpdateWithoutCommentsInput = {
   events?: Prisma.JobEventUncheckedUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutJobNestedInput
 }
 
@@ -2753,6 +2810,7 @@ export type JobCreateWithoutEventsInput = {
   todos?: Prisma.JobTodoCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutJobInput
 }
 
@@ -2788,6 +2846,7 @@ export type JobUncheckedCreateWithoutEventsInput = {
   todos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutJobInput
 }
 
@@ -2839,6 +2898,7 @@ export type JobUpdateWithoutEventsInput = {
   todos?: Prisma.JobTodoUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutJobNestedInput
 }
 
@@ -2874,6 +2934,7 @@ export type JobUncheckedUpdateWithoutEventsInput = {
   todos?: Prisma.JobTodoUncheckedUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutJobNestedInput
 }
 
@@ -2909,6 +2970,7 @@ export type JobCreateWithoutTodoListsInput = {
   events?: Prisma.JobEventCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutJobInput
 }
 
@@ -2944,6 +3006,7 @@ export type JobUncheckedCreateWithoutTodoListsInput = {
   events?: Prisma.JobEventUncheckedCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutJobInput
 }
 
@@ -2995,6 +3058,7 @@ export type JobUpdateWithoutTodoListsInput = {
   events?: Prisma.JobEventUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutJobNestedInput
 }
 
@@ -3030,6 +3094,7 @@ export type JobUncheckedUpdateWithoutTodoListsInput = {
   events?: Prisma.JobEventUncheckedUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutJobNestedInput
 }
 
@@ -3065,6 +3130,7 @@ export type JobCreateWithoutTodosInput = {
   events?: Prisma.JobEventCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutJobInput
 }
 
@@ -3100,6 +3166,7 @@ export type JobUncheckedCreateWithoutTodosInput = {
   events?: Prisma.JobEventUncheckedCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutJobInput
 }
 
@@ -3151,6 +3218,7 @@ export type JobUpdateWithoutTodosInput = {
   events?: Prisma.JobEventUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutJobNestedInput
 }
 
@@ -3186,6 +3254,7 @@ export type JobUncheckedUpdateWithoutTodosInput = {
   events?: Prisma.JobEventUncheckedUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutJobNestedInput
 }
 
@@ -3221,6 +3290,7 @@ export type JobCreateWithoutChatMessagesInput = {
   todos?: Prisma.JobTodoCreateNestedManyWithoutJobInput
   events?: Prisma.JobEventCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutJobInput
 }
 
@@ -3256,6 +3326,7 @@ export type JobUncheckedCreateWithoutChatMessagesInput = {
   todos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutJobInput
   events?: Prisma.JobEventUncheckedCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutJobInput
 }
 
@@ -3307,6 +3378,7 @@ export type JobUpdateWithoutChatMessagesInput = {
   todos?: Prisma.JobTodoUpdateManyWithoutJobNestedInput
   events?: Prisma.JobEventUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutJobNestedInput
 }
 
@@ -3342,6 +3414,7 @@ export type JobUncheckedUpdateWithoutChatMessagesInput = {
   todos?: Prisma.JobTodoUncheckedUpdateManyWithoutJobNestedInput
   events?: Prisma.JobEventUncheckedUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutJobNestedInput
 }
 
@@ -3377,6 +3450,7 @@ export type JobCreateWithoutScopeItemsInput = {
   todos?: Prisma.JobTodoCreateNestedManyWithoutJobInput
   events?: Prisma.JobEventCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutJobInput
 }
 
@@ -3412,6 +3486,7 @@ export type JobUncheckedCreateWithoutScopeItemsInput = {
   todos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutJobInput
   events?: Prisma.JobEventUncheckedCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutJobInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutJobInput
 }
 
@@ -3463,6 +3538,7 @@ export type JobUpdateWithoutScopeItemsInput = {
   todos?: Prisma.JobTodoUpdateManyWithoutJobNestedInput
   events?: Prisma.JobEventUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutJobNestedInput
 }
 
@@ -3498,6 +3574,167 @@ export type JobUncheckedUpdateWithoutScopeItemsInput = {
   todos?: Prisma.JobTodoUncheckedUpdateManyWithoutJobNestedInput
   events?: Prisma.JobEventUncheckedUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutJobNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutJobNestedInput
+}
+
+export type JobCreateWithoutScopeChangesInput = {
+  id?: string
+  name: string
+  description?: string | null
+  address?: string | null
+  status?: $Enums.JobStatus
+  closedAt?: Date | string | null
+  startsOn?: Date | string | null
+  endsOn?: Date | string | null
+  color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutJobsInput
+  quote?: Prisma.QuoteCreateNestedOneWithoutJobInput
+  lead?: Prisma.LeadCreateNestedOneWithoutJobsInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutJobsCreatedInput
+  closedBy?: Prisma.UserCreateNestedOneWithoutJobsClosedInput
+  members?: Prisma.JobMemberCreateNestedManyWithoutJobInput
+  activities?: Prisma.JobActivityCreateNestedManyWithoutJobInput
+  folders?: Prisma.JobFolderCreateNestedManyWithoutJobInput
+  files?: Prisma.JobFileCreateNestedManyWithoutJobInput
+  posts?: Prisma.JobPostCreateNestedManyWithoutJobInput
+  comments?: Prisma.JobCommentCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoCreateNestedManyWithoutJobInput
+  events?: Prisma.JobEventCreateNestedManyWithoutJobInput
+  chatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutJobInput
+  scopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutJobInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutJobInput
+}
+
+export type JobUncheckedCreateWithoutScopeChangesInput = {
+  id?: string
+  companyId: string
+  name: string
+  description?: string | null
+  address?: string | null
+  quoteId?: string | null
+  leadId?: string | null
+  status?: $Enums.JobStatus
+  closedAt?: Date | string | null
+  closedById?: string | null
+  startsOn?: Date | string | null
+  endsOn?: Date | string | null
+  color?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  locationSource?: $Enums.JobLocationSource | null
+  geocodedAddress?: string | null
+  geofenceRadiusM?: number
+  createdById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  members?: Prisma.JobMemberUncheckedCreateNestedManyWithoutJobInput
+  activities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutJobInput
+  folders?: Prisma.JobFolderUncheckedCreateNestedManyWithoutJobInput
+  files?: Prisma.JobFileUncheckedCreateNestedManyWithoutJobInput
+  posts?: Prisma.JobPostUncheckedCreateNestedManyWithoutJobInput
+  comments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutJobInput
+  todoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutJobInput
+  todos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutJobInput
+  events?: Prisma.JobEventUncheckedCreateNestedManyWithoutJobInput
+  chatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutJobInput
+  scopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutJobInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutJobInput
+}
+
+export type JobCreateOrConnectWithoutScopeChangesInput = {
+  where: Prisma.JobWhereUniqueInput
+  create: Prisma.XOR<Prisma.JobCreateWithoutScopeChangesInput, Prisma.JobUncheckedCreateWithoutScopeChangesInput>
+}
+
+export type JobUpsertWithoutScopeChangesInput = {
+  update: Prisma.XOR<Prisma.JobUpdateWithoutScopeChangesInput, Prisma.JobUncheckedUpdateWithoutScopeChangesInput>
+  create: Prisma.XOR<Prisma.JobCreateWithoutScopeChangesInput, Prisma.JobUncheckedCreateWithoutScopeChangesInput>
+  where?: Prisma.JobWhereInput
+}
+
+export type JobUpdateToOneWithWhereWithoutScopeChangesInput = {
+  where?: Prisma.JobWhereInput
+  data: Prisma.XOR<Prisma.JobUpdateWithoutScopeChangesInput, Prisma.JobUncheckedUpdateWithoutScopeChangesInput>
+}
+
+export type JobUpdateWithoutScopeChangesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput
+  quote?: Prisma.QuoteUpdateOneWithoutJobNestedInput
+  lead?: Prisma.LeadUpdateOneWithoutJobsNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutJobsCreatedNestedInput
+  closedBy?: Prisma.UserUpdateOneWithoutJobsClosedNestedInput
+  members?: Prisma.JobMemberUpdateManyWithoutJobNestedInput
+  activities?: Prisma.JobActivityUpdateManyWithoutJobNestedInput
+  folders?: Prisma.JobFolderUpdateManyWithoutJobNestedInput
+  files?: Prisma.JobFileUpdateManyWithoutJobNestedInput
+  posts?: Prisma.JobPostUpdateManyWithoutJobNestedInput
+  comments?: Prisma.JobCommentUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUpdateManyWithoutJobNestedInput
+  events?: Prisma.JobEventUpdateManyWithoutJobNestedInput
+  chatMessages?: Prisma.JobChatMessageUpdateManyWithoutJobNestedInput
+  scopeItems?: Prisma.JobScopeItemUpdateManyWithoutJobNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutJobNestedInput
+}
+
+export type JobUncheckedUpdateWithoutScopeChangesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  leadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  closedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endsOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  locationSource?: Prisma.NullableEnumJobLocationSourceFieldUpdateOperationsInput | $Enums.JobLocationSource | null
+  geocodedAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  geofenceRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  members?: Prisma.JobMemberUncheckedUpdateManyWithoutJobNestedInput
+  activities?: Prisma.JobActivityUncheckedUpdateManyWithoutJobNestedInput
+  folders?: Prisma.JobFolderUncheckedUpdateManyWithoutJobNestedInput
+  files?: Prisma.JobFileUncheckedUpdateManyWithoutJobNestedInput
+  posts?: Prisma.JobPostUncheckedUpdateManyWithoutJobNestedInput
+  comments?: Prisma.JobCommentUncheckedUpdateManyWithoutJobNestedInput
+  todoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutJobNestedInput
+  todos?: Prisma.JobTodoUncheckedUpdateManyWithoutJobNestedInput
+  events?: Prisma.JobEventUncheckedUpdateManyWithoutJobNestedInput
+  chatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutJobNestedInput
+  scopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutJobNestedInput
 }
 
@@ -3534,6 +3771,7 @@ export type JobCreateWithoutTimeEntriesInput = {
   events?: Prisma.JobEventCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutJobInput
 }
 
 export type JobUncheckedCreateWithoutTimeEntriesInput = {
@@ -3569,6 +3807,7 @@ export type JobUncheckedCreateWithoutTimeEntriesInput = {
   events?: Prisma.JobEventUncheckedCreateNestedManyWithoutJobInput
   chatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutJobInput
   scopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutJobInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutJobInput
 }
 
 export type JobCreateOrConnectWithoutTimeEntriesInput = {
@@ -3620,6 +3859,7 @@ export type JobUpdateWithoutTimeEntriesInput = {
   events?: Prisma.JobEventUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutJobNestedInput
 }
 
 export type JobUncheckedUpdateWithoutTimeEntriesInput = {
@@ -3655,6 +3895,7 @@ export type JobUncheckedUpdateWithoutTimeEntriesInput = {
   events?: Prisma.JobEventUncheckedUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutJobNestedInput
 }
 
 export type JobCreateManyCompanyInput = {
@@ -3712,6 +3953,7 @@ export type JobUpdateWithoutCompanyInput = {
   events?: Prisma.JobEventUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutJobNestedInput
 }
 
@@ -3747,6 +3989,7 @@ export type JobUncheckedUpdateWithoutCompanyInput = {
   events?: Prisma.JobEventUncheckedUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutJobNestedInput
 }
 
@@ -3851,6 +4094,7 @@ export type JobUpdateWithoutCreatedByInput = {
   events?: Prisma.JobEventUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutJobNestedInput
 }
 
@@ -3886,6 +4130,7 @@ export type JobUncheckedUpdateWithoutCreatedByInput = {
   events?: Prisma.JobEventUncheckedUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutJobNestedInput
 }
 
@@ -3944,6 +4189,7 @@ export type JobUpdateWithoutClosedByInput = {
   events?: Prisma.JobEventUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutJobNestedInput
 }
 
@@ -3979,6 +4225,7 @@ export type JobUncheckedUpdateWithoutClosedByInput = {
   events?: Prisma.JobEventUncheckedUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutJobNestedInput
 }
 
@@ -4060,6 +4307,7 @@ export type JobUpdateWithoutLeadInput = {
   events?: Prisma.JobEventUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutJobNestedInput
 }
 
@@ -4095,6 +4343,7 @@ export type JobUncheckedUpdateWithoutLeadInput = {
   events?: Prisma.JobEventUncheckedUpdateManyWithoutJobNestedInput
   chatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutJobNestedInput
   scopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutJobNestedInput
+  scopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutJobNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutJobNestedInput
 }
 
@@ -4138,6 +4387,7 @@ export type JobCountOutputType = {
   events: number
   chatMessages: number
   scopeItems: number
+  scopeChanges: number
   timeEntries: number
 }
 
@@ -4153,6 +4403,7 @@ export type JobCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.In
   events?: boolean | JobCountOutputTypeCountEventsArgs
   chatMessages?: boolean | JobCountOutputTypeCountChatMessagesArgs
   scopeItems?: boolean | JobCountOutputTypeCountScopeItemsArgs
+  scopeChanges?: boolean | JobCountOutputTypeCountScopeChangesArgs
   timeEntries?: boolean | JobCountOutputTypeCountTimeEntriesArgs
 }
 
@@ -4246,6 +4497,13 @@ export type JobCountOutputTypeCountScopeItemsArgs<ExtArgs extends runtime.Types.
 /**
  * JobCountOutputType without action
  */
+export type JobCountOutputTypeCountScopeChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JobScopeChangeWhereInput
+}
+
+/**
+ * JobCountOutputType without action
+ */
 export type JobCountOutputTypeCountTimeEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.TimeEntryWhereInput
 }
@@ -4289,6 +4547,7 @@ export type JobSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   events?: boolean | Prisma.Job$eventsArgs<ExtArgs>
   chatMessages?: boolean | Prisma.Job$chatMessagesArgs<ExtArgs>
   scopeItems?: boolean | Prisma.Job$scopeItemsArgs<ExtArgs>
+  scopeChanges?: boolean | Prisma.Job$scopeChangesArgs<ExtArgs>
   timeEntries?: boolean | Prisma.Job$timeEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.JobCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["job"]>
@@ -4393,6 +4652,7 @@ export type JobInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   events?: boolean | Prisma.Job$eventsArgs<ExtArgs>
   chatMessages?: boolean | Prisma.Job$chatMessagesArgs<ExtArgs>
   scopeItems?: boolean | Prisma.Job$scopeItemsArgs<ExtArgs>
+  scopeChanges?: boolean | Prisma.Job$scopeChangesArgs<ExtArgs>
   timeEntries?: boolean | Prisma.Job$timeEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.JobCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -4430,6 +4690,7 @@ export type $JobPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     events: Prisma.$JobEventPayload<ExtArgs>[]
     chatMessages: Prisma.$JobChatMessagePayload<ExtArgs>[]
     scopeItems: Prisma.$JobScopeItemPayload<ExtArgs>[]
+    scopeChanges: Prisma.$JobScopeChangePayload<ExtArgs>[]
     timeEntries: Prisma.$TimeEntryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -4884,6 +5145,7 @@ export interface Prisma__JobClient<T, Null = never, ExtArgs extends runtime.Type
   events<T extends Prisma.Job$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Job$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   chatMessages<T extends Prisma.Job$chatMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Job$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   scopeItems<T extends Prisma.Job$scopeItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Job$scopeItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobScopeItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  scopeChanges<T extends Prisma.Job$scopeChangesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Job$scopeChangesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobScopeChangePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   timeEntries<T extends Prisma.Job$timeEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Job$timeEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TimeEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5673,6 +5935,30 @@ export type Job$scopeItemsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.JobScopeItemScalarFieldEnum | Prisma.JobScopeItemScalarFieldEnum[]
+}
+
+/**
+ * Job.scopeChanges
+ */
+export type Job$scopeChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JobScopeChange
+   */
+  select?: Prisma.JobScopeChangeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JobScopeChange
+   */
+  omit?: Prisma.JobScopeChangeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobScopeChangeInclude<ExtArgs> | null
+  where?: Prisma.JobScopeChangeWhereInput
+  orderBy?: Prisma.JobScopeChangeOrderByWithRelationInput | Prisma.JobScopeChangeOrderByWithRelationInput[]
+  cursor?: Prisma.JobScopeChangeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JobScopeChangeScalarFieldEnum | Prisma.JobScopeChangeScalarFieldEnum[]
 }
 
 /**

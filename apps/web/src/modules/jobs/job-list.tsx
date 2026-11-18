@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useId, useState } from "react";
+import { useId, useState, type CSSProperties } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,6 +14,8 @@ export type JobListItem = {
   id: string;
   name: string;
   description: string | null;
+  /** Its colour on the Lineup, so the card and the bar read as the same job. */
+  colour: string;
   /** Already translated; null for an active job, which says nothing. */
   statusLabel: string | null;
   people: Person[];
@@ -100,9 +102,16 @@ export function JobCards({ jobs, show }: { jobs: JobListItem[]; show: JobListSho
     <ul className="grid grid-cols-1 content-start gap-3 sm:grid-cols-2 xl:grid-cols-3">
       {shown.map((job) => (
         <li key={job.id}>
+          {/* The job's Lineup colour washes in from the top right and is gone
+              by the middle, mixed into the card rather than laid on it: the
+              title starts at the left and the details below it stay on plain
+              card, so no text loses contrast to the tint. Stronger in dark,
+              where the same share of a colour reads fainter. On hover a glow
+              of the same colour drifts across it (`job-card-glow`). */}
           <Link
             href={`/jobs/${job.id}`}
-            className="flex h-full flex-col gap-2 rounded-xl border bg-card p-4 transition-colors hover:border-primary/40 hover:bg-accent/40"
+            style={{ "--job": job.colour } as CSSProperties}
+            className="job-card-glow flex h-full flex-col gap-2 rounded-xl border bg-card bg-[linear-gradient(to_bottom_left,color-mix(in_oklab,var(--job)_22%,transparent),transparent_60%)] p-4 transition-colors hover:border-[color-mix(in_oklab,var(--job)_50%,transparent)] hover:bg-accent/40 dark:bg-[linear-gradient(to_bottom_left,color-mix(in_oklab,var(--job)_35%,transparent),transparent_65%)]"
           >
             <span className="line-clamp-2 font-semibold leading-snug">{job.name}</span>
             {job.description ? (

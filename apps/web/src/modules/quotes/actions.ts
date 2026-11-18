@@ -26,6 +26,9 @@ import {
   type AttachmentCheck,
 } from "./attachments";
 import { sendQuoteEmail } from "./email";
+import { nextFollowUp, type ManualFollowUp } from "./follow-up";
+import { quoteRanOut } from "@/modules/portal/share";
+import { sendToCustomer } from "@/modules/email-templates/customer-send";
 
 export type QuoteActionState = {
   error?: string;
@@ -122,9 +125,9 @@ export async function sendQuoteAction(id: string): Promise<QuoteActionState> {
 /**
  * Sends the quote to the customer again.
  *
- * Each send issues a new link and the previous one stops working, because only
- * the hash of the token is kept. The customer uses the newest email, which is
- * the one they were going to look at anyway.
+ * Each send issues a new link, because only the hash of a token is kept and the
+ * one already sent can't be read back to send again. The ones sent before keep
+ * working: whichever email the customer opens, it opens the same quote.
  */
 export async function resendQuoteAction(id: string): Promise<QuoteActionState> {
   const ctx = await requirePermission("quotes.send");
@@ -133,6 +136,9 @@ export async function resendQuoteAction(id: string): Promise<QuoteActionState> {
   const quote = await getQuote(ctx, id);
   if (!quote) return { error: t("notFound") };
   if (quote.status !== QuoteStatus.SENT) return { error: t("share.onlySentCanBeResent") };
+  // The sweep closes a quote once a night; past its date it has run out even
+  // while it still says SENT, and resending would hand out a link to nothing.
+  if (quoteRanOut(quote)) return { error: t("share.expiredCantResend") };
 
   const delivery = await sendQuoteEmail(ctx, id);
   if (!delivery.sent) return { error: delivery.reason };
@@ -141,6 +147,32 @@ export async function resendQuoteAction(id: string): Promise<QuoteActionState> {
   return {
     message: withFailures(t("share.resentTo", { email: delivery.to }), delivery.failed, t),
   };
+}
+
+/**
+ * Sends a follow-up now, by hand, instead of waiting for the nightly sweep.
+ *
+ * The kind is what the button said, and it has to still be the next one
+ * (`nextFollowUp`): two people pressing at once, or a page left open while the
+ * sweep sent it, find it already gone rather than sending it twice.
+ */
+export async function sendFollowUpAction(id: string, kind: ManualFollowUp): Promise<QuoteActionState> {
+  const ctx = await requirePermission("quotes.send");
+  const t = await getTranslations("quotes");
+
+  const quote = await getQuote(ctx, id);
+  if (!quote) return { error: t("notFound") };
+
+  const next = nextFollowUp(quote);
+  if (next !== kind) {
+    const sent = quote.emailsSent.some((email) => email.kind === kind);
+    return { error: t(sent ? "followUps.errors.alreadySent" : "followUps.errors.notAvailable") };
+  }
+
+  if (!(await sendToCustomer(id, kind, { byHand: true }))) return { error: t("followUps.errors.failed") };
+
+  revalidatePath(`/quotes/${id}`);
+  return { message: t("followUps.sent") };
 }
 
 /** A send that reached some recipients and not others says both. */

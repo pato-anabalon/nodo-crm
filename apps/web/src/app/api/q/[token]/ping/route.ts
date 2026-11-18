@@ -2,6 +2,8 @@ import { after } from "next/server";
 import { NextResponse } from "next/server";
 import { markLeft, recordOpen, resolveShare, touchPresence } from "@/modules/portal/service";
 import { notifyQuoteOpened } from "@/modules/notifications/service";
+import { notifyExpiredQuoteOpened } from "@/modules/notifications/expired-quote";
+import { quoteRanOut } from "@/modules/portal/share";
 
 /**
  * Heartbeat from the customer's page.
@@ -20,6 +22,10 @@ import { notifyQuoteOpened } from "@/modules/notifications/service";
  * The trade is that somebody browsing with JavaScript off stops being counted.
  * They could never have accepted or replied either, so the portal was already
  * theirs to read and nothing else.
+ *
+ * **A quote that ran out tells Owners and Admins instead**: the link stays
+ * open after it expires so the customer can come back, and coming back is the
+ * moment to get in touch (`notifyExpiredQuoteOpened`).
  *
  * **`leaving=1` is the last beat of all**, sent on `pagehide` instead of on the
  * usual timer. Without it, closing the tab looked exactly like a heartbeat
@@ -51,7 +57,9 @@ export async function POST(request: Request, context: { params: Promise<{ token:
         ipAddress: headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null,
         userAgent: headers.get("user-agent"),
       });
-      await notifyQuoteOpened(share.quoteId, viewer.name);
+      // A quote that ran out is somebody worth ringing, not just an opening.
+      if (quoteRanOut(share.quote)) await notifyExpiredQuoteOpened(share.quoteId, viewer.name);
+      else await notifyQuoteOpened(share.quoteId, viewer.name);
     });
   } else {
     await touchPresence(share.id);

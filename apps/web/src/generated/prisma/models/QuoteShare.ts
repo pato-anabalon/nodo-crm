@@ -912,6 +912,13 @@ export type $QuoteSharePayload<ExtArgs extends runtime.Types.Extensions.Internal
     id: string
     companyId: string
     quoteId: string
+    /**
+     * *
+     *    * Not set by sending any more: a link lives until it is revoked, and a quote
+     *    * that ran out is shown to its customer as expired, with nothing to accept.
+     *    * Links sent before carried the quote's `validUntil` here, cleared by the
+     *    * `quote_links_stay_open` migration.
+     */
     expiresAt: Date | null
     revokedAt: Date | null
     /**

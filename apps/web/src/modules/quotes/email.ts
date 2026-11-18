@@ -101,7 +101,6 @@ export async function sendQuoteEmail(ctx: CompanyContext, quoteId: string): Prom
     const share = await issueShare({
       companyId: ctx.company.id,
       quoteId: quote.id,
-      expiresAt: quote.validUntil,
       recipientId: recipient.id,
     });
 

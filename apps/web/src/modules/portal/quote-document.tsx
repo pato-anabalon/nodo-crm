@@ -1,6 +1,6 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
-import { CheckCircle2, FileText, XCircle } from "lucide-react";
+import { CheckCircle2, Clock, FileText, XCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,7 +10,7 @@ import {
 } from "@/generated/prisma/enums";
 import type { Prisma } from "@/generated/prisma/client";
 import type { Locale } from "@/i18n/config";
-import { formatDateTime, formatMoney } from "@/lib/format";
+import { formatDate, formatDateTime, formatMoney } from "@/lib/format";
 import { sectionNetAmount, taxIsInTotal } from "@/modules/quotes/totals";
 import { bundleFrom } from "@/modules/quotes/service";
 import { RichText } from "@/components/rich-text";
@@ -28,11 +28,8 @@ import { Celebrate } from "@/components/celebrate";
 import { acceptedKey } from "@/lib/celebrate";
 import { MessageThread } from "./message-thread";
 import { formatThread } from "./thread";
-import {
-  canClientRespond,
-  companyDocumentSelect,
-  quoteDocumentInclude,
-} from "./service";
+import { companyDocumentSelect, quoteDocumentInclude } from "./service";
+import { canClientRespond, quoteRanOut } from "./share";
 import {
   acceptQuoteAction,
   declineQuoteAction,
@@ -90,7 +87,10 @@ export async function QuoteDocument({
   const pdfHref = token
     ? `/api/q/${encodeURIComponent(token)}/pdf`
     : `/api/quotes/${quote.id}/preview/pdf`;
-  const open = live && canClientRespond(quote.status);
+  const open = live && canClientRespond(quote);
+  // A quote that ran out still opens: the customer reads what they were
+  // quoted and can write to the company, but nothing is left to accept.
+  const ranOut = quoteRanOut(quote);
   const taxLabel = quote.taxType;
   const showTaxBreakdown = taxIsInTotal(quote.taxDisplayMode);
   const reviewLinks = readLinks(company.reviewLinks);
@@ -212,6 +212,17 @@ export async function QuoteDocument({
                     )
                   : "",
               })}
+            </Banner>
+          ) : null}
+
+          {ranOut ? (
+            <Banner icon="expired">
+              {quote.validUntil
+                ? t("expired", {
+                    date: formatDate(quote.validUntil, company.formatLocale, company.timezone),
+                    company: company.name,
+                  })
+                : t("expiredUndated", { company: company.name })}
             </Banner>
           ) : null}
 
@@ -524,7 +535,7 @@ function Banner({
   icon,
   children,
 }: {
-  icon: "accepted" | "declined";
+  icon: "accepted" | "declined" | "expired";
   children: React.ReactNode;
 }) {
   const accepted = icon === "accepted";
@@ -533,6 +544,8 @@ function Banner({
       <CardContent className="flex items-center gap-3">
         {accepted ? (
           <CheckCircle2 className="size-5 shrink-0 text-primary" />
+        ) : icon === "expired" ? (
+          <Clock className="size-5 shrink-0 text-muted-foreground" />
         ) : (
           <XCircle className="size-5 shrink-0 text-muted-foreground" />
         )}

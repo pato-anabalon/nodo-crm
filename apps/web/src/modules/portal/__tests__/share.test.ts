@@ -1,5 +1,7 @@
 import {
   HEARTBEAT_SECONDS,
+  canClientRespond,
+  quoteRanOut,
   PRESENCE_WINDOW_SECONDS,
   generateShareToken,
   hashShareToken,
@@ -140,5 +142,35 @@ describe("viewerFor", () => {
 
   it("names an old link by its address when the quote kept no name", () => {
     expect(viewerFor(null, { clientName: null, clientEmail: "ops@site.nz" }).name).toBe("ops@site.nz");
+  });
+});
+
+describe("a quote that ran out", () => {
+  const now = new Date("2026-11-17T04:00:00Z");
+  const past = new Date("2026-11-13T00:00:00Z");
+  const future = new Date("2026-12-01T00:00:00Z");
+
+  it("is one the sweep closed, dated or not", () => {
+    expect(quoteRanOut({ status: "EXPIRED", validUntil: past }, now)).toBe(true);
+    expect(quoteRanOut({ status: "EXPIRED", validUntil: null }, now)).toBe(true);
+  });
+
+  it("is one still sent past its date, before the sweep gets to it", () => {
+    expect(quoteRanOut({ status: "SENT", validUntil: past }, now)).toBe(true);
+    expect(quoteRanOut({ status: "SENT", validUntil: future }, now)).toBe(false);
+    expect(quoteRanOut({ status: "SENT", validUntil: null }, now)).toBe(false);
+  });
+
+  it("isn't an answered quote whose date passed afterwards", () => {
+    expect(quoteRanOut({ status: "ACCEPTED", validUntil: past }, now)).toBe(false);
+    expect(quoteRanOut({ status: "REJECTED", validUntil: past }, now)).toBe(false);
+  });
+
+  it("can't be answered, while one in date can", () => {
+    expect(canClientRespond({ status: "SENT", validUntil: past }, now)).toBe(false);
+    expect(canClientRespond({ status: "EXPIRED", validUntil: past }, now)).toBe(false);
+    expect(canClientRespond({ status: "SENT", validUntil: future }, now)).toBe(true);
+    expect(canClientRespond({ status: "SENT", validUntil: null }, now)).toBe(true);
+    expect(canClientRespond({ status: "DRAFT", validUntil: null }, now)).toBe(false);
   });
 });

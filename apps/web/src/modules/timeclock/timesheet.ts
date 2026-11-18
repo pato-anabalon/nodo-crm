@@ -38,7 +38,10 @@ export type Shift = ShiftInput & {
   leftAway: boolean;
 };
 
-export type TimesheetDay = DayPay & { day: string; shifts: Shift[]; open: boolean };
+/** A day whose meal break a supervisor set by hand, and why. */
+export type MealAdjustment = { userId: string; day: string; mealBreakMinutes: number; reason: string };
+
+export type TimesheetDay = DayPay & { day: string; shifts: Shift[]; open: boolean; mealReason: string | null };
 
 export type PersonTimesheet = {
   userId: string;
@@ -73,7 +76,8 @@ export function toShift(input: ShiftInput, timeZone: string): Shift {
 
 /**
  * One person's days from `from` to `to`. Every day of the window is there,
- * worked or not, so a week reads as a week.
+ * worked or not, so a week reads as a week. A day a supervisor adjusted takes
+ * the meal break they set in place of the company's.
  */
 export function personTimesheet(
   userId: string,
@@ -81,11 +85,19 @@ export function personTimesheet(
   from: string,
   to: string,
   policy: BreakPolicy,
+  adjustments: readonly MealAdjustment[] = [],
 ): PersonTimesheet {
   const days = daysOf(from, to).map((day): TimesheetDay => {
     const ofDay = shifts.filter((shift) => shift.userId === userId && shift.day === day);
     const closed = ofDay.flatMap((shift) => (shift.minutes === null ? [] : [shift.minutes]));
-    return { day, shifts: ofDay, open: ofDay.some((shift) => shift.minutes === null), ...dayPay(closed, policy) };
+    const adjusted = adjustments.find((adjustment) => adjustment.userId === userId && adjustment.day === day);
+    return {
+      day,
+      shifts: ofDay,
+      open: ofDay.some((shift) => shift.minutes === null),
+      mealReason: adjusted?.reason ?? null,
+      ...dayPay(closed, policy, adjusted?.mealBreakMinutes ?? null),
+    };
   });
   const sum = (key: "workedMinutes" | "unpaidMinutes" | "paidMinutes") => days.reduce((total, day) => total + day[key], 0);
   return {
@@ -97,6 +109,19 @@ export function personTimesheet(
     daysWorked: days.filter((day) => day.workedMinutes > 0).length,
     flagged: days.some((day) => day.shifts.some((shift) => shift.minutes === null || shift.late || shift.leftAway)),
   };
+}
+
+export type ShiftFlag = "open" | "manual" | "edited" | "late" | "leftAway";
+
+/** What a shift carries that somebody should know, in the order it is shown, worded by `say`. */
+export function shiftFlags(shift: Shift, say: (flag: ShiftFlag) => string): string[] {
+  const flags: ShiftFlag[] = [];
+  if (shift.minutes === null) flags.push("open");
+  if (shift.source === "MANUAL") flags.push("manual");
+  if (shift.editedAt) flags.push("edited");
+  if (shift.late) flags.push("late");
+  if (shift.leftAway) flags.push("leftAway");
+  return flags.map(say);
 }
 
 /** `h:mm`, the way a timesheet reads a duration: 7:45, 0:20. */

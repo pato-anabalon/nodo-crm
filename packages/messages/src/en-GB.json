@@ -407,6 +407,7 @@
     "roles": "Profiles",
     "reports": "Reports",
     "jobs": "Jobs",
+    "scope": "Jobs › Scope of work",
     "messages": "Jobs › Message board",
     "comments": "Jobs › Comments",
     "todos": "Jobs › To-dos",
@@ -455,6 +456,8 @@
     "jobs_finish": "Finish a job, which locks it",
     "jobs_reopen": "Reopen a finished job",
     "jobs_moderate": "Edit and delete what other people wrote or uploaded",
+    "scope_read": "View the scope of work",
+    "scope_update": "Change the scope of work: add, edit and delete its lines",
     "messages_read": "View the message board",
     "messages_create": "Post messages",
     "messages_update": "Edit their own messages",
@@ -751,6 +754,11 @@
     "searchPlaceholder": "Search by title, customer, lead, number or address…",
     "empty": "No quotes yet.",
     "backToQuotes": "Back to quotes",
+    "tabs": {
+      "quote": "Quote",
+      "activity": "Activity",
+      "viewingNow": "The customer is viewing it now"
+    },
     "loading": {
       "title": "Preparing your quote",
       "subtitle": "Setting up your quote data…"
@@ -995,16 +1003,36 @@
       "title": "Customer link",
       "sentState": "The customer received this quote by email.",
       "revokedState": "The link is closed. The customer can no longer open the quote.",
-      "expiresOn": "The link expires on {date}.",
+      "expiredState": "The quote has expired. The customer can still open the link to read it and write to you, but can't accept it.",
       "preview": "View as customer",
       "previewHint": "Opens the quote as the customer sees it. It doesn't count as an opening.",
       "resend": "Send again",
-      "resendHint": "A new link goes out and the previous one stops working.",
+      "resendHint": "A new email goes out with its own link; the ones sent before keep working.",
       "resentTo": "Sent again to {email}",
       "onlySentCanBeResent": "Only a quote that has been sent can be sent again.",
+      "expiredCantResend": "This quote has expired. Make a new one from it to quote again.",
       "revoke": "Close the link",
       "revoked": "Link closed",
       "nothingToRevoke": "There is no open link to close."
+    },
+    "followUps": {
+      "title": "Follow-ups",
+      "first": "First follow-up",
+      "second": "Second follow-up",
+      "notSent": "Not sent yet",
+      "sentOn": "Sent {date}",
+      "sendFirst": "Send first follow-up",
+      "sendSecond": "Send second follow-up",
+      "hint": "It goes to everybody on the quote, with a link to it, in the words set in Settings → Emails. Sent by hand, it won't go out again on its own.",
+      "confirmTitle": "Send the {kind, select, FIRST_FOLLOW_UP {first} other {second}} follow-up?",
+      "confirmBody": "{recipients} will get it by email now.",
+      "confirm": "Send",
+      "sent": "Follow-up sent.",
+      "errors": {
+        "notAvailable": "This quote can't be followed up: it isn't waiting for an answer, or its link is closed.",
+        "alreadySent": "That follow-up has already been sent.",
+        "failed": "The email couldn't be sent. Try again in a moment."
+      }
     },
     "attachments": {
       "title": "Attachments",
@@ -1754,7 +1782,8 @@
     "yourQuote": "Your quote",
     "from": "From",
     "validUntil": "Valid until {date}",
-    "expired": "This quote expired on {date}.",
+    "expired": "This quote expired on {date}. It can no longer be accepted — get in touch with {company} if you'd still like to go ahead.",
+    "expiredUndated": "This quote has expired. It can no longer be accepted — get in touch with {company} if you'd still like to go ahead.",
     "notFoundTitle": "Link not valid",
     "notFoundBody": "This link doesn't exist or is no longer available. Ask the company to send you a new one.",
     "revokedBody": "The company withdrew this link. Get in touch if you need to see the quote again.",
@@ -1887,6 +1916,11 @@
       "subject": "{reference} was opened",
       "heading": "{client} opened your quote"
     },
+    "quoteExpiredOpened": {
+      "subject": "{customer} opened {reference}, which has expired",
+      "heading": "{customer} came back to a quote that expired",
+      "line": "{reference} — {title}{date, select, none {} other { — expired on {date}}}. It's a good moment to get in touch{contact, select, none {} other {: {contact}}}."
+    },
     "quoteDecided": {
       "subject_accepted": "{reference} was accepted",
       "subject_declined": "{reference} was declined",
@@ -1911,6 +1945,7 @@
       "LEAD_ASSIGNED": "{by} assigned you the lead “{title}”",
       "QUOTE_OPENED": "{customer} opened quote {reference}",
       "QUOTE_DECIDED": "Quote {reference} was {decision, select, accepted {accepted} declined {declined} other {answered}}",
+      "QUOTE_EXPIRED_OPENED": "{customer} opened expired quote {reference}",
       "CLIENT_MESSAGE": "{customer} replied on quote {reference}",
       "TASK_ASSIGNED": "{by} gave you the task “{title}”",
       "TASK_DUE": "Task overdue: {title}",
@@ -2143,6 +2178,8 @@
       "QUOTE_OPENED_hint": "The first time each day a customer opens one of your quotes.",
       "QUOTE_DECIDED": "Quote accepted or declined",
       "QUOTE_DECIDED_hint": "When the customer answers.",
+      "QUOTE_EXPIRED_OPENED": "Expired quote opened",
+      "QUOTE_EXPIRED_OPENED_hint": "Once a day, when a customer opens a quote that ran out. To Owners, Admins and whoever wrote the quote.",
       "CLIENT_MESSAGE": "Customer message",
       "CLIENT_MESSAGE_hint": "When someone writes to you in a quote's thread.",
       "TASK_ASSIGNED": "A task is assigned to me",
@@ -2541,17 +2578,38 @@
       "EVENT_COMMENTED": "{actor} commented on {title}",
       "CHAT_MESSAGES": "{actor} sent {count, plural, one {a message} other {# messages}} in the chat",
       "QUOTE_LINKED": "{actor} linked this job to quote {reference}",
-      "QUOTE_UNLINKED": "{actor} unlinked quote {reference} from this job"
+      "QUOTE_UNLINKED": "{actor} unlinked quote {reference} from this job",
+      "SCOPE_CHANGED": "{actor} {action, select, added {added a line to the scope of work} deleted {deleted a line from the scope of work} other {changed the scope of work}}: {title}"
     },
     "scope": {
       "title": "Scope of work",
       "count": "{count, plural, one {# item} other {# items}}",
-      "intro": "What was quoted for this job. It is a reference: it cannot be edited and carries no prices.",
-      "empty": "This job has no quoted scope — it has no quote linked to it.",
+      "intro": "What was quoted for this job, as it stands now. It carries no prices.",
+      "empty": "This job has no scope of work yet.",
       "copy": "Copy",
       "copyAll": "Copy all",
       "copied": "Copied",
-      "backToJob": "Back to {name}"
+      "backToJob": "Back to {name}",
+      "introEditable": "What was quoted for this job, as it stands now. It carries no prices. Change a line when something different is agreed on site — every change is kept below, with who made it and what it said before.",
+      "emptyEditable": "This job has no scope of work yet. It's copied from the quote when one is linked, or add the first line below.",
+      "cardEmpty": "Nothing yet — add the first line.",
+      "add": "Add a line",
+      "edit": "Edit line",
+      "delete": "Delete line",
+      "save": "Save line",
+      "lineTitle": "Title",
+      "lineBody": "Description",
+      "deleteTitle": "Delete “{title}”?",
+      "deleteBody": "It comes off the scope of work. The history below keeps what it said.",
+      "editedBy": "Last changed by {person}, {date}",
+      "someone": "Somebody",
+      "history": "Changes",
+      "historyLine": "{person} {kind, select, ADDED {added} DELETED {deleted} other {changed}} “{title}”",
+      "added": "Line added.",
+      "saved": "Line saved.",
+      "deleted": "Line deleted.",
+      "gone": "That line isn't on this job any more.",
+      "notAllowed": "You can't change this job's scope of work."
     },
     "files": {
       "title": "Docs & Files",
@@ -2851,7 +2909,7 @@
       "coordinatesHint": "Right-click the site in Google Maps and click the numbers to copy them.",
       "radiusLabel": "Clock-in radius",
       "radiusOption": "{metres} m",
-      "radiusHint": "How near the site a phone has to be to clock in.",
+      "radiusHint": "How near the site a phone has to be to clock in. Below 200 m, a phone with a weak signal — indoors, under a roof — may be asked to wait for a better one.",
       "pin": "The site",
       "mapLabel": "Map of the site",
       "mapFailed": "The map couldn't be loaded.",
@@ -3135,7 +3193,9 @@
         "amount": "Amount ({currency})",
         "days": "Days",
         "notes": "Notes"
-      }
+      },
+      "correctedShifts": "{count, plural, one {1 shift entered or corrected by hand} other {# shifts entered or corrected by hand}}",
+      "mealAdjusted": "Meal break set to {minutes} min: {reason}"
     },
     "previousWeek": "Previous week",
     "nextWeek": "Next week",
@@ -3161,7 +3221,8 @@
     },
     "day": {
       "paid": "{hours} paid",
-      "breaks": "Worked {worked} · {rest, plural, =0 {no paid rest breaks} one {1 paid rest break of {restMinutes} min} other {# paid rest breaks of {restMinutes} min}} · {meal, plural, =0 {no meal break deducted} other {# min meal break unpaid}}"
+      "breaks": "Worked {worked} · {rest, plural, =0 {no paid rest breaks} one {1 paid rest break of {restMinutes} min} other {# paid rest breaks of {restMinutes} min}} · {meal, plural, =0 {no meal break deducted} other {# min meal break unpaid}}",
+      "mealAdjusted": "Meal break set to {minutes} min by a supervisor: “{reason}”"
     },
     "flags": {
       "open": "Still open",
@@ -3175,6 +3236,71 @@
       "since": "Since {start}",
       "distance": "clocked in {metres} m from the job"
     },
-    "exportHours": "Export"
+    "exportHours": "Export",
+    "shiftPage": {
+      "back": "Back to the week",
+      "where": "Where",
+      "trackCount": "{count, plural, one {1 position recorded during the shift} other {# positions recorded during the shift}}",
+      "noTrack": "No positions recorded between clocking in and out.",
+      "clockIn": "Clock-in",
+      "clockOut": "Clock-out",
+      "distance": "{metres} m from the job",
+      "noPlace": "No position recorded",
+      "history": "History",
+      "correctedBy": "Corrected by {person}",
+      "enteredBy": "Entered by hand by {person}",
+      "fromPhone": "Clocked in from the phone",
+      "someone": "someone no longer on the team",
+      "map": {
+        "label": "Map of the shift",
+        "noMap": "The map isn't set up for this platform yet.",
+        "failed": "The map couldn't load.",
+        "clockIn": "Clock-in",
+        "clockOut": "Clock-out",
+        "inGlyph": "I",
+        "outGlyph": "O"
+      }
+    },
+    "corrections": {
+      "saved": "Hours saved",
+      "reason": "Why",
+      "reasonHint": "Kept with the change. The person and payroll can read it.",
+      "deleteReasonHint": "Kept in the history after the shift is gone.",
+      "job": "Job",
+      "chooseJob": "Choose a job",
+      "day": "Day",
+      "start": "Start",
+      "end": "End",
+      "endHint": "An end earlier than the start is the next morning.",
+      "endHintOpen": "Leave the end empty if they are still working. An end earlier than the start is the next morning.",
+      "add": "Add a shift",
+      "addTitle": "Add a shift for {person}",
+      "addDescription": "For a day the phone didn't record. It shows as entered by hand.",
+      "correct": "Save correction",
+      "correctTitle": "Correct this shift",
+      "correctDescription": "A forgotten clock-out, the wrong job, a time off by an hour. What it was stays in the history.",
+      "meal": "Meal break",
+      "mealTitle": "Meal break on {day}",
+      "mealDescription": "The unpaid meal break actually taken that day. The company's is {minutes} min on days over 4 hours.",
+      "mealMinutes": "Minutes unpaid",
+      "mealHint": "0 if no meal break was taken. Empty goes back to the company's.",
+      "delete": "Delete shift",
+      "deleteTitle": "Delete this shift?",
+      "deleteDescription": "{shift} comes off the timesheet and won't be paid. Its line stays in the history.",
+      "deleteHint": "For a shift clocked in by mistake or entered twice.",
+      "validation": {
+        "time": "Enter a time like 07:30",
+        "meal": "Enter whole minutes, from 0 to 240"
+      },
+      "errors": {
+        "own_hours": "You can't correct your own hours. Another supervisor has to.",
+        "not_found": "That person or shift isn't here any more.",
+        "job_not_found": "That job isn't here any more. Choose another.",
+        "in_future": "A shift can't start or end in the future.",
+        "too_long": "That's longer than 24 hours. Check the day and the times.",
+        "overlaps": "That overlaps another of their shifts.",
+        "reopen": "A shift that ended can't be reopened. Give it an end time."
+      }
+    }
   }
 }

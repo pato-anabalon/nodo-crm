@@ -45,6 +45,7 @@ import {
   type FingerprintTone,
 } from "@/modules/portal/fingerprint-rows";
 import { signatureViewBox } from "@/modules/portal/signature";
+import { quoteRanOut } from "@/modules/portal/share";
 import { RichTextPdf } from "./rich-text";
 
 export type PdfCompany = Prisma.CompanyGetPayload<{
@@ -457,6 +458,18 @@ export async function buildQuotePdfDocument({
                   )
                 : "",
             })}
+          </Banner>
+        ) : null}
+        {/* The link stays open after a quote runs out, so its PDF can still be
+            downloaded; it has to say on paper what the page says on screen. */}
+        {quoteRanOut(quote) ? (
+          <Banner icon="expired" color={company.primaryColor}>
+            {quote.validUntil
+              ? t("expired", {
+                  date: formatDate(quote.validUntil, company.formatLocale, company.timezone),
+                  company: company.name,
+                })
+              : t("expiredUndated", { company: company.name })}
           </Banner>
         ) : null}
 
@@ -1043,7 +1056,7 @@ function Banner({
   color,
   children,
 }: {
-  icon: "accepted" | "declined";
+  icon: "accepted" | "declined" | "expired";
   color: string;
   children: string;
 }) {
@@ -1057,7 +1070,8 @@ function Banner({
       <Svg width={14} height={14} viewBox="0 0 24 24" style={styles.bannerIcon}>
         <Circle cx={12} cy={12} r={10} fill="none" stroke={stroke} strokeWidth={2} />
         <Path
-          d={accepted ? "m9 12 2 2 4-4" : "m15 9-6 6M9 9l6 6"}
+          // lucide's `Clock` hands for a quote that ran out.
+          d={accepted ? "m9 12 2 2 4-4" : icon === "expired" ? "M12 6v6l4 2" : "m15 9-6 6M9 9l6 6"}
           fill="none"
           stroke={stroke}
           strokeWidth={2}

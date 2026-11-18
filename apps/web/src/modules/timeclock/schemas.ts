@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { isDay } from "@nodo/core/jobs/schedule/calendar";
+import { MEAL_BREAK_MAX_MINUTES } from "@nodo/core/timeclock/pay";
 import { MAX_PINGS_PER_BATCH } from "@nodo/core/timeclock/punch";
 
 /**
@@ -50,3 +52,35 @@ export const pingsSchema = z.object({
 });
 
 export const consentSchema = z.object({ consent: z.boolean() });
+
+/**
+ * A supervisor's correction or a shift entered by hand, as the form posts it:
+ * a day and wall-clock times on the company's calendar, which the service
+ * turns into instants. An empty end leaves a shift open. Every change to
+ * somebody's hours says why.
+ */
+const time = z.string().trim().regex(/^([01]\d|2[0-3]):[0-5]\d$/, "timesheets.corrections.validation.time");
+const reason = z.string().trim().min(1, "validation.required").max(500, "validation.maxChars|max=500");
+
+export const shiftSchema = z.object({
+  jobId: z.string().trim().min(1, "validation.required").max(64),
+  day: z.string().trim().refine(isDay, "validation.invalidDate"),
+  start: time,
+  end: z.union([z.literal(""), time]).transform((value) => value || null),
+  reason,
+});
+
+export type ShiftValues = z.infer<typeof shiftSchema>;
+
+export const deleteShiftSchema = z.object({ reason });
+
+/** The meal break taken on a day, in minutes; empty puts the day back on the company's. */
+export const mealSchema = z.object({
+  day: z.string().trim().refine(isDay, "validation.invalidDate"),
+  minutes: z
+    .string()
+    .trim()
+    .transform((value) => (value === "" ? null : Number(value)))
+    .refine((value) => value === null || (Number.isInteger(value) && value >= 0 && value <= MEAL_BREAK_MAX_MINUTES), "timesheets.corrections.validation.meal"),
+  reason,
+});

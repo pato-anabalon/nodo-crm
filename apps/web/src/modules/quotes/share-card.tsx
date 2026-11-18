@@ -13,19 +13,26 @@ import type { QuoteActionState } from "./actions";
  * What the team can do with the customer's link once the quote has gone out.
  *
  * Revoking is reversible — sending again reopens it — so neither button asks for
- * confirmation. What does deserve saying out loud is that a resend invalidates
- * the link the customer already has, which is not obvious from the word "send".
+ * confirmation. What does deserve saying out loud is what a resend does to the
+ * link: the new email carries a link of its own and the ones already sent go on
+ * working, which the word "send" alone doesn't tell anybody.
+ *
+ * Once the quote has run out there is nothing left to do with the link but
+ * look through it: resending would hand out a way into a quote nobody can
+ * accept, and the customer coming back to read it is what tells the team to
+ * ring them, so closing it would only lose that.
  */
 export function ShareCard({
   revoked,
-  expiresLabel,
+  ranOut,
   previewHref,
   canManage,
   onResend,
   onRevoke,
 }: {
   revoked: boolean;
-  expiresLabel: string | null;
+  /** The quote expired: only "View as customer" is left. */
+  ranOut: boolean;
   previewHref: string;
   canManage: boolean;
   onResend: () => Promise<QuoteActionState>;
@@ -34,6 +41,7 @@ export function ShareCard({
   const [pending, startTransition] = useTransition();
   const [busy, setBusy] = useState<string | null>(null);
   const t = useTranslations("quotes.share");
+  const manage = canManage && !ranOut;
 
   function run(label: string, fn: () => Promise<QuoteActionState>) {
     setBusy(label);
@@ -52,12 +60,8 @@ export function ShareCard({
       </CardHeader>
       <CardContent className="space-y-3">
         <p className="text-sm text-muted-foreground">
-          {revoked ? t("revokedState") : t("sentState")}
+          {revoked ? t("revokedState") : ranOut ? t("expiredState") : t("sentState")}
         </p>
-
-        {!revoked && expiresLabel ? (
-          <p className="text-xs text-muted-foreground">{t("expiresOn", { date: expiresLabel })}</p>
-        ) : null}
 
         <div className="flex flex-wrap gap-2">
           <Button asChild size="sm">
@@ -67,7 +71,7 @@ export function ShareCard({
             </Link>
           </Button>
 
-          {canManage ? (
+          {manage ? (
             <>
               <Button
                 variant="outline"
@@ -93,7 +97,7 @@ export function ShareCard({
         </div>
 
         <p className="text-xs text-muted-foreground">
-          {canManage ? t("resendHint") : t("previewHint")}
+          {manage ? t("resendHint") : t("previewHint")}
         </p>
       </CardContent>
     </Card>

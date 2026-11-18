@@ -1,14 +1,15 @@
 /**
- * Hands the clock's permissions to the standard profiles of every company, as
- * their templates have them: punching to everybody who works on site, seeing
- * and correcting other people's hours to Admin, Manager and Project Lead, and
- * exporting them to Owner alone.
+ * Hands the clock's permissions to the Owner and Admin profiles of every
+ * company, as their templates have them: all four to Owner, everything but
+ * exporting to Admin.
  *
  * Templates are applied once, when a company is created, so without this the
- * clock would reach only companies created from now on. Profiles a company
- * made itself get nothing: what they do is that company's decision, on the
- * profiles screen. A profile that already holds a `timeclock.*` permission is
- * left as it is, so running it after a company trimmed one changes nothing.
+ * clock would reach only companies created from now on. Every other profile —
+ * Manager, the site profiles, the ones a company made itself — gets nothing
+ * here: who punches and who sees other people's hours is each company's
+ * decision, made by its owner or admins on the profiles screen. A profile that
+ * already holds a `timeclock.*` permission is left as it is, so running it
+ * after a company trimmed one changes nothing.
  *
  * Counts and changes nothing unless given `--apply`. Idempotent. Syncs the
  * catalogue first, like `grant-owner-permissions.ts`, so production needs no
@@ -43,7 +44,7 @@ async function main() {
   const clockIds = new Set(catalogue.map((permission) => permission.id));
 
   const roles = await prisma.role.findMany({
-    where: { key: { not: null } },
+    where: { key: { in: ["OWNER", "ADMIN"] } },
     select: { id: true, key: true, company: { select: { slug: true } }, permissions: { select: { permissionId: true } } },
   });
 

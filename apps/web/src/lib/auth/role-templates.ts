@@ -18,6 +18,7 @@ export type RoleTemplate = {
 
 /** Every tool in a job, in full — what the people running the work get. */
 const JOB_TOOLS_ALL: readonly Permission[] = [
+  "scope.read", "scope.update",
   "messages.read", "messages.create", "messages.update", "messages.delete",
   "comments.create", "comments.update", "comments.delete",
   "todos.read", "todos.create", "todos.update", "todos.complete", "todos.delete",
@@ -29,7 +30,7 @@ const JOB_TOOLS_ALL: readonly Permission[] = [
 
 /** Reading every tool and writing nothing. */
 const JOB_TOOLS_READ: readonly Permission[] = [
-  "messages.read", "todos.read", "files.read", "schedule.read", "lineup.read",
+  "scope.read", "messages.read", "todos.read", "files.read", "schedule.read", "lineup.read",
 ];
 
 /**
@@ -115,6 +116,7 @@ export const ROLE_TEMPLATES: readonly RoleTemplate[] = [
     key: RoleKey.TEAM_LEAD,
     permissions: [
       "jobs.read",
+      "scope.read",
       "messages.read", "messages.create", "messages.update", "messages.delete",
       "comments.create", "comments.update", "comments.delete",
       "todos.read", "todos.create", "todos.update", "todos.complete",
@@ -130,6 +132,7 @@ export const ROLE_TEMPLATES: readonly RoleTemplate[] = [
     key: RoleKey.WORKER,
     permissions: [
       "jobs.read",
+      "scope.read",
       "messages.read", "messages.create", "messages.update", "messages.delete",
       "comments.create", "comments.update", "comments.delete",
       "todos.read", "todos.create", "todos.complete",
@@ -146,6 +149,7 @@ export const ROLE_TEMPLATES: readonly RoleTemplate[] = [
     key: RoleKey.COLLABORATOR,
     permissions: [
       "jobs.read",
+      "scope.read",
       "messages.read",
       "comments.create", "comments.update", "comments.delete",
       "todos.read", "todos.complete",

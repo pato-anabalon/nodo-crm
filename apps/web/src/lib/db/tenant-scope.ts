@@ -44,6 +44,7 @@ export const DIRECT_TENANT_MODELS = new Set([
   "JobChatMessage",
   "JobMember",
   "JobScopeItem",
+  "JobScopeChange",
   "Lead",
   "LeadAccessLog",
   "LeadAttachment",
@@ -64,6 +65,8 @@ export const DIRECT_TENANT_MODELS = new Set([
   "Task",
   "TimeEntry",
   "LocationPing",
+  "TimesheetDay",
+  "TimesheetChange",
   "Trade",
 ]);
 

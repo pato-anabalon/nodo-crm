@@ -451,6 +451,7 @@ export type TimeEntryWhereInput = {
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   editedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   pings?: Prisma.LocationPingListRelationFilter
+  changes?: Prisma.TimesheetChangeListRelationFilter
 }
 
 export type TimeEntryOrderByWithRelationInput = {
@@ -488,6 +489,7 @@ export type TimeEntryOrderByWithRelationInput = {
   createdBy?: Prisma.UserOrderByWithRelationInput
   editedBy?: Prisma.UserOrderByWithRelationInput
   pings?: Prisma.LocationPingOrderByRelationAggregateInput
+  changes?: Prisma.TimesheetChangeOrderByRelationAggregateInput
 }
 
 export type TimeEntryWhereUniqueInput = Prisma.AtLeast<{
@@ -529,6 +531,7 @@ export type TimeEntryWhereUniqueInput = Prisma.AtLeast<{
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   editedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   pings?: Prisma.LocationPingListRelationFilter
+  changes?: Prisma.TimesheetChangeListRelationFilter
 }, "id" | "companyId_clientId">
 
 export type TimeEntryOrderByWithAggregationInput = {
@@ -631,6 +634,7 @@ export type TimeEntryCreateInput = {
   createdBy?: Prisma.UserCreateNestedOneWithoutTimeEntriesCreatedInput
   editedBy?: Prisma.UserCreateNestedOneWithoutTimeEntriesEditedInput
   pings?: Prisma.LocationPingCreateNestedManyWithoutTimeEntryInput
+  changes?: Prisma.TimesheetChangeCreateNestedManyWithoutTimeEntryInput
 }
 
 export type TimeEntryUncheckedCreateInput = {
@@ -663,6 +667,7 @@ export type TimeEntryUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   pings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutTimeEntryInput
+  changes?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutTimeEntryInput
 }
 
 export type TimeEntryUpdateInput = {
@@ -695,6 +700,7 @@ export type TimeEntryUpdateInput = {
   createdBy?: Prisma.UserUpdateOneWithoutTimeEntriesCreatedNestedInput
   editedBy?: Prisma.UserUpdateOneWithoutTimeEntriesEditedNestedInput
   pings?: Prisma.LocationPingUpdateManyWithoutTimeEntryNestedInput
+  changes?: Prisma.TimesheetChangeUpdateManyWithoutTimeEntryNestedInput
 }
 
 export type TimeEntryUncheckedUpdateInput = {
@@ -727,6 +733,7 @@ export type TimeEntryUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pings?: Prisma.LocationPingUncheckedUpdateManyWithoutTimeEntryNestedInput
+  changes?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutTimeEntryNestedInput
 }
 
 export type TimeEntryCreateManyInput = {
@@ -954,6 +961,11 @@ export type TimeEntrySumOrderByAggregateInput = {
 export type TimeEntryScalarRelationFilter = {
   is?: Prisma.TimeEntryWhereInput
   isNot?: Prisma.TimeEntryWhereInput
+}
+
+export type TimeEntryNullableScalarRelationFilter = {
+  is?: Prisma.TimeEntryWhereInput | null
+  isNot?: Prisma.TimeEntryWhereInput | null
 }
 
 export type TimeEntryCreateNestedManyWithoutCompanyInput = {
@@ -1184,6 +1196,22 @@ export type TimeEntryUpdateOneRequiredWithoutPingsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TimeEntryUpdateToOneWithWhereWithoutPingsInput, Prisma.TimeEntryUpdateWithoutPingsInput>, Prisma.TimeEntryUncheckedUpdateWithoutPingsInput>
 }
 
+export type TimeEntryCreateNestedOneWithoutChangesInput = {
+  create?: Prisma.XOR<Prisma.TimeEntryCreateWithoutChangesInput, Prisma.TimeEntryUncheckedCreateWithoutChangesInput>
+  connectOrCreate?: Prisma.TimeEntryCreateOrConnectWithoutChangesInput
+  connect?: Prisma.TimeEntryWhereUniqueInput
+}
+
+export type TimeEntryUpdateOneWithoutChangesNestedInput = {
+  create?: Prisma.XOR<Prisma.TimeEntryCreateWithoutChangesInput, Prisma.TimeEntryUncheckedCreateWithoutChangesInput>
+  connectOrCreate?: Prisma.TimeEntryCreateOrConnectWithoutChangesInput
+  upsert?: Prisma.TimeEntryUpsertWithoutChangesInput
+  disconnect?: Prisma.TimeEntryWhereInput | boolean
+  delete?: Prisma.TimeEntryWhereInput | boolean
+  connect?: Prisma.TimeEntryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TimeEntryUpdateToOneWithWhereWithoutChangesInput, Prisma.TimeEntryUpdateWithoutChangesInput>, Prisma.TimeEntryUncheckedUpdateWithoutChangesInput>
+}
+
 export type TimeEntryCreateWithoutCompanyInput = {
   id?: string
   jobName: string
@@ -1213,6 +1241,7 @@ export type TimeEntryCreateWithoutCompanyInput = {
   createdBy?: Prisma.UserCreateNestedOneWithoutTimeEntriesCreatedInput
   editedBy?: Prisma.UserCreateNestedOneWithoutTimeEntriesEditedInput
   pings?: Prisma.LocationPingCreateNestedManyWithoutTimeEntryInput
+  changes?: Prisma.TimesheetChangeCreateNestedManyWithoutTimeEntryInput
 }
 
 export type TimeEntryUncheckedCreateWithoutCompanyInput = {
@@ -1244,6 +1273,7 @@ export type TimeEntryUncheckedCreateWithoutCompanyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   pings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutTimeEntryInput
+  changes?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutTimeEntryInput
 }
 
 export type TimeEntryCreateOrConnectWithoutCompanyInput = {
@@ -1335,6 +1365,7 @@ export type TimeEntryCreateWithoutUserInput = {
   createdBy?: Prisma.UserCreateNestedOneWithoutTimeEntriesCreatedInput
   editedBy?: Prisma.UserCreateNestedOneWithoutTimeEntriesEditedInput
   pings?: Prisma.LocationPingCreateNestedManyWithoutTimeEntryInput
+  changes?: Prisma.TimesheetChangeCreateNestedManyWithoutTimeEntryInput
 }
 
 export type TimeEntryUncheckedCreateWithoutUserInput = {
@@ -1366,6 +1397,7 @@ export type TimeEntryUncheckedCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   pings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutTimeEntryInput
+  changes?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutTimeEntryInput
 }
 
 export type TimeEntryCreateOrConnectWithoutUserInput = {
@@ -1407,6 +1439,7 @@ export type TimeEntryCreateWithoutCreatedByInput = {
   job?: Prisma.JobCreateNestedOneWithoutTimeEntriesInput
   editedBy?: Prisma.UserCreateNestedOneWithoutTimeEntriesEditedInput
   pings?: Prisma.LocationPingCreateNestedManyWithoutTimeEntryInput
+  changes?: Prisma.TimesheetChangeCreateNestedManyWithoutTimeEntryInput
 }
 
 export type TimeEntryUncheckedCreateWithoutCreatedByInput = {
@@ -1438,6 +1471,7 @@ export type TimeEntryUncheckedCreateWithoutCreatedByInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   pings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutTimeEntryInput
+  changes?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutTimeEntryInput
 }
 
 export type TimeEntryCreateOrConnectWithoutCreatedByInput = {
@@ -1479,6 +1513,7 @@ export type TimeEntryCreateWithoutEditedByInput = {
   job?: Prisma.JobCreateNestedOneWithoutTimeEntriesInput
   createdBy?: Prisma.UserCreateNestedOneWithoutTimeEntriesCreatedInput
   pings?: Prisma.LocationPingCreateNestedManyWithoutTimeEntryInput
+  changes?: Prisma.TimesheetChangeCreateNestedManyWithoutTimeEntryInput
 }
 
 export type TimeEntryUncheckedCreateWithoutEditedByInput = {
@@ -1510,6 +1545,7 @@ export type TimeEntryUncheckedCreateWithoutEditedByInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   pings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutTimeEntryInput
+  changes?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutTimeEntryInput
 }
 
 export type TimeEntryCreateOrConnectWithoutEditedByInput = {
@@ -1599,6 +1635,7 @@ export type TimeEntryCreateWithoutJobInput = {
   createdBy?: Prisma.UserCreateNestedOneWithoutTimeEntriesCreatedInput
   editedBy?: Prisma.UserCreateNestedOneWithoutTimeEntriesEditedInput
   pings?: Prisma.LocationPingCreateNestedManyWithoutTimeEntryInput
+  changes?: Prisma.TimesheetChangeCreateNestedManyWithoutTimeEntryInput
 }
 
 export type TimeEntryUncheckedCreateWithoutJobInput = {
@@ -1630,6 +1667,7 @@ export type TimeEntryUncheckedCreateWithoutJobInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   pings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutTimeEntryInput
+  changes?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutTimeEntryInput
 }
 
 export type TimeEntryCreateOrConnectWithoutJobInput = {
@@ -1687,6 +1725,7 @@ export type TimeEntryCreateWithoutPingsInput = {
   job?: Prisma.JobCreateNestedOneWithoutTimeEntriesInput
   createdBy?: Prisma.UserCreateNestedOneWithoutTimeEntriesCreatedInput
   editedBy?: Prisma.UserCreateNestedOneWithoutTimeEntriesEditedInput
+  changes?: Prisma.TimesheetChangeCreateNestedManyWithoutTimeEntryInput
 }
 
 export type TimeEntryUncheckedCreateWithoutPingsInput = {
@@ -1718,6 +1757,7 @@ export type TimeEntryUncheckedCreateWithoutPingsInput = {
   editedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  changes?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutTimeEntryInput
 }
 
 export type TimeEntryCreateOrConnectWithoutPingsInput = {
@@ -1765,6 +1805,7 @@ export type TimeEntryUpdateWithoutPingsInput = {
   job?: Prisma.JobUpdateOneWithoutTimeEntriesNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutTimeEntriesCreatedNestedInput
   editedBy?: Prisma.UserUpdateOneWithoutTimeEntriesEditedNestedInput
+  changes?: Prisma.TimesheetChangeUpdateManyWithoutTimeEntryNestedInput
 }
 
 export type TimeEntryUncheckedUpdateWithoutPingsInput = {
@@ -1796,6 +1837,151 @@ export type TimeEntryUncheckedUpdateWithoutPingsInput = {
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  changes?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutTimeEntryNestedInput
+}
+
+export type TimeEntryCreateWithoutChangesInput = {
+  id?: string
+  jobName: string
+  source?: $Enums.TimeEntrySource
+  clientId?: string | null
+  clockInAt: Date | string
+  clockInReceivedAt?: Date | string
+  clockInLatitude?: number | null
+  clockInLongitude?: number | null
+  clockInAccuracyM?: number | null
+  clockInDistanceM?: number | null
+  clockInBattery?: number | null
+  clockOutAt?: Date | string | null
+  clockOutReceivedAt?: Date | string | null
+  clockOutLatitude?: number | null
+  clockOutLongitude?: number | null
+  clockOutAccuracyM?: number | null
+  clockOutDistanceM?: number | null
+  clockOutInside?: boolean | null
+  clockOutBattery?: number | null
+  note?: string | null
+  editedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutTimeEntriesInput
+  user: Prisma.UserCreateNestedOneWithoutTimeEntriesInput
+  job?: Prisma.JobCreateNestedOneWithoutTimeEntriesInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutTimeEntriesCreatedInput
+  editedBy?: Prisma.UserCreateNestedOneWithoutTimeEntriesEditedInput
+  pings?: Prisma.LocationPingCreateNestedManyWithoutTimeEntryInput
+}
+
+export type TimeEntryUncheckedCreateWithoutChangesInput = {
+  id?: string
+  companyId: string
+  userId: string
+  jobId?: string | null
+  jobName: string
+  source?: $Enums.TimeEntrySource
+  clientId?: string | null
+  clockInAt: Date | string
+  clockInReceivedAt?: Date | string
+  clockInLatitude?: number | null
+  clockInLongitude?: number | null
+  clockInAccuracyM?: number | null
+  clockInDistanceM?: number | null
+  clockInBattery?: number | null
+  clockOutAt?: Date | string | null
+  clockOutReceivedAt?: Date | string | null
+  clockOutLatitude?: number | null
+  clockOutLongitude?: number | null
+  clockOutAccuracyM?: number | null
+  clockOutDistanceM?: number | null
+  clockOutInside?: boolean | null
+  clockOutBattery?: number | null
+  note?: string | null
+  createdById?: string | null
+  editedById?: string | null
+  editedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  pings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutTimeEntryInput
+}
+
+export type TimeEntryCreateOrConnectWithoutChangesInput = {
+  where: Prisma.TimeEntryWhereUniqueInput
+  create: Prisma.XOR<Prisma.TimeEntryCreateWithoutChangesInput, Prisma.TimeEntryUncheckedCreateWithoutChangesInput>
+}
+
+export type TimeEntryUpsertWithoutChangesInput = {
+  update: Prisma.XOR<Prisma.TimeEntryUpdateWithoutChangesInput, Prisma.TimeEntryUncheckedUpdateWithoutChangesInput>
+  create: Prisma.XOR<Prisma.TimeEntryCreateWithoutChangesInput, Prisma.TimeEntryUncheckedCreateWithoutChangesInput>
+  where?: Prisma.TimeEntryWhereInput
+}
+
+export type TimeEntryUpdateToOneWithWhereWithoutChangesInput = {
+  where?: Prisma.TimeEntryWhereInput
+  data: Prisma.XOR<Prisma.TimeEntryUpdateWithoutChangesInput, Prisma.TimeEntryUncheckedUpdateWithoutChangesInput>
+}
+
+export type TimeEntryUpdateWithoutChangesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  jobName?: Prisma.StringFieldUpdateOperationsInput | string
+  source?: Prisma.EnumTimeEntrySourceFieldUpdateOperationsInput | $Enums.TimeEntrySource
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clockInAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clockInReceivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clockInLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  clockInLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  clockInAccuracyM?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  clockInDistanceM?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  clockInBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  clockOutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clockOutReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clockOutLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  clockOutLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  clockOutAccuracyM?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  clockOutDistanceM?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutTimeEntriesNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutTimeEntriesNestedInput
+  job?: Prisma.JobUpdateOneWithoutTimeEntriesNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutTimeEntriesCreatedNestedInput
+  editedBy?: Prisma.UserUpdateOneWithoutTimeEntriesEditedNestedInput
+  pings?: Prisma.LocationPingUpdateManyWithoutTimeEntryNestedInput
+}
+
+export type TimeEntryUncheckedUpdateWithoutChangesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobName?: Prisma.StringFieldUpdateOperationsInput | string
+  source?: Prisma.EnumTimeEntrySourceFieldUpdateOperationsInput | $Enums.TimeEntrySource
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clockInAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clockInReceivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clockInLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  clockInLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  clockInAccuracyM?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  clockInDistanceM?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  clockInBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  clockOutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clockOutReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clockOutLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  clockOutLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  clockOutAccuracyM?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  clockOutDistanceM?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pings?: Prisma.LocationPingUncheckedUpdateManyWithoutTimeEntryNestedInput
 }
 
 export type TimeEntryCreateManyCompanyInput = {
@@ -1857,6 +2043,7 @@ export type TimeEntryUpdateWithoutCompanyInput = {
   createdBy?: Prisma.UserUpdateOneWithoutTimeEntriesCreatedNestedInput
   editedBy?: Prisma.UserUpdateOneWithoutTimeEntriesEditedNestedInput
   pings?: Prisma.LocationPingUpdateManyWithoutTimeEntryNestedInput
+  changes?: Prisma.TimesheetChangeUpdateManyWithoutTimeEntryNestedInput
 }
 
 export type TimeEntryUncheckedUpdateWithoutCompanyInput = {
@@ -1888,6 +2075,7 @@ export type TimeEntryUncheckedUpdateWithoutCompanyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pings?: Prisma.LocationPingUncheckedUpdateManyWithoutTimeEntryNestedInput
+  changes?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutTimeEntryNestedInput
 }
 
 export type TimeEntryUncheckedUpdateManyWithoutCompanyInput = {
@@ -2039,6 +2227,7 @@ export type TimeEntryUpdateWithoutUserInput = {
   createdBy?: Prisma.UserUpdateOneWithoutTimeEntriesCreatedNestedInput
   editedBy?: Prisma.UserUpdateOneWithoutTimeEntriesEditedNestedInput
   pings?: Prisma.LocationPingUpdateManyWithoutTimeEntryNestedInput
+  changes?: Prisma.TimesheetChangeUpdateManyWithoutTimeEntryNestedInput
 }
 
 export type TimeEntryUncheckedUpdateWithoutUserInput = {
@@ -2070,6 +2259,7 @@ export type TimeEntryUncheckedUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pings?: Prisma.LocationPingUncheckedUpdateManyWithoutTimeEntryNestedInput
+  changes?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutTimeEntryNestedInput
 }
 
 export type TimeEntryUncheckedUpdateManyWithoutUserInput = {
@@ -2131,6 +2321,7 @@ export type TimeEntryUpdateWithoutCreatedByInput = {
   job?: Prisma.JobUpdateOneWithoutTimeEntriesNestedInput
   editedBy?: Prisma.UserUpdateOneWithoutTimeEntriesEditedNestedInput
   pings?: Prisma.LocationPingUpdateManyWithoutTimeEntryNestedInput
+  changes?: Prisma.TimesheetChangeUpdateManyWithoutTimeEntryNestedInput
 }
 
 export type TimeEntryUncheckedUpdateWithoutCreatedByInput = {
@@ -2162,6 +2353,7 @@ export type TimeEntryUncheckedUpdateWithoutCreatedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pings?: Prisma.LocationPingUncheckedUpdateManyWithoutTimeEntryNestedInput
+  changes?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutTimeEntryNestedInput
 }
 
 export type TimeEntryUncheckedUpdateManyWithoutCreatedByInput = {
@@ -2223,6 +2415,7 @@ export type TimeEntryUpdateWithoutEditedByInput = {
   job?: Prisma.JobUpdateOneWithoutTimeEntriesNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutTimeEntriesCreatedNestedInput
   pings?: Prisma.LocationPingUpdateManyWithoutTimeEntryNestedInput
+  changes?: Prisma.TimesheetChangeUpdateManyWithoutTimeEntryNestedInput
 }
 
 export type TimeEntryUncheckedUpdateWithoutEditedByInput = {
@@ -2254,6 +2447,7 @@ export type TimeEntryUncheckedUpdateWithoutEditedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pings?: Prisma.LocationPingUncheckedUpdateManyWithoutTimeEntryNestedInput
+  changes?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutTimeEntryNestedInput
 }
 
 export type TimeEntryUncheckedUpdateManyWithoutEditedByInput = {
@@ -2345,6 +2539,7 @@ export type TimeEntryUpdateWithoutJobInput = {
   createdBy?: Prisma.UserUpdateOneWithoutTimeEntriesCreatedNestedInput
   editedBy?: Prisma.UserUpdateOneWithoutTimeEntriesEditedNestedInput
   pings?: Prisma.LocationPingUpdateManyWithoutTimeEntryNestedInput
+  changes?: Prisma.TimesheetChangeUpdateManyWithoutTimeEntryNestedInput
 }
 
 export type TimeEntryUncheckedUpdateWithoutJobInput = {
@@ -2376,6 +2571,7 @@ export type TimeEntryUncheckedUpdateWithoutJobInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pings?: Prisma.LocationPingUncheckedUpdateManyWithoutTimeEntryNestedInput
+  changes?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutTimeEntryNestedInput
 }
 
 export type TimeEntryUncheckedUpdateManyWithoutJobInput = {
@@ -2415,10 +2611,12 @@ export type TimeEntryUncheckedUpdateManyWithoutJobInput = {
 
 export type TimeEntryCountOutputType = {
   pings: number
+  changes: number
 }
 
 export type TimeEntryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   pings?: boolean | TimeEntryCountOutputTypeCountPingsArgs
+  changes?: boolean | TimeEntryCountOutputTypeCountChangesArgs
 }
 
 /**
@@ -2436,6 +2634,13 @@ export type TimeEntryCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ex
  */
 export type TimeEntryCountOutputTypeCountPingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.LocationPingWhereInput
+}
+
+/**
+ * TimeEntryCountOutputType without action
+ */
+export type TimeEntryCountOutputTypeCountChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TimesheetChangeWhereInput
 }
 
 
@@ -2474,6 +2679,7 @@ export type TimeEntrySelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   createdBy?: boolean | Prisma.TimeEntry$createdByArgs<ExtArgs>
   editedBy?: boolean | Prisma.TimeEntry$editedByArgs<ExtArgs>
   pings?: boolean | Prisma.TimeEntry$pingsArgs<ExtArgs>
+  changes?: boolean | Prisma.TimeEntry$changesArgs<ExtArgs>
   _count?: boolean | Prisma.TimeEntryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["timeEntry"]>
 
@@ -2588,6 +2794,7 @@ export type TimeEntryInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
   createdBy?: boolean | Prisma.TimeEntry$createdByArgs<ExtArgs>
   editedBy?: boolean | Prisma.TimeEntry$editedByArgs<ExtArgs>
   pings?: boolean | Prisma.TimeEntry$pingsArgs<ExtArgs>
+  changes?: boolean | Prisma.TimeEntry$changesArgs<ExtArgs>
   _count?: boolean | Prisma.TimeEntryCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TimeEntryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2614,6 +2821,7 @@ export type $TimeEntryPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     createdBy: Prisma.$UserPayload<ExtArgs> | null
     editedBy: Prisma.$UserPayload<ExtArgs> | null
     pings: Prisma.$LocationPingPayload<ExtArgs>[]
+    changes: Prisma.$TimesheetChangePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3044,6 +3252,7 @@ export interface Prisma__TimeEntryClient<T, Null = never, ExtArgs extends runtim
   createdBy<T extends Prisma.TimeEntry$createdByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TimeEntry$createdByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   editedBy<T extends Prisma.TimeEntry$editedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TimeEntry$editedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   pings<T extends Prisma.TimeEntry$pingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TimeEntry$pingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LocationPingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  changes<T extends Prisma.TimeEntry$changesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TimeEntry$changesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TimesheetChangePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3580,6 +3789,30 @@ export type TimeEntry$pingsArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.LocationPingScalarFieldEnum | Prisma.LocationPingScalarFieldEnum[]
+}
+
+/**
+ * TimeEntry.changes
+ */
+export type TimeEntry$changesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TimesheetChange
+   */
+  select?: Prisma.TimesheetChangeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TimesheetChange
+   */
+  omit?: Prisma.TimesheetChangeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TimesheetChangeInclude<ExtArgs> | null
+  where?: Prisma.TimesheetChangeWhereInput
+  orderBy?: Prisma.TimesheetChangeOrderByWithRelationInput | Prisma.TimesheetChangeOrderByWithRelationInput[]
+  cursor?: Prisma.TimesheetChangeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TimesheetChangeScalarFieldEnum | Prisma.TimesheetChangeScalarFieldEnum[]
 }
 
 /**

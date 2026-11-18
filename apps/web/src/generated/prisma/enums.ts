@@ -169,7 +169,8 @@ export const NotificationKind = {
   JOB_EVENT: 'JOB_EVENT',
   JOB_CHAT_MENTION: 'JOB_CHAT_MENTION',
   JOB_FINISHED: 'JOB_FINISHED',
-  JOB_TODO_DUE: 'JOB_TODO_DUE'
+  JOB_TODO_DUE: 'JOB_TODO_DUE',
+  QUOTE_EXPIRED_OPENED: 'QUOTE_EXPIRED_OPENED'
 } as const
 
 export type NotificationKind = (typeof NotificationKind)[keyof typeof NotificationKind]
@@ -330,10 +331,20 @@ export const JobActivityType = {
   EVENT_COMMENTED: 'EVENT_COMMENTED',
   CHAT_MESSAGES: 'CHAT_MESSAGES',
   QUOTE_LINKED: 'QUOTE_LINKED',
-  QUOTE_UNLINKED: 'QUOTE_UNLINKED'
+  QUOTE_UNLINKED: 'QUOTE_UNLINKED',
+  SCOPE_CHANGED: 'SCOPE_CHANGED'
 } as const
 
 export type JobActivityType = (typeof JobActivityType)[keyof typeof JobActivityType]
+
+
+export const JobScopeChangeKind = {
+  ADDED: 'ADDED',
+  EDITED: 'EDITED',
+  DELETED: 'DELETED'
+} as const
+
+export type JobScopeChangeKind = (typeof JobScopeChangeKind)[keyof typeof JobScopeChangeKind]
 
 
 export const TimeEntrySource = {
@@ -342,3 +353,13 @@ export const TimeEntrySource = {
 } as const
 
 export type TimeEntrySource = (typeof TimeEntrySource)[keyof typeof TimeEntrySource]
+
+
+export const TimesheetChangeKind = {
+  SHIFT_ADDED: 'SHIFT_ADDED',
+  SHIFT_CORRECTED: 'SHIFT_CORRECTED',
+  SHIFT_DELETED: 'SHIFT_DELETED',
+  MEAL_ADJUSTED: 'MEAL_ADJUSTED'
+} as const
+
+export type TimesheetChangeKind = (typeof TimesheetChangeKind)[keyof typeof TimesheetChangeKind]

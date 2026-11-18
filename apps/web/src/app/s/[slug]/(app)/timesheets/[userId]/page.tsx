@@ -11,7 +11,10 @@ import { formatMoney } from "@/lib/format";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { hoursAndMinutes, type Shift } from "@/modules/timeclock/timesheet";
+import { adjustMealAction, addShiftAction } from "@/modules/timeclock/actions";
+import { AddShiftButton, MealButton } from "@/modules/timeclock/correction-forms";
+import { shiftJobs } from "@/modules/timeclock/corrections-service";
+import { hoursAndMinutes, shiftFlags, type Shift } from "@/modules/timeclock/timesheet";
 import { timesheets } from "@/modules/timeclock/timesheet-service";
 import { dayTitle, weekFrom, weekRange } from "@/modules/timeclock/week";
 import { WeekNav } from "@/modules/timeclock/week-nav";
@@ -50,7 +53,12 @@ export default async function PersonTimesheetPage({
   const amount = payAmount(person.sheet.paidMinutes, person.hourlyRate);
   const base = `/timesheets/${userId}`;
   const time = (instant: Date) => wallClock(instant, timezone).time;
-  const worked = person.sheet.days.filter((day) => day.shifts.length > 0);
+  // A day a supervisor adjusted stays on show even with its shifts gone, so the adjustment can be undone.
+  const worked = person.sheet.days.filter((day) => day.shifts.length > 0 || day.mealAdjusted);
+  // Nobody corrects their own hours.
+  const canCorrect = can(ctx, "timeclock.update") && !own;
+  const jobs = canCorrect ? await shiftJobs(ctx) : [];
+  const personName = person.name ?? person.email;
 
   const summary = [
     { label: t("summary.worked"), value: hoursAndMinutes(person.sheet.workedMinutes) },
@@ -71,10 +79,13 @@ export default async function PersonTimesheetPage({
             </Link>
           </Button>
         ) : null}
-        <div className="min-w-0 space-y-1">
-          <h1 className="text-2xl font-semibold tracking-tight break-words">{person.name ?? person.email}</h1>
+        <div className="min-w-0 flex-1 space-y-1">
+          <h1 className="text-2xl font-semibold tracking-tight break-words">{personName}</h1>
           <p className="text-sm text-muted-foreground">{person.email}</p>
         </div>
+        {canCorrect ? (
+          <AddShiftButton action={addShiftAction.bind(null, userId)} jobs={jobs} day={today >= from && today <= to ? today : from} person={personName} />
+        ) : null}
       </div>
 
       <WeekNav
@@ -101,11 +112,20 @@ export default async function PersonTimesheetPage({
           {worked.map((day) => (
             <Card key={day.day}>
               <CardContent className="space-y-3">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <div className="flex flex-wrap items-center justify-between gap-2">
                   <h2 className="font-semibold">{dayTitle(day.day, formatLocale)}</h2>
-                  <p className="text-sm tabular-nums">
-                    {t("day.paid", { hours: hoursAndMinutes(day.paidMinutes) })}
-                  </p>
+                  <div className="flex items-center gap-1">
+                    {canCorrect ? (
+                      <MealButton
+                        action={adjustMealAction.bind(null, userId)}
+                        day={day.day}
+                        dayLabel={dayTitle(day.day, formatLocale)}
+                        current={day.mealAdjusted ? day.unpaidMinutes : null}
+                        policyMinutes={breakPolicy.mealBreakMinutes}
+                      />
+                    ) : null}
+                    <p className="text-sm tabular-nums">{t("day.paid", { hours: hoursAndMinutes(day.paidMinutes) })}</p>
+                  </div>
                 </div>
                 <p className="text-xs text-muted-foreground">
                   {t("day.breaks", {
@@ -115,9 +135,12 @@ export default async function PersonTimesheetPage({
                     meal: day.unpaidMinutes,
                   })}
                 </p>
+                {day.mealReason !== null ? (
+                  <p className="text-xs text-muted-foreground">{t("day.mealAdjusted", { minutes: day.unpaidMinutes, reason: day.mealReason })}</p>
+                ) : null}
                 <ul className="divide-y">
                   {day.shifts.map((shift) => (
-                    <ShiftLine key={shift.id} shift={shift} time={time} t={t} />
+                    <ShiftLine key={shift.id} shift={shift} href={`${base}/shifts/${shift.id}`} time={time} t={t} />
                   ))}
                 </ul>
               </CardContent>
@@ -129,34 +152,30 @@ export default async function PersonTimesheetPage({
   );
 }
 
+/**
+ * A shift in the day's list. The whole line opens the shift — its map, its
+ * history, its corrections — through the job's name stretched over it.
+ */
 function ShiftLine({
   shift,
+  href,
   time,
   t,
 }: {
   shift: Shift;
+  href: string;
   time: (instant: Date) => string;
   t: Awaited<ReturnType<typeof getTranslations<"timesheets">>>;
 }) {
-  const flags = [
-    shift.minutes === null ? t("flags.open") : null,
-    shift.source === "MANUAL" ? t("flags.manual") : null,
-    shift.editedAt ? t("flags.edited") : null,
-    shift.late ? t("flags.late") : null,
-    shift.leftAway ? t("flags.leftAway") : null,
-  ].filter((flag): flag is string => flag !== null);
+  const flags = shiftFlags(shift, (key) => t(`flags.${key}`));
 
   return (
-    <li className="flex flex-wrap items-start justify-between gap-x-4 gap-y-1 py-2 first:pt-0 last:pb-0">
+    <li className="relative -mx-2 flex flex-wrap items-start justify-between gap-x-4 gap-y-1 rounded-md px-2 py-2 hover:bg-muted/50">
       <div className="min-w-0 space-y-1">
         <p className="text-sm font-medium break-words">
-          {shift.jobId ? (
-            <Link href={`/jobs/${shift.jobId}`} className="hover:underline">
-              {shift.jobName}
-            </Link>
-          ) : (
-            shift.jobName
-          )}
+          <Link href={href} className="after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:rounded-md focus-visible:after:ring-2 focus-visible:after:ring-ring">
+            {shift.jobName}
+          </Link>
         </p>
         <p className="text-xs text-muted-foreground tabular-nums">
           {shift.clockOutAt ? t("shift.range", { start: time(shift.clockInAt), end: time(shift.clockOutAt) }) : t("shift.since", { start: time(shift.clockInAt) })}

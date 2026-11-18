@@ -2,7 +2,7 @@ import { cache } from "react";
 import { prisma } from "@/lib/db/prisma";
 import type { CompanyContext } from "@/lib/auth/session";
 import type { Prisma } from "@/generated/prisma/client";
-import { QuoteEventType, QuoteStatus } from "@/generated/prisma/enums";
+import { QuoteEventType } from "@/generated/prisma/enums";
 import {
   generateShareToken,
   hashShareToken,
@@ -194,18 +194,14 @@ export function eventActor(viewer: PortalViewer | null) {
   return { recipientName: viewer?.name || null, recipientEmail: viewer?.email ?? null };
 }
 
-/** Only a sent quote can be answered by the customer. */
-export function canClientRespond(status: QuoteStatus): boolean {
-  return status === QuoteStatus.SENT;
-}
-
 /**
- * Issues the customer's link for a quote, replacing any previous one.
+ * Issues a new link for a quote, beside the ones already sent.
  *
  * Only the hash is stored, so an existing token cannot be read back: every send
- * necessarily carries a new link, and the one sent before stops working. That is
- * the price of not keeping a token that would let a database dump accept a quote
- * in the customer's name — and accepting is a commercial commitment, not a read.
+ * necessarily carries a new link, while the ones sent before keep working. That
+ * is the price of not keeping a token that would let a database dump accept a
+ * quote in the customer's name — and accepting is a commercial commitment, not
+ * a read.
  *
  * Revoking is undone here on purpose: sending again is the deliberate act of
  * putting the quote back within the customer's reach.
@@ -213,7 +209,6 @@ export function canClientRespond(status: QuoteStatus): boolean {
 export async function issueShare(input: {
   companyId: string;
   quoteId: string;
-  expiresAt?: Date | null;
   /** Who this link goes to: the token is how the portal knows who is reading. */
   recipientId?: string | null;
 }): Promise<{ token: string }> {
@@ -230,15 +225,18 @@ export async function issueShare(input: {
    *
    * Reopening on issue is kept: sending again after revoking is somebody
    * deliberately letting the customer back in.
+   *
+   * No expiry: a link lives until it is revoked. A quote that runs out is shown
+   * to its customer as expired, with nothing to accept (`quoteRanOut`), and
+   * the team hears that they came back to it.
    */
   const share = await prisma.quoteShare.upsert({
     where: { quoteId: input.quoteId },
     create: {
       companyId: input.companyId,
       quoteId: input.quoteId,
-      expiresAt: input.expiresAt ?? null,
     },
-    update: { revokedAt: null, expiresAt: input.expiresAt ?? null },
+    update: { revokedAt: null, expiresAt: null },
     select: { id: true },
   });
 

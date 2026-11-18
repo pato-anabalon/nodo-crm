@@ -54,6 +54,7 @@ export async function listJobs(ctx: CompanyContext, filter: JobListFilter) {
         name: true,
         description: true,
         status: true,
+        color: true,
         startsOn: true,
         endsOn: true,
         members: { orderBy: { createdAt: "asc" }, select: { user: { select: personSelect } } },
@@ -476,12 +477,16 @@ export function clientSummary(quote: {
   return lines.length > 0 ? lines.join("\n") : null;
 }
 
-/** What the job was quoted for, in the order the quote had it. Empty for a job that never had a quote. */
+/**
+ * What the job was quoted for, in the order the quote had it, as it stands
+ * after whatever was changed on the job. Empty for a job that never had a
+ * quote and nobody wrote a line for.
+ */
 export async function jobScope(ctx: CompanyContext, jobId: string) {
   return ctx.db.jobScopeItem.findMany({
     where: { jobId },
     orderBy: { position: "asc" },
-    select: { id: true, title: true, body: true },
+    select: { id: true, title: true, body: true, editedAt: true, editedBy: { select: { name: true, email: true } } },
   });
 }
 

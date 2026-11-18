@@ -21,7 +21,8 @@ import { resolveSelectedSectionAmounts, type SectionSelectionState } from "@/mod
 import { bundleFrom } from "@/modules/quotes/service";
 import { moveLeadAlong } from "@/modules/quotes/lead-sync";
 import { acceptQuoteSchema, buildStatement, clientMessageSchema, declineQuoteSchema } from "./schemas";
-import { canClientRespond, eventActor, resolveShare } from "./service";
+import { eventActor, resolveShare } from "./service";
+import { canClientRespond } from "./share";
 import { acceptanceDigest, sha256Hex } from "./fingerprint";
 import { startHandoff } from "./handoff";
 import { isSignaturePath, signatureDeviceFor } from "./signature";
@@ -84,7 +85,7 @@ export async function acceptQuoteAction(
   const { status, share, viewer } = await resolveShare(token);
 
   if (status !== "ok" || !share || !viewer) return { error: t("portal.errors.notAvailable") };
-  if (!canClientRespond(share.quote.status)) return { error: t("portal.errors.notAvailable") };
+  if (!canClientRespond(share.quote)) return { error: t("portal.errors.notAvailable") };
 
   const company = share.company;
 
@@ -290,7 +291,7 @@ export async function declineQuoteAction(
   const { status, share, viewer } = await resolveShare(token);
 
   if (status !== "ok" || !share) return { error: t("portal.errors.notAvailable") };
-  if (!canClientRespond(share.quote.status)) return { error: t("portal.errors.notAvailable") };
+  if (!canClientRespond(share.quote)) return { error: t("portal.errors.notAvailable") };
 
   const parsed = declineQuoteSchema.safeParse({ reason: formData.get("reason") });
   if (!parsed.success) {
@@ -397,7 +398,7 @@ export async function updateSectionSelectionAction(
 ): Promise<SectionSelectionResult> {
   const { status, share } = await resolveShare(token);
   if (status !== "ok" || !share) return { ok: false, error: "not-available" };
-  if (!canClientRespond(share.quote.status)) return { ok: false, error: "not-available" };
+  if (!canClientRespond(share.quote)) return { ok: false, error: "not-available" };
 
   const section = share.quote.sections.find((s) => s.id === sectionId);
   if (!section) return { ok: false, error: "not-found" };
@@ -436,7 +437,7 @@ export type HandoffStart = { id: string; qrSvg: string } | { error: string };
 export async function startSignatureHandoffAction(token: string): Promise<HandoffStart> {
   const t = await getTranslations();
   const { status, share, viewer } = await resolveShare(token);
-  if (status !== "ok" || !share || !canClientRespond(share.quote.status)) {
+  if (status !== "ok" || !share || !canClientRespond(share.quote)) {
     return { error: t("portal.errors.notAvailable") };
   }
 

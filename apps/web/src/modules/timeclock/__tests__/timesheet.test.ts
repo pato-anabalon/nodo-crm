@@ -67,6 +67,20 @@ describe("personTimesheet", () => {
     expect(late).toMatchObject({ late: true, leftAway: false });
     expect(away).toMatchObject({ late: false, leftAway: true });
   });
+
+  it("takes a supervisor's meal break for that person's day only", () => {
+    const shifts = [shift("a", "2026-11-09T07:00:00", "2026-11-09T15:00:00"), shift("b", "2026-11-10T07:00:00", "2026-11-10T15:00:00")].map(
+      (input) => toShift(input, zone),
+    );
+    const adjustments = [
+      { userId: "u1", day: "2026-11-09", mealBreakMinutes: 60, reason: "Dentist" },
+      { userId: "u2", day: "2026-11-10", mealBreakMinutes: 0, reason: "Somebody else" },
+    ];
+    const sheet = personTimesheet("u1", shifts, week.from, week.to, DEFAULT_BREAK_POLICY, adjustments);
+    expect(sheet.days[0]).toMatchObject({ unpaidMinutes: 60, paidMinutes: 420, mealAdjusted: true, mealReason: "Dentist" });
+    expect(sheet.days[1]).toMatchObject({ unpaidMinutes: 30, mealAdjusted: false, mealReason: null });
+    expect(sheet.paidMinutes).toBe(420 + 450);
+  });
 });
 
 it("writes durations the way a timesheet reads them", () => {
@@ -104,7 +118,12 @@ describe("timesheetCsv", () => {
       sheet: personTimesheet("u1", shifts, week.from, week.to, DEFAULT_BREAK_POLICY),
     },
   ];
-  const labels = { column: (column: string) => column, openShifts: (count: number) => `${count} open` };
+  const labels = {
+    column: (column: string) => column,
+    openShifts: (count: number) => `${count} open`,
+    correctedShifts: (count: number) => `${count} by hand`,
+    mealAdjusted: (minutes: number, reason: string) => `meal ${minutes}: ${reason}`,
+  };
   const lines = (group: "day" | "person") => timesheetCsv(people, group, zone, labels).replace(/^﻿/, "").trim().split("\r\n");
 
   it("writes a row per day worked, in decimal hours, the amount from the minutes", () => {
@@ -120,5 +139,14 @@ describe("timesheetCsv", () => {
       "person,email,days,worked,mealBreak,paid,rate,amount,notes",
       "'=Wendy,wendy@example.com,1,8,30,7.5,30,225,1 open",
     ]);
+  });
+
+  it("says in the notes which figures a person typed or adjusted", () => {
+    const corrected = [shift("a", "2026-11-09T07:00:00", "2026-11-09T15:00:00", { source: "MANUAL" })].map((input) => toShift(input, zone));
+    const adjusted = [{ ...people[0], sheet: personTimesheet("u1", corrected, week.from, week.to, DEFAULT_BREAK_POLICY, [{ userId: "u1", day: "2026-11-09", mealBreakMinutes: 0, reason: "No lunch" }]) }];
+    const [, monday] = timesheetCsv(adjusted, "day", zone, labels).trim().split("\r\n");
+    expect(monday.endsWith(",1 by hand; meal 0: No lunch")).toBe(true);
+    const [, row] = timesheetCsv(adjusted, "person", zone, labels).trim().split("\r\n");
+    expect(row.endsWith(",1 by hand")).toBe(true);
   });
 });

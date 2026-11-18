@@ -36,6 +36,8 @@ export async function GET(request: Request) {
   const csv = timesheetCsv(people, group, ctx.company.timezone, {
     column: (column) => t(`columns.${column}`, { currency: ctx.company.currency }),
     openShifts: (count) => t("openShifts", { count }),
+    correctedShifts: (count) => t("correctedShifts", { count }),
+    mealAdjusted: (minutes, reason) => t("mealAdjusted", { minutes, reason }),
   });
 
   return new NextResponse(csv, {

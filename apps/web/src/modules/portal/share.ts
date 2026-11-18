@@ -1,5 +1,7 @@
 import { companyUrl } from "@/lib/tenant/host";
 import { createHash, randomBytes } from "node:crypto";
+import { QuoteStatus } from "@/generated/prisma/enums";
+import { hasExpired } from "@/modules/notifications/watch";
 
 /**
  * The link the customer opens their quote with.
@@ -53,6 +55,31 @@ export function shareStatus(
   if (share.revokedAt) return "revoked";
   if (share.expiresAt && share.expiresAt.getTime() < now.getTime()) return "expired";
   return "ok";
+}
+
+/**
+ * Whether the quote ran out without an answer.
+ *
+ * The link stays open after that — the customer can still read what they were
+ * quoted and write to the company — so this is what closes the doors instead.
+ * `EXPIRED` is the nightly sweep's word, and the sweep runs once a day: a
+ * quote still `SENT` past its `validUntil` has run out too, the sweep just
+ * hasn't said so yet.
+ */
+export function quoteRanOut(
+  quote: { status: QuoteStatus; validUntil: Date | null },
+  now: Date = new Date(),
+): boolean {
+  if (quote.status === QuoteStatus.EXPIRED) return true;
+  return quote.status === QuoteStatus.SENT && hasExpired(quote, now);
+}
+
+/** Only a sent quote that hasn't run out can be answered by the customer. */
+export function canClientRespond(
+  quote: { status: QuoteStatus; validUntil: Date | null },
+  now: Date = new Date(),
+): boolean {
+  return quote.status === QuoteStatus.SENT && !quoteRanOut(quote, now);
 }
 
 /** Whoever holds the link that was opened. */

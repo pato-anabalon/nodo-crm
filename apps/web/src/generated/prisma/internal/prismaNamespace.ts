@@ -464,8 +464,11 @@ export const ModelName = {
   MembershipTrade: 'MembershipTrade',
   JobChatMessage: 'JobChatMessage',
   JobScopeItem: 'JobScopeItem',
+  JobScopeChange: 'JobScopeChange',
   TimeEntry: 'TimeEntry',
-  LocationPing: 'LocationPing'
+  LocationPing: 'LocationPing',
+  TimesheetDay: 'TimesheetDay',
+  TimesheetChange: 'TimesheetChange'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -481,7 +484,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "mobileSession" | "pushDevice" | "mobileChallenge" | "mobileTrustedDevice" | "mobileLoginFailure" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "leadSourceOption" | "leadAccessLog" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteRecipient" | "signatureHandoff" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem" | "job" | "jobMember" | "jobActivity" | "jobFolder" | "jobFile" | "jobPostCategory" | "jobPost" | "jobComment" | "jobEvent" | "jobEventParticipant" | "jobTodoList" | "jobTodo" | "jobTodoAssignee" | "trade" | "membershipTrade" | "jobChatMessage" | "jobScopeItem" | "timeEntry" | "locationPing"
+    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "mobileSession" | "pushDevice" | "mobileChallenge" | "mobileTrustedDevice" | "mobileLoginFailure" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "leadSourceOption" | "leadAccessLog" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteRecipient" | "signatureHandoff" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem" | "job" | "jobMember" | "jobActivity" | "jobFolder" | "jobFile" | "jobPostCategory" | "jobPost" | "jobComment" | "jobEvent" | "jobEventParticipant" | "jobTodoList" | "jobTodo" | "jobTodoAssignee" | "trade" | "membershipTrade" | "jobChatMessage" | "jobScopeItem" | "jobScopeChange" | "timeEntry" | "locationPing" | "timesheetDay" | "timesheetChange"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -5443,6 +5446,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    JobScopeChange: {
+      payload: Prisma.$JobScopeChangePayload<ExtArgs>
+      fields: Prisma.JobScopeChangeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JobScopeChangeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobScopeChangePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JobScopeChangeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobScopeChangePayload>
+        }
+        findFirst: {
+          args: Prisma.JobScopeChangeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobScopeChangePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JobScopeChangeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobScopeChangePayload>
+        }
+        findMany: {
+          args: Prisma.JobScopeChangeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobScopeChangePayload>[]
+        }
+        create: {
+          args: Prisma.JobScopeChangeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobScopeChangePayload>
+        }
+        createMany: {
+          args: Prisma.JobScopeChangeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JobScopeChangeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobScopeChangePayload>[]
+        }
+        delete: {
+          args: Prisma.JobScopeChangeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobScopeChangePayload>
+        }
+        update: {
+          args: Prisma.JobScopeChangeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobScopeChangePayload>
+        }
+        deleteMany: {
+          args: Prisma.JobScopeChangeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JobScopeChangeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JobScopeChangeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobScopeChangePayload>[]
+        }
+        upsert: {
+          args: Prisma.JobScopeChangeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobScopeChangePayload>
+        }
+        aggregate: {
+          args: Prisma.JobScopeChangeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJobScopeChange>
+        }
+        groupBy: {
+          args: Prisma.JobScopeChangeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobScopeChangeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JobScopeChangeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobScopeChangeCountAggregateOutputType> | number
+        }
+      }
+    }
     TimeEntry: {
       payload: Prisma.$TimeEntryPayload<ExtArgs>
       fields: Prisma.TimeEntryFieldRefs
@@ -5588,6 +5665,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.LocationPingCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.LocationPingCountAggregateOutputType> | number
+        }
+      }
+    }
+    TimesheetDay: {
+      payload: Prisma.$TimesheetDayPayload<ExtArgs>
+      fields: Prisma.TimesheetDayFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TimesheetDayFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetDayPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TimesheetDayFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetDayPayload>
+        }
+        findFirst: {
+          args: Prisma.TimesheetDayFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetDayPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TimesheetDayFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetDayPayload>
+        }
+        findMany: {
+          args: Prisma.TimesheetDayFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetDayPayload>[]
+        }
+        create: {
+          args: Prisma.TimesheetDayCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetDayPayload>
+        }
+        createMany: {
+          args: Prisma.TimesheetDayCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TimesheetDayCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetDayPayload>[]
+        }
+        delete: {
+          args: Prisma.TimesheetDayDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetDayPayload>
+        }
+        update: {
+          args: Prisma.TimesheetDayUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetDayPayload>
+        }
+        deleteMany: {
+          args: Prisma.TimesheetDayDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TimesheetDayUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TimesheetDayUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetDayPayload>[]
+        }
+        upsert: {
+          args: Prisma.TimesheetDayUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetDayPayload>
+        }
+        aggregate: {
+          args: Prisma.TimesheetDayAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTimesheetDay>
+        }
+        groupBy: {
+          args: Prisma.TimesheetDayGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TimesheetDayGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TimesheetDayCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TimesheetDayCountAggregateOutputType> | number
+        }
+      }
+    }
+    TimesheetChange: {
+      payload: Prisma.$TimesheetChangePayload<ExtArgs>
+      fields: Prisma.TimesheetChangeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TimesheetChangeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetChangePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TimesheetChangeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetChangePayload>
+        }
+        findFirst: {
+          args: Prisma.TimesheetChangeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetChangePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TimesheetChangeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetChangePayload>
+        }
+        findMany: {
+          args: Prisma.TimesheetChangeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetChangePayload>[]
+        }
+        create: {
+          args: Prisma.TimesheetChangeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetChangePayload>
+        }
+        createMany: {
+          args: Prisma.TimesheetChangeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TimesheetChangeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetChangePayload>[]
+        }
+        delete: {
+          args: Prisma.TimesheetChangeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetChangePayload>
+        }
+        update: {
+          args: Prisma.TimesheetChangeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetChangePayload>
+        }
+        deleteMany: {
+          args: Prisma.TimesheetChangeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TimesheetChangeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TimesheetChangeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetChangePayload>[]
+        }
+        upsert: {
+          args: Prisma.TimesheetChangeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimesheetChangePayload>
+        }
+        aggregate: {
+          args: Prisma.TimesheetChangeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTimesheetChange>
+        }
+        groupBy: {
+          args: Prisma.TimesheetChangeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TimesheetChangeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TimesheetChangeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TimesheetChangeCountAggregateOutputType> | number
         }
       }
     }
@@ -6720,10 +6945,27 @@ export const JobScopeItemScalarFieldEnum = {
   position: 'position',
   title: 'title',
   body: 'body',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  editedById: 'editedById',
+  editedAt: 'editedAt'
 } as const
 
 export type JobScopeItemScalarFieldEnum = (typeof JobScopeItemScalarFieldEnum)[keyof typeof JobScopeItemScalarFieldEnum]
+
+
+export const JobScopeChangeScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  jobId: 'jobId',
+  scopeItemId: 'scopeItemId',
+  kind: 'kind',
+  before: 'before',
+  after: 'after',
+  authorId: 'authorId',
+  createdAt: 'createdAt'
+} as const
+
+export type JobScopeChangeScalarFieldEnum = (typeof JobScopeChangeScalarFieldEnum)[keyof typeof JobScopeChangeScalarFieldEnum]
 
 
 export const TimeEntryScalarFieldEnum = {
@@ -6775,6 +7017,37 @@ export const LocationPingScalarFieldEnum = {
 export type LocationPingScalarFieldEnum = (typeof LocationPingScalarFieldEnum)[keyof typeof LocationPingScalarFieldEnum]
 
 
+export const TimesheetDayScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  userId: 'userId',
+  day: 'day',
+  mealBreakMinutes: 'mealBreakMinutes',
+  reason: 'reason',
+  editedById: 'editedById',
+  editedAt: 'editedAt'
+} as const
+
+export type TimesheetDayScalarFieldEnum = (typeof TimesheetDayScalarFieldEnum)[keyof typeof TimesheetDayScalarFieldEnum]
+
+
+export const TimesheetChangeScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  userId: 'userId',
+  timeEntryId: 'timeEntryId',
+  day: 'day',
+  kind: 'kind',
+  before: 'before',
+  after: 'after',
+  reason: 'reason',
+  authorId: 'authorId',
+  createdAt: 'createdAt'
+} as const
+
+export type TimesheetChangeScalarFieldEnum = (typeof TimesheetChangeScalarFieldEnum)[keyof typeof TimesheetChangeScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -6788,6 +7061,14 @@ export const JsonNullValueInput = {
 } as const
 
 export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -7319,6 +7600,20 @@ export type ListEnumJobActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputTy
 
 
 /**
+ * Reference to a field of type 'JobScopeChangeKind'
+ */
+export type EnumJobScopeChangeKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobScopeChangeKind'>
+    
+
+
+/**
+ * Reference to a field of type 'JobScopeChangeKind[]'
+ */
+export type ListEnumJobScopeChangeKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobScopeChangeKind[]'>
+    
+
+
+/**
  * Reference to a field of type 'TimeEntrySource'
  */
 export type EnumTimeEntrySourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TimeEntrySource'>
@@ -7329,6 +7624,20 @@ export type EnumTimeEntrySourceFieldRefInput<$PrismaModel> = FieldRefInputType<$
  * Reference to a field of type 'TimeEntrySource[]'
  */
 export type ListEnumTimeEntrySourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TimeEntrySource[]'>
+    
+
+
+/**
+ * Reference to a field of type 'TimesheetChangeKind'
+ */
+export type EnumTimesheetChangeKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TimesheetChangeKind'>
+    
+
+
+/**
+ * Reference to a field of type 'TimesheetChangeKind[]'
+ */
+export type ListEnumTimesheetChangeKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TimesheetChangeKind[]'>
     
 
 /**
@@ -7549,8 +7858,11 @@ export type GlobalOmitConfig = {
   membershipTrade?: Prisma.MembershipTradeOmit
   jobChatMessage?: Prisma.JobChatMessageOmit
   jobScopeItem?: Prisma.JobScopeItemOmit
+  jobScopeChange?: Prisma.JobScopeChangeOmit
   timeEntry?: Prisma.TimeEntryOmit
   locationPing?: Prisma.LocationPingOmit
+  timesheetDay?: Prisma.TimesheetDayOmit
+  timesheetChange?: Prisma.TimesheetChangeOmit
 }
 
 /* Types for Logging */

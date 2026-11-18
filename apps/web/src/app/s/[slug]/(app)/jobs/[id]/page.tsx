@@ -77,6 +77,7 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
   const canTodos = can(ctx, "todos.read");
   const canSchedule = can(ctx, "schedule.read");
   const canChat = can(ctx, "chat.read");
+  const canScope = can(ctx, "scope.read");
   const today = dayIn(new Date(), ctx.company.timezone);
   const [t, tRoles, activity, candidates, trades, files, board, todos, schedule, chat, scope] = await Promise.all([
     getTranslations("jobs"),
@@ -89,7 +90,7 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
     canTodos ? todosSummary(ctx, job.id) : Promise.resolve(null),
     canSchedule ? upcomingEvents(ctx, job.id, today) : Promise.resolve(null),
     canChat ? chatSummary(ctx, job.id) : Promise.resolve(null),
-    jobScope(ctx, job.id),
+    canScope ? jobScope(ctx, job.id) : Promise.resolve([]),
   ]);
   const [describe, mentionedFiles] = await Promise.all([
     activityDescriber(ctx, activity),
@@ -289,7 +290,8 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
         />
       ) : null}
 
-      {scope.length > 0 ? (
+      {/* With nothing quoted it still shows to whoever may write the first line. */}
+      {canScope && (scope.length > 0 || can(ctx, "scope.update")) ? (
         <Link
           href={`/jobs/${jobId}/scope`}
           className="group flex flex-col gap-3 rounded-xl border bg-card p-4 transition-colors hover:bg-accent/40"
@@ -299,6 +301,7 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
             {t("scope.title")}
             <span className="ml-auto text-xs font-normal text-muted-foreground">{t("scope.count", { count: scope.length })}</span>
           </span>
+          {scope.length === 0 ? <span className="text-sm italic text-muted-foreground">{t("scope.cardEmpty")}</span> : null}
           <ul className="space-y-1 text-sm">
             {scope.slice(0, 4).map((item) => (
               <li key={item.id} className="truncate">

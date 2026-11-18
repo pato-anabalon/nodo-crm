@@ -584,11 +584,23 @@ export type JobChatMessage = Prisma.JobChatMessageModel
  * *
  *  * One line of what was quoted — an item's description, or a section's title and
  *  * write-up — copied onto the job when it starts. Never an amount: a job is read
- *  * by people with no business seeing the price. Not editable: it is the frame
- *  * the work was agreed in, and a copy that drifted from the quote would stop
- *  * being a reference.
+ *  * by people with no business seeing the price.
+ *  * Edited on the job with `scope.update`: what was sold is where the work
+ *  * starts, and what is agreed on site moves it. Every change is kept in
+ *  * `JobScopeChange`, with what it was, so the job can still say what the quote
+ *  * said. `editedById`/`editedAt` are the last hand on it; null on a line still
+ *  * exactly as the quote had it.
  */
 export type JobScopeItem = Prisma.JobScopeItemModel
+/**
+ * Model JobScopeChange
+ * *
+ *  * One hand on a job's scope: what the line was and what it became, by whom.
+ *  * `before`/`after` are `{ title, body }`; an added line has no `before`, a
+ *  * deleted one no `after`, and keeps its row here after the line is gone —
+ *  * which is the point of keeping it.
+ */
+export type JobScopeChange = Prisma.JobScopeChangeModel
 /**
  * Model TimeEntry
  * *
@@ -612,3 +624,17 @@ export type TimeEntry = Prisma.TimeEntryModel
  *  * `(timeEntryId, recordedAt)` is unique, so a batch sent twice is stored once.
  */
 export type LocationPing = Prisma.LocationPingModel
+/**
+ * Model TimesheetDay
+ * A day on somebody's timesheet that a supervisor adjusted: the unpaid meal
+ * break actually taken, in place of the company's. Only days somebody touched
+ * have a row; every other day follows the policy.
+ */
+export type TimesheetDay = Prisma.TimesheetDayModel
+/**
+ * Model TimesheetChange
+ * Every hand that touched somebody's hours: what it was, what it became, who
+ * and why. Hours are pay, so a correction is kept rather than written over —
+ * and a deleted shift keeps its line, with what it was.
+ */
+export type TimesheetChange = Prisma.TimesheetChangeModel

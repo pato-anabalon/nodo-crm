@@ -229,6 +229,7 @@ export function QuoteForm({
   submitLabel,
   status,
   afterDetails,
+  after,
 }: {
   /** Present only on the edit form — a section can only manage its own
    * attachments once the quote (and the section) actually exist on the
@@ -277,6 +278,14 @@ export function QuoteForm({
    * not post fields of its own: it sits inside this `<form>`.
    */
   afterDetails?: React.ReactNode;
+  /**
+   * Under the fields, beside Totals — the attachments and the conversation on
+   * a saved quote. Rendered *outside* the `<form>`, so it may hold forms of its
+   * own: the form is `display: contents` and its two columns sit in the grid
+   * around it, with the Totals column spanning down past this so it keeps
+   * floating beside it.
+   */
+  after?: React.ReactNode;
   /** Present only on the edit form — gates the "you're about to change a
    * quote the customer already has" confirmation below. A new quote is
    * never `SENT`, so `quotes/new/page.tsx` doesn't pass this. */
@@ -570,977 +579,980 @@ export function QuoteForm({
           : t("form.taxExclusiveInclusiveHint", { tax: taxLabel });
 
   return (
-    <form
-      id={QUOTE_FORM_ID}
-      ref={formRef}
-      action={formAction}
-      onSubmit={submitWithoutReset}
-      className="grid grid-cols-1 gap-6 lg:grid-cols-3"
-    >
-      <div className="space-y-6 lg:col-span-2">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">{t("form.details")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div
-              className={
-                quoteTypes.length > 0
-                  ? "grid grid-cols-1 gap-4 sm:grid-cols-[3fr_7fr]"
-                  : undefined
-              }
-            >
-              {quoteTypes.length > 0 ? (
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <form
+        id={QUOTE_FORM_ID}
+        ref={formRef}
+        action={formAction}
+        onSubmit={submitWithoutReset}
+        className="contents"
+      >
+        <div className="min-w-0 space-y-6 lg:col-span-2">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">{t("form.details")}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div
+                className={
+                  quoteTypes.length > 0
+                    ? "grid grid-cols-1 gap-4 sm:grid-cols-[3fr_7fr]"
+                    : undefined
+                }
+              >
+                {quoteTypes.length > 0 ? (
+                  <div className="space-y-2">
+                    <Label htmlFor="quoteType">{t("form.quoteType")}</Label>
+                    <NativeSelect
+                      id="quoteType"
+                      name="quoteType"
+                      defaultValue={defaults.quoteType ?? quoteTypes[0]}
+                      options={quoteTypes.map((label) => ({
+                        value: label,
+                        label,
+                      }))}
+                    />
+                  </div>
+                ) : null}
+
                 <div className="space-y-2">
-                  <Label htmlFor="quoteType">{t("form.quoteType")}</Label>
+                  <Label htmlFor="title">{t("form.title")}</Label>
+                  <Input
+                    id="title"
+                    name="title"
+                    required
+                    defaultValue={defaults.title}
+                  />
+                  {state.fieldErrors?.title ? (
+                    <p className="text-sm text-destructive">
+                      {state.fieldErrors.title[0]}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="projectAddress">{t("form.projectAddress")}</Label>
+                <Input
+                  id="projectAddress"
+                  name="projectAddress"
+                  defaultValue={defaults.projectAddress ?? ""}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="scope">{t("form.scope")}</Label>
+                {/* Plain text, not the rich editor the other three texts use —
+                    it's a short line, not prose, and still travels through the
+                    same `cleanBody`/`sanitizeRichText` pipeline server-side
+                    (wrapped in a paragraph tag there), so the portal's
+                    `RichText` render stays untouched and existing HTML-bearing
+                    values still display read as plain text, not raw tags. */}
+                <Input
+                  id="scope"
+                  name="scope"
+                  defaultValue={richTextToPlain(defaults.scope)}
+                />
+              </div>
+
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="leadId">{t("form.lead")}</Label>
+                  <SearchCombobox
+                    id="leadId"
+                    name="leadId"
+                    value={selectedLead}
+                    onSelect={setSelectedLead}
+                    search={searchLeads}
+                    placeholder={t("form.noLead")}
+                    searchPlaceholder={t("form.searchLeads")}
+                    emptyLabel={t("form.noLeadsFound")}
+                    noneLabel={t("form.noLead")}
+                    disabled={!leadChangeable}
+                    aria-describedby={leadChangeable ? undefined : "leadId-fixed"}
+                  />
+                  {leadChangeable ? null : (
+                    <p id="leadId-fixed" className="text-xs text-muted-foreground">
+                      {t("form.leadFixedOnceSent")}
+                    </p>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="validUntil">{t("form.validUntil")}</Label>
+                  <Input
+                    id="validUntil"
+                    name="validUntil"
+                    type="date"
+                    defaultValue={defaults.validUntil ?? ""}
+                  />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {afterDetails}
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">
+                {t("form.pricingMode.label")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <input type="hidden" name="pricingMode" value={pricingMode} />
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {[PricingMode.ITEMIZED, PricingMode.SECTIONS].map((mode) => {
+                  const selected = pricingMode === mode;
+                  return (
+                    <button
+                      key={mode}
+                      type="button"
+                      aria-pressed={selected}
+                      onClick={() => setPricingMode(mode)}
+                      className={`rounded-lg border p-3 text-left transition-colors ${
+                        selected
+                          ? "border-primary bg-primary/5"
+                          : "hover:bg-accent hover:text-accent-foreground"
+                      }`}
+                    >
+                      <span className="block text-sm font-medium">
+                        {t(`form.pricingMode.${mode}`)}
+                      </span>
+                      <span className="mt-0.5 block text-xs text-muted-foreground">
+                        {t(`form.pricingMode.${mode}_hint`)}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Mounted-but-hidden rather than unmounted, same as the Lines card
+              below: switching away from SECTIONS and back used to lose
+              whatever was being typed into a section, which the Lines card was
+              already protected against. */}
+          <Card className={bySections ? undefined : "hidden"}>
+            <CardHeader className="flex-row items-center justify-between space-y-0">
+              <CardTitle className="text-base">{t("form.sections")}</CardTitle>
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                onClick={() =>
+                  setSections((current) => [...current, emptySection()])
+                }
+              >
+                <Plus className="size-4" />
+                {t("form.addSection")}
+              </Button>
+            </CardHeader>
+
+            <CardContent className="space-y-4">
+              {state.fieldErrors?.sections ? (
+                <ListError state={state} message={state.fieldErrors.sections[0]} />
+              ) : null}
+
+              <div className="space-y-3 rounded-lg border border-primary/20 bg-primary/5 p-3">
+                <div>
+                  <p className="text-sm font-medium">
+                    {t("form.bundleDiscount.title")}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {t("form.bundleDiscount.hint")}
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                  <div className="space-y-1.5">
+                    <Label
+                      htmlFor="optionalDiscountThreshold"
+                      className="text-xs"
+                    >
+                      {t("form.bundleDiscount.threshold")}
+                    </Label>
+                    <Input
+                      id="optionalDiscountThreshold"
+                      name="optionalDiscountThreshold"
+                      type="number"
+                      min={0}
+                      step="1"
+                      value={optionalDiscountThreshold}
+                      onChange={(e) =>
+                        setOptionalDiscountThreshold(e.target.value)
+                      }
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label htmlFor="optionalDiscountType" className="text-xs">
+                      {t("form.discountType.label")}
+                    </Label>
+                    <NativeSelect
+                      id="optionalDiscountType"
+                      name="optionalDiscountType"
+                      value={optionalDiscountType}
+                      onChange={(e) =>
+                        setOptionalDiscountType(e.target.value as DiscountType)
+                      }
+                      options={[
+                        {
+                          value: DiscountType.PERCENT,
+                          label: t("form.discountType.PERCENT"),
+                        },
+                        {
+                          value: DiscountType.FIXED,
+                          label: t("form.discountType.FIXED"),
+                        },
+                      ]}
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label htmlFor="optionalDiscountValue" className="text-xs">
+                      {optionalDiscountType === DiscountType.PERCENT
+                        ? t("form.discountValuePercent")
+                        : t("form.discountValue", { currency: pickedCurrency })}
+                    </Label>
+                    {optionalDiscountType === DiscountType.PERCENT ? (
+                      <Input
+                        id="optionalDiscountValue"
+                        name="optionalDiscountValue"
+                        type="number"
+                        min={0}
+                        max={100}
+                        step="0.01"
+                        value={optionalDiscountValue}
+                        onChange={(e) => setOptionalDiscountValue(e.target.value)}
+                      />
+                    ) : (
+                      <MoneyInput
+                        id="optionalDiscountValue"
+                        name="optionalDiscountValue"
+                        value={optionalDiscountValue}
+                        onChange={setOptionalDiscountValue}
+                        currency={pickedCurrency}
+                        formatLocale={formatLocale}
+                      />
+                    )}
+                    {state.fieldErrors?.optionalDiscountValue ? (
+                      <p className="text-sm text-destructive">
+                        {state.fieldErrors.optionalDiscountValue[0]}
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+
+              <DndContext
+                id="quote-sections"
+                sensors={sectionSensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleSectionDragEnd}
+              >
+                <SortableContext
+                  items={sections.map((section) => section.id)}
+                  strategy={verticalListSortingStrategy}
+                >
+                  <div className="space-y-4">
+                    {sections.map((section, index) => (
+                      <SortableSectionRow
+                        key={section.id}
+                        id={section.id}
+                        dragLabel={t("form.dragSectionHandle")}
+                        canMoveUp={index > 0}
+                        canMoveDown={index < sections.length - 1}
+                        onMoveUp={() => moveSection(section.id, -1)}
+                        onMoveDown={() => moveSection(section.id, 1)}
+                        moveUpLabel={t("form.moveSectionUp", {
+                          position: index + 1,
+                        })}
+                        moveDownLabel={t("form.moveSectionDown", {
+                          position: index + 1,
+                        })}
+                        collapsed={collapsedSections.has(section.id)}
+                        onToggleCollapsed={() => toggleSectionCollapsed(section.id)}
+                        collapseLabel={t("form.collapseSection")}
+                        expandLabel={t("form.expandSection")}
+                        summary={
+                          <div className="flex flex-wrap items-baseline gap-x-2">
+                            <span
+                              className={`truncate text-sm ${
+                                section.title
+                                  ? "font-medium"
+                                  : "text-muted-foreground italic"
+                              }`}
+                            >
+                              {section.title || t("form.sectionUntitled")}
+                            </span>
+                            <span className="shrink-0 text-sm tabular-nums text-muted-foreground">
+                              {money(Number(section.amount) || 0)}
+                            </span>
+                          </div>
+                        }
+                      >
+                        {/* The id a persisted row already has, or the
+                            client-only tracking id of a brand new one —
+                            `updateQuote` tells the two apart on save, and only
+                            the first kind matches anything to update in place. */}
+                        <input
+                          type="hidden"
+                          name={`sections[${index}].id`}
+                          value={section.id}
+                        />
+                        {/* `grid` rather than `flex` — a fixed column template
+                            keeps the title and price columns at the same width
+                            and the same baseline on every row, instead of each
+                            relying on `flex-wrap` to land the same way. */}
+                        <div className="grid grid-cols-[1fr_auto] items-end gap-3 sm:grid-cols-[1fr_160px_auto]">
+                          <div className="order-1 min-w-0 space-y-1.5 sm:order-none">
+                            <Label
+                              htmlFor={`sections[${index}].title`}
+                              className="text-xs"
+                            >
+                              {t("form.sectionTitle")}
+                            </Label>
+                            <Input
+                              id={`sections[${index}].title`}
+                              name={`sections[${index}].title`}
+                              value={section.title}
+                              onChange={(e) =>
+                                updateSection(index, "title", e.target.value)
+                              }
+                              placeholder={t("form.sectionTitlePlaceholder")}
+                            />
+                          </div>
+
+                          <div className="order-3 col-span-2 space-y-1.5 sm:order-none sm:col-span-1">
+                            <Label
+                              htmlFor={`sections[${index}].amount`}
+                              className="text-xs"
+                            >
+                              {t("form.sectionAmount", {
+                                currency: pickedCurrency,
+                              })}
+                            </Label>
+                            <MoneyInput
+                              id={`sections[${index}].amount`}
+                              name={`sections[${index}].amount`}
+                              value={section.amount}
+                              onChange={(value) =>
+                                updateSection(index, "amount", value)
+                              }
+                              currency={pickedCurrency}
+                              formatLocale={formatLocale}
+                              className="tabular-nums mb-0"
+                            />
+                          </div>
+
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="icon"
+                            className="order-2 sm:order-none"
+                            aria-label={t("form.removeSection", {
+                              position: index + 1,
+                            })}
+                            disabled={sections.length === 1}
+                            onClick={() =>
+                              setSections((current) =>
+                                current.filter((s) => s.id !== section.id),
+                              )
+                            }
+                          >
+                            <Trash2 className="size-4" />
+                          </Button>
+                        </div>
+
+                        <div className="flex flex-wrap items-end gap-3">
+                          <div className="min-w-48 space-y-1.5">
+                            <Label
+                              htmlFor={`sections[${index}].kind`}
+                              className="text-xs"
+                            >
+                              {t("form.sectionKind.label")}
+                            </Label>
+                            <NativeSelect
+                              id={`sections[${index}].kind`}
+                              name={`sections[${index}].kind`}
+                              value={section.kind}
+                              onChange={(e) =>
+                                updateSection(index, "kind", e.target.value)
+                              }
+                              options={Object.values(QuoteSectionKind).map(
+                                (kind) => ({
+                                  value: kind,
+                                  label: t(`form.sectionKind.${kind}`),
+                                }),
+                              )}
+                            />
+                          </div>
+
+                          {section.kind !== QuoteSectionKind.INDEPENDENT ? (
+                            <label className="flex items-center gap-2 pb-2 text-sm">
+                              <Checkbox
+                                name={`sections[${index}].selectedByDefault`}
+                                checked={section.selectedByDefault}
+                                onCheckedChange={(checked) =>
+                                  setSections((current) =>
+                                    current.map((s, i) =>
+                                      i === index
+                                        ? {
+                                            ...s,
+                                            selectedByDefault: checked === true,
+                                          }
+                                        : s,
+                                    ),
+                                  )
+                                }
+                              />
+                              {t("form.sectionSelectedByDefault")}
+                            </label>
+                          ) : null}
+                        </div>
+
+                        {/* `items-start` rather than `items-end`: Final Price is
+                            plain text, shorter than the other two columns'
+                            label-plus-input stack, and bottom-aligning it left
+                            its own label sitting visibly lower than "Discount
+                            type"/"Discount value" above it. */}
+                        <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-[30%_30%_35%]">
+                          <div className="space-y-1.5">
+                            <Label
+                              htmlFor={`sections[${index}].discountType`}
+                              className="text-xs"
+                            >
+                              {t("form.discountType.label")}
+                            </Label>
+                            <NativeSelect
+                              id={`sections[${index}].discountType`}
+                              name={`sections[${index}].discountType`}
+                              value={section.discountType}
+                              onChange={(e) =>
+                                updateSection(
+                                  index,
+                                  "discountType",
+                                  e.target.value,
+                                )
+                              }
+                              options={[
+                                {
+                                  value: DiscountType.FIXED,
+                                  label: t("form.discountType.FIXED"),
+                                },
+                                {
+                                  value: DiscountType.PERCENT,
+                                  label: t("form.discountType.PERCENT"),
+                                },
+                              ]}
+                            />
+                          </div>
+
+                          <div className="space-y-1.5">
+                            <Label
+                              htmlFor={`sections[${index}].discountValue`}
+                              className="text-xs"
+                            >
+                              {section.discountType === DiscountType.PERCENT
+                                ? t("form.discountValuePercent")
+                                : t("form.discountValue", {
+                                    currency: pickedCurrency,
+                                  })}
+                            </Label>
+                            {section.discountType === DiscountType.PERCENT ? (
+                              <Input
+                                id={`sections[${index}].discountValue`}
+                                name={`sections[${index}].discountValue`}
+                                type="number"
+                                min={0}
+                                max={100}
+                                step="0.01"
+                                value={section.discountValue}
+                                onChange={(e) =>
+                                  updateSection(
+                                    index,
+                                    "discountValue",
+                                    e.target.value,
+                                  )
+                                }
+                              />
+                            ) : (
+                              <MoneyInput
+                                id={`sections[${index}].discountValue`}
+                                name={`sections[${index}].discountValue`}
+                                value={section.discountValue}
+                                onChange={(value) =>
+                                  updateSection(index, "discountValue", value)
+                                }
+                                currency={pickedCurrency}
+                                formatLocale={formatLocale}
+                              />
+                            )}
+                          </div>
+
+                          <div className="flex items-baseline justify-between gap-3 sm:block sm:space-y-1.5 sm:text-right">
+                            <p className="text-sm text-muted-foreground">
+                              {t("form.sectionFinalPrice")}
+                            </p>
+                            <p className="text-lg font-medium tabular-nums">
+                              {money(
+                                sectionNetAmount({
+                                  amount: Number(section.amount) || 0,
+                                  discountType: section.discountType,
+                                  discountValue:
+                                    Number(section.discountValue) || 0,
+                                }),
+                              )}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <Label className="text-xs">
+                            {t("form.sectionBody")}
+                          </Label>
+                          {/* The content travels in a hidden field, so the form
+                              stays an ordinary form. */}
+                          <RichTextEditor
+                            name={`sections[${index}].body`}
+                            defaultValue={section.body}
+                            ariaLabel={t("form.sectionBody")}
+                            placeholder={t("form.sectionBodyPlaceholder")}
+                          />
+                        </div>
+
+                        {quoteId && uploadAttachment && deleteAttachment && section.persisted ? (
+                          <AttachmentsManager
+                            quoteId={quoteId}
+                            sectionId={section.id}
+                            attachments={section.attachments}
+                            canManage
+                            formatLocale={formatLocale}
+                            compact
+                            uploadActions={uploadAttachment}
+                            deleteAction={deleteAttachment}
+                          />
+                        ) : null}
+                      </SortableSectionRow>
+                    ))}
+                  </div>
+                </SortableContext>
+              </DndContext>
+            </CardContent>
+          </Card>
+
+          <Card className={bySections ? "hidden" : undefined}>
+            <CardHeader className="flex-row items-center justify-between space-y-0">
+              <CardTitle className="text-base">{t("form.lines")}</CardTitle>
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                onClick={() =>
+                  setItems((current) => [...current, withKey(EMPTY_LINE)])
+                }
+              >
+                <Plus className="size-4" />
+                {t("form.addLine")}
+              </Button>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {state.fieldErrors?.items ? (
+                <ListError state={state} message={state.fieldErrors.items[0]} />
+              ) : null}
+
+              {hasCatalogue ? (
+                <div className="flex flex-wrap items-end gap-2 rounded-lg bg-panel p-3">
+                  <div className="min-w-56 flex-1 space-y-1.5">
+                    <Label htmlFor="catalogue" className="text-xs">
+                      {t("form.fromCatalogue")}
+                    </Label>
+                    <SearchCombobox
+                      id="catalogue"
+                      value={null}
+                      onSelect={(option) => {
+                        if (option) addFromCatalogue(option);
+                      }}
+                      search={searchCatalogue}
+                      placeholder={t("form.pickFromCatalogue")}
+                      searchPlaceholder={t("form.searchCatalogue")}
+                      emptyLabel={t("form.noCatalogueFound")}
+                    />
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    {t("form.catalogueHint")}
+                  </p>
+                </div>
+              ) : null}
+
+              <DndContext
+                id="quote-lines"
+                sensors={sectionSensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleLineDragEnd}
+              >
+                <SortableContext
+                  items={items.map((line) => line.key)}
+                  strategy={verticalListSortingStrategy}
+                >
+                  <div className="space-y-4">
+              {items.map((line, index) => (
+                <SortableLineRow
+                  key={line.key}
+                  id={line.key}
+                  dragLabel={t("form.dragLineHandle", { position: index + 1 })}
+                  canMoveUp={index > 0}
+                  canMoveDown={index < items.length - 1}
+                  onMoveUp={() => moveLine(line.key, -1)}
+                  onMoveDown={() => moveLine(line.key, 1)}
+                  moveUpLabel={t("form.moveLineUp", { position: index + 1 })}
+                  moveDownLabel={t("form.moveLineDown", { position: index + 1 })}
+                >
+                <div
+                  // On a phone each line is a card of its own: a tone apart from
+                  // the card around it, and numbered by a chip sitting on its top
+                  // edge, so a long list of lines can be told apart and counted.
+                  className="relative grid grid-cols-1 gap-3 rounded-lg border p-3 max-sm:bg-muted/40 max-sm:pt-4 sm:grid-cols-12"
+                >
+                  <span className="absolute top-0 right-3 -translate-y-1/2 rounded-full border bg-card px-2.5 py-0.5 text-xs font-medium text-muted-foreground sm:hidden">
+                    {t("form.lineNumber", { number: index + 1 })}
+                  </span>
+                  <div className="space-y-1.5 sm:col-span-5">
+                    <Label
+                      htmlFor={`items[${index}].description`}
+                      className="text-xs"
+                    >
+                      {t("form.lineDescription")}
+                    </Label>
+                    <Input
+                      id={`items[${index}].description`}
+                      name={`items[${index}].description`}
+                      value={line.description}
+                      onChange={(e) =>
+                        updateLine(index, "description", e.target.value)
+                      }
+                      placeholder={t("form.linePlaceholder")}
+                    />
+                  </div>
+
+                  <NumberCell
+                    index={index}
+                    field="quantity"
+                    label={t("form.quantity")}
+                    value={line.quantity}
+                    step="0.001"
+                    onChange={updateLine}
+                    className="sm:col-span-2"
+                  />
+                  <div className="space-y-1.5 sm:col-span-2">
+                    <Label
+                      htmlFor={`items[${index}].unitPrice`}
+                      className="text-xs"
+                    >
+                      {t("form.unitPrice")}
+                    </Label>
+                    <MoneyInput
+                      id={`items[${index}].unitPrice`}
+                      name={`items[${index}].unitPrice`}
+                      value={line.unitPrice}
+                      onChange={(value) => updateLine(index, "unitPrice", value)}
+                      currency={pickedCurrency}
+                      formatLocale={formatLocale}
+                      className="tabular-nums"
+                    />
+                  </div>
+                  <NumberCell
+                    index={index}
+                    field="discount"
+                    label={t("form.lineDiscount")}
+                    value={line.discount}
+                    step="0.01"
+                    max="100"
+                    onChange={updateLine}
+                    className="sm:col-span-2"
+                  />
+
+                  <div className="flex items-center justify-between gap-2 border-t pt-3 sm:col-span-1 sm:items-end sm:border-0 sm:pt-0">
+                    {/* The line's figure, named and made the largest thing on the
+                        card — it is what the line comes to. A phone only: from
+                        640px the subtotal line below says it. */}
+                    <div className="flex items-baseline gap-2 sm:hidden">
+                      <span className="text-sm text-muted-foreground">
+                        {t("form.lineTotal")}
+                      </span>
+                      <span className="text-lg font-semibold tabular-nums text-[var(--brand-ink)]">
+                        {money(totals.lineTotals[index] ?? 0)}
+                      </span>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      aria-label={t("form.removeLine", { position: index + 1 })}
+                      disabled={items.length === 1}
+                      onClick={() =>
+                        setItems((current) =>
+                          current.filter((_, i) => i !== index),
+                        )
+                      }
+                    >
+                      <Trash2 className="size-4" />
+                    </Button>
+                  </div>
+
+                  <p className="hidden text-right text-sm tabular-nums text-muted-foreground sm:col-span-12 sm:block">
+                    {t("form.lineSubtotal", {
+                      amount: money(totals.lineTotals[index] ?? 0),
+                    })}
+                  </p>
+                </div>
+                </SortableLineRow>
+              ))}
+                  </div>
+                </SortableContext>
+              </DndContext>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">
+                {t("form.notesSection")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label>{t("form.intro")}</Label>
+                <RichTextEditor
+                  name="intro"
+                  defaultValue={toRichTextHtml(defaults.intro)}
+                  ariaLabel={t("form.intro")}
+                />
+                <p className="text-xs text-muted-foreground">
+                  {t("form.introHint")}
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <Label>{t("form.notes")}</Label>
+                <RichTextEditor
+                  name="notes"
+                  defaultValue={toRichTextHtml(defaults.notes)}
+                  ariaLabel={t("form.notes")}
+                />
+              </div>
+              {/* The order the customer reads them in, and the PDF prints them in:
+                  notes, the terms with the full document that goes with them,
+                  then what is excluded. */}
+              <div className="space-y-2">
+                <Label>{t("form.terms")}</Label>
+                <RichTextEditor
+                  name="terms"
+                  defaultValue={toRichTextHtml(defaults.terms)}
+                  ariaLabel={t("form.terms")}
+                />
+              </div>
+
+              {documents.length > 0 ? (
+                <div className="space-y-2">
+                  <Label htmlFor="termsDocumentId">
+                    {t("form.termsDocument")}
+                  </Label>
                   <NativeSelect
-                    id="quoteType"
-                    name="quoteType"
-                    defaultValue={defaults.quoteType ?? quoteTypes[0]}
-                    options={quoteTypes.map((label) => ({
-                      value: label,
-                      label,
+                    id="termsDocumentId"
+                    name="termsDocumentId"
+                    defaultValue={defaults.termsDocumentId ?? ""}
+                    placeholder={t("form.noTerms")}
+                    options={documents.map((doc) => ({
+                      value: doc.id,
+                      label: doc.name,
                     }))}
                   />
                 </div>
               ) : null}
 
               <div className="space-y-2">
-                <Label htmlFor="title">{t("form.title")}</Label>
-                <Input
-                  id="title"
-                  name="title"
-                  required
-                  defaultValue={defaults.title}
+                <Label>{t("form.exclusions")}</Label>
+                <RichTextEditor
+                  name="exclusions"
+                  defaultValue={toRichTextHtml(defaults.exclusions)}
+                  ariaLabel={t("form.exclusions")}
                 />
-                {state.fieldErrors?.title ? (
-                  <p className="text-sm text-destructive">
-                    {state.fieldErrors.title[0]}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className={after ? "space-y-6 lg:row-span-2" : "space-y-6"}>
+          <Card className="lg:sticky lg:top-6">
+            <CardHeader>
+              <CardTitle className="text-base">{t("form.totals")}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="currency">{t("form.currency")}</Label>
+                <NativeSelect
+                  id="currency"
+                  name="currency"
+                  value={pickedCurrency}
+                  onChange={(event) => setPickedCurrency(event.target.value)}
+                  options={currencies}
+                />
+                {pickedCurrency !== currency ? (
+                  <p className="text-xs text-muted-foreground">
+                    {t("form.currencyDiffers", { currency })}
                   </p>
                 ) : null}
               </div>
-            </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="projectAddress">{t("form.projectAddress")}</Label>
-              <Input
-                id="projectAddress"
-                name="projectAddress"
-                defaultValue={defaults.projectAddress ?? ""}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="scope">{t("form.scope")}</Label>
-              {/* Plain text, not the rich editor the other three texts use —
-                  it's a short line, not prose, and still travels through the
-                  same `cleanBody`/`sanitizeRichText` pipeline server-side
-                  (wrapped in a paragraph tag there), so the portal's
-                  `RichText` render stays untouched and existing HTML-bearing
-                  values still display read as plain text, not raw tags. */}
-              <Input
-                id="scope"
-                name="scope"
-                defaultValue={richTextToPlain(defaults.scope)}
-              />
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="leadId">{t("form.lead")}</Label>
-                <SearchCombobox
-                  id="leadId"
-                  name="leadId"
-                  value={selectedLead}
-                  onSelect={setSelectedLead}
-                  search={searchLeads}
-                  placeholder={t("form.noLead")}
-                  searchPlaceholder={t("form.searchLeads")}
-                  emptyLabel={t("form.noLeadsFound")}
-                  noneLabel={t("form.noLead")}
-                  disabled={!leadChangeable}
-                  aria-describedby={leadChangeable ? undefined : "leadId-fixed"}
-                />
-                {leadChangeable ? null : (
-                  <p id="leadId-fixed" className="text-xs text-muted-foreground">
-                    {t("form.leadFixedOnceSent")}
-                  </p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="validUntil">{t("form.validUntil")}</Label>
-                <Input
-                  id="validUntil"
-                  name="validUntil"
-                  type="date"
-                  defaultValue={defaults.validUntil ?? ""}
-                />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {afterDetails}
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">
-              {t("form.pricingMode.label")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <input type="hidden" name="pricingMode" value={pricingMode} />
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {[PricingMode.ITEMIZED, PricingMode.SECTIONS].map((mode) => {
-                const selected = pricingMode === mode;
-                return (
-                  <button
-                    key={mode}
-                    type="button"
-                    aria-pressed={selected}
-                    onClick={() => setPricingMode(mode)}
-                    className={`rounded-lg border p-3 text-left transition-colors ${
-                      selected
-                        ? "border-primary bg-primary/5"
-                        : "hover:bg-accent hover:text-accent-foreground"
-                    }`}
-                  >
-                    <span className="block text-sm font-medium">
-                      {t(`form.pricingMode.${mode}`)}
-                    </span>
-                    <span className="mt-0.5 block text-xs text-muted-foreground">
-                      {t(`form.pricingMode.${mode}_hint`)}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Mounted-but-hidden rather than unmounted, same as the Lines card
-            below: switching away from SECTIONS and back used to lose
-            whatever was being typed into a section, which the Lines card was
-            already protected against. */}
-        <Card className={bySections ? undefined : "hidden"}>
-          <CardHeader className="flex-row items-center justify-between space-y-0">
-            <CardTitle className="text-base">{t("form.sections")}</CardTitle>
-            <Button
-              type="button"
-              size="sm"
-              variant="outline"
-              onClick={() =>
-                setSections((current) => [...current, emptySection()])
-              }
-            >
-              <Plus className="size-4" />
-              {t("form.addSection")}
-            </Button>
-          </CardHeader>
-
-          <CardContent className="space-y-4">
-            {state.fieldErrors?.sections ? (
-              <ListError state={state} message={state.fieldErrors.sections[0]} />
-            ) : null}
-
-            <div className="space-y-3 rounded-lg border border-primary/20 bg-primary/5 p-3">
-              <div>
-                <p className="text-sm font-medium">
-                  {t("form.bundleDiscount.title")}
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  {t("form.bundleDiscount.hint")}
-                </p>
-              </div>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                <div className="space-y-1.5">
-                  <Label
-                    htmlFor="optionalDiscountThreshold"
-                    className="text-xs"
-                  >
-                    {t("form.bundleDiscount.threshold")}
-                  </Label>
-                  <Input
-                    id="optionalDiscountThreshold"
-                    name="optionalDiscountThreshold"
-                    type="number"
-                    min={0}
-                    step="1"
-                    value={optionalDiscountThreshold}
-                    onChange={(e) =>
-                      setOptionalDiscountThreshold(e.target.value)
-                    }
-                  />
-                </div>
-
-                <div className="space-y-1.5">
-                  <Label htmlFor="optionalDiscountType" className="text-xs">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="discountType">
                     {t("form.discountType.label")}
                   </Label>
                   <NativeSelect
-                    id="optionalDiscountType"
-                    name="optionalDiscountType"
-                    value={optionalDiscountType}
-                    onChange={(e) =>
-                      setOptionalDiscountType(e.target.value as DiscountType)
+                    id="discountType"
+                    name="discountType"
+                    value={discountType}
+                    onChange={(event) =>
+                      setDiscountType(event.target.value as DiscountType)
                     }
                     options={[
                       {
-                        value: DiscountType.PERCENT,
-                        label: t("form.discountType.PERCENT"),
-                      },
-                      {
                         value: DiscountType.FIXED,
                         label: t("form.discountType.FIXED"),
+                      },
+                      {
+                        value: DiscountType.PERCENT,
+                        label: t("form.discountType.PERCENT"),
                       },
                     ]}
                   />
                 </div>
 
-                <div className="space-y-1.5">
-                  <Label htmlFor="optionalDiscountValue" className="text-xs">
-                    {optionalDiscountType === DiscountType.PERCENT
-                      ? t("form.discountValuePercent")
-                      : t("form.discountValue", { currency: pickedCurrency })}
+                <div className="space-y-2">
+                  <Label htmlFor="discount">
+                    {discountType === DiscountType.PERCENT
+                      ? t("form.globalDiscountPercent")
+                      : t("form.globalDiscount", { currency: pickedCurrency })}
                   </Label>
-                  {optionalDiscountType === DiscountType.PERCENT ? (
+                  {discountType === DiscountType.PERCENT ? (
                     <Input
-                      id="optionalDiscountValue"
-                      name="optionalDiscountValue"
+                      id="discount"
+                      name="discount"
                       type="number"
                       min={0}
                       max={100}
                       step="0.01"
-                      value={optionalDiscountValue}
-                      onChange={(e) => setOptionalDiscountValue(e.target.value)}
+                      value={discount}
+                      onChange={(e) => setDiscount(e.target.value)}
                     />
                   ) : (
                     <MoneyInput
-                      id="optionalDiscountValue"
-                      name="optionalDiscountValue"
-                      value={optionalDiscountValue}
-                      onChange={setOptionalDiscountValue}
+                      id="discount"
+                      name="discount"
+                      value={discount}
+                      onChange={setDiscount}
                       currency={pickedCurrency}
                       formatLocale={formatLocale}
                     />
                   )}
-                  {state.fieldErrors?.optionalDiscountValue ? (
+                  {state.fieldErrors?.discount ? (
                     <p className="text-sm text-destructive">
-                      {state.fieldErrors.optionalDiscountValue[0]}
+                      {state.fieldErrors.discount[0]}
                     </p>
                   ) : null}
                 </div>
               </div>
-            </div>
 
-            <DndContext
-              id="quote-sections"
-              sensors={sectionSensors}
-              collisionDetection={closestCenter}
-              onDragEnd={handleSectionDragEnd}
-            >
-              <SortableContext
-                items={sections.map((section) => section.id)}
-                strategy={verticalListSortingStrategy}
-              >
-                <div className="space-y-4">
-                  {sections.map((section, index) => (
-                    <SortableSectionRow
-                      key={section.id}
-                      id={section.id}
-                      dragLabel={t("form.dragSectionHandle")}
-                      canMoveUp={index > 0}
-                      canMoveDown={index < sections.length - 1}
-                      onMoveUp={() => moveSection(section.id, -1)}
-                      onMoveDown={() => moveSection(section.id, 1)}
-                      moveUpLabel={t("form.moveSectionUp", {
-                        position: index + 1,
-                      })}
-                      moveDownLabel={t("form.moveSectionDown", {
-                        position: index + 1,
-                      })}
-                      collapsed={collapsedSections.has(section.id)}
-                      onToggleCollapsed={() => toggleSectionCollapsed(section.id)}
-                      collapseLabel={t("form.collapseSection")}
-                      expandLabel={t("form.expandSection")}
-                      summary={
-                        <div className="flex flex-wrap items-baseline gap-x-2">
-                          <span
-                            className={`truncate text-sm ${
-                              section.title
-                                ? "font-medium"
-                                : "text-muted-foreground italic"
-                            }`}
-                          >
-                            {section.title || t("form.sectionUntitled")}
-                          </span>
-                          <span className="shrink-0 text-sm tabular-nums text-muted-foreground">
-                            {money(Number(section.amount) || 0)}
-                          </span>
-                        </div>
-                      }
-                    >
-                      {/* The id a persisted row already has, or the
-                          client-only tracking id of a brand new one —
-                          `updateQuote` tells the two apart on save, and only
-                          the first kind matches anything to update in place. */}
-                      <input
-                        type="hidden"
-                        name={`sections[${index}].id`}
-                        value={section.id}
-                      />
-                      {/* `grid` rather than `flex` — a fixed column template
-                          keeps the title and price columns at the same width
-                          and the same baseline on every row, instead of each
-                          relying on `flex-wrap` to land the same way. */}
-                      <div className="grid grid-cols-[1fr_auto] items-end gap-3 sm:grid-cols-[1fr_160px_auto]">
-                        <div className="order-1 min-w-0 space-y-1.5 sm:order-none">
-                          <Label
-                            htmlFor={`sections[${index}].title`}
-                            className="text-xs"
-                          >
-                            {t("form.sectionTitle")}
-                          </Label>
-                          <Input
-                            id={`sections[${index}].title`}
-                            name={`sections[${index}].title`}
-                            value={section.title}
-                            onChange={(e) =>
-                              updateSection(index, "title", e.target.value)
-                            }
-                            placeholder={t("form.sectionTitlePlaceholder")}
-                          />
-                        </div>
-
-                        <div className="order-3 col-span-2 space-y-1.5 sm:order-none sm:col-span-1">
-                          <Label
-                            htmlFor={`sections[${index}].amount`}
-                            className="text-xs"
-                          >
-                            {t("form.sectionAmount", {
-                              currency: pickedCurrency,
-                            })}
-                          </Label>
-                          <MoneyInput
-                            id={`sections[${index}].amount`}
-                            name={`sections[${index}].amount`}
-                            value={section.amount}
-                            onChange={(value) =>
-                              updateSection(index, "amount", value)
-                            }
-                            currency={pickedCurrency}
-                            formatLocale={formatLocale}
-                            className="tabular-nums mb-0"
-                          />
-                        </div>
-
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="icon"
-                          className="order-2 sm:order-none"
-                          aria-label={t("form.removeSection", {
-                            position: index + 1,
-                          })}
-                          disabled={sections.length === 1}
-                          onClick={() =>
-                            setSections((current) =>
-                              current.filter((s) => s.id !== section.id),
-                            )
-                          }
-                        >
-                          <Trash2 className="size-4" />
-                        </Button>
-                      </div>
-
-                      <div className="flex flex-wrap items-end gap-3">
-                        <div className="min-w-48 space-y-1.5">
-                          <Label
-                            htmlFor={`sections[${index}].kind`}
-                            className="text-xs"
-                          >
-                            {t("form.sectionKind.label")}
-                          </Label>
-                          <NativeSelect
-                            id={`sections[${index}].kind`}
-                            name={`sections[${index}].kind`}
-                            value={section.kind}
-                            onChange={(e) =>
-                              updateSection(index, "kind", e.target.value)
-                            }
-                            options={Object.values(QuoteSectionKind).map(
-                              (kind) => ({
-                                value: kind,
-                                label: t(`form.sectionKind.${kind}`),
-                              }),
-                            )}
-                          />
-                        </div>
-
-                        {section.kind !== QuoteSectionKind.INDEPENDENT ? (
-                          <label className="flex items-center gap-2 pb-2 text-sm">
-                            <Checkbox
-                              name={`sections[${index}].selectedByDefault`}
-                              checked={section.selectedByDefault}
-                              onCheckedChange={(checked) =>
-                                setSections((current) =>
-                                  current.map((s, i) =>
-                                    i === index
-                                      ? {
-                                          ...s,
-                                          selectedByDefault: checked === true,
-                                        }
-                                      : s,
-                                  ),
-                                )
-                              }
-                            />
-                            {t("form.sectionSelectedByDefault")}
-                          </label>
-                        ) : null}
-                      </div>
-
-                      {/* `items-start` rather than `items-end`: Final Price is
-                          plain text, shorter than the other two columns'
-                          label-plus-input stack, and bottom-aligning it left
-                          its own label sitting visibly lower than "Discount
-                          type"/"Discount value" above it. */}
-                      <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-[30%_30%_35%]">
-                        <div className="space-y-1.5">
-                          <Label
-                            htmlFor={`sections[${index}].discountType`}
-                            className="text-xs"
-                          >
-                            {t("form.discountType.label")}
-                          </Label>
-                          <NativeSelect
-                            id={`sections[${index}].discountType`}
-                            name={`sections[${index}].discountType`}
-                            value={section.discountType}
-                            onChange={(e) =>
-                              updateSection(
-                                index,
-                                "discountType",
-                                e.target.value,
-                              )
-                            }
-                            options={[
-                              {
-                                value: DiscountType.FIXED,
-                                label: t("form.discountType.FIXED"),
-                              },
-                              {
-                                value: DiscountType.PERCENT,
-                                label: t("form.discountType.PERCENT"),
-                              },
-                            ]}
-                          />
-                        </div>
-
-                        <div className="space-y-1.5">
-                          <Label
-                            htmlFor={`sections[${index}].discountValue`}
-                            className="text-xs"
-                          >
-                            {section.discountType === DiscountType.PERCENT
-                              ? t("form.discountValuePercent")
-                              : t("form.discountValue", {
-                                  currency: pickedCurrency,
-                                })}
-                          </Label>
-                          {section.discountType === DiscountType.PERCENT ? (
-                            <Input
-                              id={`sections[${index}].discountValue`}
-                              name={`sections[${index}].discountValue`}
-                              type="number"
-                              min={0}
-                              max={100}
-                              step="0.01"
-                              value={section.discountValue}
-                              onChange={(e) =>
-                                updateSection(
-                                  index,
-                                  "discountValue",
-                                  e.target.value,
-                                )
-                              }
-                            />
-                          ) : (
-                            <MoneyInput
-                              id={`sections[${index}].discountValue`}
-                              name={`sections[${index}].discountValue`}
-                              value={section.discountValue}
-                              onChange={(value) =>
-                                updateSection(index, "discountValue", value)
-                              }
-                              currency={pickedCurrency}
-                              formatLocale={formatLocale}
-                            />
-                          )}
-                        </div>
-
-                        <div className="flex items-baseline justify-between gap-3 sm:block sm:space-y-1.5 sm:text-right">
-                          <p className="text-sm text-muted-foreground">
-                            {t("form.sectionFinalPrice")}
-                          </p>
-                          <p className="text-lg font-medium tabular-nums">
-                            {money(
-                              sectionNetAmount({
-                                amount: Number(section.amount) || 0,
-                                discountType: section.discountType,
-                                discountValue:
-                                  Number(section.discountValue) || 0,
-                              }),
-                            )}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="space-y-1.5">
-                        <Label className="text-xs">
-                          {t("form.sectionBody")}
-                        </Label>
-                        {/* The content travels in a hidden field, so the form
-                            stays an ordinary form. */}
-                        <RichTextEditor
-                          name={`sections[${index}].body`}
-                          defaultValue={section.body}
-                          ariaLabel={t("form.sectionBody")}
-                          placeholder={t("form.sectionBodyPlaceholder")}
-                        />
-                      </div>
-
-                      {quoteId && uploadAttachment && deleteAttachment && section.persisted ? (
-                        <AttachmentsManager
-                          quoteId={quoteId}
-                          sectionId={section.id}
-                          attachments={section.attachments}
-                          canManage
-                          formatLocale={formatLocale}
-                          compact
-                          uploadActions={uploadAttachment}
-                          deleteAction={deleteAttachment}
-                        />
-                      ) : null}
-                    </SortableSectionRow>
-                  ))}
-                </div>
-              </SortableContext>
-            </DndContext>
-          </CardContent>
-        </Card>
-
-        <Card className={bySections ? "hidden" : undefined}>
-          <CardHeader className="flex-row items-center justify-between space-y-0">
-            <CardTitle className="text-base">{t("form.lines")}</CardTitle>
-            <Button
-              type="button"
-              size="sm"
-              variant="outline"
-              onClick={() =>
-                setItems((current) => [...current, withKey(EMPTY_LINE)])
-              }
-            >
-              <Plus className="size-4" />
-              {t("form.addLine")}
-            </Button>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {state.fieldErrors?.items ? (
-              <ListError state={state} message={state.fieldErrors.items[0]} />
-            ) : null}
-
-            {hasCatalogue ? (
-              <div className="flex flex-wrap items-end gap-2 rounded-lg bg-panel p-3">
-                <div className="min-w-56 flex-1 space-y-1.5">
-                  <Label htmlFor="catalogue" className="text-xs">
-                    {t("form.fromCatalogue")}
-                  </Label>
-                  <SearchCombobox
-                    id="catalogue"
-                    value={null}
-                    onSelect={(option) => {
-                      if (option) addFromCatalogue(option);
-                    }}
-                    search={searchCatalogue}
-                    placeholder={t("form.pickFromCatalogue")}
-                    searchPlaceholder={t("form.searchCatalogue")}
-                    emptyLabel={t("form.noCatalogueFound")}
-                  />
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  {t("form.catalogueHint")}
-                </p>
-              </div>
-            ) : null}
-
-            <DndContext
-              id="quote-lines"
-              sensors={sectionSensors}
-              collisionDetection={closestCenter}
-              onDragEnd={handleLineDragEnd}
-            >
-              <SortableContext
-                items={items.map((line) => line.key)}
-                strategy={verticalListSortingStrategy}
-              >
-                <div className="space-y-4">
-            {items.map((line, index) => (
-              <SortableLineRow
-                key={line.key}
-                id={line.key}
-                dragLabel={t("form.dragLineHandle", { position: index + 1 })}
-                canMoveUp={index > 0}
-                canMoveDown={index < items.length - 1}
-                onMoveUp={() => moveLine(line.key, -1)}
-                onMoveDown={() => moveLine(line.key, 1)}
-                moveUpLabel={t("form.moveLineUp", { position: index + 1 })}
-                moveDownLabel={t("form.moveLineDown", { position: index + 1 })}
-              >
-              <div
-                // On a phone each line is a card of its own: a tone apart from
-                // the card around it, and numbered by a chip sitting on its top
-                // edge, so a long list of lines can be told apart and counted.
-                className="relative grid grid-cols-1 gap-3 rounded-lg border p-3 max-sm:bg-muted/40 max-sm:pt-4 sm:grid-cols-12"
-              >
-                <span className="absolute top-0 right-3 -translate-y-1/2 rounded-full border bg-card px-2.5 py-0.5 text-xs font-medium text-muted-foreground sm:hidden">
-                  {t("form.lineNumber", { number: index + 1 })}
-                </span>
-                <div className="space-y-1.5 sm:col-span-5">
-                  <Label
-                    htmlFor={`items[${index}].description`}
-                    className="text-xs"
-                  >
-                    {t("form.lineDescription")}
-                  </Label>
-                  <Input
-                    id={`items[${index}].description`}
-                    name={`items[${index}].description`}
-                    value={line.description}
-                    onChange={(e) =>
-                      updateLine(index, "description", e.target.value)
-                    }
-                    placeholder={t("form.linePlaceholder")}
-                  />
-                </div>
-
-                <NumberCell
-                  index={index}
-                  field="quantity"
-                  label={t("form.quantity")}
-                  value={line.quantity}
-                  step="0.001"
-                  onChange={updateLine}
-                  className="sm:col-span-2"
-                />
-                <div className="space-y-1.5 sm:col-span-2">
-                  <Label
-                    htmlFor={`items[${index}].unitPrice`}
-                    className="text-xs"
-                  >
-                    {t("form.unitPrice")}
-                  </Label>
-                  <MoneyInput
-                    id={`items[${index}].unitPrice`}
-                    name={`items[${index}].unitPrice`}
-                    value={line.unitPrice}
-                    onChange={(value) => updateLine(index, "unitPrice", value)}
-                    currency={pickedCurrency}
-                    formatLocale={formatLocale}
-                    className="tabular-nums"
-                  />
-                </div>
-                <NumberCell
-                  index={index}
-                  field="discount"
-                  label={t("form.lineDiscount")}
-                  value={line.discount}
-                  step="0.01"
-                  max="100"
-                  onChange={updateLine}
-                  className="sm:col-span-2"
-                />
-
-                <div className="flex items-center justify-between gap-2 border-t pt-3 sm:col-span-1 sm:items-end sm:border-0 sm:pt-0">
-                  {/* The line's figure, named and made the largest thing on the
-                      card — it is what the line comes to. A phone only: from
-                      640px the subtotal line below says it. */}
-                  <div className="flex items-baseline gap-2 sm:hidden">
-                    <span className="text-sm text-muted-foreground">
-                      {t("form.lineTotal")}
-                    </span>
-                    <span className="text-lg font-semibold tabular-nums text-[var(--brand-ink)]">
-                      {money(totals.lineTotals[index] ?? 0)}
-                    </span>
-                  </div>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    aria-label={t("form.removeLine", { position: index + 1 })}
-                    disabled={items.length === 1}
-                    onClick={() =>
-                      setItems((current) =>
-                        current.filter((_, i) => i !== index),
-                      )
-                    }
-                  >
-                    <Trash2 className="size-4" />
-                  </Button>
-                </div>
-
-                <p className="hidden text-right text-sm tabular-nums text-muted-foreground sm:col-span-12 sm:block">
-                  {t("form.lineSubtotal", {
-                    amount: money(totals.lineTotals[index] ?? 0),
-                  })}
-                </p>
-              </div>
-              </SortableLineRow>
-            ))}
-                </div>
-              </SortableContext>
-            </DndContext>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">
-              {t("form.notesSection")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label>{t("form.intro")}</Label>
-              <RichTextEditor
-                name="intro"
-                defaultValue={toRichTextHtml(defaults.intro)}
-                ariaLabel={t("form.intro")}
-              />
-              <p className="text-xs text-muted-foreground">
-                {t("form.introHint")}
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <Label>{t("form.notes")}</Label>
-              <RichTextEditor
-                name="notes"
-                defaultValue={toRichTextHtml(defaults.notes)}
-                ariaLabel={t("form.notes")}
-              />
-            </div>
-            {/* The order the customer reads them in, and the PDF prints them in:
-                notes, the terms with the full document that goes with them,
-                then what is excluded. */}
-            <div className="space-y-2">
-              <Label>{t("form.terms")}</Label>
-              <RichTextEditor
-                name="terms"
-                defaultValue={toRichTextHtml(defaults.terms)}
-                ariaLabel={t("form.terms")}
-              />
-            </div>
-
-            {documents.length > 0 ? (
               <div className="space-y-2">
-                <Label htmlFor="termsDocumentId">
-                  {t("form.termsDocument")}
-                </Label>
+                <Label htmlFor="taxDisplayMode">{t("form.taxDisplayMode")}</Label>
                 <NativeSelect
-                  id="termsDocumentId"
-                  name="termsDocumentId"
-                  defaultValue={defaults.termsDocumentId ?? ""}
-                  placeholder={t("form.noTerms")}
-                  options={documents.map((doc) => ({
-                    value: doc.id,
-                    label: doc.name,
+                  id="taxDisplayMode"
+                  name="taxDisplayMode"
+                  value={pickedTaxDisplayMode}
+                  onChange={(event) =>
+                    setPickedTaxDisplayMode(event.target.value as TaxDisplayMode)
+                  }
+                  options={Object.values(TaxDisplayMode).map((mode) => ({
+                    value: mode,
+                    label: t(`taxDisplayMode.${mode}`),
                   }))}
                 />
               </div>
-            ) : null}
 
-            <div className="space-y-2">
-              <Label>{t("form.exclusions")}</Label>
-              <RichTextEditor
-                name="exclusions"
-                defaultValue={toRichTextHtml(defaults.exclusions)}
-                ariaLabel={t("form.exclusions")}
-              />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="space-y-6">
-        <Card className="lg:sticky lg:top-6">
-          <CardHeader>
-            <CardTitle className="text-base">{t("form.totals")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="currency">{t("form.currency")}</Label>
-              <NativeSelect
-                id="currency"
-                name="currency"
-                value={pickedCurrency}
-                onChange={(event) => setPickedCurrency(event.target.value)}
-                options={currencies}
-              />
-              {pickedCurrency !== currency ? (
-                <p className="text-xs text-muted-foreground">
-                  {t("form.currencyDiffers", { currency })}
-                </p>
-              ) : null}
-            </div>
-
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="discountType">
-                  {t("form.discountType.label")}
-                </Label>
-                <NativeSelect
-                  id="discountType"
-                  name="discountType"
-                  value={discountType}
-                  onChange={(event) =>
-                    setDiscountType(event.target.value as DiscountType)
-                  }
-                  options={[
-                    {
-                      value: DiscountType.FIXED,
-                      label: t("form.discountType.FIXED"),
-                    },
-                    {
-                      value: DiscountType.PERCENT,
-                      label: t("form.discountType.PERCENT"),
-                    },
-                  ]}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="discount">
-                  {discountType === DiscountType.PERCENT
-                    ? t("form.globalDiscountPercent")
-                    : t("form.globalDiscount", { currency: pickedCurrency })}
-                </Label>
-                {discountType === DiscountType.PERCENT ? (
+              {pickedTaxDisplayMode !== TaxDisplayMode.NO_TAX ? (
+                <div className="space-y-2">
+                  <Label htmlFor="taxRate">{t("form.taxRate")}</Label>
                   <Input
-                    id="discount"
-                    name="discount"
+                    id="taxRate"
+                    name="taxRate"
                     type="number"
                     min={0}
                     max={100}
                     step="0.01"
-                    value={discount}
-                    onChange={(e) => setDiscount(e.target.value)}
+                    value={taxRate}
+                    onChange={(e) => setTaxRate(e.target.value)}
                   />
-                ) : (
-                  <MoneyInput
-                    id="discount"
-                    name="discount"
-                    value={discount}
-                    onChange={setDiscount}
-                    currency={pickedCurrency}
-                    formatLocale={formatLocale}
-                  />
-                )}
-                {state.fieldErrors?.discount ? (
-                  <p className="text-sm text-destructive">
-                    {state.fieldErrors.discount[0]}
-                  </p>
-                ) : null}
-              </div>
-            </div>
+                </div>
+              ) : (
+                // Unmounting the field entirely would drop it from the posted
+                // form, and `taxRate` would arrive as if nobody had ever set one —
+                // the parser's fallback would then overwrite whatever rate this
+                // quote actually had. Carrying it hidden is what lets `NO_TAX`
+                // toggle back to a tax mode without the rate resetting under it.
+                <input type="hidden" name="taxRate" value={taxRate} />
+              )}
 
-            <div className="space-y-2">
-              <Label htmlFor="taxDisplayMode">{t("form.taxDisplayMode")}</Label>
-              <NativeSelect
-                id="taxDisplayMode"
-                name="taxDisplayMode"
-                value={pickedTaxDisplayMode}
-                onChange={(event) =>
-                  setPickedTaxDisplayMode(event.target.value as TaxDisplayMode)
-                }
-                options={Object.values(TaxDisplayMode).map((mode) => ({
-                  value: mode,
-                  label: t(`taxDisplayMode.${mode}`),
-                }))}
-              />
-            </div>
+              <p className="text-xs text-muted-foreground">{taxHint}</p>
 
-            {pickedTaxDisplayMode !== TaxDisplayMode.NO_TAX ? (
-              <div className="space-y-2">
-                <Label htmlFor="taxRate">{t("form.taxRate")}</Label>
-                <Input
-                  id="taxRate"
-                  name="taxRate"
-                  type="number"
-                  min={0}
-                  max={100}
-                  step="0.01"
-                  value={taxRate}
-                  onChange={(e) => setTaxRate(e.target.value)}
+              <dl className="space-y-1.5 border-t pt-4 text-sm">
+                <Row label={t("form.subtotal")} value={money(totals.subtotal)} />
+                <Row
+                  label={t("form.discount")}
+                  value={`− ${money(totals.discount)}`}
                 />
-              </div>
-            ) : (
-              // Unmounting the field entirely would drop it from the posted
-              // form, and `taxRate` would arrive as if nobody had ever set one —
-              // the parser's fallback would then overwrite whatever rate this
-              // quote actually had. Carrying it hidden is what lets `NO_TAX`
-              // toggle back to a tax mode without the rate resetting under it.
-              <input type="hidden" name="taxRate" value={taxRate} />
-            )}
+                {taxIsInTotal(pickedTaxDisplayMode) ? (
+                  <Row label={taxLabel} value={money(totals.taxAmount)} />
+                ) : null}
+                <div className="flex items-center justify-between border-t pt-2 text-base font-semibold">
+                  <dt>{t("form.total")}</dt>
+                  <dd className="tabular-nums">{money(totals.total)}</dd>
+                </div>
+              </dl>
 
-            <p className="text-xs text-muted-foreground">{taxHint}</p>
-
-            <dl className="space-y-1.5 border-t pt-4 text-sm">
-              <Row label={t("form.subtotal")} value={money(totals.subtotal)} />
-              <Row
-                label={t("form.discount")}
-                value={`− ${money(totals.discount)}`}
-              />
-              {taxIsInTotal(pickedTaxDisplayMode) ? (
-                <Row label={taxLabel} value={money(totals.taxAmount)} />
-              ) : null}
-              <div className="flex items-center justify-between border-t pt-2 text-base font-semibold">
-                <dt>{t("form.total")}</dt>
-                <dd className="tabular-nums">{money(totals.total)}</dd>
-              </div>
-            </dl>
-
-            {status === QuoteStatus.SENT ? (
-              <ConfirmButton
-                trigger={
-                  <Button type="button" className="w-full" disabled={pending}>
-                    {pending ? tCommon("saving") : submitLabel}
-                  </Button>
-                }
-                title={t("form.confirmSentEditTitle")}
-                description={
-                  <>
-                    {t("form.confirmSentEditBody")}
-                    <br />
-                    <span className="text-xs text-muted-foreground">
-                      {t("form.confirmSentEditNote")}
-                    </span>
-                  </>
-                }
-                confirmLabel={t("form.confirmSentEditConfirm")}
-                confirmVariant="default"
-                onConfirm={() => formRef.current?.requestSubmit()}
-              />
-            ) : (
-              <Button type="submit" className="w-full" disabled={pending}>
-                {pending ? tCommon("saving") : submitLabel}
-              </Button>
-            )}
-          </CardContent>
-        </Card>
-      </div>
-    </form>
+              {status === QuoteStatus.SENT ? (
+                <ConfirmButton
+                  trigger={
+                    <Button type="button" className="w-full" disabled={pending}>
+                      {pending ? tCommon("saving") : submitLabel}
+                    </Button>
+                  }
+                  title={t("form.confirmSentEditTitle")}
+                  description={
+                    <>
+                      {t("form.confirmSentEditBody")}
+                      <br />
+                      <span className="text-xs text-muted-foreground">
+                        {t("form.confirmSentEditNote")}
+                      </span>
+                    </>
+                  }
+                  confirmLabel={t("form.confirmSentEditConfirm")}
+                  confirmVariant="default"
+                  onConfirm={() => formRef.current?.requestSubmit()}
+                />
+              ) : (
+                <Button type="submit" className="w-full" disabled={pending}>
+                  {pending ? tCommon("saving") : submitLabel}
+                </Button>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      </form>
+      {after ? <div className="min-w-0 space-y-6 lg:col-span-2">{after}</div> : null}
+    </div>
   );
 }
 

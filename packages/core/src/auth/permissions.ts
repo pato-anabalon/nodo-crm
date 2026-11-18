@@ -18,6 +18,7 @@ export const PERMISSION_MODULES = [
   // Module Jobs: one module per tool, so the profile grid groups them that way
   // and a profile can be given the Schedule without the Chat.
   "jobs",
+  "scope",
   "messages",
   "comments",
   "todos",
@@ -101,6 +102,12 @@ export const PERMISSIONS = [
   // Edit and delete what **somebody else** wrote or uploaded. Without it,
   // `*.update` and `*.delete` on authored content reach only one's own.
   "jobs.moderate",
+
+  // Scope of work: what was quoted, copied onto the job. Its own pair so a
+  // company decides who reads what was sold and who may change it on site.
+  "scope.read",
+  // Add, edit and delete its lines — each kept with who and what it was.
+  "scope.update",
 
   // Message board
   "messages.read",

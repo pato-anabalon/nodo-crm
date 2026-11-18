@@ -218,6 +218,7 @@ enum NotificationKind {
   JOB_CHAT_MENTION
   JOB_FINISHED
   JOB_TODO_DUE
+  QUOTE_EXPIRED_OPENED
 }
 
 /**
@@ -457,9 +458,12 @@ model Company {
   jobEventParticipants    JobEventParticipant[]
   jobChatMessages         JobChatMessage[]
   jobScopeItems           JobScopeItem[]
+  jobScopeChanges         JobScopeChange[]
   trades                  Trade[]
   timeEntries             TimeEntry[]
   locationPings           LocationPing[]
+  timesheetDays           TimesheetDay[]
+  timesheetChanges        TimesheetChange[]
 
   @@index([isActive])
 }
@@ -548,6 +552,12 @@ model User {
   timeEntries             TimeEntry[]              @relation("TimeEntryUser")
   timeEntriesCreated      TimeEntry[]              @relation("TimeEntryCreatedBy")
   timeEntriesEdited       TimeEntry[]              @relation("TimeEntryEditedBy")
+  timesheetDays           TimesheetDay[]           @relation("TimesheetDayUser")
+  timesheetDaysEdited     TimesheetDay[]           @relation("TimesheetDayEditedBy")
+  timesheetChanges        TimesheetChange[]        @relation("TimesheetChangeUser")
+  timesheetChangesMade    TimesheetChange[]        @relation("TimesheetChangeAuthor")
+  jobScopeItemsEdited     JobScopeItem[]           @relation("JobScopeItemEditedBy")
+  jobScopeChangesMade     JobScopeChange[]         @relation("JobScopeChangeAuthor")
 }
 
 // A user can belong to several companies, with a different profile in each.
@@ -1608,6 +1618,12 @@ model QuoteShare {
   companyId String
   quoteId   String @unique
 
+  /**
+   * Not set by sending any more: a link lives until it is revoked, and a quote
+   * that ran out is shown to its customer as expired, with nothing to accept.
+   * Links sent before carried the quote's `validUntil` here, cleared by the
+   * `quote_links_stay_open` migration.
+   */
   expiresAt DateTime?
   revokedAt DateTime?
 
@@ -2224,6 +2240,7 @@ model Job {
   events       JobEvent[]
   chatMessages JobChatMessage[]
   scopeItems   JobScopeItem[]
+  scopeChanges JobScopeChange[]
   timeEntries  TimeEntry[]
 
   @@index([companyId, status])
@@ -2385,6 +2402,12 @@ enum JobActivityType {
    * which one after the link is gone.
    */
   QUOTE_UNLINKED
+  /**
+   * params: `{ action, title, itemId? }` — `action` is `added`, `edited` or
+   * `deleted`; `title` the line's title as it stands after (before, for a
+   * deletion). The whole change, before and after, is in `JobScopeChange`.
+   */
+  SCOPE_CHANGED
 }
 
 /**
@@ -2743,24 +2766,63 @@ model JobChatMessage {
 /**
  * One line of what was quoted — an item's description, or a section's title and
  * write-up — copied onto the job when it starts. Never an amount: a job is read
- * by people with no business seeing the price. Not editable: it is the frame
- * the work was agreed in, and a copy that drifted from the quote would stop
- * being a reference.
+ * by people with no business seeing the price.
+ * Edited on the job with `scope.update`: what was sold is where the work
+ * starts, and what is agreed on site moves it. Every change is kept in
+ * `JobScopeChange`, with what it was, so the job can still say what the quote
+ * said. `editedById`/`editedAt` are the last hand on it; null on a line still
+ * exactly as the quote had it.
  */
 model JobScopeItem {
-  id        String   @id @default(cuid())
-  companyId String
-  jobId     String
-  position  Int
-  title     String
+  id         String    @id @default(cuid())
+  companyId  String
+  jobId      String
+  position   Int
+  title      String
   // Sanitised rich-text HTML (basic profile). Null for a line of an itemised quote.
-  body      String?
-  createdAt DateTime @default(now())
+  body       String?
+  createdAt  DateTime  @default(now())
+  editedById String?
+  editedAt   DateTime?
 
-  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  job     Job     @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  company  Company          @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  job      Job              @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  editedBy User?            @relation("JobScopeItemEditedBy", fields: [editedById], references: [id], onDelete: SetNull)
+  changes  JobScopeChange[]
 
   @@index([jobId, position])
+  @@index([companyId])
+}
+
+enum JobScopeChangeKind {
+  ADDED
+  EDITED
+  DELETED
+}
+
+/**
+ * One hand on a job's scope: what the line was and what it became, by whom.
+ * `before`/`after` are `{ title, body }`; an added line has no `before`, a
+ * deleted one no `after`, and keeps its row here after the line is gone —
+ * which is the point of keeping it.
+ */
+model JobScopeChange {
+  id          String             @id @default(cuid())
+  companyId   String
+  jobId       String
+  scopeItemId String?
+  kind        JobScopeChangeKind
+  before      Json?
+  after       Json?
+  authorId    String?
+  createdAt   DateTime           @default(now())
+
+  company   Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  job       Job           @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  scopeItem JobScopeItem? @relation(fields: [scopeItemId], references: [id], onDelete: SetNull)
+  author    User?         @relation("JobScopeChangeAuthor", fields: [authorId], references: [id], onDelete: SetNull)
+
+  @@index([jobId, createdAt])
   @@index([companyId])
 }
 
@@ -2824,12 +2886,13 @@ model TimeEntry {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
-  company   Company        @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  user      User           @relation("TimeEntryUser", fields: [userId], references: [id], onDelete: Cascade)
-  job       Job?           @relation(fields: [jobId], references: [id], onDelete: SetNull)
-  createdBy User?          @relation("TimeEntryCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
-  editedBy  User?          @relation("TimeEntryEditedBy", fields: [editedById], references: [id], onDelete: SetNull)
+  company   Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  user      User              @relation("TimeEntryUser", fields: [userId], references: [id], onDelete: Cascade)
+  job       Job?              @relation(fields: [jobId], references: [id], onDelete: SetNull)
+  createdBy User?             @relation("TimeEntryCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  editedBy  User?             @relation("TimeEntryEditedBy", fields: [editedById], references: [id], onDelete: SetNull)
   pings     LocationPing[]
+  changes   TimesheetChange[]
 
   @@unique([companyId, clientId])
   @@index([companyId, userId, clockInAt])
@@ -2859,4 +2922,57 @@ model LocationPing {
 
   @@unique([timeEntryId, recordedAt])
   @@index([companyId, recordedAt])
+}
+
+/// A day on somebody's timesheet that a supervisor adjusted: the unpaid meal
+/// break actually taken, in place of the company's. Only days somebody touched
+/// have a row; every other day follows the policy.
+model TimesheetDay {
+  id               String   @id @default(cuid())
+  companyId        String
+  userId           String
+  day              DateTime @db.Date
+  mealBreakMinutes Int
+  reason           String
+  editedById       String?
+  editedAt         DateTime @default(now())
+
+  company  Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  user     User    @relation("TimesheetDayUser", fields: [userId], references: [id], onDelete: Cascade)
+  editedBy User?   @relation("TimesheetDayEditedBy", fields: [editedById], references: [id], onDelete: SetNull)
+
+  @@unique([companyId, userId, day])
+}
+
+enum TimesheetChangeKind {
+  SHIFT_ADDED
+  SHIFT_CORRECTED
+  SHIFT_DELETED
+  MEAL_ADJUSTED
+}
+
+/// Every hand that touched somebody's hours: what it was, what it became, who
+/// and why. Hours are pay, so a correction is kept rather than written over —
+/// and a deleted shift keeps its line, with what it was.
+model TimesheetChange {
+  id          String              @id @default(cuid())
+  companyId   String
+  /// Whose hours.
+  userId      String
+  timeEntryId String?
+  day         DateTime            @db.Date
+  kind        TimesheetChangeKind
+  before      Json?
+  after       Json?
+  reason      String
+  authorId    String?
+  createdAt   DateTime            @default(now())
+
+  company   Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  user      User       @relation("TimesheetChangeUser", fields: [userId], references: [id], onDelete: Cascade)
+  timeEntry TimeEntry? @relation(fields: [timeEntryId], references: [id], onDelete: SetNull)
+  author    User?      @relation("TimesheetChangeAuthor", fields: [authorId], references: [id], onDelete: SetNull)
+
+  @@index([companyId, userId, day])
+  @@index([timeEntryId])
 }

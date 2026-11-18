@@ -26,6 +26,9 @@ export const DEFAULT_BREAK_POLICY: BreakPolicy = { restBreakMinutes: 10, mealBre
 export const REST_BREAK_OPTIONS = [10, 15, 20, 30] as const;
 export const MEAL_BREAK_OPTIONS = [0, 30, 45, 60] as const;
 
+/** The longest meal break a supervisor may record for one day — the database holds it to the same. */
+export const MEAL_BREAK_MAX_MINUTES = 240;
+
 export type BreakAllowance = {
   restBreaks: number;
   restBreakMinutes: number;
@@ -67,13 +70,23 @@ export function shiftMinutes(clockInAt: Date, clockOutAt: Date): number {
 export type DayPay = BreakAllowance & {
   workedMinutes: number;
   paidMinutes: number;
+  /** The meal break came from a supervisor's adjustment, not the table. */
+  mealAdjusted: boolean;
 };
 
-/** A person's day: the shifts' minutes added up, then the day's breaks. */
-export function dayPay(shiftMinutesOfDay: readonly number[], policy: BreakPolicy): DayPay {
+/**
+ * A person's day: the shifts' minutes added up, then the day's breaks.
+ *
+ * `mealBreakMinutes` is a supervisor's word on what was actually taken that
+ * day — an hour at the dentist, a lunch skipped to leave early — and replaces
+ * the table's meal break whatever the day's length: it is a fact about the
+ * day, not an entitlement. Still never more than the day itself.
+ */
+export function dayPay(shiftMinutesOfDay: readonly number[], policy: BreakPolicy, mealBreakMinutes: number | null = null): DayPay {
   const workedMinutes = shiftMinutesOfDay.reduce((sum, minutes) => sum + minutes, 0);
   const breaks = breakAllowance(workedMinutes, policy);
-  return { ...breaks, workedMinutes, paidMinutes: workedMinutes - breaks.unpaidMinutes };
+  const unpaidMinutes = mealBreakMinutes === null ? breaks.unpaidMinutes : Math.min(mealBreakMinutes, workedMinutes);
+  return { ...breaks, unpaidMinutes, workedMinutes, paidMinutes: workedMinutes - unpaidMinutes, mealAdjusted: mealBreakMinutes !== null };
 }
 
 /** What `paidMinutes` earn at `hourlyRate`, to the cent; null with no rate. */

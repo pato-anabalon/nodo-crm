@@ -11,7 +11,7 @@ export type Fix = Point & { accuracyM: number };
 
 /** The radius a job starts with, and the ones it may be given. */
 export const DEFAULT_GEOFENCE_RADIUS_M = 300;
-export const GEOFENCE_RADII_M = [200, 300, 400, 500] as const;
+export const GEOFENCE_RADII_M = [50, 100, 200, 300, 400, 500] as const;
 
 export function isGeofenceRadius(value: unknown): value is (typeof GEOFENCE_RADII_M)[number] {
   return GEOFENCE_RADII_M.includes(value as (typeof GEOFENCE_RADII_M)[number]);

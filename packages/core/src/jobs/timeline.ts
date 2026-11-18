@@ -23,6 +23,7 @@ export const JOB_ACTIVITY_TYPES = [
   "CHAT_MESSAGES",
   "QUOTE_LINKED",
   "QUOTE_UNLINKED",
+  "SCOPE_CHANGED",
 ] as const;
 export type JobActivityType = (typeof JOB_ACTIVITY_TYPES)[number];
 
@@ -163,6 +164,11 @@ export function describeJobActivity(
       return t("EVENT_COMMENTED", { actor, title: str("title") ?? "" });
     case "CHAT_MESSAGES":
       return t("CHAT_MESSAGES", { actor, count: typeof params.count === "number" ? params.count : 1 });
+    case "SCOPE_CHANGED": {
+      const action = str("action");
+      const known = action === "added" || action === "edited" || action === "deleted";
+      return t("SCOPE_CHANGED", { actor, action: known ? action : "edited", title: str("title") ?? "" });
+    }
     default:
       return String(line.type);
   }
@@ -205,6 +211,8 @@ export function activityPermission(type: string): Permission {
       return "schedule.read";
     case "CHAT_MESSAGES":
       return "chat.read";
+    case "SCOPE_CHANGED":
+      return "scope.read";
     default:
       return "jobs.read";
   }
@@ -253,6 +261,8 @@ export function activityHref(jobId: string, type: string, params: unknown): stri
       return eventId ? `/jobs/${jobId}/schedule/${eventId}${commentAnchor}` : null;
     case "CHAT_MESSAGES":
       return `/jobs/${jobId}/chat`;
+    case "SCOPE_CHANGED":
+      return `/jobs/${jobId}/scope`;
     default:
       return null;
   }

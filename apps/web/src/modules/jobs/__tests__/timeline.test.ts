@@ -247,3 +247,20 @@ describe("the lists core keeps of the database's enums", () => {
     expect([...JOB_STATUSES].sort()).toEqual(Object.values(JobStatus).sort());
   });
 });
+
+describe("scope of work lines", () => {
+  const t = (key: string, values?: Record<string, string | number>) => `${key}:${JSON.stringify(values ?? {})}`;
+  const helpers = { nameOf: (id: string) => id, list: (names: string[]) => names.join(", "), formatDay: (day: string) => day };
+
+  it("says what was done to which line, and reads an unknown action as a change", () => {
+    const line = (action: unknown) =>
+      describeJobActivity({ type: "SCOPE_CHANGED", params: { action, title: "Skim coat" }, actorName: "Ana" }, t, helpers);
+    expect(line("deleted")).toBe('SCOPE_CHANGED:{"actor":"Ana","action":"deleted","title":"Skim coat"}');
+    expect(line("moved")).toBe('SCOPE_CHANGED:{"actor":"Ana","action":"edited","title":"Skim coat"}');
+  });
+
+  it("belongs to the scope, and leads to it", () => {
+    expect(activityPermission("SCOPE_CHANGED")).toBe("scope.read");
+    expect(activityHref("j1", "SCOPE_CHANGED", {})).toBe("/jobs/j1/scope");
+  });
+});

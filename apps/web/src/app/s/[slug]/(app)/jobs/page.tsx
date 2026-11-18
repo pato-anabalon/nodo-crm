@@ -11,6 +11,7 @@ import { listJobs, recentJobActivity } from "@/modules/jobs/service";
 import { PersonAvatar } from "@/modules/jobs/avatars";
 import { JobCards, JobListControls } from "@/modules/jobs/job-list";
 import { jobsHref } from "@/modules/jobs/search";
+import { jobColour } from "@nodo/core/jobs/colours";
 import { activityDescriber } from "@/modules/jobs/activity-feed";
 import { activityHref } from "@/modules/jobs/timeline";
 
@@ -73,6 +74,7 @@ const [t, tElapsed, tCommon] = await Promise.all([
               id: job.id,
               name: job.name,
               description: job.description,
+              colour: jobColour(job),
               statusLabel: job.status !== "ACTIVE" ? t(`status.${job.status}`) : null,
               people: job.members.map((m) => m.user),
             }))}

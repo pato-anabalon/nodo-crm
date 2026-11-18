@@ -42,11 +42,34 @@ it("counts a shift to the nearest minute", () => {
 describe("dayPay", () => {
   it("adds a day's shifts before deciding its breaks", () => {
     // Two jobs of three hours: six hours worked, so a meal break comes off once.
-    expect(dayPay([h(3), h(3)], law)).toEqual({ workedMinutes: 360, paidMinutes: 330, restBreaks: 1, restBreakMinutes: 10, unpaidMinutes: 30 });
+    expect(dayPay([h(3), h(3)], law)).toEqual({
+      workedMinutes: 360,
+      paidMinutes: 330,
+      restBreaks: 1,
+      restBreakMinutes: 10,
+      unpaidMinutes: 30,
+      mealAdjusted: false,
+    });
   });
 
   it("is nothing on a day with no shifts", () => {
     expect(dayPay([], law)).toMatchObject({ workedMinutes: 0, paidMinutes: 0, unpaidMinutes: 0 });
+  });
+
+  it("takes off the meal break a supervisor says was taken, in place of the table's", () => {
+    expect(dayPay([h(8)], law, 60)).toMatchObject({ unpaidMinutes: 60, paidMinutes: 420, mealAdjusted: true });
+    // A lunch skipped: nothing comes off, though the table would take 30.
+    expect(dayPay([h(8)], law, 0)).toMatchObject({ unpaidMinutes: 0, paidMinutes: 480, mealAdjusted: true });
+    // A fact about the day, so it applies under four hours too.
+    expect(dayPay([h(3)], law, 30)).toMatchObject({ unpaidMinutes: 30, paidMinutes: 150 });
+  });
+
+  it("never takes off more than the day", () => {
+    expect(dayPay([20], law, 60)).toMatchObject({ unpaidMinutes: 20, paidMinutes: 0 });
+  });
+
+  it("leaves the rest breaks to the table when the meal is adjusted", () => {
+    expect(dayPay([h(8)], law, 0)).toMatchObject({ restBreaks: 2 });
   });
 });
 

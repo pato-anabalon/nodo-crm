@@ -965,9 +965,22 @@ the name stays theirs, and description and address are filled only where
 empty. The picker offers accepted quotes with no job that this person may open
 (`quotes.read`, and their own only without `quotes.read.all`). Unlinking is
 allowed, because the wrong quote out of hundreds is an easy pick: it frees the
-quote and takes the scope, which only ever comes from a quote, and leaves
-everything else as the job's own. Both leave a line on the timeline
+quote and takes the scope with it — lines edited or added on the job
+included, which is the price of a link replacing the scope wholesale — and
+leaves everything else as the job's own. Both leave a line on the timeline
 (`QUOTE_LINKED`, `QUOTE_UNLINKED`).
+
+**The scope of work is the quote's, and then the job's** (`JobScopeItem`,
+`scope-edits.ts`). Copied on start or link — what was sold, never what it cost
+— and from there changed on the job, because what gets agreed on site moves
+it. Reading it is `scope.read`, changing it `scope.update`, a tool of its own
+on the profiles grid. Every add, edit and delete writes a `JobScopeChange`
+with what the line was and what it became, in the same transaction, and a
+`SCOPE_CHANGED` line on the timeline; the scope page lists them under the
+lines, and a deleted line keeps its history. Before the permissions existed
+anybody on a job read the scope, so `scripts/grant-scope.ts` gives
+`scope.read` to every profile holding `jobs.read` and `scope.update` to every
+one holding `jobs.update`.
 
 `JobActivity` is the timeline, and like `Notification` it stores a type and its
 parameters, never a sentence. The day headings are drawn in the company's
@@ -1048,8 +1061,10 @@ and the server again when it arrives.
   unique, so a batch sent twice is stored once.
 - `timeclock.punch` is everybody's who works on site; seeing and correcting
   other people's hours (`timeclock.read.all`, `timeclock.update`) is Admin,
-  Manager and Project Lead's; exporting them is Owner's alone. Companies that
-  already exist get them from `scripts/grant-timeclock.ts`.
+  Manager and Project Lead's; exporting them is Owner's alone. That is what a
+  new company starts with. Companies that already exist get them only on
+  Owner and Admin, from `scripts/grant-timeclock.ts`, and hand them to their
+  other profiles themselves.
 
 ### Hours and pay
 
@@ -1078,6 +1093,20 @@ for laying shifts out, so the screen and the file add up identically.
 - The file writes decimal hours (7.75, not 7:45), which is what payroll
   multiplies, one row per person and day or per person, at most a quarter at
   a time.
+- **A supervisor corrects, and the correction is kept**
+  (`timeclock.update`, `corrections-service.ts`): a shift entered by hand for
+  a phone that failed, a shift put right — the forgotten clock-out, the wrong
+  job — or deleted, and the meal break of one day (`TimesheetDay`, which
+  replaces the company's for that day whatever its length: it is what was
+  taken, not what was owed). Each writes a `TimesheetChange` in the same
+  transaction, with what it was, what it became and a reason the form
+  demands; a deleted shift keeps its line. A correction is held to what a
+  punch is — nothing in the future, no two shifts at once (an open one runs
+  until now), nothing over 24 hours — a shift that ended can't be reopened,
+  and **nobody corrects their own hours**, on the server. The rules are pure
+  (`corrections.ts`). A shift's page (`/timesheets/<user>/shifts/<id>`) shows
+  it on the map with the track between the punches, its history and the
+  forms; the CSV's notes say which figures were typed or adjusted.
 
 ### Files go straight to the store
 
@@ -1434,8 +1463,17 @@ Two consequences the panel has to live with:
   that first sent it to them. `QuoteShareToken` holds several hashes against one
   share, which keeps the property that matters — they are still hashes, a dump is
   still useless — while every link handed out goes on working.
-- **What closes a link lives on the share**, so revoking or expiring shuts every
-  door at once. That is what revoking was always meant to mean.
+- **What closes a link lives on the share**, so revoking shuts every door at
+  once. That is what revoking was always meant to mean.
+- **A link doesn't run out with the quote.** It used to carry `validUntil` as
+  its own expiry, so a customer who came back a week late found a dead page —
+  exactly the customer worth ringing. Now it opens until revoked, and a quote
+  that ran out (`quoteRanOut`: `EXPIRED`, or still `SENT` past its date before
+  the sweep gets to it) is shown with a banner, on the page and in the PDF,
+  and nothing to accept, decline or sign; the thread stays open. Opening one
+  tells the Owners, Admins and whoever wrote it, once a day
+  (`QUOTE_EXPIRED_OPENED`, in place of the ordinary "opened"), and the team's
+  Customer link card is left with only "View as customer".
 - **A revoked token stays revoked**, even after a later send reopens the share.
   Sending again is somebody deliberately letting the customer back in; it must
   not also let back in whoever the link was taken away from. A company that
@@ -1455,6 +1493,20 @@ status is never touched by revoking — one whose link was closed is still a quo
 that was sent.
 - The four email notices go out with `after()`, outside the response. The open
   one only notifies the first time each day.
+
+### The quote's page, once saved
+
+Two tabs (`QuoteTabs`): **Quote** is what it says — the form or the read-only
+document, then the attachments and the thread, with Totals floating beside all
+of it — and **Activity** is what happened to it: tracking, the link, the
+follow-ups and reusing it on the left, the acceptance and the logs on the
+right. Both stay mounted and only the inactive one is hidden, or switching to
+glance at the tracking would throw away an unsaved edit; the tab goes in the
+address (`?tab=activity`) by replacing the entry, not by navigating. The
+attachments and the thread post forms of their own, so they can't sit inside
+the quote's `<form>`: `QuoteForm`'s `after` renders them outside it, with the
+form `display: contents` so its columns and theirs share one grid. The
+Activity tab carries the "viewing now" dot, from the same `QuoteLive` poll.
 
 ### Several people, one quote
 
@@ -1623,11 +1675,20 @@ later doesn't read diligence — they read that nobody looked at their message. 
 revoked link stops it as well: chasing with a link that no longer opens is a dead
 end with the company's name on it.
 
-> **A follow-up mints a fresh link, which kills the one the first email carried.**
-> There is no way around it — only the hash is stored, so an issued token can
-> never be read back. It is the same property a resend already has, and this way
-> the customer's most recent email is the one that works, which is the one they
-> will click.
+**They can also be sent by hand**, from the Follow-ups card on the quote's
+Activity tab (`sendFollowUpAction`): the next one only (`nextFollowUp`), only
+while the quote awaits an answer through a link that opens — a follow-up
+issues a link, and issuing reopens a revoked one. It writes the same
+`QuoteEmail` row, so the sweep never sends it again, and it goes out even
+with the template's switch off: the switch is whether the scheduler chases on
+its own, not whether a person may.
+
+> **A follow-up mints a fresh link, beside the one the first email carried.**
+> There is no way around minting one — only the hash is stored, so an issued
+> token can never be read back to put in a new email. The old one keeps working:
+> the share holds every hash it handed out (`QuoteShareToken`), so whichever
+> email the customer opens, it opens the same quote. A resend works the same
+> way.
 
 The review request asks nothing of the thread: somebody who accepted and then
 asked a question is exactly who is worth asking. It does not go out at all when

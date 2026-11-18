@@ -45,12 +45,18 @@ import {
   deleteQuoteAttachmentAction,
   resendQuoteAction,
   revokeShareAction,
+  sendFollowUpAction,
   sendQuoteAction,
   updateQuoteAction,
   prepareQuoteAttachmentUploadAction,
   registerQuoteAttachmentAction,
 } from "@/modules/quotes/actions";
 import { ShareCard } from "@/modules/quotes/share-card";
+import { FollowUpCard } from "@/modules/quotes/follow-up-card";
+import { nextFollowUp } from "@/modules/quotes/follow-up";
+import { QuoteTabs } from "@/modules/quotes/quote-tabs";
+import { joinNames } from "@/modules/quotes/recipients";
+import { quoteRanOut } from "@/modules/portal/share";
 import { QuoteReuseCard } from "@/modules/quote-templates/quote-actions";
 import { isQuoteEditable, QUOTE_STATUS_CLASS } from "@/modules/quotes/constants";
 import { taxIsInTotal } from "@/modules/quotes/totals";
@@ -71,8 +77,14 @@ import { formatDateTime } from "@/lib/format";
 import { formatDate, formatMoney, formatQuoteNumber } from "@/lib/format";
 import { getTranslations as getT } from "next-intl/server";
 
-export default async function QuoteDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+export default async function QuoteDetailPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ tab?: string }>;
+}) {
+  const [{ id }, { tab }] = await Promise.all([params, searchParams]);
   const ctx = await requireCompanyContext();
   const [t, tCommon] = await Promise.all([
     getTranslations("quotes"),
@@ -124,8 +136,8 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
       ])
     : [[], false, []];
 
-  // Named because they appear in both arrangements below, and a copy in each
-  // branch is how the two quietly drift apart.
+  // Named because they appear in both arrangements of the first tab, and a
+  // copy in each branch is how the two quietly drift apart.
   const reuseCard = <QuoteReuseCard quoteId={quote.id} canEdit={can(ctx, "quotes.create")} />;
   const attachmentUpload = {
     prepare: prepareQuoteAttachmentUploadAction,
@@ -149,7 +161,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
   );
 
   // Who the quote goes to. Under Details on both views: inside the edit form,
-  // and under the read-only Details once the quote can no longer change.
+  // and under the customer once the quote can no longer change.
   const recipientsCard =
     editable || quote.recipients.length > 0 ? (
       <QuoteRecipients
@@ -167,6 +179,367 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
         makePrimary={makePrimaryRecipientAction.bind(null, quote.id)}
       />
     ) : null;
+
+  const ranOut = quoteRanOut(quote);
+  const followUp = can(ctx, "quotes.send") ? nextFollowUp(quote) : null;
+  const firstFollowUp = quote.emailsSent.find(
+    (email) => email.kind === EmailTemplateKind.FIRST_FOLLOW_UP,
+  );
+  const locale = await getLocale();
+
+  // The conversation, under the quote's own content on the first tab. It is
+  // fed by `QuoteLive`, which only exists once a link has gone out.
+  const thread = quote.share ? (
+    <QuoteLiveThread
+      messages={formatThread(quote.messages, {
+        formatLocale: ctx.company.formatLocale,
+        timezone: ctx.company.timezone,
+        withAuthorNames: true,
+      })}
+      side={MessageAuthor.STAFF}
+      companyName={ctx.company.name}
+      action={sendStaffMessageAction.bind(null, quote.id)}
+    />
+  ) : null;
+
+  /*
+   * The first tab: what the quote says. Editable, it is the form, with the
+   * attachments and the thread under its fields — outside the `<form>`, since
+   * both post forms of their own — and Totals floating beside all of it.
+   */
+  const quoteTab = editable ? (
+    <QuoteForm
+      quoteId={quote.id}
+      hasCatalogue={catalogueAvailable}
+      searchLeads={searchLeadsAction}
+      searchCatalogue={searchCatalogueAction}
+      uploadAttachment={attachmentUpload}
+      deleteAttachment={deleteQuoteAttachmentAction}
+      action={updateAction}
+      status={quote.status}
+      documents={documents.map((doc) => ({ id: doc.id, name: doc.name }))}
+      quoteTypes={companyQuoteTypes.map((type) => type.label)}
+      currency={ctx.company.currency}
+      currencies={currencyOptions(locale)}
+      formatLocale={ctx.company.formatLocale}
+      taxDisplayMode={ctx.company.taxDisplayMode}
+      taxLabel={t(`taxType.${quote.taxType}`)}
+      submitLabel={tCommon("saveChanges")}
+      afterDetails={recipientsCard}
+      after={
+        <>
+          {attachmentsCard}
+          {thread}
+        </>
+      }
+      defaults={{
+        title: quote.title,
+        quoteType: quote.quoteType,
+        projectAddress: quote.projectAddress,
+        scope: quote.scope,
+        pricingMode: quote.pricingMode,
+        sections: quote.sections.map((section) => ({
+          id: section.id,
+          title: section.title,
+          body: section.body ?? "",
+          amount: String(Number(section.amount)),
+          discountType: section.discountType,
+          discountValue: String(Number(section.discountValue)),
+          kind: section.kind,
+          attachments: section.attachments.map((attachment) => ({
+            id: attachment.id,
+            name: attachment.name,
+            url: attachment.url,
+            size: attachment.size,
+            contentType: attachment.contentType,
+          })),
+          selectedByDefault: section.selectedByDefault,
+        })),
+        intro: quote.intro,
+        exclusions: quote.exclusions,
+        leadId: quote.leadId,
+        leadTitle: quote.lead ? leadOptionLabel(quote.lead) : null,
+        termsDocumentId: quote.termsDocumentId,
+        taxRate: Number(quote.taxRate),
+        taxDisplayMode: quote.taxDisplayMode,
+        currency: quote.currency,
+        // The raw typed input, not `quote.discount` (the computed, frozen
+        // amount) — the same distinction `duplicateQuote` already draws,
+        // and necessary here for the same reason: a `PERCENT` discount
+        // would otherwise show its dollar amount in a field expecting a
+        // percentage the next time the quote is opened.
+        discount: Number(quote.discountValue),
+        discountType: quote.discountType,
+        optionalDiscountThreshold: quote.optionalDiscountThreshold,
+        optionalDiscountType: quote.optionalDiscountType,
+        optionalDiscountValue:
+          quote.optionalDiscountValue === null ? null : Number(quote.optionalDiscountValue),
+        validUntil: quote.validUntil?.toISOString().slice(0, 10) ?? null,
+        notes: quote.notes,
+        terms: quote.terms,
+        items: quote.items.map((item) => ({
+          description: item.description,
+          quantity: String(Number(item.quantity)),
+          unitPrice: String(Number(item.unitPrice)),
+          discount: String(Number(item.discount)),
+        })),
+      }}
+    />
+  ) : (
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <div className="min-w-0 space-y-6 lg:col-span-2">
+        {quote.clientCompanyName ||
+        quote.clientName ||
+        quote.clientEmail ||
+        quote.clientPhone ||
+        quote.lead ? (
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">{t("columns.customer")}</CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-wrap items-end gap-x-8 gap-y-3 text-sm">
+              {quote.clientCompanyName ? (
+                <ClientField label={t("form.customerCompany")} value={quote.clientCompanyName} />
+              ) : null}
+              {quote.clientName ? (
+                <ClientField label={t("form.customerName")} value={quote.clientName} />
+              ) : null}
+              {quote.clientEmail ? (
+                <ClientField label={t("form.customerEmail")} value={quote.clientEmail} />
+              ) : null}
+              {quote.clientPhone ? (
+                <ClientField label={t("form.customerPhone")} value={quote.clientPhone} />
+              ) : null}
+              {quote.lead ? (
+                <Button asChild variant="outline" size="sm">
+                  <Link href={`/leads/${quote.lead.id}`}>{t("form.viewLead")}</Link>
+                </Button>
+              ) : null}
+            </CardContent>
+          </Card>
+        ) : null}
+
+        {recipientsCard}
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">{t("detail")}</CardTitle>
+          </CardHeader>
+
+          {quote.pricingMode === PricingMode.SECTIONS ? (
+            <CardContent className="space-y-5">
+              {quote.sections.map((section) => (
+                <div key={section.id} className="space-y-1.5">
+                  <div className="flex flex-wrap items-baseline justify-between gap-3">
+                    <h3 className="font-semibold">{section.title}</h3>
+                    <span className="tabular-nums">{maskedMoney(Number(section.amount))}</span>
+                  </div>
+                  <RichText className="text-sm text-muted-foreground" html={section.body} />
+                </div>
+              ))}
+            </CardContent>
+          ) : (
+            <CardContent className="p-0">
+              <Table cards>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>{t("columns.description")}</TableHead>
+                    <TableHead className="text-right">{t("columns.quantity")}</TableHead>
+                    <TableHead className="text-right">{t("columns.unitPrice")}</TableHead>
+                    <TableHead className="text-right">{t("columns.discount")}</TableHead>
+                    <TableHead className="text-right">{t("columns.total")}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {quote.items.map((item) => (
+                    <TableRow key={item.id}>
+                      <TableCell primary>{item.description}</TableCell>
+                      <TableCell label={t("columns.quantity")} className="text-right tabular-nums">{Number(item.quantity)}</TableCell>
+                      <TableCell label={t("columns.unitPrice")} className="text-right tabular-nums">{maskedMoney(Number(item.unitPrice))}</TableCell>
+                      <TableCell label={t("columns.discount")} className="text-right tabular-nums">{Number(item.discount)}%</TableCell>
+                      <TableCell label={t("columns.total")} className="text-right font-medium tabular-nums">{maskedMoney(Number(item.total))}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          )}
+        </Card>
+
+        {quote.notes || quote.exclusions || quote.terms || quote.termsDocument ? (
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">{t("form.notesSection")}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 text-sm">
+              {quote.notes ? (
+                <div className="space-y-1.5">
+                  <h3 className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+                    {t("form.notes")}
+                  </h3>
+                  <RichText html={quote.notes} />
+                </div>
+              ) : null}
+
+              {quote.terms ? (
+                <div className="space-y-1.5">
+                  <h3 className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+                    {t("form.terms")}
+                  </h3>
+                  <RichText className="text-muted-foreground" html={quote.terms} />
+                </div>
+              ) : null}
+
+              {quote.termsDocument ? (
+                <Button asChild variant="outline" size="sm">
+                  <a href={quote.termsDocument.url} target="_blank" rel="noopener noreferrer">
+                    <FileText className="size-4" />
+                    {quote.termsDocument.name}
+                  </a>
+                </Button>
+              ) : null}
+
+              {quote.exclusions ? (
+                <div className="space-y-1.5">
+                  <h3 className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+                    {t("form.exclusions")}
+                  </h3>
+                  <RichText className="text-muted-foreground" html={quote.exclusions} />
+                </div>
+              ) : null}
+            </CardContent>
+          </Card>
+        ) : null}
+
+        {attachmentsCard}
+        {thread}
+      </div>
+
+      <div>
+        <Card className="lg:sticky lg:top-6">
+          <CardHeader>
+            <CardTitle className="text-base">{t("form.totals")}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <dl className="space-y-1.5 text-sm">
+              <Row label={t("form.subtotal")} value={maskedMoney(Number(quote.subtotal))} />
+              <Row
+                label={t("form.discount")}
+                value={canSeeAmounts ? `− ${money(Number(quote.discount))}` : <HiddenAmount />}
+              />
+              {taxIsInTotal(quote.taxDisplayMode) ? (
+                <Row
+                  label={`${t(`taxType.${quote.taxType}`)} (${Number(quote.taxRate)}%)`}
+                  value={maskedMoney(Number(quote.taxAmount))}
+                />
+              ) : null}
+              <div className="flex items-center justify-between border-t pt-2 text-base font-semibold">
+                <dt>{t("form.total")}</dt>
+                <dd className="tabular-nums">{maskedMoney(Number(quote.total))}</dd>
+              </div>
+            </dl>
+
+            {quote.validUntil ? (
+              <p className="mt-4 text-xs text-muted-foreground">
+                {t("validUntilDate", {
+                  date: formatDate(quote.validUntil, ctx.company.formatLocale, ctx.company.timezone),
+                })}
+              </p>
+            ) : null}
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+
+  /*
+   * The second tab: what has happened to the quote and what can be done about
+   * it. Two columns by what a card is for — the left one is state and the
+   * things to do with it, the right one the logs, which grow.
+   */
+  const activityTab = (
+    <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-3">
+      <div className="min-w-0 space-y-6">
+        {quote.share ? (
+          <>
+            <QuoteTracking formatLocale={ctx.company.formatLocale} timezone={ctx.company.timezone} />
+
+            <ShareCard
+              revoked={quote.share.revokedAt !== null}
+              ranOut={ranOut}
+              previewHref={`/quotes/${quote.id}/preview`}
+              canManage={can(ctx, "quotes.send")}
+              onResend={async () => {
+                "use server";
+                return resendAction();
+              }}
+              onRevoke={async () => {
+                "use server";
+                return revokeAction();
+              }}
+            />
+          </>
+        ) : null}
+
+        {followUp ? (
+          <FollowUpCard
+            next={followUp}
+            firstSent={
+              firstFollowUp
+                ? formatDateTime(firstFollowUp.sentAt, ctx.company.formatLocale, ctx.company.timezone)
+                : null
+            }
+            recipients={
+              joinNames(
+                quote.recipients.map((recipient) => recipient.name || recipient.email),
+                locale,
+              ) ||
+              quote.clientName ||
+              quote.clientEmail ||
+              ""
+            }
+            onSend={sendFollowUpAction.bind(null, quote.id, followUp)}
+          />
+        ) : null}
+
+        {reuseCard}
+      </div>
+
+      {quote.share || quote.acceptance || quote.emailsSent.length > 0 ? (
+        <div className="min-w-0 space-y-6 lg:col-span-2">
+          {quote.acceptance ? (
+            <AcceptanceCard
+              acceptance={quote.acceptance}
+              formatLocale={ctx.company.formatLocale}
+              timezone={ctx.company.timezone}
+            />
+          ) : null}
+
+          {quote.share ? (
+            <QuoteEvents
+              events={quote.events}
+              formatLocale={ctx.company.formatLocale}
+              timezone={ctx.company.timezone}
+            />
+          ) : null}
+
+          <QuoteEmails
+            emails={quote.emailsSent}
+            formatLocale={ctx.company.formatLocale}
+            timezone={ctx.company.timezone}
+          />
+        </div>
+      ) : null}
+    </div>
+  );
+
+  const tabs = (
+    <QuoteTabs
+      initialTab={tab === "activity" ? "activity" : "quote"}
+      quote={quoteTab}
+      activity={activityTab}
+    />
+  );
 
   return (
     <div className="space-y-6">
@@ -231,264 +604,12 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
         </div>
       </div>
 
-      {editable ? (
-        <QuoteForm
-          quoteId={quote.id}
-          hasCatalogue={catalogueAvailable}
-          searchLeads={searchLeadsAction}
-          searchCatalogue={searchCatalogueAction}
-          uploadAttachment={attachmentUpload}
-          deleteAttachment={deleteQuoteAttachmentAction}
-          action={updateAction}
-          status={quote.status}
-          documents={documents.map((doc) => ({ id: doc.id, name: doc.name }))}
-          quoteTypes={companyQuoteTypes.map((type) => type.label)}
-          currency={ctx.company.currency}
-          currencies={currencyOptions(await getLocale())}
-          formatLocale={ctx.company.formatLocale}
-          taxDisplayMode={ctx.company.taxDisplayMode}
-          taxLabel={t(`taxType.${quote.taxType}`)}
-          submitLabel={tCommon("saveChanges")}
-          afterDetails={recipientsCard}
-          defaults={{
-            title: quote.title,
-            quoteType: quote.quoteType,
-            projectAddress: quote.projectAddress,
-            scope: quote.scope,
-            pricingMode: quote.pricingMode,
-            sections: quote.sections.map((section) => ({
-              id: section.id,
-              title: section.title,
-              body: section.body ?? "",
-              amount: String(Number(section.amount)),
-              discountType: section.discountType,
-              discountValue: String(Number(section.discountValue)),
-              kind: section.kind,
-              attachments: section.attachments.map((attachment) => ({
-                id: attachment.id,
-                name: attachment.name,
-                url: attachment.url,
-                size: attachment.size,
-                contentType: attachment.contentType,
-              })),
-              selectedByDefault: section.selectedByDefault,
-            })),
-            intro: quote.intro,
-            exclusions: quote.exclusions,
-            leadId: quote.leadId,
-            leadTitle: quote.lead ? leadOptionLabel(quote.lead) : null,
-            termsDocumentId: quote.termsDocumentId,
-            taxRate: Number(quote.taxRate),
-            taxDisplayMode: quote.taxDisplayMode,
-            currency: quote.currency,
-            // The raw typed input, not `quote.discount` (the computed, frozen
-            // amount) — the same distinction `duplicateQuote` already draws,
-            // and necessary here for the same reason: a `PERCENT` discount
-            // would otherwise show its dollar amount in a field expecting a
-            // percentage the next time the quote is opened.
-            discount: Number(quote.discountValue),
-            discountType: quote.discountType,
-            optionalDiscountThreshold: quote.optionalDiscountThreshold,
-            optionalDiscountType: quote.optionalDiscountType,
-            optionalDiscountValue:
-              quote.optionalDiscountValue === null ? null : Number(quote.optionalDiscountValue),
-            validUntil: quote.validUntil?.toISOString().slice(0, 10) ?? null,
-            notes: quote.notes,
-            terms: quote.terms,
-            items: quote.items.map((item) => ({
-              description: item.description,
-              quantity: String(Number(item.quantity)),
-              unitPrice: String(Number(item.unitPrice)),
-              discount: String(Number(item.discount)),
-            })),
-          }}
-        />
-      ) : (
-        <>
-          {quote.clientCompanyName ||
-          quote.clientName ||
-          quote.clientEmail ||
-          quote.clientPhone ||
-          quote.lead ? (
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">{t("columns.customer")}</CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-wrap items-end gap-x-8 gap-y-3 text-sm">
-                {quote.clientCompanyName ? (
-                  <ClientField label={t("form.customerCompany")} value={quote.clientCompanyName} />
-                ) : null}
-                {quote.clientName ? (
-                  <ClientField label={t("form.customerName")} value={quote.clientName} />
-                ) : null}
-                {quote.clientEmail ? (
-                  <ClientField label={t("form.customerEmail")} value={quote.clientEmail} />
-                ) : null}
-                {quote.clientPhone ? (
-                  <ClientField label={t("form.customerPhone")} value={quote.clientPhone} />
-                ) : null}
-                {quote.lead ? (
-                  <Button asChild variant="outline" size="sm">
-                    <Link href={`/leads/${quote.lead.id}`}>{t("form.viewLead")}</Link>
-                  </Button>
-                ) : null}
-              </CardContent>
-            </Card>
-          ) : null}
-
-          <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-3">
-            <div className="space-y-6 lg:col-span-2">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">{t("detail")}</CardTitle>
-              </CardHeader>
-
-              {quote.pricingMode === PricingMode.SECTIONS ? (
-                <CardContent className="space-y-5">
-                  {quote.sections.map((section) => (
-                    <div key={section.id} className="space-y-1.5">
-                      <div className="flex flex-wrap items-baseline justify-between gap-3">
-                        <h3 className="font-semibold">{section.title}</h3>
-                        <span className="tabular-nums">{maskedMoney(Number(section.amount))}</span>
-                      </div>
-                      <RichText className="text-sm text-muted-foreground" html={section.body} />
-                    </div>
-                  ))}
-                </CardContent>
-              ) : (
-                <CardContent className="p-0">
-                  <Table cards>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>{t("columns.description")}</TableHead>
-                        <TableHead className="text-right">{t("columns.quantity")}</TableHead>
-                        <TableHead className="text-right">{t("columns.unitPrice")}</TableHead>
-                        <TableHead className="text-right">{t("columns.discount")}</TableHead>
-                        <TableHead className="text-right">{t("columns.total")}</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {quote.items.map((item) => (
-                        <TableRow key={item.id}>
-                          <TableCell primary>
-                            {item.description}
-                          </TableCell>
-                          <TableCell label={t("columns.quantity")} className="text-right tabular-nums">{Number(item.quantity)}</TableCell>
-                          <TableCell label={t("columns.unitPrice")} className="text-right tabular-nums">{maskedMoney(Number(item.unitPrice))}</TableCell>
-                          <TableCell label={t("columns.discount")} className="text-right tabular-nums">{Number(item.discount)}%</TableCell>
-                          <TableCell label={t("columns.total")} className="text-right font-medium tabular-nums">{maskedMoney(Number(item.total))}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </CardContent>
-              )}
-            </Card>
-
-            {recipientsCard}
-            </div>
-
-            <Card className="h-fit">
-              <CardHeader>
-                <CardTitle className="text-base">{t("form.totals")}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <dl className="space-y-1.5 text-sm">
-                  <Row label={t("form.subtotal")} value={maskedMoney(Number(quote.subtotal))} />
-                  <Row
-                    label={t("form.discount")}
-                    value={canSeeAmounts ? `− ${money(Number(quote.discount))}` : <HiddenAmount />}
-                  />
-                  {taxIsInTotal(quote.taxDisplayMode) ? (
-                    <Row
-                      label={`${t(`taxType.${quote.taxType}`)} (${Number(quote.taxRate)}%)`}
-                      value={maskedMoney(Number(quote.taxAmount))}
-                    />
-                  ) : null}
-                  <div className="flex items-center justify-between border-t pt-2 text-base font-semibold">
-                    <dt>{t("form.total")}</dt>
-                    <dd className="tabular-nums">{maskedMoney(Number(quote.total))}</dd>
-                  </div>
-                </dl>
-
-                {quote.validUntil ? (
-                  <p className="mt-4 text-xs text-muted-foreground">
-                    {t("validUntilDate", {
-                      date: formatDate(
-                        quote.validUntil,
-                        ctx.company.formatLocale,
-                        ctx.company.timezone,
-                      ),
-                    })}
-                  </p>
-                ) : null}
-              </CardContent>
-            </Card>
-          </div>
-
-          {quote.notes || quote.exclusions || quote.terms || quote.termsDocument ? (
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">{t("form.notesSection")}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4 text-sm">
-                {quote.notes ? (
-                  <div className="space-y-1.5">
-                    <h3 className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-                      {t("form.notes")}
-                    </h3>
-                    <RichText html={quote.notes} />
-                  </div>
-                ) : null}
-
-                {quote.terms ? (
-                  <div className="space-y-1.5">
-                    <h3 className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-                      {t("form.terms")}
-                    </h3>
-                    <RichText className="text-muted-foreground" html={quote.terms} />
-                  </div>
-                ) : null}
-
-                {quote.termsDocument ? (
-                  <Button asChild variant="outline" size="sm">
-                    <a href={quote.termsDocument.url} target="_blank" rel="noopener noreferrer">
-                      <FileText className="size-4" />
-                      {quote.termsDocument.name}
-                    </a>
-                  </Button>
-                ) : null}
-
-                {quote.exclusions ? (
-                  <div className="space-y-1.5">
-                    <h3 className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-                      {t("form.exclusions")}
-                    </h3>
-                    <RichText className="text-muted-foreground" html={quote.exclusions} />
-                  </div>
-                ) : null}
-              </CardContent>
-            </Card>
-          ) : null}
-        </>
-      )}
-
-      {/**
-        * Two rows, and the split is by what the card is for rather than by how
-        * tall it happens to be. The first row is everything you *do* with the
-        * quote once it has gone out — reuse it, mind its link, see whether it
-        * was opened. The second is the conversation, with what the customer
-        * left behind stacked beside it.
-        *
-        * Without a share link there is no link to mind and no activity to show,
-        * so the two cards that always exist go full width instead of sitting in
-        * a third of a row with nothing beside them.
-        */}
+      {/*
+        One poll for the whole page once a link has gone out: the tracking
+        card, the thread and the tab's "viewing now" dot all read from it,
+        instead of each asking on its own every 10s.
+      */}
       {quote.share ? (
-        /*
-          One poll for the whole band: the tracking card and the thread both
-          read from it, instead of each asking on its own every 10s.
-        */
         <QuoteLive
           quoteId={quote.id}
           initialPresence={{
@@ -499,91 +620,10 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
           }}
           pollSeconds={livePollSeconds(quote.status, quote.share)}
         >
-          {/* No `items-start` here, unlike the row below: letting the grid
-              stretch them is what gives the three the same height, and they
-              read as one band of controls rather than three loose cards. */}
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-            {reuseCard}
-
-            <ShareCard
-              revoked={quote.share.revokedAt !== null}
-              expiresLabel={
-                quote.share.expiresAt
-                  ? formatDate(
-                      quote.share.expiresAt,
-                      ctx.company.formatLocale,
-                      ctx.company.timezone,
-                    )
-                  : null
-              }
-              previewHref={`/quotes/${quote.id}/preview`}
-              canManage={can(ctx, "quotes.send")}
-              onResend={async () => {
-                "use server";
-                return resendAction();
-              }}
-              onRevoke={async () => {
-                "use server";
-                return revokeAction();
-              }}
-            />
-
-            <QuoteTracking
-              formatLocale={ctx.company.formatLocale}
-              timezone={ctx.company.timezone}
-            />
-          </div>
-
-          <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-3">
-            <div className="space-y-6">
-              {attachmentsCard}
-
-              <QuoteEvents
-                events={quote.events}
-                formatLocale={ctx.company.formatLocale}
-                timezone={ctx.company.timezone}
-              />
-
-              <QuoteEmails
-                emails={quote.emailsSent}
-                formatLocale={ctx.company.formatLocale}
-                timezone={ctx.company.timezone}
-              />
-
-              {quote.acceptance ? (
-                <AcceptanceCard
-                  acceptance={quote.acceptance}
-                  formatLocale={ctx.company.formatLocale}
-                  timezone={ctx.company.timezone}
-                />
-              ) : null}
-            </div>
-
-            <div className="lg:col-span-2">
-              <QuoteLiveThread
-                messages={formatThread(quote.messages, {
-                  formatLocale: ctx.company.formatLocale,
-                  timezone: ctx.company.timezone,
-                  withAuthorNames: true,
-                })}
-                side={MessageAuthor.STAFF}
-                companyName={ctx.company.name}
-                action={sendStaffMessageAction.bind(null, quote.id)}
-              />
-            </div>
-          </div>
+          {tabs}
         </QuoteLive>
       ) : (
-        /*
-          No customer link yet, so there is no row of things to do with one.
-          Side by side rather than stacked full width: each card holds a short
-          list, and at full width a two-line card leaves a band of empty card
-          under it.
-        */
-        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
-          {attachmentsCard}
-          {reuseCard}
-        </div>
+        tabs
       )}
     </div>
   );

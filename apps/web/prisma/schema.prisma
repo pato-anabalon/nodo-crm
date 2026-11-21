@@ -219,6 +219,7 @@ enum NotificationKind {
   JOB_FINISHED
   JOB_TODO_DUE
   QUOTE_EXPIRED_OPENED
+  TIMECLOCK_AUTO_OUT
 }
 
 /**
@@ -282,6 +283,17 @@ model Company {
    */
   restBreakMinutes Int @default(10)
   mealBreakMinutes Int @default(30)
+
+  /**
+   * Leaving the job mid-shift (`@nodo/core/timeclock/movement`). Somebody away
+   * longer than `siteReturnMinutes`, and not on an errand, is clocked out at
+   * the moment they left; 0 leaves the shift alone. `siteSwitchMinutes` inside
+   * another job before the phone suggests switching to it, and travel between
+   * jobs ends by itself after `travelMaxMinutes`.
+   */
+  siteReturnMinutes Int @default(0)
+  siteSwitchMinutes Int @default(5)
+  travelMaxMinutes  Int @default(120)
 
   // Values suggested when creating a quote; the quote keeps its own copy.
   defaultTaxType TaxType @default(GST)
@@ -461,6 +473,7 @@ model Company {
   jobScopeChanges         JobScopeChange[]
   trades                  Trade[]
   timeEntries             TimeEntry[]
+  timeEntryEvents         TimeEntryEvent[]
   locationPings           LocationPing[]
   timesheetDays           TimesheetDay[]
   timesheetChanges        TimesheetChange[]
@@ -2830,6 +2843,35 @@ model JobScopeChange {
 // Time control. A shift is clocked in on site from the phone and clocked out
 // wherever the day ends; the position is recorded only in between.
 
+/// A stretch on the clock: on a job, or travelling between two. Travel has no
+/// job — `jobName` is the one it left — and is paid, as its own line.
+enum TimeEntryKind {
+  WORK
+  TRAVEL
+}
+
+/// How a stretch ended, said on the timesheet.
+enum TimeEntryEnd {
+  // Somebody pressed clock out.
+  PUNCH
+  // Away from the job longer than the company allows, not on an errand: ended
+  // at the moment they left.
+  LEFT_SITE
+  // Ended by starting the next one: travelling, or arriving at another job.
+  SWITCHED
+  // Travel that ran past the company's limit with nobody arriving anywhere.
+  TRAVEL_LIMIT
+}
+
+/// What the phone heard about the job's circle during a shift, and the errands
+/// the person declared. The shift's leaving and returning are worked out from
+/// these, in the order they happened.
+enum TimeEntryEventKind {
+  LEFT
+  RETURNED
+  ERRAND
+}
+
 enum TimeEntrySource {
   // Clocked in from the phone, on site.
   MOBILE
@@ -2854,6 +2896,7 @@ model TimeEntry {
   userId    String
   jobId     String?
   jobName   String
+  kind      TimeEntryKind   @default(WORK)
   source    TimeEntrySource @default(MOBILE)
   clientId  String?
 
@@ -2878,6 +2921,8 @@ model TimeEntry {
   // home must still end the day — and recorded here for the timesheet.
   clockOutInside     Boolean?
   clockOutBattery    Float?
+  // Null while open, and on shifts from before it was recorded.
+  endedBy            TimeEntryEnd?
 
   note        String?
   createdById String?
@@ -2892,6 +2937,7 @@ model TimeEntry {
   createdBy User?             @relation("TimeEntryCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
   editedBy  User?             @relation("TimeEntryEditedBy", fields: [editedById], references: [id], onDelete: SetNull)
   pings     LocationPing[]
+  events    TimeEntryEvent[]
   changes   TimesheetChange[]
 
   @@unique([companyId, clientId])
@@ -2922,6 +2968,29 @@ model LocationPing {
 
   @@unique([timeEntryId, recordedAt])
   @@index([companyId, recordedAt])
+}
+
+/**
+ * Leaving and coming back to the job, and errands, as the phone sent them. Each
+ * carries the phone's own `clientId`, so one sent twice is stored once; `at`
+ * is when it happened on the phone, which is the order they are read in.
+ */
+model TimeEntryEvent {
+  id          String             @id @default(cuid())
+  companyId   String
+  timeEntryId String
+  kind        TimeEntryEventKind
+  clientId    String
+  at          DateTime
+  receivedAt  DateTime           @default(now())
+  // What the errand was, in the person's words; optional.
+  note        String?
+
+  company   Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  timeEntry TimeEntry @relation(fields: [timeEntryId], references: [id], onDelete: Cascade)
+
+  @@unique([companyId, clientId])
+  @@index([timeEntryId, at])
 }
 
 /// A day on somebody's timesheet that a supervisor adjusted: the unpaid meal

@@ -121,6 +121,7 @@ export const ModelName = {
   JobScopeChange: 'JobScopeChange',
   TimeEntry: 'TimeEntry',
   LocationPing: 'LocationPing',
+  TimeEntryEvent: 'TimeEntryEvent',
   TimesheetDay: 'TimesheetDay',
   TimesheetChange: 'TimesheetChange'
 } as const
@@ -162,6 +163,9 @@ export const CompanyScalarFieldEnum = {
   timezone: 'timezone',
   restBreakMinutes: 'restBreakMinutes',
   mealBreakMinutes: 'mealBreakMinutes',
+  siteReturnMinutes: 'siteReturnMinutes',
+  siteSwitchMinutes: 'siteSwitchMinutes',
+  travelMaxMinutes: 'travelMaxMinutes',
   defaultTaxType: 'defaultTaxType',
   defaultTaxRate: 'defaultTaxRate',
   quotePrefix: 'quotePrefix',
@@ -1260,6 +1264,7 @@ export const TimeEntryScalarFieldEnum = {
   userId: 'userId',
   jobId: 'jobId',
   jobName: 'jobName',
+  kind: 'kind',
   source: 'source',
   clientId: 'clientId',
   clockInAt: 'clockInAt',
@@ -1277,6 +1282,7 @@ export const TimeEntryScalarFieldEnum = {
   clockOutDistanceM: 'clockOutDistanceM',
   clockOutInside: 'clockOutInside',
   clockOutBattery: 'clockOutBattery',
+  endedBy: 'endedBy',
   note: 'note',
   createdById: 'createdById',
   editedById: 'editedById',
@@ -1301,6 +1307,20 @@ export const LocationPingScalarFieldEnum = {
 } as const
 
 export type LocationPingScalarFieldEnum = (typeof LocationPingScalarFieldEnum)[keyof typeof LocationPingScalarFieldEnum]
+
+
+export const TimeEntryEventScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  timeEntryId: 'timeEntryId',
+  kind: 'kind',
+  clientId: 'clientId',
+  at: 'at',
+  receivedAt: 'receivedAt',
+  note: 'note'
+} as const
+
+export type TimeEntryEventScalarFieldEnum = (typeof TimeEntryEventScalarFieldEnum)[keyof typeof TimeEntryEventScalarFieldEnum]
 
 
 export const TimesheetDayScalarFieldEnum = {

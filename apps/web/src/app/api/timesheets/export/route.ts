@@ -38,6 +38,7 @@ export async function GET(request: Request) {
     openShifts: (count) => t("openShifts", { count }),
     correctedShifts: (count) => t("correctedShifts", { count }),
     mealAdjusted: (minutes, reason) => t("mealAdjusted", { minutes, reason }),
+    endedByClock: (count) => t("endedByClock", { count }),
   });
 
   return new NextResponse(csv, {

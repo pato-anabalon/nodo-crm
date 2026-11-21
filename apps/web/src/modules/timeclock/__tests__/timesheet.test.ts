@@ -20,6 +20,7 @@ function shift(id: string, start: string, end: string | null, overrides: Partial
     userId: "u1",
     jobId: "j1",
     jobName: "12 Kegworth Pl",
+    kind: "WORK",
     source: "MOBILE",
     clockInAt: at(start),
     clockInReceivedAt: at(start),
@@ -27,6 +28,7 @@ function shift(id: string, start: string, end: string | null, overrides: Partial
     clockOutAt: end ? at(end) : null,
     clockOutReceivedAt: end ? at(end) : null,
     clockOutInside: end ? true : null,
+    endedBy: end ? "PUNCH" : null,
     editedAt: null,
     note: null,
     ...overrides,
@@ -123,21 +125,22 @@ describe("timesheetCsv", () => {
     openShifts: (count: number) => `${count} open`,
     correctedShifts: (count: number) => `${count} by hand`,
     mealAdjusted: (minutes: number, reason: string) => `meal ${minutes}: ${reason}`,
+    endedByClock: (count: number) => `${count} by the clock`,
   };
   const lines = (group: "day" | "person") => timesheetCsv(people, group, zone, labels).replace(/^﻿/, "").trim().split("\r\n");
 
   it("writes a row per day worked, in decimal hours, the amount from the minutes", () => {
     const [header, monday, tuesday] = lines("day");
-    expect(header).toBe("person,email,date,jobs,shifts,firstIn,lastOut,worked,restBreaks,mealBreak,paid,rate,amount,notes");
+    expect(header).toBe("person,email,date,jobs,shifts,firstIn,lastOut,worked,travel,restBreaks,mealBreak,paid,rate,amount,notes");
     // A name a spreadsheet would run as a formula goes in as text.
-    expect(monday).toBe("'=Wendy,wendy@example.com,2026-11-09,12 Kegworth Pl,1,07:00,15:00,8,2,30,7.5,30,225,");
-    expect(tuesday).toBe("'=Wendy,wendy@example.com,2026-11-10,12 Kegworth Pl,1,07:00,,0,0,0,0,30,0,1 open");
+    expect(monday).toBe("'=Wendy,wendy@example.com,2026-11-09,12 Kegworth Pl,1,07:00,15:00,8,0,2,30,7.5,30,225,");
+    expect(tuesday).toBe("'=Wendy,wendy@example.com,2026-11-10,12 Kegworth Pl,1,07:00,,0,0,0,0,0,30,0,1 open");
   });
 
   it("writes one row per person with the window's totals", () => {
     expect(lines("person")).toEqual([
-      "person,email,days,worked,mealBreak,paid,rate,amount,notes",
-      "'=Wendy,wendy@example.com,1,8,30,7.5,30,225,1 open",
+      "person,email,days,worked,travel,mealBreak,paid,rate,amount,notes",
+      "'=Wendy,wendy@example.com,1,8,0,30,7.5,30,225,1 open",
     ]);
   });
 
@@ -148,5 +151,17 @@ describe("timesheetCsv", () => {
     expect(monday.endsWith(",1 by hand; meal 0: No lunch")).toBe(true);
     const [, row] = timesheetCsv(adjusted, "person", zone, labels).trim().split("\r\n");
     expect(row.endsWith(",1 by hand")).toBe(true);
+  });
+
+  it("pays travel between jobs as part of the day, says how much, and names only the jobs worked", () => {
+    const moved = [
+      shift("a", "2026-11-09T07:00:00", "2026-11-09T11:00:00", { endedBy: "SWITCHED" }),
+      shift("t", "2026-11-09T11:00:00", "2026-11-09T11:30:00", { kind: "TRAVEL", jobId: null, endedBy: "SWITCHED" }),
+      shift("b", "2026-11-09T11:30:00", "2026-11-09T15:00:00", { jobId: "j2", jobName: "4 Ponsonby Rd", clockOutInside: null, endedBy: "LEFT_SITE" }),
+    ].map((input) => toShift(input, zone));
+    const sheet = personTimesheet("u1", moved, week.from, week.to, DEFAULT_BREAK_POLICY);
+    expect(sheet).toMatchObject({ workedMinutes: 480, travelMinutes: 30, paidMinutes: 450, flagged: true });
+    const [, monday] = timesheetCsv([{ ...people[0], sheet }], "day", zone, labels).trim().split("\r\n");
+    expect(monday).toBe("'=Wendy,wendy@example.com,2026-11-09,12 Kegworth Pl; 4 Ponsonby Rd,3,07:00,15:00,8,0.5,2,30,7.5,30,225,1 by the clock");
   });
 });

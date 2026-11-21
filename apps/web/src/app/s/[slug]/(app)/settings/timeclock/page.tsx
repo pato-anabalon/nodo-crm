@@ -1,8 +1,9 @@
 import { getTranslations } from "next-intl/server";
 import { can, requirePermission } from "@/lib/auth/session";
 import { SettingsHeader } from "@/modules/settings/settings-header";
-import { saveBreakPolicyAction } from "@/modules/timeclock/actions";
+import { saveBreakPolicyAction, saveMovementPolicyAction } from "@/modules/timeclock/actions";
 import { BreakPolicyForm } from "@/modules/timeclock/break-policy-form";
+import { MovementPolicyForm } from "@/modules/timeclock/movement-policy-form";
 
 export async function generateMetadata() {
   const t = await getTranslations("timeclockSettings");
@@ -17,6 +18,7 @@ export default async function TimeclockSettingsPage() {
     <div className="space-y-6">
       <SettingsHeader title={t("title")} subtitle={t("subtitle")} />
       <BreakPolicyForm policy={ctx.company.breakPolicy} canEdit={can(ctx, "settings.update")} save={saveBreakPolicyAction} />
+      <MovementPolicyForm policy={ctx.company.movementPolicy} canEdit={can(ctx, "settings.update")} save={saveMovementPolicyAction} />
     </div>
   );
 }

@@ -942,11 +942,35 @@ export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
   _max?: Prisma.NestedJsonNullableFilter<$PrismaModel>
 }
 
+export type EnumTimeEntryKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.TimeEntryKind | Prisma.EnumTimeEntryKindFieldRefInput<$PrismaModel>
+  in?: $Enums.TimeEntryKind[] | Prisma.ListEnumTimeEntryKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TimeEntryKind[] | Prisma.ListEnumTimeEntryKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTimeEntryKindFilter<$PrismaModel> | $Enums.TimeEntryKind
+}
+
 export type EnumTimeEntrySourceFilter<$PrismaModel = never> = {
   equals?: $Enums.TimeEntrySource | Prisma.EnumTimeEntrySourceFieldRefInput<$PrismaModel>
   in?: $Enums.TimeEntrySource[] | Prisma.ListEnumTimeEntrySourceFieldRefInput<$PrismaModel>
   notIn?: $Enums.TimeEntrySource[] | Prisma.ListEnumTimeEntrySourceFieldRefInput<$PrismaModel>
   not?: Prisma.NestedEnumTimeEntrySourceFilter<$PrismaModel> | $Enums.TimeEntrySource
+}
+
+export type EnumTimeEntryEndNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.TimeEntryEnd | Prisma.EnumTimeEntryEndFieldRefInput<$PrismaModel> | null
+  in?: $Enums.TimeEntryEnd[] | Prisma.ListEnumTimeEntryEndFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.TimeEntryEnd[] | Prisma.ListEnumTimeEntryEndFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumTimeEntryEndNullableFilter<$PrismaModel> | $Enums.TimeEntryEnd | null
+}
+
+export type EnumTimeEntryKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TimeEntryKind | Prisma.EnumTimeEntryKindFieldRefInput<$PrismaModel>
+  in?: $Enums.TimeEntryKind[] | Prisma.ListEnumTimeEntryKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TimeEntryKind[] | Prisma.ListEnumTimeEntryKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTimeEntryKindWithAggregatesFilter<$PrismaModel> | $Enums.TimeEntryKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTimeEntryKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTimeEntryKindFilter<$PrismaModel>
 }
 
 export type EnumTimeEntrySourceWithAggregatesFilter<$PrismaModel = never> = {
@@ -957,6 +981,16 @@ export type EnumTimeEntrySourceWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumTimeEntrySourceFilter<$PrismaModel>
   _max?: Prisma.NestedEnumTimeEntrySourceFilter<$PrismaModel>
+}
+
+export type EnumTimeEntryEndNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TimeEntryEnd | Prisma.EnumTimeEntryEndFieldRefInput<$PrismaModel> | null
+  in?: $Enums.TimeEntryEnd[] | Prisma.ListEnumTimeEntryEndFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.TimeEntryEnd[] | Prisma.ListEnumTimeEntryEndFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumTimeEntryEndNullableWithAggregatesFilter<$PrismaModel> | $Enums.TimeEntryEnd | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTimeEntryEndNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTimeEntryEndNullableFilter<$PrismaModel>
 }
 
 export type FloatFilter<$PrismaModel = never> = {
@@ -984,6 +1018,23 @@ export type FloatWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedFloatFilter<$PrismaModel>
   _min?: Prisma.NestedFloatFilter<$PrismaModel>
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
+}
+
+export type EnumTimeEntryEventKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.TimeEntryEventKind | Prisma.EnumTimeEntryEventKindFieldRefInput<$PrismaModel>
+  in?: $Enums.TimeEntryEventKind[] | Prisma.ListEnumTimeEntryEventKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TimeEntryEventKind[] | Prisma.ListEnumTimeEntryEventKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTimeEntryEventKindFilter<$PrismaModel> | $Enums.TimeEntryEventKind
+}
+
+export type EnumTimeEntryEventKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TimeEntryEventKind | Prisma.EnumTimeEntryEventKindFieldRefInput<$PrismaModel>
+  in?: $Enums.TimeEntryEventKind[] | Prisma.ListEnumTimeEntryEventKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TimeEntryEventKind[] | Prisma.ListEnumTimeEntryEventKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTimeEntryEventKindWithAggregatesFilter<$PrismaModel> | $Enums.TimeEntryEventKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTimeEntryEventKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTimeEntryEventKindFilter<$PrismaModel>
 }
 
 export type EnumTimesheetChangeKindFilter<$PrismaModel = never> = {
@@ -1879,11 +1930,35 @@ export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
   not?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter
 }
 
+export type NestedEnumTimeEntryKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.TimeEntryKind | Prisma.EnumTimeEntryKindFieldRefInput<$PrismaModel>
+  in?: $Enums.TimeEntryKind[] | Prisma.ListEnumTimeEntryKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TimeEntryKind[] | Prisma.ListEnumTimeEntryKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTimeEntryKindFilter<$PrismaModel> | $Enums.TimeEntryKind
+}
+
 export type NestedEnumTimeEntrySourceFilter<$PrismaModel = never> = {
   equals?: $Enums.TimeEntrySource | Prisma.EnumTimeEntrySourceFieldRefInput<$PrismaModel>
   in?: $Enums.TimeEntrySource[] | Prisma.ListEnumTimeEntrySourceFieldRefInput<$PrismaModel>
   notIn?: $Enums.TimeEntrySource[] | Prisma.ListEnumTimeEntrySourceFieldRefInput<$PrismaModel>
   not?: Prisma.NestedEnumTimeEntrySourceFilter<$PrismaModel> | $Enums.TimeEntrySource
+}
+
+export type NestedEnumTimeEntryEndNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.TimeEntryEnd | Prisma.EnumTimeEntryEndFieldRefInput<$PrismaModel> | null
+  in?: $Enums.TimeEntryEnd[] | Prisma.ListEnumTimeEntryEndFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.TimeEntryEnd[] | Prisma.ListEnumTimeEntryEndFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumTimeEntryEndNullableFilter<$PrismaModel> | $Enums.TimeEntryEnd | null
+}
+
+export type NestedEnumTimeEntryKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TimeEntryKind | Prisma.EnumTimeEntryKindFieldRefInput<$PrismaModel>
+  in?: $Enums.TimeEntryKind[] | Prisma.ListEnumTimeEntryKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TimeEntryKind[] | Prisma.ListEnumTimeEntryKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTimeEntryKindWithAggregatesFilter<$PrismaModel> | $Enums.TimeEntryKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTimeEntryKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTimeEntryKindFilter<$PrismaModel>
 }
 
 export type NestedEnumTimeEntrySourceWithAggregatesFilter<$PrismaModel = never> = {
@@ -1894,6 +1969,16 @@ export type NestedEnumTimeEntrySourceWithAggregatesFilter<$PrismaModel = never> 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumTimeEntrySourceFilter<$PrismaModel>
   _max?: Prisma.NestedEnumTimeEntrySourceFilter<$PrismaModel>
+}
+
+export type NestedEnumTimeEntryEndNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TimeEntryEnd | Prisma.EnumTimeEntryEndFieldRefInput<$PrismaModel> | null
+  in?: $Enums.TimeEntryEnd[] | Prisma.ListEnumTimeEntryEndFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.TimeEntryEnd[] | Prisma.ListEnumTimeEntryEndFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumTimeEntryEndNullableWithAggregatesFilter<$PrismaModel> | $Enums.TimeEntryEnd | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTimeEntryEndNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTimeEntryEndNullableFilter<$PrismaModel>
 }
 
 export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -1910,6 +1995,23 @@ export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedFloatFilter<$PrismaModel>
   _min?: Prisma.NestedFloatFilter<$PrismaModel>
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
+}
+
+export type NestedEnumTimeEntryEventKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.TimeEntryEventKind | Prisma.EnumTimeEntryEventKindFieldRefInput<$PrismaModel>
+  in?: $Enums.TimeEntryEventKind[] | Prisma.ListEnumTimeEntryEventKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TimeEntryEventKind[] | Prisma.ListEnumTimeEntryEventKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTimeEntryEventKindFilter<$PrismaModel> | $Enums.TimeEntryEventKind
+}
+
+export type NestedEnumTimeEntryEventKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TimeEntryEventKind | Prisma.EnumTimeEntryEventKindFieldRefInput<$PrismaModel>
+  in?: $Enums.TimeEntryEventKind[] | Prisma.ListEnumTimeEntryEventKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TimeEntryEventKind[] | Prisma.ListEnumTimeEntryEventKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTimeEntryEventKindWithAggregatesFilter<$PrismaModel> | $Enums.TimeEntryEventKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTimeEntryEventKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTimeEntryEventKindFilter<$PrismaModel>
 }
 
 export type NestedEnumTimesheetChangeKindFilter<$PrismaModel = never> = {

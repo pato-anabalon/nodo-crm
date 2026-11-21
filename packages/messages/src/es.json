@@ -1959,7 +1959,8 @@
       "JOB_EVENT": "{by} te sumó a {title} ({job})",
       "JOB_CHAT_MENTION": "{by} te mencionó en el chat de {job}: “{excerpt}”",
       "JOB_FINISHED": "{by} finalizó {job}",
-      "JOB_TODO_DUE": "“{title}” vence ({job})"
+      "JOB_TODO_DUE": "“{title}” vence ({job})",
+      "TIMECLOCK_AUTO_OUT": "{self, select, yes {Se cerró tu jornada} other {Se cerró la jornada de {person}}} en {job} a las {time}: {why, select, travel {el traslado superó el máximo} other {fuera de la obra más tiempo del permitido}}"
     },
     "quoteExpiring": {
       "subject": "La cotización {reference} está por vencer",
@@ -2207,7 +2208,9 @@
       "JOB_FINISHED": "Se finaliza un trabajo mío",
       "JOB_FINISHED_hint": "Cuando alguien finaliza un trabajo en el que estás.",
       "JOB_TODO_DUE": "Vence una tarea mía",
-      "JOB_TODO_DUE_hint": "El día en que una tarea que te asignaron llega a su fecha sin estar lista."
+      "JOB_TODO_DUE_hint": "El día en que una tarea que te asignaron llega a su fecha sin estar lista.",
+      "TIMECLOCK_AUTO_OUT": "Una jornada cerrada por el reloj",
+      "TIMECLOCK_AUTO_OUT_hint": "Cuando el reloj cierra una jornada solo: fuera de la obra demasiado tiempo, o un traslado que pasó el máximo. La tuya, o la de cualquiera cuyas horas ves."
     },
     "indexSubtitle": "Elige qué correos quieres recibir.",
     "recipients": {
@@ -3121,7 +3124,10 @@
         "punch_too_old": "No se tomó: la marca tenía más de una semana cuando se envió.",
         "punch_in_future": "No se tomó: el reloj del teléfono está adelantado. Revisa su fecha y hora.",
         "generic": "Una marca no se tomó. Inténtalo de nuevo.",
-        "dismiss": "Cerrar"
+        "dismiss": "Cerrar",
+        "same_job": "No se registró: ya tienes una jornada abierta en esta obra.",
+        "already_ended": "No se registró: esa jornada ya había terminado.",
+        "not_on_a_job": "No se registró: no es una jornada en una obra."
       },
       "week": {
         "title": "Últimos siete días",
@@ -3133,7 +3139,7 @@
   },
   "timeclockSettings": {
     "title": "Control horario",
-    "subtitle": "Cuánto duran los descansos al calcular las horas desde el reloj.",
+    "subtitle": "Cuánto duran los descansos al calcular las horas desde el reloj, y qué hace cuando alguien sale de la obra.",
     "breaks": "Descansos",
     "breaksHint": "Qué descansos tiene un día lo dice la ley, según las horas trabajadas ese día. Cuánto dura cada uno lo decides tú.",
     "rest": "Cada descanso pagado",
@@ -3155,7 +3161,17 @@
       "none": "Ninguno",
       "rest": "{count, plural, one {1 descanso pagado} other {# descansos pagados}}",
       "restAndMeal": "{count, plural, one {1 descanso pagado} other {# descansos pagados}} + 1 almuerzo no pagado"
-    }
+    },
+    "movement": "Salir de la obra",
+    "movementHint": "Lo que hace el reloj cuando alguien sale del círculo de la obra durante la jornada. El teléfono le avisa en el momento, y puede decir que va a otra obra o que está en un encargo de trabajo.",
+    "returnMinutes": "Marcar salida si no vuelve en",
+    "returnHint": "Si no vuelve a tiempo y no está en un encargo, la jornada termina a la hora en que salió, y se le avisa a él y a los supervisores.",
+    "returnOff": "Nunca, dejar la jornada abierta",
+    "switchMinutes": "Sugerir el cambio después de",
+    "switchHint": "Dentro del círculo de otra obra durante este tiempo, el teléfono ofrece cambiar la jornada a esa obra con un toque.",
+    "travelMax": "El traslado termina solo después de",
+    "travelHint": "El traslado entre obras se paga y aparece en su propia línea. Si para entonces no llegó a ninguna obra, termina ahí.",
+    "movementSaved": "Salir de la obra guardado"
   },
   "timesheets": {
     "title": "Horas",
@@ -3192,10 +3208,12 @@
         "rate": "Tarifa por hora ({currency})",
         "amount": "Monto ({currency})",
         "days": "Días",
-        "notes": "Notas"
+        "notes": "Notas",
+        "travel": "De ellas, traslado"
       },
       "correctedShifts": "{count, plural, one {1 jornada ingresada o corregida a mano} other {# jornadas ingresadas o corregidas a mano}}",
-      "mealAdjusted": "Almuerzo fijado en {minutes} min: {reason}"
+      "mealAdjusted": "Almuerzo fijado en {minutes} min: {reason}",
+      "endedByClock": "{count, plural, one {1 jornada cerrada por el reloj} other {# jornadas cerradas por el reloj}}"
     },
     "previousWeek": "Semana anterior",
     "nextWeek": "Semana siguiente",
@@ -3207,7 +3225,7 @@
       "total": "Total",
       "amount": "Monto"
     },
-    "flagged": "Algo que revisar: una jornada abierta, enviada tarde o cerrada lejos de la obra",
+    "flagged": "Algo que revisar: una jornada abierta, enviada tarde, cerrada lejos de la obra o cerrada por el reloj",
     "open": "Abierta",
     "noRate": "Sin tarifa",
     "paidNote": "Horas pagadas: en los días de más de 4 horas se descuenta el almuerzo de {meal} minutos. Una jornada abierta cuenta cuando se cierra.",
@@ -3229,12 +3247,16 @@
       "manual": "Ingresada a mano",
       "edited": "Corregida",
       "late": "Enviada tarde",
-      "leftAway": "Salida lejos de la obra"
+      "leftAway": "Salida lejos de la obra",
+      "travel": "Traslado",
+      "leftSite": "Cerrada por el reloj: fuera de la obra",
+      "travelLimit": "Cerrada por el reloj: traslado sobre el máximo"
     },
     "shift": {
       "range": "{start} – {end}",
       "since": "Desde las {start}",
-      "distance": "entrada a {metres} m de la obra"
+      "distance": "entrada a {metres} m de la obra",
+      "travel": "Traslado desde {job}"
     },
     "exportHours": "Exportar",
     "shiftPage": {
@@ -3259,7 +3281,12 @@
         "clockOut": "Salida",
         "inGlyph": "E",
         "outGlyph": "S"
-      }
+      },
+      "movement": "Fuera de la obra",
+      "left": "Salió de la obra",
+      "returned": "Volvió a la obra",
+      "errand": "En un encargo de trabajo",
+      "errandNote": "En un encargo de trabajo: “{note}”"
     },
     "corrections": {
       "saved": "Horas guardadas",
@@ -3299,7 +3326,8 @@
         "in_future": "Una jornada no puede empezar ni terminar en el futuro.",
         "too_long": "Son más de 24 horas. Revisa el día y las horas.",
         "overlaps": "Se cruza con otra jornada de esa persona.",
-        "reopen": "Una jornada terminada no se puede reabrir. Ponle una hora de salida."
+        "reopen": "Una jornada terminada no se puede reabrir. Ponle una hora de salida.",
+        "travel": "Un traslado no se corrige aquí. Bórralo e ingresa la jornada a mano."
       }
     }
   }

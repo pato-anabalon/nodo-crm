@@ -1,4 +1,4 @@
-import { Prisma, TimeEntrySource, TimesheetChangeKind } from "@/generated/prisma/client";
+import { Prisma, TimeEntryKind, TimeEntrySource, TimesheetChangeKind } from "@/generated/prisma/client";
 import type { CompanyContext } from "@/lib/auth/session";
 import { prisma } from "@/lib/db/prisma";
 import { wallClock } from "@nodo/core/zoned-time";
@@ -105,7 +105,7 @@ export async function addShift(ctx: CompanyContext, userId: string, input: Shift
 async function entryToChange(ctx: CompanyContext, entryId: string) {
   const entry = await ctx.db.timeEntry.findFirst({
     where: { id: entryId },
-    select: { id: true, userId: true, jobId: true, jobName: true, clockInAt: true, clockOutAt: true },
+    select: { id: true, userId: true, kind: true, jobId: true, jobName: true, clockInAt: true, clockOutAt: true },
   });
   if (!entry) throw new TimeclockRefusal("not_found", false);
   await guardPerson(ctx, entry.userId);
@@ -123,6 +123,8 @@ async function entryToChange(ctx: CompanyContext, entryId: string) {
  */
 export async function correctShift(ctx: CompanyContext, entryId: string, input: ShiftInput, now = new Date()): Promise<void> {
   const entry = await entryToChange(ctx, entryId);
+  // Travel is on no job, and the form puts one on it: a wrong one is deleted and the day entered again.
+  if (entry.kind === TimeEntryKind.TRAVEL) throw new TimeclockRefusal("travel", false);
   if (entry.clockOutAt && !input.window.clockOutAt) throw new TimeclockRefusal("reopen", false);
   const job = input.jobId === entry.jobId ? { id: entry.jobId, name: entry.jobName } : await jobOf(ctx, input.jobId);
   await checkWindow(ctx, entry.userId, input.window, now, entry.id);

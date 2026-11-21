@@ -1066,6 +1066,42 @@ and the server again when it arrives.
   Owner and Admin, from `scripts/grant-timeclock.ts`, and hand them to their
   other profiles themselves.
 
+### Leaving the job, errands and travel
+
+What happens when somebody leaves the job's circle mid-shift
+(`@nodo/core/timeclock/movement`, pure; `movement-service.ts`, `settle.ts`).
+The phone sends what the system's geofencing reports — `LEFT`, `RETURNED` —
+and the person's own `ERRAND`, as `TimeEntryEvent`s with their own
+`clientId`; the shift's state is **folded from them in the order they
+happened**, not the order they arrived, so a drive without signal tells the
+same story as one with it.
+
+- **Away too long ends the shift at the moment they left** — the time away
+  wasn't on the job — when the company sets `siteReturnMinutes` (0, the
+  default, never does). An errand stops the countdown until they're back; one
+  declared after it ran out comes too late. They and whoever holds
+  `timeclock.read.all` are told (`TIMECLOCK_AUTO_OUT`, once per shift).
+- **Travel is its own stretch**, `TimeEntry.kind = TRAVEL`: on no job (a check
+  in the migration), `jobName` the one it left, paid like a shift and counted
+  in the day's breaks, a column of its own in the CSV. "Going to another job"
+  ends the shift where they left and starts travel there (`startTravel`);
+  arriving and taking the next job up ends whatever is open and starts it at
+  the same instant (`switchSite`, held to a clock-in's refusals). Both are one
+  transaction, so nobody is on two stretches, or none, in between. Travel that
+  reaches no job ends at `travelMaxMinutes`. Travel can't be corrected, only
+  deleted — the form would put a job on it.
+- **What the clock closed, the clock may reopen.** A `RETURNED` dated in time
+  that arrives after the clock ended the shift reopens it, unless anything
+  started since or a supervisor touched it; a later departure moves its end.
+  What a person ended (`endedBy: PUNCH`, `SWITCHED`) is never moved.
+- **Settled whenever it is read** — the phone opening the clock, a punch, an
+  event — and by `/api/cron/clock` and the daily sweep (`settleOpenEntries`),
+  so a flat phone still ends its shift. `endedBy` says how each ended, on the
+  timesheet and in the CSV's notes.
+- Suggesting the switch after `siteSwitchMinutes` inside another job is the
+  phone's: the server only hands it the setting, with the rest of the policy,
+  in `GET /timeclock`.
+
 ### Hours and pay
 
 `/timesheets` is everybody's week (`timeclock.read.all`), a person's shifts

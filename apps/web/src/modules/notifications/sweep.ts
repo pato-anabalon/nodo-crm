@@ -17,6 +17,7 @@ import { closeExpiredQuotes } from "@/modules/quotes/sweep";
 import { nativeQuoteWhere } from "@/modules/quotes/native";
 import { endExpiredDemos, warnEndingDemos } from "@/modules/platform/demo-sweep";
 import { sweepDueJobTodos } from "@/modules/jobs/sweep";
+import { settleOpenEntries } from "@/modules/timeclock/settle";
 
 export type SweepResult = {
   /** Demos whose days ran out tonight and were switched off. */
@@ -34,6 +35,8 @@ export type SweepResult = {
   firstFollowUps: number;
   secondFollowUps: number;
   reviewRequests: number;
+  /** Shifts the clock ended by itself: away from the job too long, or travel past its limit. */
+  autoClockOuts: number;
 };
 
 /**
@@ -85,6 +88,8 @@ export async function runDailySweep(now: Date = new Date()): Promise<SweepResult
     firstFollowUps: 0,
     secondFollowUps: 0,
     reviewRequests: 0,
+    // Every company at once; `/api/cron/clock` does the same through the day.
+    autoClockOuts: await settleOpenEntries(now),
   };
 
   for (const company of companies) {

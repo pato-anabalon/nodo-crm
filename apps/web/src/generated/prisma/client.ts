@@ -625,6 +625,14 @@ export type TimeEntry = Prisma.TimeEntryModel
  */
 export type LocationPing = Prisma.LocationPingModel
 /**
+ * Model TimeEntryEvent
+ * *
+ *  * Leaving and coming back to the job, and errands, as the phone sent them. Each
+ *  * carries the phone's own `clientId`, so one sent twice is stored once; `at`
+ *  * is when it happened on the phone, which is the order they are read in.
+ */
+export type TimeEntryEvent = Prisma.TimeEntryEventModel
+/**
  * Model TimesheetDay
  * A day on somebody's timesheet that a supervisor adjusted: the unpaid meal
  * break actually taken, in place of the company's. Only days somebody touched

@@ -170,7 +170,8 @@ export const NotificationKind = {
   JOB_CHAT_MENTION: 'JOB_CHAT_MENTION',
   JOB_FINISHED: 'JOB_FINISHED',
   JOB_TODO_DUE: 'JOB_TODO_DUE',
-  QUOTE_EXPIRED_OPENED: 'QUOTE_EXPIRED_OPENED'
+  QUOTE_EXPIRED_OPENED: 'QUOTE_EXPIRED_OPENED',
+  TIMECLOCK_AUTO_OUT: 'TIMECLOCK_AUTO_OUT'
 } as const
 
 export type NotificationKind = (typeof NotificationKind)[keyof typeof NotificationKind]
@@ -345,6 +346,33 @@ export const JobScopeChangeKind = {
 } as const
 
 export type JobScopeChangeKind = (typeof JobScopeChangeKind)[keyof typeof JobScopeChangeKind]
+
+
+export const TimeEntryKind = {
+  WORK: 'WORK',
+  TRAVEL: 'TRAVEL'
+} as const
+
+export type TimeEntryKind = (typeof TimeEntryKind)[keyof typeof TimeEntryKind]
+
+
+export const TimeEntryEnd = {
+  PUNCH: 'PUNCH',
+  LEFT_SITE: 'LEFT_SITE',
+  SWITCHED: 'SWITCHED',
+  TRAVEL_LIMIT: 'TRAVEL_LIMIT'
+} as const
+
+export type TimeEntryEnd = (typeof TimeEntryEnd)[keyof typeof TimeEntryEnd]
+
+
+export const TimeEntryEventKind = {
+  LEFT: 'LEFT',
+  RETURNED: 'RETURNED',
+  ERRAND: 'ERRAND'
+} as const
+
+export type TimeEntryEventKind = (typeof TimeEntryEventKind)[keyof typeof TimeEntryEventKind]
 
 
 export const TimeEntrySource = {

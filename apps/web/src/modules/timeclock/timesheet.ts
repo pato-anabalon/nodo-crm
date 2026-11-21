@@ -18,6 +18,8 @@ export type ShiftInput = {
   userId: string;
   jobId: string | null;
   jobName: string;
+  /** Travel between jobs is paid like a shift and shown as its own line; `jobName` is where it left from. */
+  kind: "WORK" | "TRAVEL";
   source: "MOBILE" | "MANUAL";
   clockInAt: Date;
   clockInReceivedAt: Date;
@@ -25,6 +27,7 @@ export type ShiftInput = {
   clockOutAt: Date | null;
   clockOutReceivedAt: Date | null;
   clockOutInside: boolean | null;
+  endedBy: "PUNCH" | "LEFT_SITE" | "SWITCHED" | "TRAVEL_LIMIT" | null;
   editedAt: Date | null;
   note: string | null;
 };
@@ -36,12 +39,21 @@ export type Shift = ShiftInput & {
   late: boolean;
   /** Clocked out away from the job. */
   leftAway: boolean;
+  /** Ended by the clock, not a person: away too long, or travel past its limit. */
+  endedByClock: boolean;
 };
 
 /** A day whose meal break a supervisor set by hand, and why. */
 export type MealAdjustment = { userId: string; day: string; mealBreakMinutes: number; reason: string };
 
-export type TimesheetDay = DayPay & { day: string; shifts: Shift[]; open: boolean; mealReason: string | null };
+export type TimesheetDay = DayPay & {
+  day: string;
+  shifts: Shift[];
+  open: boolean;
+  mealReason: string | null;
+  /** Of `workedMinutes`, how many were travel between jobs. */
+  travelMinutes: number;
+};
 
 export type PersonTimesheet = {
   userId: string;
@@ -49,6 +61,7 @@ export type PersonTimesheet = {
   workedMinutes: number;
   unpaidMinutes: number;
   paidMinutes: number;
+  travelMinutes: number;
   /** Days with at least one closed shift. */
   daysWorked: number;
   /** Something on it a person should look at: a shift open, late or ended away. */
@@ -70,7 +83,9 @@ export function toShift(input: ShiftInput, timeZone: string): Shift {
     late:
       isLatePunch(input.clockInAt, input.clockInReceivedAt) ||
       (input.clockOutAt !== null && input.clockOutReceivedAt !== null && isLatePunch(input.clockOutAt, input.clockOutReceivedAt)),
+    // A shift the clock ended has no clock-out position; only a person's press can be away.
     leftAway: input.clockOutInside === false,
+    endedByClock: input.endedBy === "LEFT_SITE" || input.endedBy === "TRAVEL_LIMIT",
   };
 }
 
@@ -96,31 +111,38 @@ export function personTimesheet(
       shifts: ofDay,
       open: ofDay.some((shift) => shift.minutes === null),
       mealReason: adjusted?.reason ?? null,
+      travelMinutes: ofDay.reduce((sum, shift) => sum + (shift.kind === "TRAVEL" ? (shift.minutes ?? 0) : 0), 0),
       ...dayPay(closed, policy, adjusted?.mealBreakMinutes ?? null),
     };
   });
-  const sum = (key: "workedMinutes" | "unpaidMinutes" | "paidMinutes") => days.reduce((total, day) => total + day[key], 0);
+  const sum = (key: "workedMinutes" | "unpaidMinutes" | "paidMinutes" | "travelMinutes") => days.reduce((total, day) => total + day[key], 0);
   return {
     userId,
     days,
     workedMinutes: sum("workedMinutes"),
     unpaidMinutes: sum("unpaidMinutes"),
     paidMinutes: sum("paidMinutes"),
+    travelMinutes: sum("travelMinutes"),
     daysWorked: days.filter((day) => day.workedMinutes > 0).length,
-    flagged: days.some((day) => day.shifts.some((shift) => shift.minutes === null || shift.late || shift.leftAway)),
+    flagged: days.some((day) =>
+      day.shifts.some((shift) => shift.minutes === null || shift.late || shift.leftAway || shift.endedByClock),
+    ),
   };
 }
 
-export type ShiftFlag = "open" | "manual" | "edited" | "late" | "leftAway";
+export type ShiftFlag = "open" | "travel" | "manual" | "edited" | "late" | "leftAway" | "leftSite" | "travelLimit";
 
 /** What a shift carries that somebody should know, in the order it is shown, worded by `say`. */
 export function shiftFlags(shift: Shift, say: (flag: ShiftFlag) => string): string[] {
   const flags: ShiftFlag[] = [];
   if (shift.minutes === null) flags.push("open");
+  if (shift.kind === "TRAVEL") flags.push("travel");
   if (shift.source === "MANUAL") flags.push("manual");
   if (shift.editedAt) flags.push("edited");
   if (shift.late) flags.push("late");
   if (shift.leftAway) flags.push("leftAway");
+  if (shift.endedBy === "LEFT_SITE") flags.push("leftSite");
+  if (shift.endedBy === "TRAVEL_LIMIT") flags.push("travelLimit");
   return flags.map(say);
 }
 

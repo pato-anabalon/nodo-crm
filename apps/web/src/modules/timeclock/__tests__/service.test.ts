@@ -4,6 +4,9 @@ import type { CompanyContext } from "@/lib/auth/session";
 import { TimeclockRefusal } from "../errors";
 import { clockIn, clockOut, recordPings, setConsent } from "../service";
 
+// Settling — the clock ending a shift by itself — has its own rules, pinned in core; here it never has anything to do.
+jest.mock("../settle", () => ({ settleEntry: jest.fn().mockResolvedValue(null) }));
+
 /**
  * The clock's rules against a database that only answers what each case
  * needs. What matters here is the order of the questions — a punch sent twice
@@ -23,6 +26,7 @@ function row(overrides: Record<string, unknown> = {}) {
     clientId: "phone-punch-1",
     jobId: "j1",
     jobName: job.name,
+    kind: "WORK",
     source: "MOBILE",
     clockInAt: new Date("2026-11-12T19:00:00Z"),
     clockInReceivedAt: new Date("2026-11-12T19:00:01Z"),
@@ -32,6 +36,8 @@ function row(overrides: Record<string, unknown> = {}) {
     clockOutInside: null,
     note: null,
     editedAt: null,
+    endedBy: null,
+    events: [],
     ...overrides,
   };
 }
@@ -43,7 +49,11 @@ function context() {
     timeEntry: { findFirst: jest.fn(), create: jest.fn(), updateMany: jest.fn() },
     locationPing: { createMany: jest.fn() },
   };
-  const ctx = { user: { id: "u1" }, company: { id: "c1" }, db } as unknown as CompanyContext;
+  const ctx = {
+    user: { id: "u1" },
+    company: { id: "c1", movementPolicy: { returnMinutes: 0, switchMinutes: 5, travelMaxMinutes: 120 } },
+    db,
+  } as unknown as CompanyContext;
   return { ctx, db };
 }
 

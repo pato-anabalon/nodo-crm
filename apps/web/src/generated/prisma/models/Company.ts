@@ -29,6 +29,9 @@ export type AggregateCompany = {
 export type CompanyAvgAggregateOutputType = {
   restBreakMinutes: number | null
   mealBreakMinutes: number | null
+  siteReturnMinutes: number | null
+  siteSwitchMinutes: number | null
+  travelMaxMinutes: number | null
   defaultTaxRate: runtime.Decimal | null
   quoteValidityDays: number | null
   quoteNumberStart: number | null
@@ -41,6 +44,9 @@ export type CompanyAvgAggregateOutputType = {
 export type CompanySumAggregateOutputType = {
   restBreakMinutes: number | null
   mealBreakMinutes: number | null
+  siteReturnMinutes: number | null
+  siteSwitchMinutes: number | null
+  travelMaxMinutes: number | null
   defaultTaxRate: runtime.Decimal | null
   quoteValidityDays: number | null
   quoteNumberStart: number | null
@@ -71,6 +77,9 @@ export type CompanyMinAggregateOutputType = {
   timezone: string | null
   restBreakMinutes: number | null
   mealBreakMinutes: number | null
+  siteReturnMinutes: number | null
+  siteSwitchMinutes: number | null
+  travelMaxMinutes: number | null
   defaultTaxType: $Enums.TaxType | null
   defaultTaxRate: runtime.Decimal | null
   quotePrefix: string | null
@@ -127,6 +136,9 @@ export type CompanyMaxAggregateOutputType = {
   timezone: string | null
   restBreakMinutes: number | null
   mealBreakMinutes: number | null
+  siteReturnMinutes: number | null
+  siteSwitchMinutes: number | null
+  travelMaxMinutes: number | null
   defaultTaxType: $Enums.TaxType | null
   defaultTaxRate: runtime.Decimal | null
   quotePrefix: string | null
@@ -183,6 +195,9 @@ export type CompanyCountAggregateOutputType = {
   timezone: number
   restBreakMinutes: number
   mealBreakMinutes: number
+  siteReturnMinutes: number
+  siteSwitchMinutes: number
+  travelMaxMinutes: number
   defaultTaxType: number
   defaultTaxRate: number
   quotePrefix: number
@@ -224,6 +239,9 @@ export type CompanyCountAggregateOutputType = {
 export type CompanyAvgAggregateInputType = {
   restBreakMinutes?: true
   mealBreakMinutes?: true
+  siteReturnMinutes?: true
+  siteSwitchMinutes?: true
+  travelMaxMinutes?: true
   defaultTaxRate?: true
   quoteValidityDays?: true
   quoteNumberStart?: true
@@ -236,6 +254,9 @@ export type CompanyAvgAggregateInputType = {
 export type CompanySumAggregateInputType = {
   restBreakMinutes?: true
   mealBreakMinutes?: true
+  siteReturnMinutes?: true
+  siteSwitchMinutes?: true
+  travelMaxMinutes?: true
   defaultTaxRate?: true
   quoteValidityDays?: true
   quoteNumberStart?: true
@@ -266,6 +287,9 @@ export type CompanyMinAggregateInputType = {
   timezone?: true
   restBreakMinutes?: true
   mealBreakMinutes?: true
+  siteReturnMinutes?: true
+  siteSwitchMinutes?: true
+  travelMaxMinutes?: true
   defaultTaxType?: true
   defaultTaxRate?: true
   quotePrefix?: true
@@ -322,6 +346,9 @@ export type CompanyMaxAggregateInputType = {
   timezone?: true
   restBreakMinutes?: true
   mealBreakMinutes?: true
+  siteReturnMinutes?: true
+  siteSwitchMinutes?: true
+  travelMaxMinutes?: true
   defaultTaxType?: true
   defaultTaxRate?: true
   quotePrefix?: true
@@ -378,6 +405,9 @@ export type CompanyCountAggregateInputType = {
   timezone?: true
   restBreakMinutes?: true
   mealBreakMinutes?: true
+  siteReturnMinutes?: true
+  siteSwitchMinutes?: true
+  travelMaxMinutes?: true
   defaultTaxType?: true
   defaultTaxRate?: true
   quotePrefix?: true
@@ -522,6 +552,9 @@ export type CompanyGroupByOutputType = {
   timezone: string
   restBreakMinutes: number
   mealBreakMinutes: number
+  siteReturnMinutes: number
+  siteSwitchMinutes: number
+  travelMaxMinutes: number
   defaultTaxType: $Enums.TaxType
   defaultTaxRate: runtime.Decimal
   quotePrefix: string
@@ -602,6 +635,9 @@ export type CompanyWhereInput = {
   timezone?: Prisma.StringFilter<"Company"> | string
   restBreakMinutes?: Prisma.IntFilter<"Company"> | number
   mealBreakMinutes?: Prisma.IntFilter<"Company"> | number
+  siteReturnMinutes?: Prisma.IntFilter<"Company"> | number
+  siteSwitchMinutes?: Prisma.IntFilter<"Company"> | number
+  travelMaxMinutes?: Prisma.IntFilter<"Company"> | number
   defaultTaxType?: Prisma.EnumTaxTypeFilter<"Company"> | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFilter<"Company"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFilter<"Company"> | string
@@ -685,6 +721,7 @@ export type CompanyWhereInput = {
   jobScopeChanges?: Prisma.JobScopeChangeListRelationFilter
   trades?: Prisma.TradeListRelationFilter
   timeEntries?: Prisma.TimeEntryListRelationFilter
+  timeEntryEvents?: Prisma.TimeEntryEventListRelationFilter
   locationPings?: Prisma.LocationPingListRelationFilter
   timesheetDays?: Prisma.TimesheetDayListRelationFilter
   timesheetChanges?: Prisma.TimesheetChangeListRelationFilter
@@ -711,6 +748,9 @@ export type CompanyOrderByWithRelationInput = {
   timezone?: Prisma.SortOrder
   restBreakMinutes?: Prisma.SortOrder
   mealBreakMinutes?: Prisma.SortOrder
+  siteReturnMinutes?: Prisma.SortOrder
+  siteSwitchMinutes?: Prisma.SortOrder
+  travelMaxMinutes?: Prisma.SortOrder
   defaultTaxType?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
@@ -794,6 +834,7 @@ export type CompanyOrderByWithRelationInput = {
   jobScopeChanges?: Prisma.JobScopeChangeOrderByRelationAggregateInput
   trades?: Prisma.TradeOrderByRelationAggregateInput
   timeEntries?: Prisma.TimeEntryOrderByRelationAggregateInput
+  timeEntryEvents?: Prisma.TimeEntryEventOrderByRelationAggregateInput
   locationPings?: Prisma.LocationPingOrderByRelationAggregateInput
   timesheetDays?: Prisma.TimesheetDayOrderByRelationAggregateInput
   timesheetChanges?: Prisma.TimesheetChangeOrderByRelationAggregateInput
@@ -823,6 +864,9 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   timezone?: Prisma.StringFilter<"Company"> | string
   restBreakMinutes?: Prisma.IntFilter<"Company"> | number
   mealBreakMinutes?: Prisma.IntFilter<"Company"> | number
+  siteReturnMinutes?: Prisma.IntFilter<"Company"> | number
+  siteSwitchMinutes?: Prisma.IntFilter<"Company"> | number
+  travelMaxMinutes?: Prisma.IntFilter<"Company"> | number
   defaultTaxType?: Prisma.EnumTaxTypeFilter<"Company"> | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFilter<"Company"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFilter<"Company"> | string
@@ -906,6 +950,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   jobScopeChanges?: Prisma.JobScopeChangeListRelationFilter
   trades?: Prisma.TradeListRelationFilter
   timeEntries?: Prisma.TimeEntryListRelationFilter
+  timeEntryEvents?: Prisma.TimeEntryEventListRelationFilter
   locationPings?: Prisma.LocationPingListRelationFilter
   timesheetDays?: Prisma.TimesheetDayListRelationFilter
   timesheetChanges?: Prisma.TimesheetChangeListRelationFilter
@@ -932,6 +977,9 @@ export type CompanyOrderByWithAggregationInput = {
   timezone?: Prisma.SortOrder
   restBreakMinutes?: Prisma.SortOrder
   mealBreakMinutes?: Prisma.SortOrder
+  siteReturnMinutes?: Prisma.SortOrder
+  siteSwitchMinutes?: Prisma.SortOrder
+  travelMaxMinutes?: Prisma.SortOrder
   defaultTaxType?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
@@ -997,6 +1045,9 @@ export type CompanyScalarWhereWithAggregatesInput = {
   timezone?: Prisma.StringWithAggregatesFilter<"Company"> | string
   restBreakMinutes?: Prisma.IntWithAggregatesFilter<"Company"> | number
   mealBreakMinutes?: Prisma.IntWithAggregatesFilter<"Company"> | number
+  siteReturnMinutes?: Prisma.IntWithAggregatesFilter<"Company"> | number
+  siteSwitchMinutes?: Prisma.IntWithAggregatesFilter<"Company"> | number
+  travelMaxMinutes?: Prisma.IntWithAggregatesFilter<"Company"> | number
   defaultTaxType?: Prisma.EnumTaxTypeWithAggregatesFilter<"Company"> | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalWithAggregatesFilter<"Company"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringWithAggregatesFilter<"Company"> | string
@@ -1054,6 +1105,9 @@ export type CompanyCreateInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -1137,6 +1191,7 @@ export type CompanyCreateInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -1163,6 +1218,9 @@ export type CompanyUncheckedCreateInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -1246,6 +1304,7 @@ export type CompanyUncheckedCreateInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -1272,6 +1331,9 @@ export type CompanyUpdateInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1355,6 +1417,7 @@ export type CompanyUpdateInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -1381,6 +1444,9 @@ export type CompanyUncheckedUpdateInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1464,6 +1530,7 @@ export type CompanyUncheckedUpdateInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1490,6 +1557,9 @@ export type CompanyCreateManyInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -1547,6 +1617,9 @@ export type CompanyUpdateManyMutationInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1604,6 +1677,9 @@ export type CompanyUncheckedUpdateManyInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1669,6 +1745,9 @@ export type CompanyCountOrderByAggregateInput = {
   timezone?: Prisma.SortOrder
   restBreakMinutes?: Prisma.SortOrder
   mealBreakMinutes?: Prisma.SortOrder
+  siteReturnMinutes?: Prisma.SortOrder
+  siteSwitchMinutes?: Prisma.SortOrder
+  travelMaxMinutes?: Prisma.SortOrder
   defaultTaxType?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
@@ -1708,6 +1787,9 @@ export type CompanyCountOrderByAggregateInput = {
 export type CompanyAvgOrderByAggregateInput = {
   restBreakMinutes?: Prisma.SortOrder
   mealBreakMinutes?: Prisma.SortOrder
+  siteReturnMinutes?: Prisma.SortOrder
+  siteSwitchMinutes?: Prisma.SortOrder
+  travelMaxMinutes?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quoteValidityDays?: Prisma.SortOrder
   quoteNumberStart?: Prisma.SortOrder
@@ -1738,6 +1820,9 @@ export type CompanyMaxOrderByAggregateInput = {
   timezone?: Prisma.SortOrder
   restBreakMinutes?: Prisma.SortOrder
   mealBreakMinutes?: Prisma.SortOrder
+  siteReturnMinutes?: Prisma.SortOrder
+  siteSwitchMinutes?: Prisma.SortOrder
+  travelMaxMinutes?: Prisma.SortOrder
   defaultTaxType?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
@@ -1794,6 +1879,9 @@ export type CompanyMinOrderByAggregateInput = {
   timezone?: Prisma.SortOrder
   restBreakMinutes?: Prisma.SortOrder
   mealBreakMinutes?: Prisma.SortOrder
+  siteReturnMinutes?: Prisma.SortOrder
+  siteSwitchMinutes?: Prisma.SortOrder
+  travelMaxMinutes?: Prisma.SortOrder
   defaultTaxType?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
@@ -1832,6 +1920,9 @@ export type CompanyMinOrderByAggregateInput = {
 export type CompanySumOrderByAggregateInput = {
   restBreakMinutes?: Prisma.SortOrder
   mealBreakMinutes?: Prisma.SortOrder
+  siteReturnMinutes?: Prisma.SortOrder
+  siteSwitchMinutes?: Prisma.SortOrder
+  travelMaxMinutes?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quoteValidityDays?: Prisma.SortOrder
   quoteNumberStart?: Prisma.SortOrder
@@ -2626,6 +2717,20 @@ export type CompanyUpdateOneRequiredWithoutLocationPingsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutLocationPingsInput, Prisma.CompanyUpdateWithoutLocationPingsInput>, Prisma.CompanyUncheckedUpdateWithoutLocationPingsInput>
 }
 
+export type CompanyCreateNestedOneWithoutTimeEntryEventsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutTimeEntryEventsInput, Prisma.CompanyUncheckedCreateWithoutTimeEntryEventsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutTimeEntryEventsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutTimeEntryEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutTimeEntryEventsInput, Prisma.CompanyUncheckedCreateWithoutTimeEntryEventsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutTimeEntryEventsInput
+  upsert?: Prisma.CompanyUpsertWithoutTimeEntryEventsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutTimeEntryEventsInput, Prisma.CompanyUpdateWithoutTimeEntryEventsInput>, Prisma.CompanyUncheckedUpdateWithoutTimeEntryEventsInput>
+}
+
 export type CompanyCreateNestedOneWithoutTimesheetDaysInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutTimesheetDaysInput, Prisma.CompanyUncheckedCreateWithoutTimesheetDaysInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutTimesheetDaysInput
@@ -2675,6 +2780,9 @@ export type CompanyCreateWithoutQuoteTypesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -2757,6 +2865,7 @@ export type CompanyCreateWithoutQuoteTypesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -2783,6 +2892,9 @@ export type CompanyUncheckedCreateWithoutQuoteTypesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -2865,6 +2977,7 @@ export type CompanyUncheckedCreateWithoutQuoteTypesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -2907,6 +3020,9 @@ export type CompanyUpdateWithoutQuoteTypesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2989,6 +3105,7 @@ export type CompanyUpdateWithoutQuoteTypesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -3015,6 +3132,9 @@ export type CompanyUncheckedUpdateWithoutQuoteTypesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3097,6 +3217,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTypesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -3123,6 +3244,9 @@ export type CompanyCreateWithoutMembershipsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -3205,6 +3329,7 @@ export type CompanyCreateWithoutMembershipsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -3231,6 +3356,9 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -3313,6 +3441,7 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -3355,6 +3484,9 @@ export type CompanyUpdateWithoutMembershipsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3437,6 +3569,7 @@ export type CompanyUpdateWithoutMembershipsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -3463,6 +3596,9 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3545,6 +3681,7 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -3571,6 +3708,9 @@ export type CompanyCreateWithoutLoginAttemptsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -3653,6 +3793,7 @@ export type CompanyCreateWithoutLoginAttemptsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -3679,6 +3820,9 @@ export type CompanyUncheckedCreateWithoutLoginAttemptsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -3761,6 +3905,7 @@ export type CompanyUncheckedCreateWithoutLoginAttemptsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -3803,6 +3948,9 @@ export type CompanyUpdateWithoutLoginAttemptsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3885,6 +4033,7 @@ export type CompanyUpdateWithoutLoginAttemptsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -3911,6 +4060,9 @@ export type CompanyUncheckedUpdateWithoutLoginAttemptsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3993,6 +4145,7 @@ export type CompanyUncheckedUpdateWithoutLoginAttemptsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -4019,6 +4172,9 @@ export type CompanyCreateWithoutRolesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -4101,6 +4257,7 @@ export type CompanyCreateWithoutRolesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -4127,6 +4284,9 @@ export type CompanyUncheckedCreateWithoutRolesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -4209,6 +4369,7 @@ export type CompanyUncheckedCreateWithoutRolesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -4251,6 +4412,9 @@ export type CompanyUpdateWithoutRolesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4333,6 +4497,7 @@ export type CompanyUpdateWithoutRolesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -4359,6 +4524,9 @@ export type CompanyUncheckedUpdateWithoutRolesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4441,6 +4609,7 @@ export type CompanyUncheckedUpdateWithoutRolesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -4467,6 +4636,9 @@ export type CompanyCreateWithoutInvitationsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -4549,6 +4721,7 @@ export type CompanyCreateWithoutInvitationsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -4575,6 +4748,9 @@ export type CompanyUncheckedCreateWithoutInvitationsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -4657,6 +4833,7 @@ export type CompanyUncheckedCreateWithoutInvitationsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -4699,6 +4876,9 @@ export type CompanyUpdateWithoutInvitationsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4781,6 +4961,7 @@ export type CompanyUpdateWithoutInvitationsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -4807,6 +4988,9 @@ export type CompanyUncheckedUpdateWithoutInvitationsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4889,6 +5073,7 @@ export type CompanyUncheckedUpdateWithoutInvitationsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -4915,6 +5100,9 @@ export type CompanyCreateWithoutTasksInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -4997,6 +5185,7 @@ export type CompanyCreateWithoutTasksInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -5023,6 +5212,9 @@ export type CompanyUncheckedCreateWithoutTasksInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -5105,6 +5297,7 @@ export type CompanyUncheckedCreateWithoutTasksInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -5147,6 +5340,9 @@ export type CompanyUpdateWithoutTasksInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5229,6 +5425,7 @@ export type CompanyUpdateWithoutTasksInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -5255,6 +5452,9 @@ export type CompanyUncheckedUpdateWithoutTasksInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5337,6 +5537,7 @@ export type CompanyUncheckedUpdateWithoutTasksInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -5363,6 +5564,9 @@ export type CompanyCreateWithoutNotificationsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -5445,6 +5649,7 @@ export type CompanyCreateWithoutNotificationsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -5471,6 +5676,9 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -5553,6 +5761,7 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -5595,6 +5804,9 @@ export type CompanyUpdateWithoutNotificationsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5677,6 +5889,7 @@ export type CompanyUpdateWithoutNotificationsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -5703,6 +5916,9 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5785,6 +6001,7 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -5811,6 +6028,9 @@ export type CompanyCreateWithoutCatalogueInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -5893,6 +6113,7 @@ export type CompanyCreateWithoutCatalogueInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -5919,6 +6140,9 @@ export type CompanyUncheckedCreateWithoutCatalogueInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -6001,6 +6225,7 @@ export type CompanyUncheckedCreateWithoutCatalogueInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -6043,6 +6268,9 @@ export type CompanyUpdateWithoutCatalogueInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6125,6 +6353,7 @@ export type CompanyUpdateWithoutCatalogueInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -6151,6 +6380,9 @@ export type CompanyUncheckedUpdateWithoutCatalogueInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6233,6 +6465,7 @@ export type CompanyUncheckedUpdateWithoutCatalogueInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -6259,6 +6492,9 @@ export type CompanyCreateWithoutClientCompaniesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -6341,6 +6577,7 @@ export type CompanyCreateWithoutClientCompaniesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -6367,6 +6604,9 @@ export type CompanyUncheckedCreateWithoutClientCompaniesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -6449,6 +6689,7 @@ export type CompanyUncheckedCreateWithoutClientCompaniesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -6491,6 +6732,9 @@ export type CompanyUpdateWithoutClientCompaniesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6573,6 +6817,7 @@ export type CompanyUpdateWithoutClientCompaniesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -6599,6 +6844,9 @@ export type CompanyUncheckedUpdateWithoutClientCompaniesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6681,6 +6929,7 @@ export type CompanyUncheckedUpdateWithoutClientCompaniesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -6707,6 +6956,9 @@ export type CompanyCreateWithoutContactsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -6789,6 +7041,7 @@ export type CompanyCreateWithoutContactsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -6815,6 +7068,9 @@ export type CompanyUncheckedCreateWithoutContactsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -6897,6 +7153,7 @@ export type CompanyUncheckedCreateWithoutContactsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -6939,6 +7196,9 @@ export type CompanyUpdateWithoutContactsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7021,6 +7281,7 @@ export type CompanyUpdateWithoutContactsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -7047,6 +7308,9 @@ export type CompanyUncheckedUpdateWithoutContactsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7129,6 +7393,7 @@ export type CompanyUncheckedUpdateWithoutContactsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -7155,6 +7420,9 @@ export type CompanyCreateWithoutLeadSourceOptionsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -7237,6 +7505,7 @@ export type CompanyCreateWithoutLeadSourceOptionsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -7263,6 +7532,9 @@ export type CompanyUncheckedCreateWithoutLeadSourceOptionsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -7345,6 +7617,7 @@ export type CompanyUncheckedCreateWithoutLeadSourceOptionsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -7387,6 +7660,9 @@ export type CompanyUpdateWithoutLeadSourceOptionsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7469,6 +7745,7 @@ export type CompanyUpdateWithoutLeadSourceOptionsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -7495,6 +7772,9 @@ export type CompanyUncheckedUpdateWithoutLeadSourceOptionsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7577,6 +7857,7 @@ export type CompanyUncheckedUpdateWithoutLeadSourceOptionsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -7603,6 +7884,9 @@ export type CompanyCreateWithoutLeadAccessLogsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -7685,6 +7969,7 @@ export type CompanyCreateWithoutLeadAccessLogsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -7711,6 +7996,9 @@ export type CompanyUncheckedCreateWithoutLeadAccessLogsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -7793,6 +8081,7 @@ export type CompanyUncheckedCreateWithoutLeadAccessLogsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -7835,6 +8124,9 @@ export type CompanyUpdateWithoutLeadAccessLogsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7917,6 +8209,7 @@ export type CompanyUpdateWithoutLeadAccessLogsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -7943,6 +8236,9 @@ export type CompanyUncheckedUpdateWithoutLeadAccessLogsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8025,6 +8321,7 @@ export type CompanyUncheckedUpdateWithoutLeadAccessLogsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -8051,6 +8348,9 @@ export type CompanyCreateWithoutLeadsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -8133,6 +8433,7 @@ export type CompanyCreateWithoutLeadsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -8159,6 +8460,9 @@ export type CompanyUncheckedCreateWithoutLeadsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -8241,6 +8545,7 @@ export type CompanyUncheckedCreateWithoutLeadsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -8283,6 +8588,9 @@ export type CompanyUpdateWithoutLeadsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8365,6 +8673,7 @@ export type CompanyUpdateWithoutLeadsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -8391,6 +8700,9 @@ export type CompanyUncheckedUpdateWithoutLeadsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8473,6 +8785,7 @@ export type CompanyUncheckedUpdateWithoutLeadsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -8499,6 +8812,9 @@ export type CompanyCreateWithoutSubmissionsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -8581,6 +8897,7 @@ export type CompanyCreateWithoutSubmissionsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -8607,6 +8924,9 @@ export type CompanyUncheckedCreateWithoutSubmissionsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -8689,6 +9009,7 @@ export type CompanyUncheckedCreateWithoutSubmissionsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -8731,6 +9052,9 @@ export type CompanyUpdateWithoutSubmissionsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8813,6 +9137,7 @@ export type CompanyUpdateWithoutSubmissionsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -8839,6 +9164,9 @@ export type CompanyUncheckedUpdateWithoutSubmissionsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8921,6 +9249,7 @@ export type CompanyUncheckedUpdateWithoutSubmissionsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -8947,6 +9276,9 @@ export type CompanyCreateWithoutLeadAttachmentsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -9029,6 +9361,7 @@ export type CompanyCreateWithoutLeadAttachmentsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -9055,6 +9388,9 @@ export type CompanyUncheckedCreateWithoutLeadAttachmentsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -9137,6 +9473,7 @@ export type CompanyUncheckedCreateWithoutLeadAttachmentsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -9179,6 +9516,9 @@ export type CompanyUpdateWithoutLeadAttachmentsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9261,6 +9601,7 @@ export type CompanyUpdateWithoutLeadAttachmentsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -9287,6 +9628,9 @@ export type CompanyUncheckedUpdateWithoutLeadAttachmentsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9369,6 +9713,7 @@ export type CompanyUncheckedUpdateWithoutLeadAttachmentsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -9395,6 +9740,9 @@ export type CompanyCreateWithoutIngestKeysInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -9477,6 +9825,7 @@ export type CompanyCreateWithoutIngestKeysInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -9503,6 +9852,9 @@ export type CompanyUncheckedCreateWithoutIngestKeysInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -9585,6 +9937,7 @@ export type CompanyUncheckedCreateWithoutIngestKeysInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -9627,6 +9980,9 @@ export type CompanyUpdateWithoutIngestKeysInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9709,6 +10065,7 @@ export type CompanyUpdateWithoutIngestKeysInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -9735,6 +10092,9 @@ export type CompanyUncheckedUpdateWithoutIngestKeysInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9817,6 +10177,7 @@ export type CompanyUncheckedUpdateWithoutIngestKeysInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -9843,6 +10204,9 @@ export type CompanyCreateWithoutIngestAttemptsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -9925,6 +10289,7 @@ export type CompanyCreateWithoutIngestAttemptsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -9951,6 +10316,9 @@ export type CompanyUncheckedCreateWithoutIngestAttemptsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -10033,6 +10401,7 @@ export type CompanyUncheckedCreateWithoutIngestAttemptsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -10075,6 +10444,9 @@ export type CompanyUpdateWithoutIngestAttemptsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10157,6 +10529,7 @@ export type CompanyUpdateWithoutIngestAttemptsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -10183,6 +10556,9 @@ export type CompanyUncheckedUpdateWithoutIngestAttemptsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10265,6 +10641,7 @@ export type CompanyUncheckedUpdateWithoutIngestAttemptsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -10291,6 +10668,9 @@ export type CompanyCreateWithoutActivitiesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -10373,6 +10753,7 @@ export type CompanyCreateWithoutActivitiesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -10399,6 +10780,9 @@ export type CompanyUncheckedCreateWithoutActivitiesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -10481,6 +10865,7 @@ export type CompanyUncheckedCreateWithoutActivitiesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -10523,6 +10908,9 @@ export type CompanyUpdateWithoutActivitiesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10605,6 +10993,7 @@ export type CompanyUpdateWithoutActivitiesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -10631,6 +11020,9 @@ export type CompanyUncheckedUpdateWithoutActivitiesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10713,6 +11105,7 @@ export type CompanyUncheckedUpdateWithoutActivitiesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -10739,6 +11132,9 @@ export type CompanyCreateWithoutQuoteTemplatesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -10821,6 +11217,7 @@ export type CompanyCreateWithoutQuoteTemplatesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -10847,6 +11244,9 @@ export type CompanyUncheckedCreateWithoutQuoteTemplatesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -10929,6 +11329,7 @@ export type CompanyUncheckedCreateWithoutQuoteTemplatesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -10971,6 +11372,9 @@ export type CompanyUpdateWithoutQuoteTemplatesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11053,6 +11457,7 @@ export type CompanyUpdateWithoutQuoteTemplatesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -11079,6 +11484,9 @@ export type CompanyUncheckedUpdateWithoutQuoteTemplatesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11161,6 +11569,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTemplatesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -11187,6 +11596,9 @@ export type CompanyCreateWithoutQuotesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -11269,6 +11681,7 @@ export type CompanyCreateWithoutQuotesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -11295,6 +11708,9 @@ export type CompanyUncheckedCreateWithoutQuotesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -11377,6 +11793,7 @@ export type CompanyUncheckedCreateWithoutQuotesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -11419,6 +11836,9 @@ export type CompanyUpdateWithoutQuotesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11501,6 +11921,7 @@ export type CompanyUpdateWithoutQuotesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -11527,6 +11948,9 @@ export type CompanyUncheckedUpdateWithoutQuotesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11609,6 +12033,7 @@ export type CompanyUncheckedUpdateWithoutQuotesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -11635,6 +12060,9 @@ export type CompanyCreateWithoutDocumentsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -11717,6 +12145,7 @@ export type CompanyCreateWithoutDocumentsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -11743,6 +12172,9 @@ export type CompanyUncheckedCreateWithoutDocumentsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -11825,6 +12257,7 @@ export type CompanyUncheckedCreateWithoutDocumentsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -11867,6 +12300,9 @@ export type CompanyUpdateWithoutDocumentsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11949,6 +12385,7 @@ export type CompanyUpdateWithoutDocumentsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -11975,6 +12412,9 @@ export type CompanyUncheckedUpdateWithoutDocumentsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12057,6 +12497,7 @@ export type CompanyUncheckedUpdateWithoutDocumentsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -12083,6 +12524,9 @@ export type CompanyCreateWithoutQuoteSharesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -12165,6 +12609,7 @@ export type CompanyCreateWithoutQuoteSharesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -12191,6 +12636,9 @@ export type CompanyUncheckedCreateWithoutQuoteSharesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -12273,6 +12721,7 @@ export type CompanyUncheckedCreateWithoutQuoteSharesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -12315,6 +12764,9 @@ export type CompanyUpdateWithoutQuoteSharesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12397,6 +12849,7 @@ export type CompanyUpdateWithoutQuoteSharesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -12423,6 +12876,9 @@ export type CompanyUncheckedUpdateWithoutQuoteSharesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12505,6 +12961,7 @@ export type CompanyUncheckedUpdateWithoutQuoteSharesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -12531,6 +12988,9 @@ export type CompanyCreateWithoutQuoteRecipientsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -12613,6 +13073,7 @@ export type CompanyCreateWithoutQuoteRecipientsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -12639,6 +13100,9 @@ export type CompanyUncheckedCreateWithoutQuoteRecipientsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -12721,6 +13185,7 @@ export type CompanyUncheckedCreateWithoutQuoteRecipientsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -12763,6 +13228,9 @@ export type CompanyUpdateWithoutQuoteRecipientsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12845,6 +13313,7 @@ export type CompanyUpdateWithoutQuoteRecipientsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -12871,6 +13340,9 @@ export type CompanyUncheckedUpdateWithoutQuoteRecipientsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12953,6 +13425,7 @@ export type CompanyUncheckedUpdateWithoutQuoteRecipientsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -12979,6 +13452,9 @@ export type CompanyCreateWithoutSignatureHandoffsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -13061,6 +13537,7 @@ export type CompanyCreateWithoutSignatureHandoffsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -13087,6 +13564,9 @@ export type CompanyUncheckedCreateWithoutSignatureHandoffsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -13169,6 +13649,7 @@ export type CompanyUncheckedCreateWithoutSignatureHandoffsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -13211,6 +13692,9 @@ export type CompanyUpdateWithoutSignatureHandoffsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13293,6 +13777,7 @@ export type CompanyUpdateWithoutSignatureHandoffsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -13319,6 +13804,9 @@ export type CompanyUncheckedUpdateWithoutSignatureHandoffsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13401,6 +13889,7 @@ export type CompanyUncheckedUpdateWithoutSignatureHandoffsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -13427,6 +13916,9 @@ export type CompanyCreateWithoutQuoteEventsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -13509,6 +14001,7 @@ export type CompanyCreateWithoutQuoteEventsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -13535,6 +14028,9 @@ export type CompanyUncheckedCreateWithoutQuoteEventsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -13617,6 +14113,7 @@ export type CompanyUncheckedCreateWithoutQuoteEventsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -13659,6 +14156,9 @@ export type CompanyUpdateWithoutQuoteEventsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13741,6 +14241,7 @@ export type CompanyUpdateWithoutQuoteEventsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -13767,6 +14268,9 @@ export type CompanyUncheckedUpdateWithoutQuoteEventsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13849,6 +14353,7 @@ export type CompanyUncheckedUpdateWithoutQuoteEventsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -13875,6 +14380,9 @@ export type CompanyCreateWithoutQuoteMessagesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -13957,6 +14465,7 @@ export type CompanyCreateWithoutQuoteMessagesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -13983,6 +14492,9 @@ export type CompanyUncheckedCreateWithoutQuoteMessagesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -14065,6 +14577,7 @@ export type CompanyUncheckedCreateWithoutQuoteMessagesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -14107,6 +14620,9 @@ export type CompanyUpdateWithoutQuoteMessagesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14189,6 +14705,7 @@ export type CompanyUpdateWithoutQuoteMessagesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -14215,6 +14732,9 @@ export type CompanyUncheckedUpdateWithoutQuoteMessagesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14297,6 +14817,7 @@ export type CompanyUncheckedUpdateWithoutQuoteMessagesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -14323,6 +14844,9 @@ export type CompanyCreateWithoutAcceptancesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -14405,6 +14929,7 @@ export type CompanyCreateWithoutAcceptancesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -14431,6 +14956,9 @@ export type CompanyUncheckedCreateWithoutAcceptancesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -14513,6 +15041,7 @@ export type CompanyUncheckedCreateWithoutAcceptancesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -14555,6 +15084,9 @@ export type CompanyUpdateWithoutAcceptancesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14637,6 +15169,7 @@ export type CompanyUpdateWithoutAcceptancesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -14663,6 +15196,9 @@ export type CompanyUncheckedUpdateWithoutAcceptancesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14745,6 +15281,7 @@ export type CompanyUncheckedUpdateWithoutAcceptancesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -14771,6 +15308,9 @@ export type CompanyCreateWithoutReviewLinksInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -14853,6 +15393,7 @@ export type CompanyCreateWithoutReviewLinksInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -14879,6 +15420,9 @@ export type CompanyUncheckedCreateWithoutReviewLinksInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -14961,6 +15505,7 @@ export type CompanyUncheckedCreateWithoutReviewLinksInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -15003,6 +15548,9 @@ export type CompanyUpdateWithoutReviewLinksInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15085,6 +15633,7 @@ export type CompanyUpdateWithoutReviewLinksInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -15111,6 +15660,9 @@ export type CompanyUncheckedUpdateWithoutReviewLinksInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15193,6 +15745,7 @@ export type CompanyUncheckedUpdateWithoutReviewLinksInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -15219,6 +15772,9 @@ export type CompanyCreateWithoutEmailTemplatesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -15301,6 +15857,7 @@ export type CompanyCreateWithoutEmailTemplatesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -15327,6 +15884,9 @@ export type CompanyUncheckedCreateWithoutEmailTemplatesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -15409,6 +15969,7 @@ export type CompanyUncheckedCreateWithoutEmailTemplatesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -15451,6 +16012,9 @@ export type CompanyUpdateWithoutEmailTemplatesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15533,6 +16097,7 @@ export type CompanyUpdateWithoutEmailTemplatesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -15559,6 +16124,9 @@ export type CompanyUncheckedUpdateWithoutEmailTemplatesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15641,6 +16209,7 @@ export type CompanyUncheckedUpdateWithoutEmailTemplatesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -15667,6 +16236,9 @@ export type CompanyCreateWithoutReviewsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -15749,6 +16321,7 @@ export type CompanyCreateWithoutReviewsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -15775,6 +16348,9 @@ export type CompanyUncheckedCreateWithoutReviewsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -15857,6 +16433,7 @@ export type CompanyUncheckedCreateWithoutReviewsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -15899,6 +16476,9 @@ export type CompanyUpdateWithoutReviewsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15981,6 +16561,7 @@ export type CompanyUpdateWithoutReviewsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -16007,6 +16588,9 @@ export type CompanyUncheckedUpdateWithoutReviewsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16089,6 +16673,7 @@ export type CompanyUncheckedUpdateWithoutReviewsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -16115,6 +16700,9 @@ export type CompanyCreateWithoutNotificationPreferencesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -16197,6 +16785,7 @@ export type CompanyCreateWithoutNotificationPreferencesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -16223,6 +16812,9 @@ export type CompanyUncheckedCreateWithoutNotificationPreferencesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -16305,6 +16897,7 @@ export type CompanyUncheckedCreateWithoutNotificationPreferencesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -16347,6 +16940,9 @@ export type CompanyUpdateWithoutNotificationPreferencesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16429,6 +17025,7 @@ export type CompanyUpdateWithoutNotificationPreferencesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -16455,6 +17052,9 @@ export type CompanyUncheckedUpdateWithoutNotificationPreferencesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16537,6 +17137,7 @@ export type CompanyUncheckedUpdateWithoutNotificationPreferencesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -16563,6 +17164,9 @@ export type CompanyCreateWithoutJobsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -16645,6 +17249,7 @@ export type CompanyCreateWithoutJobsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -16671,6 +17276,9 @@ export type CompanyUncheckedCreateWithoutJobsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -16753,6 +17361,7 @@ export type CompanyUncheckedCreateWithoutJobsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -16795,6 +17404,9 @@ export type CompanyUpdateWithoutJobsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16877,6 +17489,7 @@ export type CompanyUpdateWithoutJobsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -16903,6 +17516,9 @@ export type CompanyUncheckedUpdateWithoutJobsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16985,6 +17601,7 @@ export type CompanyUncheckedUpdateWithoutJobsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -17011,6 +17628,9 @@ export type CompanyCreateWithoutJobMembersInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -17093,6 +17713,7 @@ export type CompanyCreateWithoutJobMembersInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -17119,6 +17740,9 @@ export type CompanyUncheckedCreateWithoutJobMembersInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -17201,6 +17825,7 @@ export type CompanyUncheckedCreateWithoutJobMembersInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -17243,6 +17868,9 @@ export type CompanyUpdateWithoutJobMembersInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17325,6 +17953,7 @@ export type CompanyUpdateWithoutJobMembersInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -17351,6 +17980,9 @@ export type CompanyUncheckedUpdateWithoutJobMembersInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17433,6 +18065,7 @@ export type CompanyUncheckedUpdateWithoutJobMembersInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -17459,6 +18092,9 @@ export type CompanyCreateWithoutJobActivitiesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -17541,6 +18177,7 @@ export type CompanyCreateWithoutJobActivitiesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -17567,6 +18204,9 @@ export type CompanyUncheckedCreateWithoutJobActivitiesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -17649,6 +18289,7 @@ export type CompanyUncheckedCreateWithoutJobActivitiesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -17691,6 +18332,9 @@ export type CompanyUpdateWithoutJobActivitiesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17773,6 +18417,7 @@ export type CompanyUpdateWithoutJobActivitiesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -17799,6 +18444,9 @@ export type CompanyUncheckedUpdateWithoutJobActivitiesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17881,6 +18529,7 @@ export type CompanyUncheckedUpdateWithoutJobActivitiesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -17907,6 +18556,9 @@ export type CompanyCreateWithoutJobFoldersInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -17989,6 +18641,7 @@ export type CompanyCreateWithoutJobFoldersInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -18015,6 +18668,9 @@ export type CompanyUncheckedCreateWithoutJobFoldersInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -18097,6 +18753,7 @@ export type CompanyUncheckedCreateWithoutJobFoldersInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -18139,6 +18796,9 @@ export type CompanyUpdateWithoutJobFoldersInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18221,6 +18881,7 @@ export type CompanyUpdateWithoutJobFoldersInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -18247,6 +18908,9 @@ export type CompanyUncheckedUpdateWithoutJobFoldersInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18329,6 +18993,7 @@ export type CompanyUncheckedUpdateWithoutJobFoldersInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -18355,6 +19020,9 @@ export type CompanyCreateWithoutJobFilesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -18437,6 +19105,7 @@ export type CompanyCreateWithoutJobFilesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -18463,6 +19132,9 @@ export type CompanyUncheckedCreateWithoutJobFilesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -18545,6 +19217,7 @@ export type CompanyUncheckedCreateWithoutJobFilesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -18587,6 +19260,9 @@ export type CompanyUpdateWithoutJobFilesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18669,6 +19345,7 @@ export type CompanyUpdateWithoutJobFilesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -18695,6 +19372,9 @@ export type CompanyUncheckedUpdateWithoutJobFilesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18777,6 +19457,7 @@ export type CompanyUncheckedUpdateWithoutJobFilesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -18803,6 +19484,9 @@ export type CompanyCreateWithoutJobPostCategoriesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -18885,6 +19569,7 @@ export type CompanyCreateWithoutJobPostCategoriesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -18911,6 +19596,9 @@ export type CompanyUncheckedCreateWithoutJobPostCategoriesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -18993,6 +19681,7 @@ export type CompanyUncheckedCreateWithoutJobPostCategoriesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -19035,6 +19724,9 @@ export type CompanyUpdateWithoutJobPostCategoriesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19117,6 +19809,7 @@ export type CompanyUpdateWithoutJobPostCategoriesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -19143,6 +19836,9 @@ export type CompanyUncheckedUpdateWithoutJobPostCategoriesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19225,6 +19921,7 @@ export type CompanyUncheckedUpdateWithoutJobPostCategoriesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -19251,6 +19948,9 @@ export type CompanyCreateWithoutJobPostsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -19333,6 +20033,7 @@ export type CompanyCreateWithoutJobPostsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -19359,6 +20060,9 @@ export type CompanyUncheckedCreateWithoutJobPostsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -19441,6 +20145,7 @@ export type CompanyUncheckedCreateWithoutJobPostsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -19483,6 +20188,9 @@ export type CompanyUpdateWithoutJobPostsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19565,6 +20273,7 @@ export type CompanyUpdateWithoutJobPostsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -19591,6 +20300,9 @@ export type CompanyUncheckedUpdateWithoutJobPostsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19673,6 +20385,7 @@ export type CompanyUncheckedUpdateWithoutJobPostsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -19699,6 +20412,9 @@ export type CompanyCreateWithoutJobCommentsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -19781,6 +20497,7 @@ export type CompanyCreateWithoutJobCommentsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -19807,6 +20524,9 @@ export type CompanyUncheckedCreateWithoutJobCommentsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -19889,6 +20609,7 @@ export type CompanyUncheckedCreateWithoutJobCommentsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -19931,6 +20652,9 @@ export type CompanyUpdateWithoutJobCommentsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20013,6 +20737,7 @@ export type CompanyUpdateWithoutJobCommentsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -20039,6 +20764,9 @@ export type CompanyUncheckedUpdateWithoutJobCommentsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20121,6 +20849,7 @@ export type CompanyUncheckedUpdateWithoutJobCommentsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -20147,6 +20876,9 @@ export type CompanyCreateWithoutJobEventsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -20229,6 +20961,7 @@ export type CompanyCreateWithoutJobEventsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -20255,6 +20988,9 @@ export type CompanyUncheckedCreateWithoutJobEventsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -20337,6 +21073,7 @@ export type CompanyUncheckedCreateWithoutJobEventsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -20379,6 +21116,9 @@ export type CompanyUpdateWithoutJobEventsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20461,6 +21201,7 @@ export type CompanyUpdateWithoutJobEventsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -20487,6 +21228,9 @@ export type CompanyUncheckedUpdateWithoutJobEventsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20569,6 +21313,7 @@ export type CompanyUncheckedUpdateWithoutJobEventsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -20595,6 +21340,9 @@ export type CompanyCreateWithoutJobEventParticipantsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -20677,6 +21425,7 @@ export type CompanyCreateWithoutJobEventParticipantsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -20703,6 +21452,9 @@ export type CompanyUncheckedCreateWithoutJobEventParticipantsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -20785,6 +21537,7 @@ export type CompanyUncheckedCreateWithoutJobEventParticipantsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -20827,6 +21580,9 @@ export type CompanyUpdateWithoutJobEventParticipantsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20909,6 +21665,7 @@ export type CompanyUpdateWithoutJobEventParticipantsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -20935,6 +21692,9 @@ export type CompanyUncheckedUpdateWithoutJobEventParticipantsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21017,6 +21777,7 @@ export type CompanyUncheckedUpdateWithoutJobEventParticipantsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -21043,6 +21804,9 @@ export type CompanyCreateWithoutJobTodoListsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -21125,6 +21889,7 @@ export type CompanyCreateWithoutJobTodoListsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -21151,6 +21916,9 @@ export type CompanyUncheckedCreateWithoutJobTodoListsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -21233,6 +22001,7 @@ export type CompanyUncheckedCreateWithoutJobTodoListsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -21275,6 +22044,9 @@ export type CompanyUpdateWithoutJobTodoListsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21357,6 +22129,7 @@ export type CompanyUpdateWithoutJobTodoListsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -21383,6 +22156,9 @@ export type CompanyUncheckedUpdateWithoutJobTodoListsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21465,6 +22241,7 @@ export type CompanyUncheckedUpdateWithoutJobTodoListsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -21491,6 +22268,9 @@ export type CompanyCreateWithoutJobTodosInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -21573,6 +22353,7 @@ export type CompanyCreateWithoutJobTodosInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -21599,6 +22380,9 @@ export type CompanyUncheckedCreateWithoutJobTodosInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -21681,6 +22465,7 @@ export type CompanyUncheckedCreateWithoutJobTodosInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -21723,6 +22508,9 @@ export type CompanyUpdateWithoutJobTodosInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21805,6 +22593,7 @@ export type CompanyUpdateWithoutJobTodosInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -21831,6 +22620,9 @@ export type CompanyUncheckedUpdateWithoutJobTodosInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21913,6 +22705,7 @@ export type CompanyUncheckedUpdateWithoutJobTodosInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -21939,6 +22732,9 @@ export type CompanyCreateWithoutJobTodoAssigneesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -22021,6 +22817,7 @@ export type CompanyCreateWithoutJobTodoAssigneesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -22047,6 +22844,9 @@ export type CompanyUncheckedCreateWithoutJobTodoAssigneesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -22129,6 +22929,7 @@ export type CompanyUncheckedCreateWithoutJobTodoAssigneesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -22171,6 +22972,9 @@ export type CompanyUpdateWithoutJobTodoAssigneesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22253,6 +23057,7 @@ export type CompanyUpdateWithoutJobTodoAssigneesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -22279,6 +23084,9 @@ export type CompanyUncheckedUpdateWithoutJobTodoAssigneesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22361,6 +23169,7 @@ export type CompanyUncheckedUpdateWithoutJobTodoAssigneesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -22387,6 +23196,9 @@ export type CompanyCreateWithoutTradesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -22469,6 +23281,7 @@ export type CompanyCreateWithoutTradesInput = {
   jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -22495,6 +23308,9 @@ export type CompanyUncheckedCreateWithoutTradesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -22577,6 +23393,7 @@ export type CompanyUncheckedCreateWithoutTradesInput = {
   jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -22619,6 +23436,9 @@ export type CompanyUpdateWithoutTradesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22701,6 +23521,7 @@ export type CompanyUpdateWithoutTradesInput = {
   jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -22727,6 +23548,9 @@ export type CompanyUncheckedUpdateWithoutTradesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22809,6 +23633,7 @@ export type CompanyUncheckedUpdateWithoutTradesInput = {
   jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -22835,6 +23660,9 @@ export type CompanyCreateWithoutJobChatMessagesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -22917,6 +23745,7 @@ export type CompanyCreateWithoutJobChatMessagesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -22943,6 +23772,9 @@ export type CompanyUncheckedCreateWithoutJobChatMessagesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -23025,6 +23857,7 @@ export type CompanyUncheckedCreateWithoutJobChatMessagesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -23067,6 +23900,9 @@ export type CompanyUpdateWithoutJobChatMessagesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23149,6 +23985,7 @@ export type CompanyUpdateWithoutJobChatMessagesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -23175,6 +24012,9 @@ export type CompanyUncheckedUpdateWithoutJobChatMessagesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23257,6 +24097,7 @@ export type CompanyUncheckedUpdateWithoutJobChatMessagesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -23283,6 +24124,9 @@ export type CompanyCreateWithoutJobScopeItemsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -23365,6 +24209,7 @@ export type CompanyCreateWithoutJobScopeItemsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -23391,6 +24236,9 @@ export type CompanyUncheckedCreateWithoutJobScopeItemsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -23473,6 +24321,7 @@ export type CompanyUncheckedCreateWithoutJobScopeItemsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -23515,6 +24364,9 @@ export type CompanyUpdateWithoutJobScopeItemsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23597,6 +24449,7 @@ export type CompanyUpdateWithoutJobScopeItemsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -23623,6 +24476,9 @@ export type CompanyUncheckedUpdateWithoutJobScopeItemsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23705,6 +24561,7 @@ export type CompanyUncheckedUpdateWithoutJobScopeItemsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -23731,6 +24588,9 @@ export type CompanyCreateWithoutJobScopeChangesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -23813,6 +24673,7 @@ export type CompanyCreateWithoutJobScopeChangesInput = {
   jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -23839,6 +24700,9 @@ export type CompanyUncheckedCreateWithoutJobScopeChangesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -23921,6 +24785,7 @@ export type CompanyUncheckedCreateWithoutJobScopeChangesInput = {
   jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -23963,6 +24828,9 @@ export type CompanyUpdateWithoutJobScopeChangesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24045,6 +24913,7 @@ export type CompanyUpdateWithoutJobScopeChangesInput = {
   jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -24071,6 +24940,9 @@ export type CompanyUncheckedUpdateWithoutJobScopeChangesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24153,6 +25025,7 @@ export type CompanyUncheckedUpdateWithoutJobScopeChangesInput = {
   jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -24179,6 +25052,9 @@ export type CompanyCreateWithoutTimeEntriesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -24261,6 +25137,7 @@ export type CompanyCreateWithoutTimeEntriesInput = {
   jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
@@ -24287,6 +25164,9 @@ export type CompanyUncheckedCreateWithoutTimeEntriesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -24369,6 +25249,7 @@ export type CompanyUncheckedCreateWithoutTimeEntriesInput = {
   jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
@@ -24411,6 +25292,9 @@ export type CompanyUpdateWithoutTimeEntriesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24493,6 +25377,7 @@ export type CompanyUpdateWithoutTimeEntriesInput = {
   jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
@@ -24519,6 +25404,9 @@ export type CompanyUncheckedUpdateWithoutTimeEntriesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24601,6 +25489,7 @@ export type CompanyUncheckedUpdateWithoutTimeEntriesInput = {
   jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
@@ -24627,6 +25516,9 @@ export type CompanyCreateWithoutLocationPingsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -24710,6 +25602,7 @@ export type CompanyCreateWithoutLocationPingsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
 }
@@ -24735,6 +25628,9 @@ export type CompanyUncheckedCreateWithoutLocationPingsInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -24818,6 +25714,7 @@ export type CompanyUncheckedCreateWithoutLocationPingsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
   trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
 }
@@ -24859,6 +25756,9 @@ export type CompanyUpdateWithoutLocationPingsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24942,6 +25842,7 @@ export type CompanyUpdateWithoutLocationPingsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
 }
@@ -24967,6 +25868,9 @@ export type CompanyUncheckedUpdateWithoutLocationPingsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -25050,11 +25954,12 @@ export type CompanyUncheckedUpdateWithoutLocationPingsInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
-export type CompanyCreateWithoutTimesheetDaysInput = {
+export type CompanyCreateWithoutTimeEntryEventsInput = {
   id?: string
   slug: string
   name: string
@@ -25075,454 +25980,9 @@ export type CompanyCreateWithoutTimesheetDaysInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
-  defaultTaxType?: $Enums.TaxType
-  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  quotePrefix?: string
-  quoteValidityDays?: number
-  quoteNumberStart?: number
-  quoteFooter?: string | null
-  slogan?: string | null
-  senderNameStyle?: $Enums.SenderNameStyle
-  firstFollowUpDays?: number
-  secondFollowUpDays?: number
-  reviewRequestDays?: number
-  sendQuoteCopy?: boolean
-  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
-  quoteIntro?: string | null
-  quoteNotes?: string | null
-  quoteExclusions?: string | null
-  quoteTerms?: string | null
-  quoteScope?: string | null
-  taxDisplayMode?: $Enums.TaxDisplayMode
-  acceptanceMode?: $Enums.AcceptanceMode
-  acceptanceStatement?: string | null
-  requireSignature?: boolean
-  askAdditionalComments?: boolean
-  askOrderReference?: boolean
-  isActive?: boolean
-  approvedAt?: Date | string | null
-  isDemo?: boolean
-  demoDays?: number | null
-  demoStartedAt?: Date | string | null
-  demoEndsAt?: Date | string | null
-  demoEndedAt?: Date | string | null
-  demoWarnedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  memberships?: Prisma.MembershipCreateNestedManyWithoutCompanyInput
-  loginAttempts?: Prisma.LoginAttemptCreateNestedManyWithoutCompanyInput
-  roles?: Prisma.RoleCreateNestedManyWithoutCompanyInput
-  invitations?: Prisma.InvitationCreateNestedManyWithoutCompanyInput
-  leads?: Prisma.LeadCreateNestedManyWithoutCompanyInput
-  quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
-  contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
-  quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
-  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
-  clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
-  catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
-  quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutCompanyInput
-  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
-  activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
-  submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
-  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
-  documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
-  ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
-  ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
-  quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
-  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
-  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
-  quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
-  acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
-  reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
-  emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
-  reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
-  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
-  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
-  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
-  jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
-  jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
-  jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
-  jobFolders?: Prisma.JobFolderCreateNestedManyWithoutCompanyInput
-  jobFiles?: Prisma.JobFileCreateNestedManyWithoutCompanyInput
-  jobPostCategories?: Prisma.JobPostCategoryCreateNestedManyWithoutCompanyInput
-  jobPosts?: Prisma.JobPostCreateNestedManyWithoutCompanyInput
-  jobComments?: Prisma.JobCommentCreateNestedManyWithoutCompanyInput
-  jobTodoLists?: Prisma.JobTodoListCreateNestedManyWithoutCompanyInput
-  jobTodos?: Prisma.JobTodoCreateNestedManyWithoutCompanyInput
-  jobTodoAssignees?: Prisma.JobTodoAssigneeCreateNestedManyWithoutCompanyInput
-  jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
-  jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
-  jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
-  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
-  jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
-  trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
-  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
-  locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
-  timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
-}
-
-export type CompanyUncheckedCreateWithoutTimesheetDaysInput = {
-  id?: string
-  slug: string
-  name: string
-  legalName?: string | null
-  taxId?: string | null
-  email?: string | null
-  phone?: string | null
-  website?: string | null
-  address?: string | null
-  logoUrl?: string | null
-  pdfLogoUrl?: string | null
-  watermarkUrl?: string | null
-  primaryColor?: string
-  accentColor?: string
-  defaultLanguage?: $Enums.Language
-  currency?: string
-  formatLocale?: string
-  timezone?: string
-  restBreakMinutes?: number
-  mealBreakMinutes?: number
-  defaultTaxType?: $Enums.TaxType
-  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  quotePrefix?: string
-  quoteValidityDays?: number
-  quoteNumberStart?: number
-  quoteFooter?: string | null
-  slogan?: string | null
-  senderNameStyle?: $Enums.SenderNameStyle
-  firstFollowUpDays?: number
-  secondFollowUpDays?: number
-  reviewRequestDays?: number
-  sendQuoteCopy?: boolean
-  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
-  quoteIntro?: string | null
-  quoteNotes?: string | null
-  quoteExclusions?: string | null
-  quoteTerms?: string | null
-  quoteScope?: string | null
-  taxDisplayMode?: $Enums.TaxDisplayMode
-  acceptanceMode?: $Enums.AcceptanceMode
-  acceptanceStatement?: string | null
-  requireSignature?: boolean
-  askAdditionalComments?: boolean
-  askOrderReference?: boolean
-  isActive?: boolean
-  approvedAt?: Date | string | null
-  isDemo?: boolean
-  demoDays?: number | null
-  demoStartedAt?: Date | string | null
-  demoEndsAt?: Date | string | null
-  demoEndedAt?: Date | string | null
-  demoWarnedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutCompanyInput
-  loginAttempts?: Prisma.LoginAttemptUncheckedCreateNestedManyWithoutCompanyInput
-  roles?: Prisma.RoleUncheckedCreateNestedManyWithoutCompanyInput
-  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutCompanyInput
-  leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCompanyInput
-  quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
-  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
-  quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
-  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
-  clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
-  catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
-  quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCompanyInput
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
-  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
-  submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
-  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
-  documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
-  ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
-  ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
-  quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
-  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
-  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
-  quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
-  acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
-  reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
-  emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
-  reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
-  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
-  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
-  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
-  jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
-  jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
-  jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
-  jobFolders?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCompanyInput
-  jobFiles?: Prisma.JobFileUncheckedCreateNestedManyWithoutCompanyInput
-  jobPostCategories?: Prisma.JobPostCategoryUncheckedCreateNestedManyWithoutCompanyInput
-  jobPosts?: Prisma.JobPostUncheckedCreateNestedManyWithoutCompanyInput
-  jobComments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutCompanyInput
-  jobTodoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutCompanyInput
-  jobTodos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCompanyInput
-  jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedCreateNestedManyWithoutCompanyInput
-  jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
-  jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
-  jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
-  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
-  jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
-  trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
-  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
-  locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
-  timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
-}
-
-export type CompanyCreateOrConnectWithoutTimesheetDaysInput = {
-  where: Prisma.CompanyWhereUniqueInput
-  create: Prisma.XOR<Prisma.CompanyCreateWithoutTimesheetDaysInput, Prisma.CompanyUncheckedCreateWithoutTimesheetDaysInput>
-}
-
-export type CompanyUpsertWithoutTimesheetDaysInput = {
-  update: Prisma.XOR<Prisma.CompanyUpdateWithoutTimesheetDaysInput, Prisma.CompanyUncheckedUpdateWithoutTimesheetDaysInput>
-  create: Prisma.XOR<Prisma.CompanyCreateWithoutTimesheetDaysInput, Prisma.CompanyUncheckedCreateWithoutTimesheetDaysInput>
-  where?: Prisma.CompanyWhereInput
-}
-
-export type CompanyUpdateToOneWithWhereWithoutTimesheetDaysInput = {
-  where?: Prisma.CompanyWhereInput
-  data: Prisma.XOR<Prisma.CompanyUpdateWithoutTimesheetDaysInput, Prisma.CompanyUncheckedUpdateWithoutTimesheetDaysInput>
-}
-
-export type CompanyUpdateWithoutTimesheetDaysInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
-  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
-  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
-  currency?: Prisma.StringFieldUpdateOperationsInput | string
-  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
-  timezone?: Prisma.StringFieldUpdateOperationsInput | string
-  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
-  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
-  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
-  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
-  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
-  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
-  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
-  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
-  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
-  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
-  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
-  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
-  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
-  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isDemo?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  demoDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  demoStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  demoEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  demoEndedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  demoWarnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  memberships?: Prisma.MembershipUpdateManyWithoutCompanyNestedInput
-  loginAttempts?: Prisma.LoginAttemptUpdateManyWithoutCompanyNestedInput
-  roles?: Prisma.RoleUpdateManyWithoutCompanyNestedInput
-  invitations?: Prisma.InvitationUpdateManyWithoutCompanyNestedInput
-  leads?: Prisma.LeadUpdateManyWithoutCompanyNestedInput
-  quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
-  contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
-  quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
-  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
-  clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
-  catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
-  quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutCompanyNestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
-  activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
-  submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
-  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
-  documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
-  ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
-  ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
-  quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
-  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
-  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
-  quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
-  acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
-  reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
-  emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
-  reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
-  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
-  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
-  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
-  jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
-  jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
-  jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
-  jobFolders?: Prisma.JobFolderUpdateManyWithoutCompanyNestedInput
-  jobFiles?: Prisma.JobFileUpdateManyWithoutCompanyNestedInput
-  jobPostCategories?: Prisma.JobPostCategoryUpdateManyWithoutCompanyNestedInput
-  jobPosts?: Prisma.JobPostUpdateManyWithoutCompanyNestedInput
-  jobComments?: Prisma.JobCommentUpdateManyWithoutCompanyNestedInput
-  jobTodoLists?: Prisma.JobTodoListUpdateManyWithoutCompanyNestedInput
-  jobTodos?: Prisma.JobTodoUpdateManyWithoutCompanyNestedInput
-  jobTodoAssignees?: Prisma.JobTodoAssigneeUpdateManyWithoutCompanyNestedInput
-  jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
-  jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
-  jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
-  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
-  jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
-  trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
-  timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
-  locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
-  timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
-}
-
-export type CompanyUncheckedUpdateWithoutTimesheetDaysInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
-  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
-  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
-  currency?: Prisma.StringFieldUpdateOperationsInput | string
-  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
-  timezone?: Prisma.StringFieldUpdateOperationsInput | string
-  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
-  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
-  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
-  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
-  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
-  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
-  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
-  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
-  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
-  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
-  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
-  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
-  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
-  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isDemo?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  demoDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  demoStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  demoEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  demoEndedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  demoWarnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutCompanyNestedInput
-  loginAttempts?: Prisma.LoginAttemptUncheckedUpdateManyWithoutCompanyNestedInput
-  roles?: Prisma.RoleUncheckedUpdateManyWithoutCompanyNestedInput
-  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutCompanyNestedInput
-  leads?: Prisma.LeadUncheckedUpdateManyWithoutCompanyNestedInput
-  quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
-  contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
-  quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
-  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
-  clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
-  catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
-  quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutCompanyNestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
-  activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
-  submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
-  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
-  documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
-  ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
-  ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
-  quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
-  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
-  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
-  quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
-  acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
-  reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
-  emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
-  reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
-  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
-  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
-  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
-  jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
-  jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
-  jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
-  jobFolders?: Prisma.JobFolderUncheckedUpdateManyWithoutCompanyNestedInput
-  jobFiles?: Prisma.JobFileUncheckedUpdateManyWithoutCompanyNestedInput
-  jobPostCategories?: Prisma.JobPostCategoryUncheckedUpdateManyWithoutCompanyNestedInput
-  jobPosts?: Prisma.JobPostUncheckedUpdateManyWithoutCompanyNestedInput
-  jobComments?: Prisma.JobCommentUncheckedUpdateManyWithoutCompanyNestedInput
-  jobTodoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutCompanyNestedInput
-  jobTodos?: Prisma.JobTodoUncheckedUpdateManyWithoutCompanyNestedInput
-  jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedUpdateManyWithoutCompanyNestedInput
-  jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
-  jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
-  jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
-  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
-  jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
-  trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
-  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
-  locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
-  timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
-}
-
-export type CompanyCreateWithoutTimesheetChangesInput = {
-  id?: string
-  slug: string
-  name: string
-  legalName?: string | null
-  taxId?: string | null
-  email?: string | null
-  phone?: string | null
-  website?: string | null
-  address?: string | null
-  logoUrl?: string | null
-  pdfLogoUrl?: string | null
-  watermarkUrl?: string | null
-  primaryColor?: string
-  accentColor?: string
-  defaultLanguage?: $Enums.Language
-  currency?: string
-  formatLocale?: string
-  timezone?: string
-  restBreakMinutes?: number
-  mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -25608,9 +26068,10 @@ export type CompanyCreateWithoutTimesheetChangesInput = {
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
+  timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
 }
 
-export type CompanyUncheckedCreateWithoutTimesheetChangesInput = {
+export type CompanyUncheckedCreateWithoutTimeEntryEventsInput = {
   id?: string
   slug: string
   name: string
@@ -25631,6 +26092,9 @@ export type CompanyUncheckedCreateWithoutTimesheetChangesInput = {
   timezone?: string
   restBreakMinutes?: number
   mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -25716,25 +26180,26 @@ export type CompanyUncheckedCreateWithoutTimesheetChangesInput = {
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
   locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
   timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
+  timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
 }
 
-export type CompanyCreateOrConnectWithoutTimesheetChangesInput = {
+export type CompanyCreateOrConnectWithoutTimeEntryEventsInput = {
   where: Prisma.CompanyWhereUniqueInput
-  create: Prisma.XOR<Prisma.CompanyCreateWithoutTimesheetChangesInput, Prisma.CompanyUncheckedCreateWithoutTimesheetChangesInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutTimeEntryEventsInput, Prisma.CompanyUncheckedCreateWithoutTimeEntryEventsInput>
 }
 
-export type CompanyUpsertWithoutTimesheetChangesInput = {
-  update: Prisma.XOR<Prisma.CompanyUpdateWithoutTimesheetChangesInput, Prisma.CompanyUncheckedUpdateWithoutTimesheetChangesInput>
-  create: Prisma.XOR<Prisma.CompanyCreateWithoutTimesheetChangesInput, Prisma.CompanyUncheckedCreateWithoutTimesheetChangesInput>
+export type CompanyUpsertWithoutTimeEntryEventsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutTimeEntryEventsInput, Prisma.CompanyUncheckedUpdateWithoutTimeEntryEventsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutTimeEntryEventsInput, Prisma.CompanyUncheckedCreateWithoutTimeEntryEventsInput>
   where?: Prisma.CompanyWhereInput
 }
 
-export type CompanyUpdateToOneWithWhereWithoutTimesheetChangesInput = {
+export type CompanyUpdateToOneWithWhereWithoutTimeEntryEventsInput = {
   where?: Prisma.CompanyWhereInput
-  data: Prisma.XOR<Prisma.CompanyUpdateWithoutTimesheetChangesInput, Prisma.CompanyUncheckedUpdateWithoutTimesheetChangesInput>
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutTimeEntryEventsInput, Prisma.CompanyUncheckedUpdateWithoutTimeEntryEventsInput>
 }
 
-export type CompanyUpdateWithoutTimesheetChangesInput = {
+export type CompanyUpdateWithoutTimeEntryEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -25755,6 +26220,9 @@ export type CompanyUpdateWithoutTimesheetChangesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -25840,9 +26308,10 @@ export type CompanyUpdateWithoutTimesheetChangesInput = {
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
+  timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
 }
 
-export type CompanyUncheckedUpdateWithoutTimesheetChangesInput = {
+export type CompanyUncheckedUpdateWithoutTimeEntryEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -25863,6 +26332,9 @@ export type CompanyUncheckedUpdateWithoutTimesheetChangesInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -25946,6 +26418,935 @@ export type CompanyUncheckedUpdateWithoutTimesheetChangesInput = {
   jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
   trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
+  timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
+  timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutTimesheetDaysInput = {
+  id?: string
+  slug: string
+  name: string
+  legalName?: string | null
+  taxId?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  logoUrl?: string | null
+  pdfLogoUrl?: string | null
+  watermarkUrl?: string | null
+  primaryColor?: string
+  accentColor?: string
+  defaultLanguage?: $Enums.Language
+  currency?: string
+  formatLocale?: string
+  timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
+  defaultTaxType?: $Enums.TaxType
+  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: string
+  quoteValidityDays?: number
+  quoteNumberStart?: number
+  quoteFooter?: string | null
+  slogan?: string | null
+  senderNameStyle?: $Enums.SenderNameStyle
+  firstFollowUpDays?: number
+  secondFollowUpDays?: number
+  reviewRequestDays?: number
+  sendQuoteCopy?: boolean
+  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
+  quoteIntro?: string | null
+  quoteNotes?: string | null
+  quoteExclusions?: string | null
+  quoteTerms?: string | null
+  quoteScope?: string | null
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  acceptanceMode?: $Enums.AcceptanceMode
+  acceptanceStatement?: string | null
+  requireSignature?: boolean
+  askAdditionalComments?: boolean
+  askOrderReference?: boolean
+  isActive?: boolean
+  approvedAt?: Date | string | null
+  isDemo?: boolean
+  demoDays?: number | null
+  demoStartedAt?: Date | string | null
+  demoEndsAt?: Date | string | null
+  demoEndedAt?: Date | string | null
+  demoWarnedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipCreateNestedManyWithoutCompanyInput
+  loginAttempts?: Prisma.LoginAttemptCreateNestedManyWithoutCompanyInput
+  roles?: Prisma.RoleCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutCompanyInput
+  leads?: Prisma.LeadCreateNestedManyWithoutCompanyInput
+  quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
+  quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
+  clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
+  catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
+  quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
+  submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
+  ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
+  quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
+  acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
+  emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
+  reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
+  jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
+  jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
+  jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
+  jobFolders?: Prisma.JobFolderCreateNestedManyWithoutCompanyInput
+  jobFiles?: Prisma.JobFileCreateNestedManyWithoutCompanyInput
+  jobPostCategories?: Prisma.JobPostCategoryCreateNestedManyWithoutCompanyInput
+  jobPosts?: Prisma.JobPostCreateNestedManyWithoutCompanyInput
+  jobComments?: Prisma.JobCommentCreateNestedManyWithoutCompanyInput
+  jobTodoLists?: Prisma.JobTodoListCreateNestedManyWithoutCompanyInput
+  jobTodos?: Prisma.JobTodoCreateNestedManyWithoutCompanyInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeCreateNestedManyWithoutCompanyInput
+  jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
+  jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
+  jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
+  jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
+  trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
+  locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
+  timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutTimesheetDaysInput = {
+  id?: string
+  slug: string
+  name: string
+  legalName?: string | null
+  taxId?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  logoUrl?: string | null
+  pdfLogoUrl?: string | null
+  watermarkUrl?: string | null
+  primaryColor?: string
+  accentColor?: string
+  defaultLanguage?: $Enums.Language
+  currency?: string
+  formatLocale?: string
+  timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
+  defaultTaxType?: $Enums.TaxType
+  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: string
+  quoteValidityDays?: number
+  quoteNumberStart?: number
+  quoteFooter?: string | null
+  slogan?: string | null
+  senderNameStyle?: $Enums.SenderNameStyle
+  firstFollowUpDays?: number
+  secondFollowUpDays?: number
+  reviewRequestDays?: number
+  sendQuoteCopy?: boolean
+  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
+  quoteIntro?: string | null
+  quoteNotes?: string | null
+  quoteExclusions?: string | null
+  quoteTerms?: string | null
+  quoteScope?: string | null
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  acceptanceMode?: $Enums.AcceptanceMode
+  acceptanceStatement?: string | null
+  requireSignature?: boolean
+  askAdditionalComments?: boolean
+  askOrderReference?: boolean
+  isActive?: boolean
+  approvedAt?: Date | string | null
+  isDemo?: boolean
+  demoDays?: number | null
+  demoStartedAt?: Date | string | null
+  demoEndsAt?: Date | string | null
+  demoEndedAt?: Date | string | null
+  demoWarnedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutCompanyInput
+  loginAttempts?: Prisma.LoginAttemptUncheckedCreateNestedManyWithoutCompanyInput
+  roles?: Prisma.RoleUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutCompanyInput
+  leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCompanyInput
+  quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
+  quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
+  clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
+  catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
+  submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
+  ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
+  quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
+  acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
+  emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
+  jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
+  jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
+  jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
+  jobFolders?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCompanyInput
+  jobFiles?: Prisma.JobFileUncheckedCreateNestedManyWithoutCompanyInput
+  jobPostCategories?: Prisma.JobPostCategoryUncheckedCreateNestedManyWithoutCompanyInput
+  jobPosts?: Prisma.JobPostUncheckedCreateNestedManyWithoutCompanyInput
+  jobComments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutCompanyInput
+  jobTodoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutCompanyInput
+  jobTodos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCompanyInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedCreateNestedManyWithoutCompanyInput
+  jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
+  jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
+  trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
+  locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
+  timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutTimesheetDaysInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutTimesheetDaysInput, Prisma.CompanyUncheckedCreateWithoutTimesheetDaysInput>
+}
+
+export type CompanyUpsertWithoutTimesheetDaysInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutTimesheetDaysInput, Prisma.CompanyUncheckedUpdateWithoutTimesheetDaysInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutTimesheetDaysInput, Prisma.CompanyUncheckedCreateWithoutTimesheetDaysInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutTimesheetDaysInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutTimesheetDaysInput, Prisma.CompanyUncheckedUpdateWithoutTimesheetDaysInput>
+}
+
+export type CompanyUpdateWithoutTimesheetDaysInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
+  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
+  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
+  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
+  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
+  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isDemo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  demoDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  demoStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoWarnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUpdateManyWithoutCompanyNestedInput
+  loginAttempts?: Prisma.LoginAttemptUpdateManyWithoutCompanyNestedInput
+  roles?: Prisma.RoleUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutCompanyNestedInput
+  leads?: Prisma.LeadUpdateManyWithoutCompanyNestedInput
+  quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
+  quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
+  clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
+  catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
+  quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
+  submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
+  ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
+  quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
+  acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
+  emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
+  reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
+  jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
+  jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
+  jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
+  jobFolders?: Prisma.JobFolderUpdateManyWithoutCompanyNestedInput
+  jobFiles?: Prisma.JobFileUpdateManyWithoutCompanyNestedInput
+  jobPostCategories?: Prisma.JobPostCategoryUpdateManyWithoutCompanyNestedInput
+  jobPosts?: Prisma.JobPostUpdateManyWithoutCompanyNestedInput
+  jobComments?: Prisma.JobCommentUpdateManyWithoutCompanyNestedInput
+  jobTodoLists?: Prisma.JobTodoListUpdateManyWithoutCompanyNestedInput
+  jobTodos?: Prisma.JobTodoUpdateManyWithoutCompanyNestedInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeUpdateManyWithoutCompanyNestedInput
+  jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
+  jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
+  jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
+  trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
+  locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
+  timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutTimesheetDaysInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
+  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
+  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
+  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
+  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
+  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isDemo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  demoDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  demoStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoWarnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutCompanyNestedInput
+  loginAttempts?: Prisma.LoginAttemptUncheckedUpdateManyWithoutCompanyNestedInput
+  roles?: Prisma.RoleUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  leads?: Prisma.LeadUncheckedUpdateManyWithoutCompanyNestedInput
+  quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
+  clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
+  catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
+  submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
+  ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
+  jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
+  jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
+  jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
+  jobFolders?: Prisma.JobFolderUncheckedUpdateManyWithoutCompanyNestedInput
+  jobFiles?: Prisma.JobFileUncheckedUpdateManyWithoutCompanyNestedInput
+  jobPostCategories?: Prisma.JobPostCategoryUncheckedUpdateManyWithoutCompanyNestedInput
+  jobPosts?: Prisma.JobPostUncheckedUpdateManyWithoutCompanyNestedInput
+  jobComments?: Prisma.JobCommentUncheckedUpdateManyWithoutCompanyNestedInput
+  jobTodoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutCompanyNestedInput
+  jobTodos?: Prisma.JobTodoUncheckedUpdateManyWithoutCompanyNestedInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedUpdateManyWithoutCompanyNestedInput
+  jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
+  jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
+  trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
+  locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
+  timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutTimesheetChangesInput = {
+  id?: string
+  slug: string
+  name: string
+  legalName?: string | null
+  taxId?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  logoUrl?: string | null
+  pdfLogoUrl?: string | null
+  watermarkUrl?: string | null
+  primaryColor?: string
+  accentColor?: string
+  defaultLanguage?: $Enums.Language
+  currency?: string
+  formatLocale?: string
+  timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
+  defaultTaxType?: $Enums.TaxType
+  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: string
+  quoteValidityDays?: number
+  quoteNumberStart?: number
+  quoteFooter?: string | null
+  slogan?: string | null
+  senderNameStyle?: $Enums.SenderNameStyle
+  firstFollowUpDays?: number
+  secondFollowUpDays?: number
+  reviewRequestDays?: number
+  sendQuoteCopy?: boolean
+  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
+  quoteIntro?: string | null
+  quoteNotes?: string | null
+  quoteExclusions?: string | null
+  quoteTerms?: string | null
+  quoteScope?: string | null
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  acceptanceMode?: $Enums.AcceptanceMode
+  acceptanceStatement?: string | null
+  requireSignature?: boolean
+  askAdditionalComments?: boolean
+  askOrderReference?: boolean
+  isActive?: boolean
+  approvedAt?: Date | string | null
+  isDemo?: boolean
+  demoDays?: number | null
+  demoStartedAt?: Date | string | null
+  demoEndsAt?: Date | string | null
+  demoEndedAt?: Date | string | null
+  demoWarnedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipCreateNestedManyWithoutCompanyInput
+  loginAttempts?: Prisma.LoginAttemptCreateNestedManyWithoutCompanyInput
+  roles?: Prisma.RoleCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutCompanyInput
+  leads?: Prisma.LeadCreateNestedManyWithoutCompanyInput
+  quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
+  quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
+  clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
+  catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
+  quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
+  submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
+  ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
+  quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
+  acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
+  emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
+  reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
+  jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
+  jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
+  jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
+  jobFolders?: Prisma.JobFolderCreateNestedManyWithoutCompanyInput
+  jobFiles?: Prisma.JobFileCreateNestedManyWithoutCompanyInput
+  jobPostCategories?: Prisma.JobPostCategoryCreateNestedManyWithoutCompanyInput
+  jobPosts?: Prisma.JobPostCreateNestedManyWithoutCompanyInput
+  jobComments?: Prisma.JobCommentCreateNestedManyWithoutCompanyInput
+  jobTodoLists?: Prisma.JobTodoListCreateNestedManyWithoutCompanyInput
+  jobTodos?: Prisma.JobTodoCreateNestedManyWithoutCompanyInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeCreateNestedManyWithoutCompanyInput
+  jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
+  jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
+  jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
+  jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
+  trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
+  locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
+  timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutTimesheetChangesInput = {
+  id?: string
+  slug: string
+  name: string
+  legalName?: string | null
+  taxId?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  logoUrl?: string | null
+  pdfLogoUrl?: string | null
+  watermarkUrl?: string | null
+  primaryColor?: string
+  accentColor?: string
+  defaultLanguage?: $Enums.Language
+  currency?: string
+  formatLocale?: string
+  timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
+  defaultTaxType?: $Enums.TaxType
+  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: string
+  quoteValidityDays?: number
+  quoteNumberStart?: number
+  quoteFooter?: string | null
+  slogan?: string | null
+  senderNameStyle?: $Enums.SenderNameStyle
+  firstFollowUpDays?: number
+  secondFollowUpDays?: number
+  reviewRequestDays?: number
+  sendQuoteCopy?: boolean
+  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
+  quoteIntro?: string | null
+  quoteNotes?: string | null
+  quoteExclusions?: string | null
+  quoteTerms?: string | null
+  quoteScope?: string | null
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  acceptanceMode?: $Enums.AcceptanceMode
+  acceptanceStatement?: string | null
+  requireSignature?: boolean
+  askAdditionalComments?: boolean
+  askOrderReference?: boolean
+  isActive?: boolean
+  approvedAt?: Date | string | null
+  isDemo?: boolean
+  demoDays?: number | null
+  demoStartedAt?: Date | string | null
+  demoEndsAt?: Date | string | null
+  demoEndedAt?: Date | string | null
+  demoWarnedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutCompanyInput
+  loginAttempts?: Prisma.LoginAttemptUncheckedCreateNestedManyWithoutCompanyInput
+  roles?: Prisma.RoleUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutCompanyInput
+  leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCompanyInput
+  quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
+  quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
+  clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
+  catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
+  submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
+  ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
+  quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
+  acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
+  emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
+  jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
+  jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
+  jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
+  jobFolders?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCompanyInput
+  jobFiles?: Prisma.JobFileUncheckedCreateNestedManyWithoutCompanyInput
+  jobPostCategories?: Prisma.JobPostCategoryUncheckedCreateNestedManyWithoutCompanyInput
+  jobPosts?: Prisma.JobPostUncheckedCreateNestedManyWithoutCompanyInput
+  jobComments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutCompanyInput
+  jobTodoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutCompanyInput
+  jobTodos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCompanyInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedCreateNestedManyWithoutCompanyInput
+  jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
+  jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
+  trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
+  locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
+  timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutTimesheetChangesInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutTimesheetChangesInput, Prisma.CompanyUncheckedCreateWithoutTimesheetChangesInput>
+}
+
+export type CompanyUpsertWithoutTimesheetChangesInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutTimesheetChangesInput, Prisma.CompanyUncheckedUpdateWithoutTimesheetChangesInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutTimesheetChangesInput, Prisma.CompanyUncheckedCreateWithoutTimesheetChangesInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutTimesheetChangesInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutTimesheetChangesInput, Prisma.CompanyUncheckedUpdateWithoutTimesheetChangesInput>
+}
+
+export type CompanyUpdateWithoutTimesheetChangesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
+  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
+  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
+  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
+  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
+  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isDemo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  demoDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  demoStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoWarnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUpdateManyWithoutCompanyNestedInput
+  loginAttempts?: Prisma.LoginAttemptUpdateManyWithoutCompanyNestedInput
+  roles?: Prisma.RoleUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutCompanyNestedInput
+  leads?: Prisma.LeadUpdateManyWithoutCompanyNestedInput
+  quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
+  quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
+  clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
+  catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
+  quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
+  submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
+  ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
+  quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
+  acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
+  emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
+  reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
+  jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
+  jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
+  jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
+  jobFolders?: Prisma.JobFolderUpdateManyWithoutCompanyNestedInput
+  jobFiles?: Prisma.JobFileUpdateManyWithoutCompanyNestedInput
+  jobPostCategories?: Prisma.JobPostCategoryUpdateManyWithoutCompanyNestedInput
+  jobPosts?: Prisma.JobPostUpdateManyWithoutCompanyNestedInput
+  jobComments?: Prisma.JobCommentUpdateManyWithoutCompanyNestedInput
+  jobTodoLists?: Prisma.JobTodoListUpdateManyWithoutCompanyNestedInput
+  jobTodos?: Prisma.JobTodoUpdateManyWithoutCompanyNestedInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeUpdateManyWithoutCompanyNestedInput
+  jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
+  jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
+  jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
+  trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
+  locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
+  timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutTimesheetChangesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
+  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
+  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
+  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
+  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
+  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isDemo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  demoDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  demoStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoWarnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutCompanyNestedInput
+  loginAttempts?: Prisma.LoginAttemptUncheckedUpdateManyWithoutCompanyNestedInput
+  roles?: Prisma.RoleUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  leads?: Prisma.LeadUncheckedUpdateManyWithoutCompanyNestedInput
+  quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
+  clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
+  catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
+  submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
+  ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
+  jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
+  jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
+  jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
+  jobFolders?: Prisma.JobFolderUncheckedUpdateManyWithoutCompanyNestedInput
+  jobFiles?: Prisma.JobFileUncheckedUpdateManyWithoutCompanyNestedInput
+  jobPostCategories?: Prisma.JobPostCategoryUncheckedUpdateManyWithoutCompanyNestedInput
+  jobPosts?: Prisma.JobPostUncheckedUpdateManyWithoutCompanyNestedInput
+  jobComments?: Prisma.JobCommentUncheckedUpdateManyWithoutCompanyNestedInput
+  jobTodoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutCompanyNestedInput
+  jobTodos?: Prisma.JobTodoUncheckedUpdateManyWithoutCompanyNestedInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedUpdateManyWithoutCompanyNestedInput
+  jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
+  jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
+  trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
   locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
   timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
 }
@@ -26005,6 +27406,7 @@ export type CompanyCountOutputType = {
   jobScopeChanges: number
   trades: number
   timeEntries: number
+  timeEntryEvents: number
   locationPings: number
   timesheetDays: number
   timesheetChanges: number
@@ -26060,6 +27462,7 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   jobScopeChanges?: boolean | CompanyCountOutputTypeCountJobScopeChangesArgs
   trades?: boolean | CompanyCountOutputTypeCountTradesArgs
   timeEntries?: boolean | CompanyCountOutputTypeCountTimeEntriesArgs
+  timeEntryEvents?: boolean | CompanyCountOutputTypeCountTimeEntryEventsArgs
   locationPings?: boolean | CompanyCountOutputTypeCountLocationPingsArgs
   timesheetDays?: boolean | CompanyCountOutputTypeCountTimesheetDaysArgs
   timesheetChanges?: boolean | CompanyCountOutputTypeCountTimesheetChangesArgs
@@ -26421,6 +27824,13 @@ export type CompanyCountOutputTypeCountTimeEntriesArgs<ExtArgs extends runtime.T
 /**
  * CompanyCountOutputType without action
  */
+export type CompanyCountOutputTypeCountTimeEntryEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TimeEntryEventWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
 export type CompanyCountOutputTypeCountLocationPingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.LocationPingWhereInput
 }
@@ -26461,6 +27871,9 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   timezone?: boolean
   restBreakMinutes?: boolean
   mealBreakMinutes?: boolean
+  siteReturnMinutes?: boolean
+  siteSwitchMinutes?: boolean
+  travelMaxMinutes?: boolean
   defaultTaxType?: boolean
   defaultTaxRate?: boolean
   quotePrefix?: boolean
@@ -26544,6 +27957,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   jobScopeChanges?: boolean | Prisma.Company$jobScopeChangesArgs<ExtArgs>
   trades?: boolean | Prisma.Company$tradesArgs<ExtArgs>
   timeEntries?: boolean | Prisma.Company$timeEntriesArgs<ExtArgs>
+  timeEntryEvents?: boolean | Prisma.Company$timeEntryEventsArgs<ExtArgs>
   locationPings?: boolean | Prisma.Company$locationPingsArgs<ExtArgs>
   timesheetDays?: boolean | Prisma.Company$timesheetDaysArgs<ExtArgs>
   timesheetChanges?: boolean | Prisma.Company$timesheetChangesArgs<ExtArgs>
@@ -26571,6 +27985,9 @@ export type CompanySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   timezone?: boolean
   restBreakMinutes?: boolean
   mealBreakMinutes?: boolean
+  siteReturnMinutes?: boolean
+  siteSwitchMinutes?: boolean
+  travelMaxMinutes?: boolean
   defaultTaxType?: boolean
   defaultTaxRate?: boolean
   quotePrefix?: boolean
@@ -26628,6 +28045,9 @@ export type CompanySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   timezone?: boolean
   restBreakMinutes?: boolean
   mealBreakMinutes?: boolean
+  siteReturnMinutes?: boolean
+  siteSwitchMinutes?: boolean
+  travelMaxMinutes?: boolean
   defaultTaxType?: boolean
   defaultTaxRate?: boolean
   quotePrefix?: boolean
@@ -26685,6 +28105,9 @@ export type CompanySelectScalar = {
   timezone?: boolean
   restBreakMinutes?: boolean
   mealBreakMinutes?: boolean
+  siteReturnMinutes?: boolean
+  siteSwitchMinutes?: boolean
+  travelMaxMinutes?: boolean
   defaultTaxType?: boolean
   defaultTaxRate?: boolean
   quotePrefix?: boolean
@@ -26721,7 +28144,7 @@ export type CompanySelectScalar = {
   updatedAt?: boolean
 }
 
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "legalName" | "taxId" | "email" | "phone" | "website" | "address" | "logoUrl" | "pdfLogoUrl" | "watermarkUrl" | "primaryColor" | "accentColor" | "defaultLanguage" | "currency" | "formatLocale" | "timezone" | "restBreakMinutes" | "mealBreakMinutes" | "defaultTaxType" | "defaultTaxRate" | "quotePrefix" | "quoteValidityDays" | "quoteNumberStart" | "quoteFooter" | "slogan" | "senderNameStyle" | "firstFollowUpDays" | "secondFollowUpDays" | "reviewRequestDays" | "sendQuoteCopy" | "leadNotificationEmails" | "quoteIntro" | "quoteNotes" | "quoteExclusions" | "quoteTerms" | "quoteScope" | "taxDisplayMode" | "acceptanceMode" | "acceptanceStatement" | "requireSignature" | "askAdditionalComments" | "askOrderReference" | "isActive" | "approvedAt" | "isDemo" | "demoDays" | "demoStartedAt" | "demoEndsAt" | "demoEndedAt" | "demoWarnedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "legalName" | "taxId" | "email" | "phone" | "website" | "address" | "logoUrl" | "pdfLogoUrl" | "watermarkUrl" | "primaryColor" | "accentColor" | "defaultLanguage" | "currency" | "formatLocale" | "timezone" | "restBreakMinutes" | "mealBreakMinutes" | "siteReturnMinutes" | "siteSwitchMinutes" | "travelMaxMinutes" | "defaultTaxType" | "defaultTaxRate" | "quotePrefix" | "quoteValidityDays" | "quoteNumberStart" | "quoteFooter" | "slogan" | "senderNameStyle" | "firstFollowUpDays" | "secondFollowUpDays" | "reviewRequestDays" | "sendQuoteCopy" | "leadNotificationEmails" | "quoteIntro" | "quoteNotes" | "quoteExclusions" | "quoteTerms" | "quoteScope" | "taxDisplayMode" | "acceptanceMode" | "acceptanceStatement" | "requireSignature" | "askAdditionalComments" | "askOrderReference" | "isActive" | "approvedAt" | "isDemo" | "demoDays" | "demoStartedAt" | "demoEndsAt" | "demoEndedAt" | "demoWarnedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   memberships?: boolean | Prisma.Company$membershipsArgs<ExtArgs>
   loginAttempts?: boolean | Prisma.Company$loginAttemptsArgs<ExtArgs>
@@ -26772,6 +28195,7 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   jobScopeChanges?: boolean | Prisma.Company$jobScopeChangesArgs<ExtArgs>
   trades?: boolean | Prisma.Company$tradesArgs<ExtArgs>
   timeEntries?: boolean | Prisma.Company$timeEntriesArgs<ExtArgs>
+  timeEntryEvents?: boolean | Prisma.Company$timeEntryEventsArgs<ExtArgs>
   locationPings?: boolean | Prisma.Company$locationPingsArgs<ExtArgs>
   timesheetDays?: boolean | Prisma.Company$timesheetDaysArgs<ExtArgs>
   timesheetChanges?: boolean | Prisma.Company$timesheetChangesArgs<ExtArgs>
@@ -26832,6 +28256,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     jobScopeChanges: Prisma.$JobScopeChangePayload<ExtArgs>[]
     trades: Prisma.$TradePayload<ExtArgs>[]
     timeEntries: Prisma.$TimeEntryPayload<ExtArgs>[]
+    timeEntryEvents: Prisma.$TimeEntryEventPayload<ExtArgs>[]
     locationPings: Prisma.$LocationPingPayload<ExtArgs>[]
     timesheetDays: Prisma.$TimesheetDayPayload<ExtArgs>[]
     timesheetChanges: Prisma.$TimesheetChangePayload<ExtArgs>[]
@@ -26878,6 +28303,17 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
      */
     restBreakMinutes: number
     mealBreakMinutes: number
+    /**
+     * *
+     *    * Leaving the job mid-shift (`@nodo/core/timeclock/movement`). Somebody away
+     *    * longer than `siteReturnMinutes`, and not on an errand, is clocked out at
+     *    * the moment they left; 0 leaves the shift alone. `siteSwitchMinutes` inside
+     *    * another job before the phone suggests switching to it, and travel between
+     *    * jobs ends by itself after `travelMaxMinutes`.
+     */
+    siteReturnMinutes: number
+    siteSwitchMinutes: number
+    travelMaxMinutes: number
     defaultTaxType: $Enums.TaxType
     defaultTaxRate: runtime.Decimal
     quotePrefix: string
@@ -27443,6 +28879,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   jobScopeChanges<T extends Prisma.Company$jobScopeChangesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$jobScopeChangesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobScopeChangePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   trades<T extends Prisma.Company$tradesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$tradesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   timeEntries<T extends Prisma.Company$timeEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$timeEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TimeEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  timeEntryEvents<T extends Prisma.Company$timeEntryEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$timeEntryEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TimeEntryEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   locationPings<T extends Prisma.Company$locationPingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$locationPingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LocationPingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   timesheetDays<T extends Prisma.Company$timesheetDaysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$timesheetDaysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TimesheetDayPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   timesheetChanges<T extends Prisma.Company$timesheetChangesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$timesheetChangesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TimesheetChangePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -27495,6 +28932,9 @@ export interface CompanyFieldRefs {
   readonly timezone: Prisma.FieldRef<"Company", 'String'>
   readonly restBreakMinutes: Prisma.FieldRef<"Company", 'Int'>
   readonly mealBreakMinutes: Prisma.FieldRef<"Company", 'Int'>
+  readonly siteReturnMinutes: Prisma.FieldRef<"Company", 'Int'>
+  readonly siteSwitchMinutes: Prisma.FieldRef<"Company", 'Int'>
+  readonly travelMaxMinutes: Prisma.FieldRef<"Company", 'Int'>
   readonly defaultTaxType: Prisma.FieldRef<"Company", 'TaxType'>
   readonly defaultTaxRate: Prisma.FieldRef<"Company", 'Decimal'>
   readonly quotePrefix: Prisma.FieldRef<"Company", 'String'>
@@ -29095,6 +30535,30 @@ export type Company$timeEntriesArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.TimeEntryScalarFieldEnum | Prisma.TimeEntryScalarFieldEnum[]
+}
+
+/**
+ * Company.timeEntryEvents
+ */
+export type Company$timeEntryEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TimeEntryEvent
+   */
+  select?: Prisma.TimeEntryEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TimeEntryEvent
+   */
+  omit?: Prisma.TimeEntryEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TimeEntryEventInclude<ExtArgs> | null
+  where?: Prisma.TimeEntryEventWhereInput
+  orderBy?: Prisma.TimeEntryEventOrderByWithRelationInput | Prisma.TimeEntryEventOrderByWithRelationInput[]
+  cursor?: Prisma.TimeEntryEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TimeEntryEventScalarFieldEnum | Prisma.TimeEntryEventScalarFieldEnum[]
 }
 
 /**

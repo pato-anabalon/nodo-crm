@@ -65,6 +65,7 @@ export const DIRECT_TENANT_MODELS = new Set([
   "Task",
   "TimeEntry",
   "LocationPing",
+  "TimeEntryEvent",
   "TimesheetDay",
   "TimesheetChange",
   "Trade",

@@ -1,9 +1,11 @@
-import { JobStatus, Prisma, TimeEntrySource } from "@/generated/prisma/client";
+import { JobStatus, Prisma, TimeEntryEnd, TimeEntryKind, TimeEntrySource } from "@/generated/prisma/client";
 import type { CompanyContext } from "@/lib/auth/session";
 import { asPoint, geofenceVerdict, type Fix } from "@nodo/core/timeclock/geofence";
+import { siteState, travelDeadline } from "@nodo/core/timeclock/movement";
 import { clockInRefusal, isLatePunch, punchTimeProblem, withinShift } from "@nodo/core/timeclock/punch";
 import { jobVisibilityWhere } from "@/modules/jobs/scope";
 import { TimeclockRefusal } from "./errors";
+import { settleEntry } from "./settle";
 
 /**
  * The clock: shifts clocked in on site and out wherever the day ends, and the
@@ -12,11 +14,12 @@ import { TimeclockRefusal } from "./errors";
  * only one. Sending a punch twice finds what the first one made.
  */
 
-const entrySelect = {
+export const entrySelect = {
   id: true,
   clientId: true,
   jobId: true,
   jobName: true,
+  kind: true,
   source: true,
   clockInAt: true,
   clockInReceivedAt: true,
@@ -24,6 +27,7 @@ const entrySelect = {
   clockOutAt: true,
   clockOutReceivedAt: true,
   clockOutInside: true,
+  endedBy: true,
   note: true,
   editedAt: true,
 } satisfies Prisma.TimeEntrySelect;
@@ -36,11 +40,13 @@ export function entryView(row: EntryRow) {
     id: row.id,
     clientId: row.clientId,
     job: { id: row.jobId, name: row.jobName },
+    kind: row.kind,
     source: row.source,
     clockInAt: row.clockInAt.toISOString(),
     clockOutAt: row.clockOutAt?.toISOString() ?? null,
     clockInDistanceM: row.clockInDistanceM === null ? null : Math.round(row.clockInDistanceM),
     clockOutInside: row.clockOutInside,
+    endedBy: row.endedBy,
     clockInLate: isLatePunch(row.clockInAt, row.clockInReceivedAt),
     clockOutLate: row.clockOutAt && row.clockOutReceivedAt ? isLatePunch(row.clockOutAt, row.clockOutReceivedAt) : false,
     note: row.note,
@@ -69,10 +75,38 @@ export async function setConsent(ctx: CompanyContext, consent: boolean): Promise
   return value;
 }
 
-export async function openEntry(ctx: CompanyContext): Promise<EntryView | null> {
-  const row = await ctx.db.timeEntry.findFirst({ where: { userId: ctx.user.id, clockOutAt: null }, select: entrySelect });
-  return row ? entryView(row) : null;
+/**
+ * The shift this person has open, settled first: one the clock has ended by
+ * itself since anybody last looked isn't open any more. It says where it
+ * stands — away from the job and until when, on an errand, or travelling and
+ * until when — so the phone can show the countdown it is also keeping.
+ */
+export async function openEntry(ctx: CompanyContext, now = new Date()) {
+  const find = () =>
+    ctx.db.timeEntry.findFirst({
+      where: { userId: ctx.user.id, clockOutAt: null },
+      select: { ...entrySelect, events: { select: { kind: true, at: true } } },
+    });
+  let row = await find();
+  if (row && (await settleEntry(ctx.company.id, row.id, ctx.company.movementPolicy, now)) === "closed") row = await find();
+  if (!row) return null;
+
+  const policy = ctx.company.movementPolicy;
+  if (row.kind === TimeEntryKind.TRAVEL) {
+    return { ...entryView(row), away: null, travelEndsAt: travelDeadline(row.clockInAt, policy).toISOString() };
+  }
+  const state = siteState(row.events, policy, now);
+  const errand = state.errands.at(-1);
+  return {
+    ...entryView(row),
+    away: state.outside
+      ? { leftAt: state.leftAt!.toISOString(), until: state.deadline?.toISOString() ?? null, errandSince: errand && !errand.to ? errand.from.toISOString() : null }
+      : null,
+    travelEndsAt: null,
+  };
 }
+
+export type OpenEntryView = NonNullable<Awaited<ReturnType<typeof openEntry>>>;
 
 /** The jobs this person can clock into: the ones they can see that aren't finished, with where each is. */
 export async function clockableJobs(ctx: CompanyContext) {
@@ -174,6 +208,11 @@ export async function clockOut(
     select: { ...entrySelect, job: { select: { latitude: true, longitude: true, geofenceRadiusM: true } } },
   });
   if (!entry) throw new TimeclockRefusal("not_found", false);
+  // Ended by the clock since: what it decided stands, and the press finds it ended.
+  if (!entry.clockOutAt && (await settleEntry(ctx.company.id, entry.id, ctx.company.movementPolicy, now)) === "closed") {
+    const row = await ctx.db.timeEntry.findFirst({ where: { id: entry.id }, select: entrySelect });
+    return { entry: entryView(row!), changed: false };
+  }
   if (entry.clockOutAt) return { entry: entryView(entry), changed: false };
 
   const timeProblem = punchTimeProblem(input.at, now);
@@ -200,6 +239,7 @@ export async function clockOut(
       clockOutDistanceM: distanceM,
       clockOutInside: inside,
       clockOutBattery: input.battery ?? null,
+      endedBy: TimeEntryEnd.PUNCH,
     },
   });
   const row = await ctx.db.timeEntry.findFirst({ where: { id: entry.id }, select: entrySelect });
@@ -251,7 +291,7 @@ export async function ownEntries(ctx: CompanyContext, from: Date, to: Date): Pro
   return rows.map(entryView);
 }
 
-async function byClientId(ctx: CompanyContext, clientId: string): Promise<EntryView | null> {
+export async function byClientId(ctx: CompanyContext, clientId: string): Promise<EntryView | null> {
   const row = await ctx.db.timeEntry.findFirst({ where: { clientId, userId: ctx.user.id }, select: entrySelect });
   return row ? entryView(row) : null;
 }

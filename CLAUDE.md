@@ -1102,6 +1102,31 @@ same story as one with it.
   phone's: the server only hands it the setting, with the rest of the policy,
   in `GET /timeclock`.
 
+### Old positions and forgotten shifts
+
+- **Positions are kept for `Company.locationRetentionDays`** (180 by default,
+  `/settings/timeclock`). The daily sweep then thins each closed shift past
+  it (`thinOldTracks`): the positions become one simplified line on the shift
+  (`TimeEntry.track`, an encoded polyline from `@nodo/core/timeclock/track`,
+  Douglas–Peucker at 15 m) and are deleted in the same transaction. The
+  shift's page draws that line, and says it's simplified. The punches are
+  never deleted, since pay is worked out from them, and an open shift is
+  never thinned.
+- **A shift on a job still open after 14 hours** (`LEFT_OPEN_AFTER_MS` in
+  `punch.ts`) raises `TIMECLOCK_LEFT_OPEN` to the person and to whoever
+  holds `timeclock.read.all`, once per shift. The check runs in the daily
+  sweep, after settling, and in `/api/cron/clock`. Travel isn't asked
+  about, because it ends by itself.
+- **How often the phone records a position** is
+  `@nodo/core/timeclock/sampling`, pure and ready for background tracking:
+  - Every 15 minutes still on the job.
+  - Every 2 minutes or 50 m on the move (2.5 m/s or more, so walking around
+    the site doesn't count).
+  - Every 5 minutes still away from the job.
+  - Always at balanced precision.
+  - Positions go up in batches: every 20 minutes, at 30 queued, and always
+    at clock-out (`shouldFlush`).
+
 ### Hours and pay
 
 `/timesheets` is everybody's week (`timeclock.read.all`), a person's shifts

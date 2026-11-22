@@ -99,6 +99,7 @@ export async function shiftDetail(ctx: CompanyContext, entryId: string) {
       clockOutLatitude: true,
       clockOutLongitude: true,
       clockOutDistanceM: true,
+      track: true,
       createdBy: { select: { name: true, email: true } },
       editedBy: { select: { name: true, email: true } },
       job: { select: { latitude: true, longitude: true, geofenceRadiusM: true } },

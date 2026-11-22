@@ -60,6 +60,8 @@ export type CompanyContext = {
     /** How long a day's breaks last on the clock; which breaks a day carries is the law's. */
     breakPolicy: BreakPolicy;
     movementPolicy: MovementPolicy;
+    /** How long a shift's positions are kept before they're thinned into one line. */
+    locationRetentionDays: number;
   };
   /** `name` is null on standard profiles: it's translated from `key`. */
   role: { id: string; key: string | null; name: string | null };
@@ -149,6 +151,7 @@ export async function buildCompanyContext(userId: string, slug: string): Promise
         switchMinutes: company.siteSwitchMinutes,
         travelMaxMinutes: company.travelMaxMinutes,
       },
+      locationRetentionDays: company.locationRetentionDays,
       quoteFooter: company.quoteFooter,
       slogan: company.slogan,
       senderNameStyle: company.senderNameStyle,

@@ -220,6 +220,7 @@ enum NotificationKind {
   JOB_TODO_DUE
   QUOTE_EXPIRED_OPENED
   TIMECLOCK_AUTO_OUT
+  TIMECLOCK_LEFT_OPEN
 }
 
 /**
@@ -294,6 +295,13 @@ model Company {
   siteReturnMinutes Int @default(0)
   siteSwitchMinutes Int @default(5)
   travelMaxMinutes  Int @default(120)
+
+  /**
+   * How long a shift's positions are kept. Past it the sweep thins them into
+   * one line on the shift (`TimeEntry.track`) and deletes them: the map still
+   * shows roughly where the day went, and the punches are never deleted.
+   */
+  locationRetentionDays Int @default(180)
 
   // Values suggested when creating a quote; the quote keeps its own copy.
   defaultTaxType TaxType @default(GST)
@@ -2923,6 +2931,9 @@ model TimeEntry {
   clockOutBattery    Float?
   // Null while open, and on shifts from before it was recorded.
   endedBy            TimeEntryEnd?
+  // The positions in a few hundred bytes, once they passed the company's
+  // retention: simplified and written as an encoded polyline (`@nodo/core/timeclock/track`).
+  track              String?
 
   note        String?
   createdById String?

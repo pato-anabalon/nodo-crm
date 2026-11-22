@@ -1960,6 +1960,7 @@
       "JOB_CHAT_MENTION": "{by} mentioned you in the chat of {job}: “{excerpt}”",
       "JOB_FINISHED": "{by} finished {job}",
       "JOB_TODO_DUE": "“{title}” is due ({job})",
+      "TIMECLOCK_LEFT_OPEN": "{self, select, yes {You have} other {{person} has}} been clocked in at {job} for {hours} hours: {self, select, yes {clock out if the day is over} other {probably a forgotten clock-out}}",
       "TIMECLOCK_AUTO_OUT": "{self, select, yes {You were} other {{person} was}} clocked out of {job} at {time}: {why, select, travel {the travel from it ran past the limit} other {away from the job longer than allowed}}"
     },
     "quoteExpiring": {
@@ -2210,7 +2211,9 @@
       "JOB_TODO_DUE": "A to-do of mine is due",
       "JOB_TODO_DUE_hint": "The day a to-do assigned to you reaches its date and isn’t done.",
       "TIMECLOCK_AUTO_OUT": "A shift ended by the clock",
-      "TIMECLOCK_AUTO_OUT_hint": "When the clock ends a shift by itself: away from the job too long, or travel past its limit. Yours, or anybody's whose hours you see."
+      "TIMECLOCK_AUTO_OUT_hint": "When the clock ends a shift by itself: away from the job too long, or travel past its limit. Yours, or anybody's whose hours you see.",
+      "TIMECLOCK_LEFT_OPEN": "A shift left open",
+      "TIMECLOCK_LEFT_OPEN_hint": "When a shift is still open after 14 hours, which usually means somebody forgot to clock out. Yours, or anybody's whose hours you see."
     },
     "indexSubtitle": "Choose which emails you want to receive.",
     "recipients": {
@@ -3171,7 +3174,12 @@
     "switchHint": "Inside another job's circle this long, the phone offers to switch the shift to it with one tap.",
     "travelMax": "Travel ends by itself after",
     "travelHint": "Travel between jobs is paid and shown on its own line. With no job reached by then, it ends there.",
-    "movementSaved": "Leaving the job saved"
+    "movementSaved": "Leaving the job saved",
+    "retention": "Location history",
+    "retentionHint": "The positions recorded during a shift are kept this long. After that each shift keeps a simplified line of its route, and the positions are deleted. Clock-in and clock-out are always kept.",
+    "retentionDays": "Keep positions for",
+    "days": "{days} days",
+    "retentionSaved": "Location history saved"
   },
   "timesheets": {
     "title": "Timesheets",
@@ -3264,6 +3272,7 @@
       "where": "Where",
       "trackCount": "{count, plural, one {1 position recorded during the shift} other {# positions recorded during the shift}}",
       "noTrack": "No positions recorded between clocking in and out.",
+      "trackThinned": "Simplified route: the positions are past the company's retention period.",
       "clockIn": "Clock-in",
       "clockOut": "Clock-out",
       "distance": "{metres} m from the job",

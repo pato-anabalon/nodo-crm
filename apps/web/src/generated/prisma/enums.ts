@@ -171,7 +171,8 @@ export const NotificationKind = {
   JOB_FINISHED: 'JOB_FINISHED',
   JOB_TODO_DUE: 'JOB_TODO_DUE',
   QUOTE_EXPIRED_OPENED: 'QUOTE_EXPIRED_OPENED',
-  TIMECLOCK_AUTO_OUT: 'TIMECLOCK_AUTO_OUT'
+  TIMECLOCK_AUTO_OUT: 'TIMECLOCK_AUTO_OUT',
+  TIMECLOCK_LEFT_OPEN: 'TIMECLOCK_LEFT_OPEN'
 } as const
 
 export type NotificationKind = (typeof NotificationKind)[keyof typeof NotificationKind]

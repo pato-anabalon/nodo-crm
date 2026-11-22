@@ -32,6 +32,7 @@ export type CompanyAvgAggregateOutputType = {
   siteReturnMinutes: number | null
   siteSwitchMinutes: number | null
   travelMaxMinutes: number | null
+  locationRetentionDays: number | null
   defaultTaxRate: runtime.Decimal | null
   quoteValidityDays: number | null
   quoteNumberStart: number | null
@@ -47,6 +48,7 @@ export type CompanySumAggregateOutputType = {
   siteReturnMinutes: number | null
   siteSwitchMinutes: number | null
   travelMaxMinutes: number | null
+  locationRetentionDays: number | null
   defaultTaxRate: runtime.Decimal | null
   quoteValidityDays: number | null
   quoteNumberStart: number | null
@@ -80,6 +82,7 @@ export type CompanyMinAggregateOutputType = {
   siteReturnMinutes: number | null
   siteSwitchMinutes: number | null
   travelMaxMinutes: number | null
+  locationRetentionDays: number | null
   defaultTaxType: $Enums.TaxType | null
   defaultTaxRate: runtime.Decimal | null
   quotePrefix: string | null
@@ -139,6 +142,7 @@ export type CompanyMaxAggregateOutputType = {
   siteReturnMinutes: number | null
   siteSwitchMinutes: number | null
   travelMaxMinutes: number | null
+  locationRetentionDays: number | null
   defaultTaxType: $Enums.TaxType | null
   defaultTaxRate: runtime.Decimal | null
   quotePrefix: string | null
@@ -198,6 +202,7 @@ export type CompanyCountAggregateOutputType = {
   siteReturnMinutes: number
   siteSwitchMinutes: number
   travelMaxMinutes: number
+  locationRetentionDays: number
   defaultTaxType: number
   defaultTaxRate: number
   quotePrefix: number
@@ -242,6 +247,7 @@ export type CompanyAvgAggregateInputType = {
   siteReturnMinutes?: true
   siteSwitchMinutes?: true
   travelMaxMinutes?: true
+  locationRetentionDays?: true
   defaultTaxRate?: true
   quoteValidityDays?: true
   quoteNumberStart?: true
@@ -257,6 +263,7 @@ export type CompanySumAggregateInputType = {
   siteReturnMinutes?: true
   siteSwitchMinutes?: true
   travelMaxMinutes?: true
+  locationRetentionDays?: true
   defaultTaxRate?: true
   quoteValidityDays?: true
   quoteNumberStart?: true
@@ -290,6 +297,7 @@ export type CompanyMinAggregateInputType = {
   siteReturnMinutes?: true
   siteSwitchMinutes?: true
   travelMaxMinutes?: true
+  locationRetentionDays?: true
   defaultTaxType?: true
   defaultTaxRate?: true
   quotePrefix?: true
@@ -349,6 +357,7 @@ export type CompanyMaxAggregateInputType = {
   siteReturnMinutes?: true
   siteSwitchMinutes?: true
   travelMaxMinutes?: true
+  locationRetentionDays?: true
   defaultTaxType?: true
   defaultTaxRate?: true
   quotePrefix?: true
@@ -408,6 +417,7 @@ export type CompanyCountAggregateInputType = {
   siteReturnMinutes?: true
   siteSwitchMinutes?: true
   travelMaxMinutes?: true
+  locationRetentionDays?: true
   defaultTaxType?: true
   defaultTaxRate?: true
   quotePrefix?: true
@@ -555,6 +565,7 @@ export type CompanyGroupByOutputType = {
   siteReturnMinutes: number
   siteSwitchMinutes: number
   travelMaxMinutes: number
+  locationRetentionDays: number
   defaultTaxType: $Enums.TaxType
   defaultTaxRate: runtime.Decimal
   quotePrefix: string
@@ -638,6 +649,7 @@ export type CompanyWhereInput = {
   siteReturnMinutes?: Prisma.IntFilter<"Company"> | number
   siteSwitchMinutes?: Prisma.IntFilter<"Company"> | number
   travelMaxMinutes?: Prisma.IntFilter<"Company"> | number
+  locationRetentionDays?: Prisma.IntFilter<"Company"> | number
   defaultTaxType?: Prisma.EnumTaxTypeFilter<"Company"> | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFilter<"Company"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFilter<"Company"> | string
@@ -751,6 +763,7 @@ export type CompanyOrderByWithRelationInput = {
   siteReturnMinutes?: Prisma.SortOrder
   siteSwitchMinutes?: Prisma.SortOrder
   travelMaxMinutes?: Prisma.SortOrder
+  locationRetentionDays?: Prisma.SortOrder
   defaultTaxType?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
@@ -867,6 +880,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   siteReturnMinutes?: Prisma.IntFilter<"Company"> | number
   siteSwitchMinutes?: Prisma.IntFilter<"Company"> | number
   travelMaxMinutes?: Prisma.IntFilter<"Company"> | number
+  locationRetentionDays?: Prisma.IntFilter<"Company"> | number
   defaultTaxType?: Prisma.EnumTaxTypeFilter<"Company"> | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFilter<"Company"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFilter<"Company"> | string
@@ -980,6 +994,7 @@ export type CompanyOrderByWithAggregationInput = {
   siteReturnMinutes?: Prisma.SortOrder
   siteSwitchMinutes?: Prisma.SortOrder
   travelMaxMinutes?: Prisma.SortOrder
+  locationRetentionDays?: Prisma.SortOrder
   defaultTaxType?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
@@ -1048,6 +1063,7 @@ export type CompanyScalarWhereWithAggregatesInput = {
   siteReturnMinutes?: Prisma.IntWithAggregatesFilter<"Company"> | number
   siteSwitchMinutes?: Prisma.IntWithAggregatesFilter<"Company"> | number
   travelMaxMinutes?: Prisma.IntWithAggregatesFilter<"Company"> | number
+  locationRetentionDays?: Prisma.IntWithAggregatesFilter<"Company"> | number
   defaultTaxType?: Prisma.EnumTaxTypeWithAggregatesFilter<"Company"> | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalWithAggregatesFilter<"Company"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringWithAggregatesFilter<"Company"> | string
@@ -1108,6 +1124,7 @@ export type CompanyCreateInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -1221,6 +1238,7 @@ export type CompanyUncheckedCreateInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -1334,6 +1352,7 @@ export type CompanyUpdateInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1447,6 +1466,7 @@ export type CompanyUncheckedUpdateInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1560,6 +1580,7 @@ export type CompanyCreateManyInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -1620,6 +1641,7 @@ export type CompanyUpdateManyMutationInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1680,6 +1702,7 @@ export type CompanyUncheckedUpdateManyInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1748,6 +1771,7 @@ export type CompanyCountOrderByAggregateInput = {
   siteReturnMinutes?: Prisma.SortOrder
   siteSwitchMinutes?: Prisma.SortOrder
   travelMaxMinutes?: Prisma.SortOrder
+  locationRetentionDays?: Prisma.SortOrder
   defaultTaxType?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
@@ -1790,6 +1814,7 @@ export type CompanyAvgOrderByAggregateInput = {
   siteReturnMinutes?: Prisma.SortOrder
   siteSwitchMinutes?: Prisma.SortOrder
   travelMaxMinutes?: Prisma.SortOrder
+  locationRetentionDays?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quoteValidityDays?: Prisma.SortOrder
   quoteNumberStart?: Prisma.SortOrder
@@ -1823,6 +1848,7 @@ export type CompanyMaxOrderByAggregateInput = {
   siteReturnMinutes?: Prisma.SortOrder
   siteSwitchMinutes?: Prisma.SortOrder
   travelMaxMinutes?: Prisma.SortOrder
+  locationRetentionDays?: Prisma.SortOrder
   defaultTaxType?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
@@ -1882,6 +1908,7 @@ export type CompanyMinOrderByAggregateInput = {
   siteReturnMinutes?: Prisma.SortOrder
   siteSwitchMinutes?: Prisma.SortOrder
   travelMaxMinutes?: Prisma.SortOrder
+  locationRetentionDays?: Prisma.SortOrder
   defaultTaxType?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quotePrefix?: Prisma.SortOrder
@@ -1923,6 +1950,7 @@ export type CompanySumOrderByAggregateInput = {
   siteReturnMinutes?: Prisma.SortOrder
   siteSwitchMinutes?: Prisma.SortOrder
   travelMaxMinutes?: Prisma.SortOrder
+  locationRetentionDays?: Prisma.SortOrder
   defaultTaxRate?: Prisma.SortOrder
   quoteValidityDays?: Prisma.SortOrder
   quoteNumberStart?: Prisma.SortOrder
@@ -2783,6 +2811,7 @@ export type CompanyCreateWithoutQuoteTypesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -2895,6 +2924,7 @@ export type CompanyUncheckedCreateWithoutQuoteTypesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -3023,6 +3053,7 @@ export type CompanyUpdateWithoutQuoteTypesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3135,6 +3166,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTypesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3247,6 +3279,7 @@ export type CompanyCreateWithoutMembershipsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -3359,6 +3392,7 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -3487,6 +3521,7 @@ export type CompanyUpdateWithoutMembershipsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3599,6 +3634,7 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3711,6 +3747,7 @@ export type CompanyCreateWithoutLoginAttemptsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -3823,6 +3860,7 @@ export type CompanyUncheckedCreateWithoutLoginAttemptsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -3951,6 +3989,7 @@ export type CompanyUpdateWithoutLoginAttemptsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4063,6 +4102,7 @@ export type CompanyUncheckedUpdateWithoutLoginAttemptsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4175,6 +4215,7 @@ export type CompanyCreateWithoutRolesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -4287,6 +4328,7 @@ export type CompanyUncheckedCreateWithoutRolesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -4415,6 +4457,7 @@ export type CompanyUpdateWithoutRolesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4527,6 +4570,7 @@ export type CompanyUncheckedUpdateWithoutRolesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4639,6 +4683,7 @@ export type CompanyCreateWithoutInvitationsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -4751,6 +4796,7 @@ export type CompanyUncheckedCreateWithoutInvitationsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -4879,6 +4925,7 @@ export type CompanyUpdateWithoutInvitationsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4991,6 +5038,7 @@ export type CompanyUncheckedUpdateWithoutInvitationsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5103,6 +5151,7 @@ export type CompanyCreateWithoutTasksInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -5215,6 +5264,7 @@ export type CompanyUncheckedCreateWithoutTasksInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -5343,6 +5393,7 @@ export type CompanyUpdateWithoutTasksInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5455,6 +5506,7 @@ export type CompanyUncheckedUpdateWithoutTasksInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5567,6 +5619,7 @@ export type CompanyCreateWithoutNotificationsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -5679,6 +5732,7 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -5807,6 +5861,7 @@ export type CompanyUpdateWithoutNotificationsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5919,6 +5974,7 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6031,6 +6087,7 @@ export type CompanyCreateWithoutCatalogueInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -6143,6 +6200,7 @@ export type CompanyUncheckedCreateWithoutCatalogueInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -6271,6 +6329,7 @@ export type CompanyUpdateWithoutCatalogueInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6383,6 +6442,7 @@ export type CompanyUncheckedUpdateWithoutCatalogueInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6495,6 +6555,7 @@ export type CompanyCreateWithoutClientCompaniesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -6607,6 +6668,7 @@ export type CompanyUncheckedCreateWithoutClientCompaniesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -6735,6 +6797,7 @@ export type CompanyUpdateWithoutClientCompaniesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6847,6 +6910,7 @@ export type CompanyUncheckedUpdateWithoutClientCompaniesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6959,6 +7023,7 @@ export type CompanyCreateWithoutContactsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -7071,6 +7136,7 @@ export type CompanyUncheckedCreateWithoutContactsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -7199,6 +7265,7 @@ export type CompanyUpdateWithoutContactsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7311,6 +7378,7 @@ export type CompanyUncheckedUpdateWithoutContactsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7423,6 +7491,7 @@ export type CompanyCreateWithoutLeadSourceOptionsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -7535,6 +7604,7 @@ export type CompanyUncheckedCreateWithoutLeadSourceOptionsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -7663,6 +7733,7 @@ export type CompanyUpdateWithoutLeadSourceOptionsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7775,6 +7846,7 @@ export type CompanyUncheckedUpdateWithoutLeadSourceOptionsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7887,6 +7959,7 @@ export type CompanyCreateWithoutLeadAccessLogsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -7999,6 +8072,7 @@ export type CompanyUncheckedCreateWithoutLeadAccessLogsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -8127,6 +8201,7 @@ export type CompanyUpdateWithoutLeadAccessLogsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8239,6 +8314,7 @@ export type CompanyUncheckedUpdateWithoutLeadAccessLogsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8351,6 +8427,7 @@ export type CompanyCreateWithoutLeadsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -8463,6 +8540,7 @@ export type CompanyUncheckedCreateWithoutLeadsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -8591,6 +8669,7 @@ export type CompanyUpdateWithoutLeadsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8703,6 +8782,7 @@ export type CompanyUncheckedUpdateWithoutLeadsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8815,6 +8895,7 @@ export type CompanyCreateWithoutSubmissionsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -8927,6 +9008,7 @@ export type CompanyUncheckedCreateWithoutSubmissionsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -9055,6 +9137,7 @@ export type CompanyUpdateWithoutSubmissionsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9167,6 +9250,7 @@ export type CompanyUncheckedUpdateWithoutSubmissionsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9279,6 +9363,7 @@ export type CompanyCreateWithoutLeadAttachmentsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -9391,6 +9476,7 @@ export type CompanyUncheckedCreateWithoutLeadAttachmentsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -9519,6 +9605,7 @@ export type CompanyUpdateWithoutLeadAttachmentsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9631,6 +9718,7 @@ export type CompanyUncheckedUpdateWithoutLeadAttachmentsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -9743,6 +9831,7 @@ export type CompanyCreateWithoutIngestKeysInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -9855,6 +9944,7 @@ export type CompanyUncheckedCreateWithoutIngestKeysInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -9983,6 +10073,7 @@ export type CompanyUpdateWithoutIngestKeysInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10095,6 +10186,7 @@ export type CompanyUncheckedUpdateWithoutIngestKeysInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10207,6 +10299,7 @@ export type CompanyCreateWithoutIngestAttemptsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -10319,6 +10412,7 @@ export type CompanyUncheckedCreateWithoutIngestAttemptsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -10447,6 +10541,7 @@ export type CompanyUpdateWithoutIngestAttemptsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10559,6 +10654,7 @@ export type CompanyUncheckedUpdateWithoutIngestAttemptsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -10671,6 +10767,7 @@ export type CompanyCreateWithoutActivitiesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -10783,6 +10880,7 @@ export type CompanyUncheckedCreateWithoutActivitiesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -10911,6 +11009,7 @@ export type CompanyUpdateWithoutActivitiesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11023,6 +11122,7 @@ export type CompanyUncheckedUpdateWithoutActivitiesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11135,6 +11235,7 @@ export type CompanyCreateWithoutQuoteTemplatesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -11247,6 +11348,7 @@ export type CompanyUncheckedCreateWithoutQuoteTemplatesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -11375,6 +11477,7 @@ export type CompanyUpdateWithoutQuoteTemplatesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11487,6 +11590,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTemplatesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11599,6 +11703,7 @@ export type CompanyCreateWithoutQuotesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -11711,6 +11816,7 @@ export type CompanyUncheckedCreateWithoutQuotesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -11839,6 +11945,7 @@ export type CompanyUpdateWithoutQuotesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -11951,6 +12058,7 @@ export type CompanyUncheckedUpdateWithoutQuotesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12063,6 +12171,7 @@ export type CompanyCreateWithoutDocumentsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -12175,6 +12284,7 @@ export type CompanyUncheckedCreateWithoutDocumentsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -12303,6 +12413,7 @@ export type CompanyUpdateWithoutDocumentsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12415,6 +12526,7 @@ export type CompanyUncheckedUpdateWithoutDocumentsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12527,6 +12639,7 @@ export type CompanyCreateWithoutQuoteSharesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -12639,6 +12752,7 @@ export type CompanyUncheckedCreateWithoutQuoteSharesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -12767,6 +12881,7 @@ export type CompanyUpdateWithoutQuoteSharesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12879,6 +12994,7 @@ export type CompanyUncheckedUpdateWithoutQuoteSharesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -12991,6 +13107,7 @@ export type CompanyCreateWithoutQuoteRecipientsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -13103,6 +13220,7 @@ export type CompanyUncheckedCreateWithoutQuoteRecipientsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -13231,6 +13349,7 @@ export type CompanyUpdateWithoutQuoteRecipientsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13343,6 +13462,7 @@ export type CompanyUncheckedUpdateWithoutQuoteRecipientsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13455,6 +13575,7 @@ export type CompanyCreateWithoutSignatureHandoffsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -13567,6 +13688,7 @@ export type CompanyUncheckedCreateWithoutSignatureHandoffsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -13695,6 +13817,7 @@ export type CompanyUpdateWithoutSignatureHandoffsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13807,6 +13930,7 @@ export type CompanyUncheckedUpdateWithoutSignatureHandoffsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -13919,6 +14043,7 @@ export type CompanyCreateWithoutQuoteEventsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -14031,6 +14156,7 @@ export type CompanyUncheckedCreateWithoutQuoteEventsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -14159,6 +14285,7 @@ export type CompanyUpdateWithoutQuoteEventsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14271,6 +14398,7 @@ export type CompanyUncheckedUpdateWithoutQuoteEventsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14383,6 +14511,7 @@ export type CompanyCreateWithoutQuoteMessagesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -14495,6 +14624,7 @@ export type CompanyUncheckedCreateWithoutQuoteMessagesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -14623,6 +14753,7 @@ export type CompanyUpdateWithoutQuoteMessagesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14735,6 +14866,7 @@ export type CompanyUncheckedUpdateWithoutQuoteMessagesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14847,6 +14979,7 @@ export type CompanyCreateWithoutAcceptancesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -14959,6 +15092,7 @@ export type CompanyUncheckedCreateWithoutAcceptancesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -15087,6 +15221,7 @@ export type CompanyUpdateWithoutAcceptancesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15199,6 +15334,7 @@ export type CompanyUncheckedUpdateWithoutAcceptancesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15311,6 +15447,7 @@ export type CompanyCreateWithoutReviewLinksInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -15423,6 +15560,7 @@ export type CompanyUncheckedCreateWithoutReviewLinksInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -15551,6 +15689,7 @@ export type CompanyUpdateWithoutReviewLinksInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15663,6 +15802,7 @@ export type CompanyUncheckedUpdateWithoutReviewLinksInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -15775,6 +15915,7 @@ export type CompanyCreateWithoutEmailTemplatesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -15887,6 +16028,7 @@ export type CompanyUncheckedCreateWithoutEmailTemplatesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -16015,6 +16157,7 @@ export type CompanyUpdateWithoutEmailTemplatesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16127,6 +16270,7 @@ export type CompanyUncheckedUpdateWithoutEmailTemplatesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16239,6 +16383,7 @@ export type CompanyCreateWithoutReviewsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -16351,6 +16496,7 @@ export type CompanyUncheckedCreateWithoutReviewsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -16479,6 +16625,7 @@ export type CompanyUpdateWithoutReviewsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16591,6 +16738,7 @@ export type CompanyUncheckedUpdateWithoutReviewsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -16703,6 +16851,7 @@ export type CompanyCreateWithoutNotificationPreferencesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -16815,6 +16964,7 @@ export type CompanyUncheckedCreateWithoutNotificationPreferencesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -16943,6 +17093,7 @@ export type CompanyUpdateWithoutNotificationPreferencesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17055,6 +17206,7 @@ export type CompanyUncheckedUpdateWithoutNotificationPreferencesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17167,6 +17319,7 @@ export type CompanyCreateWithoutJobsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -17279,6 +17432,7 @@ export type CompanyUncheckedCreateWithoutJobsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -17407,6 +17561,7 @@ export type CompanyUpdateWithoutJobsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17519,6 +17674,7 @@ export type CompanyUncheckedUpdateWithoutJobsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17631,6 +17787,7 @@ export type CompanyCreateWithoutJobMembersInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -17743,6 +17900,7 @@ export type CompanyUncheckedCreateWithoutJobMembersInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -17871,6 +18029,7 @@ export type CompanyUpdateWithoutJobMembersInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -17983,6 +18142,7 @@ export type CompanyUncheckedUpdateWithoutJobMembersInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18095,6 +18255,7 @@ export type CompanyCreateWithoutJobActivitiesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -18207,6 +18368,7 @@ export type CompanyUncheckedCreateWithoutJobActivitiesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -18335,6 +18497,7 @@ export type CompanyUpdateWithoutJobActivitiesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18447,6 +18610,7 @@ export type CompanyUncheckedUpdateWithoutJobActivitiesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18559,6 +18723,7 @@ export type CompanyCreateWithoutJobFoldersInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -18671,6 +18836,7 @@ export type CompanyUncheckedCreateWithoutJobFoldersInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -18799,6 +18965,7 @@ export type CompanyUpdateWithoutJobFoldersInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -18911,6 +19078,7 @@ export type CompanyUncheckedUpdateWithoutJobFoldersInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19023,6 +19191,7 @@ export type CompanyCreateWithoutJobFilesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -19135,6 +19304,7 @@ export type CompanyUncheckedCreateWithoutJobFilesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -19263,6 +19433,7 @@ export type CompanyUpdateWithoutJobFilesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19375,6 +19546,7 @@ export type CompanyUncheckedUpdateWithoutJobFilesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19487,6 +19659,7 @@ export type CompanyCreateWithoutJobPostCategoriesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -19599,6 +19772,7 @@ export type CompanyUncheckedCreateWithoutJobPostCategoriesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -19727,6 +19901,7 @@ export type CompanyUpdateWithoutJobPostCategoriesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19839,6 +20014,7 @@ export type CompanyUncheckedUpdateWithoutJobPostCategoriesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -19951,6 +20127,7 @@ export type CompanyCreateWithoutJobPostsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -20063,6 +20240,7 @@ export type CompanyUncheckedCreateWithoutJobPostsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -20191,6 +20369,7 @@ export type CompanyUpdateWithoutJobPostsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20303,6 +20482,7 @@ export type CompanyUncheckedUpdateWithoutJobPostsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20415,6 +20595,7 @@ export type CompanyCreateWithoutJobCommentsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -20527,6 +20708,7 @@ export type CompanyUncheckedCreateWithoutJobCommentsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -20655,6 +20837,7 @@ export type CompanyUpdateWithoutJobCommentsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20767,6 +20950,7 @@ export type CompanyUncheckedUpdateWithoutJobCommentsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -20879,6 +21063,7 @@ export type CompanyCreateWithoutJobEventsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -20991,6 +21176,7 @@ export type CompanyUncheckedCreateWithoutJobEventsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -21119,6 +21305,7 @@ export type CompanyUpdateWithoutJobEventsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21231,6 +21418,7 @@ export type CompanyUncheckedUpdateWithoutJobEventsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21343,6 +21531,7 @@ export type CompanyCreateWithoutJobEventParticipantsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -21455,6 +21644,7 @@ export type CompanyUncheckedCreateWithoutJobEventParticipantsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -21583,6 +21773,7 @@ export type CompanyUpdateWithoutJobEventParticipantsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21695,6 +21886,7 @@ export type CompanyUncheckedUpdateWithoutJobEventParticipantsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -21807,6 +21999,7 @@ export type CompanyCreateWithoutJobTodoListsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -21919,6 +22112,7 @@ export type CompanyUncheckedCreateWithoutJobTodoListsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -22047,6 +22241,7 @@ export type CompanyUpdateWithoutJobTodoListsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22159,6 +22354,7 @@ export type CompanyUncheckedUpdateWithoutJobTodoListsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22271,6 +22467,7 @@ export type CompanyCreateWithoutJobTodosInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -22383,6 +22580,7 @@ export type CompanyUncheckedCreateWithoutJobTodosInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -22511,6 +22709,7 @@ export type CompanyUpdateWithoutJobTodosInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22623,6 +22822,7 @@ export type CompanyUncheckedUpdateWithoutJobTodosInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -22735,6 +22935,7 @@ export type CompanyCreateWithoutJobTodoAssigneesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -22847,6 +23048,7 @@ export type CompanyUncheckedCreateWithoutJobTodoAssigneesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -22975,6 +23177,7 @@ export type CompanyUpdateWithoutJobTodoAssigneesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23087,6 +23290,7 @@ export type CompanyUncheckedUpdateWithoutJobTodoAssigneesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23199,6 +23403,7 @@ export type CompanyCreateWithoutTradesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -23311,6 +23516,7 @@ export type CompanyUncheckedCreateWithoutTradesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -23439,6 +23645,7 @@ export type CompanyUpdateWithoutTradesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23551,6 +23758,7 @@ export type CompanyUncheckedUpdateWithoutTradesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -23663,6 +23871,7 @@ export type CompanyCreateWithoutJobChatMessagesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -23775,6 +23984,7 @@ export type CompanyUncheckedCreateWithoutJobChatMessagesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -23903,6 +24113,7 @@ export type CompanyUpdateWithoutJobChatMessagesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24015,6 +24226,7 @@ export type CompanyUncheckedUpdateWithoutJobChatMessagesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24127,6 +24339,7 @@ export type CompanyCreateWithoutJobScopeItemsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -24239,6 +24452,7 @@ export type CompanyUncheckedCreateWithoutJobScopeItemsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -24367,6 +24581,7 @@ export type CompanyUpdateWithoutJobScopeItemsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24479,6 +24694,7 @@ export type CompanyUncheckedUpdateWithoutJobScopeItemsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24591,6 +24807,7 @@ export type CompanyCreateWithoutJobScopeChangesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -24703,6 +24920,7 @@ export type CompanyUncheckedCreateWithoutJobScopeChangesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -24831,6 +25049,7 @@ export type CompanyUpdateWithoutJobScopeChangesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -24943,6 +25162,7 @@ export type CompanyUncheckedUpdateWithoutJobScopeChangesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -25055,6 +25275,7 @@ export type CompanyCreateWithoutTimeEntriesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -25167,6 +25388,7 @@ export type CompanyUncheckedCreateWithoutTimeEntriesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -25295,6 +25517,7 @@ export type CompanyUpdateWithoutTimeEntriesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -25407,6 +25630,7 @@ export type CompanyUncheckedUpdateWithoutTimeEntriesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -25519,6 +25743,7 @@ export type CompanyCreateWithoutLocationPingsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -25631,6 +25856,7 @@ export type CompanyUncheckedCreateWithoutLocationPingsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -25759,6 +25985,7 @@ export type CompanyUpdateWithoutLocationPingsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -25871,6 +26098,7 @@ export type CompanyUncheckedUpdateWithoutLocationPingsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -25983,6 +26211,7 @@ export type CompanyCreateWithoutTimeEntryEventsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -26095,6 +26324,7 @@ export type CompanyUncheckedCreateWithoutTimeEntryEventsInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -26223,6 +26453,7 @@ export type CompanyUpdateWithoutTimeEntryEventsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -26335,6 +26566,7 @@ export type CompanyUncheckedUpdateWithoutTimeEntryEventsInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -26447,6 +26679,7 @@ export type CompanyCreateWithoutTimesheetDaysInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -26559,6 +26792,7 @@ export type CompanyUncheckedCreateWithoutTimesheetDaysInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -26687,6 +26921,7 @@ export type CompanyUpdateWithoutTimesheetDaysInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -26799,6 +27034,7 @@ export type CompanyUncheckedUpdateWithoutTimesheetDaysInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -26911,6 +27147,7 @@ export type CompanyCreateWithoutTimesheetChangesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -27023,6 +27260,7 @@ export type CompanyUncheckedCreateWithoutTimesheetChangesInput = {
   siteReturnMinutes?: number
   siteSwitchMinutes?: number
   travelMaxMinutes?: number
+  locationRetentionDays?: number
   defaultTaxType?: $Enums.TaxType
   defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: string
@@ -27151,6 +27389,7 @@ export type CompanyUpdateWithoutTimesheetChangesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -27263,6 +27502,7 @@ export type CompanyUncheckedUpdateWithoutTimesheetChangesInput = {
   siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
   defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
   defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
@@ -27874,6 +28114,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   siteReturnMinutes?: boolean
   siteSwitchMinutes?: boolean
   travelMaxMinutes?: boolean
+  locationRetentionDays?: boolean
   defaultTaxType?: boolean
   defaultTaxRate?: boolean
   quotePrefix?: boolean
@@ -27988,6 +28229,7 @@ export type CompanySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   siteReturnMinutes?: boolean
   siteSwitchMinutes?: boolean
   travelMaxMinutes?: boolean
+  locationRetentionDays?: boolean
   defaultTaxType?: boolean
   defaultTaxRate?: boolean
   quotePrefix?: boolean
@@ -28048,6 +28290,7 @@ export type CompanySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   siteReturnMinutes?: boolean
   siteSwitchMinutes?: boolean
   travelMaxMinutes?: boolean
+  locationRetentionDays?: boolean
   defaultTaxType?: boolean
   defaultTaxRate?: boolean
   quotePrefix?: boolean
@@ -28108,6 +28351,7 @@ export type CompanySelectScalar = {
   siteReturnMinutes?: boolean
   siteSwitchMinutes?: boolean
   travelMaxMinutes?: boolean
+  locationRetentionDays?: boolean
   defaultTaxType?: boolean
   defaultTaxRate?: boolean
   quotePrefix?: boolean
@@ -28144,7 +28388,7 @@ export type CompanySelectScalar = {
   updatedAt?: boolean
 }
 
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "legalName" | "taxId" | "email" | "phone" | "website" | "address" | "logoUrl" | "pdfLogoUrl" | "watermarkUrl" | "primaryColor" | "accentColor" | "defaultLanguage" | "currency" | "formatLocale" | "timezone" | "restBreakMinutes" | "mealBreakMinutes" | "siteReturnMinutes" | "siteSwitchMinutes" | "travelMaxMinutes" | "defaultTaxType" | "defaultTaxRate" | "quotePrefix" | "quoteValidityDays" | "quoteNumberStart" | "quoteFooter" | "slogan" | "senderNameStyle" | "firstFollowUpDays" | "secondFollowUpDays" | "reviewRequestDays" | "sendQuoteCopy" | "leadNotificationEmails" | "quoteIntro" | "quoteNotes" | "quoteExclusions" | "quoteTerms" | "quoteScope" | "taxDisplayMode" | "acceptanceMode" | "acceptanceStatement" | "requireSignature" | "askAdditionalComments" | "askOrderReference" | "isActive" | "approvedAt" | "isDemo" | "demoDays" | "demoStartedAt" | "demoEndsAt" | "demoEndedAt" | "demoWarnedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "legalName" | "taxId" | "email" | "phone" | "website" | "address" | "logoUrl" | "pdfLogoUrl" | "watermarkUrl" | "primaryColor" | "accentColor" | "defaultLanguage" | "currency" | "formatLocale" | "timezone" | "restBreakMinutes" | "mealBreakMinutes" | "siteReturnMinutes" | "siteSwitchMinutes" | "travelMaxMinutes" | "locationRetentionDays" | "defaultTaxType" | "defaultTaxRate" | "quotePrefix" | "quoteValidityDays" | "quoteNumberStart" | "quoteFooter" | "slogan" | "senderNameStyle" | "firstFollowUpDays" | "secondFollowUpDays" | "reviewRequestDays" | "sendQuoteCopy" | "leadNotificationEmails" | "quoteIntro" | "quoteNotes" | "quoteExclusions" | "quoteTerms" | "quoteScope" | "taxDisplayMode" | "acceptanceMode" | "acceptanceStatement" | "requireSignature" | "askAdditionalComments" | "askOrderReference" | "isActive" | "approvedAt" | "isDemo" | "demoDays" | "demoStartedAt" | "demoEndsAt" | "demoEndedAt" | "demoWarnedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   memberships?: boolean | Prisma.Company$membershipsArgs<ExtArgs>
   loginAttempts?: boolean | Prisma.Company$loginAttemptsArgs<ExtArgs>
@@ -28314,6 +28558,13 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     siteReturnMinutes: number
     siteSwitchMinutes: number
     travelMaxMinutes: number
+    /**
+     * *
+     *    * How long a shift's positions are kept. Past it the sweep thins them into
+     *    * one line on the shift (`TimeEntry.track`) and deletes them: the map still
+     *    * shows roughly where the day went, and the punches are never deleted.
+     */
+    locationRetentionDays: number
     defaultTaxType: $Enums.TaxType
     defaultTaxRate: runtime.Decimal
     quotePrefix: string
@@ -28935,6 +29186,7 @@ export interface CompanyFieldRefs {
   readonly siteReturnMinutes: Prisma.FieldRef<"Company", 'Int'>
   readonly siteSwitchMinutes: Prisma.FieldRef<"Company", 'Int'>
   readonly travelMaxMinutes: Prisma.FieldRef<"Company", 'Int'>
+  readonly locationRetentionDays: Prisma.FieldRef<"Company", 'Int'>
   readonly defaultTaxType: Prisma.FieldRef<"Company", 'TaxType'>
   readonly defaultTaxRate: Prisma.FieldRef<"Company", 'Decimal'>
   readonly quotePrefix: Prisma.FieldRef<"Company", 'String'>

@@ -1960,6 +1960,7 @@
       "JOB_CHAT_MENTION": "{by} te mencionó en el chat de {job}: “{excerpt}”",
       "JOB_FINISHED": "{by} finalizó {job}",
       "JOB_TODO_DUE": "“{title}” vence ({job})",
+      "TIMECLOCK_LEFT_OPEN": "{self, select, yes {Llevas} other {{person} lleva}} {hours} horas con la jornada abierta en {job}: {self, select, yes {marca la salida si ya terminaste} other {probablemente olvidó marcar la salida}}",
       "TIMECLOCK_AUTO_OUT": "{self, select, yes {Se cerró tu jornada} other {Se cerró la jornada de {person}}} en {job} a las {time}: {why, select, travel {el traslado superó el máximo} other {fuera de la obra más tiempo del permitido}}"
     },
     "quoteExpiring": {
@@ -2210,7 +2211,9 @@
       "JOB_TODO_DUE": "Vence una tarea mía",
       "JOB_TODO_DUE_hint": "El día en que una tarea que te asignaron llega a su fecha sin estar lista.",
       "TIMECLOCK_AUTO_OUT": "Una jornada cerrada por el reloj",
-      "TIMECLOCK_AUTO_OUT_hint": "Cuando el reloj cierra una jornada solo: fuera de la obra demasiado tiempo, o un traslado que pasó el máximo. La tuya, o la de cualquiera cuyas horas ves."
+      "TIMECLOCK_AUTO_OUT_hint": "Cuando el reloj cierra una jornada solo: fuera de la obra demasiado tiempo, o un traslado que pasó el máximo. La tuya, o la de cualquiera cuyas horas ves.",
+      "TIMECLOCK_LEFT_OPEN": "Una jornada que quedó abierta",
+      "TIMECLOCK_LEFT_OPEN_hint": "Cuando una jornada sigue abierta después de 14 horas, que suele ser una salida olvidada. La tuya, o la de cualquiera cuyas horas ves."
     },
     "indexSubtitle": "Elige qué correos quieres recibir.",
     "recipients": {
@@ -3171,7 +3174,12 @@
     "switchHint": "Dentro del círculo de otra obra durante este tiempo, el teléfono ofrece cambiar la jornada a esa obra con un toque.",
     "travelMax": "El traslado termina solo después de",
     "travelHint": "El traslado entre obras se paga y aparece en su propia línea. Si para entonces no llegó a ninguna obra, termina ahí.",
-    "movementSaved": "Salir de la obra guardado"
+    "movementSaved": "Salir de la obra guardado",
+    "retention": "Historial de ubicación",
+    "retentionHint": "Las posiciones registradas durante una jornada se guardan este tiempo. Después, cada jornada conserva una línea simplificada de su recorrido y las posiciones se borran. La entrada y la salida se guardan siempre.",
+    "retentionDays": "Guardar las posiciones",
+    "days": "{days} días",
+    "retentionSaved": "Historial de ubicación guardado"
   },
   "timesheets": {
     "title": "Horas",
@@ -3264,6 +3272,7 @@
       "where": "Dónde",
       "trackCount": "{count, plural, one {1 posición registrada durante la jornada} other {# posiciones registradas durante la jornada}}",
       "noTrack": "No hay posiciones registradas entre la entrada y la salida.",
+      "trackThinned": "Recorrido simplificado: las posiciones pasaron el plazo de retención de la empresa.",
       "clockIn": "Entrada",
       "clockOut": "Salida",
       "distance": "a {metres} m del trabajo",

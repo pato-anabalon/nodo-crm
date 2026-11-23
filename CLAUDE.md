@@ -111,6 +111,33 @@ app's sign-in" below), with the token in the Keychain/Keystore
   no signal leaves it for the next try. What the screen shows is the
   server's open shift with the queue laid on top (`clockState`). Consent is
   asked once per company before anything else.
+- **In the pocket, the system watches the circle** (`lib/tracking.ts`, only
+  in a build of our own). While a shift or travel is open, the job's circle
+  and the nearest others (twenty at most, `regionsFor`) go to the system's
+  geofencing, and background location records the track at the pace
+  `samplingFor` sets. The tasks wake with nothing in memory, so the screen
+  writes down the stretch, the circles, the rules and the language whenever
+  the clock changes (`syncTracking`).
+  - Leaving queues `LEFT` and shows a notice with "Going to another job" and
+    "Work errand" on it.
+  - Coming back queues `RETURNED`.
+  - Arriving at another job schedules "Start on B?" for `switchMinutes`
+    later; leaving it again cancels that notice.
+
+  What to do with each crossing is pure (`reactTo`, in `lib/movement.ts`). It
+  acts only on a change of what it last believed, because the system also
+  reports the state it finds when the circles are handed over.
+  - **One queue.** Events, travel and switches go in the punch queue, in
+    order: travel takes its start from the departure, so the departure has
+    to arrive first.
+  - **Positions wait.** They go up in batches once no punch is waiting
+    (`lib/pings.ts`).
+  - **The screen** counts down while away and offers the switch when the
+    fix is inside another job.
+  - **Without "all the time"** the clock still works. The screen says what is
+    lost: nothing knows when they left.
+  - **The token** is readable after the first unlock, so a locked phone can
+    still send a departure.
 - **A job opens on its own permissions**, the list `GET /jobs/<id>` returns —
   a finished job's with the writes already off — so the app offers nothing
   the server would refuse. Its timeline is worded by the web's own
@@ -154,7 +181,14 @@ app's sign-in" below), with the token in the Keychain/Keystore
   the check that Metro, NativeWind and the workspace packages resolve without
   a phone. pnpm keeps dependencies isolated, which is why
   `react-native-css-interop` is a direct dependency: NativeWind's Babel
-  output imports it by name.
+  output imports it by name. `babel-preset-expo` is one for the same reason:
+  `babel.config.js` names it, and a release build on EAS (`preview`,
+  `production`) bundles the JS there and can't find it otherwise — a
+  development build never bundles, so it never noticed. So is
+  `@babel/plugin-transform-react-jsx`: NativeWind's preset names it without
+  declaring it, and Babel resolves a preset's plugins from the config that
+  named the preset — `apps/mobile` — not from the preset's own package.
+  `eas.json` pins EAS to the same pnpm as `packageManager`.
 
 
 | Piece | Choice |
@@ -1102,6 +1136,31 @@ same story as one with it.
   phone's: the server only hands it the setting, with the rest of the policy,
   in `GET /timeclock`.
 
+### Old positions and forgotten shifts
+
+- **Positions are kept for `Company.locationRetentionDays`** (180 by default,
+  `/settings/timeclock`). The daily sweep then thins each closed shift past
+  it (`thinOldTracks`): the positions become one simplified line on the shift
+  (`TimeEntry.track`, an encoded polyline from `@nodo/core/timeclock/track`,
+  Douglas–Peucker at 15 m) and are deleted in the same transaction. The
+  shift's page draws that line, and says it's simplified. The punches are
+  never deleted, since pay is worked out from them, and an open shift is
+  never thinned.
+- **A shift on a job still open after 14 hours** (`LEFT_OPEN_AFTER_MS` in
+  `punch.ts`) raises `TIMECLOCK_LEFT_OPEN` to the person and to whoever
+  holds `timeclock.read.all`, once per shift. The check runs in the daily
+  sweep, after settling, and in `/api/cron/clock`. Travel isn't asked
+  about, because it ends by itself.
+- **How often the phone records a position** is
+  `@nodo/core/timeclock/sampling`, pure and ready for background tracking:
+  - Every 15 minutes still on the job.
+  - Every 2 minutes or 50 m on the move (2.5 m/s or more, so walking around
+    the site doesn't count).
+  - Every 5 minutes still away from the job.
+  - Always at balanced precision.
+  - Positions go up in batches: every 20 minutes, at 30 queued, and always
+    at clock-out (`shouldFlush`).
+
 ### Hours and pay
 
 `/timesheets` is everybody's week (`timeclock.read.all`), a person's shifts
@@ -1571,6 +1630,12 @@ web enquiry uses). A copy can be made primary or taken off.
 - **The log freezes names, not ids** (`QuoteEvent.recipientName`,
   `QuoteMessage.authorName`): it must go on saying who opened it after that
   person is taken off the quote.
+- **A decision the team records goes in the same log**, as `ACCEPTED` or
+  `DECLINED` with `QuoteEvent.userName` ("Declined by María on the
+  customer's behalf"). It once reached only the lead's activity, so the
+  quote's own history couldn't say who declined it, and a quote with no lead
+  kept no author at all. `scripts/backfill-quote-decision-authors.ts` wrote
+  the older ones from those lead lines.
 - **One primary per quote** is a partial unique index written by hand in the
   migration — Prisma can't declare one — so the swap clears before it sets.
 

@@ -676,7 +676,7 @@ async function QuoteEvents({
   formatLocale,
   timezone,
 }: {
-  events: Array<{ id: string; type: string; createdAt: Date; recipientName: string | null }>;
+  events: Array<{ id: string; type: string; createdAt: Date; recipientName: string | null; userName: string | null }>;
   formatLocale: string;
   timezone: string;
 }) {
@@ -696,11 +696,15 @@ async function QuoteEvents({
               <li key={event.id} className="flex flex-wrap justify-between gap-2">
                 {/* Who did it, when the event knows: with several people on a
                     quote, "opened" alone doesn't say which of them is looking.
-                    Events from before then carry no name and read as they did. */}
+                    Events from before then carry no name and read as they did.
+                    A decision somebody on the team recorded says so, so it
+                    can't be read as the customer's own. */}
                 <span>
-                  {event.recipientName
-                    ? t(`eventBy.${event.type}`, { name: event.recipientName })
-                    : t(`eventTypes.${event.type}`)}
+                  {event.userName
+                    ? t(`eventByTeam.${event.type}`, { name: event.userName })
+                    : event.recipientName
+                      ? t(`eventBy.${event.type}`, { name: event.recipientName })
+                      : t(`eventTypes.${event.type}`)}
                 </span>
                 <time
                   dateTime={event.createdAt.toISOString()}

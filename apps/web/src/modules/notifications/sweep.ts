@@ -17,6 +17,8 @@ import { closeExpiredQuotes } from "@/modules/quotes/sweep";
 import { nativeQuoteWhere } from "@/modules/quotes/native";
 import { endExpiredDemos, warnEndingDemos } from "@/modules/platform/demo-sweep";
 import { sweepDueJobTodos } from "@/modules/jobs/sweep";
+import { notifyLeftOpen } from "@/modules/timeclock/notices";
+import { thinOldTracks } from "@/modules/timeclock/retention";
 import { settleOpenEntries } from "@/modules/timeclock/settle";
 
 export type SweepResult = {
@@ -37,6 +39,10 @@ export type SweepResult = {
   reviewRequests: number;
   /** Shifts the clock ended by itself: away from the job too long, or travel past its limit. */
   autoClockOuts: number;
+  /** Shifts still open long after anybody works one, raised to their person and supervisors. */
+  leftOpen: number;
+  /** Shifts past the company's retention whose positions became one line. */
+  thinnedTracks: number;
 };
 
 /**
@@ -73,6 +79,7 @@ export async function runDailySweep(now: Date = new Date()): Promise<SweepResult
       firstFollowUpDays: true,
       secondFollowUpDays: true,
       reviewRequestDays: true,
+      locationRetentionDays: true,
     },
   });
 
@@ -90,6 +97,9 @@ export async function runDailySweep(now: Date = new Date()): Promise<SweepResult
     reviewRequests: 0,
     // Every company at once; `/api/cron/clock` does the same through the day.
     autoClockOuts: await settleOpenEntries(now),
+    // After settling, so a shift the clock just ended isn't called forgotten.
+    leftOpen: await notifyLeftOpen(now),
+    thinnedTracks: 0,
   };
 
   for (const company of companies) {
@@ -110,6 +120,8 @@ export async function runDailySweep(now: Date = new Date()): Promise<SweepResult
     result.firstFollowUps += emails.firstFollowUps;
     result.secondFollowUps += emails.secondFollowUps;
     result.reviewRequests += emails.reviewRequests;
+
+    result.thinnedTracks += await thinOldTracks(company, now);
   }
 
   return result;

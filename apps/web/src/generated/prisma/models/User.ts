@@ -252,6 +252,7 @@ export type UserWhereInput = {
   assignedLeads?: Prisma.LeadListRelationFilter
   ingestKeys?: Prisma.IngestKeyListRelationFilter
   quoteMessages?: Prisma.QuoteMessageListRelationFilter
+  quoteEvents?: Prisma.QuoteEventListRelationFilter
   notificationPreferences?: Prisma.NotificationPreferenceListRelationFilter
   discardedLeads?: Prisma.LeadListRelationFilter
   createdQuotes?: Prisma.QuoteListRelationFilter
@@ -310,6 +311,7 @@ export type UserOrderByWithRelationInput = {
   assignedLeads?: Prisma.LeadOrderByRelationAggregateInput
   ingestKeys?: Prisma.IngestKeyOrderByRelationAggregateInput
   quoteMessages?: Prisma.QuoteMessageOrderByRelationAggregateInput
+  quoteEvents?: Prisma.QuoteEventOrderByRelationAggregateInput
   notificationPreferences?: Prisma.NotificationPreferenceOrderByRelationAggregateInput
   discardedLeads?: Prisma.LeadOrderByRelationAggregateInput
   createdQuotes?: Prisma.QuoteOrderByRelationAggregateInput
@@ -371,6 +373,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   assignedLeads?: Prisma.LeadListRelationFilter
   ingestKeys?: Prisma.IngestKeyListRelationFilter
   quoteMessages?: Prisma.QuoteMessageListRelationFilter
+  quoteEvents?: Prisma.QuoteEventListRelationFilter
   notificationPreferences?: Prisma.NotificationPreferenceListRelationFilter
   discardedLeads?: Prisma.LeadListRelationFilter
   createdQuotes?: Prisma.QuoteListRelationFilter
@@ -465,6 +468,7 @@ export type UserCreateInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -523,6 +527,7 @@ export type UserUncheckedCreateInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -581,6 +586,7 @@ export type UserUpdateInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -639,6 +645,7 @@ export type UserUncheckedUpdateInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1012,6 +1019,22 @@ export type UserUpdateOneWithoutCreatedQuotesNestedInput = {
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedQuotesInput, Prisma.UserUpdateWithoutCreatedQuotesInput>, Prisma.UserUncheckedUpdateWithoutCreatedQuotesInput>
+}
+
+export type UserCreateNestedOneWithoutQuoteEventsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutQuoteEventsInput, Prisma.UserUncheckedCreateWithoutQuoteEventsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutQuoteEventsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutQuoteEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutQuoteEventsInput, Prisma.UserUncheckedCreateWithoutQuoteEventsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutQuoteEventsInput
+  upsert?: Prisma.UserUpsertWithoutQuoteEventsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutQuoteEventsInput, Prisma.UserUpdateWithoutQuoteEventsInput>, Prisma.UserUncheckedUpdateWithoutQuoteEventsInput>
 }
 
 export type UserCreateNestedOneWithoutQuoteMessagesInput = {
@@ -1458,6 +1481,7 @@ export type UserCreateWithoutMembershipsInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -1515,6 +1539,7 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1588,6 +1613,7 @@ export type UserUpdateWithoutMembershipsInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -1645,6 +1671,7 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1702,6 +1729,7 @@ export type UserCreateWithoutMobileSessionsInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -1759,6 +1787,7 @@ export type UserUncheckedCreateWithoutMobileSessionsInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1832,6 +1861,7 @@ export type UserUpdateWithoutMobileSessionsInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -1889,6 +1919,7 @@ export type UserUncheckedUpdateWithoutMobileSessionsInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1946,6 +1977,7 @@ export type UserCreateWithoutMobileChallengesInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -2003,6 +2035,7 @@ export type UserUncheckedCreateWithoutMobileChallengesInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2076,6 +2109,7 @@ export type UserUpdateWithoutMobileChallengesInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -2133,6 +2167,7 @@ export type UserUncheckedUpdateWithoutMobileChallengesInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2190,6 +2225,7 @@ export type UserCreateWithoutMobileTrustedDevicesInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -2247,6 +2283,7 @@ export type UserUncheckedCreateWithoutMobileTrustedDevicesInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2320,6 +2357,7 @@ export type UserUpdateWithoutMobileTrustedDevicesInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -2377,6 +2415,7 @@ export type UserUncheckedUpdateWithoutMobileTrustedDevicesInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2434,6 +2473,7 @@ export type UserCreateWithoutAccountsInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -2491,6 +2531,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2564,6 +2605,7 @@ export type UserUpdateWithoutAccountsInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -2621,6 +2663,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2678,6 +2721,7 @@ export type UserCreateWithoutSessionsInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -2735,6 +2779,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2808,6 +2853,7 @@ export type UserUpdateWithoutSessionsInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -2865,6 +2911,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2922,6 +2969,7 @@ export type UserCreateWithoutTasksAssignedInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -2979,6 +3027,7 @@ export type UserUncheckedCreateWithoutTasksAssignedInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3041,6 +3090,7 @@ export type UserCreateWithoutTasksCreatedInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -3098,6 +3148,7 @@ export type UserUncheckedCreateWithoutTasksCreatedInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3171,6 +3222,7 @@ export type UserUpdateWithoutTasksAssignedInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -3228,6 +3280,7 @@ export type UserUncheckedUpdateWithoutTasksAssignedInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3296,6 +3349,7 @@ export type UserUpdateWithoutTasksCreatedInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -3353,6 +3407,7 @@ export type UserUncheckedUpdateWithoutTasksCreatedInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3410,6 +3465,7 @@ export type UserCreateWithoutNotificationsInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -3467,6 +3523,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3540,6 +3597,7 @@ export type UserUpdateWithoutNotificationsInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -3597,6 +3655,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3654,6 +3713,7 @@ export type UserCreateWithoutLeadAccessLogsInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -3711,6 +3771,7 @@ export type UserUncheckedCreateWithoutLeadAccessLogsInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3784,6 +3845,7 @@ export type UserUpdateWithoutLeadAccessLogsInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -3841,6 +3903,7 @@ export type UserUncheckedUpdateWithoutLeadAccessLogsInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3898,6 +3961,7 @@ export type UserCreateWithoutAssignedLeadsInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -3955,6 +4019,7 @@ export type UserUncheckedCreateWithoutAssignedLeadsInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -4018,6 +4083,7 @@ export type UserCreateWithoutDiscardedLeadsInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
@@ -4075,6 +4141,7 @@ export type UserUncheckedCreateWithoutDiscardedLeadsInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
@@ -4147,6 +4214,7 @@ export type UserUpdateWithoutAssignedLeadsInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -4204,6 +4272,7 @@ export type UserUncheckedUpdateWithoutAssignedLeadsInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4273,6 +4342,7 @@ export type UserUpdateWithoutDiscardedLeadsInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
@@ -4330,6 +4400,7 @@ export type UserUncheckedUpdateWithoutDiscardedLeadsInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
@@ -4386,6 +4457,7 @@ export type UserCreateWithoutLeadAttachmentsUploadedInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -4443,6 +4515,7 @@ export type UserUncheckedCreateWithoutLeadAttachmentsUploadedInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -4516,6 +4589,7 @@ export type UserUpdateWithoutLeadAttachmentsUploadedInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -4573,6 +4647,7 @@ export type UserUncheckedUpdateWithoutLeadAttachmentsUploadedInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4630,6 +4705,7 @@ export type UserCreateWithoutIngestKeysInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -4687,6 +4763,7 @@ export type UserUncheckedCreateWithoutIngestKeysInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -4760,6 +4837,7 @@ export type UserUpdateWithoutIngestKeysInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -4817,6 +4895,7 @@ export type UserUncheckedUpdateWithoutIngestKeysInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4875,6 +4954,7 @@ export type UserCreateWithoutActivitiesInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -4932,6 +5012,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -5005,6 +5086,7 @@ export type UserUpdateWithoutActivitiesInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -5062,6 +5144,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -5119,6 +5202,7 @@ export type UserCreateWithoutCreatedQuotesInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
@@ -5176,6 +5260,7 @@ export type UserUncheckedCreateWithoutCreatedQuotesInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
@@ -5249,6 +5334,7 @@ export type UserUpdateWithoutCreatedQuotesInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
@@ -5306,8 +5392,257 @@ export type UserUncheckedUpdateWithoutCreatedQuotesInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
+  jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
+  jobMemberships?: Prisma.JobMemberUncheckedUpdateManyWithoutUserNestedInput
+  jobMembersAdded?: Prisma.JobMemberUncheckedUpdateManyWithoutAddedByNestedInput
+  jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutActorNestedInput
+  jobFoldersCreated?: Prisma.JobFolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobFilesUploaded?: Prisma.JobFileUncheckedUpdateManyWithoutUploadedByNestedInput
+  jobPostsWritten?: Prisma.JobPostUncheckedUpdateManyWithoutAuthorNestedInput
+  jobCommentsWritten?: Prisma.JobCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  jobTodoListsCreated?: Prisma.JobTodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobTodosCreated?: Prisma.JobTodoUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobTodosCompleted?: Prisma.JobTodoUncheckedUpdateManyWithoutCompletedByNestedInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUncheckedUpdateManyWithoutUserNestedInput
+  jobEventsCreated?: Prisma.JobEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  jobEventParticipations?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutAuthorNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutUserNestedInput
+  timeEntriesCreated?: Prisma.TimeEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  timeEntriesEdited?: Prisma.TimeEntryUncheckedUpdateManyWithoutEditedByNestedInput
+  timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutUserNestedInput
+  timesheetDaysEdited?: Prisma.TimesheetDayUncheckedUpdateManyWithoutEditedByNestedInput
+  timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutUserNestedInput
+  timesheetChangesMade?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutAuthorNestedInput
+  jobScopeItemsEdited?: Prisma.JobScopeItemUncheckedUpdateManyWithoutEditedByNestedInput
+  jobScopeChangesMade?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserCreateWithoutQuoteEventsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  passwordHash?: string | null
+  isSuperAdmin?: boolean
+  jobTitle?: string | null
+  phone?: string | null
+  language?: $Enums.Language | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  tasksAssigned?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentCreateNestedManyWithoutUploadedByInput
+  tasksCreated?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceCreateNestedManyWithoutUserInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
+  assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
+  ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
+  quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
+  discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
+  createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
+  jobsCreated?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobCreateNestedManyWithoutClosedByInput
+  jobMemberships?: Prisma.JobMemberCreateNestedManyWithoutUserInput
+  jobMembersAdded?: Prisma.JobMemberCreateNestedManyWithoutAddedByInput
+  jobActivities?: Prisma.JobActivityCreateNestedManyWithoutActorInput
+  jobFoldersCreated?: Prisma.JobFolderCreateNestedManyWithoutCreatedByInput
+  jobFilesUploaded?: Prisma.JobFileCreateNestedManyWithoutUploadedByInput
+  jobPostsWritten?: Prisma.JobPostCreateNestedManyWithoutAuthorInput
+  jobCommentsWritten?: Prisma.JobCommentCreateNestedManyWithoutAuthorInput
+  jobTodoListsCreated?: Prisma.JobTodoListCreateNestedManyWithoutCreatedByInput
+  jobTodosCreated?: Prisma.JobTodoCreateNestedManyWithoutCreatedByInput
+  jobTodosCompleted?: Prisma.JobTodoCreateNestedManyWithoutCompletedByInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeCreateNestedManyWithoutUserInput
+  jobEventsCreated?: Prisma.JobEventCreateNestedManyWithoutCreatedByInput
+  jobEventParticipations?: Prisma.JobEventParticipantCreateNestedManyWithoutUserInput
+  jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutAuthorInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutUserInput
+  timeEntriesCreated?: Prisma.TimeEntryCreateNestedManyWithoutCreatedByInput
+  timeEntriesEdited?: Prisma.TimeEntryCreateNestedManyWithoutEditedByInput
+  timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutUserInput
+  timesheetDaysEdited?: Prisma.TimesheetDayCreateNestedManyWithoutEditedByInput
+  timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutUserInput
+  timesheetChangesMade?: Prisma.TimesheetChangeCreateNestedManyWithoutAuthorInput
+  jobScopeItemsEdited?: Prisma.JobScopeItemCreateNestedManyWithoutEditedByInput
+  jobScopeChangesMade?: Prisma.JobScopeChangeCreateNestedManyWithoutAuthorInput
+}
+
+export type UserUncheckedCreateWithoutQuoteEventsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  passwordHash?: string | null
+  isSuperAdmin?: boolean
+  jobTitle?: string | null
+  phone?: string | null
+  language?: $Enums.Language | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutUserInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  mobileSessions?: Prisma.MobileSessionUncheckedCreateNestedManyWithoutUserInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedCreateNestedManyWithoutUserInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedCreateNestedManyWithoutUserInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
+  assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
+  ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
+  discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
+  createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
+  jobsCreated?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  jobsClosed?: Prisma.JobUncheckedCreateNestedManyWithoutClosedByInput
+  jobMemberships?: Prisma.JobMemberUncheckedCreateNestedManyWithoutUserInput
+  jobMembersAdded?: Prisma.JobMemberUncheckedCreateNestedManyWithoutAddedByInput
+  jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutActorInput
+  jobFoldersCreated?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCreatedByInput
+  jobFilesUploaded?: Prisma.JobFileUncheckedCreateNestedManyWithoutUploadedByInput
+  jobPostsWritten?: Prisma.JobPostUncheckedCreateNestedManyWithoutAuthorInput
+  jobCommentsWritten?: Prisma.JobCommentUncheckedCreateNestedManyWithoutAuthorInput
+  jobTodoListsCreated?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutCreatedByInput
+  jobTodosCreated?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCreatedByInput
+  jobTodosCompleted?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCompletedByInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUncheckedCreateNestedManyWithoutUserInput
+  jobEventsCreated?: Prisma.JobEventUncheckedCreateNestedManyWithoutCreatedByInput
+  jobEventParticipations?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutUserInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutAuthorInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutUserInput
+  timeEntriesCreated?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  timeEntriesEdited?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEditedByInput
+  timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutUserInput
+  timesheetDaysEdited?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutEditedByInput
+  timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutUserInput
+  timesheetChangesMade?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutAuthorInput
+  jobScopeItemsEdited?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutEditedByInput
+  jobScopeChangesMade?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+export type UserCreateOrConnectWithoutQuoteEventsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutQuoteEventsInput, Prisma.UserUncheckedCreateWithoutQuoteEventsInput>
+}
+
+export type UserUpsertWithoutQuoteEventsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutQuoteEventsInput, Prisma.UserUncheckedUpdateWithoutQuoteEventsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutQuoteEventsInput, Prisma.UserUncheckedCreateWithoutQuoteEventsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutQuoteEventsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutQuoteEventsInput, Prisma.UserUncheckedUpdateWithoutQuoteEventsInput>
+}
+
+export type UserUpdateWithoutQuoteEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  tasksAssigned?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUpdateManyWithoutUploadedByNestedInput
+  tasksCreated?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
+  assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
+  ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
+  quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
+  discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
+  createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
+  jobsCreated?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  jobsClosed?: Prisma.JobUpdateManyWithoutClosedByNestedInput
+  jobMemberships?: Prisma.JobMemberUpdateManyWithoutUserNestedInput
+  jobMembersAdded?: Prisma.JobMemberUpdateManyWithoutAddedByNestedInput
+  jobActivities?: Prisma.JobActivityUpdateManyWithoutActorNestedInput
+  jobFoldersCreated?: Prisma.JobFolderUpdateManyWithoutCreatedByNestedInput
+  jobFilesUploaded?: Prisma.JobFileUpdateManyWithoutUploadedByNestedInput
+  jobPostsWritten?: Prisma.JobPostUpdateManyWithoutAuthorNestedInput
+  jobCommentsWritten?: Prisma.JobCommentUpdateManyWithoutAuthorNestedInput
+  jobTodoListsCreated?: Prisma.JobTodoListUpdateManyWithoutCreatedByNestedInput
+  jobTodosCreated?: Prisma.JobTodoUpdateManyWithoutCreatedByNestedInput
+  jobTodosCompleted?: Prisma.JobTodoUpdateManyWithoutCompletedByNestedInput
+  jobTodoAssignments?: Prisma.JobTodoAssigneeUpdateManyWithoutUserNestedInput
+  jobEventsCreated?: Prisma.JobEventUpdateManyWithoutCreatedByNestedInput
+  jobEventParticipations?: Prisma.JobEventParticipantUpdateManyWithoutUserNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutAuthorNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutUserNestedInput
+  timeEntriesCreated?: Prisma.TimeEntryUpdateManyWithoutCreatedByNestedInput
+  timeEntriesEdited?: Prisma.TimeEntryUpdateManyWithoutEditedByNestedInput
+  timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutUserNestedInput
+  timesheetDaysEdited?: Prisma.TimesheetDayUpdateManyWithoutEditedByNestedInput
+  timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutUserNestedInput
+  timesheetChangesMade?: Prisma.TimesheetChangeUpdateManyWithoutAuthorNestedInput
+  jobScopeItemsEdited?: Prisma.JobScopeItemUpdateManyWithoutEditedByNestedInput
+  jobScopeChangesMade?: Prisma.JobScopeChangeUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutQuoteEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutUserNestedInput
+  leadAttachmentsUploaded?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileSessions?: Prisma.MobileSessionUncheckedUpdateManyWithoutUserNestedInput
+  mobileChallenges?: Prisma.MobileChallengeUncheckedUpdateManyWithoutUserNestedInput
+  mobileTrustedDevices?: Prisma.MobileTrustedDeviceUncheckedUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
+  assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
+  ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
+  createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
   jobsCreated?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
   jobsClosed?: Prisma.JobUncheckedUpdateManyWithoutClosedByNestedInput
@@ -5362,6 +5697,7 @@ export type UserCreateWithoutQuoteMessagesInput = {
   memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -5419,6 +5755,7 @@ export type UserUncheckedCreateWithoutQuoteMessagesInput = {
   memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -5492,6 +5829,7 @@ export type UserUpdateWithoutQuoteMessagesInput = {
   memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -5549,6 +5887,7 @@ export type UserUncheckedUpdateWithoutQuoteMessagesInput = {
   memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -5607,6 +5946,7 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
@@ -5664,6 +6004,7 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
@@ -5737,6 +6078,7 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
@@ -5794,6 +6136,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
@@ -5851,6 +6194,7 @@ export type UserCreateWithoutJobsCreatedInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -5908,6 +6252,7 @@ export type UserUncheckedCreateWithoutJobsCreatedInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -5970,6 +6315,7 @@ export type UserCreateWithoutJobsClosedInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -6027,6 +6373,7 @@ export type UserUncheckedCreateWithoutJobsClosedInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -6100,6 +6447,7 @@ export type UserUpdateWithoutJobsCreatedInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -6157,6 +6505,7 @@ export type UserUncheckedUpdateWithoutJobsCreatedInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -6225,6 +6574,7 @@ export type UserUpdateWithoutJobsClosedInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -6282,6 +6632,7 @@ export type UserUncheckedUpdateWithoutJobsClosedInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -6339,6 +6690,7 @@ export type UserCreateWithoutJobMembershipsInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -6396,6 +6748,7 @@ export type UserUncheckedCreateWithoutJobMembershipsInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -6458,6 +6811,7 @@ export type UserCreateWithoutJobMembersAddedInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -6515,6 +6869,7 @@ export type UserUncheckedCreateWithoutJobMembersAddedInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -6588,6 +6943,7 @@ export type UserUpdateWithoutJobMembershipsInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -6645,6 +7001,7 @@ export type UserUncheckedUpdateWithoutJobMembershipsInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -6713,6 +7070,7 @@ export type UserUpdateWithoutJobMembersAddedInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -6770,6 +7128,7 @@ export type UserUncheckedUpdateWithoutJobMembersAddedInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -6827,6 +7186,7 @@ export type UserCreateWithoutJobActivitiesInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -6884,6 +7244,7 @@ export type UserUncheckedCreateWithoutJobActivitiesInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -6957,6 +7318,7 @@ export type UserUpdateWithoutJobActivitiesInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -7014,6 +7376,7 @@ export type UserUncheckedUpdateWithoutJobActivitiesInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -7071,6 +7434,7 @@ export type UserCreateWithoutJobFoldersCreatedInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -7128,6 +7492,7 @@ export type UserUncheckedCreateWithoutJobFoldersCreatedInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -7201,6 +7566,7 @@ export type UserUpdateWithoutJobFoldersCreatedInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -7258,6 +7624,7 @@ export type UserUncheckedUpdateWithoutJobFoldersCreatedInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -7315,6 +7682,7 @@ export type UserCreateWithoutJobFilesUploadedInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -7372,6 +7740,7 @@ export type UserUncheckedCreateWithoutJobFilesUploadedInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -7445,6 +7814,7 @@ export type UserUpdateWithoutJobFilesUploadedInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -7502,6 +7872,7 @@ export type UserUncheckedUpdateWithoutJobFilesUploadedInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -7559,6 +7930,7 @@ export type UserCreateWithoutJobPostsWrittenInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -7616,6 +7988,7 @@ export type UserUncheckedCreateWithoutJobPostsWrittenInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -7689,6 +8062,7 @@ export type UserUpdateWithoutJobPostsWrittenInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -7746,6 +8120,7 @@ export type UserUncheckedUpdateWithoutJobPostsWrittenInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -7803,6 +8178,7 @@ export type UserCreateWithoutJobCommentsWrittenInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -7860,6 +8236,7 @@ export type UserUncheckedCreateWithoutJobCommentsWrittenInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -7933,6 +8310,7 @@ export type UserUpdateWithoutJobCommentsWrittenInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -7990,6 +8368,7 @@ export type UserUncheckedUpdateWithoutJobCommentsWrittenInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -8047,6 +8426,7 @@ export type UserCreateWithoutJobEventsCreatedInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -8104,6 +8484,7 @@ export type UserUncheckedCreateWithoutJobEventsCreatedInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -8177,6 +8558,7 @@ export type UserUpdateWithoutJobEventsCreatedInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -8234,6 +8616,7 @@ export type UserUncheckedUpdateWithoutJobEventsCreatedInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -8291,6 +8674,7 @@ export type UserCreateWithoutJobEventParticipationsInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -8348,6 +8732,7 @@ export type UserUncheckedCreateWithoutJobEventParticipationsInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -8421,6 +8806,7 @@ export type UserUpdateWithoutJobEventParticipationsInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -8478,6 +8864,7 @@ export type UserUncheckedUpdateWithoutJobEventParticipationsInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -8535,6 +8922,7 @@ export type UserCreateWithoutJobTodoListsCreatedInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -8592,6 +8980,7 @@ export type UserUncheckedCreateWithoutJobTodoListsCreatedInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -8665,6 +9054,7 @@ export type UserUpdateWithoutJobTodoListsCreatedInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -8722,6 +9112,7 @@ export type UserUncheckedUpdateWithoutJobTodoListsCreatedInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -8779,6 +9170,7 @@ export type UserCreateWithoutJobTodosCompletedInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -8836,6 +9228,7 @@ export type UserUncheckedCreateWithoutJobTodosCompletedInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -8898,6 +9291,7 @@ export type UserCreateWithoutJobTodosCreatedInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -8955,6 +9349,7 @@ export type UserUncheckedCreateWithoutJobTodosCreatedInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -9028,6 +9423,7 @@ export type UserUpdateWithoutJobTodosCompletedInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -9085,6 +9481,7 @@ export type UserUncheckedUpdateWithoutJobTodosCompletedInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -9153,6 +9550,7 @@ export type UserUpdateWithoutJobTodosCreatedInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -9210,6 +9608,7 @@ export type UserUncheckedUpdateWithoutJobTodosCreatedInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -9267,6 +9666,7 @@ export type UserCreateWithoutJobTodoAssignmentsInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -9324,6 +9724,7 @@ export type UserUncheckedCreateWithoutJobTodoAssignmentsInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -9397,6 +9798,7 @@ export type UserUpdateWithoutJobTodoAssignmentsInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -9454,6 +9856,7 @@ export type UserUncheckedUpdateWithoutJobTodoAssignmentsInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -9511,6 +9914,7 @@ export type UserCreateWithoutJobChatMessagesInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -9568,6 +9972,7 @@ export type UserUncheckedCreateWithoutJobChatMessagesInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -9641,6 +10046,7 @@ export type UserUpdateWithoutJobChatMessagesInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -9698,6 +10104,7 @@ export type UserUncheckedUpdateWithoutJobChatMessagesInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -9755,6 +10162,7 @@ export type UserCreateWithoutJobScopeItemsEditedInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -9812,6 +10220,7 @@ export type UserUncheckedCreateWithoutJobScopeItemsEditedInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -9885,6 +10294,7 @@ export type UserUpdateWithoutJobScopeItemsEditedInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -9942,6 +10352,7 @@ export type UserUncheckedUpdateWithoutJobScopeItemsEditedInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -9999,6 +10410,7 @@ export type UserCreateWithoutJobScopeChangesMadeInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -10056,6 +10468,7 @@ export type UserUncheckedCreateWithoutJobScopeChangesMadeInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -10129,6 +10542,7 @@ export type UserUpdateWithoutJobScopeChangesMadeInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -10186,6 +10600,7 @@ export type UserUncheckedUpdateWithoutJobScopeChangesMadeInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -10243,6 +10658,7 @@ export type UserCreateWithoutTimeEntriesInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -10300,6 +10716,7 @@ export type UserUncheckedCreateWithoutTimeEntriesInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -10362,6 +10779,7 @@ export type UserCreateWithoutTimeEntriesCreatedInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -10419,6 +10837,7 @@ export type UserUncheckedCreateWithoutTimeEntriesCreatedInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -10481,6 +10900,7 @@ export type UserCreateWithoutTimeEntriesEditedInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -10538,6 +10958,7 @@ export type UserUncheckedCreateWithoutTimeEntriesEditedInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -10611,6 +11032,7 @@ export type UserUpdateWithoutTimeEntriesInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -10668,6 +11090,7 @@ export type UserUncheckedUpdateWithoutTimeEntriesInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -10736,6 +11159,7 @@ export type UserUpdateWithoutTimeEntriesCreatedInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -10793,6 +11217,7 @@ export type UserUncheckedUpdateWithoutTimeEntriesCreatedInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -10861,6 +11286,7 @@ export type UserUpdateWithoutTimeEntriesEditedInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -10918,6 +11344,7 @@ export type UserUncheckedUpdateWithoutTimeEntriesEditedInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -10975,6 +11402,7 @@ export type UserCreateWithoutTimesheetDaysInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -11032,6 +11460,7 @@ export type UserUncheckedCreateWithoutTimesheetDaysInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -11094,6 +11523,7 @@ export type UserCreateWithoutTimesheetDaysEditedInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -11151,6 +11581,7 @@ export type UserUncheckedCreateWithoutTimesheetDaysEditedInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -11224,6 +11655,7 @@ export type UserUpdateWithoutTimesheetDaysInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -11281,6 +11713,7 @@ export type UserUncheckedUpdateWithoutTimesheetDaysInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -11349,6 +11782,7 @@ export type UserUpdateWithoutTimesheetDaysEditedInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -11406,6 +11840,7 @@ export type UserUncheckedUpdateWithoutTimesheetDaysEditedInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -11463,6 +11898,7 @@ export type UserCreateWithoutTimesheetChangesInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -11520,6 +11956,7 @@ export type UserUncheckedCreateWithoutTimesheetChangesInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -11582,6 +12019,7 @@ export type UserCreateWithoutTimesheetChangesMadeInput = {
   assignedLeads?: Prisma.LeadCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteCreateNestedManyWithoutCreatedByInput
@@ -11639,6 +12077,7 @@ export type UserUncheckedCreateWithoutTimesheetChangesMadeInput = {
   assignedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutOwnerInput
   ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCreatedByInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutAuthorUserInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutUserInput
   discardedLeads?: Prisma.LeadUncheckedCreateNestedManyWithoutDiscardedByInput
   createdQuotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCreatedByInput
@@ -11712,6 +12151,7 @@ export type UserUpdateWithoutTimesheetChangesInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -11769,6 +12209,7 @@ export type UserUncheckedUpdateWithoutTimesheetChangesInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -11837,6 +12278,7 @@ export type UserUpdateWithoutTimesheetChangesMadeInput = {
   assignedLeads?: Prisma.LeadUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUpdateManyWithoutCreatedByNestedInput
@@ -11894,6 +12336,7 @@ export type UserUncheckedUpdateWithoutTimesheetChangesMadeInput = {
   assignedLeads?: Prisma.LeadUncheckedUpdateManyWithoutOwnerNestedInput
   ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCreatedByNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutAuthorUserNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutUserNestedInput
   discardedLeads?: Prisma.LeadUncheckedUpdateManyWithoutDiscardedByNestedInput
   createdQuotes?: Prisma.QuoteUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -11944,6 +12387,7 @@ export type UserCountOutputType = {
   assignedLeads: number
   ingestKeys: number
   quoteMessages: number
+  quoteEvents: number
   notificationPreferences: number
   discardedLeads: number
   createdQuotes: number
@@ -11990,6 +12434,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   assignedLeads?: boolean | UserCountOutputTypeCountAssignedLeadsArgs
   ingestKeys?: boolean | UserCountOutputTypeCountIngestKeysArgs
   quoteMessages?: boolean | UserCountOutputTypeCountQuoteMessagesArgs
+  quoteEvents?: boolean | UserCountOutputTypeCountQuoteEventsArgs
   notificationPreferences?: boolean | UserCountOutputTypeCountNotificationPreferencesArgs
   discardedLeads?: boolean | UserCountOutputTypeCountDiscardedLeadsArgs
   createdQuotes?: boolean | UserCountOutputTypeCountCreatedQuotesArgs
@@ -12127,6 +12572,13 @@ export type UserCountOutputTypeCountIngestKeysArgs<ExtArgs extends runtime.Types
  */
 export type UserCountOutputTypeCountQuoteMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.QuoteMessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountQuoteEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.QuoteEventWhereInput
 }
 
 /**
@@ -12360,6 +12812,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   assignedLeads?: boolean | Prisma.User$assignedLeadsArgs<ExtArgs>
   ingestKeys?: boolean | Prisma.User$ingestKeysArgs<ExtArgs>
   quoteMessages?: boolean | Prisma.User$quoteMessagesArgs<ExtArgs>
+  quoteEvents?: boolean | Prisma.User$quoteEventsArgs<ExtArgs>
   notificationPreferences?: boolean | Prisma.User$notificationPreferencesArgs<ExtArgs>
   discardedLeads?: boolean | Prisma.User$discardedLeadsArgs<ExtArgs>
   createdQuotes?: boolean | Prisma.User$createdQuotesArgs<ExtArgs>
@@ -12453,6 +12906,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   assignedLeads?: boolean | Prisma.User$assignedLeadsArgs<ExtArgs>
   ingestKeys?: boolean | Prisma.User$ingestKeysArgs<ExtArgs>
   quoteMessages?: boolean | Prisma.User$quoteMessagesArgs<ExtArgs>
+  quoteEvents?: boolean | Prisma.User$quoteEventsArgs<ExtArgs>
   notificationPreferences?: boolean | Prisma.User$notificationPreferencesArgs<ExtArgs>
   discardedLeads?: boolean | Prisma.User$discardedLeadsArgs<ExtArgs>
   createdQuotes?: boolean | Prisma.User$createdQuotesArgs<ExtArgs>
@@ -12504,6 +12958,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     assignedLeads: Prisma.$LeadPayload<ExtArgs>[]
     ingestKeys: Prisma.$IngestKeyPayload<ExtArgs>[]
     quoteMessages: Prisma.$QuoteMessagePayload<ExtArgs>[]
+    quoteEvents: Prisma.$QuoteEventPayload<ExtArgs>[]
     notificationPreferences: Prisma.$NotificationPreferencePayload<ExtArgs>[]
     discardedLeads: Prisma.$LeadPayload<ExtArgs>[]
     createdQuotes: Prisma.$QuotePayload<ExtArgs>[]
@@ -12955,6 +13410,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   assignedLeads<T extends Prisma.User$assignedLeadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedLeadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ingestKeys<T extends Prisma.User$ingestKeysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ingestKeysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IngestKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   quoteMessages<T extends Prisma.User$quoteMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$quoteMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuoteMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  quoteEvents<T extends Prisma.User$quoteEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$quoteEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuoteEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notificationPreferences<T extends Prisma.User$notificationPreferencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationPreferencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPreferencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   discardedLeads<T extends Prisma.User$discardedLeadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$discardedLeadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdQuotes<T extends Prisma.User$createdQuotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdQuotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -13751,6 +14207,30 @@ export type User$quoteMessagesArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.QuoteMessageScalarFieldEnum | Prisma.QuoteMessageScalarFieldEnum[]
+}
+
+/**
+ * User.quoteEvents
+ */
+export type User$quoteEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QuoteEvent
+   */
+  select?: Prisma.QuoteEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the QuoteEvent
+   */
+  omit?: Prisma.QuoteEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuoteEventInclude<ExtArgs> | null
+  where?: Prisma.QuoteEventWhereInput
+  orderBy?: Prisma.QuoteEventOrderByWithRelationInput | Prisma.QuoteEventOrderByWithRelationInput[]
+  cursor?: Prisma.QuoteEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.QuoteEventScalarFieldEnum | Prisma.QuoteEventScalarFieldEnum[]
 }
 
 /**

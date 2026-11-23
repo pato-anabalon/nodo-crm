@@ -5,9 +5,13 @@ import { Bell, BriefcaseBusiness, Clock, UserRound } from "lucide-react-native";
 import { useCallback } from "react";
 import { useTranslations } from "use-intl";
 import { useColor } from "@/lib/brand";
-import { usePunchQueue } from "@/lib/punches";
-import { can, useInbox, useMe } from "@/lib/queries";
+import { clockState } from "@/lib/clock";
+import { flushPings } from "@/lib/pings";
+import { punchKey, usePunchQueue } from "@/lib/punches";
+import { can, useClock, useInbox, useMe } from "@/lib/queries";
 import { useAuth } from "@/lib/session";
+import type { Me } from "@/lib/types";
+import { useMovementNotices, useTrackingSync } from "@/lib/use-tracking";
 
 /**
  * Only what the profile lets this person use. The server checks every
@@ -28,7 +32,7 @@ export default function TabsLayout() {
 
   return (
     <>
-      {punches ? <PunchSender userId={me?.user.id} /> : null}
+      {punches ? <ClockKeeper me={me} /> : null}
       <Tabs
         screenOptions={{
           headerShown: false,
@@ -72,13 +76,23 @@ export default function TabsLayout() {
 }
 
 /**
- * Sends punches waiting for signal whichever tab is open — and when the app
- * comes back to the front — not only once somebody opens the clock again.
+ * The clock whichever tab is open: sends punches waiting for signal — and when
+ * the app comes back to the front — not only once somebody opens the clock
+ * again; then the positions recorded behind them. Keeps the background
+ * tracking on the stretch that is open, and answers the buttons on its notices.
  */
-function PunchSender({ userId }: { userId: string | undefined }) {
+function ClockKeeper({ me }: { me: Me | undefined }) {
   const auth = useAuth();
   const client = useQueryClient();
-  const refresh = useCallback(() => void client.invalidateQueries({ queryKey: [auth.company, "timeclock"] }), [client, auth.company]);
-  usePunchQueue(auth, userId, refresh);
+  const clock = useClock();
+  const userId = me?.user.id;
+  const refresh = useCallback(() => {
+    void client.invalidateQueries({ queryKey: [auth.company, "timeclock"] });
+    if (userId) void flushPings(punchKey(auth.company, userId), auth);
+  }, [client, auth, userId]);
+  const queue = usePunchQueue(auth, userId, refresh);
+  const state = clock.data ? clockState(clock.data.open, queue.punches, clock.data.movement) : null;
+  useTrackingSync(auth.company, me, clock.data, state);
+  useMovementNotices(auth.company, queue.enqueue);
   return null;
 }

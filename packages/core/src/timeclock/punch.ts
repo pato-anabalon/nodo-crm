@@ -71,3 +71,17 @@ export function withinShift<T extends { at: Date }>(pings: readonly T[], clockIn
   const end = clockOutAt?.getTime() ?? now.getTime() + PUNCH_FUTURE_TOLERANCE_MS;
   return pings.filter((ping) => ping.at.getTime() >= clockInAt.getTime() && ping.at.getTime() <= end);
 }
+
+/**
+ * A shift on a job still open after this long was almost certainly not
+ * clocked out of — nobody works fourteen hours on site — and the person and
+ * their supervisors are told (`TIMECLOCK_LEFT_OPEN`, once per shift). Long
+ * enough that a long day is never mistaken for one: the morning sweep finds
+ * yesterday's forgotten shifts, not today's.
+ */
+export const LEFT_OPEN_AFTER_MS = 14 * 60 * 60_000;
+
+/** Whether an open shift has been open long enough to say so. */
+export function isLeftOpen(clockInAt: Date, now: Date): boolean {
+  return now.getTime() - clockInAt.getTime() >= LEFT_OPEN_AFTER_MS;
+}

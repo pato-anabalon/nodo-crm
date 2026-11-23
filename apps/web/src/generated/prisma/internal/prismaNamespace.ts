@@ -5954,6 +5954,7 @@ export const CompanyScalarFieldEnum = {
   siteReturnMinutes: 'siteReturnMinutes',
   siteSwitchMinutes: 'siteSwitchMinutes',
   travelMaxMinutes: 'travelMaxMinutes',
+  locationRetentionDays: 'locationRetentionDays',
   defaultTaxType: 'defaultTaxType',
   defaultTaxRate: 'defaultTaxRate',
   quotePrefix: 'quotePrefix',
@@ -6601,6 +6602,8 @@ export const QuoteEventScalarFieldEnum = {
   userAgent: 'userAgent',
   recipientName: 'recipientName',
   recipientEmail: 'recipientEmail',
+  userId: 'userId',
+  userName: 'userName',
   createdAt: 'createdAt'
 } as const
 
@@ -7071,6 +7074,7 @@ export const TimeEntryScalarFieldEnum = {
   clockOutInside: 'clockOutInside',
   clockOutBattery: 'clockOutBattery',
   endedBy: 'endedBy',
+  track: 'track',
   note: 'note',
   createdById: 'createdById',
   editedById: 'editedById',

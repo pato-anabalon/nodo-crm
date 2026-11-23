@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "567814357669",
+    "project_id": "nodo-crm-app",
+    "storage_bucket": "nodo-crm-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567814357669:android:31d405300331cd0a3bc34c",
+        "android_client_info": {
+          "package_name": "nz.co.nodo.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvVDW9-d0Xa2sSzFgguVDhb49sZ92fIC0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,8 +1,10 @@
 import {
   clockInRefusal,
   isLatePunch,
+  isLeftOpen,
   punchTimeProblem,
   withinShift,
+  LEFT_OPEN_AFTER_MS,
   PUNCH_FUTURE_TOLERANCE_MS,
   PUNCH_MAX_AGE_MS,
 } from "../punch";
@@ -59,5 +61,13 @@ describe("withinShift", () => {
 
   it("stops at the clock-out for a batch that arrives after it", () => {
     expect(withinShift(pings, clockIn, ago(10 * 60_000), now).map((ping) => ping.at)).toEqual([ago(30 * 60_000)]);
+  });
+});
+
+describe("isLeftOpen", () => {
+  it("lets a long day run, and calls one past the limit left open", () => {
+    expect(isLeftOpen(ago(10 * 60 * 60_000), now)).toBe(false);
+    expect(isLeftOpen(ago(LEFT_OPEN_AFTER_MS - 1), now)).toBe(false);
+    expect(isLeftOpen(ago(LEFT_OPEN_AFTER_MS), now)).toBe(true);
   });
 });

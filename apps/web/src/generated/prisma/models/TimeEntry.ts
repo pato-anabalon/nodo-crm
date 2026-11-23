@@ -86,6 +86,7 @@ export type TimeEntryMinAggregateOutputType = {
   clockOutInside: boolean | null
   clockOutBattery: number | null
   endedBy: $Enums.TimeEntryEnd | null
+  track: string | null
   note: string | null
   createdById: string | null
   editedById: string | null
@@ -119,6 +120,7 @@ export type TimeEntryMaxAggregateOutputType = {
   clockOutInside: boolean | null
   clockOutBattery: number | null
   endedBy: $Enums.TimeEntryEnd | null
+  track: string | null
   note: string | null
   createdById: string | null
   editedById: string | null
@@ -152,6 +154,7 @@ export type TimeEntryCountAggregateOutputType = {
   clockOutInside: number
   clockOutBattery: number
   endedBy: number
+  track: number
   note: number
   createdById: number
   editedById: number
@@ -213,6 +216,7 @@ export type TimeEntryMinAggregateInputType = {
   clockOutInside?: true
   clockOutBattery?: true
   endedBy?: true
+  track?: true
   note?: true
   createdById?: true
   editedById?: true
@@ -246,6 +250,7 @@ export type TimeEntryMaxAggregateInputType = {
   clockOutInside?: true
   clockOutBattery?: true
   endedBy?: true
+  track?: true
   note?: true
   createdById?: true
   editedById?: true
@@ -279,6 +284,7 @@ export type TimeEntryCountAggregateInputType = {
   clockOutInside?: true
   clockOutBattery?: true
   endedBy?: true
+  track?: true
   note?: true
   createdById?: true
   editedById?: true
@@ -399,6 +405,7 @@ export type TimeEntryGroupByOutputType = {
   clockOutInside: boolean | null
   clockOutBattery: number | null
   endedBy: $Enums.TimeEntryEnd | null
+  track: string | null
   note: string | null
   createdById: string | null
   editedById: string | null
@@ -455,6 +462,7 @@ export type TimeEntryWhereInput = {
   clockOutInside?: Prisma.BoolNullableFilter<"TimeEntry"> | boolean | null
   clockOutBattery?: Prisma.FloatNullableFilter<"TimeEntry"> | number | null
   endedBy?: Prisma.EnumTimeEntryEndNullableFilter<"TimeEntry"> | $Enums.TimeEntryEnd | null
+  track?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   note?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   createdById?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   editedById?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
@@ -496,6 +504,7 @@ export type TimeEntryOrderByWithRelationInput = {
   clockOutInside?: Prisma.SortOrderInput | Prisma.SortOrder
   clockOutBattery?: Prisma.SortOrderInput | Prisma.SortOrder
   endedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  track?: Prisma.SortOrderInput | Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   editedById?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -541,6 +550,7 @@ export type TimeEntryWhereUniqueInput = Prisma.AtLeast<{
   clockOutInside?: Prisma.BoolNullableFilter<"TimeEntry"> | boolean | null
   clockOutBattery?: Prisma.FloatNullableFilter<"TimeEntry"> | number | null
   endedBy?: Prisma.EnumTimeEntryEndNullableFilter<"TimeEntry"> | $Enums.TimeEntryEnd | null
+  track?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   note?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   createdById?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   editedById?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
@@ -582,6 +592,7 @@ export type TimeEntryOrderByWithAggregationInput = {
   clockOutInside?: Prisma.SortOrderInput | Prisma.SortOrder
   clockOutBattery?: Prisma.SortOrderInput | Prisma.SortOrder
   endedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  track?: Prisma.SortOrderInput | Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   editedById?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -623,6 +634,7 @@ export type TimeEntryScalarWhereWithAggregatesInput = {
   clockOutInside?: Prisma.BoolNullableWithAggregatesFilter<"TimeEntry"> | boolean | null
   clockOutBattery?: Prisma.FloatNullableWithAggregatesFilter<"TimeEntry"> | number | null
   endedBy?: Prisma.EnumTimeEntryEndNullableWithAggregatesFilter<"TimeEntry"> | $Enums.TimeEntryEnd | null
+  track?: Prisma.StringNullableWithAggregatesFilter<"TimeEntry"> | string | null
   note?: Prisma.StringNullableWithAggregatesFilter<"TimeEntry"> | string | null
   createdById?: Prisma.StringNullableWithAggregatesFilter<"TimeEntry"> | string | null
   editedById?: Prisma.StringNullableWithAggregatesFilter<"TimeEntry"> | string | null
@@ -653,6 +665,7 @@ export type TimeEntryCreateInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   editedAt?: Date | string | null
   createdAt?: Date | string
@@ -692,6 +705,7 @@ export type TimeEntryUncheckedCreateInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   createdById?: string | null
   editedById?: string | null
@@ -725,6 +739,7 @@ export type TimeEntryUpdateInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -764,6 +779,7 @@ export type TimeEntryUncheckedUpdateInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -800,6 +816,7 @@ export type TimeEntryCreateManyInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   createdById?: string | null
   editedById?: string | null
@@ -830,6 +847,7 @@ export type TimeEntryUpdateManyMutationInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -861,6 +879,7 @@ export type TimeEntryUncheckedUpdateManyInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -909,6 +928,7 @@ export type TimeEntryCountOrderByAggregateInput = {
   clockOutInside?: Prisma.SortOrder
   clockOutBattery?: Prisma.SortOrder
   endedBy?: Prisma.SortOrder
+  track?: Prisma.SortOrder
   note?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   editedById?: Prisma.SortOrder
@@ -955,6 +975,7 @@ export type TimeEntryMaxOrderByAggregateInput = {
   clockOutInside?: Prisma.SortOrder
   clockOutBattery?: Prisma.SortOrder
   endedBy?: Prisma.SortOrder
+  track?: Prisma.SortOrder
   note?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   editedById?: Prisma.SortOrder
@@ -988,6 +1009,7 @@ export type TimeEntryMinOrderByAggregateInput = {
   clockOutInside?: Prisma.SortOrder
   clockOutBattery?: Prisma.SortOrder
   endedBy?: Prisma.SortOrder
+  track?: Prisma.SortOrder
   note?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   editedById?: Prisma.SortOrder
@@ -1307,6 +1329,7 @@ export type TimeEntryCreateWithoutCompanyInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   editedAt?: Date | string | null
   createdAt?: Date | string
@@ -1344,6 +1367,7 @@ export type TimeEntryUncheckedCreateWithoutCompanyInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   createdById?: string | null
   editedById?: string | null
@@ -1409,6 +1433,7 @@ export type TimeEntryScalarWhereInput = {
   clockOutInside?: Prisma.BoolNullableFilter<"TimeEntry"> | boolean | null
   clockOutBattery?: Prisma.FloatNullableFilter<"TimeEntry"> | number | null
   endedBy?: Prisma.EnumTimeEntryEndNullableFilter<"TimeEntry"> | $Enums.TimeEntryEnd | null
+  track?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   note?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   createdById?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   editedById?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
@@ -1439,6 +1464,7 @@ export type TimeEntryCreateWithoutUserInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   editedAt?: Date | string | null
   createdAt?: Date | string
@@ -1476,6 +1502,7 @@ export type TimeEntryUncheckedCreateWithoutUserInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   createdById?: string | null
   editedById?: string | null
@@ -1519,6 +1546,7 @@ export type TimeEntryCreateWithoutCreatedByInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   editedAt?: Date | string | null
   createdAt?: Date | string
@@ -1557,6 +1585,7 @@ export type TimeEntryUncheckedCreateWithoutCreatedByInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   editedById?: string | null
   editedAt?: Date | string | null
@@ -1599,6 +1628,7 @@ export type TimeEntryCreateWithoutEditedByInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   editedAt?: Date | string | null
   createdAt?: Date | string
@@ -1637,6 +1667,7 @@ export type TimeEntryUncheckedCreateWithoutEditedByInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   createdById?: string | null
   editedAt?: Date | string | null
@@ -1727,6 +1758,7 @@ export type TimeEntryCreateWithoutJobInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   editedAt?: Date | string | null
   createdAt?: Date | string
@@ -1764,6 +1796,7 @@ export type TimeEntryUncheckedCreateWithoutJobInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   createdById?: string | null
   editedById?: string | null
@@ -1823,6 +1856,7 @@ export type TimeEntryCreateWithoutPingsInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   editedAt?: Date | string | null
   createdAt?: Date | string
@@ -1861,6 +1895,7 @@ export type TimeEntryUncheckedCreateWithoutPingsInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   createdById?: string | null
   editedById?: string | null
@@ -1909,6 +1944,7 @@ export type TimeEntryUpdateWithoutPingsInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1947,6 +1983,7 @@ export type TimeEntryUncheckedUpdateWithoutPingsInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1979,6 +2016,7 @@ export type TimeEntryCreateWithoutEventsInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   editedAt?: Date | string | null
   createdAt?: Date | string
@@ -2017,6 +2055,7 @@ export type TimeEntryUncheckedCreateWithoutEventsInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   createdById?: string | null
   editedById?: string | null
@@ -2065,6 +2104,7 @@ export type TimeEntryUpdateWithoutEventsInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2103,6 +2143,7 @@ export type TimeEntryUncheckedUpdateWithoutEventsInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2135,6 +2176,7 @@ export type TimeEntryCreateWithoutChangesInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   editedAt?: Date | string | null
   createdAt?: Date | string
@@ -2173,6 +2215,7 @@ export type TimeEntryUncheckedCreateWithoutChangesInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   createdById?: string | null
   editedById?: string | null
@@ -2221,6 +2264,7 @@ export type TimeEntryUpdateWithoutChangesInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2259,6 +2303,7 @@ export type TimeEntryUncheckedUpdateWithoutChangesInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2293,6 +2338,7 @@ export type TimeEntryCreateManyCompanyInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   createdById?: string | null
   editedById?: string | null
@@ -2323,6 +2369,7 @@ export type TimeEntryUpdateWithoutCompanyInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2360,6 +2407,7 @@ export type TimeEntryUncheckedUpdateWithoutCompanyInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2395,6 +2443,7 @@ export type TimeEntryUncheckedUpdateManyWithoutCompanyInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2427,6 +2476,7 @@ export type TimeEntryCreateManyUserInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   createdById?: string | null
   editedById?: string | null
@@ -2460,6 +2510,7 @@ export type TimeEntryCreateManyCreatedByInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   editedById?: string | null
   editedAt?: Date | string | null
@@ -2492,6 +2543,7 @@ export type TimeEntryCreateManyEditedByInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   createdById?: string | null
   editedAt?: Date | string | null
@@ -2521,6 +2573,7 @@ export type TimeEntryUpdateWithoutUserInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2558,6 +2611,7 @@ export type TimeEntryUncheckedUpdateWithoutUserInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2593,6 +2647,7 @@ export type TimeEntryUncheckedUpdateManyWithoutUserInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2623,6 +2678,7 @@ export type TimeEntryUpdateWithoutCreatedByInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2661,6 +2717,7 @@ export type TimeEntryUncheckedUpdateWithoutCreatedByInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2696,6 +2753,7 @@ export type TimeEntryUncheckedUpdateManyWithoutCreatedByInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2725,6 +2783,7 @@ export type TimeEntryUpdateWithoutEditedByInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2763,6 +2822,7 @@ export type TimeEntryUncheckedUpdateWithoutEditedByInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2798,6 +2858,7 @@ export type TimeEntryUncheckedUpdateManyWithoutEditedByInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2829,6 +2890,7 @@ export type TimeEntryCreateManyJobInput = {
   clockOutInside?: boolean | null
   clockOutBattery?: number | null
   endedBy?: $Enums.TimeEntryEnd | null
+  track?: string | null
   note?: string | null
   createdById?: string | null
   editedById?: string | null
@@ -2859,6 +2921,7 @@ export type TimeEntryUpdateWithoutJobInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2896,6 +2959,7 @@ export type TimeEntryUncheckedUpdateWithoutJobInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2931,6 +2995,7 @@ export type TimeEntryUncheckedUpdateManyWithoutJobInput = {
   clockOutInside?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   clockOutBattery?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   endedBy?: Prisma.NullableEnumTimeEntryEndFieldUpdateOperationsInput | $Enums.TimeEntryEnd | null
+  track?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3013,6 +3078,7 @@ export type TimeEntrySelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   clockOutInside?: boolean
   clockOutBattery?: boolean
   endedBy?: boolean
+  track?: boolean
   note?: boolean
   createdById?: boolean
   editedById?: boolean
@@ -3055,6 +3121,7 @@ export type TimeEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   clockOutInside?: boolean
   clockOutBattery?: boolean
   endedBy?: boolean
+  track?: boolean
   note?: boolean
   createdById?: boolean
   editedById?: boolean
@@ -3093,6 +3160,7 @@ export type TimeEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   clockOutInside?: boolean
   clockOutBattery?: boolean
   endedBy?: boolean
+  track?: boolean
   note?: boolean
   createdById?: boolean
   editedById?: boolean
@@ -3131,6 +3199,7 @@ export type TimeEntrySelectScalar = {
   clockOutInside?: boolean
   clockOutBattery?: boolean
   endedBy?: boolean
+  track?: boolean
   note?: boolean
   createdById?: boolean
   editedById?: boolean
@@ -3139,7 +3208,7 @@ export type TimeEntrySelectScalar = {
   updatedAt?: boolean
 }
 
-export type TimeEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "userId" | "jobId" | "jobName" | "kind" | "source" | "clientId" | "clockInAt" | "clockInReceivedAt" | "clockInLatitude" | "clockInLongitude" | "clockInAccuracyM" | "clockInDistanceM" | "clockInBattery" | "clockOutAt" | "clockOutReceivedAt" | "clockOutLatitude" | "clockOutLongitude" | "clockOutAccuracyM" | "clockOutDistanceM" | "clockOutInside" | "clockOutBattery" | "endedBy" | "note" | "createdById" | "editedById" | "editedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["timeEntry"]>
+export type TimeEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "userId" | "jobId" | "jobName" | "kind" | "source" | "clientId" | "clockInAt" | "clockInReceivedAt" | "clockInLatitude" | "clockInLongitude" | "clockInAccuracyM" | "clockInDistanceM" | "clockInBattery" | "clockOutAt" | "clockOutReceivedAt" | "clockOutLatitude" | "clockOutLongitude" | "clockOutAccuracyM" | "clockOutDistanceM" | "clockOutInside" | "clockOutBattery" | "endedBy" | "track" | "note" | "createdById" | "editedById" | "editedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["timeEntry"]>
 export type TimeEntryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -3203,6 +3272,7 @@ export type $TimeEntryPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     clockOutInside: boolean | null
     clockOutBattery: number | null
     endedBy: $Enums.TimeEntryEnd | null
+    track: string | null
     note: string | null
     createdById: string | null
     editedById: string | null
@@ -3664,6 +3734,7 @@ export interface TimeEntryFieldRefs {
   readonly clockOutInside: Prisma.FieldRef<"TimeEntry", 'Boolean'>
   readonly clockOutBattery: Prisma.FieldRef<"TimeEntry", 'Float'>
   readonly endedBy: Prisma.FieldRef<"TimeEntry", 'TimeEntryEnd'>
+  readonly track: Prisma.FieldRef<"TimeEntry", 'String'>
   readonly note: Prisma.FieldRef<"TimeEntry", 'String'>
   readonly createdById: Prisma.FieldRef<"TimeEntry", 'String'>
   readonly editedById: Prisma.FieldRef<"TimeEntry", 'String'>

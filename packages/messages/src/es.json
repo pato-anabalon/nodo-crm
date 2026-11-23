@@ -989,6 +989,10 @@
         "DECLINED": "Rechazada por {name}",
         "MESSAGE_SENT": "Mensaje de {name}"
       },
+      "eventByTeam": {
+        "ACCEPTED": "Aceptada por {name} en nombre del cliente",
+        "DECLINED": "Rechazada por {name} en nombre del cliente"
+      },
       "acceptedBy": "Aceptada por {name}",
       "acceptanceStatement": "Declaración aceptada",
       "orderReference": "Orden de compra: {reference}",
@@ -1960,6 +1964,7 @@
       "JOB_CHAT_MENTION": "{by} te mencionó en el chat de {job}: “{excerpt}”",
       "JOB_FINISHED": "{by} finalizó {job}",
       "JOB_TODO_DUE": "“{title}” vence ({job})",
+      "TIMECLOCK_LEFT_OPEN": "{self, select, yes {Llevas} other {{person} lleva}} {hours} horas con la jornada abierta en {job}: {self, select, yes {marca la salida si ya terminaste} other {probablemente olvidó marcar la salida}}",
       "TIMECLOCK_AUTO_OUT": "{self, select, yes {Se cerró tu jornada} other {Se cerró la jornada de {person}}} en {job} a las {time}: {why, select, travel {el traslado superó el máximo} other {fuera de la obra más tiempo del permitido}}"
     },
     "quoteExpiring": {
@@ -2210,7 +2215,9 @@
       "JOB_TODO_DUE": "Vence una tarea mía",
       "JOB_TODO_DUE_hint": "El día en que una tarea que te asignaron llega a su fecha sin estar lista.",
       "TIMECLOCK_AUTO_OUT": "Una jornada cerrada por el reloj",
-      "TIMECLOCK_AUTO_OUT_hint": "Cuando el reloj cierra una jornada solo: fuera de la obra demasiado tiempo, o un traslado que pasó el máximo. La tuya, o la de cualquiera cuyas horas ves."
+      "TIMECLOCK_AUTO_OUT_hint": "Cuando el reloj cierra una jornada solo: fuera de la obra demasiado tiempo, o un traslado que pasó el máximo. La tuya, o la de cualquiera cuyas horas ves.",
+      "TIMECLOCK_LEFT_OPEN": "Una jornada que quedó abierta",
+      "TIMECLOCK_LEFT_OPEN_hint": "Cuando una jornada sigue abierta después de 14 horas, que suele ser una salida olvidada. La tuya, o la de cualquiera cuyas horas ves."
     },
     "indexSubtitle": "Elige qué correos quieres recibir.",
     "recipients": {
@@ -3092,7 +3099,7 @@
         "what": "Nodo registra dónde está tu teléfono al marcar entrada y salida, y cada pocos minutos mientras estás en jornada.",
         "when": "Solo entre la entrada y la salida. Fuera de la jornada no se registra nada.",
         "who": "Tu empresa lo ve junto a tus horas, para revisar el tiempo y el lugar.",
-        "keep": "Las posiciones de una jornada se guardan 90 días; tus horas de entrada y salida quedan con tus horas.",
+        "keep": "Las posiciones de una jornada se guardan {days} días; tus horas de entrada y salida quedan con tus horas.",
         "agree": "Estoy de acuerdo"
       },
       "permission": {
@@ -3134,6 +3141,48 @@
         "range": "{start} – {end} · {job}",
         "open": "Desde las {start} · {job}",
         "hint": "Tiempo en el reloj, antes de descansos. Las horas pagadas están en tu planilla."
+      },
+      "away": {
+        "title": "Fuera de la obra",
+        "errandTitle": "En un encargo de trabajo",
+        "countdownLabel": "Tiempo para volver",
+        "countdown": "para volver. Si no vuelves, tu jornada termina a las {time}, la hora en que saliste.",
+        "noLimit": "Saliste a las {time}. Tu jornada sigue corriendo.",
+        "errandOn": "Desde las {time}. No corre ninguna cuenta hasta que vuelvas.",
+        "errand": "Encargo de trabajo",
+        "travel": "Voy a otra obra"
+      },
+      "switch": {
+        "title": "Estás en {job}",
+        "hint": "Empezar aquí termina {from} ahora y comienza tu jornada en esta obra.",
+        "button": "Empezar aquí"
+      },
+      "travel": {
+        "title": "En traslado",
+        "from": "Desde {job}",
+        "elapsedLabel": "Tiempo de traslado",
+        "endsAt": "Termina sola a las {time} si no empiezas en una obra.",
+        "choose": "¿Llegaste? Empieza en la obra",
+        "start": "Empezar aquí",
+        "confirmBody": "Esto termina el traslado y tu día."
+      },
+      "background": {
+        "title": "Permite la ubicación siempre",
+        "why": "Así Nodo sabe cuándo sales de la obra y registra tu recorrido con el teléfono en el bolsillo. Solo entre la entrada y la salida.",
+        "denied": "La ubicación siempre está apagada para Nodo. Sin ella, Nodo no sabe cuándo sales de la obra. Actívala en los ajustes del teléfono.",
+        "allow": "Permitir",
+        "openSettings": "Abrir ajustes"
+      },
+      "movement": {
+        "channel": "Reloj",
+        "leftTitle": "Saliste de {job}",
+        "leftCountdown": "Si no vuelves antes de las {time}, tu jornada termina a la hora en que saliste. ¿Vas a otra obra o a un encargo?",
+        "leftBody": "¿Vas a otra obra o a un encargo?",
+        "switchTitle": "¿Empezar en {job}?",
+        "switchBody": "Llevas {minutes, plural, one {un minuto} other {# minutos}} en {job}. Abre Nodo para empezar ahí tu jornada.",
+        "switchAction": "Empezar aquí",
+        "trackingTitle": "Nodo está registrando tu jornada",
+        "trackingBody": "Tu ubicación se registra hasta que marques la salida."
       }
     }
   },
@@ -3171,7 +3220,12 @@
     "switchHint": "Dentro del círculo de otra obra durante este tiempo, el teléfono ofrece cambiar la jornada a esa obra con un toque.",
     "travelMax": "El traslado termina solo después de",
     "travelHint": "El traslado entre obras se paga y aparece en su propia línea. Si para entonces no llegó a ninguna obra, termina ahí.",
-    "movementSaved": "Salir de la obra guardado"
+    "movementSaved": "Salir de la obra guardado",
+    "retention": "Historial de ubicación",
+    "retentionHint": "Las posiciones registradas durante una jornada se guardan este tiempo. Después, cada jornada conserva una línea simplificada de su recorrido y las posiciones se borran. La entrada y la salida se guardan siempre.",
+    "retentionDays": "Guardar las posiciones",
+    "days": "{days} días",
+    "retentionSaved": "Historial de ubicación guardado"
   },
   "timesheets": {
     "title": "Horas",
@@ -3264,6 +3318,7 @@
       "where": "Dónde",
       "trackCount": "{count, plural, one {1 posición registrada durante la jornada} other {# posiciones registradas durante la jornada}}",
       "noTrack": "No hay posiciones registradas entre la entrada y la salida.",
+      "trackThinned": "Recorrido simplificado: las posiciones pasaron el plazo de retención de la empresa.",
       "clockIn": "Entrada",
       "clockOut": "Salida",
       "distance": "a {metres} m del trabajo",

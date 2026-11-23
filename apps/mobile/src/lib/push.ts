@@ -58,7 +58,8 @@ export function usePush(channelName: string) {
   }, [token, channelName]);
 
   const open = useEffectEvent((data: PushData) => {
-    if (!token) return;
+    // The clock's own notices about leaving and arriving are answered by `useMovementNotices`.
+    if (!token || "movement" in data) return;
     if (data.companySlug && data.companySlug !== company) {
       // Only somewhere the person still works; otherwise the notice has nowhere to open.
       if (companies && !companies.some((choice) => choice.slug === data.companySlug)) return;
@@ -108,7 +109,7 @@ export function usePush(channelName: string) {
       );
       // The tap that started the app, before anything was listening.
       const last = await Notifications.getLastNotificationResponseAsync();
-      if (last && !cancelled) {
+      if (last && !cancelled && !("movement" in (last.notification.request.content.data ?? {}))) {
         open(last.notification.request.content.data as PushData);
         await Notifications.clearLastNotificationResponseAsync();
       }

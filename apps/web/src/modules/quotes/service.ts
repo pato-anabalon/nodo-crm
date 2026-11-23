@@ -5,7 +5,7 @@ import { ActivityType, PricingMode, Prisma, QuoteStatus, type TaxDisplayMode } f
 import { isRichTextEmpty, sanitizeRichText } from "@/lib/rich-text";
 import { calculateQuoteTotals } from "./totals";
 import { resolveSelectedSectionAmounts, type BundleDiscount } from "./section-selection";
-import { canChangeLead, canTransition, isQuoteEditable, sectionStatuses } from "./constants";
+import { canChangeLead, canTransition, isQuoteEditable, sectionStatuses, teamDecisionEvent } from "./constants";
 import { moveLeadAlong } from "./lead-sync";
 import type { QuoteFilters, QuoteFormValues } from "./schemas";
 import { companyDocumentSelect, quoteDocumentInclude } from "@/modules/portal/service";
@@ -708,6 +708,22 @@ export async function changeQuoteStatus(
         to === QuoteStatus.ACCEPTED || to === QuoteStatus.REJECTED ? now : undefined,
     },
   });
+
+  // The quote's own log said who decided only when the customer did, through
+  // the link; a decision recorded by the team reached nothing but the lead's
+  // activity, and a quote with no lead kept no author at all.
+  const event = teamDecisionEvent(to);
+  if (event) {
+    await ctx.db.quoteEvent.create({
+      data: {
+        companyId: ctx.company.id,
+        quoteId: id,
+        type: event,
+        userId: ctx.user.id,
+        userName: ctx.user.name || ctx.user.email,
+      },
+    });
+  }
 
   if (current.leadId) {
     await ctx.db.activity.create({

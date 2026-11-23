@@ -1,4 +1,4 @@
-import { QuoteStatus } from "@/generated/prisma/enums";
+import { QuoteEventType, QuoteStatus } from "@/generated/prisma/enums";
 import {
   QUOTE_SECTIONS,
   QUOTE_STATUSES,
@@ -7,6 +7,7 @@ import {
   isQuoteEditable,
   isQuoteSection,
   sectionStatuses,
+  teamDecisionEvent,
 } from "../constants";
 
 describe("isQuoteEditable", () => {
@@ -103,5 +104,18 @@ describe("panel sections", () => {
     expect(isQuoteSection("waiting")).toBe(true);
     expect(isQuoteSection("inventada")).toBe(false);
     expect(isQuoteSection(undefined)).toBe(false);
+  });
+});
+
+describe("teamDecisionEvent", () => {
+  it("logs an acceptance or a refusal the team records, as the customer's link would", () => {
+    expect(teamDecisionEvent(QuoteStatus.ACCEPTED)).toBe(QuoteEventType.ACCEPTED);
+    expect(teamDecisionEvent(QuoteStatus.REJECTED)).toBe(QuoteEventType.DECLINED);
+  });
+
+  it("logs nothing for a move nobody decides for the customer", () => {
+    expect(teamDecisionEvent(QuoteStatus.SENT)).toBeNull();
+    expect(teamDecisionEvent(QuoteStatus.EXPIRED)).toBeNull();
+    expect(teamDecisionEvent(QuoteStatus.DRAFT)).toBeNull();
   });
 });

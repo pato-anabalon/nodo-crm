@@ -4,7 +4,9 @@ import { revalidatePath } from "next/cache";
 import type { z } from "zod";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { RETURN_MINUTES_OPTIONS, SWITCH_MINUTES_OPTIONS, TRAVEL_MAX_MINUTES_OPTIONS } from "@nodo/core/timeclock/movement";
 import { MEAL_BREAK_OPTIONS, REST_BREAK_OPTIONS } from "@nodo/core/timeclock/pay";
+import { LOCATION_RETENTION_DAYS_OPTIONS } from "@nodo/core/timeclock/track";
 import { can, ForbiddenError, requirePermission, type CompanyContext } from "@/lib/auth/session";
 import { translateFieldErrors } from "@/lib/i18n-errors";
 import { shiftWindow } from "./corrections";
@@ -33,6 +35,38 @@ export async function saveBreakPolicyAction(_prev: TimeclockState, formData: For
   revalidatePath("/settings", "layout");
   revalidatePath("/timesheets", "layout");
   return { message: t("saved") };
+}
+
+/**
+ * What the clock does when somebody leaves the job mid-shift: how long before
+ * it ends the shift (0 never), how long inside another job before the phone
+ * offers to switch, and how long travel runs before it ends by itself.
+ */
+export async function saveMovementPolicyAction(_prev: TimeclockState, formData: FormData): Promise<TimeclockState> {
+  const ctx = await requirePermission("settings.update");
+  const t = await getTranslations("timeclockSettings");
+
+  const siteReturnMinutes = oneOf(RETURN_MINUTES_OPTIONS, formData.get("returnMinutes"));
+  const siteSwitchMinutes = oneOf(SWITCH_MINUTES_OPTIONS, formData.get("switchMinutes"));
+  const travelMaxMinutes = oneOf(TRAVEL_MAX_MINUTES_OPTIONS, formData.get("travelMaxMinutes"));
+  if (siteReturnMinutes === null || siteSwitchMinutes === null || travelMaxMinutes === null) return { error: t("invalid") };
+
+  await ctx.db.company.update({ where: { id: ctx.company.id }, data: { siteReturnMinutes, siteSwitchMinutes, travelMaxMinutes } });
+  revalidatePath("/settings", "layout");
+  return { message: t("movementSaved") };
+}
+
+/** How long a shift's positions are kept before the sweep thins them into one line. */
+export async function saveRetentionAction(_prev: TimeclockState, formData: FormData): Promise<TimeclockState> {
+  const ctx = await requirePermission("settings.update");
+  const t = await getTranslations("timeclockSettings");
+
+  const locationRetentionDays = oneOf(LOCATION_RETENTION_DAYS_OPTIONS, formData.get("retentionDays"));
+  if (locationRetentionDays === null) return { error: t("invalid") };
+
+  await ctx.db.company.update({ where: { id: ctx.company.id }, data: { locationRetentionDays } });
+  revalidatePath("/settings", "layout");
+  return { message: t("retentionSaved") };
 }
 
 /**

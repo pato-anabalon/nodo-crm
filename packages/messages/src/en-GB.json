@@ -989,6 +989,10 @@
         "DECLINED": "Declined by {name}",
         "MESSAGE_SENT": "Message from {name}"
       },
+      "eventByTeam": {
+        "ACCEPTED": "Accepted by {name}",
+        "DECLINED": "Declined by {name}"
+      },
       "acceptedBy": "Accepted by {name}",
       "acceptanceStatement": "Statement accepted",
       "orderReference": "Order number: {reference}",
@@ -998,6 +1002,27 @@
       "neverOpened": "Unopened",
       "seenAgo": "Seen {when}",
       "seen": "Seen"
+    },
+    "declineReasons": {
+      "CUSTOMER_DECLINED": "The customer declined it (by phone or email)",
+      "OTHER_COMPANY": "They went with another company",
+      "PRICE": "The price didn't work for them",
+      "NOT_GOING_AHEAD": "The job isn't going ahead",
+      "REPLACED": "Replaced by another quote",
+      "SENT_IN_ERROR": "Sent by mistake or duplicated",
+      "OTHER": "Other"
+    },
+    "decline": {
+      "title": "Mark as declined",
+      "body": "The quote's history will show who declined it and why. The customer is not told.",
+      "reason": "Reason",
+      "choose": "Choose a reason",
+      "note": "Note (optional)",
+      "noteForOther": "Note",
+      "notePlaceholder": "Anything the team should know later",
+      "confirm": "Decline quote",
+      "reasonRequired": "Choose why it is being declined.",
+      "noteRequired": "Write the reason when it is “Other”."
     },
     "share": {
       "title": "Customer link",
@@ -1959,7 +1984,9 @@
       "JOB_EVENT": "{by} added you to {title} ({job})",
       "JOB_CHAT_MENTION": "{by} mentioned you in the chat of {job}: “{excerpt}”",
       "JOB_FINISHED": "{by} finished {job}",
-      "JOB_TODO_DUE": "“{title}” is due ({job})"
+      "JOB_TODO_DUE": "“{title}” is due ({job})",
+      "TIMECLOCK_LEFT_OPEN": "{self, select, yes {You have} other {{person} has}} been clocked in at {job} for {hours} hours: {self, select, yes {clock out if the day is over} other {probably a forgotten clock-out}}",
+      "TIMECLOCK_AUTO_OUT": "{self, select, yes {You were} other {{person} was}} clocked out of {job} at {time}: {why, select, travel {the travel from it ran past the limit} other {away from the job longer than allowed}}"
     },
     "quoteExpiring": {
       "subject": "Quote {reference} is about to run out",
@@ -2207,7 +2234,11 @@
       "JOB_FINISHED": "A job of mine is finished",
       "JOB_FINISHED_hint": "When somebody finishes a job you are on.",
       "JOB_TODO_DUE": "A to-do of mine is due",
-      "JOB_TODO_DUE_hint": "The day a to-do assigned to you reaches its date and isn’t done."
+      "JOB_TODO_DUE_hint": "The day a to-do assigned to you reaches its date and isn’t done.",
+      "TIMECLOCK_AUTO_OUT": "A shift ended by the clock",
+      "TIMECLOCK_AUTO_OUT_hint": "When the clock ends a shift by itself: away from the job too long, or travel past its limit. Yours, or anybody's whose hours you see.",
+      "TIMECLOCK_LEFT_OPEN": "A shift left open",
+      "TIMECLOCK_LEFT_OPEN_hint": "When a shift is still open after 14 hours, which usually means somebody forgot to clock out. Yours, or anybody's whose hours you see."
     },
     "indexSubtitle": "Choose which emails you want to receive.",
     "recipients": {
@@ -3089,7 +3120,7 @@
         "what": "Nodo records where your phone is when you clock in and out, and every few minutes while you're on shift.",
         "when": "Only between clocking in and clocking out. Nothing is recorded while you're off the clock.",
         "who": "Your company sees it with your hours, to check the time and the place.",
-        "keep": "Positions during a shift are kept for 90 days; your clock-in and clock-out times stay with your hours.",
+        "keep": "Positions during a shift are kept for {days} days; your clock-in and clock-out times stay with your hours.",
         "agree": "I agree"
       },
       "permission": {
@@ -3121,19 +3152,64 @@
         "punch_too_old": "Not taken: the punch was more than a week old by the time it was sent.",
         "punch_in_future": "Not taken: the phone's clock is ahead. Check its date and time.",
         "generic": "A punch wasn't taken. Try again.",
-        "dismiss": "Dismiss"
+        "dismiss": "Dismiss",
+        "same_job": "Not taken: you're already clocked in on this job.",
+        "already_ended": "Not taken: that shift had already ended.",
+        "not_on_a_job": "Not taken: that isn't a shift on a job."
       },
       "week": {
         "title": "Last seven days",
         "range": "{start} – {end} · {job}",
         "open": "Since {start} · {job}",
         "hint": "Time on the clock, before breaks. The hours paid are on your timesheet."
+      },
+      "away": {
+        "title": "Away from the job",
+        "errandTitle": "On a work errand",
+        "countdownLabel": "Time left to get back",
+        "countdown": "left to get back. If you don't, your shift ends at {time}, when you left.",
+        "noLimit": "You left at {time}. Your shift keeps running.",
+        "errandOn": "Since {time}. Nothing counts down until you're back.",
+        "errand": "Work errand",
+        "travel": "Going to another job"
+      },
+      "switch": {
+        "title": "You're at {job}",
+        "hint": "Starting here ends {from} now and starts your shift on this job.",
+        "button": "Start here"
+      },
+      "travel": {
+        "title": "Travelling",
+        "from": "From {job}",
+        "elapsedLabel": "Time travelling",
+        "endsAt": "Ends by itself at {time} if you don't start on a job.",
+        "choose": "Arrived? Start on the job",
+        "start": "Start here",
+        "confirmBody": "This ends your travel and your day."
+      },
+      "background": {
+        "title": "Allow location all the time",
+        "why": "So Nodo can tell when you leave the job and record your route with the phone in your pocket. Only between clocking in and clocking out.",
+        "denied": "Location all the time is off for Nodo. Without it Nodo can't tell when you leave the job. Turn it on in the phone's settings.",
+        "allow": "Allow",
+        "openSettings": "Open settings"
+      },
+      "movement": {
+        "channel": "Clock",
+        "leftTitle": "You left {job}",
+        "leftCountdown": "If you're not back by {time}, your shift ends at the time you left. Going to another job, or on an errand?",
+        "leftBody": "Going to another job, or on an errand?",
+        "switchTitle": "Start on {job}?",
+        "switchBody": "You've been at {job} for {minutes, plural, one {a minute} other {# minutes}}. Open Nodo to start your shift there.",
+        "switchAction": "Start here",
+        "trackingTitle": "Nodo is recording your shift",
+        "trackingBody": "Your location is recorded until you clock out."
       }
     }
   },
   "timeclockSettings": {
     "title": "Time control",
-    "subtitle": "How long breaks last when hours are worked out from the clock.",
+    "subtitle": "How long breaks last when hours are worked out from the clock, and what it does when somebody leaves the job.",
     "breaks": "Breaks",
     "breaksHint": "Which breaks a day has follows the law, by the hours worked that day. How long each one lasts is yours to set.",
     "rest": "Each paid rest break",
@@ -3155,7 +3231,22 @@
       "none": "None",
       "rest": "{count, plural, one {1 paid rest break} other {# paid rest breaks}}",
       "restAndMeal": "{count, plural, one {1 paid rest break} other {# paid rest breaks}} + 1 unpaid meal break"
-    }
+    },
+    "movement": "Leaving the job",
+    "movementHint": "What the clock does when somebody leaves the job's circle during a shift. The phone tells them at once, and they can say they're going to another job or on an errand.",
+    "returnMinutes": "Clock out if not back within",
+    "returnHint": "Not back in time and not on an errand: the shift ends at the moment they left, and they and the supervisors are told.",
+    "returnOff": "Never, leave the shift open",
+    "switchMinutes": "Suggest switching after",
+    "switchHint": "Inside another job's circle this long, the phone offers to switch the shift to it with one tap.",
+    "travelMax": "Travel ends by itself after",
+    "travelHint": "Travel between jobs is paid and shown on its own line. With no job reached by then, it ends there.",
+    "movementSaved": "Leaving the job saved",
+    "retention": "Location history",
+    "retentionHint": "The positions recorded during a shift are kept this long. After that each shift keeps a simplified line of its route, and the positions are deleted. Clock-in and clock-out are always kept.",
+    "retentionDays": "Keep positions for",
+    "days": "{days} days",
+    "retentionSaved": "Location history saved"
   },
   "timesheets": {
     "title": "Timesheets",
@@ -3192,10 +3283,12 @@
         "rate": "Hourly rate ({currency})",
         "amount": "Amount ({currency})",
         "days": "Days",
-        "notes": "Notes"
+        "notes": "Notes",
+        "travel": "Of which travel"
       },
       "correctedShifts": "{count, plural, one {1 shift entered or corrected by hand} other {# shifts entered or corrected by hand}}",
-      "mealAdjusted": "Meal break set to {minutes} min: {reason}"
+      "mealAdjusted": "Meal break set to {minutes} min: {reason}",
+      "endedByClock": "{count, plural, one {1 shift ended by the clock} other {# shifts ended by the clock}}"
     },
     "previousWeek": "Previous week",
     "nextWeek": "Next week",
@@ -3207,7 +3300,7 @@
       "total": "Total",
       "amount": "Amount"
     },
-    "flagged": "Something to check: a shift still open, sent late or ended away from the job",
+    "flagged": "Something to check: a shift still open, sent late, ended away from the job or ended by the clock",
     "open": "Open",
     "noRate": "No rate",
     "paidNote": "Hours paid: on days over 4 hours the {meal}-minute meal break comes off. A shift still open counts once it ends.",
@@ -3229,12 +3322,16 @@
       "manual": "Entered by hand",
       "edited": "Corrected",
       "late": "Sent late",
-      "leftAway": "Clocked out away from the job"
+      "leftAway": "Clocked out away from the job",
+      "travel": "Travel",
+      "leftSite": "Ended by the clock: away from the job",
+      "travelLimit": "Ended by the clock: travel past its limit"
     },
     "shift": {
       "range": "{start} – {end}",
       "since": "Since {start}",
-      "distance": "clocked in {metres} m from the job"
+      "distance": "clocked in {metres} m from the job",
+      "travel": "Travel from {job}"
     },
     "exportHours": "Export",
     "shiftPage": {
@@ -3242,6 +3339,7 @@
       "where": "Where",
       "trackCount": "{count, plural, one {1 position recorded during the shift} other {# positions recorded during the shift}}",
       "noTrack": "No positions recorded between clocking in and out.",
+      "trackThinned": "Simplified route: the positions are past the company's retention period.",
       "clockIn": "Clock-in",
       "clockOut": "Clock-out",
       "distance": "{metres} m from the job",
@@ -3259,7 +3357,12 @@
         "clockOut": "Clock-out",
         "inGlyph": "I",
         "outGlyph": "O"
-      }
+      },
+      "movement": "Away from the job",
+      "left": "Left the job",
+      "returned": "Back on the job",
+      "errand": "On an errand",
+      "errandNote": "On an errand: “{note}”"
     },
     "corrections": {
       "saved": "Hours saved",
@@ -3299,7 +3402,8 @@
         "in_future": "A shift can't start or end in the future.",
         "too_long": "That's longer than 24 hours. Check the day and the times.",
         "overlaps": "That overlaps another of their shifts.",
-        "reopen": "A shift that ended can't be reopened. Give it an end time."
+        "reopen": "A shift that ended can't be reopened. Give it an end time.",
+        "travel": "Travel can't be corrected here. Delete it and enter the shift by hand."
       }
     }
   }

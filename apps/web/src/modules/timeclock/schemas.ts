@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { isDay } from "@nodo/core/jobs/schedule/calendar";
 import { MEAL_BREAK_MAX_MINUTES } from "@nodo/core/timeclock/pay";
+import { MAX_SITE_EVENTS_PER_BATCH } from "@nodo/core/timeclock/movement";
 import { MAX_PINGS_PER_BATCH } from "@nodo/core/timeclock/punch";
 
 /**
@@ -83,4 +84,33 @@ export const mealSchema = z.object({
     .transform((value) => (value === "" ? null : Number(value)))
     .refine((value) => value === null || (Number.isInteger(value) && value >= 0 && value <= MEAL_BREAK_MAX_MINUTES), "timesheets.corrections.validation.meal"),
   reason,
+});
+
+/** What the phone heard about the job's circle, and the errands declared, for the shift clocked in with `entry`. */
+export const siteEventsSchema = z.object({
+  entry: clientId,
+  events: z
+    .array(
+      z.object({
+        clientId,
+        kind: z.enum(["LEFT", "RETURNED", "ERRAND"]),
+        at: instant,
+        note: z.string().trim().max(500).nullable().optional(),
+      }),
+    )
+    .min(1)
+    .max(MAX_SITE_EVENTS_PER_BATCH),
+});
+
+/** Leaving the job in `entry` for another: travel, made with its own `clientId`. */
+export const travelSchema = z.object({ entry: clientId, clientId, at: instant });
+
+/** Arriving at `jobId` and taking it up, ending whatever `from` is — a shift or the travel since. */
+export const switchSchema = z.object({
+  from: clientId,
+  jobId: z.string().min(1).max(64),
+  clientId,
+  at: instant,
+  fix,
+  battery,
 });

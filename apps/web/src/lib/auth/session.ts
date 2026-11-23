@@ -7,6 +7,7 @@ import { forCompany, type TenantClient } from "@/lib/db/tenant";
 import { companySlugFromHost, companyUrl } from "@/lib/tenant/host";
 import { isPermission, type Permission } from "@nodo/core/auth/permissions";
 import type { BreakPolicy } from "@nodo/core/timeclock/pay";
+import type { MovementPolicy } from "@nodo/core/timeclock/movement";
 import { languageToLocale, type Locale } from "@/i18n/config";
 import {
   Language,
@@ -58,6 +59,9 @@ export type CompanyContext = {
     email: string | null;
     /** How long a day's breaks last on the clock; which breaks a day carries is the law's. */
     breakPolicy: BreakPolicy;
+    movementPolicy: MovementPolicy;
+    /** How long a shift's positions are kept before they're thinned into one line. */
+    locationRetentionDays: number;
   };
   /** `name` is null on standard profiles: it's translated from `key`. */
   role: { id: string; key: string | null; name: string | null };
@@ -142,6 +146,12 @@ export async function buildCompanyContext(userId: string, slug: string): Promise
       quotePrefix: company.quotePrefix,
       quoteValidityDays: company.quoteValidityDays,
       breakPolicy: { restBreakMinutes: company.restBreakMinutes, mealBreakMinutes: company.mealBreakMinutes },
+      movementPolicy: {
+        returnMinutes: company.siteReturnMinutes,
+        switchMinutes: company.siteSwitchMinutes,
+        travelMaxMinutes: company.travelMaxMinutes,
+      },
+      locationRetentionDays: company.locationRetentionDays,
       quoteFooter: company.quoteFooter,
       slogan: company.slogan,
       senderNameStyle: company.senderNameStyle,

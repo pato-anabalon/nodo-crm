@@ -11,6 +11,8 @@ import { deviceLocale, I18n } from "@/lib/i18n";
 import { persister, queryClient } from "@/lib/query";
 import { useMe } from "@/lib/queries";
 import { SessionProvider, useSession } from "@/lib/session";
+// Defines the clock's background tasks as the app starts, before any screen: a task can wake it closed.
+import "@/lib/tracking";
 import { Loading } from "@/components/screen";
 
 void restoreAppearance();

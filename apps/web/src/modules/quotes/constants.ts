@@ -1,4 +1,4 @@
-import { QuoteStatus } from "@/generated/prisma/enums";
+import { QuoteEventType, QuoteStatus } from "@/generated/prisma/enums";
 
 /** The visible names live in the message files, under `quotes.status.*`. */
 export const QUOTE_STATUSES: readonly QuoteStatus[] = [
@@ -92,6 +92,17 @@ export const QUOTE_TRANSITIONS: Record<QuoteStatus, readonly QuoteStatus[]> = {
 
 export function canTransition(from: QuoteStatus, to: QuoteStatus): boolean {
   return QUOTE_TRANSITIONS[from].includes(to);
+}
+
+/**
+ * The line a decision recorded by the team leaves in the quote's own log — the
+ * same two the customer's link writes. Sending and running out are not
+ * decisions anybody makes for the customer, so they leave none.
+ */
+export function teamDecisionEvent(to: QuoteStatus): QuoteEventType | null {
+  if (to === QuoteStatus.ACCEPTED) return QuoteEventType.ACCEPTED;
+  if (to === QuoteStatus.REJECTED) return QuoteEventType.DECLINED;
+  return null;
 }
 
 /**

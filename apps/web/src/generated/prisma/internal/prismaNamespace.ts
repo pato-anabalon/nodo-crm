@@ -467,6 +467,7 @@ export const ModelName = {
   JobScopeChange: 'JobScopeChange',
   TimeEntry: 'TimeEntry',
   LocationPing: 'LocationPing',
+  TimeEntryEvent: 'TimeEntryEvent',
   TimesheetDay: 'TimesheetDay',
   TimesheetChange: 'TimesheetChange'
 } as const
@@ -484,7 +485,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "mobileSession" | "pushDevice" | "mobileChallenge" | "mobileTrustedDevice" | "mobileLoginFailure" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "leadSourceOption" | "leadAccessLog" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteRecipient" | "signatureHandoff" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem" | "job" | "jobMember" | "jobActivity" | "jobFolder" | "jobFile" | "jobPostCategory" | "jobPost" | "jobComment" | "jobEvent" | "jobEventParticipant" | "jobTodoList" | "jobTodo" | "jobTodoAssignee" | "trade" | "membershipTrade" | "jobChatMessage" | "jobScopeItem" | "jobScopeChange" | "timeEntry" | "locationPing" | "timesheetDay" | "timesheetChange"
+    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "mobileSession" | "pushDevice" | "mobileChallenge" | "mobileTrustedDevice" | "mobileLoginFailure" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "leadSourceOption" | "leadAccessLog" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteRecipient" | "signatureHandoff" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem" | "job" | "jobMember" | "jobActivity" | "jobFolder" | "jobFile" | "jobPostCategory" | "jobPost" | "jobComment" | "jobEvent" | "jobEventParticipant" | "jobTodoList" | "jobTodo" | "jobTodoAssignee" | "trade" | "membershipTrade" | "jobChatMessage" | "jobScopeItem" | "jobScopeChange" | "timeEntry" | "locationPing" | "timeEntryEvent" | "timesheetDay" | "timesheetChange"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -5668,6 +5669,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TimeEntryEvent: {
+      payload: Prisma.$TimeEntryEventPayload<ExtArgs>
+      fields: Prisma.TimeEntryEventFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TimeEntryEventFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryEventPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TimeEntryEventFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryEventPayload>
+        }
+        findFirst: {
+          args: Prisma.TimeEntryEventFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryEventPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TimeEntryEventFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryEventPayload>
+        }
+        findMany: {
+          args: Prisma.TimeEntryEventFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryEventPayload>[]
+        }
+        create: {
+          args: Prisma.TimeEntryEventCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryEventPayload>
+        }
+        createMany: {
+          args: Prisma.TimeEntryEventCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TimeEntryEventCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryEventPayload>[]
+        }
+        delete: {
+          args: Prisma.TimeEntryEventDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryEventPayload>
+        }
+        update: {
+          args: Prisma.TimeEntryEventUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryEventPayload>
+        }
+        deleteMany: {
+          args: Prisma.TimeEntryEventDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TimeEntryEventUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TimeEntryEventUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryEventPayload>[]
+        }
+        upsert: {
+          args: Prisma.TimeEntryEventUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TimeEntryEventPayload>
+        }
+        aggregate: {
+          args: Prisma.TimeEntryEventAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTimeEntryEvent>
+        }
+        groupBy: {
+          args: Prisma.TimeEntryEventGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TimeEntryEventGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TimeEntryEventCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TimeEntryEventCountAggregateOutputType> | number
+        }
+      }
+    }
     TimesheetDay: {
       payload: Prisma.$TimesheetDayPayload<ExtArgs>
       fields: Prisma.TimesheetDayFieldRefs
@@ -5876,6 +5951,10 @@ export const CompanyScalarFieldEnum = {
   timezone: 'timezone',
   restBreakMinutes: 'restBreakMinutes',
   mealBreakMinutes: 'mealBreakMinutes',
+  siteReturnMinutes: 'siteReturnMinutes',
+  siteSwitchMinutes: 'siteSwitchMinutes',
+  travelMaxMinutes: 'travelMaxMinutes',
+  locationRetentionDays: 'locationRetentionDays',
   defaultTaxType: 'defaultTaxType',
   defaultTaxRate: 'defaultTaxRate',
   quotePrefix: 'quotePrefix',
@@ -6523,6 +6602,10 @@ export const QuoteEventScalarFieldEnum = {
   userAgent: 'userAgent',
   recipientName: 'recipientName',
   recipientEmail: 'recipientEmail',
+  userId: 'userId',
+  userName: 'userName',
+  reason: 'reason',
+  reasonNote: 'reasonNote',
   createdAt: 'createdAt'
 } as const
 
@@ -6974,6 +7057,7 @@ export const TimeEntryScalarFieldEnum = {
   userId: 'userId',
   jobId: 'jobId',
   jobName: 'jobName',
+  kind: 'kind',
   source: 'source',
   clientId: 'clientId',
   clockInAt: 'clockInAt',
@@ -6991,6 +7075,8 @@ export const TimeEntryScalarFieldEnum = {
   clockOutDistanceM: 'clockOutDistanceM',
   clockOutInside: 'clockOutInside',
   clockOutBattery: 'clockOutBattery',
+  endedBy: 'endedBy',
+  track: 'track',
   note: 'note',
   createdById: 'createdById',
   editedById: 'editedById',
@@ -7015,6 +7101,20 @@ export const LocationPingScalarFieldEnum = {
 } as const
 
 export type LocationPingScalarFieldEnum = (typeof LocationPingScalarFieldEnum)[keyof typeof LocationPingScalarFieldEnum]
+
+
+export const TimeEntryEventScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  timeEntryId: 'timeEntryId',
+  kind: 'kind',
+  clientId: 'clientId',
+  at: 'at',
+  receivedAt: 'receivedAt',
+  note: 'note'
+} as const
+
+export type TimeEntryEventScalarFieldEnum = (typeof TimeEntryEventScalarFieldEnum)[keyof typeof TimeEntryEventScalarFieldEnum]
 
 
 export const TimesheetDayScalarFieldEnum = {
@@ -7474,6 +7574,20 @@ export type ListEnumQuoteEventTypeFieldRefInput<$PrismaModel> = FieldRefInputTyp
 
 
 /**
+ * Reference to a field of type 'QuoteDeclineReason'
+ */
+export type EnumQuoteDeclineReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuoteDeclineReason'>
+    
+
+
+/**
+ * Reference to a field of type 'QuoteDeclineReason[]'
+ */
+export type ListEnumQuoteDeclineReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuoteDeclineReason[]'>
+    
+
+
+/**
  * Reference to a field of type 'MessageAuthor'
  */
 export type EnumMessageAuthorFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageAuthor'>
@@ -7614,6 +7728,20 @@ export type ListEnumJobScopeChangeKindFieldRefInput<$PrismaModel> = FieldRefInpu
 
 
 /**
+ * Reference to a field of type 'TimeEntryKind'
+ */
+export type EnumTimeEntryKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TimeEntryKind'>
+    
+
+
+/**
+ * Reference to a field of type 'TimeEntryKind[]'
+ */
+export type ListEnumTimeEntryKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TimeEntryKind[]'>
+    
+
+
+/**
  * Reference to a field of type 'TimeEntrySource'
  */
 export type EnumTimeEntrySourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TimeEntrySource'>
@@ -7624,6 +7752,34 @@ export type EnumTimeEntrySourceFieldRefInput<$PrismaModel> = FieldRefInputType<$
  * Reference to a field of type 'TimeEntrySource[]'
  */
 export type ListEnumTimeEntrySourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TimeEntrySource[]'>
+    
+
+
+/**
+ * Reference to a field of type 'TimeEntryEnd'
+ */
+export type EnumTimeEntryEndFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TimeEntryEnd'>
+    
+
+
+/**
+ * Reference to a field of type 'TimeEntryEnd[]'
+ */
+export type ListEnumTimeEntryEndFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TimeEntryEnd[]'>
+    
+
+
+/**
+ * Reference to a field of type 'TimeEntryEventKind'
+ */
+export type EnumTimeEntryEventKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TimeEntryEventKind'>
+    
+
+
+/**
+ * Reference to a field of type 'TimeEntryEventKind[]'
+ */
+export type ListEnumTimeEntryEventKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TimeEntryEventKind[]'>
     
 
 
@@ -7861,6 +8017,7 @@ export type GlobalOmitConfig = {
   jobScopeChange?: Prisma.JobScopeChangeOmit
   timeEntry?: Prisma.TimeEntryOmit
   locationPing?: Prisma.LocationPingOmit
+  timeEntryEvent?: Prisma.TimeEntryEventOmit
   timesheetDay?: Prisma.TimesheetDayOmit
   timesheetChange?: Prisma.TimesheetChangeOmit
 }

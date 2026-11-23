@@ -14,6 +14,7 @@ const shiftSelect = {
   userId: true,
   jobId: true,
   jobName: true,
+  kind: true,
   source: true,
   clockInAt: true,
   clockInReceivedAt: true,
@@ -21,6 +22,7 @@ const shiftSelect = {
   clockOutAt: true,
   clockOutReceivedAt: true,
   clockOutInside: true,
+  endedBy: true,
   editedAt: true,
   note: true,
 } as const;
@@ -97,10 +99,12 @@ export async function shiftDetail(ctx: CompanyContext, entryId: string) {
       clockOutLatitude: true,
       clockOutLongitude: true,
       clockOutDistanceM: true,
+      track: true,
       createdBy: { select: { name: true, email: true } },
       editedBy: { select: { name: true, email: true } },
       job: { select: { latitude: true, longitude: true, geofenceRadiusM: true } },
       pings: { select: { latitude: true, longitude: true }, orderBy: { recordedAt: "asc" } },
+      events: { select: { id: true, kind: true, at: true, note: true }, orderBy: { at: "asc" } },
       changes: {
         select: {
           id: true,

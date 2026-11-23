@@ -25,6 +25,7 @@ export const DAY_COLUMNS = [
   "firstIn",
   "lastOut",
   "worked",
+  "travel",
   "restBreaks",
   "mealBreak",
   "paid",
@@ -33,7 +34,7 @@ export const DAY_COLUMNS = [
   "notes",
 ] as const;
 
-export const PERSON_COLUMNS = ["person", "email", "days", "worked", "mealBreak", "paid", "rate", "amount", "notes"] as const;
+export const PERSON_COLUMNS = ["person", "email", "days", "worked", "travel", "mealBreak", "paid", "rate", "amount", "notes"] as const;
 
 export type ExportColumn = (typeof DAY_COLUMNS)[number] | (typeof PERSON_COLUMNS)[number];
 
@@ -45,7 +46,11 @@ export type ExportLabels = {
   correctedShifts: (count: number) => string;
   /** A day whose meal break a supervisor set, with why. */
   mealAdjusted: (minutes: number, reason: string) => string;
+  /** Shifts the clock ended by itself — away from the job too long, travel past its limit. */
+  endedByClock: (count: number) => string;
 };
+
+const byClock = (shifts: readonly { endedByClock: boolean }[]) => shifts.filter((shift) => shift.endedByClock).length;
 
 const byHand = (shifts: readonly { source: string; editedAt: Date | null }[]) =>
   shifts.filter((shift) => shift.source === "MANUAL" || shift.editedAt !== null).length;
@@ -62,13 +67,16 @@ export function timesheetCsv(people: readonly TimesheetPerson[], group: Timeshee
     if (group === "person") {
       const open = person.sheet.days.reduce((count, day) => count + day.shifts.filter((shift) => shift.minutes === null).length, 0);
       if (person.sheet.daysWorked === 0 && open === 0) continue;
-      const corrected = byHand(person.sheet.days.flatMap((day) => day.shifts));
+      const all = person.sheet.days.flatMap((day) => day.shifts);
+      const corrected = byHand(all);
+      const ended = byClock(all);
       rows.push(
         csvRow([
           name,
           person.email,
           person.sheet.daysWorked,
           decimalHours(person.sheet.workedMinutes),
+          decimalHours(person.sheet.travelMinutes),
           person.sheet.unpaidMinutes,
           decimalHours(person.sheet.paidMinutes),
           person.hourlyRate,
@@ -76,6 +84,7 @@ export function timesheetCsv(people: readonly TimesheetPerson[], group: Timeshee
           notes([
             open ? labels.openShifts(open) : null,
             corrected ? labels.correctedShifts(corrected) : null,
+            ended ? labels.endedByClock(ended) : null,
           ]),
         ]),
       );
@@ -87,17 +96,20 @@ export function timesheetCsv(people: readonly TimesheetPerson[], group: Timeshee
       const closed = day.shifts.filter((shift) => shift.clockOutAt !== null);
       const open = day.shifts.length - closed.length;
       const corrected = byHand(day.shifts);
+      const ended = byClock(day.shifts);
       const lastOut = closed.reduce<Date | null>((latest, shift) => (!latest || shift.clockOutAt! > latest ? shift.clockOutAt : latest), null);
       rows.push(
         csvRow([
           name,
           person.email,
           day.day,
-          [...new Set(day.shifts.map((shift) => shift.jobName))].join("; "),
+          // Travel is on no job; the name it carries is the one it left.
+          [...new Set(day.shifts.filter((shift) => shift.kind === "WORK").map((shift) => shift.jobName))].join("; "),
           day.shifts.length,
           wallClock(day.shifts[0].clockInAt, timeZone).time,
           lastOut ? wallClock(lastOut, timeZone).time : null,
           decimalHours(day.workedMinutes),
+          decimalHours(day.travelMinutes),
           day.restBreaks,
           day.unpaidMinutes,
           decimalHours(day.paidMinutes),
@@ -106,6 +118,7 @@ export function timesheetCsv(people: readonly TimesheetPerson[], group: Timeshee
           notes([
             open ? labels.openShifts(open) : null,
             corrected ? labels.correctedShifts(corrected) : null,
+            ended ? labels.endedByClock(ended) : null,
             day.mealReason !== null ? labels.mealAdjusted(day.unpaidMinutes, day.mealReason) : null,
           ]),
         ]),

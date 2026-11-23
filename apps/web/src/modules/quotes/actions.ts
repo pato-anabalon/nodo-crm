@@ -8,7 +8,7 @@ import { requirePermission } from "@/lib/auth/session";
 import { translateFieldErrors } from "@/lib/i18n-errors";
 import { QuoteStatus } from "@/generated/prisma/enums";
 import { sendAcceptedEmail } from "@/modules/email-templates/accepted-email";
-import { quoteFormDataToInput, quoteFormSchema } from "./schemas";
+import { quoteFormDataToInput, quoteFormSchema, teamDeclineSchema, type TeamDecline } from "./schemas";
 import { changeQuoteStatus, createQuote, deleteQuote, getQuote, updateQuote } from "./service";
 import { revokeShare } from "@/modules/portal/service";
 import { logLeadConverted } from "@/modules/leads/service";
@@ -207,11 +207,29 @@ export async function revokeShareAction(id: string): Promise<QuoteActionState> {
 export async function decideQuoteAction(
   id: string,
   decision: "ACCEPTED" | "REJECTED",
+  /** The decline dialog's form: a reason, and a note beside it. */
+  formData?: FormData,
 ): Promise<QuoteActionState> {
   const ctx = await requirePermission("quotes.decide");
 
   const t = await getTranslations("quotes");
-  const result = await changeQuoteStatus(ctx, id, QuoteStatus[decision]);
+
+  // Declining always says why, on the server too: the dialog's `required` is
+  // only a courtesy, and a hand-made post could otherwise skip it.
+  let decline: TeamDecline | undefined;
+  if (decision === "REJECTED") {
+    const parsed = teamDeclineSchema.safeParse({
+      reason: formData?.get("reason") || undefined,
+      note: formData?.get("note"),
+    });
+    if (!parsed.success) {
+      const tAll = await getTranslations();
+      return { fieldErrors: translateFieldErrors(parsed.error.flatten().fieldErrors, tAll) };
+    }
+    decline = parsed.data;
+  }
+
+  const result = await changeQuoteStatus(ctx, id, QuoteStatus[decision], decline);
   if (!result.ok) {
     return {
       error: result.reason === "invalid-transition" ? t("onlySentCanBeDecided") : t("notFound"),

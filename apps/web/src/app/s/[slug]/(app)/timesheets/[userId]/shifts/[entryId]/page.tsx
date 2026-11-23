@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { asPoint } from "@nodo/core/timeclock/geofence";
+import { decodeTrack } from "@nodo/core/timeclock/track";
 import { wallClock } from "@nodo/core/zoned-time";
 import { can, requireCompanyContext } from "@/lib/auth/session";
 import { Badge } from "@/components/ui/badge";
@@ -39,9 +40,15 @@ export default async function ShiftPage({ params }: { params: Promise<{ userId: 
   const time = (instant: Date) => wallClock(instant, timezone).time;
   const range = shift.clockOutAt ? t("shift.range", { start: time(shift.clockInAt), end: time(shift.clockOutAt) }) : t("shift.since", { start: time(shift.clockInAt) });
   const canCorrect = can(ctx, "timeclock.update") && userId !== ctx.user.id;
+  // Travel has no job to put right, only times: a wrong one is deleted and the day entered by hand.
+  const canCorrectTimes = canCorrect && shift.kind === "WORK";
+  const title = shift.kind === "TRAVEL" ? t("shift.travel", { job: shift.jobName }) : shift.jobName;
   const jobs = canCorrect ? await shiftJobs(ctx) : [];
   const site = entry.job ? asPoint(entry.job.latitude, entry.job.longitude) : null;
   const flags = shiftFlags(shift, (key) => t(`flags.${key}`));
+  // Past the company's retention the positions are gone and the line kept on the shift stands in for them.
+  const thinned = entry.pings.length === 0 && entry.track !== null;
+  const track = thinned ? decodeTrack(entry.track!) : entry.pings;
 
   return (
     <div className="space-y-6">
@@ -55,10 +62,10 @@ export default async function ShiftPage({ params }: { params: Promise<{ userId: 
           <h1 className="text-2xl font-semibold tracking-tight break-words">
             {shift.jobId ? (
               <Link href={`/jobs/${shift.jobId}`} className="hover:underline">
-                {shift.jobName}
+                {title}
               </Link>
             ) : (
-              shift.jobName
+              title
             )}
           </h1>
           <p className="text-sm text-muted-foreground">
@@ -82,7 +89,11 @@ export default async function ShiftPage({ params }: { params: Promise<{ userId: 
           <CardHeader className="pb-3">
             <CardTitle className="text-base">{t("shiftPage.where")}</CardTitle>
             <p className="text-sm text-muted-foreground">
-              {entry.pings.length > 0 ? t("shiftPage.trackCount", { count: entry.pings.length }) : t("shiftPage.noTrack")}
+              {thinned
+                ? t("shiftPage.trackThinned")
+                : entry.pings.length > 0
+                  ? t("shiftPage.trackCount", { count: entry.pings.length })
+                  : t("shiftPage.noTrack")}
             </p>
           </CardHeader>
           <CardContent className="space-y-3">
@@ -90,7 +101,7 @@ export default async function ShiftPage({ params }: { params: Promise<{ userId: 
               site={site && entry.job ? { ...site, radiusM: entry.job.geofenceRadiusM } : null}
               clockIn={asPoint(entry.clockInLatitude, entry.clockInLongitude)}
               clockOut={asPoint(entry.clockOutLatitude, entry.clockOutLongitude)}
-              track={entry.pings}
+              track={track}
             />
             <dl className="divide-y text-sm">
               <Punch label={t("shiftPage.clockIn")} value={time(shift.clockInAt)} detail={punchDetail(t, entry.clockInDistanceM, entry.source === "MANUAL")} />
@@ -100,6 +111,27 @@ export default async function ShiftPage({ params }: { params: Promise<{ userId: 
                 detail={shift.clockOutAt ? punchDetail(t, entry.clockOutDistanceM, entry.clockOutLatitude === null) : null}
               />
             </dl>
+            {entry.events.length > 0 ? (
+              <div className="space-y-2 border-t pt-3">
+                <p className="text-sm font-medium">{t("shiftPage.movement")}</p>
+                <ol className="space-y-1 text-sm">
+                  {entry.events.map((event) => (
+                    <li key={event.id} className="flex flex-wrap justify-between gap-x-4">
+                      <span>
+                        {event.kind === "LEFT"
+                          ? t("shiftPage.left")
+                          : event.kind === "RETURNED"
+                            ? t("shiftPage.returned")
+                            : event.note
+                              ? t("shiftPage.errandNote", { note: event.note })
+                              : t("shiftPage.errand")}
+                      </span>
+                      <span className="tabular-nums text-muted-foreground">{time(event.at)}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            ) : null}
           </CardContent>
         </Card>
 
@@ -115,28 +147,30 @@ export default async function ShiftPage({ params }: { params: Promise<{ userId: 
 
       {canCorrect ? (
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <Card className="min-w-0">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base">{t("corrections.correctTitle")}</CardTitle>
-              <p className="text-sm text-muted-foreground">{t("corrections.correctDescription")}</p>
-            </CardHeader>
-            <CardContent>
-              <ShiftForm
-                action={correctShiftAction.bind(null, entry.id)}
-                jobs={shift.jobId && !jobs.some((job) => job.id === shift.jobId) ? [{ id: shift.jobId, name: shift.jobName }, ...jobs] : jobs}
-                defaults={{ jobId: shift.jobId ?? "", ...windowFields(shift, timezone) }}
-                openAllowed={shift.clockOutAt === null}
-                submitLabel={t("corrections.correct")}
-              />
-            </CardContent>
-          </Card>
+          {canCorrectTimes ? (
+            <Card className="min-w-0">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base">{t("corrections.correctTitle")}</CardTitle>
+                <p className="text-sm text-muted-foreground">{t("corrections.correctDescription")}</p>
+              </CardHeader>
+              <CardContent>
+                <ShiftForm
+                  action={correctShiftAction.bind(null, entry.id)}
+                  jobs={shift.jobId && !jobs.some((job) => job.id === shift.jobId) ? [{ id: shift.jobId, name: shift.jobName }, ...jobs] : jobs}
+                  defaults={{ jobId: shift.jobId ?? "", ...windowFields(shift, timezone) }}
+                  openAllowed={shift.clockOutAt === null}
+                  submitLabel={t("corrections.correct")}
+                />
+              </CardContent>
+            </Card>
+          ) : null}
           <Card className="min-w-0 self-start">
             <CardHeader className="pb-3">
               <CardTitle className="text-base">{t("corrections.deleteTitle")}</CardTitle>
               <p className="text-sm text-muted-foreground">{t("corrections.deleteHint")}</p>
             </CardHeader>
             <CardContent>
-              <DeleteShiftForm action={deleteShiftAction.bind(null, entry.id, shift.day)} shiftLabel={`${shift.jobName}, ${dayTitle(shift.day, formatLocale)} ${range}`} />
+              <DeleteShiftForm action={deleteShiftAction.bind(null, entry.id, shift.day)} shiftLabel={`${title}, ${dayTitle(shift.day, formatLocale)} ${range}`} />
             </CardContent>
           </Card>
         </div>

@@ -35,6 +35,8 @@ export const NOTIFICATION_KINDS: readonly NotificationKind[] = [
   NotificationKind.JOB_CHAT_MENTION,
   NotificationKind.JOB_FINISHED,
   NotificationKind.JOB_TODO_DUE,
+  NotificationKind.TIMECLOCK_AUTO_OUT,
+  NotificationKind.TIMECLOCK_LEFT_OPEN,
 ];
 
 export type PreferenceRow = { kind: NotificationKind; enabled: boolean };

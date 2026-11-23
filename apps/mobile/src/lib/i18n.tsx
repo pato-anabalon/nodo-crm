@@ -7,7 +7,7 @@ import en from "@nodo/messages/en-GB.json";
 import es from "@nodo/messages/es.json";
 import { getLocales } from "expo-localization";
 import type { ReactNode } from "react";
-import { IntlProvider } from "use-intl";
+import { createTranslator, IntlProvider } from "use-intl";
 
 /**
  * The same messages the web renders, through use-intl — next-intl's own core,
@@ -32,6 +32,11 @@ export function I18n({ locale, timeZone, children }: { locale: Locale; timeZone?
       {children}
     </IntlProvider>
   );
+}
+
+/** The messages outside React: a background task wording a notice in the person's language. */
+export function translator(locale: Locale) {
+  return createTranslator({ locale, messages: MESSAGES[locale], onError: reportOnly });
 }
 
 // A missing message shows its key rather than taking the screen down; the

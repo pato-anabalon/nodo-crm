@@ -174,7 +174,7 @@ function ShiftLine({
       <div className="min-w-0 space-y-1">
         <p className="text-sm font-medium break-words">
           <Link href={href} className="after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:rounded-md focus-visible:after:ring-2 focus-visible:after:ring-ring">
-            {shift.jobName}
+            {shift.kind === "TRAVEL" ? t("shift.travel", { job: shift.jobName }) : shift.jobName}
           </Link>
         </p>
         <p className="text-xs text-muted-foreground tabular-nums">

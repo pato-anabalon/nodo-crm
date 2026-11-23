@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import { renderWithIntl } from "@/test/intl";
 import { QuoteStatus } from "@/generated/prisma/enums";
 import { QuoteActionsBar } from "../quote-actions-bar";
@@ -57,5 +57,29 @@ describe("QuoteActionsBar — sending without a lead", () => {
   it("leaves Send enabled once a lead is linked", () => {
     renderBar({ hasLead: true });
     expect(screen.getByRole("button", { name: "Send to customer" })).toBeEnabled();
+  });
+});
+
+describe("QuoteActionsBar — declining", () => {
+  it("asks why before declining, rather than declining on the press", () => {
+    const onDecide = jest.fn(async () => ({}));
+    renderBar({ status: QuoteStatus.SENT, canSend: false, canDecide: true, onDecide });
+
+    fireEvent.click(screen.getByRole("button", { name: "Mark as declined" }));
+
+    expect(onDecide).not.toHaveBeenCalled();
+    const reason = screen.getByLabelText("Reason");
+    expect(reason).toBeRequired();
+    expect(screen.getByRole("option", { name: "Replaced by another quote" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Decline quote" })).toBeInTheDocument();
+  });
+
+  it("makes the note required only when the reason is Other", () => {
+    renderBar({ status: QuoteStatus.SENT, canSend: false, canDecide: true });
+    fireEvent.click(screen.getByRole("button", { name: "Mark as declined" }));
+
+    expect(screen.getByLabelText("Note (optional)")).not.toBeRequired();
+    fireEvent.change(screen.getByLabelText("Reason"), { target: { value: "OTHER" } });
+    expect(screen.getByLabelText("Note")).toBeRequired();
   });
 });

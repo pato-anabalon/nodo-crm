@@ -1,6 +1,7 @@
 import * as Battery from "expo-battery";
 import * as Location from "expo-location";
 import { useEffect, useState } from "react";
+import { AppState } from "react-native";
 import type { Fix } from "@nodo/core/timeclock/geofence";
 
 /**
@@ -42,6 +43,31 @@ export function useFix(active: boolean): { fix: Fix | null; permission: Permissi
     permission,
     async ask() {
       const { status } = await Location.requestForegroundPermissionsAsync();
+      setPermission(asPermission(status));
+    },
+  };
+}
+
+/**
+ * Location "all the time": what lets the system say the phone left the job
+ * with the app closed, and record the track between the punches. Asked only
+ * once the foreground one is given, which is the order both systems require;
+ * read again whenever the app comes back from Settings.
+ */
+export function useBackgroundPermission(): { permission: Permission; ask: () => Promise<void> } {
+  const [permission, setPermission] = useState<Permission>("undetermined");
+
+  useEffect(() => {
+    const read = () => void Location.getBackgroundPermissionsAsync().then(({ status }) => setPermission(asPermission(status)));
+    read();
+    const subscription = AppState.addEventListener("change", (next) => next === "active" && read());
+    return () => subscription.remove();
+  }, []);
+
+  return {
+    permission,
+    async ask() {
+      const { status } = await Location.requestBackgroundPermissionsAsync();
       setPermission(asPermission(status));
     },
   };

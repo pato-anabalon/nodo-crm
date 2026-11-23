@@ -593,9 +593,9 @@ export default async function QuoteDetailPage({
               "use server";
               return sendAction();
             }}
-            onDecide={async (decision) => {
+            onDecide={async (decision, formData) => {
               "use server";
-              return decideAction(decision);
+              return decideAction(decision, formData);
             }}
             previewHref={`/quotes/${quote.id}/preview`}
             job={job ? { href: `/jobs/${job.id}` } : null}
@@ -676,11 +676,20 @@ async function QuoteEvents({
   formatLocale,
   timezone,
 }: {
-  events: Array<{ id: string; type: string; createdAt: Date; recipientName: string | null; userName: string | null }>;
+  events: Array<{
+    id: string;
+    type: string;
+    createdAt: Date;
+    recipientName: string | null;
+    userName: string | null;
+    reason: string | null;
+    reasonNote: string | null;
+  }>;
   formatLocale: string;
   timezone: string;
 }) {
   const t = await getT("quotes.tracking");
+  const tReasons = await getT("quotes.declineReasons");
 
   return (
     <Card>
@@ -697,14 +706,25 @@ async function QuoteEvents({
                 {/* Who did it, when the event knows: with several people on a
                     quote, "opened" alone doesn't say which of them is looking.
                     Events from before then carry no name and read as they did.
-                    A decision somebody on the team recorded says so, so it
-                    can't be read as the customer's own. */}
+                    A decision somebody on the team recorded names them, and a
+                    decline says why — with "Other", the note is the reason. */}
                 <span>
                   {event.userName
                     ? t(`eventByTeam.${event.type}`, { name: event.userName })
                     : event.recipientName
                       ? t(`eventBy.${event.type}`, { name: event.recipientName })
                       : t(`eventTypes.${event.type}`)}
+                  {event.reason ? (
+                    <>
+                      {" · "}
+                      {event.reason === "OTHER" && event.reasonNote
+                        ? event.reasonNote
+                        : tReasons(event.reason)}
+                    </>
+                  ) : null}
+                  {event.reasonNote && event.reason !== "OTHER" ? (
+                    <span className="block text-muted-foreground">{event.reasonNote}</span>
+                  ) : null}
                 </span>
                 <time
                   dateTime={event.createdAt.toISOString()}

@@ -2,6 +2,7 @@ import { z } from "zod";
 import {
   DiscountType,
   PricingMode,
+  QuoteDeclineReason,
   QuoteSectionKind,
   QuoteStatus,
   TaxDisplayMode,
@@ -312,3 +313,25 @@ export function quoteFormDataToInput(formData: FormData): Record<string, unknown
     items: parseQuoteItems(formData),
   };
 }
+
+/**
+ * Why the team is declining a quote. The reason is asked for every time; the
+ * note is optional beside it and required with `OTHER`, where it is the
+ * reason.
+ */
+export const teamDeclineSchema = z
+  .object({
+    reason: z.nativeEnum(QuoteDeclineReason, { message: "quotes.decline.reasonRequired" }),
+    note: z
+      .string()
+      .trim()
+      .max(500)
+      .nullish()
+      .transform((value) => value || null),
+  })
+  .refine((value) => value.reason !== QuoteDeclineReason.OTHER || value.note, {
+    path: ["note"],
+    message: "quotes.decline.noteRequired",
+  });
+
+export type TeamDecline = z.infer<typeof teamDeclineSchema>;

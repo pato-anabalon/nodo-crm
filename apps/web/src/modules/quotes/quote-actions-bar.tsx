@@ -6,7 +6,18 @@ import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Briefcase, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { QuoteStatus } from "@/generated/prisma/enums";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { NativeSelect } from "@/components/ui/native-select";
+import { Textarea } from "@/components/ui/textarea";
+import { QuoteDeclineReason, QuoteStatus } from "@/generated/prisma/enums";
 import { acceptedKey, celebrate, originOf } from "@/lib/celebrate";
 import type { QuoteActionState } from "./actions";
 
@@ -35,7 +46,8 @@ export function QuoteActionsBar({
    * once clicked. */
   hasLead: boolean;
   onSend: () => Promise<QuoteActionState>;
-  onDecide: (decision: "ACCEPTED" | "REJECTED") => Promise<QuoteActionState>;
+  /** Declining carries the dialog's form: why, and a note. */
+  onDecide: (decision: "ACCEPTED" | "REJECTED", formData?: FormData) => Promise<QuoteActionState>;
   /**
    * The quote's own `/preview` route, shown beside Send so it can be checked
    * right before it goes out. Only offered alongside Send — once the quote is
@@ -52,6 +64,7 @@ export function QuoteActionsBar({
 }) {
   const [pending, startTransition] = useTransition();
   const [busy, setBusy] = useState<string | null>(null);
+  const [declining, setDeclining] = useState(false);
   const t = useTranslations("quotes");
   const tCommon = useTranslations("common");
 
@@ -129,13 +142,14 @@ export function QuoteActionsBar({
           >
             {busy === "accept" ? tCommon("saving") : t("actions.accept")}
           </Button>
-          <Button
-            variant="outline"
-            onClick={() => run("reject", () => onDecide("REJECTED"))}
-            disabled={pending}
-          >
-            {busy === "reject" ? tCommon("saving") : t("actions.reject")}
+          <Button variant="outline" onClick={() => setDeclining(true)} disabled={pending}>
+            {t("actions.reject")}
           </Button>
+          <DeclineDialog
+            open={declining}
+            onOpenChange={setDeclining}
+            onDecline={(formData) => onDecide("REJECTED", formData)}
+          />
         </>
       ) : null}
 
@@ -155,5 +169,93 @@ export function QuoteActionsBar({
         </Button>
       ) : null}
     </div>
+  );
+}
+
+const DECLINE_REASONS = Object.values(QuoteDeclineReason);
+
+/**
+ * Declining from the company's side asks why, because it isn't always the
+ * customer's answer — a quote replaced by another, or sent by mistake, is the
+ * company's own reason — and the history should say which, beside who.
+ */
+function DeclineDialog({
+  open,
+  onOpenChange,
+  onDecline,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onDecline: (formData: FormData) => Promise<QuoteActionState>;
+}) {
+  const t = useTranslations("quotes");
+  const tCommon = useTranslations("common");
+  const [pending, startTransition] = useTransition();
+  const [reason, setReason] = useState("");
+  const [errors, setErrors] = useState<Record<string, string[]>>({});
+
+  function submit(formData: FormData) {
+    startTransition(async () => {
+      const result = await onDecline(formData);
+      if (result.fieldErrors) return setErrors(result.fieldErrors);
+      if (result.error) return void toast.error(result.error);
+      if (result.message) toast.success(result.message);
+      setErrors({});
+      setReason("");
+      onOpenChange(false);
+    });
+  }
+
+  const other = reason === QuoteDeclineReason.OTHER;
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{t("decline.title")}</DialogTitle>
+          <DialogDescription>{t("decline.body")}</DialogDescription>
+        </DialogHeader>
+
+        <form action={submit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="decline-reason">{t("decline.reason")}</Label>
+            <NativeSelect
+              id="decline-reason"
+              name="reason"
+              required
+              value={reason}
+              onChange={(event) => setReason(event.target.value)}
+              placeholder={t("decline.choose")}
+              options={DECLINE_REASONS.map((value) => ({ value, label: t(`declineReasons.${value}`) }))}
+              aria-invalid={errors.reason ? true : undefined}
+            />
+            {errors.reason ? <p className="text-sm text-destructive">{errors.reason[0]}</p> : null}
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="decline-note">{other ? t("decline.noteForOther") : t("decline.note")}</Label>
+            <Textarea
+              id="decline-note"
+              name="note"
+              rows={3}
+              maxLength={500}
+              required={other}
+              placeholder={t("decline.notePlaceholder")}
+              aria-invalid={errors.note ? true : undefined}
+            />
+            {errors.note ? <p className="text-sm text-destructive">{errors.note[0]}</p> : null}
+          </div>
+
+          <DialogFooter>
+            <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>
+              {tCommon("cancel")}
+            </Button>
+            <Button type="submit" variant="destructive" disabled={pending}>
+              {pending ? tCommon("saving") : t("decline.confirm")}
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }

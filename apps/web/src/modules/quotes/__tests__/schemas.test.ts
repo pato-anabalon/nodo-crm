@@ -1,4 +1,5 @@
-import { parseQuoteItems, quoteFormSchema, quoteFormDataToInput } from "../schemas";
+import { QuoteDeclineReason } from "@/generated/prisma/enums";
+import { parseQuoteItems, quoteFormSchema, quoteFormDataToInput, teamDeclineSchema } from "../schemas";
 
 function formDataFrom(entries: Record<string, string>): FormData {
   const fd = new FormData();
@@ -132,5 +133,37 @@ describe("quoteFormSchema", () => {
         optionalDiscountValue: "200",
       }).success,
     ).toBe(true);
+  });
+});
+
+describe("teamDeclineSchema", () => {
+  it("asks for a reason every time", () => {
+    const result = teamDeclineSchema.safeParse({ reason: undefined, note: "" });
+    expect(result.success).toBe(false);
+    expect(result.error?.flatten().fieldErrors.reason).toEqual(["quotes.decline.reasonRequired"]);
+  });
+
+  it("refuses a reason that isn't on the list", () => {
+    expect(teamDeclineSchema.safeParse({ reason: "BORED", note: null }).success).toBe(false);
+  });
+
+  it("takes a listed reason with no note, and keeps a blank note as none", () => {
+    expect(teamDeclineSchema.parse({ reason: QuoteDeclineReason.PRICE, note: "  " })).toEqual({
+      reason: QuoteDeclineReason.PRICE,
+      note: null,
+    });
+  });
+
+  it("keeps a note beside a listed reason", () => {
+    expect(teamDeclineSchema.parse({ reason: QuoteDeclineReason.REPLACED, note: " See COT-000412 " }).note).toBe(
+      "See COT-000412",
+    );
+  });
+
+  it("needs the note when the reason is Other, because the note is the reason", () => {
+    const missing = teamDeclineSchema.safeParse({ reason: QuoteDeclineReason.OTHER, note: "" });
+    expect(missing.success).toBe(false);
+    expect(missing.error?.flatten().fieldErrors.note).toEqual(["quotes.decline.noteRequired"]);
+    expect(teamDeclineSchema.safeParse({ reason: QuoteDeclineReason.OTHER, note: "Builder went bust" }).success).toBe(true);
   });
 });

@@ -688,6 +688,13 @@ export type EnumQuoteEventTypeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumQuoteEventTypeFilter<$PrismaModel> | $Enums.QuoteEventType
 }
 
+export type EnumQuoteDeclineReasonNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.QuoteDeclineReason | Prisma.EnumQuoteDeclineReasonFieldRefInput<$PrismaModel> | null
+  in?: $Enums.QuoteDeclineReason[] | Prisma.ListEnumQuoteDeclineReasonFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.QuoteDeclineReason[] | Prisma.ListEnumQuoteDeclineReasonFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumQuoteDeclineReasonNullableFilter<$PrismaModel> | $Enums.QuoteDeclineReason | null
+}
+
 export type EnumQuoteEventTypeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.QuoteEventType | Prisma.EnumQuoteEventTypeFieldRefInput<$PrismaModel>
   in?: $Enums.QuoteEventType[] | Prisma.ListEnumQuoteEventTypeFieldRefInput<$PrismaModel>
@@ -696,6 +703,16 @@ export type EnumQuoteEventTypeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumQuoteEventTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumQuoteEventTypeFilter<$PrismaModel>
+}
+
+export type EnumQuoteDeclineReasonNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.QuoteDeclineReason | Prisma.EnumQuoteDeclineReasonFieldRefInput<$PrismaModel> | null
+  in?: $Enums.QuoteDeclineReason[] | Prisma.ListEnumQuoteDeclineReasonFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.QuoteDeclineReason[] | Prisma.ListEnumQuoteDeclineReasonFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumQuoteDeclineReasonNullableWithAggregatesFilter<$PrismaModel> | $Enums.QuoteDeclineReason | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumQuoteDeclineReasonNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumQuoteDeclineReasonNullableFilter<$PrismaModel>
 }
 
 export type EnumMessageAuthorFilter<$PrismaModel = never> = {
@@ -1714,6 +1731,13 @@ export type NestedEnumQuoteEventTypeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumQuoteEventTypeFilter<$PrismaModel> | $Enums.QuoteEventType
 }
 
+export type NestedEnumQuoteDeclineReasonNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.QuoteDeclineReason | Prisma.EnumQuoteDeclineReasonFieldRefInput<$PrismaModel> | null
+  in?: $Enums.QuoteDeclineReason[] | Prisma.ListEnumQuoteDeclineReasonFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.QuoteDeclineReason[] | Prisma.ListEnumQuoteDeclineReasonFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumQuoteDeclineReasonNullableFilter<$PrismaModel> | $Enums.QuoteDeclineReason | null
+}
+
 export type NestedEnumQuoteEventTypeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.QuoteEventType | Prisma.EnumQuoteEventTypeFieldRefInput<$PrismaModel>
   in?: $Enums.QuoteEventType[] | Prisma.ListEnumQuoteEventTypeFieldRefInput<$PrismaModel>
@@ -1722,6 +1746,16 @@ export type NestedEnumQuoteEventTypeWithAggregatesFilter<$PrismaModel = never> =
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumQuoteEventTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumQuoteEventTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumQuoteDeclineReasonNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.QuoteDeclineReason | Prisma.EnumQuoteDeclineReasonFieldRefInput<$PrismaModel> | null
+  in?: $Enums.QuoteDeclineReason[] | Prisma.ListEnumQuoteDeclineReasonFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.QuoteDeclineReason[] | Prisma.ListEnumQuoteDeclineReasonFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumQuoteDeclineReasonNullableWithAggregatesFilter<$PrismaModel> | $Enums.QuoteDeclineReason | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumQuoteDeclineReasonNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumQuoteDeclineReasonNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumMessageAuthorFilter<$PrismaModel = never> = {

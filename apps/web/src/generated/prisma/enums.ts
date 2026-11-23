@@ -126,6 +126,19 @@ export const QuoteEventType = {
 export type QuoteEventType = (typeof QuoteEventType)[keyof typeof QuoteEventType]
 
 
+export const QuoteDeclineReason = {
+  CUSTOMER_DECLINED: 'CUSTOMER_DECLINED',
+  OTHER_COMPANY: 'OTHER_COMPANY',
+  PRICE: 'PRICE',
+  NOT_GOING_AHEAD: 'NOT_GOING_AHEAD',
+  REPLACED: 'REPLACED',
+  SENT_IN_ERROR: 'SENT_IN_ERROR',
+  OTHER: 'OTHER'
+} as const
+
+export type QuoteDeclineReason = (typeof QuoteDeclineReason)[keyof typeof QuoteDeclineReason]
+
+
 export const MessageAuthor = {
   STAFF: 'STAFF',
   CLIENT: 'CLIENT'

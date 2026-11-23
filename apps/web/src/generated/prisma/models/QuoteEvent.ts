@@ -36,6 +36,8 @@ export type QuoteEventMinAggregateOutputType = {
   recipientEmail: string | null
   userId: string | null
   userName: string | null
+  reason: $Enums.QuoteDeclineReason | null
+  reasonNote: string | null
   createdAt: Date | null
 }
 
@@ -50,6 +52,8 @@ export type QuoteEventMaxAggregateOutputType = {
   recipientEmail: string | null
   userId: string | null
   userName: string | null
+  reason: $Enums.QuoteDeclineReason | null
+  reasonNote: string | null
   createdAt: Date | null
 }
 
@@ -64,6 +68,8 @@ export type QuoteEventCountAggregateOutputType = {
   recipientEmail: number
   userId: number
   userName: number
+  reason: number
+  reasonNote: number
   createdAt: number
   _all: number
 }
@@ -80,6 +86,8 @@ export type QuoteEventMinAggregateInputType = {
   recipientEmail?: true
   userId?: true
   userName?: true
+  reason?: true
+  reasonNote?: true
   createdAt?: true
 }
 
@@ -94,6 +102,8 @@ export type QuoteEventMaxAggregateInputType = {
   recipientEmail?: true
   userId?: true
   userName?: true
+  reason?: true
+  reasonNote?: true
   createdAt?: true
 }
 
@@ -108,6 +118,8 @@ export type QuoteEventCountAggregateInputType = {
   recipientEmail?: true
   userId?: true
   userName?: true
+  reason?: true
+  reasonNote?: true
   createdAt?: true
   _all?: true
 }
@@ -195,6 +207,8 @@ export type QuoteEventGroupByOutputType = {
   recipientEmail: string | null
   userId: string | null
   userName: string | null
+  reason: $Enums.QuoteDeclineReason | null
+  reasonNote: string | null
   createdAt: Date
   _count: QuoteEventCountAggregateOutputType | null
   _min: QuoteEventMinAggregateOutputType | null
@@ -230,6 +244,8 @@ export type QuoteEventWhereInput = {
   recipientEmail?: Prisma.StringNullableFilter<"QuoteEvent"> | string | null
   userId?: Prisma.StringNullableFilter<"QuoteEvent"> | string | null
   userName?: Prisma.StringNullableFilter<"QuoteEvent"> | string | null
+  reason?: Prisma.EnumQuoteDeclineReasonNullableFilter<"QuoteEvent"> | $Enums.QuoteDeclineReason | null
+  reasonNote?: Prisma.StringNullableFilter<"QuoteEvent"> | string | null
   createdAt?: Prisma.DateTimeFilter<"QuoteEvent"> | Date | string
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   quote?: Prisma.XOR<Prisma.QuoteScalarRelationFilter, Prisma.QuoteWhereInput>
@@ -247,6 +263,8 @@ export type QuoteEventOrderByWithRelationInput = {
   recipientEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   userName?: Prisma.SortOrderInput | Prisma.SortOrder
+  reason?: Prisma.SortOrderInput | Prisma.SortOrder
+  reasonNote?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   company?: Prisma.CompanyOrderByWithRelationInput
   quote?: Prisma.QuoteOrderByWithRelationInput
@@ -267,6 +285,8 @@ export type QuoteEventWhereUniqueInput = Prisma.AtLeast<{
   recipientEmail?: Prisma.StringNullableFilter<"QuoteEvent"> | string | null
   userId?: Prisma.StringNullableFilter<"QuoteEvent"> | string | null
   userName?: Prisma.StringNullableFilter<"QuoteEvent"> | string | null
+  reason?: Prisma.EnumQuoteDeclineReasonNullableFilter<"QuoteEvent"> | $Enums.QuoteDeclineReason | null
+  reasonNote?: Prisma.StringNullableFilter<"QuoteEvent"> | string | null
   createdAt?: Prisma.DateTimeFilter<"QuoteEvent"> | Date | string
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   quote?: Prisma.XOR<Prisma.QuoteScalarRelationFilter, Prisma.QuoteWhereInput>
@@ -284,6 +304,8 @@ export type QuoteEventOrderByWithAggregationInput = {
   recipientEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   userName?: Prisma.SortOrderInput | Prisma.SortOrder
+  reason?: Prisma.SortOrderInput | Prisma.SortOrder
+  reasonNote?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.QuoteEventCountOrderByAggregateInput
   _max?: Prisma.QuoteEventMaxOrderByAggregateInput
@@ -304,6 +326,8 @@ export type QuoteEventScalarWhereWithAggregatesInput = {
   recipientEmail?: Prisma.StringNullableWithAggregatesFilter<"QuoteEvent"> | string | null
   userId?: Prisma.StringNullableWithAggregatesFilter<"QuoteEvent"> | string | null
   userName?: Prisma.StringNullableWithAggregatesFilter<"QuoteEvent"> | string | null
+  reason?: Prisma.EnumQuoteDeclineReasonNullableWithAggregatesFilter<"QuoteEvent"> | $Enums.QuoteDeclineReason | null
+  reasonNote?: Prisma.StringNullableWithAggregatesFilter<"QuoteEvent"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"QuoteEvent"> | Date | string
 }
 
@@ -315,6 +339,8 @@ export type QuoteEventCreateInput = {
   recipientName?: string | null
   recipientEmail?: string | null
   userName?: string | null
+  reason?: $Enums.QuoteDeclineReason | null
+  reasonNote?: string | null
   createdAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuoteEventsInput
   quote: Prisma.QuoteCreateNestedOneWithoutEventsInput
@@ -332,6 +358,8 @@ export type QuoteEventUncheckedCreateInput = {
   recipientEmail?: string | null
   userId?: string | null
   userName?: string | null
+  reason?: $Enums.QuoteDeclineReason | null
+  reasonNote?: string | null
   createdAt?: Date | string
 }
 
@@ -343,6 +371,8 @@ export type QuoteEventUpdateInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableEnumQuoteDeclineReasonFieldUpdateOperationsInput | $Enums.QuoteDeclineReason | null
+  reasonNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuoteEventsNestedInput
   quote?: Prisma.QuoteUpdateOneRequiredWithoutEventsNestedInput
@@ -360,6 +390,8 @@ export type QuoteEventUncheckedUpdateInput = {
   recipientEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableEnumQuoteDeclineReasonFieldUpdateOperationsInput | $Enums.QuoteDeclineReason | null
+  reasonNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -374,6 +406,8 @@ export type QuoteEventCreateManyInput = {
   recipientEmail?: string | null
   userId?: string | null
   userName?: string | null
+  reason?: $Enums.QuoteDeclineReason | null
+  reasonNote?: string | null
   createdAt?: Date | string
 }
 
@@ -385,6 +419,8 @@ export type QuoteEventUpdateManyMutationInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableEnumQuoteDeclineReasonFieldUpdateOperationsInput | $Enums.QuoteDeclineReason | null
+  reasonNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -399,6 +435,8 @@ export type QuoteEventUncheckedUpdateManyInput = {
   recipientEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableEnumQuoteDeclineReasonFieldUpdateOperationsInput | $Enums.QuoteDeclineReason | null
+  reasonNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -423,6 +461,8 @@ export type QuoteEventCountOrderByAggregateInput = {
   recipientEmail?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   userName?: Prisma.SortOrder
+  reason?: Prisma.SortOrder
+  reasonNote?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -437,6 +477,8 @@ export type QuoteEventMaxOrderByAggregateInput = {
   recipientEmail?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   userName?: Prisma.SortOrder
+  reason?: Prisma.SortOrder
+  reasonNote?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -451,6 +493,8 @@ export type QuoteEventMinOrderByAggregateInput = {
   recipientEmail?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   userName?: Prisma.SortOrder
+  reason?: Prisma.SortOrder
+  reasonNote?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -584,6 +628,10 @@ export type EnumQuoteEventTypeFieldUpdateOperationsInput = {
   set?: $Enums.QuoteEventType
 }
 
+export type NullableEnumQuoteDeclineReasonFieldUpdateOperationsInput = {
+  set?: $Enums.QuoteDeclineReason | null
+}
+
 export type QuoteEventCreateWithoutCompanyInput = {
   id?: string
   type: $Enums.QuoteEventType
@@ -592,6 +640,8 @@ export type QuoteEventCreateWithoutCompanyInput = {
   recipientName?: string | null
   recipientEmail?: string | null
   userName?: string | null
+  reason?: $Enums.QuoteDeclineReason | null
+  reasonNote?: string | null
   createdAt?: Date | string
   quote: Prisma.QuoteCreateNestedOneWithoutEventsInput
   user?: Prisma.UserCreateNestedOneWithoutQuoteEventsInput
@@ -607,6 +657,8 @@ export type QuoteEventUncheckedCreateWithoutCompanyInput = {
   recipientEmail?: string | null
   userId?: string | null
   userName?: string | null
+  reason?: $Enums.QuoteDeclineReason | null
+  reasonNote?: string | null
   createdAt?: Date | string
 }
 
@@ -650,6 +702,8 @@ export type QuoteEventScalarWhereInput = {
   recipientEmail?: Prisma.StringNullableFilter<"QuoteEvent"> | string | null
   userId?: Prisma.StringNullableFilter<"QuoteEvent"> | string | null
   userName?: Prisma.StringNullableFilter<"QuoteEvent"> | string | null
+  reason?: Prisma.EnumQuoteDeclineReasonNullableFilter<"QuoteEvent"> | $Enums.QuoteDeclineReason | null
+  reasonNote?: Prisma.StringNullableFilter<"QuoteEvent"> | string | null
   createdAt?: Prisma.DateTimeFilter<"QuoteEvent"> | Date | string
 }
 
@@ -661,6 +715,8 @@ export type QuoteEventCreateWithoutUserInput = {
   recipientName?: string | null
   recipientEmail?: string | null
   userName?: string | null
+  reason?: $Enums.QuoteDeclineReason | null
+  reasonNote?: string | null
   createdAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuoteEventsInput
   quote: Prisma.QuoteCreateNestedOneWithoutEventsInput
@@ -676,6 +732,8 @@ export type QuoteEventUncheckedCreateWithoutUserInput = {
   recipientName?: string | null
   recipientEmail?: string | null
   userName?: string | null
+  reason?: $Enums.QuoteDeclineReason | null
+  reasonNote?: string | null
   createdAt?: Date | string
 }
 
@@ -713,6 +771,8 @@ export type QuoteEventCreateWithoutQuoteInput = {
   recipientName?: string | null
   recipientEmail?: string | null
   userName?: string | null
+  reason?: $Enums.QuoteDeclineReason | null
+  reasonNote?: string | null
   createdAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuoteEventsInput
   user?: Prisma.UserCreateNestedOneWithoutQuoteEventsInput
@@ -728,6 +788,8 @@ export type QuoteEventUncheckedCreateWithoutQuoteInput = {
   recipientEmail?: string | null
   userId?: string | null
   userName?: string | null
+  reason?: $Enums.QuoteDeclineReason | null
+  reasonNote?: string | null
   createdAt?: Date | string
 }
 
@@ -767,6 +829,8 @@ export type QuoteEventCreateManyCompanyInput = {
   recipientEmail?: string | null
   userId?: string | null
   userName?: string | null
+  reason?: $Enums.QuoteDeclineReason | null
+  reasonNote?: string | null
   createdAt?: Date | string
 }
 
@@ -778,6 +842,8 @@ export type QuoteEventUpdateWithoutCompanyInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableEnumQuoteDeclineReasonFieldUpdateOperationsInput | $Enums.QuoteDeclineReason | null
+  reasonNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quote?: Prisma.QuoteUpdateOneRequiredWithoutEventsNestedInput
   user?: Prisma.UserUpdateOneWithoutQuoteEventsNestedInput
@@ -793,6 +859,8 @@ export type QuoteEventUncheckedUpdateWithoutCompanyInput = {
   recipientEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableEnumQuoteDeclineReasonFieldUpdateOperationsInput | $Enums.QuoteDeclineReason | null
+  reasonNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -806,6 +874,8 @@ export type QuoteEventUncheckedUpdateManyWithoutCompanyInput = {
   recipientEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableEnumQuoteDeclineReasonFieldUpdateOperationsInput | $Enums.QuoteDeclineReason | null
+  reasonNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -819,6 +889,8 @@ export type QuoteEventCreateManyUserInput = {
   recipientName?: string | null
   recipientEmail?: string | null
   userName?: string | null
+  reason?: $Enums.QuoteDeclineReason | null
+  reasonNote?: string | null
   createdAt?: Date | string
 }
 
@@ -830,6 +902,8 @@ export type QuoteEventUpdateWithoutUserInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableEnumQuoteDeclineReasonFieldUpdateOperationsInput | $Enums.QuoteDeclineReason | null
+  reasonNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuoteEventsNestedInput
   quote?: Prisma.QuoteUpdateOneRequiredWithoutEventsNestedInput
@@ -845,6 +919,8 @@ export type QuoteEventUncheckedUpdateWithoutUserInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableEnumQuoteDeclineReasonFieldUpdateOperationsInput | $Enums.QuoteDeclineReason | null
+  reasonNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -858,6 +934,8 @@ export type QuoteEventUncheckedUpdateManyWithoutUserInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableEnumQuoteDeclineReasonFieldUpdateOperationsInput | $Enums.QuoteDeclineReason | null
+  reasonNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -871,6 +949,8 @@ export type QuoteEventCreateManyQuoteInput = {
   recipientEmail?: string | null
   userId?: string | null
   userName?: string | null
+  reason?: $Enums.QuoteDeclineReason | null
+  reasonNote?: string | null
   createdAt?: Date | string
 }
 
@@ -882,6 +962,8 @@ export type QuoteEventUpdateWithoutQuoteInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableEnumQuoteDeclineReasonFieldUpdateOperationsInput | $Enums.QuoteDeclineReason | null
+  reasonNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuoteEventsNestedInput
   user?: Prisma.UserUpdateOneWithoutQuoteEventsNestedInput
@@ -897,6 +979,8 @@ export type QuoteEventUncheckedUpdateWithoutQuoteInput = {
   recipientEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableEnumQuoteDeclineReasonFieldUpdateOperationsInput | $Enums.QuoteDeclineReason | null
+  reasonNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -910,6 +994,8 @@ export type QuoteEventUncheckedUpdateManyWithoutQuoteInput = {
   recipientEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableEnumQuoteDeclineReasonFieldUpdateOperationsInput | $Enums.QuoteDeclineReason | null
+  reasonNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -926,6 +1012,8 @@ export type QuoteEventSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   recipientEmail?: boolean
   userId?: boolean
   userName?: boolean
+  reason?: boolean
+  reasonNote?: boolean
   createdAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
@@ -943,6 +1031,8 @@ export type QuoteEventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   recipientEmail?: boolean
   userId?: boolean
   userName?: boolean
+  reason?: boolean
+  reasonNote?: boolean
   createdAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
@@ -960,6 +1050,8 @@ export type QuoteEventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   recipientEmail?: boolean
   userId?: boolean
   userName?: boolean
+  reason?: boolean
+  reasonNote?: boolean
   createdAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
@@ -977,10 +1069,12 @@ export type QuoteEventSelectScalar = {
   recipientEmail?: boolean
   userId?: boolean
   userName?: boolean
+  reason?: boolean
+  reasonNote?: boolean
   createdAt?: boolean
 }
 
-export type QuoteEventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "quoteId" | "type" | "ipAddress" | "userAgent" | "recipientName" | "recipientEmail" | "userId" | "userName" | "createdAt", ExtArgs["result"]["quoteEvent"]>
+export type QuoteEventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "quoteId" | "type" | "ipAddress" | "userAgent" | "recipientName" | "recipientEmail" | "userId" | "userName" | "reason" | "reasonNote" | "createdAt", ExtArgs["result"]["quoteEvent"]>
 export type QuoteEventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   quote?: boolean | Prisma.QuoteDefaultArgs<ExtArgs>
@@ -1028,6 +1122,15 @@ export type $QuoteEventPayload<ExtArgs extends runtime.Types.Extensions.Internal
      */
     userId: string | null
     userName: string | null
+    /**
+     * *
+     *    * Why the team declined it — a token, worded when read, so it reads in each
+     *    * person's language and can be counted. `reasonNote` is optional beside any
+     *    * reason and required with `OTHER`, where it is the reason. Null on what the
+     *    * customer decided, and on team decisions from before this was asked.
+     */
+    reason: $Enums.QuoteDeclineReason | null
+    reasonNote: string | null
     createdAt: Date
   }, ExtArgs["result"]["quoteEvent"]>
   composites: {}
@@ -1465,6 +1568,8 @@ export interface QuoteEventFieldRefs {
   readonly recipientEmail: Prisma.FieldRef<"QuoteEvent", 'String'>
   readonly userId: Prisma.FieldRef<"QuoteEvent", 'String'>
   readonly userName: Prisma.FieldRef<"QuoteEvent", 'String'>
+  readonly reason: Prisma.FieldRef<"QuoteEvent", 'QuoteDeclineReason'>
+  readonly reasonNote: Prisma.FieldRef<"QuoteEvent", 'String'>
   readonly createdAt: Prisma.FieldRef<"QuoteEvent", 'DateTime'>
 }
     

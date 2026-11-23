@@ -170,6 +170,21 @@ enum QuoteEventType {
 }
 
 /**
+ * Why somebody on the team declined a quote. Not always the customer's
+ * answer: a quote replaced by another, or sent by mistake, is the company's
+ * own reason.
+ */
+enum QuoteDeclineReason {
+  CUSTOMER_DECLINED
+  OTHER_COMPANY
+  PRICE
+  NOT_GOING_AHEAD
+  REPLACED
+  SENT_IN_ERROR
+  OTHER
+}
+
+/**
  * Who wrote in a quote's thread.
  */
 enum MessageAuthor {
@@ -1825,6 +1840,15 @@ model QuoteEvent {
    */
   userId   String?
   userName String?
+
+  /**
+   * Why the team declined it — a token, worded when read, so it reads in each
+   * person's language and can be counted. `reasonNote` is optional beside any
+   * reason and required with `OTHER`, where it is the reason. Null on what the
+   * customer decided, and on team decisions from before this was asked.
+   */
+  reason     QuoteDeclineReason?
+  reasonNote String?
 
   createdAt DateTime @default(now())
 

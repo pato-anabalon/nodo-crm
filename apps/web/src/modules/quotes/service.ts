@@ -7,7 +7,7 @@ import { calculateQuoteTotals } from "./totals";
 import { resolveSelectedSectionAmounts, type BundleDiscount } from "./section-selection";
 import { canChangeLead, canTransition, isQuoteEditable, sectionStatuses, teamDecisionEvent } from "./constants";
 import { moveLeadAlong } from "./lead-sync";
-import type { QuoteFilters, QuoteFormValues } from "./schemas";
+import type { QuoteFilters, QuoteFormValues, TeamDecline } from "./schemas";
 import { companyDocumentSelect, quoteDocumentInclude } from "@/modules/portal/service";
 import { primaryRecipientFrom } from "./recipients";
 import { recipientSelect, replacePrimaryRecipient } from "./recipients-service";
@@ -681,6 +681,8 @@ export async function changeQuoteStatus(
   ctx: CompanyContext,
   id: string,
   to: QuoteStatus,
+  /** Why the team is declining it; only read when `to` is `REJECTED`. */
+  decline?: TeamDecline,
 ) {
   const current = await ctx.db.quote.findFirst({
     where: { id, ...visibilityWhere(ctx) },
@@ -721,6 +723,9 @@ export async function changeQuoteStatus(
         type: event,
         userId: ctx.user.id,
         userName: ctx.user.name || ctx.user.email,
+        ...(to === QuoteStatus.REJECTED && decline
+          ? { reason: decline.reason, reasonNote: decline.note }
+          : {}),
       },
     });
   }

@@ -6604,6 +6604,8 @@ export const QuoteEventScalarFieldEnum = {
   recipientEmail: 'recipientEmail',
   userId: 'userId',
   userName: 'userName',
+  reason: 'reason',
+  reasonNote: 'reasonNote',
   createdAt: 'createdAt'
 } as const
 
@@ -7568,6 +7570,20 @@ export type EnumQuoteEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$P
  * Reference to a field of type 'QuoteEventType[]'
  */
 export type ListEnumQuoteEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuoteEventType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'QuoteDeclineReason'
+ */
+export type EnumQuoteDeclineReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuoteDeclineReason'>
+    
+
+
+/**
+ * Reference to a field of type 'QuoteDeclineReason[]'
+ */
+export type ListEnumQuoteDeclineReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuoteDeclineReason[]'>
     
 
 

@@ -990,8 +990,8 @@
         "MESSAGE_SENT": "Message from {name}"
       },
       "eventByTeam": {
-        "ACCEPTED": "Accepted by {name} on the customer's behalf",
-        "DECLINED": "Declined by {name} on the customer's behalf"
+        "ACCEPTED": "Accepted by {name}",
+        "DECLINED": "Declined by {name}"
       },
       "acceptedBy": "Accepted by {name}",
       "acceptanceStatement": "Statement accepted",
@@ -1002,6 +1002,27 @@
       "neverOpened": "Unopened",
       "seenAgo": "Seen {when}",
       "seen": "Seen"
+    },
+    "declineReasons": {
+      "CUSTOMER_DECLINED": "The customer declined it (by phone or email)",
+      "OTHER_COMPANY": "They went with another company",
+      "PRICE": "The price didn't work for them",
+      "NOT_GOING_AHEAD": "The job isn't going ahead",
+      "REPLACED": "Replaced by another quote",
+      "SENT_IN_ERROR": "Sent by mistake or duplicated",
+      "OTHER": "Other"
+    },
+    "decline": {
+      "title": "Mark as declined",
+      "body": "The quote's history will show who declined it and why. The customer is not told.",
+      "reason": "Reason",
+      "choose": "Choose a reason",
+      "note": "Note (optional)",
+      "noteForOther": "Note",
+      "notePlaceholder": "Anything the team should know later",
+      "confirm": "Decline quote",
+      "reasonRequired": "Choose why it is being declined.",
+      "noteRequired": "Write the reason when it is “Other”."
     },
     "share": {
       "title": "Customer link",

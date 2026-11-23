@@ -990,8 +990,8 @@
         "MESSAGE_SENT": "Mensaje de {name}"
       },
       "eventByTeam": {
-        "ACCEPTED": "Aceptada por {name} en nombre del cliente",
-        "DECLINED": "Rechazada por {name} en nombre del cliente"
+        "ACCEPTED": "Aceptada por {name}",
+        "DECLINED": "Rechazada por {name}"
       },
       "acceptedBy": "Aceptada por {name}",
       "acceptanceStatement": "Declaración aceptada",
@@ -1002,6 +1002,27 @@
       "neverOpened": "Sin abrir",
       "seenAgo": "Vista {when}",
       "seen": "Visto"
+    },
+    "declineReasons": {
+      "CUSTOMER_DECLINED": "El cliente la rechazó (por teléfono o correo)",
+      "OTHER_COMPANY": "Eligió a otra empresa",
+      "PRICE": "El precio no le sirvió",
+      "NOT_GOING_AHEAD": "El trabajo no se va a hacer",
+      "REPLACED": "Se reemplazó por otra cotización",
+      "SENT_IN_ERROR": "Se envió por error o está duplicada",
+      "OTHER": "Otro"
+    },
+    "decline": {
+      "title": "Marcar como rechazada",
+      "body": "El historial de la cotización mostrará quién la rechazó y por qué. Al cliente no se le avisa.",
+      "reason": "Motivo",
+      "choose": "Elige un motivo",
+      "note": "Nota (opcional)",
+      "noteForOther": "Nota",
+      "notePlaceholder": "Lo que el equipo debería saber después",
+      "confirm": "Rechazar cotización",
+      "reasonRequired": "Elige por qué se rechaza.",
+      "noteRequired": "Escribe el motivo cuando es “Otro”."
     },
     "share": {
       "title": "Enlace del cliente",

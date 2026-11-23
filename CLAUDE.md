@@ -1631,11 +1631,18 @@ web enquiry uses). A copy can be made primary or taken off.
   `QuoteMessage.authorName`): it must go on saying who opened it after that
   person is taken off the quote.
 - **A decision the team records goes in the same log**, as `ACCEPTED` or
-  `DECLINED` with `QuoteEvent.userName` ("Declined by María on the
-  customer's behalf"). It once reached only the lead's activity, so the
-  quote's own history couldn't say who declined it, and a quote with no lead
-  kept no author at all. `scripts/backfill-quote-decision-authors.ts` wrote
-  the older ones from those lead lines.
+  `DECLINED` with `QuoteEvent.userName`. It once reached only the lead's
+  activity, so the quote's own history couldn't say who declined it, and a
+  quote with no lead kept no author at all.
+  `scripts/backfill-quote-decision-authors.ts` wrote the older ones from
+  those lead lines.
+- **Declining from the company's side asks why**, because it isn't always
+  the customer's answer: a quote replaced by another or sent by mistake is
+  the company's own reason. One of `QuoteDeclineReason`, stored as a token
+  and worded when read, so it can be counted one day; a note beside it, required
+  with `OTHER`, where it is the reason (`teamDeclineSchema`, checked on the
+  server). The history reads "Declined by María · Replaced by another
+  quote". The customer's own decline still puts its reason in the thread.
 - **One primary per quote** is a partial unique index written by hand in the
   migration — Prisma can't declare one — so the swap clears before it sets.
 

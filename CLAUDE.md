@@ -111,6 +111,33 @@ app's sign-in" below), with the token in the Keychain/Keystore
   no signal leaves it for the next try. What the screen shows is the
   server's open shift with the queue laid on top (`clockState`). Consent is
   asked once per company before anything else.
+- **In the pocket, the system watches the circle** (`lib/tracking.ts`, only
+  in a build of our own). While a shift or travel is open, the job's circle
+  and the nearest others (twenty at most, `regionsFor`) go to the system's
+  geofencing, and background location records the track at the pace
+  `samplingFor` sets. The tasks wake with nothing in memory, so the screen
+  writes down the stretch, the circles, the rules and the language whenever
+  the clock changes (`syncTracking`).
+  - Leaving queues `LEFT` and shows a notice with "Going to another job" and
+    "Work errand" on it.
+  - Coming back queues `RETURNED`.
+  - Arriving at another job schedules "Start on B?" for `switchMinutes`
+    later; leaving it again cancels that notice.
+
+  What to do with each crossing is pure (`reactTo`, in `lib/movement.ts`). It
+  acts only on a change of what it last believed, because the system also
+  reports the state it finds when the circles are handed over.
+  - **One queue.** Events, travel and switches go in the punch queue, in
+    order: travel takes its start from the departure, so the departure has
+    to arrive first.
+  - **Positions wait.** They go up in batches once no punch is waiting
+    (`lib/pings.ts`).
+  - **The screen** counts down while away and offers the switch when the
+    fix is inside another job.
+  - **Without "all the time"** the clock still works. The screen says what is
+    lost: nothing knows when they left.
+  - **The token** is readable after the first unlock, so a locked phone can
+    still send a departure.
 - **A job opens on its own permissions**, the list `GET /jobs/<id>` returns —
   a finished job's with the writes already off — so the app offers nothing
   the server would refuse. Its timeline is worded by the web's own
@@ -154,7 +181,14 @@ app's sign-in" below), with the token in the Keychain/Keystore
   the check that Metro, NativeWind and the workspace packages resolve without
   a phone. pnpm keeps dependencies isolated, which is why
   `react-native-css-interop` is a direct dependency: NativeWind's Babel
-  output imports it by name.
+  output imports it by name. `babel-preset-expo` is one for the same reason:
+  `babel.config.js` names it, and a release build on EAS (`preview`,
+  `production`) bundles the JS there and can't find it otherwise — a
+  development build never bundles, so it never noticed. So is
+  `@babel/plugin-transform-react-jsx`: NativeWind's preset names it without
+  declaring it, and Babel resolves a preset's plugins from the config that
+  named the preset — `apps/mobile` — not from the preset's own package.
+  `eas.json` pins EAS to the same pnpm as `packageManager`.
 
 
 | Piece | Choice |

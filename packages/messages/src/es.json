@@ -3095,7 +3095,7 @@
         "what": "Nodo registra dónde está tu teléfono al marcar entrada y salida, y cada pocos minutos mientras estás en jornada.",
         "when": "Solo entre la entrada y la salida. Fuera de la jornada no se registra nada.",
         "who": "Tu empresa lo ve junto a tus horas, para revisar el tiempo y el lugar.",
-        "keep": "Las posiciones de una jornada se guardan 90 días; tus horas de entrada y salida quedan con tus horas.",
+        "keep": "Las posiciones de una jornada se guardan {days} días; tus horas de entrada y salida quedan con tus horas.",
         "agree": "Estoy de acuerdo"
       },
       "permission": {
@@ -3137,6 +3137,48 @@
         "range": "{start} – {end} · {job}",
         "open": "Desde las {start} · {job}",
         "hint": "Tiempo en el reloj, antes de descansos. Las horas pagadas están en tu planilla."
+      },
+      "away": {
+        "title": "Fuera de la obra",
+        "errandTitle": "En un encargo de trabajo",
+        "countdownLabel": "Tiempo para volver",
+        "countdown": "para volver. Si no vuelves, tu jornada termina a las {time}, la hora en que saliste.",
+        "noLimit": "Saliste a las {time}. Tu jornada sigue corriendo.",
+        "errandOn": "Desde las {time}. No corre ninguna cuenta hasta que vuelvas.",
+        "errand": "Encargo de trabajo",
+        "travel": "Voy a otra obra"
+      },
+      "switch": {
+        "title": "Estás en {job}",
+        "hint": "Empezar aquí termina {from} ahora y comienza tu jornada en esta obra.",
+        "button": "Empezar aquí"
+      },
+      "travel": {
+        "title": "En traslado",
+        "from": "Desde {job}",
+        "elapsedLabel": "Tiempo de traslado",
+        "endsAt": "Termina sola a las {time} si no empiezas en una obra.",
+        "choose": "¿Llegaste? Empieza en la obra",
+        "start": "Empezar aquí",
+        "confirmBody": "Esto termina el traslado y tu día."
+      },
+      "background": {
+        "title": "Permite la ubicación siempre",
+        "why": "Así Nodo sabe cuándo sales de la obra y registra tu recorrido con el teléfono en el bolsillo. Solo entre la entrada y la salida.",
+        "denied": "La ubicación siempre está apagada para Nodo. Sin ella, Nodo no sabe cuándo sales de la obra. Actívala en los ajustes del teléfono.",
+        "allow": "Permitir",
+        "openSettings": "Abrir ajustes"
+      },
+      "movement": {
+        "channel": "Reloj",
+        "leftTitle": "Saliste de {job}",
+        "leftCountdown": "Si no vuelves antes de las {time}, tu jornada termina a la hora en que saliste. ¿Vas a otra obra o a un encargo?",
+        "leftBody": "¿Vas a otra obra o a un encargo?",
+        "switchTitle": "¿Empezar en {job}?",
+        "switchBody": "Llevas {minutes, plural, one {un minuto} other {# minutos}} en {job}. Abre Nodo para empezar ahí tu jornada.",
+        "switchAction": "Empezar aquí",
+        "trackingTitle": "Nodo está registrando tu jornada",
+        "trackingBody": "Tu ubicación se registra hasta que marques la salida."
       }
     }
   },

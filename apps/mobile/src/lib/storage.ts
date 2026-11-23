@@ -6,12 +6,16 @@ import * as SecureStore from "expo-secure-store";
  * it lives in the Keychain / Keystore and nowhere else; the device id is this
  * install's own random value, which the server hashes to remember a trusted
  * phone; the company is the last one chosen, so the app reopens where it was.
+ *
+ * The token is readable after the phone's first unlock, not only while it is
+ * unlocked: the clock's background task sends a departure from a phone
+ * locked in a pocket.
  */
 const KEYS = { token: "nodo.session", company: "nodo.company", device: "nodo.device" } as const;
 
 export const storage = {
   token: () => SecureStore.getItemAsync(KEYS.token),
-  setToken: (token: string) => SecureStore.setItemAsync(KEYS.token, token),
+  setToken: (token: string) => SecureStore.setItemAsync(KEYS.token, token, { keychainAccessible: SecureStore.AFTER_FIRST_UNLOCK }),
   company: () => SecureStore.getItemAsync(KEYS.company),
   setCompany: (slug: string | null) =>
     slug ? SecureStore.setItemAsync(KEYS.company, slug) : SecureStore.deleteItemAsync(KEYS.company),

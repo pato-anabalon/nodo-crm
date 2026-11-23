@@ -5,6 +5,7 @@ import { api, ApiError, type Auth } from "./api";
 import { persister, queryClient, whenUnauthenticated } from "./query";
 import { pickCompany } from "./session-rules";
 import { storage } from "./storage";
+import { stopTracking } from "./tracking";
 import type { CompanyChoice, SignInResult } from "./types";
 
 /**
@@ -56,6 +57,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<SessionState>({ status: "loading" });
 
   const forget = useCallback(async () => {
+    await stopTracking();
     await storage.clear();
     queryClient.clear();
     await persister.removeClient();

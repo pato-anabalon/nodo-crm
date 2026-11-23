@@ -1,8 +1,8 @@
 import * as Crypto from "expo-crypto";
 import * as Haptics from "expo-haptics";
-import { useFocusEffect } from "expo-router";
+import { useFocusEffect, useLocalSearchParams } from "expo-router";
 import { CircleAlert, MapPin, X } from "lucide-react-native";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { Alert, Linking, Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "use-intl";
@@ -11,19 +11,25 @@ import type { Fix } from "@nodo/core/timeclock/geofence";
 import { Button } from "@/components/button";
 import { ErrorText, Failed, Loading, Screen } from "@/components/screen";
 import { useColor } from "@/lib/brand";
-import { clockState, elapsedSeconds, jobsNearby, stopwatch, type ClockEntry, type ClockState, type JobNearby } from "@/lib/clock";
+import { clockState, elapsedSeconds, jobsNearby, stopwatch, type Away, type ClockEntry, type ClockState, type JobNearby } from "@/lib/clock";
 import { useErrorText } from "@/lib/errors";
 import { formatDayHeading, formatTime } from "@/lib/format";
-import { batteryLevel, useFix } from "@/lib/location";
+import { batteryLevel, useBackgroundPermission, useFix } from "@/lib/location";
 import { usePunchQueue, type Refusal } from "@/lib/punches";
 import { useClock, useClockConsent, useClockEntries, useMe } from "@/lib/queries";
 import { useAuth } from "@/lib/session";
+import { trackingAvailable } from "@/lib/tracking";
 
 /**
  * Clocking in on site and out at the end of the day. The phone decides on the
  * spot whether it is inside the job's circle — from the circles it keeps, so
  * it works with no signal — and the punch is kept until the server has it.
- * The GPS runs only while this screen is on show.
+ * The precise GPS runs only while this screen is on show; between punches the
+ * background tracking (`tracking.ts`) watches the job's circle at far less cost.
+ *
+ * Away from the job it says so and counts down when the company ends shifts
+ * by itself, with the errand and the travel at hand; at another job it offers
+ * the switch, which a notice may have opened it for (`switchTo`).
  */
 export default function Clock() {
   const t = useTranslations("mobile.clock");
@@ -48,8 +54,10 @@ export default function Clock() {
     void client.invalidateQueries({ queryKey: [auth.company, "timeclock"] });
   }, [client, auth.company]);
   const queue = usePunchQueue(auth, me?.user.id, refresh);
-  const state = clockState(clock.data?.open ?? null, queue.punches);
+  const state = clockState(clock.data?.open ?? null, queue.punches, clock.data?.movement);
   const { fix, permission, ask } = useFix(focused && Boolean(clock.data?.consentAt));
+  const background = useBackgroundPermission();
+  const { switchTo } = useLocalSearchParams<{ switchTo?: string }>();
 
   if (clock.isPending) {
     return (
@@ -67,6 +75,25 @@ export default function Clock() {
   }
 
   const overview = clock.data!;
+  const formatLocale = me?.company.formatLocale ?? "en-NZ";
+  const timeZone = me?.company.timezone ?? "Pacific/Auckland";
+  const nearby = jobsNearby(overview.jobs, fix);
+  const currentJob = state.kind === "in" ? state.jobId : null;
+  // Where they've arrived: the job a notice named if the phone agrees it's there, otherwise the nearest one inside.
+  const inside = nearby.filter((job) => job.verdict?.kind === "inside" && job.id !== currentJob);
+  const arrivedAt = inside.find((job) => job.id === switchTo) ?? inside[0] ?? null;
+  const now = () => new Date().toISOString();
+  const startHere = async (job: JobNearby) => {
+    if (!fix || state.kind === "out") return;
+    void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    queue.enqueue({ kind: "switch", from: state.entry, clientId: Crypto.randomUUID(), jobId: job.id, jobName: job.name, at: now(), fix, battery: await batteryLevel() });
+  };
+  const clockOut = async () => {
+    if (state.kind === "out") return;
+    void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    queue.enqueue({ kind: "out", entry: state.entry, at: now(), fix, battery: await batteryLevel() });
+  };
+
   return (
     <Screen edges={["top"]}>
       <ScrollView
@@ -85,23 +112,39 @@ export default function Clock() {
           </View>
         ) : null}
 
+        {overview.consentAt && permission === "granted" && trackingAvailable && background.permission !== "granted" ? (
+          <BackgroundPermission denied={background.permission === "denied"} onAsk={background.ask} />
+        ) : null}
+
         {!overview.consentAt ? (
-          <Consent />
+          <Consent days={overview.retentionDays} />
         ) : permission !== "granted" ? (
           <LocationPermission denied={permission === "denied"} onAsk={ask} />
         ) : state.kind === "in" ? (
-          <OnShift
-            state={state}
-            formatLocale={me?.company.formatLocale ?? "en-NZ"}
-            timeZone={me?.company.timezone ?? "Pacific/Auckland"}
-            onClockOut={async () => {
-              void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-              queue.enqueue({ kind: "out", entry: state.entry, at: new Date().toISOString(), fix, battery: await batteryLevel() });
-            }}
-          />
+          <>
+            {arrivedAt ? <SwitchOffer job={arrivedAt} from={state.jobName} onSwitch={() => startHere(arrivedAt)} /> : null}
+            <OnShift
+              state={state}
+              formatLocale={formatLocale}
+              timeZone={timeZone}
+              onClockOut={clockOut}
+              onErrand={() => {
+                void Haptics.selectionAsync();
+                queue.enqueue({ kind: "event", entry: state.entry, clientId: Crypto.randomUUID(), event: "ERRAND", at: now() });
+              }}
+              onTravel={() => {
+                void Haptics.selectionAsync();
+                queue.enqueue({ kind: "travel", entry: state.entry, clientId: Crypto.randomUUID(), at: now() });
+              }}
+            />
+          </>
+        ) : state.kind === "travel" ? (
+          <Travel state={state} formatLocale={formatLocale} timeZone={timeZone} onClockOut={clockOut}>
+            <ClockIn jobs={nearby} fix={fix} actionLabel={t("travel.start")} onClockIn={startHere} />
+          </Travel>
         ) : (
           <ClockIn
-            jobs={jobsNearby(overview.jobs, fix)}
+            jobs={nearby}
             fix={fix}
             onClockIn={async (job) => {
               if (!fix) return;
@@ -119,14 +162,14 @@ export default function Clock() {
           />
         )}
 
-        <Week entries={entries.data?.entries ?? []} formatLocale={me?.company.formatLocale ?? "en-NZ"} timeZone={me?.company.timezone ?? "Pacific/Auckland"} />
+        <Week entries={entries.data?.entries ?? []} formatLocale={formatLocale} timeZone={timeZone} />
       </ScrollView>
     </Screen>
   );
 }
 
 /** What is recorded, when and for how long — said before anything is, and agreed to once per company. */
-function Consent() {
+function Consent({ days }: { days: number }) {
   const t = useTranslations("mobile.clock.consent");
   const errorText = useErrorText();
   const consent = useClockConsent();
@@ -138,7 +181,7 @@ function Consent() {
         {(["what", "when", "who", "keep"] as const).map((point) => (
           <View key={point} className="flex-row gap-2">
             <Text className="text-callout text-muted-foreground">•</Text>
-            <Text className="flex-1 text-callout text-card-foreground">{t(point)}</Text>
+            <Text className="flex-1 text-callout text-card-foreground">{point === "keep" ? t(point, { days }) : t(point)}</Text>
           </View>
         ))}
       </View>
@@ -160,7 +203,29 @@ function LocationPermission({ denied, onAsk }: { denied: boolean; onAsk: () => P
   );
 }
 
-function ClockIn({ jobs, fix, onClockIn }: { jobs: JobNearby[]; fix: Fix | null; onClockIn: (job: JobNearby) => Promise<void> }) {
+/** Needed for the circle's crossings and the track; the clock still works without it, the screen says what's lost. */
+function BackgroundPermission({ denied, onAsk }: { denied: boolean; onAsk: () => Promise<void> }) {
+  const t = useTranslations("mobile.clock.background");
+  return (
+    <View className="gap-stack rounded-xl border border-border bg-card p-card-pad">
+      <Text className="text-headline text-card-foreground">{t("title")}</Text>
+      <Text className="text-callout text-muted-foreground">{t(denied ? "denied" : "why")}</Text>
+      <Button label={t(denied ? "openSettings" : "allow")} onPress={() => (denied ? void Linking.openSettings() : void onAsk())} />
+    </View>
+  );
+}
+
+function ClockIn({
+  jobs,
+  fix,
+  onClockIn,
+  actionLabel,
+}: {
+  jobs: JobNearby[];
+  fix: Fix | null;
+  onClockIn: (job: JobNearby) => Promise<void>;
+  actionLabel?: string;
+}) {
   const t = useTranslations("mobile.clock");
   const [chosen, setChosen] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -195,7 +260,7 @@ function ClockIn({ jobs, fix, onClockIn }: { jobs: JobNearby[]; fix: Fix | null;
         }}
         className={`min-h-16 items-center justify-center rounded-2xl bg-primary ${job?.verdict?.kind === "inside" ? "" : "opacity-50"}`}
       >
-        <Text className="text-title-3 text-primary-foreground">{t("clockIn")}</Text>
+        <Text className="text-title-3 text-primary-foreground">{actionLabel ?? t("clockIn")}</Text>
       </Pressable>
     </View>
   );
@@ -246,23 +311,33 @@ function Verdict({ job }: { job: JobNearby }) {
   );
 }
 
-function OnShift({
-  state,
-  formatLocale,
-  timeZone,
-  onClockOut,
-}: {
-  state: Extract<ClockState, { kind: "in" }>;
-  formatLocale: string;
-  timeZone: string;
-  onClockOut: () => Promise<void>;
-}) {
-  const t = useTranslations("mobile.clock");
+/** A second hand for whatever runs: the shift, the countdown, the travel. */
+function useNow(): number {
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
     const timer = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(timer);
   }, []);
+  return now;
+}
+
+function OnShift({
+  state,
+  formatLocale,
+  timeZone,
+  onClockOut,
+  onErrand,
+  onTravel,
+}: {
+  state: Extract<ClockState, { kind: "in" }>;
+  formatLocale: string;
+  timeZone: string;
+  onClockOut: () => Promise<void>;
+  onErrand: () => void;
+  onTravel: () => void;
+}) {
+  const t = useTranslations("mobile.clock");
+  const now = useNow();
 
   return (
     <View className="gap-stack-loose rounded-xl border border-border bg-card p-card-pad">
@@ -274,6 +349,9 @@ function OnShift({
         {stopwatch(elapsedSeconds(state.since, now))}
       </Text>
       <Text className="text-callout text-muted-foreground">{t("since", { time: formatTime(state.since, formatLocale, timeZone) })}</Text>
+      {state.away ? (
+        <AwayNotice away={state.away} now={now} formatLocale={formatLocale} timeZone={timeZone} onErrand={onErrand} onTravel={onTravel} />
+      ) : null}
       <Pressable
         accessibilityRole="button"
         onPress={() =>
@@ -291,10 +369,149 @@ function OnShift({
   );
 }
 
+/**
+ * Out of the job's circle mid-shift: since when, and — when the company ends
+ * a shift for it — how long is left before it ends at the moment they left.
+ * An errand stops the count; travel ends the shift there and starts the drive.
+ */
+function AwayNotice({
+  away,
+  now,
+  formatLocale,
+  timeZone,
+  onErrand,
+  onTravel,
+}: {
+  away: Away;
+  now: number;
+  formatLocale: string;
+  timeZone: string;
+  onErrand: () => void;
+  onTravel: () => void;
+}) {
+  const t = useTranslations("mobile.clock.away");
+  const left = away.until ? Math.max(0, Math.floor((Date.parse(away.until) - now) / 1000)) : null;
+  const icon = useColor(left !== null && !away.errand ? "destructive" : "muted-foreground");
+  const leftAt = formatTime(away.leftAt, formatLocale, timeZone);
+
+  return (
+    <View accessibilityLiveRegion="polite" className="gap-stack rounded-xl bg-muted p-card-pad">
+      <View className="flex-row items-center gap-2">
+        <CircleAlert size={18} color={icon} />
+        <Text className="flex-1 text-callout font-semibold text-foreground">{t(away.errand ? "errandTitle" : "title")}</Text>
+      </View>
+      {away.errand ? (
+        <Text className="text-callout text-foreground">{t("errandOn", { time: leftAt })}</Text>
+      ) : left !== null ? (
+        <>
+          <Text accessibilityLabel={t("countdownLabel")} className="text-title-1 tabular-nums text-foreground">
+            {stopwatch(left)}
+          </Text>
+          <Text className="text-callout text-foreground">{t("countdown", { time: leftAt })}</Text>
+        </>
+      ) : (
+        <Text className="text-callout text-foreground">{t("noLimit", { time: leftAt })}</Text>
+      )}
+      <View className="flex-row flex-wrap gap-2">
+        {away.errand ? null : (
+          <View className="min-w-36 flex-1">
+            <Button label={t("errand")} variant="secondary" onPress={onErrand} />
+          </View>
+        )}
+        <View className="min-w-36 flex-1">
+          <Button label={t("travel")} variant="secondary" onPress={onTravel} />
+        </View>
+      </View>
+    </View>
+  );
+}
+
+/** At another job's place: taking it up ends what's open now and starts there, in one press. */
+function SwitchOffer({ job, from, onSwitch }: { job: JobNearby; from: string; onSwitch: () => Promise<void> }) {
+  const t = useTranslations("mobile.clock.switch");
+  const [busy, setBusy] = useState(false);
+  return (
+    <View className="gap-stack rounded-xl border border-primary bg-card p-card-pad">
+      <Text className="text-headline text-card-foreground">{t("title", { job: job.name })}</Text>
+      <Text className="text-callout text-muted-foreground">{t("hint", { from })}</Text>
+      <Button
+        label={t("button")}
+        busy={busy}
+        onPress={async () => {
+          setBusy(true);
+          await onSwitch();
+          setBusy(false);
+        }}
+      />
+    </View>
+  );
+}
+
+/** Between jobs: paid, on no job, until they take up the next or it runs out. */
+function Travel({
+  state,
+  formatLocale,
+  timeZone,
+  onClockOut,
+  children,
+}: {
+  state: Extract<ClockState, { kind: "travel" }>;
+  formatLocale: string;
+  timeZone: string;
+  onClockOut: () => Promise<void>;
+  children: ReactNode;
+}) {
+  const t = useTranslations("mobile.clock");
+  const now = useNow();
+
+  return (
+    <View className="gap-section">
+      <View className="gap-stack-loose rounded-xl border border-border bg-card p-card-pad">
+        <View className="gap-1">
+          <Text className="text-label uppercase text-muted-foreground">{t("travel.title")}</Text>
+          <Text className="text-headline text-card-foreground">{t("travel.from", { job: state.fromJob })}</Text>
+        </View>
+        <Text accessibilityLabel={t("travel.elapsedLabel")} className="text-numeric-xl text-card-foreground">
+          {stopwatch(elapsedSeconds(state.since, now))}
+        </Text>
+        <Text className="text-callout text-muted-foreground">{t("travel.endsAt", { time: formatTime(state.endsAt, formatLocale, timeZone) })}</Text>
+        <Pressable
+          accessibilityRole="button"
+          onPress={() =>
+            Alert.alert(t("confirmOut.title"), t("travel.confirmBody"), [
+              { text: t("confirmOut.cancel"), style: "cancel" },
+              { text: t("clockOut"), style: "destructive", onPress: () => void onClockOut() },
+            ])
+          }
+          className="min-h-16 items-center justify-center rounded-2xl bg-secondary"
+        >
+          <Text className="text-title-3 text-secondary-foreground">{t("clockOut")}</Text>
+        </Pressable>
+      </View>
+      <View className="gap-stack">
+        <Text className="text-label uppercase text-muted-foreground">{t("travel.choose")}</Text>
+        {children}
+      </View>
+    </View>
+  );
+}
+
 function RefusalNotice({ refusal, onDismiss }: { refusal: Refusal; onDismiss: () => void }) {
   const t = useTranslations("mobile.clock.refused");
   const icon = useColor("destructive");
-  const known = ["outside", "imprecise", "no_site", "consent_required", "already_clocked_in", "job_closed", "punch_too_old", "punch_in_future"];
+  const known = [
+    "outside",
+    "imprecise",
+    "no_site",
+    "consent_required",
+    "already_clocked_in",
+    "job_closed",
+    "punch_too_old",
+    "punch_in_future",
+    "same_job",
+    "already_ended",
+    "not_on_a_job",
+  ];
   const code = known.includes(refusal.code) ? refusal.code : "generic";
   const text = t(code as "generic", {
     metres: Number(refusal.extra.distanceM ?? 0),

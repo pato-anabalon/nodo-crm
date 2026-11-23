@@ -2,13 +2,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useCallback, useEffect, useSyncExternalStore } from "react";
 import { AppState } from "react-native";
 import { api, ApiError, type Auth } from "./api";
-import { withoutRefused, type Punch } from "./clock";
+import { nextBatch, withoutRefused, type Punch } from "./clock";
 
 /**
  * Punches waiting for signal. A punch is kept on the phone the moment the
  * button is pressed — its time, its fix, its own id — and sent in order until
  * the server has it; the server answers a punch sent twice with what the first
- * one made, so sending again after a dropped answer is always safe.
+ * one made, so sending again after a dropped answer is always safe. Leaving
+ * and coming back to the job go in the same queue, from the background task
+ * as much as from the screen: travel takes its start from the departure, so
+ * the departure has to arrive first.
  *
  * Kept per company and per person: a phone handed to somebody else must never
  * send the last person's punches under the new person's session.
@@ -24,6 +27,8 @@ type State = { punches: Punch[]; refusal: Refusal | null; sending: boolean; load
 const EMPTY: State = { punches: [], refusal: null, sending: false, loaded: false };
 const states = new Map<string, State>();
 const listeners = new Set<() => void>();
+/** Screens that read the clock, told when the server has heard something whoever sent it. */
+const sentListeners = new Set<() => void>();
 const storageKey = (key: string) => `nodo.punches.${key}`;
 
 function read(key: string): State {
@@ -45,13 +50,31 @@ async function load(key: string) {
   write(key, { punches: [...punches, ...read(key).punches], loaded: true });
 }
 
-async function send(punch: Punch, auth: Auth) {
-  if (punch.kind === "in") {
-    const { kind: _kind, jobName: _jobName, ...body } = punch;
-    await api("/timeclock/clock-in", { method: "POST", auth, body });
-  } else {
-    const { kind: _kind, ...body } = punch;
-    await api("/timeclock/clock-out", { method: "POST", auth, body });
+async function send(batch: Punch[], auth: Auth) {
+  const punch = batch[0];
+  switch (punch.kind) {
+    case "in": {
+      const { kind: _kind, jobName: _jobName, ...body } = punch;
+      return api("/timeclock/clock-in", { method: "POST", auth, body });
+    }
+    case "out": {
+      const { kind: _kind, ...body } = punch;
+      return api("/timeclock/clock-out", { method: "POST", auth, body });
+    }
+    case "event":
+      return api("/timeclock/events", {
+        method: "POST",
+        auth,
+        body: { entry: punch.entry, events: batch.flatMap((event) => (event.kind === "event" ? [{ clientId: event.clientId, kind: event.event, at: event.at }] : [])) },
+      });
+    case "travel": {
+      const { kind: _kind, ...body } = punch;
+      return api("/timeclock/travel", { method: "POST", auth, body });
+    }
+    case "switch": {
+      const { kind: _kind, jobName: _jobName, ...body } = punch;
+      return api("/timeclock/switch", { method: "POST", auth, body });
+    }
   }
 }
 
@@ -60,30 +83,49 @@ async function send(punch: Punch, auth: Auth) {
  * arrive before the clock-in it ends. Stops at the first punch that can't
  * reach the server.
  */
-async function flush(key: string, auth: Auth, onSent: () => void) {
+export async function flushPunches(key: string, auth: Auth): Promise<void> {
   await load(key);
   if (read(key).sending) return;
   write(key, { sending: true });
   let sent = false;
   try {
     while (read(key).punches.length > 0) {
-      const punch = read(key).punches[0];
+      const batch = nextBatch(read(key).punches);
       try {
-        await send(punch, auth);
-        write(key, { punches: read(key).punches.slice(1) }, true);
+        await send(batch, auth);
+        write(key, { punches: read(key).punches.filter((punch) => !batch.includes(punch)) }, true);
         sent = true;
       } catch (error) {
         const reachable = error instanceof ApiError && error.status !== 0 && error.status < 500 && error.status !== 401;
         if (!reachable) break;
-        write(key, { punches: withoutRefused(read(key).punches, punch), refusal: { code: error.code, extra: error.extra } }, true);
+        let rest = read(key).punches;
+        for (const punch of batch) rest = withoutRefused(rest, punch);
+        // A departure nobody pressed for isn't worth a red box: only what a person did is said.
+        const said = batch[0].kind === "event" && batch[0].event !== "ERRAND" ? null : { code: error.code, extra: error.extra };
+        write(key, { punches: rest, refusal: said ?? read(key).refusal }, true);
         sent = true;
       }
     }
   } finally {
     write(key, { sending: false });
-    if (sent) onSent();
+    if (sent) sentListeners.forEach((listener) => listener());
   }
 }
+
+/** Adds to the queue of this person in this company — from a screen or from the background — and tries to send it. */
+export async function enqueuePunch(key: string, punch: Punch, auth: Auth | null): Promise<void> {
+  await load(key);
+  write(key, { punches: [...read(key).punches, punch], refusal: null }, true);
+  if (auth) await flushPunches(key, auth);
+}
+
+/** Whether anything waits: positions go up only after the shift they belong to has. */
+export async function punchesWaiting(key: string): Promise<boolean> {
+  await load(key);
+  return read(key).punches.length > 0;
+}
+
+export const punchKey = (company: string, userId: string) => `${company}:${userId}`;
 
 /** How often to try again while something waits: a site comes back into signal on its own. */
 const RETRY_MS = 30_000;
@@ -93,7 +135,7 @@ const RETRY_MS = 30_000;
  * server has heard something, so the screen can read what it now says.
  */
 export function usePunchQueue(auth: Auth & { company: string }, userId: string | undefined, onSent: () => void) {
-  const key = userId ? `${auth.company}:${userId}` : null;
+  const key = userId ? punchKey(auth.company, userId) : null;
   const state = useSyncExternalStore(
     (listener) => {
       listeners.add(listener);
@@ -103,8 +145,15 @@ export function usePunchQueue(auth: Auth & { company: string }, userId: string |
   );
 
   const trySend = useCallback(() => {
-    if (key) void flush(key, auth, onSent);
-  }, [key, auth, onSent]);
+    if (key) void flushPunches(key, auth);
+  }, [key, auth]);
+
+  useEffect(() => {
+    sentListeners.add(onSent);
+    return () => {
+      sentListeners.delete(onSent);
+    };
+  }, [onSent]);
 
   useEffect(() => {
     if (!key) return;
@@ -125,9 +174,7 @@ export function usePunchQueue(auth: Auth & { company: string }, userId: string |
     refusal: state.refusal,
     sending: state.sending,
     enqueue(punch: Punch) {
-      if (!key) return;
-      write(key, { punches: [...read(key).punches, punch], refusal: null }, true);
-      trySend();
+      if (key) void enqueuePunch(key, punch, auth);
     },
     dismissRefusal() {
       if (key) write(key, { refusal: null });

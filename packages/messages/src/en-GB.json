@@ -3095,7 +3095,7 @@
         "what": "Nodo records where your phone is when you clock in and out, and every few minutes while you're on shift.",
         "when": "Only between clocking in and clocking out. Nothing is recorded while you're off the clock.",
         "who": "Your company sees it with your hours, to check the time and the place.",
-        "keep": "Positions during a shift are kept for 90 days; your clock-in and clock-out times stay with your hours.",
+        "keep": "Positions during a shift are kept for {days} days; your clock-in and clock-out times stay with your hours.",
         "agree": "I agree"
       },
       "permission": {
@@ -3137,6 +3137,48 @@
         "range": "{start} – {end} · {job}",
         "open": "Since {start} · {job}",
         "hint": "Time on the clock, before breaks. The hours paid are on your timesheet."
+      },
+      "away": {
+        "title": "Away from the job",
+        "errandTitle": "On a work errand",
+        "countdownLabel": "Time left to get back",
+        "countdown": "left to get back. If you don't, your shift ends at {time}, when you left.",
+        "noLimit": "You left at {time}. Your shift keeps running.",
+        "errandOn": "Since {time}. Nothing counts down until you're back.",
+        "errand": "Work errand",
+        "travel": "Going to another job"
+      },
+      "switch": {
+        "title": "You're at {job}",
+        "hint": "Starting here ends {from} now and starts your shift on this job.",
+        "button": "Start here"
+      },
+      "travel": {
+        "title": "Travelling",
+        "from": "From {job}",
+        "elapsedLabel": "Time travelling",
+        "endsAt": "Ends by itself at {time} if you don't start on a job.",
+        "choose": "Arrived? Start on the job",
+        "start": "Start here",
+        "confirmBody": "This ends your travel and your day."
+      },
+      "background": {
+        "title": "Allow location all the time",
+        "why": "So Nodo can tell when you leave the job and record your route with the phone in your pocket. Only between clocking in and clocking out.",
+        "denied": "Location all the time is off for Nodo. Without it Nodo can't tell when you leave the job. Turn it on in the phone's settings.",
+        "allow": "Allow",
+        "openSettings": "Open settings"
+      },
+      "movement": {
+        "channel": "Clock",
+        "leftTitle": "You left {job}",
+        "leftCountdown": "If you're not back by {time}, your shift ends at the time you left. Going to another job, or on an errand?",
+        "leftBody": "Going to another job, or on an errand?",
+        "switchTitle": "Start on {job}?",
+        "switchBody": "You've been at {job} for {minutes, plural, one {a minute} other {# minutes}}. Open Nodo to start your shift there.",
+        "switchAction": "Start here",
+        "trackingTitle": "Nodo is recording your shift",
+        "trackingBody": "Your location is recorded until you clock out."
       }
     }
   },

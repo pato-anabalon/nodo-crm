@@ -989,6 +989,10 @@
         "DECLINED": "Rechazada por {name}",
         "MESSAGE_SENT": "Mensaje de {name}"
       },
+      "eventByTeam": {
+        "ACCEPTED": "Aceptada por {name} en nombre del cliente",
+        "DECLINED": "Rechazada por {name} en nombre del cliente"
+      },
       "acceptedBy": "Aceptada por {name}",
       "acceptanceStatement": "Declaración aceptada",
       "orderReference": "Orden de compra: {reference}",

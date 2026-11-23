@@ -1630,6 +1630,12 @@ web enquiry uses). A copy can be made primary or taken off.
 - **The log freezes names, not ids** (`QuoteEvent.recipientName`,
   `QuoteMessage.authorName`): it must go on saying who opened it after that
   person is taken off the quote.
+- **A decision the team records goes in the same log**, as `ACCEPTED` or
+  `DECLINED` with `QuoteEvent.userName` ("Declined by María on the
+  customer's behalf"). It once reached only the lead's activity, so the
+  quote's own history couldn't say who declined it, and a quote with no lead
+  kept no author at all. `scripts/backfill-quote-decision-authors.ts` wrote
+  the older ones from those lead lines.
 - **One primary per quote** is a partial unique index written by hand in the
   migration — Prisma can't declare one — so the swap clears before it sets.
 

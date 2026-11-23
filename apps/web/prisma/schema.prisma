@@ -550,6 +550,7 @@ model User {
   assignedLeads           Lead[]                   @relation("LeadOwner")
   ingestKeys              IngestKey[]              @relation("IngestKeyCreatedBy")
   quoteMessages           QuoteMessage[]           @relation("QuoteMessageAuthor")
+  quoteEvents             QuoteEvent[]             @relation("QuoteEventUser")
   notificationPreferences NotificationPreference[]
   discardedLeads          Lead[]                   @relation("LeadDiscardedBy")
   createdQuotes           Quote[]                  @relation("QuoteCreatedBy")
@@ -1816,10 +1817,20 @@ model QuoteEvent {
   recipientName  String?
   recipientEmail String?
 
+  /**
+   * Somebody on the team who recorded the decision for the customer — a phone
+   * call, an email — rather than the customer through the link. The name is
+   * frozen for the same reason as the recipient's: the log has to go on saying
+   * who it was after their account is gone.
+   */
+  userId   String?
+  userName String?
+
   createdAt DateTime @default(now())
 
   company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
   quote   Quote   @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  user    User?   @relation("QuoteEventUser", fields: [userId], references: [id], onDelete: SetNull)
 
   @@index([quoteId, createdAt])
   @@index([companyId, type, createdAt])

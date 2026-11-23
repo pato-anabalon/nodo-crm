@@ -814,6 +814,8 @@ export const QuoteEventScalarFieldEnum = {
   userAgent: 'userAgent',
   recipientName: 'recipientName',
   recipientEmail: 'recipientEmail',
+  userId: 'userId',
+  userName: 'userName',
   createdAt: 'createdAt'
 } as const
 

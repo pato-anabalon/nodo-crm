@@ -1012,6 +1012,33 @@
       "SENT_IN_ERROR": "Se envió por error o está duplicada",
       "OTHER": "Otro"
     },
+    "acceptReasons": {
+      "CUSTOMER_EMAIL": "El cliente aceptó por correo",
+      "CUSTOMER_MESSAGE": "El cliente aceptó por SMS o WhatsApp",
+      "CUSTOMER_CALL": "El cliente aceptó por teléfono",
+      "IN_PERSON": "En persona o en una copia firmada",
+      "LINK_PROBLEM": "El cliente no pudo aceptar desde el enlace",
+      "OTHER": "Otro"
+    },
+    "accept": {
+      "title": "Marcar como aceptada",
+      "body": "Indica cómo aceptó el cliente y adjunta su respuesta. El historial de la cotización muestra quién la aceptó, por qué y la evidencia; el cliente recibe la confirmación de siempre.",
+      "reason": "Cómo aceptó",
+      "choose": "Elige una opción",
+      "evidence": "Evidencia del cliente",
+      "evidenceHint": "Una captura del mensaje o del correo, o el documento firmado: una imagen o un PDF, hasta {max} archivos.",
+      "addAnother": "Agregar otro archivo",
+      "remove": "Quitar {name}",
+      "note": "Nota (opcional)",
+      "noteForOther": "Nota",
+      "notePlaceholder": "Lo que el equipo deba saber después",
+      "confirm": "Aceptar cotización",
+      "reasonRequired": "Elige cómo aceptó el cliente.",
+      "noteRequired": "Escribe cómo aceptó cuando es «Otro».",
+      "evidenceRequired": "Adjunta la aceptación del cliente: una captura o un documento.",
+      "evidenceTooMany": "Son más archivos de los que admite una aceptación.",
+      "evidenceMissing": "No se pudo comprobar la evidencia. Adjúntala de nuevo."
+    },
     "decline": {
       "title": "Marcar como rechazada",
       "body": "El historial de la cotización mostrará quién la rechazó y por qué. Al cliente no se le avisa.",
@@ -2942,6 +2969,7 @@
       "radiusOption": "{metres} m",
       "radiusHint": "Qué tan cerca de la obra tiene que estar el teléfono para marcar entrada. Bajo 200 m, un teléfono con poca señal —adentro, bajo techo— puede tener que esperar una mejor.",
       "pin": "La obra",
+      "openInMaps": "Abrir en Google Maps",
       "mapLabel": "Mapa de la obra",
       "mapFailed": "No se pudo cargar el mapa.",
       "saved": "Ubicación guardada",

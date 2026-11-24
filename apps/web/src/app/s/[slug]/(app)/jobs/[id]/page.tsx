@@ -49,7 +49,7 @@ import {
   UnlinkQuoteButton,
 } from "@/modules/jobs/job-controls";
 import { isJobClosed, withoutWrites } from "@/modules/jobs/closing";
-import { JobLocationCard } from "@/modules/jobs/location-card";
+import { JobLocationCard, JobLocationView } from "@/modules/jobs/location-card";
 import { addressMovedSincePin } from "@/modules/jobs/location";
 import { clearJobLocationAction, placeJobFromAddressAction, saveJobLocationAction } from "@/modules/jobs/location-actions";
 
@@ -268,7 +268,8 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
         }}
       />
 
-      {/* Where the clock measures punches against; for whoever places the job, which is whoever edits it. */}
+      {/* Where the clock measures punches against; placed by whoever edits the job, and shown to everybody
+          else once it has a place — the way to the site. */}
       {can(ctx, "jobs.update") ? (
         <JobLocationCard
           location={{
@@ -288,6 +289,8 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
             return clearJobLocationAction(jobId);
           }}
         />
+      ) : job.latitude !== null && job.longitude !== null ? (
+        <JobLocationView point={{ latitude: job.latitude, longitude: job.longitude }} radiusM={job.geofenceRadiusM} />
       ) : null}
 
       {/* With nothing quoted it still shows to whoever may write the first line. */}

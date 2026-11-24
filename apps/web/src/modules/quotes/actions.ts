@@ -8,8 +8,8 @@ import { requirePermission } from "@/lib/auth/session";
 import { translateFieldErrors } from "@/lib/i18n-errors";
 import { QuoteStatus } from "@/generated/prisma/enums";
 import { sendAcceptedEmail } from "@/modules/email-templates/accepted-email";
-import { quoteFormDataToInput, quoteFormSchema, teamDeclineSchema, type TeamDecline } from "./schemas";
-import { changeQuoteStatus, createQuote, deleteQuote, getQuote, updateQuote } from "./service";
+import { quoteFormDataToInput, quoteFormSchema, teamAcceptSchema, teamDeclineSchema, type TeamDecline } from "./schemas";
+import { changeQuoteStatus, createQuote, deleteQuote, getQuote, updateQuote, visibilityWhere, type TeamAcceptance } from "./service";
 import { revokeShare } from "@/modules/portal/service";
 import { logLeadConverted } from "@/modules/leads/service";
 import { MessageAuthor } from "@/generated/prisma/enums";
@@ -22,7 +22,10 @@ import {
   MAX_ATTACHMENT_BYTES,
   attachmentPathname,
   checkAttachment,
+  checkEvidence,
+  evidencePathname,
   isAttachmentPathOf,
+  isEvidencePathOf,
   type AttachmentCheck,
 } from "./attachments";
 import { sendQuoteEmail } from "./email";
@@ -207,12 +210,30 @@ export async function revokeShareAction(id: string): Promise<QuoteActionState> {
 export async function decideQuoteAction(
   id: string,
   decision: "ACCEPTED" | "REJECTED",
-  /** The decline dialog's form: a reason, and a note beside it. */
+  /** The dialog's form: a reason, a note beside it and, accepting, the evidence. */
   formData?: FormData,
 ): Promise<QuoteActionState> {
   const ctx = await requirePermission("quotes.decide");
 
   const t = await getTranslations("quotes");
+
+  // Accepting for the customer says how they said yes and carries their word,
+  // already in the store: checked here against the store itself.
+  let accept: TeamAcceptance | undefined;
+  if (decision === "ACCEPTED") {
+    const parsed = teamAcceptSchema.safeParse({
+      reason: formData?.get("reason") || undefined,
+      note: formData?.get("note"),
+      evidence: parseEvidence(formData?.get("evidence")),
+    });
+    if (!parsed.success) {
+      const tAll = await getTranslations();
+      return { fieldErrors: translateFieldErrors(parsed.error.flatten().fieldErrors, tAll) };
+    }
+    const files = await storedEvidence(ctx, id, parsed.data.evidence);
+    if (!files) return { fieldErrors: { evidence: [t("accept.evidenceMissing")] } };
+    accept = { reason: parsed.data.reason, note: parsed.data.note, files };
+  }
 
   // Declining always says why, on the server too: the dialog's `required` is
   // only a courtesy, and a hand-made post could otherwise skip it.
@@ -229,8 +250,10 @@ export async function decideQuoteAction(
     decline = parsed.data;
   }
 
-  const result = await changeQuoteStatus(ctx, id, QuoteStatus[decision], decline);
+  const result = await changeQuoteStatus(ctx, id, QuoteStatus[decision], decline, accept);
   if (!result.ok) {
+    // Nothing will ever point at evidence for a decision that didn't happen.
+    if (accept) await Promise.all(accept.files.map((file) => del(file.url).catch(() => undefined)));
     return {
       error: result.reason === "invalid-transition" ? t("onlySentCanBeDecided") : t("notFound"),
     };
@@ -479,4 +502,75 @@ export async function deleteQuoteAttachmentAction(
 
   revalidatePath(`/quotes/${quoteId}`);
   return { message: t("deleted") };
+}
+
+function parseEvidence(value: FormDataEntryValue | null | undefined): unknown {
+  if (typeof value !== "string" || !value) return [];
+  try {
+    return JSON.parse(value);
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * The evidence the browser says it uploaded, as the store has it — or null
+ * when any of it isn't there, isn't in this quote's evidence folder, isn't a
+ * type or size the dialog takes, or is already another decision's. On a
+ * refusal, what did reach the folder unclaimed goes: nothing will point at it.
+ */
+async function storedEvidence(
+  ctx: Awaited<ReturnType<typeof requirePermission>>,
+  quoteId: string,
+  claims: readonly { pathname: string; name: string }[],
+): Promise<TeamAcceptance["files"] | null> {
+  const ours = claims.filter((claim) => isEvidencePathOf(ctx.company.id, quoteId, claim.pathname));
+  const stored = await Promise.all(ours.map((claim) => head(claim.pathname).catch(() => null)));
+  const files = stored.flatMap((blob, index) =>
+    blob
+      ? [{ name: ours[index].name, url: blob.url, pathname: blob.pathname, contentType: blob.contentType, size: blob.size }]
+      : [],
+  );
+  const taken = await ctx.db.quoteEventFile.count({ where: { pathname: { in: files.map((file) => file.pathname) } } });
+  const valid =
+    files.length === claims.length &&
+    taken === 0 &&
+    files.every((file, index) => checkEvidence({ name: file.name, size: file.size, type: file.contentType }, index).ok);
+  if (valid) return files;
+  if (taken === 0) await Promise.all(files.map((file) => del(file.url).catch(() => undefined)));
+  return null;
+}
+
+/**
+ * Step one of sending a piece of evidence, as for an attachment: the browser
+ * gets a token for one file at a path of the server's, in the quote's own
+ * evidence folder, and uploads it straight to the store. Only while the quote
+ * is still waiting for an answer this person may record.
+ */
+export async function prepareAcceptanceEvidenceUploadAction(
+  quoteId: string,
+  file: AttachmentFileInfo,
+): Promise<AttachmentUploadTicket> {
+  const ctx = await requirePermission("quotes.decide");
+  const t = await getTranslations("quotes.attachments");
+
+  const quote = await ctx.db.quote.findFirst({
+    where: { id: quoteId, status: QuoteStatus.SENT, ...visibilityWhere(ctx) },
+    select: { id: true },
+  });
+  if (!quote) return { error: t("notFound") };
+
+  const error = await attachmentCheckError(checkEvidence(file, 0));
+  if (error) return { error };
+
+  const pathname = evidencePathname(ctx.company.id, quoteId, file.name);
+  const token = await generateClientTokenFromReadWriteToken({
+    pathname,
+    allowedContentTypes: [file.type],
+    maximumSizeInBytes: MAX_ATTACHMENT_BYTES,
+    addRandomSuffix: true,
+    allowOverwrite: false,
+    validUntil: Date.now() + UPLOAD_TOKEN_TTL_MS,
+  });
+  return { pathname, token };
 }

@@ -57,6 +57,7 @@ export const DIRECT_TENANT_MODELS = new Set([
   "Quote",
   "QuoteAcceptance",
   "QuoteEvent",
+  "QuoteEventFile",
   "QuoteMessage",
   "QuoteRecipient",
   "SignatureHandoff",

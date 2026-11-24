@@ -1,5 +1,5 @@
 import { QuoteDeclineReason } from "@/generated/prisma/enums";
-import { parseQuoteItems, quoteFormSchema, quoteFormDataToInput, teamDeclineSchema } from "../schemas";
+import { parseQuoteItems, quoteFormSchema, quoteFormDataToInput, teamAcceptSchema, teamDeclineSchema } from "../schemas";
 
 function formDataFrom(entries: Record<string, string>): FormData {
   const fd = new FormData();
@@ -165,5 +165,28 @@ describe("teamDeclineSchema", () => {
     expect(missing.success).toBe(false);
     expect(missing.error?.flatten().fieldErrors.note).toEqual(["quotes.decline.noteRequired"]);
     expect(teamDeclineSchema.safeParse({ reason: QuoteDeclineReason.OTHER, note: "Builder went bust" }).success).toBe(true);
+  });
+});
+
+describe("teamAcceptSchema", () => {
+  const file = { pathname: "companies/c1/quotes/q1/evidence/shot.png", name: "shot.png" };
+
+  it("asks how they accepted and for at least one file", () => {
+    const result = teamAcceptSchema.safeParse({ reason: undefined, note: "", evidence: [] });
+    expect(result.success).toBe(false);
+    const errors = result.success ? {} : result.error.flatten().fieldErrors;
+    expect(errors.reason).toEqual(["quotes.accept.reasonRequired"]);
+    expect(errors.evidence).toEqual(["quotes.accept.evidenceRequired"]);
+  });
+
+  it("wants the note only with Other", () => {
+    expect(teamAcceptSchema.safeParse({ reason: "CUSTOMER_MESSAGE", note: "", evidence: [file] }).success).toBe(true);
+    const other = teamAcceptSchema.safeParse({ reason: "OTHER", note: " ", evidence: [file] });
+    expect(other.success ? {} : other.error.flatten().fieldErrors).toEqual({ note: ["quotes.accept.noteRequired"] });
+  });
+
+  it("caps the files an acceptance takes", () => {
+    const result = teamAcceptSchema.safeParse({ reason: "CUSTOMER_EMAIL", evidence: Array(6).fill(file) });
+    expect(result.success ? {} : result.error.flatten().fieldErrors).toEqual({ evidence: ["quotes.accept.evidenceTooMany"] });
   });
 });

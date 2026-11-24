@@ -64,6 +64,8 @@ export type JobDetail = {
     name: string;
     description: string | null;
     address: string | null;
+    /** The site's pin, once the job is placed. */
+    site: { latitude: number; longitude: number } | null;
     status: JobStatus;
     closed: boolean;
     closedAt: string | null;

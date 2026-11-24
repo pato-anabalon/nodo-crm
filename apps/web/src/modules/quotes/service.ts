@@ -1,6 +1,6 @@
 import type { CompanyContext } from "@/lib/auth/session";
 import { prisma } from "@/lib/db/prisma";
-import { MembershipStatus } from "@/generated/prisma/enums";
+import { MembershipStatus, type QuoteAcceptReason } from "@/generated/prisma/enums";
 import { ActivityType, PricingMode, Prisma, QuoteStatus, type TaxDisplayMode } from "@/generated/prisma/client";
 import { isRichTextEmpty, sanitizeRichText } from "@/lib/rich-text";
 import { calculateQuoteTotals } from "./totals";
@@ -176,7 +176,11 @@ export async function getQuote(ctx: CompanyContext, id: string) {
       share: {
         select: { lastSeenAt: true, viewing: true, openCount: true, revokedAt: true, expiresAt: true },
       },
-      events: { orderBy: { createdAt: "desc" }, take: 20 },
+      events: {
+        orderBy: { createdAt: "desc" },
+        take: 20,
+        include: { files: { select: { id: true, name: true, url: true }, orderBy: { createdAt: "asc" } } },
+      },
       recipients: { select: recipientSelect, orderBy: [{ isPrimary: "desc" }, { position: "asc" }] },
       emailsSent: { orderBy: { sentAt: "desc" } },
       messages: {
@@ -677,12 +681,21 @@ export async function updateQuote(ctx: CompanyContext, id: string, values: Quote
   return { ok: true as const, quote };
 }
 
+/** An acceptance the team records: how the customer said yes, and the files that show it, already in the store. */
+export type TeamAcceptance = {
+  reason: QuoteAcceptReason;
+  note: string | null;
+  files: { name: string; url: string; pathname: string; contentType: string; size: number }[];
+};
+
 export async function changeQuoteStatus(
   ctx: CompanyContext,
   id: string,
   to: QuoteStatus,
   /** Why the team is declining it; only read when `to` is `REJECTED`. */
   decline?: TeamDecline,
+  /** How the customer said yes, and their word for it; only read when `to` is `ACCEPTED`. */
+  accept?: TeamAcceptance,
 ) {
   const current = await ctx.db.quote.findFirst({
     where: { id, ...visibilityWhere(ctx) },
@@ -725,6 +738,13 @@ export async function changeQuoteStatus(
         userName: ctx.user.name || ctx.user.email,
         ...(to === QuoteStatus.REJECTED && decline
           ? { reason: decline.reason, reasonNote: decline.note }
+          : {}),
+        ...(to === QuoteStatus.ACCEPTED && accept
+          ? {
+              acceptReason: accept.reason,
+              reasonNote: accept.note,
+              files: { create: accept.files.map((file) => ({ ...file, companyId: ctx.company.id })) },
+            }
           : {}),
       },
     });

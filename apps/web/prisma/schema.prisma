@@ -170,6 +170,19 @@ enum QuoteEventType {
 }
 
 /**
+ * How the customer said yes when somebody on the team records the acceptance
+ * for them — or why they couldn't say it through the link.
+ */
+enum QuoteAcceptReason {
+  CUSTOMER_EMAIL
+  CUSTOMER_MESSAGE
+  CUSTOMER_CALL
+  IN_PERSON
+  LINK_PROBLEM
+  OTHER
+}
+
+/**
  * Why somebody on the team declined a quote. Not always the customer's
  * answer: a quote replaced by another, or sent by mistake, is the company's
  * own reason.
@@ -470,6 +483,7 @@ model Company {
   quoteShares             QuoteShare[]
   notificationPreferences NotificationPreference[]
   quoteEvents             QuoteEvent[]
+  quoteEventFiles         QuoteEventFile[]
   quoteMessages           QuoteMessage[]
   acceptances             QuoteAcceptance[]
   reviews                 CompanyReview[]
@@ -1850,6 +1864,16 @@ model QuoteEvent {
   reason     QuoteDeclineReason?
   reasonNote String?
 
+  /**
+   * Why the team accepted it on the customer's behalf — how the customer said
+   * yes — with `reasonNote` beside it as for a decline. An acceptance recorded
+   * by hand also carries the customer's word itself, a screenshot or a
+   * document (`files`): the portal's signature and fingerprint have no
+   * equivalent here otherwise.
+   */
+  acceptReason QuoteAcceptReason?
+  files        QuoteEventFile[]
+
   createdAt DateTime @default(now())
 
   company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
@@ -1858,6 +1882,28 @@ model QuoteEvent {
 
   @@index([quoteId, createdAt])
   @@index([companyId, type, createdAt])
+}
+
+/**
+ * The evidence of a decision the team recorded: the customer's email, message
+ * or signed copy. Stored under the quote's own folder in Blob, apart from its
+ * attachments — those go to the customer, these never do.
+ */
+model QuoteEventFile {
+  id          String   @id @default(cuid())
+  companyId   String
+  eventId     String
+  name        String
+  url         String
+  pathname    String   @unique
+  contentType String
+  size        Int
+  createdAt   DateTime @default(now())
+
+  company Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  event   QuoteEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([eventId])
 }
 
 /**

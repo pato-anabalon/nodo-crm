@@ -1,9 +1,13 @@
 import {
   MAX_ATTACHMENTS_PER_QUOTE,
   MAX_ATTACHMENT_BYTES,
+  MAX_EVIDENCE_FILES,
   attachmentPathname,
   checkAttachment,
+  checkEvidence,
+  evidencePathname,
   isAttachmentPathOf,
+  isEvidencePathOf,
 } from "../attachments";
 
 const pdf = { type: "application/pdf", size: 2048, name: "markups.pdf" };
@@ -88,5 +92,24 @@ describe("isAttachmentPathOf", () => {
     expect(
       isAttachmentPathOf("cmp_1", "q_1", "https://evil.example/companies/cmp_1/quotes/q_1/x.pdf"),
     ).toBe(false);
+  });
+});
+
+describe("evidence", () => {
+  it("lives in the quote's own evidence folder, which an attachment can't claim", () => {
+    const path = evidencePathname("c1", "q1", "WhatsApp Image 2026.png");
+    expect(path).toBe("companies/c1/quotes/q1/evidence/WhatsApp-Image-2026.png");
+    expect(isEvidencePathOf("c1", "q1", `${path.slice(0, -4)}-a1B2.png`)).toBe(true);
+    expect(isAttachmentPathOf("c1", "q1", path)).toBe(false);
+    expect(isEvidencePathOf("c1", "q1", "companies/c1/quotes/q1/markups.pdf")).toBe(false);
+    expect(isEvidencePathOf("c1", "q2", path)).toBe(false);
+    expect(isEvidencePathOf("c1", "q1", "companies/c1/quotes/q1/evidence/../x.png")).toBe(false);
+  });
+
+  it("takes an attachment's types and size, up to its own cap", () => {
+    expect(checkEvidence(pdf, 0)).toEqual({ ok: true });
+    expect(checkEvidence({ ...pdf, type: "text/plain" }, 0)).toEqual({ ok: false, reason: "type" });
+    expect(checkEvidence({ ...pdf, size: MAX_ATTACHMENT_BYTES + 1 }, 0)).toEqual({ ok: false, reason: "size" });
+    expect(checkEvidence(pdf, MAX_EVIDENCE_FILES)).toEqual({ ok: false, reason: "too-many" });
   });
 });

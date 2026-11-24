@@ -1,7 +1,7 @@
 import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, FileText } from "lucide-react";
+import { ArrowLeft, FileText, Paperclip } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { can, requireCompanyContext } from "@/lib/auth/session";
 import { Button } from "@/components/ui/button";
@@ -42,6 +42,7 @@ import { jobForQuote, quoteHasJob } from "@/modules/jobs/service";
 import { startJobAction } from "@/modules/jobs/actions";
 import {
   decideQuoteAction,
+  prepareAcceptanceEvidenceUploadAction,
   deleteQuoteAttachmentAction,
   resendQuoteAction,
   revokeShareAction,
@@ -597,6 +598,7 @@ export default async function QuoteDetailPage({
               "use server";
               return decideAction(decision, formData);
             }}
+            prepareEvidence={prepareAcceptanceEvidenceUploadAction.bind(null, quote.id)}
             previewHref={`/quotes/${quote.id}/preview`}
             job={job ? { href: `/jobs/${job.id}` } : null}
             onStartJob={canStartJob ? startJobAction.bind(null, quote.id) : undefined}
@@ -683,13 +685,16 @@ async function QuoteEvents({
     recipientName: string | null;
     userName: string | null;
     reason: string | null;
+    acceptReason: string | null;
     reasonNote: string | null;
+    files: Array<{ id: string; name: string; url: string }>;
   }>;
   formatLocale: string;
   timezone: string;
 }) {
   const t = await getT("quotes.tracking");
   const tReasons = await getT("quotes.declineReasons");
+  const tAcceptReasons = await getT("quotes.acceptReasons");
 
   return (
     <Card>
@@ -714,16 +719,35 @@ async function QuoteEvents({
                     : event.recipientName
                       ? t(`eventBy.${event.type}`, { name: event.recipientName })
                       : t(`eventTypes.${event.type}`)}
-                  {event.reason ? (
+                  {event.reason || event.acceptReason ? (
                     <>
                       {" · "}
-                      {event.reason === "OTHER" && event.reasonNote
+                      {(event.reason ?? event.acceptReason) === "OTHER" && event.reasonNote
                         ? event.reasonNote
-                        : tReasons(event.reason)}
+                        : event.reason
+                          ? tReasons(event.reason)
+                          : tAcceptReasons(event.acceptReason!)}
                     </>
                   ) : null}
-                  {event.reasonNote && event.reason !== "OTHER" ? (
+                  {event.reasonNote && (event.reason ?? event.acceptReason) !== "OTHER" ? (
                     <span className="block text-muted-foreground">{event.reasonNote}</span>
+                  ) : null}
+                  {/* The customer's word for an acceptance recorded by hand: the team's eyes only. */}
+                  {event.files.length > 0 ? (
+                    <span className="mt-1 flex flex-wrap gap-x-3 gap-y-1">
+                      {event.files.map((file) => (
+                        <a
+                          key={file.id}
+                          href={file.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex max-w-full items-center gap-1 text-xs underline-offset-2 hover:underline"
+                        >
+                          <Paperclip className="size-3 shrink-0" />
+                          <span className="truncate">{file.name}</span>
+                        </a>
+                      ))}
+                    </span>
                   ) : null}
                 </span>
                 <time

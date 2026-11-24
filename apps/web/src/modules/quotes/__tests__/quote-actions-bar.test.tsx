@@ -13,6 +13,7 @@ function renderBar(overrides: Partial<Parameters<typeof QuoteActionsBar>[0]> = {
       hasLead
       onSend={async () => ({})}
       onDecide={async () => ({})}
+      prepareEvidence={async () => ({})}
       {...overrides}
     />,
   );
@@ -81,5 +82,49 @@ describe("QuoteActionsBar — declining", () => {
     expect(screen.getByLabelText("Note (optional)")).not.toBeRequired();
     fireEvent.change(screen.getByLabelText("Reason"), { target: { value: "OTHER" } });
     expect(screen.getByLabelText("Note")).toBeRequired();
+  });
+});
+
+describe("QuoteActionsBar — accepting for the customer", () => {
+  const sent = { status: QuoteStatus.SENT, canSend: false, canDecide: true };
+  const evidence = () => screen.getByLabelText("Evidence from the customer") as HTMLInputElement;
+
+  it("asks how they accepted and for their word, rather than accepting on the press", () => {
+    const onDecide = jest.fn(async () => ({}));
+    renderBar({ ...sent, onDecide });
+
+    fireEvent.click(screen.getByRole("button", { name: "Mark as accepted" }));
+
+    expect(onDecide).not.toHaveBeenCalled();
+    expect(screen.getByLabelText("How they accepted")).toBeRequired();
+    expect(screen.getByRole("option", { name: "The customer accepted by SMS or WhatsApp" })).toBeInTheDocument();
+    expect(evidence()).toHaveAttribute("accept", "application/pdf,image/jpeg,image/png,image/webp");
+  });
+
+  it("won't accept without evidence", () => {
+    const onDecide = jest.fn(async () => ({}));
+    const prepareEvidence = jest.fn(async () => ({}));
+    renderBar({ ...sent, onDecide, prepareEvidence });
+    fireEvent.click(screen.getByRole("button", { name: "Mark as accepted" }));
+    fireEvent.change(screen.getByLabelText("How they accepted"), { target: { value: "CUSTOMER_EMAIL" } });
+
+    fireEvent.submit(screen.getByRole("button", { name: "Accept quote" }).closest("form")!);
+
+    expect(screen.getByText("Attach the customer's acceptance: a screenshot or a document.")).toBeInTheDocument();
+    expect(prepareEvidence).not.toHaveBeenCalled();
+    expect(onDecide).not.toHaveBeenCalled();
+  });
+
+  it("lists what was chosen and turns away a file that can't be evidence", () => {
+    renderBar(sent);
+    fireEvent.click(screen.getByRole("button", { name: "Mark as accepted" }));
+
+    const shot = new File(["x"], "whatsapp.png", { type: "image/png" });
+    const sheet = new File(["x"], "notes.xlsx", { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+    fireEvent.change(evidence(), { target: { files: [shot, sheet] } });
+
+    expect(screen.getByText("whatsapp.png")).toBeInTheDocument();
+    expect(screen.queryByText("notes.xlsx")).not.toBeInTheDocument();
+    expect(screen.getByText("The file must be a PDF or an image.")).toBeInTheDocument();
   });
 });

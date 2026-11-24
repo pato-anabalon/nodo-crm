@@ -695,6 +695,13 @@ export type EnumQuoteDeclineReasonNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumQuoteDeclineReasonNullableFilter<$PrismaModel> | $Enums.QuoteDeclineReason | null
 }
 
+export type EnumQuoteAcceptReasonNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.QuoteAcceptReason | Prisma.EnumQuoteAcceptReasonFieldRefInput<$PrismaModel> | null
+  in?: $Enums.QuoteAcceptReason[] | Prisma.ListEnumQuoteAcceptReasonFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.QuoteAcceptReason[] | Prisma.ListEnumQuoteAcceptReasonFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumQuoteAcceptReasonNullableFilter<$PrismaModel> | $Enums.QuoteAcceptReason | null
+}
+
 export type EnumQuoteEventTypeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.QuoteEventType | Prisma.EnumQuoteEventTypeFieldRefInput<$PrismaModel>
   in?: $Enums.QuoteEventType[] | Prisma.ListEnumQuoteEventTypeFieldRefInput<$PrismaModel>
@@ -713,6 +720,16 @@ export type EnumQuoteDeclineReasonNullableWithAggregatesFilter<$PrismaModel = ne
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedEnumQuoteDeclineReasonNullableFilter<$PrismaModel>
   _max?: Prisma.NestedEnumQuoteDeclineReasonNullableFilter<$PrismaModel>
+}
+
+export type EnumQuoteAcceptReasonNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.QuoteAcceptReason | Prisma.EnumQuoteAcceptReasonFieldRefInput<$PrismaModel> | null
+  in?: $Enums.QuoteAcceptReason[] | Prisma.ListEnumQuoteAcceptReasonFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.QuoteAcceptReason[] | Prisma.ListEnumQuoteAcceptReasonFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumQuoteAcceptReasonNullableWithAggregatesFilter<$PrismaModel> | $Enums.QuoteAcceptReason | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumQuoteAcceptReasonNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumQuoteAcceptReasonNullableFilter<$PrismaModel>
 }
 
 export type EnumMessageAuthorFilter<$PrismaModel = never> = {
@@ -1738,6 +1755,13 @@ export type NestedEnumQuoteDeclineReasonNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumQuoteDeclineReasonNullableFilter<$PrismaModel> | $Enums.QuoteDeclineReason | null
 }
 
+export type NestedEnumQuoteAcceptReasonNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.QuoteAcceptReason | Prisma.EnumQuoteAcceptReasonFieldRefInput<$PrismaModel> | null
+  in?: $Enums.QuoteAcceptReason[] | Prisma.ListEnumQuoteAcceptReasonFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.QuoteAcceptReason[] | Prisma.ListEnumQuoteAcceptReasonFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumQuoteAcceptReasonNullableFilter<$PrismaModel> | $Enums.QuoteAcceptReason | null
+}
+
 export type NestedEnumQuoteEventTypeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.QuoteEventType | Prisma.EnumQuoteEventTypeFieldRefInput<$PrismaModel>
   in?: $Enums.QuoteEventType[] | Prisma.ListEnumQuoteEventTypeFieldRefInput<$PrismaModel>
@@ -1756,6 +1780,16 @@ export type NestedEnumQuoteDeclineReasonNullableWithAggregatesFilter<$PrismaMode
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedEnumQuoteDeclineReasonNullableFilter<$PrismaModel>
   _max?: Prisma.NestedEnumQuoteDeclineReasonNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumQuoteAcceptReasonNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.QuoteAcceptReason | Prisma.EnumQuoteAcceptReasonFieldRefInput<$PrismaModel> | null
+  in?: $Enums.QuoteAcceptReason[] | Prisma.ListEnumQuoteAcceptReasonFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.QuoteAcceptReason[] | Prisma.ListEnumQuoteAcceptReasonFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumQuoteAcceptReasonNullableWithAggregatesFilter<$PrismaModel> | $Enums.QuoteAcceptReason | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumQuoteAcceptReasonNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumQuoteAcceptReasonNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumMessageAuthorFilter<$PrismaModel = never> = {

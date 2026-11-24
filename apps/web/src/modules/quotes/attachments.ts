@@ -71,3 +71,34 @@ export function isAttachmentPathOf(companyId: string, quoteId: string, pathname:
   const name = pathname.slice(folder.length);
   return /^[a-zA-Z0-9.-]+$/.test(name) && !name.includes("..");
 }
+
+/**
+ * The customer's word, when somebody on the team records their acceptance:
+ * the email, the WhatsApp, the signed copy. Same types and size as an
+ * attachment, in a folder of its own beside the quote's — an attachment goes
+ * to the customer and this never does, so neither path can pass for the other.
+ */
+export const MAX_EVIDENCE_FILES = 5;
+
+export function evidenceFolder(companyId: string, quoteId: string): string {
+  return `${attachmentFolder(companyId, quoteId)}evidence/`;
+}
+
+export function evidencePathname(companyId: string, quoteId: string, fileName: string): string {
+  const name = attachmentPathname(companyId, quoteId, fileName).slice(attachmentFolder(companyId, quoteId).length);
+  return `${evidenceFolder(companyId, quoteId)}${name}`;
+}
+
+/** Whether a path in the store is one this quote's evidence upload could have produced. */
+export function isEvidencePathOf(companyId: string, quoteId: string, pathname: string): boolean {
+  const folder = evidenceFolder(companyId, quoteId);
+  if (!pathname.startsWith(folder)) return false;
+  const name = pathname.slice(folder.length);
+  return /^[a-zA-Z0-9.-]+$/.test(name) && !name.includes("..");
+}
+
+/** A file offered as evidence: the attachment's rules, counted against the evidence's own cap. */
+export function checkEvidence(file: { type: string; size: number; name: string }, existingCount: number): AttachmentCheck {
+  if (existingCount >= MAX_EVIDENCE_FILES) return { ok: false, reason: "too-many" };
+  return checkAttachment(file, 0);
+}

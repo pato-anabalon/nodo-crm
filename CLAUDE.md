@@ -1060,7 +1060,12 @@ can't be clocked into.
   of address only says so on the job, with "Place from the address" beside
   it. Dragging the pin or pasting coordinates makes it manual; changing the
   radius alone doesn't.
-- **The card on the job is `jobs.update`'s**, like the address. The map is
+- **The card on the job is `jobs.update`'s**, like the address; everybody
+  else sees the placed site read only, and a tap on the map or "Open in
+  Google Maps" (`googleMapsUrl` in `@nodo/core/maps-link`, by coordinates)
+  opens it there — on a phone, the app with directions. The app's job screen
+  has the same button, and its address opens it too (`site` in `GET
+  /jobs/<id>`); it draws no map of its own. The map is
   Maps JavaScript (`NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`, a browser key restricted
   by referrer — a different key from the server's), loaded only by the
   screen that draws one; without it a job is placed by pasting coordinates.
@@ -1656,6 +1661,18 @@ web enquiry uses). A copy can be made primary or taken off.
   with `OTHER`, where it is the reason (`teamDeclineSchema`, checked on the
   server). The history reads "Declined by María · Replaced by another
   quote". The customer's own decline still puts its reason in the thread.
+- **Accepting from the company's side asks how, and for the customer's
+  word.** One of `QuoteAcceptReason` (by email, by SMS or WhatsApp, on the
+  phone, in person, the link didn't work, other) and at least one file —
+  the screenshot, the email, the signed copy — because a button pressed in
+  the office has neither the portal's signature nor its fingerprint. The
+  files go from the browser straight to Blob, in the quote's own
+  `evidence/` folder (`prepareAcceptanceEvidenceUploadAction`), and the
+  decision names them; `decideQuoteAction` checks each against the store
+  (`isEvidencePathOf`, `head()`, the attachment's types and size) and they
+  become `QuoteEventFile` rows on the `ACCEPTED` event. They are the team's,
+  listed under that line of the history, and never reach the customer; a
+  decision that fails deletes them.
 - **One primary per quote** is a partial unique index written by hand in the
   migration — Prisma can't declare one — so the swap clears before it sets.
 

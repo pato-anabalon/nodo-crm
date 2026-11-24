@@ -707,6 +707,7 @@ export type CompanyWhereInput = {
   quoteShares?: Prisma.QuoteShareListRelationFilter
   notificationPreferences?: Prisma.NotificationPreferenceListRelationFilter
   quoteEvents?: Prisma.QuoteEventListRelationFilter
+  quoteEventFiles?: Prisma.QuoteEventFileListRelationFilter
   quoteMessages?: Prisma.QuoteMessageListRelationFilter
   acceptances?: Prisma.QuoteAcceptanceListRelationFilter
   reviews?: Prisma.CompanyReviewListRelationFilter
@@ -821,6 +822,7 @@ export type CompanyOrderByWithRelationInput = {
   quoteShares?: Prisma.QuoteShareOrderByRelationAggregateInput
   notificationPreferences?: Prisma.NotificationPreferenceOrderByRelationAggregateInput
   quoteEvents?: Prisma.QuoteEventOrderByRelationAggregateInput
+  quoteEventFiles?: Prisma.QuoteEventFileOrderByRelationAggregateInput
   quoteMessages?: Prisma.QuoteMessageOrderByRelationAggregateInput
   acceptances?: Prisma.QuoteAcceptanceOrderByRelationAggregateInput
   reviews?: Prisma.CompanyReviewOrderByRelationAggregateInput
@@ -938,6 +940,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   quoteShares?: Prisma.QuoteShareListRelationFilter
   notificationPreferences?: Prisma.NotificationPreferenceListRelationFilter
   quoteEvents?: Prisma.QuoteEventListRelationFilter
+  quoteEventFiles?: Prisma.QuoteEventFileListRelationFilter
   quoteMessages?: Prisma.QuoteMessageListRelationFilter
   acceptances?: Prisma.QuoteAcceptanceListRelationFilter
   reviews?: Prisma.CompanyReviewListRelationFilter
@@ -1182,6 +1185,7 @@ export type CompanyCreateInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -1296,6 +1300,7 @@ export type CompanyUncheckedCreateInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -1410,6 +1415,7 @@ export type CompanyUpdateInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -1524,6 +1530,7 @@ export type CompanyUncheckedUpdateInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2395,6 +2402,20 @@ export type CompanyUpdateOneRequiredWithoutQuoteEventsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutQuoteEventsInput, Prisma.CompanyUpdateWithoutQuoteEventsInput>, Prisma.CompanyUncheckedUpdateWithoutQuoteEventsInput>
 }
 
+export type CompanyCreateNestedOneWithoutQuoteEventFilesInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutQuoteEventFilesInput, Prisma.CompanyUncheckedCreateWithoutQuoteEventFilesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutQuoteEventFilesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutQuoteEventFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutQuoteEventFilesInput, Prisma.CompanyUncheckedCreateWithoutQuoteEventFilesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutQuoteEventFilesInput
+  upsert?: Prisma.CompanyUpsertWithoutQuoteEventFilesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutQuoteEventFilesInput, Prisma.CompanyUpdateWithoutQuoteEventFilesInput>, Prisma.CompanyUncheckedUpdateWithoutQuoteEventFilesInput>
+}
+
 export type CompanyCreateNestedOneWithoutQuoteMessagesInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutQuoteMessagesInput, Prisma.CompanyUncheckedCreateWithoutQuoteMessagesInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutQuoteMessagesInput
@@ -2869,6 +2890,7 @@ export type CompanyCreateWithoutQuoteTypesInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -2982,6 +3004,7 @@ export type CompanyUncheckedCreateWithoutQuoteTypesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -3111,6 +3134,7 @@ export type CompanyUpdateWithoutQuoteTypesInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -3224,6 +3248,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTypesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -3336,6 +3361,7 @@ export type CompanyCreateWithoutMembershipsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -3449,6 +3475,7 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -3578,6 +3605,7 @@ export type CompanyUpdateWithoutMembershipsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -3691,6 +3719,7 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -3804,6 +3833,7 @@ export type CompanyCreateWithoutLoginAttemptsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -3917,6 +3947,7 @@ export type CompanyUncheckedCreateWithoutLoginAttemptsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -4046,6 +4077,7 @@ export type CompanyUpdateWithoutLoginAttemptsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -4159,6 +4191,7 @@ export type CompanyUncheckedUpdateWithoutLoginAttemptsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -4272,6 +4305,7 @@ export type CompanyCreateWithoutRolesInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -4385,6 +4419,7 @@ export type CompanyUncheckedCreateWithoutRolesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -4514,6 +4549,7 @@ export type CompanyUpdateWithoutRolesInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -4627,6 +4663,7 @@ export type CompanyUncheckedUpdateWithoutRolesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -4740,6 +4777,7 @@ export type CompanyCreateWithoutInvitationsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -4853,6 +4891,7 @@ export type CompanyUncheckedCreateWithoutInvitationsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -4982,6 +5021,7 @@ export type CompanyUpdateWithoutInvitationsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -5095,6 +5135,7 @@ export type CompanyUncheckedUpdateWithoutInvitationsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -5208,6 +5249,7 @@ export type CompanyCreateWithoutTasksInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -5321,6 +5363,7 @@ export type CompanyUncheckedCreateWithoutTasksInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -5450,6 +5493,7 @@ export type CompanyUpdateWithoutTasksInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -5563,6 +5607,7 @@ export type CompanyUncheckedUpdateWithoutTasksInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -5676,6 +5721,7 @@ export type CompanyCreateWithoutNotificationsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -5789,6 +5835,7 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -5918,6 +5965,7 @@ export type CompanyUpdateWithoutNotificationsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -6031,6 +6079,7 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -6144,6 +6193,7 @@ export type CompanyCreateWithoutCatalogueInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -6257,6 +6307,7 @@ export type CompanyUncheckedCreateWithoutCatalogueInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -6386,6 +6437,7 @@ export type CompanyUpdateWithoutCatalogueInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -6499,6 +6551,7 @@ export type CompanyUncheckedUpdateWithoutCatalogueInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -6612,6 +6665,7 @@ export type CompanyCreateWithoutClientCompaniesInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -6725,6 +6779,7 @@ export type CompanyUncheckedCreateWithoutClientCompaniesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -6854,6 +6909,7 @@ export type CompanyUpdateWithoutClientCompaniesInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -6967,6 +7023,7 @@ export type CompanyUncheckedUpdateWithoutClientCompaniesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -7080,6 +7137,7 @@ export type CompanyCreateWithoutContactsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -7193,6 +7251,7 @@ export type CompanyUncheckedCreateWithoutContactsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -7322,6 +7381,7 @@ export type CompanyUpdateWithoutContactsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -7435,6 +7495,7 @@ export type CompanyUncheckedUpdateWithoutContactsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -7549,6 +7610,7 @@ export type CompanyCreateWithoutLeadSourceOptionsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -7662,6 +7724,7 @@ export type CompanyUncheckedCreateWithoutLeadSourceOptionsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -7791,6 +7854,7 @@ export type CompanyUpdateWithoutLeadSourceOptionsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -7904,6 +7968,7 @@ export type CompanyUncheckedUpdateWithoutLeadSourceOptionsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -8017,6 +8082,7 @@ export type CompanyCreateWithoutLeadAccessLogsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -8130,6 +8196,7 @@ export type CompanyUncheckedCreateWithoutLeadAccessLogsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -8259,6 +8326,7 @@ export type CompanyUpdateWithoutLeadAccessLogsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -8372,6 +8440,7 @@ export type CompanyUncheckedUpdateWithoutLeadAccessLogsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -8484,6 +8553,7 @@ export type CompanyCreateWithoutLeadsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -8597,6 +8667,7 @@ export type CompanyUncheckedCreateWithoutLeadsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -8726,6 +8797,7 @@ export type CompanyUpdateWithoutLeadsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -8839,6 +8911,7 @@ export type CompanyUncheckedUpdateWithoutLeadsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -8952,6 +9025,7 @@ export type CompanyCreateWithoutSubmissionsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -9065,6 +9139,7 @@ export type CompanyUncheckedCreateWithoutSubmissionsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -9194,6 +9269,7 @@ export type CompanyUpdateWithoutSubmissionsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -9307,6 +9383,7 @@ export type CompanyUncheckedUpdateWithoutSubmissionsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -9420,6 +9497,7 @@ export type CompanyCreateWithoutLeadAttachmentsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -9533,6 +9611,7 @@ export type CompanyUncheckedCreateWithoutLeadAttachmentsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -9662,6 +9741,7 @@ export type CompanyUpdateWithoutLeadAttachmentsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -9775,6 +9855,7 @@ export type CompanyUncheckedUpdateWithoutLeadAttachmentsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -9888,6 +9969,7 @@ export type CompanyCreateWithoutIngestKeysInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -10001,6 +10083,7 @@ export type CompanyUncheckedCreateWithoutIngestKeysInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -10130,6 +10213,7 @@ export type CompanyUpdateWithoutIngestKeysInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -10243,6 +10327,7 @@ export type CompanyUncheckedUpdateWithoutIngestKeysInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -10356,6 +10441,7 @@ export type CompanyCreateWithoutIngestAttemptsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -10469,6 +10555,7 @@ export type CompanyUncheckedCreateWithoutIngestAttemptsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -10598,6 +10685,7 @@ export type CompanyUpdateWithoutIngestAttemptsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -10711,6 +10799,7 @@ export type CompanyUncheckedUpdateWithoutIngestAttemptsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -10824,6 +10913,7 @@ export type CompanyCreateWithoutActivitiesInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -10937,6 +11027,7 @@ export type CompanyUncheckedCreateWithoutActivitiesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -11066,6 +11157,7 @@ export type CompanyUpdateWithoutActivitiesInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -11179,6 +11271,7 @@ export type CompanyUncheckedUpdateWithoutActivitiesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -11292,6 +11385,7 @@ export type CompanyCreateWithoutQuoteTemplatesInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -11405,6 +11499,7 @@ export type CompanyUncheckedCreateWithoutQuoteTemplatesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -11534,6 +11629,7 @@ export type CompanyUpdateWithoutQuoteTemplatesInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -11647,6 +11743,7 @@ export type CompanyUncheckedUpdateWithoutQuoteTemplatesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -11760,6 +11857,7 @@ export type CompanyCreateWithoutQuotesInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -11873,6 +11971,7 @@ export type CompanyUncheckedCreateWithoutQuotesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -12002,6 +12101,7 @@ export type CompanyUpdateWithoutQuotesInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -12115,6 +12215,7 @@ export type CompanyUncheckedUpdateWithoutQuotesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -12228,6 +12329,7 @@ export type CompanyCreateWithoutDocumentsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -12341,6 +12443,7 @@ export type CompanyUncheckedCreateWithoutDocumentsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -12470,6 +12573,7 @@ export type CompanyUpdateWithoutDocumentsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -12583,6 +12687,7 @@ export type CompanyUncheckedUpdateWithoutDocumentsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -12696,6 +12801,7 @@ export type CompanyCreateWithoutQuoteSharesInput = {
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -12809,6 +12915,7 @@ export type CompanyUncheckedCreateWithoutQuoteSharesInput = {
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -12938,6 +13045,7 @@ export type CompanyUpdateWithoutQuoteSharesInput = {
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -13051,6 +13159,7 @@ export type CompanyUncheckedUpdateWithoutQuoteSharesInput = {
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -13164,6 +13273,7 @@ export type CompanyCreateWithoutQuoteRecipientsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -13277,6 +13387,7 @@ export type CompanyUncheckedCreateWithoutQuoteRecipientsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -13406,6 +13517,7 @@ export type CompanyUpdateWithoutQuoteRecipientsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -13519,6 +13631,7 @@ export type CompanyUncheckedUpdateWithoutQuoteRecipientsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -13632,6 +13745,7 @@ export type CompanyCreateWithoutSignatureHandoffsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -13745,6 +13859,7 @@ export type CompanyUncheckedCreateWithoutSignatureHandoffsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -13874,6 +13989,7 @@ export type CompanyUpdateWithoutSignatureHandoffsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -13987,6 +14103,7 @@ export type CompanyUncheckedUpdateWithoutSignatureHandoffsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -14100,6 +14217,7 @@ export type CompanyCreateWithoutQuoteEventsInput = {
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -14213,6 +14331,7 @@ export type CompanyUncheckedCreateWithoutQuoteEventsInput = {
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -14342,6 +14461,7 @@ export type CompanyUpdateWithoutQuoteEventsInput = {
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -14455,6 +14575,479 @@ export type CompanyUncheckedUpdateWithoutQuoteEventsInput = {
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  reviewLinks?: Prisma.ReviewLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedUpdateManyWithoutCompanyNestedInput
+  jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
+  jobMembers?: Prisma.JobMemberUncheckedUpdateManyWithoutCompanyNestedInput
+  jobActivities?: Prisma.JobActivityUncheckedUpdateManyWithoutCompanyNestedInput
+  jobFolders?: Prisma.JobFolderUncheckedUpdateManyWithoutCompanyNestedInput
+  jobFiles?: Prisma.JobFileUncheckedUpdateManyWithoutCompanyNestedInput
+  jobPostCategories?: Prisma.JobPostCategoryUncheckedUpdateManyWithoutCompanyNestedInput
+  jobPosts?: Prisma.JobPostUncheckedUpdateManyWithoutCompanyNestedInput
+  jobComments?: Prisma.JobCommentUncheckedUpdateManyWithoutCompanyNestedInput
+  jobTodoLists?: Prisma.JobTodoListUncheckedUpdateManyWithoutCompanyNestedInput
+  jobTodos?: Prisma.JobTodoUncheckedUpdateManyWithoutCompanyNestedInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedUpdateManyWithoutCompanyNestedInput
+  jobEvents?: Prisma.JobEventUncheckedUpdateManyWithoutCompanyNestedInput
+  jobEventParticipants?: Prisma.JobEventParticipantUncheckedUpdateManyWithoutCompanyNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedUpdateManyWithoutCompanyNestedInput
+  jobScopeChanges?: Prisma.JobScopeChangeUncheckedUpdateManyWithoutCompanyNestedInput
+  trades?: Prisma.TradeUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedUpdateManyWithoutCompanyNestedInput
+  locationPings?: Prisma.LocationPingUncheckedUpdateManyWithoutCompanyNestedInput
+  timesheetDays?: Prisma.TimesheetDayUncheckedUpdateManyWithoutCompanyNestedInput
+  timesheetChanges?: Prisma.TimesheetChangeUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutQuoteEventFilesInput = {
+  id?: string
+  slug: string
+  name: string
+  legalName?: string | null
+  taxId?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  logoUrl?: string | null
+  pdfLogoUrl?: string | null
+  watermarkUrl?: string | null
+  primaryColor?: string
+  accentColor?: string
+  defaultLanguage?: $Enums.Language
+  currency?: string
+  formatLocale?: string
+  timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
+  locationRetentionDays?: number
+  defaultTaxType?: $Enums.TaxType
+  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: string
+  quoteValidityDays?: number
+  quoteNumberStart?: number
+  quoteFooter?: string | null
+  slogan?: string | null
+  senderNameStyle?: $Enums.SenderNameStyle
+  firstFollowUpDays?: number
+  secondFollowUpDays?: number
+  reviewRequestDays?: number
+  sendQuoteCopy?: boolean
+  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
+  quoteIntro?: string | null
+  quoteNotes?: string | null
+  quoteExclusions?: string | null
+  quoteTerms?: string | null
+  quoteScope?: string | null
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  acceptanceMode?: $Enums.AcceptanceMode
+  acceptanceStatement?: string | null
+  requireSignature?: boolean
+  askAdditionalComments?: boolean
+  askOrderReference?: boolean
+  isActive?: boolean
+  approvedAt?: Date | string | null
+  isDemo?: boolean
+  demoDays?: number | null
+  demoStartedAt?: Date | string | null
+  demoEndsAt?: Date | string | null
+  demoEndedAt?: Date | string | null
+  demoWarnedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipCreateNestedManyWithoutCompanyInput
+  loginAttempts?: Prisma.LoginAttemptCreateNestedManyWithoutCompanyInput
+  roles?: Prisma.RoleCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutCompanyInput
+  leads?: Prisma.LeadCreateNestedManyWithoutCompanyInput
+  quotes?: Prisma.QuoteCreateNestedManyWithoutCompanyInput
+  contacts?: Prisma.ContactCreateNestedManyWithoutCompanyInput
+  quoteRecipients?: Prisma.QuoteRecipientCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffCreateNestedManyWithoutCompanyInput
+  clientCompanies?: Prisma.ClientCompanyCreateNestedManyWithoutCompanyInput
+  catalogue?: Prisma.CatalogueItemCreateNestedManyWithoutCompanyInput
+  quoteTemplates?: Prisma.QuoteTemplateCreateNestedManyWithoutCompanyInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutCompanyInput
+  submissions?: Prisma.LeadSubmissionCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  ingestKeys?: Prisma.IngestKeyCreateNestedManyWithoutCompanyInput
+  ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
+  quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
+  quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
+  acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
+  emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
+  reviewLinks?: Prisma.ReviewLinkCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogCreateNestedManyWithoutCompanyInput
+  jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
+  jobMembers?: Prisma.JobMemberCreateNestedManyWithoutCompanyInput
+  jobActivities?: Prisma.JobActivityCreateNestedManyWithoutCompanyInput
+  jobFolders?: Prisma.JobFolderCreateNestedManyWithoutCompanyInput
+  jobFiles?: Prisma.JobFileCreateNestedManyWithoutCompanyInput
+  jobPostCategories?: Prisma.JobPostCategoryCreateNestedManyWithoutCompanyInput
+  jobPosts?: Prisma.JobPostCreateNestedManyWithoutCompanyInput
+  jobComments?: Prisma.JobCommentCreateNestedManyWithoutCompanyInput
+  jobTodoLists?: Prisma.JobTodoListCreateNestedManyWithoutCompanyInput
+  jobTodos?: Prisma.JobTodoCreateNestedManyWithoutCompanyInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeCreateNestedManyWithoutCompanyInput
+  jobEvents?: Prisma.JobEventCreateNestedManyWithoutCompanyInput
+  jobEventParticipants?: Prisma.JobEventParticipantCreateNestedManyWithoutCompanyInput
+  jobChatMessages?: Prisma.JobChatMessageCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemCreateNestedManyWithoutCompanyInput
+  jobScopeChanges?: Prisma.JobScopeChangeCreateNestedManyWithoutCompanyInput
+  trades?: Prisma.TradeCreateNestedManyWithoutCompanyInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventCreateNestedManyWithoutCompanyInput
+  locationPings?: Prisma.LocationPingCreateNestedManyWithoutCompanyInput
+  timesheetDays?: Prisma.TimesheetDayCreateNestedManyWithoutCompanyInput
+  timesheetChanges?: Prisma.TimesheetChangeCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutQuoteEventFilesInput = {
+  id?: string
+  slug: string
+  name: string
+  legalName?: string | null
+  taxId?: string | null
+  email?: string | null
+  phone?: string | null
+  website?: string | null
+  address?: string | null
+  logoUrl?: string | null
+  pdfLogoUrl?: string | null
+  watermarkUrl?: string | null
+  primaryColor?: string
+  accentColor?: string
+  defaultLanguage?: $Enums.Language
+  currency?: string
+  formatLocale?: string
+  timezone?: string
+  restBreakMinutes?: number
+  mealBreakMinutes?: number
+  siteReturnMinutes?: number
+  siteSwitchMinutes?: number
+  travelMaxMinutes?: number
+  locationRetentionDays?: number
+  defaultTaxType?: $Enums.TaxType
+  defaultTaxRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: string
+  quoteValidityDays?: number
+  quoteNumberStart?: number
+  quoteFooter?: string | null
+  slogan?: string | null
+  senderNameStyle?: $Enums.SenderNameStyle
+  firstFollowUpDays?: number
+  secondFollowUpDays?: number
+  reviewRequestDays?: number
+  sendQuoteCopy?: boolean
+  leadNotificationEmails?: Prisma.CompanyCreateleadNotificationEmailsInput | string[]
+  quoteIntro?: string | null
+  quoteNotes?: string | null
+  quoteExclusions?: string | null
+  quoteTerms?: string | null
+  quoteScope?: string | null
+  taxDisplayMode?: $Enums.TaxDisplayMode
+  acceptanceMode?: $Enums.AcceptanceMode
+  acceptanceStatement?: string | null
+  requireSignature?: boolean
+  askAdditionalComments?: boolean
+  askOrderReference?: boolean
+  isActive?: boolean
+  approvedAt?: Date | string | null
+  isDemo?: boolean
+  demoDays?: number | null
+  demoStartedAt?: Date | string | null
+  demoEndsAt?: Date | string | null
+  demoEndedAt?: Date | string | null
+  demoWarnedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutCompanyInput
+  loginAttempts?: Prisma.LoginAttemptUncheckedCreateNestedManyWithoutCompanyInput
+  roles?: Prisma.RoleUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutCompanyInput
+  leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCompanyInput
+  quotes?: Prisma.QuoteUncheckedCreateNestedManyWithoutCompanyInput
+  contacts?: Prisma.ContactUncheckedCreateNestedManyWithoutCompanyInput
+  quoteRecipients?: Prisma.QuoteRecipientUncheckedCreateNestedManyWithoutCompanyInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedCreateNestedManyWithoutCompanyInput
+  clientCompanies?: Prisma.ClientCompanyUncheckedCreateNestedManyWithoutCompanyInput
+  catalogue?: Prisma.CatalogueItemUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTemplates?: Prisma.QuoteTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutCompanyInput
+  submissions?: Prisma.LeadSubmissionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  ingestKeys?: Prisma.IngestKeyUncheckedCreateNestedManyWithoutCompanyInput
+  ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
+  quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
+  acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
+  reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
+  emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
+  reviewLinks?: Prisma.ReviewLinkUncheckedCreateNestedManyWithoutCompanyInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUncheckedCreateNestedManyWithoutCompanyInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUncheckedCreateNestedManyWithoutCompanyInput
+  leadAccessLogs?: Prisma.LeadAccessLogUncheckedCreateNestedManyWithoutCompanyInput
+  jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
+  jobMembers?: Prisma.JobMemberUncheckedCreateNestedManyWithoutCompanyInput
+  jobActivities?: Prisma.JobActivityUncheckedCreateNestedManyWithoutCompanyInput
+  jobFolders?: Prisma.JobFolderUncheckedCreateNestedManyWithoutCompanyInput
+  jobFiles?: Prisma.JobFileUncheckedCreateNestedManyWithoutCompanyInput
+  jobPostCategories?: Prisma.JobPostCategoryUncheckedCreateNestedManyWithoutCompanyInput
+  jobPosts?: Prisma.JobPostUncheckedCreateNestedManyWithoutCompanyInput
+  jobComments?: Prisma.JobCommentUncheckedCreateNestedManyWithoutCompanyInput
+  jobTodoLists?: Prisma.JobTodoListUncheckedCreateNestedManyWithoutCompanyInput
+  jobTodos?: Prisma.JobTodoUncheckedCreateNestedManyWithoutCompanyInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeUncheckedCreateNestedManyWithoutCompanyInput
+  jobEvents?: Prisma.JobEventUncheckedCreateNestedManyWithoutCompanyInput
+  jobEventParticipants?: Prisma.JobEventParticipantUncheckedCreateNestedManyWithoutCompanyInput
+  jobChatMessages?: Prisma.JobChatMessageUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeItems?: Prisma.JobScopeItemUncheckedCreateNestedManyWithoutCompanyInput
+  jobScopeChanges?: Prisma.JobScopeChangeUncheckedCreateNestedManyWithoutCompanyInput
+  trades?: Prisma.TradeUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutCompanyInput
+  timeEntryEvents?: Prisma.TimeEntryEventUncheckedCreateNestedManyWithoutCompanyInput
+  locationPings?: Prisma.LocationPingUncheckedCreateNestedManyWithoutCompanyInput
+  timesheetDays?: Prisma.TimesheetDayUncheckedCreateNestedManyWithoutCompanyInput
+  timesheetChanges?: Prisma.TimesheetChangeUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutQuoteEventFilesInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutQuoteEventFilesInput, Prisma.CompanyUncheckedCreateWithoutQuoteEventFilesInput>
+}
+
+export type CompanyUpsertWithoutQuoteEventFilesInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutQuoteEventFilesInput, Prisma.CompanyUncheckedUpdateWithoutQuoteEventFilesInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutQuoteEventFilesInput, Prisma.CompanyUncheckedCreateWithoutQuoteEventFilesInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutQuoteEventFilesInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutQuoteEventFilesInput, Prisma.CompanyUncheckedUpdateWithoutQuoteEventFilesInput>
+}
+
+export type CompanyUpdateWithoutQuoteEventFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
+  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
+  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
+  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
+  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
+  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isDemo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  demoDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  demoStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoWarnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUpdateManyWithoutCompanyNestedInput
+  loginAttempts?: Prisma.LoginAttemptUpdateManyWithoutCompanyNestedInput
+  roles?: Prisma.RoleUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutCompanyNestedInput
+  leads?: Prisma.LeadUpdateManyWithoutCompanyNestedInput
+  quotes?: Prisma.QuoteUpdateManyWithoutCompanyNestedInput
+  contacts?: Prisma.ContactUpdateManyWithoutCompanyNestedInput
+  quoteRecipients?: Prisma.QuoteRecipientUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUpdateManyWithoutCompanyNestedInput
+  clientCompanies?: Prisma.ClientCompanyUpdateManyWithoutCompanyNestedInput
+  catalogue?: Prisma.CatalogueItemUpdateManyWithoutCompanyNestedInput
+  quoteTemplates?: Prisma.QuoteTemplateUpdateManyWithoutCompanyNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutCompanyNestedInput
+  submissions?: Prisma.LeadSubmissionUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  ingestKeys?: Prisma.IngestKeyUpdateManyWithoutCompanyNestedInput
+  ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
+  quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
+  quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
+  acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
+  reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
+  emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
+  reviewLinks?: Prisma.ReviewLinkUpdateManyWithoutCompanyNestedInput
+  quoteTypes?: Prisma.CompanyQuoteTypeUpdateManyWithoutCompanyNestedInput
+  leadSourceOptions?: Prisma.LeadSourceOptionUpdateManyWithoutCompanyNestedInput
+  leadAccessLogs?: Prisma.LeadAccessLogUpdateManyWithoutCompanyNestedInput
+  jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
+  jobMembers?: Prisma.JobMemberUpdateManyWithoutCompanyNestedInput
+  jobActivities?: Prisma.JobActivityUpdateManyWithoutCompanyNestedInput
+  jobFolders?: Prisma.JobFolderUpdateManyWithoutCompanyNestedInput
+  jobFiles?: Prisma.JobFileUpdateManyWithoutCompanyNestedInput
+  jobPostCategories?: Prisma.JobPostCategoryUpdateManyWithoutCompanyNestedInput
+  jobPosts?: Prisma.JobPostUpdateManyWithoutCompanyNestedInput
+  jobComments?: Prisma.JobCommentUpdateManyWithoutCompanyNestedInput
+  jobTodoLists?: Prisma.JobTodoListUpdateManyWithoutCompanyNestedInput
+  jobTodos?: Prisma.JobTodoUpdateManyWithoutCompanyNestedInput
+  jobTodoAssignees?: Prisma.JobTodoAssigneeUpdateManyWithoutCompanyNestedInput
+  jobEvents?: Prisma.JobEventUpdateManyWithoutCompanyNestedInput
+  jobEventParticipants?: Prisma.JobEventParticipantUpdateManyWithoutCompanyNestedInput
+  jobChatMessages?: Prisma.JobChatMessageUpdateManyWithoutCompanyNestedInput
+  jobScopeItems?: Prisma.JobScopeItemUpdateManyWithoutCompanyNestedInput
+  jobScopeChanges?: Prisma.JobScopeChangeUpdateManyWithoutCompanyNestedInput
+  trades?: Prisma.TradeUpdateManyWithoutCompanyNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutCompanyNestedInput
+  timeEntryEvents?: Prisma.TimeEntryEventUpdateManyWithoutCompanyNestedInput
+  locationPings?: Prisma.LocationPingUpdateManyWithoutCompanyNestedInput
+  timesheetDays?: Prisma.TimesheetDayUpdateManyWithoutCompanyNestedInput
+  timesheetChanges?: Prisma.TimesheetChangeUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutQuoteEventFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfLogoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  watermarkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryColor?: Prisma.StringFieldUpdateOperationsInput | string
+  accentColor?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultLanguage?: Prisma.EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  formatLocale?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  restBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  mealBreakMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteReturnMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  siteSwitchMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  travelMaxMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  locationRetentionDays?: Prisma.IntFieldUpdateOperationsInput | number
+  defaultTaxType?: Prisma.EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+  defaultTaxRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quotePrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  quoteValidityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteNumberStart?: Prisma.IntFieldUpdateOperationsInput | number
+  quoteFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slogan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderNameStyle?: Prisma.EnumSenderNameStyleFieldUpdateOperationsInput | $Enums.SenderNameStyle
+  firstFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  secondFollowUpDays?: Prisma.IntFieldUpdateOperationsInput | number
+  reviewRequestDays?: Prisma.IntFieldUpdateOperationsInput | number
+  sendQuoteCopy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  leadNotificationEmails?: Prisma.CompanyUpdateleadNotificationEmailsInput | string[]
+  quoteIntro?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteExclusions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxDisplayMode?: Prisma.EnumTaxDisplayModeFieldUpdateOperationsInput | $Enums.TaxDisplayMode
+  acceptanceMode?: Prisma.EnumAcceptanceModeFieldUpdateOperationsInput | $Enums.AcceptanceMode
+  acceptanceStatement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requireSignature?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askAdditionalComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  askOrderReference?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isDemo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  demoDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  demoStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoEndedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  demoWarnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutCompanyNestedInput
+  loginAttempts?: Prisma.LoginAttemptUncheckedUpdateManyWithoutCompanyNestedInput
+  roles?: Prisma.RoleUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  leads?: Prisma.LeadUncheckedUpdateManyWithoutCompanyNestedInput
+  quotes?: Prisma.QuoteUncheckedUpdateManyWithoutCompanyNestedInput
+  contacts?: Prisma.ContactUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteRecipients?: Prisma.QuoteRecipientUncheckedUpdateManyWithoutCompanyNestedInput
+  signatureHandoffs?: Prisma.SignatureHandoffUncheckedUpdateManyWithoutCompanyNestedInput
+  clientCompanies?: Prisma.ClientCompanyUncheckedUpdateManyWithoutCompanyNestedInput
+  catalogue?: Prisma.CatalogueItemUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteTemplates?: Prisma.QuoteTemplateUncheckedUpdateManyWithoutCompanyNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutCompanyNestedInput
+  submissions?: Prisma.LeadSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+  leadAttachments?: Prisma.LeadAttachmentUncheckedUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  ingestKeys?: Prisma.IngestKeyUncheckedUpdateManyWithoutCompanyNestedInput
+  ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -14569,6 +15162,7 @@ export type CompanyCreateWithoutQuoteMessagesInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
@@ -14682,6 +15276,7 @@ export type CompanyUncheckedCreateWithoutQuoteMessagesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -14811,6 +15406,7 @@ export type CompanyUpdateWithoutQuoteMessagesInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
@@ -14924,6 +15520,7 @@ export type CompanyUncheckedUpdateWithoutQuoteMessagesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -15037,6 +15634,7 @@ export type CompanyCreateWithoutAcceptancesInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
@@ -15150,6 +15748,7 @@ export type CompanyUncheckedCreateWithoutAcceptancesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -15279,6 +15878,7 @@ export type CompanyUpdateWithoutAcceptancesInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
@@ -15392,6 +15992,7 @@ export type CompanyUncheckedUpdateWithoutAcceptancesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -15505,6 +16106,7 @@ export type CompanyCreateWithoutReviewLinksInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -15618,6 +16220,7 @@ export type CompanyUncheckedCreateWithoutReviewLinksInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -15747,6 +16350,7 @@ export type CompanyUpdateWithoutReviewLinksInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -15860,6 +16464,7 @@ export type CompanyUncheckedUpdateWithoutReviewLinksInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -15973,6 +16578,7 @@ export type CompanyCreateWithoutEmailTemplatesInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -16086,6 +16692,7 @@ export type CompanyUncheckedCreateWithoutEmailTemplatesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -16215,6 +16822,7 @@ export type CompanyUpdateWithoutEmailTemplatesInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -16328,6 +16936,7 @@ export type CompanyUncheckedUpdateWithoutEmailTemplatesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -16441,6 +17050,7 @@ export type CompanyCreateWithoutReviewsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateCreateNestedManyWithoutCompanyInput
@@ -16554,6 +17164,7 @@ export type CompanyUncheckedCreateWithoutReviewsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   emailTemplates?: Prisma.EmailTemplateUncheckedCreateNestedManyWithoutCompanyInput
@@ -16683,6 +17294,7 @@ export type CompanyUpdateWithoutReviewsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUpdateManyWithoutCompanyNestedInput
@@ -16796,6 +17408,7 @@ export type CompanyUncheckedUpdateWithoutReviewsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   emailTemplates?: Prisma.EmailTemplateUncheckedUpdateManyWithoutCompanyNestedInput
@@ -16908,6 +17521,7 @@ export type CompanyCreateWithoutNotificationPreferencesInput = {
   ingestAttempts?: Prisma.IngestAttemptCreateNestedManyWithoutCompanyInput
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -17021,6 +17635,7 @@ export type CompanyUncheckedCreateWithoutNotificationPreferencesInput = {
   ingestAttempts?: Prisma.IngestAttemptUncheckedCreateNestedManyWithoutCompanyInput
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -17150,6 +17765,7 @@ export type CompanyUpdateWithoutNotificationPreferencesInput = {
   ingestAttempts?: Prisma.IngestAttemptUpdateManyWithoutCompanyNestedInput
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -17263,6 +17879,7 @@ export type CompanyUncheckedUpdateWithoutNotificationPreferencesInput = {
   ingestAttempts?: Prisma.IngestAttemptUncheckedUpdateManyWithoutCompanyNestedInput
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -17377,6 +17994,7 @@ export type CompanyCreateWithoutJobsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -17490,6 +18108,7 @@ export type CompanyUncheckedCreateWithoutJobsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -17619,6 +18238,7 @@ export type CompanyUpdateWithoutJobsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -17732,6 +18352,7 @@ export type CompanyUncheckedUpdateWithoutJobsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -17845,6 +18466,7 @@ export type CompanyCreateWithoutJobMembersInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -17958,6 +18580,7 @@ export type CompanyUncheckedCreateWithoutJobMembersInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -18087,6 +18710,7 @@ export type CompanyUpdateWithoutJobMembersInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -18200,6 +18824,7 @@ export type CompanyUncheckedUpdateWithoutJobMembersInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -18313,6 +18938,7 @@ export type CompanyCreateWithoutJobActivitiesInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -18426,6 +19052,7 @@ export type CompanyUncheckedCreateWithoutJobActivitiesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -18555,6 +19182,7 @@ export type CompanyUpdateWithoutJobActivitiesInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -18668,6 +19296,7 @@ export type CompanyUncheckedUpdateWithoutJobActivitiesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -18781,6 +19410,7 @@ export type CompanyCreateWithoutJobFoldersInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -18894,6 +19524,7 @@ export type CompanyUncheckedCreateWithoutJobFoldersInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -19023,6 +19654,7 @@ export type CompanyUpdateWithoutJobFoldersInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -19136,6 +19768,7 @@ export type CompanyUncheckedUpdateWithoutJobFoldersInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -19249,6 +19882,7 @@ export type CompanyCreateWithoutJobFilesInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -19362,6 +19996,7 @@ export type CompanyUncheckedCreateWithoutJobFilesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -19491,6 +20126,7 @@ export type CompanyUpdateWithoutJobFilesInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -19604,6 +20240,7 @@ export type CompanyUncheckedUpdateWithoutJobFilesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -19717,6 +20354,7 @@ export type CompanyCreateWithoutJobPostCategoriesInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -19830,6 +20468,7 @@ export type CompanyUncheckedCreateWithoutJobPostCategoriesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -19959,6 +20598,7 @@ export type CompanyUpdateWithoutJobPostCategoriesInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -20072,6 +20712,7 @@ export type CompanyUncheckedUpdateWithoutJobPostCategoriesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -20185,6 +20826,7 @@ export type CompanyCreateWithoutJobPostsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -20298,6 +20940,7 @@ export type CompanyUncheckedCreateWithoutJobPostsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -20427,6 +21070,7 @@ export type CompanyUpdateWithoutJobPostsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -20540,6 +21184,7 @@ export type CompanyUncheckedUpdateWithoutJobPostsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -20653,6 +21298,7 @@ export type CompanyCreateWithoutJobCommentsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -20766,6 +21412,7 @@ export type CompanyUncheckedCreateWithoutJobCommentsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -20895,6 +21542,7 @@ export type CompanyUpdateWithoutJobCommentsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -21008,6 +21656,7 @@ export type CompanyUncheckedUpdateWithoutJobCommentsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -21121,6 +21770,7 @@ export type CompanyCreateWithoutJobEventsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -21234,6 +21884,7 @@ export type CompanyUncheckedCreateWithoutJobEventsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -21363,6 +22014,7 @@ export type CompanyUpdateWithoutJobEventsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -21476,6 +22128,7 @@ export type CompanyUncheckedUpdateWithoutJobEventsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -21589,6 +22242,7 @@ export type CompanyCreateWithoutJobEventParticipantsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -21702,6 +22356,7 @@ export type CompanyUncheckedCreateWithoutJobEventParticipantsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -21831,6 +22486,7 @@ export type CompanyUpdateWithoutJobEventParticipantsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -21944,6 +22600,7 @@ export type CompanyUncheckedUpdateWithoutJobEventParticipantsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -22057,6 +22714,7 @@ export type CompanyCreateWithoutJobTodoListsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -22170,6 +22828,7 @@ export type CompanyUncheckedCreateWithoutJobTodoListsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -22299,6 +22958,7 @@ export type CompanyUpdateWithoutJobTodoListsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -22412,6 +23072,7 @@ export type CompanyUncheckedUpdateWithoutJobTodoListsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -22525,6 +23186,7 @@ export type CompanyCreateWithoutJobTodosInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -22638,6 +23300,7 @@ export type CompanyUncheckedCreateWithoutJobTodosInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -22767,6 +23430,7 @@ export type CompanyUpdateWithoutJobTodosInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -22880,6 +23544,7 @@ export type CompanyUncheckedUpdateWithoutJobTodosInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -22993,6 +23658,7 @@ export type CompanyCreateWithoutJobTodoAssigneesInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -23106,6 +23772,7 @@ export type CompanyUncheckedCreateWithoutJobTodoAssigneesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -23235,6 +23902,7 @@ export type CompanyUpdateWithoutJobTodoAssigneesInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -23348,6 +24016,7 @@ export type CompanyUncheckedUpdateWithoutJobTodoAssigneesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -23461,6 +24130,7 @@ export type CompanyCreateWithoutTradesInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -23574,6 +24244,7 @@ export type CompanyUncheckedCreateWithoutTradesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -23703,6 +24374,7 @@ export type CompanyUpdateWithoutTradesInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -23816,6 +24488,7 @@ export type CompanyUncheckedUpdateWithoutTradesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -23929,6 +24602,7 @@ export type CompanyCreateWithoutJobChatMessagesInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -24042,6 +24716,7 @@ export type CompanyUncheckedCreateWithoutJobChatMessagesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -24171,6 +24846,7 @@ export type CompanyUpdateWithoutJobChatMessagesInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -24284,6 +24960,7 @@ export type CompanyUncheckedUpdateWithoutJobChatMessagesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -24397,6 +25074,7 @@ export type CompanyCreateWithoutJobScopeItemsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -24510,6 +25188,7 @@ export type CompanyUncheckedCreateWithoutJobScopeItemsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -24639,6 +25318,7 @@ export type CompanyUpdateWithoutJobScopeItemsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -24752,6 +25432,7 @@ export type CompanyUncheckedUpdateWithoutJobScopeItemsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -24865,6 +25546,7 @@ export type CompanyCreateWithoutJobScopeChangesInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -24978,6 +25660,7 @@ export type CompanyUncheckedCreateWithoutJobScopeChangesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -25107,6 +25790,7 @@ export type CompanyUpdateWithoutJobScopeChangesInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -25220,6 +25904,7 @@ export type CompanyUncheckedUpdateWithoutJobScopeChangesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -25333,6 +26018,7 @@ export type CompanyCreateWithoutTimeEntriesInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -25446,6 +26132,7 @@ export type CompanyUncheckedCreateWithoutTimeEntriesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -25575,6 +26262,7 @@ export type CompanyUpdateWithoutTimeEntriesInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -25688,6 +26376,7 @@ export type CompanyUncheckedUpdateWithoutTimeEntriesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -25801,6 +26490,7 @@ export type CompanyCreateWithoutLocationPingsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -25914,6 +26604,7 @@ export type CompanyUncheckedCreateWithoutLocationPingsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -26043,6 +26734,7 @@ export type CompanyUpdateWithoutLocationPingsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -26156,6 +26848,7 @@ export type CompanyUncheckedUpdateWithoutLocationPingsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -26269,6 +26962,7 @@ export type CompanyCreateWithoutTimeEntryEventsInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -26382,6 +27076,7 @@ export type CompanyUncheckedCreateWithoutTimeEntryEventsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -26511,6 +27206,7 @@ export type CompanyUpdateWithoutTimeEntryEventsInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -26624,6 +27320,7 @@ export type CompanyUncheckedUpdateWithoutTimeEntryEventsInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -26737,6 +27434,7 @@ export type CompanyCreateWithoutTimesheetDaysInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -26850,6 +27548,7 @@ export type CompanyUncheckedCreateWithoutTimesheetDaysInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -26979,6 +27678,7 @@ export type CompanyUpdateWithoutTimesheetDaysInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -27092,6 +27792,7 @@ export type CompanyUncheckedUpdateWithoutTimesheetDaysInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -27205,6 +27906,7 @@ export type CompanyCreateWithoutTimesheetChangesInput = {
   quoteShares?: Prisma.QuoteShareCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewCreateNestedManyWithoutCompanyInput
@@ -27318,6 +28020,7 @@ export type CompanyUncheckedCreateWithoutTimesheetChangesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedCreateNestedManyWithoutCompanyInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutCompanyInput
   quoteEvents?: Prisma.QuoteEventUncheckedCreateNestedManyWithoutCompanyInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedCreateNestedManyWithoutCompanyInput
   quoteMessages?: Prisma.QuoteMessageUncheckedCreateNestedManyWithoutCompanyInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedCreateNestedManyWithoutCompanyInput
   reviews?: Prisma.CompanyReviewUncheckedCreateNestedManyWithoutCompanyInput
@@ -27447,6 +28150,7 @@ export type CompanyUpdateWithoutTimesheetChangesInput = {
   quoteShares?: Prisma.QuoteShareUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUpdateManyWithoutCompanyNestedInput
@@ -27560,6 +28264,7 @@ export type CompanyUncheckedUpdateWithoutTimesheetChangesInput = {
   quoteShares?: Prisma.QuoteShareUncheckedUpdateManyWithoutCompanyNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutCompanyNestedInput
   quoteEvents?: Prisma.QuoteEventUncheckedUpdateManyWithoutCompanyNestedInput
+  quoteEventFiles?: Prisma.QuoteEventFileUncheckedUpdateManyWithoutCompanyNestedInput
   quoteMessages?: Prisma.QuoteMessageUncheckedUpdateManyWithoutCompanyNestedInput
   acceptances?: Prisma.QuoteAcceptanceUncheckedUpdateManyWithoutCompanyNestedInput
   reviews?: Prisma.CompanyReviewUncheckedUpdateManyWithoutCompanyNestedInput
@@ -27620,6 +28325,7 @@ export type CompanyCountOutputType = {
   quoteShares: number
   notificationPreferences: number
   quoteEvents: number
+  quoteEventFiles: number
   quoteMessages: number
   acceptances: number
   reviews: number
@@ -27676,6 +28382,7 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   quoteShares?: boolean | CompanyCountOutputTypeCountQuoteSharesArgs
   notificationPreferences?: boolean | CompanyCountOutputTypeCountNotificationPreferencesArgs
   quoteEvents?: boolean | CompanyCountOutputTypeCountQuoteEventsArgs
+  quoteEventFiles?: boolean | CompanyCountOutputTypeCountQuoteEventFilesArgs
   quoteMessages?: boolean | CompanyCountOutputTypeCountQuoteMessagesArgs
   acceptances?: boolean | CompanyCountOutputTypeCountAcceptancesArgs
   reviews?: boolean | CompanyCountOutputTypeCountReviewsArgs
@@ -27877,6 +28584,13 @@ export type CompanyCountOutputTypeCountNotificationPreferencesArgs<ExtArgs exten
  */
 export type CompanyCountOutputTypeCountQuoteEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.QuoteEventWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountQuoteEventFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.QuoteEventFileWhereInput
 }
 
 /**
@@ -28172,6 +28886,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   quoteShares?: boolean | Prisma.Company$quoteSharesArgs<ExtArgs>
   notificationPreferences?: boolean | Prisma.Company$notificationPreferencesArgs<ExtArgs>
   quoteEvents?: boolean | Prisma.Company$quoteEventsArgs<ExtArgs>
+  quoteEventFiles?: boolean | Prisma.Company$quoteEventFilesArgs<ExtArgs>
   quoteMessages?: boolean | Prisma.Company$quoteMessagesArgs<ExtArgs>
   acceptances?: boolean | Prisma.Company$acceptancesArgs<ExtArgs>
   reviews?: boolean | Prisma.Company$reviewsArgs<ExtArgs>
@@ -28413,6 +29128,7 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   quoteShares?: boolean | Prisma.Company$quoteSharesArgs<ExtArgs>
   notificationPreferences?: boolean | Prisma.Company$notificationPreferencesArgs<ExtArgs>
   quoteEvents?: boolean | Prisma.Company$quoteEventsArgs<ExtArgs>
+  quoteEventFiles?: boolean | Prisma.Company$quoteEventFilesArgs<ExtArgs>
   quoteMessages?: boolean | Prisma.Company$quoteMessagesArgs<ExtArgs>
   acceptances?: boolean | Prisma.Company$acceptancesArgs<ExtArgs>
   reviews?: boolean | Prisma.Company$reviewsArgs<ExtArgs>
@@ -28474,6 +29190,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     quoteShares: Prisma.$QuoteSharePayload<ExtArgs>[]
     notificationPreferences: Prisma.$NotificationPreferencePayload<ExtArgs>[]
     quoteEvents: Prisma.$QuoteEventPayload<ExtArgs>[]
+    quoteEventFiles: Prisma.$QuoteEventFilePayload<ExtArgs>[]
     quoteMessages: Prisma.$QuoteMessagePayload<ExtArgs>[]
     acceptances: Prisma.$QuoteAcceptancePayload<ExtArgs>[]
     reviews: Prisma.$CompanyReviewPayload<ExtArgs>[]
@@ -29104,6 +29821,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   quoteShares<T extends Prisma.Company$quoteSharesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$quoteSharesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuoteSharePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notificationPreferences<T extends Prisma.Company$notificationPreferencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$notificationPreferencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPreferencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   quoteEvents<T extends Prisma.Company$quoteEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$quoteEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuoteEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  quoteEventFiles<T extends Prisma.Company$quoteEventFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$quoteEventFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuoteEventFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   quoteMessages<T extends Prisma.Company$quoteMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$quoteMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuoteMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   acceptances<T extends Prisma.Company$acceptancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$acceptancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuoteAcceptancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.Company$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -30163,6 +30881,30 @@ export type Company$quoteEventsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.QuoteEventScalarFieldEnum | Prisma.QuoteEventScalarFieldEnum[]
+}
+
+/**
+ * Company.quoteEventFiles
+ */
+export type Company$quoteEventFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QuoteEventFile
+   */
+  select?: Prisma.QuoteEventFileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the QuoteEventFile
+   */
+  omit?: Prisma.QuoteEventFileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuoteEventFileInclude<ExtArgs> | null
+  where?: Prisma.QuoteEventFileWhereInput
+  orderBy?: Prisma.QuoteEventFileOrderByWithRelationInput | Prisma.QuoteEventFileOrderByWithRelationInput[]
+  cursor?: Prisma.QuoteEventFileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.QuoteEventFileScalarFieldEnum | Prisma.QuoteEventFileScalarFieldEnum[]
 }
 
 /**

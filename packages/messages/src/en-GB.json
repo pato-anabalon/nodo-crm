@@ -1012,6 +1012,33 @@
       "SENT_IN_ERROR": "Sent by mistake or duplicated",
       "OTHER": "Other"
     },
+    "acceptReasons": {
+      "CUSTOMER_EMAIL": "The customer accepted by email",
+      "CUSTOMER_MESSAGE": "The customer accepted by SMS or WhatsApp",
+      "CUSTOMER_CALL": "The customer accepted on the phone",
+      "IN_PERSON": "In person, or on a signed copy",
+      "LINK_PROBLEM": "The customer couldn't accept through the link",
+      "OTHER": "Other"
+    },
+    "accept": {
+      "title": "Mark as accepted",
+      "body": "Record how the customer said yes and attach their answer. The quote's history shows who accepted it, why and the evidence; the customer gets the usual confirmation.",
+      "reason": "How they accepted",
+      "choose": "Choose an option",
+      "evidence": "Evidence from the customer",
+      "evidenceHint": "A screenshot of the message or email, or the signed document: an image or a PDF, up to {max} files.",
+      "addAnother": "Add another file",
+      "remove": "Remove {name}",
+      "note": "Note (optional)",
+      "noteForOther": "Note",
+      "notePlaceholder": "Anything the team should know later",
+      "confirm": "Accept quote",
+      "reasonRequired": "Choose how the customer accepted.",
+      "noteRequired": "Write how they accepted when it is “Other”.",
+      "evidenceRequired": "Attach the customer's acceptance: a screenshot or a document.",
+      "evidenceTooMany": "That's more files than an acceptance takes.",
+      "evidenceMissing": "The evidence couldn't be checked. Attach it again."
+    },
     "decline": {
       "title": "Mark as declined",
       "body": "The quote's history will show who declined it and why. The customer is not told.",
@@ -2942,6 +2969,7 @@
       "radiusOption": "{metres} m",
       "radiusHint": "How near the site a phone has to be to clock in. Below 200 m, a phone with a weak signal — indoors, under a roof — may be asked to wait for a better one.",
       "pin": "The site",
+      "openInMaps": "Open in Google Maps",
       "mapLabel": "Map of the site",
       "mapFailed": "The map couldn't be loaded.",
       "saved": "Location saved",

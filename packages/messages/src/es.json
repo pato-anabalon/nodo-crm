@@ -771,6 +771,8 @@
     "needsLeadToSend": "Vincula un lead antes de enviar esta cotización.",
     "onlySentCanBeDecided": "Solo una cotización enviada puede aceptarse o rechazarse.",
     "changesSaved": "Cambios guardados.",
+    "changesSavedCustomerTold": "Cambios guardados. El cliente recibirá un correo avisando que la cotización se actualizó.",
+    "changesSavedCustomerLater": "Cambios guardados. Al cliente se le avisó de un cambio hace poco, así que esta vez no hay correo; el próximo puede salir después de las {time}.",
     "sentTo": "Cotización enviada a {email}.",
     "markedAsSent": "Cotización marcada como enviada. {reason}",
     "accepted": "Cotización aceptada.",
@@ -837,6 +839,10 @@
       "confirmSentEditBody": "¿Seguro que quieres modificarla?",
       "confirmSentEditNote": "Esto no cambia el estado Sent de la cotización — el enlace del cliente siempre muestra la última versión.",
       "confirmSentEditConfirm": "Guardar cambios",
+      "notifyCustomer": "Avisar al cliente de este cambio",
+      "notifyCustomerHint": "Recibe un correo diciendo que la cotización se actualizó, con el enlace; no lo que cambió. El cambio queda en el historial de la cotización de todas formas.",
+      "notifyCustomerLater": "Al cliente se le avisó de un cambio hace poco. El próximo correo puede salir después de las {time}; este cambio igual queda en el historial.",
+      "notifyCustomerUnopened": "El cliente todavía no la abre, así que verá directamente la versión nueva.",
       "preview": "Vista previa",
       "titleTooShort": "Ponle un título a la cotización",
       "describeItem": "Describe el ítem",
@@ -957,6 +963,8 @@
       "acceptedSubject": "Gracias por aceptar",
       "acceptedBody": "Hola {customer},\n\nRecibimos la aceptación de {acceptedBy}, gracias. Nos pondremos en contacto en breve para coordinar el trabajo.",
       "followUpSubject": "Un recordatorio",
+      "updatedSubject": "Tu cotización fue actualizada",
+      "updatedBody": "Hola {customer},\n\nHicimos algunos cambios en tu cotización. El enlace de abajo siempre muestra la versión más reciente: revísala y, si algo merece conversarse, respóndenos por aquí.",
       "followUpBody": "Hola {customer},\n\nQueríamos saber si alcanzaste a ver la cotización que te enviamos. Si hay algo que ajustar o prefieres conversarlo, respóndenos por aquí y lo vemos.",
       "reviewSubject": "¿Cómo lo hicimos?",
       "reviewBody": "Hola {customer},\n\nGracias de nuevo por confiar en nosotros. Si quedaste conforme con el trabajo, una reseña breve nos ayuda mucho: es como nos encuentra la mayoría de nuestros clientes.",
@@ -968,6 +976,44 @@
       "waiting": "En espera",
       "active": "Activas",
       "closed": "Cerradas"
+    },
+    "changes": {
+      "none": "ninguno",
+      "customerNotified": "Se le avisó al cliente por correo",
+      "value": {
+        "title": "Título: «{from}» → «{to}»",
+        "validUntil": "Válida hasta: {from} → {to}",
+        "currency": "Moneda: {from} → {to}",
+        "taxDisplayMode": "Impuesto: {from} → {to}",
+        "taxRate": "Tasa de impuesto: {from} → {to}",
+        "pricingMode": "Forma de cotizar: {from} → {to}",
+        "quoteType": "Tipo: {from} → {to}",
+        "projectAddress": "Dirección del proyecto: {from} → {to}"
+      },
+      "edited": {
+        "intro": "Introducción editada",
+        "scope": "Alcance del trabajo editado",
+        "notes": "Notas editadas",
+        "exclusions": "Exclusiones editadas",
+        "terms": "Términos editados",
+        "termsDocument": "Documento de términos cambiado",
+        "optionalDiscount": "Descuento por secciones opcionales cambiado"
+      },
+      "discount": "Descuento: {from} → {to}",
+      "total": "Total: {from} → {to}",
+      "item": {
+        "added": "Línea agregada: {description} ({line})",
+        "removed": "Línea quitada: {description} ({line})",
+        "changed": "Línea «{description}»: {from} → {to}"
+      },
+      "section": {
+        "added": "Sección agregada: {title} ({amount})",
+        "removed": "Sección quitada: {title} ({amount})",
+        "renamed": "Sección renombrada: «{from}» → «{to}»",
+        "amount": "Sección «{title}»: {from} → {to}",
+        "body": "Sección «{title}»: descripción editada",
+        "options": "Sección «{title}»: opciones cambiadas"
+      }
     },
     "tracking": {
       "title": "Seguimiento",
@@ -981,7 +1027,8 @@
         "OPENED": "Abrió la cotización",
         "ACCEPTED": "Aceptó la cotización",
         "DECLINED": "Rechazó la cotización",
-        "MESSAGE_SENT": "Envió un mensaje"
+        "MESSAGE_SENT": "Envió un mensaje",
+        "UPDATED": "Actualizada"
       },
       "eventBy": {
         "OPENED": "Abierta por {name}",
@@ -991,7 +1038,8 @@
       },
       "eventByTeam": {
         "ACCEPTED": "Aceptada por {name}",
-        "DECLINED": "Rechazada por {name}"
+        "DECLINED": "Rechazada por {name}",
+        "UPDATED": "Actualizada por {name}"
       },
       "acceptedBy": "Aceptada por {name}",
       "acceptanceStatement": "Declaración aceptada",
@@ -1831,6 +1879,10 @@
     }
   },
   "portal": {
+    "updated": {
+      "title": "Esta cotización se acaba de actualizar.",
+      "reload": "Ver la versión nueva"
+    },
     "yourQuote": "Tu cotización",
     "from": "De",
     "validUntil": "Válida hasta el {date}",
@@ -1877,6 +1929,7 @@
       "signatureRequired": "Firma para poder aceptar",
       "notAvailable": "Esta cotización ya no admite respuesta.",
       "nothingSelected": "Selecciona al menos un ítem antes de aceptar.",
+      "quoteChanged": "Esta cotización se actualizó mientras la tenías abierta. Recarga la página para ver la versión nueva antes de aceptar.",
       "messageEmpty": "Escribe algo antes de enviar",
       "messageTooLong": "El mensaje es demasiado largo"
     },
@@ -1968,6 +2021,11 @@
       "subject": "{reference} fue abierta",
       "heading": "{client} abrió tu cotización"
     },
+    "quoteUpdated": {
+      "subject": "{reference} fue actualizada",
+      "heading": "{name} cambió una cotización que el cliente ya abrió",
+      "line": "{reference} — {title}"
+    },
     "quoteExpiredOpened": {
       "subject": "{customer} abrió {reference}, que ya venció",
       "heading": "{customer} volvió a una cotización vencida",
@@ -1998,6 +2056,7 @@
       "QUOTE_OPENED": "{customer} abrió la cotización {reference}",
       "QUOTE_DECIDED": "La cotización {reference} fue {decision, select, accepted {aceptada} declined {rechazada} other {respondida}}",
       "QUOTE_EXPIRED_OPENED": "{customer} abrió la cotización vencida {reference}",
+      "QUOTE_UPDATED": "{name} actualizó la cotización {reference}, que el cliente ya abrió",
       "CLIENT_MESSAGE": "{customer} respondió en la cotización {reference}",
       "TASK_ASSIGNED": "{by} te dejó la tarea «{title}»",
       "TASK_DUE": "Tarea atrasada: {title}",
@@ -2234,6 +2293,8 @@
       "QUOTE_DECIDED_hint": "Cuando el cliente responde.",
       "QUOTE_EXPIRED_OPENED": "Cotización vencida abierta",
       "QUOTE_EXPIRED_OPENED_hint": "Una vez al día, cuando un cliente abre una cotización que venció. A Owners, Admins y a quien hizo la cotización.",
+      "QUOTE_UPDATED": "Cotización actualizada después de abierta",
+      "QUOTE_UPDATED_hint": "Cuando alguien cambia una cotización que el cliente ya abrió, con lo que cambió. A Owners, Admins y al dueño de la cotización; varios guardados en media hora son un solo aviso.",
       "CLIENT_MESSAGE": "Mensaje del cliente",
       "CLIENT_MESSAGE_hint": "Cuando te escriben en el hilo de una cotización.",
       "TASK_ASSIGNED": "Me asignan una tarea",
@@ -2317,6 +2378,10 @@
         "name": "Primer seguimiento",
         "when": "Unos días después de enviarla, si el cliente no ha respondido."
       },
+      "QUOTE_UPDATED": {
+        "name": "Cotización actualizada",
+        "when": "Cuando alguien cambia una cotización que el cliente ya abrió y marca «Avisar al cliente». Como máximo una vez cada 12 horas por cotización."
+      },
       "SECOND_FOLLOW_UP": {
         "name": "Segundo seguimiento",
         "when": "Más adelante, si todavía no hay respuesta."
@@ -2332,7 +2397,7 @@
     },
     "shared": {
       "title": "Común a todos los correos",
-      "subtitle": "Se configura una vez y vale para los cinco.",
+      "subtitle": "Se configura una vez y vale para los seis.",
       "senderName": "De quién llega el correo",
       "senderNameHint": "Por ahora la dirección siempre es no-reply@nodo.co.nz; sólo cambia el nombre.",
       "slogan": "Lema",

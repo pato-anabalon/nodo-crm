@@ -19,6 +19,7 @@ import { ensurePrimaryRecipient } from "@/modules/quotes/recipients-service";
 
 /** The ones a scheduler sends, plus the confirmation an acceptance triggers. */
 const FALLBACK_KEYS: Record<string, { subject: string; body: string }> = {
+  [EmailTemplateKind.QUOTE_UPDATED]: { subject: "updatedSubject", body: "updatedBody" },
   [EmailTemplateKind.QUOTE_ACCEPTED]: { subject: "acceptedSubject", body: "acceptedBody" },
   [EmailTemplateKind.FIRST_FOLLOW_UP]: { subject: "followUpSubject", body: "followUpBody" },
   [EmailTemplateKind.SECOND_FOLLOW_UP]: { subject: "followUpSubject", body: "followUpBody" },
@@ -27,6 +28,7 @@ const FALLBACK_KEYS: Record<string, { subject: string; body: string }> = {
 
 /** Which of them need a way back to the quote. */
 const NEEDS_LINK = new Set<string>([
+  EmailTemplateKind.QUOTE_UPDATED,
   EmailTemplateKind.FIRST_FOLLOW_UP,
   EmailTemplateKind.SECOND_FOLLOW_UP,
 ]);

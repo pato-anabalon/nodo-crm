@@ -21,6 +21,7 @@ export const NOTIFICATION_KINDS: readonly NotificationKind[] = [
   NotificationKind.QUOTE_OPENED,
   NotificationKind.QUOTE_DECIDED,
   NotificationKind.QUOTE_EXPIRED_OPENED,
+  NotificationKind.QUOTE_UPDATED,
   NotificationKind.CLIENT_MESSAGE,
   NotificationKind.TASK_ASSIGNED,
   NotificationKind.TASK_DUE,

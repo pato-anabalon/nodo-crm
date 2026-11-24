@@ -722,6 +722,7 @@ export const QuoteScalarFieldEnum = {
   validUntil: 'validUntil',
   sentAt: 'sentAt',
   decidedAt: 'decidedAt',
+  revision: 'revision',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -820,6 +821,8 @@ export const QuoteEventScalarFieldEnum = {
   reason: 'reason',
   reasonNote: 'reasonNote',
   acceptReason: 'acceptReason',
+  changes: 'changes',
+  customerNotifiedAt: 'customerNotifiedAt',
   createdAt: 'createdAt'
 } as const
 

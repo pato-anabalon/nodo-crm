@@ -1,18 +1,146 @@
 import type { CompanyContext } from "@/lib/auth/session";
 import { prisma } from "@/lib/db/prisma";
 import { MembershipStatus, type QuoteAcceptReason } from "@/generated/prisma/enums";
-import { ActivityType, PricingMode, Prisma, QuoteStatus, type TaxDisplayMode } from "@/generated/prisma/client";
+import { ActivityType, PricingMode, Prisma, QuoteEventType, QuoteStatus, type TaxDisplayMode } from "@/generated/prisma/client";
 import { isRichTextEmpty, sanitizeRichText } from "@/lib/rich-text";
 import { calculateQuoteTotals } from "./totals";
 import { resolveSelectedSectionAmounts, type BundleDiscount } from "./section-selection";
 import { canChangeLead, canTransition, isQuoteEditable, sectionStatuses, teamDecisionEvent } from "./constants";
 import { moveLeadAlong } from "./lead-sync";
+import { quoteChanges, TEXT_FIELDS, type QuoteSnapshot } from "./changes";
+import { customerNotice, type CustomerNotice } from "./update-notice";
+import { quoteRanOut } from "@/modules/portal/share";
+import { EmailTemplateKind } from "@/generated/prisma/enums";
 import type { QuoteFilters, QuoteFormValues, TeamDecline } from "./schemas";
 import { companyDocumentSelect, quoteDocumentInclude } from "@/modules/portal/service";
 import { primaryRecipientFrom } from "./recipients";
 import { recipientSelect, replacePrimaryRecipient } from "./recipients-service";
 
 export const QUOTES_PAGE_SIZE = 20;
+
+/** What a sent quote's customer sees, read from the row, to compare a save against (`quoteChanges`). */
+const snapshotSelect = {
+  title: true,
+  validUntil: true,
+  currency: true,
+  taxRate: true,
+  pricingMode: true,
+  quoteType: true,
+  projectAddress: true,
+  termsDocumentId: true,
+  discountType: true,
+  discountValue: true,
+  optionalDiscountThreshold: true,
+  optionalDiscountType: true,
+  optionalDiscountValue: true,
+  total: true,
+  intro: true,
+  scope: true,
+  notes: true,
+  exclusions: true,
+  terms: true,
+  items: { select: { description: true, quantity: true, unitPrice: true, discount: true }, orderBy: { position: "asc" } },
+  sections: {
+    select: {
+      id: true,
+      title: true,
+      body: true,
+      amount: true,
+      kind: true,
+      selectedByDefault: true,
+      discountType: true,
+      discountValue: true,
+    },
+    orderBy: { position: "asc" },
+  },
+} satisfies Prisma.QuoteSelect;
+
+type SnapshotRow = Prisma.QuoteGetPayload<{ select: typeof snapshotSelect }> & { taxDisplayMode: string };
+
+const optionalDiscountKey = (threshold: unknown, type: unknown, value: unknown) =>
+  threshold === null || threshold === undefined ? null : `${Number(threshold)}:${type ?? ""}:${Number(value ?? 0)}`;
+
+function snapshotOf(row: SnapshotRow): QuoteSnapshot {
+  return {
+    title: row.title,
+    validUntil: row.validUntil ? row.validUntil.toISOString().slice(0, 10) : null,
+    currency: row.currency,
+    taxDisplayMode: row.taxDisplayMode,
+    taxRate: Number(row.taxRate),
+    pricingMode: row.pricingMode,
+    quoteType: row.quoteType,
+    projectAddress: row.projectAddress,
+    termsDocumentId: row.termsDocumentId,
+    discount: { type: row.discountType, value: Number(row.discountValue) },
+    optionalDiscount: optionalDiscountKey(row.optionalDiscountThreshold, row.optionalDiscountType, row.optionalDiscountValue),
+    total: Number(row.total),
+    texts: Object.fromEntries(TEXT_FIELDS.map((field) => [field, row[field] ?? ""])) as QuoteSnapshot["texts"],
+    // A quote by sections keeps no lines, and one by lines no sections: what isn't shown isn't compared.
+    items:
+      row.pricingMode === PricingMode.SECTIONS
+        ? []
+        : row.items.map((item) => ({
+            description: item.description,
+            quantity: Number(item.quantity),
+            unitPrice: Number(item.unitPrice),
+            discount: Number(item.discount),
+          })),
+    sections:
+      row.pricingMode === PricingMode.SECTIONS
+        ? row.sections.map((section) => ({
+            id: section.id,
+            title: section.title,
+            body: section.body ?? "",
+            amount: Number(section.amount),
+            kind: section.kind,
+            selectedByDefault: section.selectedByDefault,
+            discountType: section.discountType,
+            discountValue: Number(section.discountValue),
+          }))
+        : [],
+  };
+}
+
+function snapshotFromForm(
+  values: QuoteFormValues,
+  totals: { total: number },
+  taxDisplayMode: string,
+  existingSectionIds: ReadonlySet<string>,
+  /** The form always sends one; a caller that doesn't leaves the quote's own, as the save does. */
+  currentCurrency: string,
+): QuoteSnapshot {
+  const bySections = values.pricingMode === PricingMode.SECTIONS;
+  return {
+    title: values.title,
+    validUntil: values.validUntil ? new Date(values.validUntil).toISOString().slice(0, 10) : null,
+    currency: values.currency ?? currentCurrency,
+    taxDisplayMode,
+    taxRate: values.taxRate,
+    pricingMode: values.pricingMode,
+    quoteType: values.quoteType ?? null,
+    projectAddress: values.projectAddress ?? null,
+    termsDocumentId: values.termsDocumentId ?? null,
+    discount: { type: values.discountType, value: values.discount },
+    optionalDiscount: optionalDiscountKey(values.optionalDiscountThreshold, values.optionalDiscountType, values.optionalDiscountValue),
+    total: totals.total,
+    texts: Object.fromEntries(TEXT_FIELDS.map((field) => [field, cleanBody(values[field]) ?? ""])) as QuoteSnapshot["texts"],
+    items: bySections
+      ? []
+      : values.items.map((item) => ({ description: item.description, quantity: item.quantity, unitPrice: item.unitPrice, discount: item.discount })),
+    sections: bySections
+      ? values.sections.map((section) => ({
+          id: section.id && existingSectionIds.has(section.id) ? section.id : null,
+          title: section.title,
+          body: cleanBody(section.body) ?? "",
+          amount: section.amount,
+          kind: section.kind,
+          selectedByDefault: section.selectedByDefault,
+          discountType: section.discountType,
+          discountValue: section.discountValue,
+        }))
+      : [],
+  };
+}
 
 /** Sanitises the editor's HTML and drops the empty paragraphs it leaves on delete. */
 function cleanBody(body: string | null | undefined): string | null {
@@ -504,6 +632,7 @@ export async function updateQuote(ctx: CompanyContext, id: string, values: Quote
       leadId: true,
       number: true,
       createdById: true,
+      ...snapshotSelect,
     },
   });
   if (!current) return { ok: false as const, reason: "not-found" as const };
@@ -569,12 +698,20 @@ export async function updateQuote(ctx: CompanyContext, id: string, values: Quote
       ? await ctx.db.lead.findFirst({ where: { id: nextLeadId }, select: clientSnapshotSelect })
       : null;
 
+  // Once it has gone out, a save that changes what the customer sees is
+  // recorded as what it changed, and moves the quote on a revision.
+  const changes =
+    current.status === QuoteStatus.SENT
+      ? quoteChanges(snapshotOf(current), snapshotFromForm(values, totals, taxDisplayMode, existingSectionIds, current.currency))
+      : [];
+
   // Transaction on the base client: companyId is explicit and controlled
   // here, and `$transaction` doesn't travel through the tenant extension.
-  const quote = await prisma.$transaction(async (tx) => {
+  const { quote, updateEventId } = await prisma.$transaction(async (tx) => {
     const updated = await tx.quote.update({
       where: { id, companyId: ctx.company.id },
       data: {
+        ...(changes.length > 0 ? { revision: { increment: 1 } } : {}),
         title: values.title,
         leadId: nextLeadId,
         ...(nextOwnerId ? { createdById: nextOwnerId } : {}),
@@ -660,7 +797,22 @@ export async function updateQuote(ctx: CompanyContext, id: string, values: Quote
       await replacePrimaryRecipient(tx, ctx.company.id, id, relinkedLead);
     }
 
-    return updated;
+    const event =
+      changes.length > 0
+        ? await tx.quoteEvent.create({
+            data: {
+              companyId: ctx.company.id,
+              quoteId: id,
+              type: QuoteEventType.UPDATED,
+              userId: ctx.user.id,
+              userName: ctx.user.name || ctx.user.email,
+              changes: changes as Prisma.InputJsonValue,
+            },
+            select: { id: true },
+          })
+        : null;
+
+    return { quote: updated, updateEventId: event?.id ?? null };
   });
 
   // A sent quote being edited is worth a line in the lead's history — the
@@ -678,7 +830,27 @@ export async function updateQuote(ctx: CompanyContext, id: string, values: Quote
     });
   }
 
-  return { ok: true as const, quote };
+  return { ok: true as const, quote, update: updateEventId ? { eventId: updateEventId, changes } : null };
+}
+
+/** Whether the customer of this quote can be emailed about a change now (`customerNotice`). */
+export async function quoteCustomerNotice(ctx: CompanyContext, id: string, now = new Date()): Promise<CustomerNotice> {
+  const quote = await ctx.db.quote.findFirst({
+    where: { id, ...visibilityWhere(ctx) },
+    select: {
+      status: true,
+      validUntil: true,
+      share: { select: { openCount: true, revokedAt: true } },
+      emailsSent: { where: { kind: EmailTemplateKind.QUOTE_UPDATED }, select: { sentAt: true } },
+    },
+  });
+  if (!quote || quote.status !== QuoteStatus.SENT) return { kind: "closed" };
+  return customerNotice({
+    share: quote.share,
+    ranOut: quoteRanOut(quote, now),
+    lastSentAt: quote.emailsSent[0]?.sentAt ?? null,
+    now,
+  });
 }
 
 /** An acceptance the team records: how the customer said yes, and the files that show it, already in the store. */

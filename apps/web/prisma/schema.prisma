@@ -108,6 +108,7 @@ enum QuoteSectionKind {
  */
 enum EmailTemplateKind {
   NEW_QUOTE
+  QUOTE_UPDATED
   QUOTE_ACCEPTED
   FIRST_FOLLOW_UP
   SECOND_FOLLOW_UP
@@ -167,6 +168,8 @@ enum QuoteEventType {
   ACCEPTED
   DECLINED
   MESSAGE_SENT
+  // Somebody on the team changed what the customer sees, after it went out.
+  UPDATED
 }
 
 /**
@@ -249,6 +252,7 @@ enum NotificationKind {
   QUOTE_EXPIRED_OPENED
   TIMECLOCK_AUTO_OUT
   TIMECLOCK_LEFT_OPEN
+  QUOTE_UPDATED
 }
 
 /**
@@ -1595,6 +1599,13 @@ model Quote {
   validUntil DateTime?
   sentAt     DateTime?
   decidedAt  DateTime?
+  /**
+   * How many times what the customer sees changed after it went out — one per
+   * save that changed something (`QuoteEventType.UPDATED`). The customer's page
+   * knows the one it was drawn from: a newer one says so on screen, and an
+   * acceptance of an older one is refused.
+   */
+  revision   Int       @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -1873,6 +1884,16 @@ model QuoteEvent {
    */
   acceptReason QuoteAcceptReason?
   files        QuoteEventFile[]
+
+  /**
+   * What an `UPDATED` changed, as tokens (`quotes/changes.ts`), worded when
+   * read. Long texts say only that they were edited.
+   */
+  changes            Json?
+  /**
+   * When the customer was emailed about this change; null when they weren't.
+   */
+  customerNotifiedAt DateTime?
 
   createdAt DateTime @default(now())
 

@@ -15,7 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getQuote } from "@/modules/quotes/service";
+import { getQuote, quoteCustomerNotice } from "@/modules/quotes/service";
 import { listCompanyMembers } from "@/modules/team/service";
 import { listCompanyDocuments } from "@/modules/documents/service";
 import { QuoteForm } from "@/modules/quotes/quote-form";
@@ -76,6 +76,7 @@ import { sendStaffMessageAction } from "@/modules/quotes/actions";
 import { isViewingNow } from "@/modules/portal/share";
 import { formatDateTime } from "@/lib/format";
 import { formatDate, formatMoney, formatQuoteNumber } from "@/lib/format";
+import { describeChange, storedChanges, type ChangeFormat, type Words } from "@/modules/quotes/changes-text";
 import { getTranslations as getT } from "next-intl/server";
 
 export default async function QuoteDetailPage({
@@ -129,6 +130,13 @@ export default async function QuoteDetailPage({
   const resendAction = resendQuoteAction.bind(null, quote.id);
   const revokeAction = revokeShareAction.bind(null, quote.id);
 
+  // Whether a change saved now can be emailed to the customer, for the tick in the save's confirmation.
+  const notice = editable && quote.status === QuoteStatus.SENT ? await quoteCustomerNotice(ctx, quote.id) : null;
+  const customerNoticeProp = notice
+    ? notice.kind === "waiting"
+      ? { kind: "waiting" as const, until: formatDateTime(notice.until, ctx.company.formatLocale, ctx.company.timezone) }
+      : { kind: notice.kind }
+    : undefined;
   const [documents, catalogueAvailable, companyQuoteTypes] = editable
     ? await Promise.all([
         listCompanyDocuments(ctx),
@@ -218,6 +226,7 @@ export default async function QuoteDetailPage({
       deleteAttachment={deleteQuoteAttachmentAction}
       action={updateAction}
       status={quote.status}
+      customerNotice={customerNoticeProp}
       documents={documents.map((doc) => ({ id: doc.id, name: doc.name }))}
       quoteTypes={companyQuoteTypes.map((type) => type.label)}
       currency={ctx.company.currency}
@@ -519,6 +528,7 @@ export default async function QuoteDetailPage({
           {quote.share ? (
             <QuoteEvents
               events={quote.events}
+              currency={quote.currency}
               formatLocale={ctx.company.formatLocale}
               timezone={ctx.company.timezone}
             />
@@ -675,6 +685,7 @@ async function QuoteEmails({
 
 async function QuoteEvents({
   events,
+  currency,
   formatLocale,
   timezone,
 }: {
@@ -688,13 +699,23 @@ async function QuoteEvents({
     acceptReason: string | null;
     reasonNote: string | null;
     files: Array<{ id: string; name: string; url: string }>;
+    changes: unknown;
+    customerNotifiedAt: Date | null;
   }>;
+  currency: string;
   formatLocale: string;
   timezone: string;
 }) {
   const t = await getT("quotes.tracking");
   const tReasons = await getT("quotes.declineReasons");
   const tAcceptReasons = await getT("quotes.acceptReasons");
+  const tQuotes = await getT("quotes");
+  const words: Words = (key, values) => tQuotes(key as never, values as never);
+  // A day is a calendar day, not an instant: written as the company writes dates, in no timezone at all.
+  const changeFormat: ChangeFormat = {
+    money: (amount) => formatMoney(amount, currency, formatLocale),
+    date: (day) => formatDate(new Date(`${day}T00:00:00Z`), formatLocale, "UTC"),
+  };
 
   return (
     <Card>
@@ -731,6 +752,15 @@ async function QuoteEvents({
                   ) : null}
                   {event.reasonNote && (event.reason ?? event.acceptReason) !== "OTHER" ? (
                     <span className="block text-muted-foreground">{event.reasonNote}</span>
+                  ) : null}
+                  {/* What a save after sending changed, worded for the team; the customer was told only that it changed. */}
+                  {event.type === "UPDATED" ? (
+                    <ul className="mt-1 space-y-0.5 text-muted-foreground">
+                      {storedChanges(event.changes).map((change, index) => (
+                        <li key={index}>{describeChange(change, words, changeFormat)}</li>
+                      ))}
+                      {event.customerNotifiedAt ? <li className="text-xs">{tQuotes("changes.customerNotified")}</li> : null}
+                    </ul>
                   ) : null}
                   {/* The customer's word for an acceptance recorded by hand: the team's eyes only. */}
                   {event.files.length > 0 ? (

@@ -9,10 +9,12 @@ import { translateFieldErrors } from "@/lib/i18n-errors";
 import { QuoteStatus } from "@/generated/prisma/enums";
 import { sendAcceptedEmail } from "@/modules/email-templates/accepted-email";
 import { quoteFormDataToInput, quoteFormSchema, teamAcceptSchema, teamDeclineSchema, type TeamDecline } from "./schemas";
-import { changeQuoteStatus, createQuote, deleteQuote, getQuote, updateQuote, visibilityWhere, type TeamAcceptance } from "./service";
+import { changeQuoteStatus, createQuote, deleteQuote, getQuote, quoteCustomerNotice, updateQuote, visibilityWhere, type TeamAcceptance } from "./service";
+import { notifyQuoteUpdated } from "@/modules/notifications/quote-updated";
+import { formatDateTime } from "@/lib/format";
 import { revokeShare } from "@/modules/portal/service";
 import { logLeadConverted } from "@/modules/leads/service";
-import { MessageAuthor } from "@/generated/prisma/enums";
+import { EmailTemplateKind, MessageAuthor } from "@/generated/prisma/enums";
 import { clientMessageSchema } from "@/modules/portal/schemas";
 import { formatQuoteNumber } from "@/lib/format";
 import { del, head } from "@vercel/blob";
@@ -94,9 +96,33 @@ export async function updateQuoteAction(
     return { error: t(reasons[result.reason]) };
   }
 
+  // A change to what the customer sees, after it went out: the team hears of
+  // it (when the customer has opened it), and the customer too when the person
+  // saving asked — at most once every twelve hours (`customerNotice`).
+  let message = t("changesSaved");
+  if (result.update) {
+    const { eventId } = result.update;
+    after(() => notifyQuoteUpdated(eventId));
+    if (formData.get("notifyCustomer") === "on") {
+      const notice = await quoteCustomerNotice(ctx, id);
+      if (notice.kind === "ready") {
+        after(async () => {
+          if (await sendToCustomer(id, EmailTemplateKind.QUOTE_UPDATED, { byHand: true })) {
+            await ctx.db.quoteEvent.update({ where: { id: eventId }, data: { customerNotifiedAt: new Date() } });
+          }
+        });
+        message = t("changesSavedCustomerTold");
+      } else if (notice.kind === "waiting") {
+        message = t("changesSavedCustomerLater", {
+          time: formatDateTime(notice.until, ctx.company.formatLocale, ctx.company.timezone),
+        });
+      }
+    }
+  }
+
   revalidatePath("/quotes");
   revalidatePath(`/quotes/${id}`);
-  return { message: t("changesSaved") };
+  return { message };
 }
 
 /** Marks the quote as sent and, if the contact has an email, sends it. */

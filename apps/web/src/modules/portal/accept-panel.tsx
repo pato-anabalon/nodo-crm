@@ -30,6 +30,7 @@ export type AcceptanceSettings = {
 export function AcceptPanel({
   settings,
   viewerName,
+  revision,
   acceptAction,
   declineAction,
   signatureHandoff,
@@ -41,6 +42,8 @@ export function AcceptPanel({
    * the server signs the acceptance with the same name whatever is posted.
    */
   viewerName: string;
+  /** The version of the quote this page shows: accepting an older one than the server's is refused. */
+  revision: number;
   acceptAction: (prev: PortalActionState, formData: FormData) => Promise<PortalActionState>;
   declineAction: (prev: PortalActionState, formData: FormData) => Promise<PortalActionState>;
   /** "Sign from a touch device": opens the QR, and where to ask for strokes. */
@@ -71,6 +74,7 @@ export function AcceptPanel({
 
         <CardContent>
           <form action={acceptFormAction} className="space-y-5">
+            <input type="hidden" name="revision" value={revision} />
             {accept.error ? (
               <Alert variant="destructive">
                 <AlertDescription>{accept.error}</AlertDescription>

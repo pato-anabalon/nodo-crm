@@ -905,6 +905,34 @@ The edit itself leaves a line in the lead's activity (`QUOTE_EDITED`), the same
 way sending and deciding do, so the history says a sent quote changed even
 though the customer's link didn't.
 
+**And the quote's own history says what changed** (`quotes/changes.ts`). A
+save of a sent quote is compared with what was there, as the customer sees
+it — the owner and the lead aren't changes — and one that changed something
+writes an `UPDATED` `QuoteEvent` with the changes as tokens, worded when read
+(`changes-text.ts`), and moves `Quote.revision` on by one. Short values keep
+before and after; lines are matched by their description (they're replaced on
+every save), sections by their row; long texts and a section's description
+say only that they were edited — what the customer agreed to is frozen at
+acceptance anyway. Three things hang off it:
+
+- **The team hears of it once the customer has opened the quote**
+  (`QUOTE_UPDATED`: Owners, Admins and the quote's owner, never whoever
+  changed it), with the list of changes. Saves within half an hour of the one
+  before are one notice; the history keeps each.
+- **The customer is emailed only when the person saving ticks "Tell the
+  customer"**, in the confirmation a sent quote already asks for — ticked by
+  default, and offered only when the quote was opened, its link is open and
+  the last such email went more than twelve hours ago (`customerNotice`).
+  The email (`EmailTemplateKind.QUOTE_UPDATED`, editable, no switch: the tick
+  is the switch) says only that the quote was updated, with a fresh link per
+  recipient, as a follow-up does; the history marks the change as told.
+- **A customer with it open is told on the page.** Each heartbeat answers
+  with the revision, and a page drawn from an older one shows a bar to see
+  the new version — never a reload by itself, since they may be signing.
+  Accepting posts the revision it showed, and the acceptance is written only
+  if the quote is still on it (`updateMany … where revision`), so nobody
+  accepts a version that no longer exists.
+
 ### Sections the customer decides on
 
 A section is normally `INDEPENDENT` — always in the total, the only behaviour

@@ -771,6 +771,8 @@
     "needsLeadToSend": "Link a lead before sending this quote.",
     "onlySentCanBeDecided": "Only a sent quote can be accepted or declined.",
     "changesSaved": "Changes saved.",
+    "changesSavedCustomerTold": "Changes saved. The customer will get an email saying the quote was updated.",
+    "changesSavedCustomerLater": "Changes saved. The customer was told about a change recently, so no email this time; the next one can go after {time}.",
     "sentTo": "Quote sent to {email}.",
     "markedAsSent": "Quote marked as sent. {reason}",
     "accepted": "Quote accepted.",
@@ -837,6 +839,10 @@
       "confirmSentEditBody": "Are you sure you want to change it?",
       "confirmSentEditNote": "This won't change the quote's Sent status — the customer's link always shows the latest version.",
       "confirmSentEditConfirm": "Save changes",
+      "notifyCustomer": "Tell the customer about this change",
+      "notifyCustomerHint": "They get an email saying the quote was updated, with the link — not what changed. The change is kept in the quote's history either way.",
+      "notifyCustomerLater": "The customer was emailed about a change recently. The next email can go after {time}; this change is still kept in the quote's history.",
+      "notifyCustomerUnopened": "The customer hasn't opened it yet, so they'll simply see the new version.",
       "preview": "Preview",
       "titleTooShort": "Give the quote a title",
       "describeItem": "Describe the item",
@@ -956,6 +962,8 @@
       "copyViewQuote": "Open it in the dashboard",
       "acceptedSubject": "Thanks for accepting",
       "acceptedBody": "Hello {customer},\n\nWe've got the acceptance from {acceptedBy} — thank you. We'll be in touch shortly to arrange the work.",
+      "updatedSubject": "Your quote has been updated",
+      "updatedBody": "Hello {customer},\n\nWe've made some changes to your quote. The link below always shows the latest version — have a look, and reply here if anything needs talking through.",
       "followUpSubject": "Just checking in",
       "followUpBody": "Hello {customer},\n\nJust checking whether you've had a chance to look at the quote we sent. If anything needs changing or you'd like to talk it through, reply here and we'll pick it up.",
       "reviewSubject": "How did we do?",
@@ -969,6 +977,44 @@
       "active": "Active",
       "closed": "Closed"
     },
+    "changes": {
+      "none": "none",
+      "customerNotified": "The customer was emailed about it",
+      "value": {
+        "title": "Title: “{from}” → “{to}”",
+        "validUntil": "Valid until: {from} → {to}",
+        "currency": "Currency: {from} → {to}",
+        "taxDisplayMode": "Tax: {from} → {to}",
+        "taxRate": "Tax rate: {from} → {to}",
+        "pricingMode": "Pricing: {from} → {to}",
+        "quoteType": "Type: {from} → {to}",
+        "projectAddress": "Project address: {from} → {to}"
+      },
+      "edited": {
+        "intro": "Introduction edited",
+        "scope": "Scope of work edited",
+        "notes": "Notes edited",
+        "exclusions": "Exclusions edited",
+        "terms": "Terms edited",
+        "termsDocument": "Terms document changed",
+        "optionalDiscount": "Discount on optional sections changed"
+      },
+      "discount": "Discount: {from} → {to}",
+      "total": "Total: {from} → {to}",
+      "item": {
+        "added": "Line added: {description} ({line})",
+        "removed": "Line removed: {description} ({line})",
+        "changed": "Line “{description}”: {from} → {to}"
+      },
+      "section": {
+        "added": "Section added: {title} ({amount})",
+        "removed": "Section removed: {title} ({amount})",
+        "renamed": "Section renamed: “{from}” → “{to}”",
+        "amount": "Section “{title}”: {from} → {to}",
+        "body": "Section “{title}”: description edited",
+        "options": "Section “{title}”: options changed"
+      }
+    },
     "tracking": {
       "title": "Tracking",
       "viewingNow": "The customer is viewing it right now",
@@ -981,7 +1027,8 @@
         "OPENED": "Opened the quote",
         "ACCEPTED": "Accepted the quote",
         "DECLINED": "Declined the quote",
-        "MESSAGE_SENT": "Sent a message"
+        "MESSAGE_SENT": "Sent a message",
+        "UPDATED": "Updated"
       },
       "eventBy": {
         "OPENED": "Opened by {name}",
@@ -991,7 +1038,8 @@
       },
       "eventByTeam": {
         "ACCEPTED": "Accepted by {name}",
-        "DECLINED": "Declined by {name}"
+        "DECLINED": "Declined by {name}",
+        "UPDATED": "Updated by {name}"
       },
       "acceptedBy": "Accepted by {name}",
       "acceptanceStatement": "Statement accepted",
@@ -1831,6 +1879,10 @@
     }
   },
   "portal": {
+    "updated": {
+      "title": "This quote has just been updated.",
+      "reload": "See the new version"
+    },
     "yourQuote": "Your quote",
     "from": "From",
     "validUntil": "Valid until {date}",
@@ -1877,6 +1929,7 @@
       "signatureRequired": "Sign to accept",
       "notAvailable": "This quote is no longer open for a response.",
       "nothingSelected": "Select at least one item before accepting.",
+      "quoteChanged": "This quote was updated while you had it open. Reload the page to see the new version before accepting.",
       "messageEmpty": "Write something before sending",
       "messageTooLong": "That message is too long"
     },
@@ -1968,6 +2021,11 @@
       "subject": "{reference} was opened",
       "heading": "{client} opened your quote"
     },
+    "quoteUpdated": {
+      "subject": "{reference} was updated",
+      "heading": "{name} changed a quote the customer has already opened",
+      "line": "{reference} — {title}"
+    },
     "quoteExpiredOpened": {
       "subject": "{customer} opened {reference}, which has expired",
       "heading": "{customer} came back to a quote that expired",
@@ -1998,6 +2056,7 @@
       "QUOTE_OPENED": "{customer} opened quote {reference}",
       "QUOTE_DECIDED": "Quote {reference} was {decision, select, accepted {accepted} declined {declined} other {answered}}",
       "QUOTE_EXPIRED_OPENED": "{customer} opened expired quote {reference}",
+      "QUOTE_UPDATED": "{name} updated quote {reference}, which the customer has opened",
       "CLIENT_MESSAGE": "{customer} replied on quote {reference}",
       "TASK_ASSIGNED": "{by} gave you the task “{title}”",
       "TASK_DUE": "Task overdue: {title}",
@@ -2234,6 +2293,8 @@
       "QUOTE_DECIDED_hint": "When the customer answers.",
       "QUOTE_EXPIRED_OPENED": "Expired quote opened",
       "QUOTE_EXPIRED_OPENED_hint": "Once a day, when a customer opens a quote that ran out. To Owners, Admins and whoever wrote the quote.",
+      "QUOTE_UPDATED": "Quote updated after it was opened",
+      "QUOTE_UPDATED_hint": "When somebody changes a quote the customer has already opened, with what changed. To Owners, Admins and whoever owns the quote; a run of saves within half an hour is one notice.",
       "CLIENT_MESSAGE": "Customer message",
       "CLIENT_MESSAGE_hint": "When someone writes to you in a quote's thread.",
       "TASK_ASSIGNED": "A task is assigned to me",
@@ -2313,6 +2374,10 @@
         "name": "New quote",
         "when": "When you send a quote to a customer."
       },
+      "QUOTE_UPDATED": {
+        "name": "Quote updated",
+        "when": "When somebody changes a quote the customer already opened, and ticks “Tell the customer”. At most once every 12 hours per quote."
+      },
       "FIRST_FOLLOW_UP": {
         "name": "First follow-up",
         "when": "A few days after sending, if the customer hasn't answered."
@@ -2332,7 +2397,7 @@
     },
     "shared": {
       "title": "Shared by every email",
-      "subtitle": "Set once; it applies to all five.",
+      "subtitle": "Set once; it applies to all six.",
       "senderName": "Who the email comes from",
       "senderNameHint": "The address is always no-reply@nodo.co.nz for now; only the name changes.",
       "slogan": "Slogan",

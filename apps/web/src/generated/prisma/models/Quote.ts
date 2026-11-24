@@ -37,6 +37,7 @@ export type QuoteAvgAggregateOutputType = {
   subtotal: runtime.Decimal | null
   taxAmount: runtime.Decimal | null
   total: runtime.Decimal | null
+  revision: number | null
 }
 
 export type QuoteSumAggregateOutputType = {
@@ -50,6 +51,7 @@ export type QuoteSumAggregateOutputType = {
   subtotal: runtime.Decimal | null
   taxAmount: runtime.Decimal | null
   total: runtime.Decimal | null
+  revision: number | null
 }
 
 export type QuoteMinAggregateOutputType = {
@@ -91,6 +93,7 @@ export type QuoteMinAggregateOutputType = {
   validUntil: Date | null
   sentAt: Date | null
   decidedAt: Date | null
+  revision: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -134,6 +137,7 @@ export type QuoteMaxAggregateOutputType = {
   validUntil: Date | null
   sentAt: Date | null
   decidedAt: Date | null
+  revision: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -177,6 +181,7 @@ export type QuoteCountAggregateOutputType = {
   validUntil: number
   sentAt: number
   decidedAt: number
+  revision: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -194,6 +199,7 @@ export type QuoteAvgAggregateInputType = {
   subtotal?: true
   taxAmount?: true
   total?: true
+  revision?: true
 }
 
 export type QuoteSumAggregateInputType = {
@@ -207,6 +213,7 @@ export type QuoteSumAggregateInputType = {
   subtotal?: true
   taxAmount?: true
   total?: true
+  revision?: true
 }
 
 export type QuoteMinAggregateInputType = {
@@ -248,6 +255,7 @@ export type QuoteMinAggregateInputType = {
   validUntil?: true
   sentAt?: true
   decidedAt?: true
+  revision?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -291,6 +299,7 @@ export type QuoteMaxAggregateInputType = {
   validUntil?: true
   sentAt?: true
   decidedAt?: true
+  revision?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -334,6 +343,7 @@ export type QuoteCountAggregateInputType = {
   validUntil?: true
   sentAt?: true
   decidedAt?: true
+  revision?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -464,6 +474,7 @@ export type QuoteGroupByOutputType = {
   validUntil: Date | null
   sentAt: Date | null
   decidedAt: Date | null
+  revision: number
   createdAt: Date
   updatedAt: Date
   _count: QuoteCountAggregateOutputType | null
@@ -530,6 +541,7 @@ export type QuoteWhereInput = {
   validUntil?: Prisma.DateTimeNullableFilter<"Quote"> | Date | string | null
   sentAt?: Prisma.DateTimeNullableFilter<"Quote"> | Date | string | null
   decidedAt?: Prisma.DateTimeNullableFilter<"Quote"> | Date | string | null
+  revision?: Prisma.IntFilter<"Quote"> | number
   createdAt?: Prisma.DateTimeFilter<"Quote"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Quote"> | Date | string
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
@@ -589,6 +601,7 @@ export type QuoteOrderByWithRelationInput = {
   validUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   sentAt?: Prisma.SortOrderInput | Prisma.SortOrder
   decidedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  revision?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   company?: Prisma.CompanyOrderByWithRelationInput
@@ -652,6 +665,7 @@ export type QuoteWhereUniqueInput = Prisma.AtLeast<{
   validUntil?: Prisma.DateTimeNullableFilter<"Quote"> | Date | string | null
   sentAt?: Prisma.DateTimeNullableFilter<"Quote"> | Date | string | null
   decidedAt?: Prisma.DateTimeNullableFilter<"Quote"> | Date | string | null
+  revision?: Prisma.IntFilter<"Quote"> | number
   createdAt?: Prisma.DateTimeFilter<"Quote"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Quote"> | Date | string
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
@@ -711,6 +725,7 @@ export type QuoteOrderByWithAggregationInput = {
   validUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   sentAt?: Prisma.SortOrderInput | Prisma.SortOrder
   decidedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  revision?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.QuoteCountOrderByAggregateInput
@@ -762,6 +777,7 @@ export type QuoteScalarWhereWithAggregatesInput = {
   validUntil?: Prisma.DateTimeNullableWithAggregatesFilter<"Quote"> | Date | string | null
   sentAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Quote"> | Date | string | null
   decidedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Quote"> | Date | string | null
+  revision?: Prisma.IntWithAggregatesFilter<"Quote"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Quote"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Quote"> | Date | string
 }
@@ -801,6 +817,7 @@ export type QuoteCreateInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuotesInput
@@ -860,6 +877,7 @@ export type QuoteUncheckedCreateInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutQuoteInput
@@ -911,6 +929,7 @@ export type QuoteUpdateInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuotesNestedInput
@@ -970,6 +989,7 @@ export type QuoteUncheckedUpdateInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutQuoteNestedInput
@@ -1025,6 +1045,7 @@ export type QuoteCreateManyInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1064,6 +1085,7 @@ export type QuoteUpdateManyMutationInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1107,6 +1129,7 @@ export type QuoteUncheckedUpdateManyInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1170,6 +1193,7 @@ export type QuoteCountOrderByAggregateInput = {
   validUntil?: Prisma.SortOrder
   sentAt?: Prisma.SortOrder
   decidedAt?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1185,6 +1209,7 @@ export type QuoteAvgOrderByAggregateInput = {
   subtotal?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
   total?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
 }
 
 export type QuoteMaxOrderByAggregateInput = {
@@ -1226,6 +1251,7 @@ export type QuoteMaxOrderByAggregateInput = {
   validUntil?: Prisma.SortOrder
   sentAt?: Prisma.SortOrder
   decidedAt?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1269,6 +1295,7 @@ export type QuoteMinOrderByAggregateInput = {
   validUntil?: Prisma.SortOrder
   sentAt?: Prisma.SortOrder
   decidedAt?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1284,6 +1311,7 @@ export type QuoteSumOrderByAggregateInput = {
   subtotal?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
   total?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
 }
 
 export type QuoteScalarRelationFilter = {
@@ -1678,6 +1706,7 @@ export type QuoteCreateWithoutCompanyInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   lead?: Prisma.LeadCreateNestedOneWithoutQuotesInput
@@ -1735,6 +1764,7 @@ export type QuoteUncheckedCreateWithoutCompanyInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutQuoteInput
@@ -1819,6 +1849,7 @@ export type QuoteScalarWhereInput = {
   validUntil?: Prisma.DateTimeNullableFilter<"Quote"> | Date | string | null
   sentAt?: Prisma.DateTimeNullableFilter<"Quote"> | Date | string | null
   decidedAt?: Prisma.DateTimeNullableFilter<"Quote"> | Date | string | null
+  revision?: Prisma.IntFilter<"Quote"> | number
   createdAt?: Prisma.DateTimeFilter<"Quote"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Quote"> | Date | string
 }
@@ -1858,6 +1889,7 @@ export type QuoteCreateWithoutCreatedByInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuotesInput
@@ -1915,6 +1947,7 @@ export type QuoteUncheckedCreateWithoutCreatedByInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutQuoteInput
@@ -1992,6 +2025,7 @@ export type QuoteCreateWithoutTasksInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuotesInput
@@ -2050,6 +2084,7 @@ export type QuoteUncheckedCreateWithoutTasksInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.QuoteItemUncheckedCreateNestedManyWithoutQuoteInput
@@ -2116,6 +2151,7 @@ export type QuoteUpdateWithoutTasksInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuotesNestedInput
@@ -2174,6 +2210,7 @@ export type QuoteUncheckedUpdateWithoutTasksInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.QuoteItemUncheckedUpdateManyWithoutQuoteNestedInput
@@ -2224,6 +2261,7 @@ export type QuoteCreateWithoutLeadInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuotesInput
@@ -2281,6 +2319,7 @@ export type QuoteUncheckedCreateWithoutLeadInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutQuoteInput
@@ -2358,6 +2397,7 @@ export type QuoteCreateWithoutTermsDocumentInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuotesInput
@@ -2415,6 +2455,7 @@ export type QuoteUncheckedCreateWithoutTermsDocumentInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutQuoteInput
@@ -2492,6 +2533,7 @@ export type QuoteCreateWithoutShareInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuotesInput
@@ -2550,6 +2592,7 @@ export type QuoteUncheckedCreateWithoutShareInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutQuoteInput
@@ -2616,6 +2659,7 @@ export type QuoteUpdateWithoutShareInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuotesNestedInput
@@ -2674,6 +2718,7 @@ export type QuoteUncheckedUpdateWithoutShareInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutQuoteNestedInput
@@ -2724,6 +2769,7 @@ export type QuoteCreateWithoutRecipientsInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuotesInput
@@ -2782,6 +2828,7 @@ export type QuoteUncheckedCreateWithoutRecipientsInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutQuoteInput
@@ -2848,6 +2895,7 @@ export type QuoteUpdateWithoutRecipientsInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuotesNestedInput
@@ -2906,6 +2954,7 @@ export type QuoteUncheckedUpdateWithoutRecipientsInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutQuoteNestedInput
@@ -2956,6 +3005,7 @@ export type QuoteCreateWithoutSignatureHandoffsInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuotesInput
@@ -3014,6 +3064,7 @@ export type QuoteUncheckedCreateWithoutSignatureHandoffsInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutQuoteInput
@@ -3080,6 +3131,7 @@ export type QuoteUpdateWithoutSignatureHandoffsInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuotesNestedInput
@@ -3138,6 +3190,7 @@ export type QuoteUncheckedUpdateWithoutSignatureHandoffsInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutQuoteNestedInput
@@ -3188,6 +3241,7 @@ export type QuoteCreateWithoutEventsInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuotesInput
@@ -3246,6 +3300,7 @@ export type QuoteUncheckedCreateWithoutEventsInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutQuoteInput
@@ -3312,6 +3367,7 @@ export type QuoteUpdateWithoutEventsInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuotesNestedInput
@@ -3370,6 +3426,7 @@ export type QuoteUncheckedUpdateWithoutEventsInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutQuoteNestedInput
@@ -3420,6 +3477,7 @@ export type QuoteCreateWithoutMessagesInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuotesInput
@@ -3478,6 +3536,7 @@ export type QuoteUncheckedCreateWithoutMessagesInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutQuoteInput
@@ -3544,6 +3603,7 @@ export type QuoteUpdateWithoutMessagesInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuotesNestedInput
@@ -3602,6 +3662,7 @@ export type QuoteUncheckedUpdateWithoutMessagesInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutQuoteNestedInput
@@ -3652,6 +3713,7 @@ export type QuoteCreateWithoutAcceptanceInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuotesInput
@@ -3710,6 +3772,7 @@ export type QuoteUncheckedCreateWithoutAcceptanceInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutQuoteInput
@@ -3776,6 +3839,7 @@ export type QuoteUpdateWithoutAcceptanceInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuotesNestedInput
@@ -3834,6 +3898,7 @@ export type QuoteUncheckedUpdateWithoutAcceptanceInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutQuoteNestedInput
@@ -3884,6 +3949,7 @@ export type QuoteCreateWithoutSectionsInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuotesInput
@@ -3942,6 +4008,7 @@ export type QuoteUncheckedCreateWithoutSectionsInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutQuoteInput
@@ -4008,6 +4075,7 @@ export type QuoteUpdateWithoutSectionsInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuotesNestedInput
@@ -4066,6 +4134,7 @@ export type QuoteUncheckedUpdateWithoutSectionsInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutQuoteNestedInput
@@ -4116,6 +4185,7 @@ export type QuoteCreateWithoutAttachmentsInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuotesInput
@@ -4174,6 +4244,7 @@ export type QuoteUncheckedCreateWithoutAttachmentsInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutQuoteInput
@@ -4240,6 +4311,7 @@ export type QuoteUpdateWithoutAttachmentsInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuotesNestedInput
@@ -4298,6 +4370,7 @@ export type QuoteUncheckedUpdateWithoutAttachmentsInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutQuoteNestedInput
@@ -4348,6 +4421,7 @@ export type QuoteCreateWithoutEmailsSentInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuotesInput
@@ -4406,6 +4480,7 @@ export type QuoteUncheckedCreateWithoutEmailsSentInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutQuoteInput
@@ -4472,6 +4547,7 @@ export type QuoteUpdateWithoutEmailsSentInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuotesNestedInput
@@ -4530,6 +4606,7 @@ export type QuoteUncheckedUpdateWithoutEmailsSentInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutQuoteNestedInput
@@ -4580,6 +4657,7 @@ export type QuoteCreateWithoutItemsInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuotesInput
@@ -4638,6 +4716,7 @@ export type QuoteUncheckedCreateWithoutItemsInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutQuoteInput
@@ -4704,6 +4783,7 @@ export type QuoteUpdateWithoutItemsInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuotesNestedInput
@@ -4762,6 +4842,7 @@ export type QuoteUncheckedUpdateWithoutItemsInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutQuoteNestedInput
@@ -4812,6 +4893,7 @@ export type QuoteCreateWithoutJobInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutQuotesInput
@@ -4870,6 +4952,7 @@ export type QuoteUncheckedCreateWithoutJobInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutQuoteInput
@@ -4936,6 +5019,7 @@ export type QuoteUpdateWithoutJobInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuotesNestedInput
@@ -4994,6 +5078,7 @@ export type QuoteUncheckedUpdateWithoutJobInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutQuoteNestedInput
@@ -5047,6 +5132,7 @@ export type QuoteCreateManyCompanyInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -5086,6 +5172,7 @@ export type QuoteUpdateWithoutCompanyInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lead?: Prisma.LeadUpdateOneWithoutQuotesNestedInput
@@ -5143,6 +5230,7 @@ export type QuoteUncheckedUpdateWithoutCompanyInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutQuoteNestedInput
@@ -5197,6 +5285,7 @@ export type QuoteUncheckedUpdateManyWithoutCompanyInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -5239,6 +5328,7 @@ export type QuoteCreateManyCreatedByInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -5278,6 +5368,7 @@ export type QuoteUpdateWithoutCreatedByInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuotesNestedInput
@@ -5335,6 +5426,7 @@ export type QuoteUncheckedUpdateWithoutCreatedByInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutQuoteNestedInput
@@ -5389,6 +5481,7 @@ export type QuoteUncheckedUpdateManyWithoutCreatedByInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -5431,6 +5524,7 @@ export type QuoteCreateManyLeadInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -5470,6 +5564,7 @@ export type QuoteUpdateWithoutLeadInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuotesNestedInput
@@ -5527,6 +5622,7 @@ export type QuoteUncheckedUpdateWithoutLeadInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutQuoteNestedInput
@@ -5581,6 +5677,7 @@ export type QuoteUncheckedUpdateManyWithoutLeadInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -5623,6 +5720,7 @@ export type QuoteCreateManyTermsDocumentInput = {
   validUntil?: Date | string | null
   sentAt?: Date | string | null
   decidedAt?: Date | string | null
+  revision?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -5662,6 +5760,7 @@ export type QuoteUpdateWithoutTermsDocumentInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutQuotesNestedInput
@@ -5719,6 +5818,7 @@ export type QuoteUncheckedUpdateWithoutTermsDocumentInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutQuoteNestedInput
@@ -5773,6 +5873,7 @@ export type QuoteUncheckedUpdateManyWithoutTermsDocumentInput = {
   validUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   decidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -5919,6 +6020,7 @@ export type QuoteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   validUntil?: boolean
   sentAt?: boolean
   decidedAt?: boolean
+  revision?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -5979,6 +6081,7 @@ export type QuoteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   validUntil?: boolean
   sentAt?: boolean
   decidedAt?: boolean
+  revision?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -6026,6 +6129,7 @@ export type QuoteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   validUntil?: boolean
   sentAt?: boolean
   decidedAt?: boolean
+  revision?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -6073,11 +6177,12 @@ export type QuoteSelectScalar = {
   validUntil?: boolean
   sentAt?: boolean
   decidedAt?: boolean
+  revision?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type QuoteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "number" | "leadId" | "createdById" | "legacyQuotientNumber" | "title" | "status" | "pricingMode" | "clientCompanyName" | "clientName" | "clientEmail" | "clientPhone" | "intro" | "exclusions" | "scope" | "quoteType" | "projectAddress" | "termsDocumentId" | "currency" | "language" | "taxType" | "taxRate" | "taxDisplayMode" | "discount" | "discountType" | "discountValue" | "optionalDiscountThreshold" | "optionalDiscountType" | "optionalDiscountValue" | "subtotal" | "taxAmount" | "total" | "notes" | "terms" | "validUntil" | "sentAt" | "decidedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["quote"]>
+export type QuoteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "number" | "leadId" | "createdById" | "legacyQuotientNumber" | "title" | "status" | "pricingMode" | "clientCompanyName" | "clientName" | "clientEmail" | "clientPhone" | "intro" | "exclusions" | "scope" | "quoteType" | "projectAddress" | "termsDocumentId" | "currency" | "language" | "taxType" | "taxRate" | "taxDisplayMode" | "discount" | "discountType" | "discountValue" | "optionalDiscountThreshold" | "optionalDiscountType" | "optionalDiscountValue" | "subtotal" | "taxAmount" | "total" | "notes" | "terms" | "validUntil" | "sentAt" | "decidedAt" | "revision" | "createdAt" | "updatedAt", ExtArgs["result"]["quote"]>
 export type QuoteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   lead?: boolean | Prisma.Quote$leadArgs<ExtArgs>
@@ -6209,6 +6314,14 @@ export type $QuotePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     validUntil: Date | null
     sentAt: Date | null
     decidedAt: Date | null
+    /**
+     * *
+     *    * How many times what the customer sees changed after it went out — one per
+     *    * save that changed something (`QuoteEventType.UPDATED`). The customer's page
+     *    * knows the one it was drawn from: a newer one says so on screen, and an
+     *    * acceptance of an older one is refused.
+     */
+    revision: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["quote"]>
@@ -6688,6 +6801,7 @@ export interface QuoteFieldRefs {
   readonly validUntil: Prisma.FieldRef<"Quote", 'DateTime'>
   readonly sentAt: Prisma.FieldRef<"Quote", 'DateTime'>
   readonly decidedAt: Prisma.FieldRef<"Quote", 'DateTime'>
+  readonly revision: Prisma.FieldRef<"Quote", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Quote", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Quote", 'DateTime'>
 }

@@ -65,6 +65,7 @@ export type QuoteSectionKind = (typeof QuoteSectionKind)[keyof typeof QuoteSecti
 
 export const EmailTemplateKind = {
   NEW_QUOTE: 'NEW_QUOTE',
+  QUOTE_UPDATED: 'QUOTE_UPDATED',
   QUOTE_ACCEPTED: 'QUOTE_ACCEPTED',
   FIRST_FOLLOW_UP: 'FIRST_FOLLOW_UP',
   SECOND_FOLLOW_UP: 'SECOND_FOLLOW_UP',
@@ -120,7 +121,8 @@ export const QuoteEventType = {
   OPENED: 'OPENED',
   ACCEPTED: 'ACCEPTED',
   DECLINED: 'DECLINED',
-  MESSAGE_SENT: 'MESSAGE_SENT'
+  MESSAGE_SENT: 'MESSAGE_SENT',
+  UPDATED: 'UPDATED'
 } as const
 
 export type QuoteEventType = (typeof QuoteEventType)[keyof typeof QuoteEventType]
@@ -197,7 +199,8 @@ export const NotificationKind = {
   JOB_TODO_DUE: 'JOB_TODO_DUE',
   QUOTE_EXPIRED_OPENED: 'QUOTE_EXPIRED_OPENED',
   TIMECLOCK_AUTO_OUT: 'TIMECLOCK_AUTO_OUT',
-  TIMECLOCK_LEFT_OPEN: 'TIMECLOCK_LEFT_OPEN'
+  TIMECLOCK_LEFT_OPEN: 'TIMECLOCK_LEFT_OPEN',
+  QUOTE_UPDATED: 'QUOTE_UPDATED'
 } as const
 
 export type NotificationKind = (typeof NotificationKind)[keyof typeof NotificationKind]

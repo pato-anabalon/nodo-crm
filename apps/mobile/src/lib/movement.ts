@@ -1,4 +1,4 @@
-import { distanceM, type Point } from "@nodo/core/timeclock/geofence";
+import { distanceM, geofenceVerdict, type Fix, type Point } from "@nodo/core/timeclock/geofence";
 import { MAX_PINGS_PER_BATCH } from "@nodo/core/timeclock/punch";
 import type { ClockJob } from "./clock";
 
@@ -47,10 +47,37 @@ export function reactTo(watch: Watch, change: { jobId: string; entered: boolean 
   return { watch: next, reaction: before === true ? { withdraw: change.jobId } : {} };
 }
 
+/** The system is vague under a hundred metres: a smaller circle only learns of a departure later. */
+const MIN_REGION_RADIUS_M = 100;
+
+/**
+ * What a position recorded in the pocket says about each job's circle, by
+ * the same rule as a punch: inside or outside when the fix is sure enough,
+ * nothing when it is vaguer than the circle. The system's geofencing can be
+ * minutes late with the app closed — on Android it went unheard until the
+ * app was opened — so the track decides too, and `reactTo` keeps the two
+ * sources from saying the same thing twice.
+ */
+export function crossingsAt(jobs: readonly ClockJob[], fix: Fix): { jobId: string; entered: boolean }[] {
+  return jobs.flatMap((job): { jobId: string; entered: boolean }[] => {
+    if (!job.site) return [];
+    const verdict = geofenceVerdict(job.site, job.site.radiusM, fix);
+    if (verdict.kind === "inside") return [{ jobId: job.id, entered: true }];
+    if (verdict.kind === "outside") return [{ jobId: job.id, entered: false }];
+    return [];
+  });
+}
+
+/**
+ * Whether the system's word about a job's circle holds for the job itself.
+ * It watches a hundred metres at least, so for a smaller job leaving that
+ * circle means having left the job, but entering it doesn't mean being back:
+ * the next position says that.
+ */
+export const systemCrossingCounts = (radiusM: number, entered: boolean) => !entered || radiusM >= MIN_REGION_RADIUS_M;
+
 /** iOS watches at most twenty circles per app; Android a hundred. Twenty for both. */
 export const MAX_REGIONS = 20;
-
-const MIN_REGION_RADIUS_M = 100;
 
 export type Region = { identifier: string; latitude: number; longitude: number; radius: number };
 
@@ -76,7 +103,6 @@ export function regionsFor(jobs: readonly ClockJob[], ownJobId: string | null, n
     identifier: `${PREFIX}${job.id}`,
     latitude: job.site!.latitude,
     longitude: job.site!.longitude,
-    // The system is vague under a hundred metres: a smaller circle only learns of a departure later.
     radius: Math.max(job.site!.radiusM, MIN_REGION_RADIUS_M),
   }));
 }

@@ -202,6 +202,26 @@ describe("recordPings", () => {
     expect(call.skipDuplicates).toBe(true);
     expect(call.data).toEqual([expect.objectContaining({ timeEntryId: "e1", companyId: "c1", recordedAt: new Date("2026-11-12T19:30:00Z") })]);
   });
+
+  it("keeps where they went until the countdown ran out, on a shift the clock ended at the departure", async () => {
+    const { ctx, db } = context();
+    (ctx.company.movementPolicy as { returnMinutes: number }).returnMinutes = 15;
+    const left = new Date("2026-11-12T19:30:00Z");
+    db.timeEntry.findFirst.mockResolvedValue({ id: "e1", clockInAt: new Date("2026-11-12T19:00:00Z"), clockOutAt: left, endedBy: "LEFT_SITE" });
+    db.locationPing.createMany.mockResolvedValue({ count: 1 });
+    const fix = { latitude: 1, longitude: 2, accuracyM: 30 };
+    const result = await recordPings(
+      ctx,
+      "phone-punch-1",
+      [
+        { ...fix, at: new Date("2026-11-12T19:40:00Z") },
+        { ...fix, at: new Date("2026-11-12T19:50:00Z") },
+      ],
+      now,
+    );
+    expect(result).toEqual({ stored: 1, outside: 1 });
+    expect(db.locationPing.createMany.mock.calls[0][0].data).toEqual([expect.objectContaining({ recordedAt: new Date("2026-11-12T19:40:00Z") })]);
+  });
 });
 
 describe("setConsent", () => {

@@ -3337,13 +3337,16 @@
     "shiftPage": {
       "back": "Volver a la semana",
       "where": "Dónde",
-      "trackCount": "{count, plural, one {1 posición registrada durante la jornada} other {# posiciones registradas durante la jornada}}",
+      "trackCount": "{count, plural, one {1 posición registrada.} other {# posiciones registradas.}}",
       "noTrack": "No hay posiciones registradas entre la entrada y la salida.",
       "trackThinned": "Recorrido simplificado: las posiciones pasaron el plazo de retención de la empresa.",
       "clockIn": "Entrada",
       "clockOut": "Salida",
       "distance": "a {metres} m del trabajo",
       "noPlace": "Sin posición registrada",
+      "endedLeftSite": "Se cerró sola, a la hora en que salió de la obra: no volvió a tiempo",
+      "endedTravelLimit": "Se cerró sola: el traslado pasó el tope de la empresa",
+      "trackAfter": "{count, plural, one {1 de ellas es} other {# de ellas son}} de después de salir, hasta que venció el plazo para volver. No cuenta como trabajado.",
       "history": "Historial",
       "correctedBy": "Corregida por {person}",
       "enteredBy": "Ingresada a mano por {person}",
@@ -3356,7 +3359,9 @@
         "clockIn": "Entrada",
         "clockOut": "Salida",
         "inGlyph": "E",
-        "outGlyph": "S"
+        "outGlyph": "S",
+        "onJob": "En la obra",
+        "away": "Fuera de la obra"
       },
       "movement": "Fuera de la obra",
       "left": "Salió de la obra",

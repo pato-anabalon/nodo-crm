@@ -103,7 +103,7 @@ export async function shiftDetail(ctx: CompanyContext, entryId: string) {
       createdBy: { select: { name: true, email: true } },
       editedBy: { select: { name: true, email: true } },
       job: { select: { latitude: true, longitude: true, geofenceRadiusM: true } },
-      pings: { select: { latitude: true, longitude: true }, orderBy: { recordedAt: "asc" } },
+      pings: { select: { latitude: true, longitude: true, recordedAt: true }, orderBy: { recordedAt: "asc" } },
       events: { select: { id: true, kind: true, at: true, note: true }, orderBy: { at: "asc" } },
       changes: {
         select: {

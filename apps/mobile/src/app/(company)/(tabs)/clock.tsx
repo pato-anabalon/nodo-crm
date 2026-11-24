@@ -361,9 +361,11 @@ function OnShift({
             { text: t("clockOut"), style: "destructive", onPress: () => void onClockOut() },
           ])
         }
-        className="min-h-16 items-center justify-center rounded-2xl bg-secondary"
+        // The card's own action, so it carries the company's colour: in the pale grey of the buttons
+        // beside it, it read as switched off.
+        className="min-h-16 items-center justify-center rounded-2xl bg-primary"
       >
-        <Text className="text-title-3 text-secondary-foreground">{t("clockOut")}</Text>
+        <Text className="text-title-3 text-primary-foreground">{t("clockOut")}</Text>
       </Pressable>
     </View>
   );
@@ -483,9 +485,10 @@ function Travel({
               { text: t("clockOut"), style: "destructive", onPress: () => void onClockOut() },
             ])
           }
-          className="min-h-16 items-center justify-center rounded-2xl bg-secondary"
+          // Outlined, not filled: on the road the next job is the action, and its button is the coloured one.
+          className="min-h-16 items-center justify-center rounded-2xl border-2 border-border bg-card"
         >
-          <Text className="text-title-3 text-secondary-foreground">{t("clockOut")}</Text>
+          <Text className="text-title-3 text-card-foreground">{t("clockOut")}</Text>
         </Pressable>
       </View>
       <View className="gap-stack">

@@ -127,6 +127,12 @@ app's sign-in" below), with the token in the Keychain/Keystore
   What to do with each crossing is pure (`reactTo`, in `lib/movement.ts`). It
   acts only on a change of what it last believed, because the system also
   reports the state it finds when the circles are handed over.
+  - **Positions cross circles too** (`crossingsAt`), dated when recorded.
+    On Android the system's word arrived only when the app was opened, a
+    quarter of an hour late; the track is never more than five minutes
+    behind. The system watches a hundred metres at least, so for a smaller
+    job its "left" counts and its "entered" doesn't (`systemCrossingCounts`):
+    the next position says whether they're back.
   - **One queue.** Events, travel and switches go in the punch queue, in
     order: travel takes its start from the departure, so the departure has
     to arrive first.
@@ -1091,8 +1097,11 @@ and the server again when it arrives.
 - **Consent is per company** (`Membership.locationConsentAt`), asked before
   the first punch, and can't be withdrawn while a shift is open.
 - **Positions belong to a shift**: a batch keeps only what was recorded
-  between its clock-in and clock-out, and `(timeEntryId, recordedAt)` is
-  unique, so a batch sent twice is stored once.
+  between its clock-in and its end, and `(timeEntryId, recordedAt)` is
+  unique, so a batch sent twice is stored once. A shift the clock ended for
+  being away keeps them until the countdown ran out (`trackEnd`): where they
+  went instead is what a supervisor opens it to see, and none of it counts
+  as worked.
 - `timeclock.punch` is everybody's who works on site; seeing and correcting
   other people's hours (`timeclock.read.all`, `timeclock.update`) is Admin,
   Manager and Project Lead's; exporting them is Owner's alone. That is what a
@@ -1153,7 +1162,8 @@ same story as one with it.
   about, because it ends by itself.
 - **How often the phone records a position** is
   `@nodo/core/timeclock/sampling`, pure and ready for background tracking:
-  - Every 15 minutes still on the job.
+  - Every 5 minutes still on the job — also how late a departure can be
+    read from the track.
   - Every 2 minutes or 50 m on the move (2.5 m/s or more, so walking around
     the site doesn't count).
   - Every 5 minutes still away from the job.
@@ -1200,8 +1210,11 @@ for laying shifts out, so the screen and the file add up identically.
   until now), nothing over 24 hours — a shift that ended can't be reopened,
   and **nobody corrects their own hours**, on the server. The rules are pure
   (`corrections.ts`). A shift's page (`/timesheets/<user>/shifts/<id>`) shows
-  it on the map with the track between the punches, its history and the
-  forms; the CSV's notes say which figures were typed or adjusted.
+  it on the map with the track between the punches — solid in the company's
+  colour inside the job's circle, dashed red outside it (`trackRuns`) — its
+  history and the forms; a shift the clock ended says so where the
+  clock-out's position would be. The CSV's notes say which figures were
+  typed or adjusted.
 
 ### Files go straight to the store
 

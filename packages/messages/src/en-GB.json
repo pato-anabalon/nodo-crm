@@ -3337,13 +3337,16 @@
     "shiftPage": {
       "back": "Back to the week",
       "where": "Where",
-      "trackCount": "{count, plural, one {1 position recorded during the shift} other {# positions recorded during the shift}}",
+      "trackCount": "{count, plural, one {1 position recorded.} other {# positions recorded.}}",
       "noTrack": "No positions recorded between clocking in and out.",
       "trackThinned": "Simplified route: the positions are past the company's retention period.",
       "clockIn": "Clock-in",
       "clockOut": "Clock-out",
       "distance": "{metres} m from the job",
       "noPlace": "No position recorded",
+      "endedLeftSite": "Ended by itself, at the time they left the job: they didn't come back in time",
+      "endedTravelLimit": "Ended by itself: the travel ran past the company's limit",
+      "trackAfter": "{count, plural, one {1 of them is} other {# of them are}} from after they left, until the time to get back ran out. Not counted as worked.",
       "history": "History",
       "correctedBy": "Corrected by {person}",
       "enteredBy": "Entered by hand by {person}",
@@ -3356,7 +3359,9 @@
         "clockIn": "Clock-in",
         "clockOut": "Clock-out",
         "inGlyph": "I",
-        "outGlyph": "O"
+        "outGlyph": "O",
+        "onJob": "On the job",
+        "away": "Away from the job"
       },
       "movement": "Away from the job",
       "left": "Left the job",

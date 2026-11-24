@@ -62,13 +62,25 @@ export function clockInRefusal(
 export const MAX_PINGS_PER_BATCH = 500;
 
 /**
- * The positions that belong to a shift: recorded between its clock-in and its
- * clock-out (or, while it is open, up to the server's now plus a clock's
- * drift). A batch that arrives after the clock-out keeps what was recorded
- * before it; nothing is tracked outside the shift.
+ * Where a shift's positions stop. At the clock-out, except for a shift the
+ * clock ended because they didn't come back: it is dated when they left, and
+ * what happened until the countdown ran out — where they went instead — is
+ * what a supervisor opens it to see. That stretch isn't counted as worked;
+ * the positions only draw it.
  */
-export function withinShift<T extends { at: Date }>(pings: readonly T[], clockInAt: Date, clockOutAt: Date | null, now: Date): T[] {
-  const end = clockOutAt?.getTime() ?? now.getTime() + PUNCH_FUTURE_TOLERANCE_MS;
+export function trackEnd(clockOutAt: Date | null, endedBy: string | null, returnMinutes: number): Date | null {
+  if (!clockOutAt || endedBy !== "LEFT_SITE") return clockOutAt;
+  return new Date(clockOutAt.getTime() + returnMinutes * 60_000);
+}
+
+/**
+ * The positions that belong to a shift: recorded between its clock-in and its
+ * end (`trackEnd`; while it is open, up to the server's now plus a clock's
+ * drift). A batch that arrives after the end keeps what was recorded before
+ * it; nothing is tracked outside the shift.
+ */
+export function withinShift<T extends { at: Date }>(pings: readonly T[], clockInAt: Date, endAt: Date | null, now: Date): T[] {
+  const end = endAt?.getTime() ?? now.getTime() + PUNCH_FUTURE_TOLERANCE_MS;
   return pings.filter((ping) => ping.at.getTime() >= clockInAt.getTime() && ping.at.getTime() <= end);
 }
 

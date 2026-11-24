@@ -2,7 +2,7 @@ import { JobStatus, Prisma, TimeEntryEnd, TimeEntryKind, TimeEntrySource } from 
 import type { CompanyContext } from "@/lib/auth/session";
 import { asPoint, geofenceVerdict, type Fix } from "@nodo/core/timeclock/geofence";
 import { siteState, travelDeadline } from "@nodo/core/timeclock/movement";
-import { clockInRefusal, isLatePunch, punchTimeProblem, withinShift } from "@nodo/core/timeclock/punch";
+import { clockInRefusal, isLatePunch, punchTimeProblem, trackEnd, withinShift } from "@nodo/core/timeclock/punch";
 import { jobVisibilityWhere } from "@/modules/jobs/scope";
 import { TimeclockRefusal } from "./errors";
 import { settleEntry } from "./settle";
@@ -261,11 +261,12 @@ export async function recordPings(
 ): Promise<{ stored: number; outside: number }> {
   const entry = await ctx.db.timeEntry.findFirst({
     where: { clientId: entryClientId, userId: ctx.user.id },
-    select: { id: true, clockInAt: true, clockOutAt: true },
+    select: { id: true, clockInAt: true, clockOutAt: true, endedBy: true },
   });
   if (!entry) throw new TimeclockRefusal("not_found", false);
 
-  const kept = withinShift(pings, entry.clockInAt, entry.clockOutAt, now);
+  const end = trackEnd(entry.clockOutAt, entry.endedBy, ctx.company.movementPolicy.returnMinutes);
+  const kept = withinShift(pings, entry.clockInAt, end, now);
   const { count } = await ctx.db.locationPing.createMany({
     data: kept.map((ping) => ({
       companyId: ctx.company.id,

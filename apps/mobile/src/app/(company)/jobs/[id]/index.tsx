@@ -1,6 +1,6 @@
 import { Image } from "expo-image";
 import { Link, useLocalSearchParams } from "expo-router";
-import { CalendarDays, ChevronRight, ExternalLink, FolderOpen, ListChecks, MapPin, Megaphone, MessagesSquare } from "lucide-react-native";
+import { CalendarDays, ChevronRight, ExternalLink, FolderOpen, ListChecks, Lock, MapPin, Megaphone, MessagesSquare } from "lucide-react-native";
 import type { ReactNode } from "react";
 import { Linking, Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
 import { googleMapsUrl } from "@nodo/core/maps-link";
@@ -139,6 +139,15 @@ function Tools({ detail }: { detail: JobDetail }) {
     ) : null,
     canOn(detail, "schedule.read") ? (
       <ToolRow key="schedule" href={{ pathname: "/jobs/[id]/schedule", params }} icon={<CalendarDays size={22} color={icon} />} title={t("schedule.title")} />
+    ) : null,
+    // Last, and apart: what the office keeps from the crew.
+    canOn(detail, "confidential.read") ? (
+      <ToolRow
+        key="confidential"
+        href={{ pathname: "/jobs/[id]/confidential", params }}
+        icon={<Lock size={22} color={icon} />}
+        title={t("board.confidential.title")}
+      />
     ) : null,
   ].filter((row) => row !== null);
 

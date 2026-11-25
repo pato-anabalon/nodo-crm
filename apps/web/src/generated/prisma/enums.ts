@@ -352,6 +352,8 @@ export const JobActivityType = {
   FOLDER_CREATED: 'FOLDER_CREATED',
   POST_PUBLISHED: 'POST_PUBLISHED',
   COMMENT_ADDED: 'COMMENT_ADDED',
+  CONFIDENTIAL_POST_PUBLISHED: 'CONFIDENTIAL_POST_PUBLISHED',
+  CONFIDENTIAL_COMMENT_ADDED: 'CONFIDENTIAL_COMMENT_ADDED',
   TODO_LIST_CREATED: 'TODO_LIST_CREATED',
   TODO_ADDED: 'TODO_ADDED',
   TODO_COMPLETED: 'TODO_COMPLETED',
@@ -366,6 +368,14 @@ export const JobActivityType = {
 } as const
 
 export type JobActivityType = (typeof JobActivityType)[keyof typeof JobActivityType]
+
+
+export const JobBoard = {
+  TEAM: 'TEAM',
+  CONFIDENTIAL: 'CONFIDENTIAL'
+} as const
+
+export type JobBoard = (typeof JobBoard)[keyof typeof JobBoard]
 
 
 export const JobScopeChangeKind = {

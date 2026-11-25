@@ -12,17 +12,23 @@ import { useElapsed } from "@/lib/format";
 import { useBoard, useMe } from "@/lib/queries";
 import type { PostCategory, PostSummary } from "@/lib/types";
 
-/**
- * The Message Board: published posts, newest first, a line of each, with the
- * categories to narrow them. Read here and answered with comments; posts are
- * written on the web, where the editor is.
- */
 export default function BoardScreen() {
+  return <BoardList />;
+}
+
+/**
+ * A board: published posts, newest first, a line of each, with the
+ * categories to narrow them. Read here and answered with comments; posts are
+ * written on the web, where the editor is. The Message Board, or with
+ * `confidential` the job's confidential board — the server decides who may
+ * read which.
+ */
+export function BoardList({ confidential = false }: { confidential?: boolean }) {
   const { id } = useLocalSearchParams<{ id: string }>();
   const t = useTranslations();
   const errorText = useErrorText();
   const [categoryId, setCategoryId] = useState<string | null>(null);
-  const board = useBoard(id, categoryId);
+  const board = useBoard(id, categoryId, confidential);
   const spinner = useColor("muted-foreground");
 
   if (board.isPending) return <Loading />;
@@ -39,7 +45,7 @@ export default function BoardScreen() {
       <View className={`gap-stack px-gutter ${board.isPlaceholderData ? "opacity-50" : ""}`}>
         {posts.length === 0 ? (
           <Text className="py-section text-center text-callout text-muted-foreground">
-            {t(categoryId ? "jobs.board.emptyCategory" : "jobs.board.empty")}
+            {t(categoryId ? "jobs.board.emptyCategory" : confidential ? "jobs.board.confidential.empty" : "jobs.board.empty")}
           </Text>
         ) : (
           posts.map((post) => <PostRow key={post.id} post={post} />)

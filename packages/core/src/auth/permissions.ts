@@ -20,6 +20,9 @@ export const PERMISSION_MODULES = [
   "jobs",
   "scope",
   "messages",
+  // The confidential board: the Message Board's twin for what the office
+  // keeps from the crew — the contract, the invoicing.
+  "confidential",
   "comments",
   "todos",
   "files",
@@ -114,6 +117,13 @@ export const PERMISSIONS = [
   "messages.create",
   "messages.update",
   "messages.delete",
+
+  // The confidential board, the same four on a board of its own. Nobody's by
+  // default but the owner's: who reads it is a decision somebody makes.
+  "confidential.read",
+  "confidential.create",
+  "confidential.update",
+  "confidential.delete",
 
   // Comments, on anything in a job that takes them
   "comments.create",

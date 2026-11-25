@@ -2478,6 +2478,12 @@ enum JobActivityType {
    */
   COMMENT_ADDED
   /**
+   * The two above, on the confidential board: a type of their own so the
+   * timeline shows them only to whoever reads that board.
+   */
+  CONFIDENTIAL_POST_PUBLISHED
+  CONFIDENTIAL_COMMENT_ADDED
+  /**
    * params: `{ listId, name }`
    */
   TODO_LIST_CREATED
@@ -2632,6 +2638,17 @@ model JobPostCategory {
 }
 
 /**
+ * Which of a job's two boards a post is on. They work alike; the permissions
+ * that open each one are `@nodo/core/jobs/boards`.
+ */
+enum JobBoard {
+  /** The Message Board, for everybody on the job. */
+  TEAM
+  /** What the office keeps from the crew: the contract, the invoicing. */
+  CONFIDENTIAL
+}
+
+/**
  * A Message Board post. `publishedAt` null is a draft, which only its author
  * sees; publishing is what writes the timeline line and raises the notices.
  */
@@ -2639,6 +2656,7 @@ model JobPost {
   id          String    @id @default(cuid())
   companyId   String
   jobId       String
+  board       JobBoard  @default(TEAM)
   categoryId  String?
   title       String
   // Sanitised HTML, the "full" profile.
@@ -2656,7 +2674,7 @@ model JobPost {
   comments JobComment[]
   files    JobFile[]
 
-  @@index([companyId, jobId, publishedAt])
+  @@index([companyId, jobId, board, publishedAt])
 }
 
 /**

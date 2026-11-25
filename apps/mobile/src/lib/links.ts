@@ -10,6 +10,8 @@ const ROUTES: [RegExp, (...ids: string[]) => string][] = [
   [/^\/jobs\/([^/]+)\/todos$/, (job) => `/jobs/${job}/todos`],
   [/^\/jobs\/[^/]+\/messages\/([^/]+)$/, (post) => `/posts/${post}`],
   [/^\/jobs\/([^/]+)\/messages$/, (job) => `/jobs/${job}/board`],
+  [/^\/jobs\/[^/]+\/confidential\/([^/]+)$/, (post) => `/posts/${post}`],
+  [/^\/jobs\/([^/]+)\/confidential$/, (job) => `/jobs/${job}/confidential`],
   [/^\/jobs\/([^/]+)\/chat$/, (job) => `/jobs/${job}/chat`],
   // An event has no screen of its own in the app; its job's agenda does.
   [/^\/jobs\/([^/]+)\/schedule(?:\/[^/]+)?$/, (job) => `/jobs/${job}/schedule`],

@@ -959,6 +959,23 @@ export type EnumJobActivityTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumJobActivityTypeFilter<$PrismaModel>
 }
 
+export type EnumJobBoardFilter<$PrismaModel = never> = {
+  equals?: $Enums.JobBoard | Prisma.EnumJobBoardFieldRefInput<$PrismaModel>
+  in?: $Enums.JobBoard[] | Prisma.ListEnumJobBoardFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JobBoard[] | Prisma.ListEnumJobBoardFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJobBoardFilter<$PrismaModel> | $Enums.JobBoard
+}
+
+export type EnumJobBoardWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.JobBoard | Prisma.EnumJobBoardFieldRefInput<$PrismaModel>
+  in?: $Enums.JobBoard[] | Prisma.ListEnumJobBoardFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JobBoard[] | Prisma.ListEnumJobBoardFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJobBoardWithAggregatesFilter<$PrismaModel> | $Enums.JobBoard
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumJobBoardFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumJobBoardFilter<$PrismaModel>
+}
+
 export type EnumJobScopeChangeKindFilter<$PrismaModel = never> = {
   equals?: $Enums.JobScopeChangeKind | Prisma.EnumJobScopeChangeKindFieldRefInput<$PrismaModel>
   in?: $Enums.JobScopeChangeKind[] | Prisma.ListEnumJobScopeChangeKindFieldRefInput<$PrismaModel>
@@ -1979,6 +1996,23 @@ export type NestedEnumJobActivityTypeWithAggregatesFilter<$PrismaModel = never> 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumJobActivityTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumJobActivityTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumJobBoardFilter<$PrismaModel = never> = {
+  equals?: $Enums.JobBoard | Prisma.EnumJobBoardFieldRefInput<$PrismaModel>
+  in?: $Enums.JobBoard[] | Prisma.ListEnumJobBoardFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JobBoard[] | Prisma.ListEnumJobBoardFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJobBoardFilter<$PrismaModel> | $Enums.JobBoard
+}
+
+export type NestedEnumJobBoardWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.JobBoard | Prisma.EnumJobBoardFieldRefInput<$PrismaModel>
+  in?: $Enums.JobBoard[] | Prisma.ListEnumJobBoardFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JobBoard[] | Prisma.ListEnumJobBoardFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJobBoardWithAggregatesFilter<$PrismaModel> | $Enums.JobBoard
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumJobBoardFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumJobBoardFilter<$PrismaModel>
 }
 
 export type NestedEnumJobScopeChangeKindFilter<$PrismaModel = never> = {

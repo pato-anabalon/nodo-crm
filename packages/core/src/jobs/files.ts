@@ -154,6 +154,7 @@ export function renameForType(name: string, contentType: string): string {
 export const JOB_UPLOAD_PERMISSIONS = [
   "files.create",
   "messages.create",
+  "confidential.create",
   "comments.create",
   "todos.create",
   "todos.update",

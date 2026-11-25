@@ -409,6 +409,7 @@
     "jobs": "Trabajos",
     "scope": "Jobs › Alcance del trabajo",
     "messages": "Trabajos › Mensajes",
+    "confidential": "Jobs › Confidencial",
     "comments": "Trabajos › Comentarios",
     "todos": "Trabajos › To-dos",
     "files": "Trabajos › Documentos y archivos",
@@ -462,6 +463,10 @@
     "messages_create": "Publicar mensajes",
     "messages_update": "Editar sus propios mensajes",
     "messages_delete": "Eliminar sus propios mensajes",
+    "confidential_read": "Ver la sección confidencial",
+    "confidential_create": "Publicar en la sección confidencial",
+    "confidential_update": "Editar sus propios mensajes confidenciales",
+    "confidential_delete": "Borrar sus propios mensajes confidenciales",
     "comments_create": "Comentar",
     "comments_update": "Editar sus propios comentarios",
     "comments_delete": "Eliminar sus propios comentarios",
@@ -2691,6 +2696,8 @@
       "FOLDER_CREATED": "{actor} creó la carpeta {name}",
       "POST_PUBLISHED": "{actor} publicó un mensaje: {title}",
       "COMMENT_ADDED": "{actor} comentó en {title}",
+      "CONFIDENTIAL_POST_PUBLISHED": "{actor} publicó en Confidencial: {title}",
+      "CONFIDENTIAL_COMMENT_ADDED": "{actor} comentó en {title} (Confidencial)",
       "TODO_LIST_CREATED": "{actor} creó la lista de to-dos {name}",
       "TODO_ADDED": "{actor} agregó un to-do: {title}",
       "TODO_COMPLETED": "{actor} completó {title}",
@@ -2872,7 +2879,15 @@
       "commentDeleted": "Comentario eliminado",
       "count": "{count, plural, =0 {Sin mensajes} one {# mensaje} other {# mensajes}}",
       "cardEmpty": "Todavía no hay mensajes.",
-      "commentCount": "{count, plural, one {# comentario} other {# comentarios}}"
+      "commentCount": "{count, plural, one {# comentario} other {# comentarios}}",
+      "confidential": {
+        "title": "Confidencial",
+        "backToBoard": "Volver a Confidencial",
+        "empty": "Todavía no se ha publicado nada confidencial en este trabajo.",
+        "emptyCanPost": "Todavía no hay mensajes. Aquí va el contrato, el resumen de facturación o cualquier cosa que el equipo de obra no deba ver.",
+        "cardEmpty": "Nada confidencial todavía.",
+        "notice": "Solo las personas cuyo perfil puede abrir Confidencial ven estos mensajes, sus archivos y sus comentarios, y solo a ellas se les avisa."
+      }
     },
     "todos": {
       "title": "To-dos",

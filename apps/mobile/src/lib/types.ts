@@ -216,6 +216,8 @@ export type Board = { categories: PostCategory[]; categoryId: string | null; pos
 export type Post = {
   id: string;
   jobId: string;
+  /** Which of the job's boards it is on. */
+  board: "TEAM" | "CONFIDENTIAL";
   title: string;
   body: string;
   publishedAt: string;

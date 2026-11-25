@@ -1326,6 +1326,40 @@ moving over already know.
   them for every company already there; `createCompanyWithOwner` seeds each
   new one; a test holds the two lists together.
 
+### The confidential board
+
+The Message Board's twin, for what the office keeps from the crew — the
+contract, the invoicing summary (`/jobs/<id>/confidential`). It is the same
+`JobPost` with `board: CONFIDENTIAL`, so it has everything the board has —
+drafts, categories, the full editor, files, comments, notices, moderation —
+and the four screens are written once (`board/pages.tsx`) for both.
+
+- **Its own four permissions**, `confidential.read/create/update/delete`,
+  nobody's by default but `OWNER`'s: who reads it is somebody's decision.
+  Existing companies' owners get them from
+  `scripts/grant-owner-permissions.ts`. Being on the job grants nothing, as
+  everywhere; `@nodo/core/jobs/boards` is the table of which permission
+  opens which board, its path and its timeline lines.
+- **The leak to guard against is a query that forgets the board** — it would
+  show the contract on the Message Board and nothing would fail. Every read
+  of `jobPost` lives in `board/service.ts` and names its board;
+  `board-isolation.test.ts` reads the source and fails otherwise. A guard
+  that finds a post by id (`findPost`) reads the board off the row and asks
+  that board's permission, never the one the form or the app named.
+- **Nothing reaches anybody else on the way out.** Its timeline lines are
+  types of their own (`CONFIDENTIAL_POST_PUBLISHED`, `…_COMMENT_ADDED`)
+  read with `confidential.read`; a comment on it is read with the post's
+  board (`commentSubject`); notices and the "only the people I pick" list are
+  cut to whoever reads it; its files are attachments, so Docs & Files never
+  lists them.
+- **The files are on the public store**, like every other file: the link
+  doesn't guess, but it opens for whoever holds it, and keeps opening after
+  a permission is taken away. A private store with a download route that
+  checks the session is the step up if that ever matters.
+- **The app reads it as it reads the board** — `GET /jobs/<id>/posts?board=
+  confidential`, and `/posts/<id>` answering to the post's own board — and
+  comments on it; writing posts stays on the web.
+
 ### To-dos
 
 Lists of steps, each with people, days, notes, files and its own comments

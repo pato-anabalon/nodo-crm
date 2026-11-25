@@ -1,4 +1,5 @@
 import type { Permission } from "@nodo/core/auth/permissions";
+import { BOARDS, boardOf, boardPath, type JobBoard } from "@nodo/core/jobs/boards";
 
 /**
  * What a comment is about. A `JobComment` carries one nullable key per thing
@@ -9,18 +10,20 @@ import type { Permission } from "@nodo/core/auth/permissions";
  * can be checked without a database.
  */
 export type CommentSubject =
-  | { kind: "post"; id: string }
+  | { kind: "post"; id: string; board: JobBoard }
   | { kind: "todo"; id: string }
   | { kind: "list"; id: string }
   | { kind: "event"; id: string };
 
 export function commentSubject(row: {
   postId: string | null;
+  /** The post's board, when it is on a post. */
+  post?: { board: string } | null;
   todoId: string | null;
   todoListId: string | null;
   eventId: string | null;
 }): CommentSubject | null {
-  if (row.postId) return { kind: "post", id: row.postId };
+  if (row.postId) return { kind: "post", id: row.postId, board: boardOf(row.post?.board) };
   if (row.todoId) return { kind: "todo", id: row.todoId };
   if (row.todoListId) return { kind: "list", id: row.todoListId };
   if (row.eventId) return { kind: "event", id: row.eventId };
@@ -35,7 +38,7 @@ export function commentSubject(row: {
 export function subjectReadPermission(subject: CommentSubject): Permission {
   switch (subject.kind) {
     case "post":
-      return "messages.read";
+      return BOARDS[subject.board].read;
     case "todo":
     case "list":
       return "todos.read";
@@ -48,7 +51,7 @@ export function subjectReadPermission(subject: CommentSubject): Permission {
 export function subjectPath(jobId: string, subject: CommentSubject): string {
   switch (subject.kind) {
     case "post":
-      return `/jobs/${jobId}/messages/${subject.id}`;
+      return boardPath(jobId, subject.board, subject.id);
     case "todo":
       return `/jobs/${jobId}/todos/${subject.id}`;
     case "list":

@@ -303,12 +303,16 @@ export function useSchedule(jobId: string, from: string, to: string) {
 }
 
 /** The Message Board's published posts, newest first, narrowed to a category or not. */
-export function useBoard(jobId: string, categoryId: string | null) {
+/** A job's Message Board, or with `confidential` its confidential board. */
+export function useBoard(jobId: string, categoryId: string | null, confidential = false) {
   const auth = useAuth();
+  const query = new URLSearchParams();
+  if (confidential) query.set("board", "confidential");
+  if (categoryId) query.set("category", categoryId);
+  const search = query.toString();
   return useQuery({
-    queryKey: [auth.company, "job", jobId, "board", categoryId],
-    queryFn: ({ signal }) =>
-      api<Board>(`/jobs/${jobId}/posts${categoryId ? `?category=${encodeURIComponent(categoryId)}` : ""}`, { auth, signal }),
+    queryKey: [auth.company, "job", jobId, confidential ? "confidential" : "board", categoryId],
+    queryFn: ({ signal }) => api<Board>(`/jobs/${jobId}/posts${search ? `?${search}` : ""}`, { auth, signal }),
     placeholderData: (previous) => previous,
   });
 }

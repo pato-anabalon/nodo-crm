@@ -409,6 +409,7 @@
     "jobs": "Jobs",
     "scope": "Jobs › Scope of work",
     "messages": "Jobs › Message board",
+    "confidential": "Jobs › Confidential",
     "comments": "Jobs › Comments",
     "todos": "Jobs › To-dos",
     "files": "Jobs › Docs & files",
@@ -462,6 +463,10 @@
     "messages_create": "Post messages",
     "messages_update": "Edit their own messages",
     "messages_delete": "Delete their own messages",
+    "confidential_read": "View the confidential board",
+    "confidential_create": "Post on the confidential board",
+    "confidential_update": "Edit their own confidential posts",
+    "confidential_delete": "Delete their own confidential posts",
     "comments_create": "Comment",
     "comments_update": "Edit their own comments",
     "comments_delete": "Delete their own comments",
@@ -2691,6 +2696,8 @@
       "FOLDER_CREATED": "{actor} created the folder {name}",
       "POST_PUBLISHED": "{actor} posted a message: {title}",
       "COMMENT_ADDED": "{actor} commented on {title}",
+      "CONFIDENTIAL_POST_PUBLISHED": "{actor} posted in Confidential: {title}",
+      "CONFIDENTIAL_COMMENT_ADDED": "{actor} commented on {title} in Confidential",
       "TODO_LIST_CREATED": "{actor} created the to-do list {name}",
       "TODO_ADDED": "{actor} added a to-do: {title}",
       "TODO_COMPLETED": "{actor} completed {title}",
@@ -2872,7 +2879,15 @@
       "commentDeleted": "Comment deleted",
       "count": "{count, plural, =0 {No posts} one {# post} other {# posts}}",
       "cardEmpty": "No messages yet.",
-      "commentCount": "{count, plural, one {# comment} other {# comments}}"
+      "commentCount": "{count, plural, one {# comment} other {# comments}}",
+      "confidential": {
+        "title": "Confidential",
+        "backToBoard": "Back to Confidential",
+        "empty": "Nothing confidential has been posted on this job yet.",
+        "emptyCanPost": "Nothing posted yet. This is the place for the contract, the invoicing summary or anything else the crew shouldn’t see.",
+        "cardEmpty": "Nothing confidential yet.",
+        "notice": "Only people whose profile can open Confidential see these posts, their files and their comments — and only they are notified."
+      }
     },
     "todos": {
       "title": "To-dos",

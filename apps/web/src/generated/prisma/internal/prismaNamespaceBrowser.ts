@@ -1113,6 +1113,7 @@ export const JobPostScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
   jobId: 'jobId',
+  board: 'board',
   categoryId: 'categoryId',
   title: 'title',
   body: 'body',

@@ -6975,6 +6975,7 @@ export const JobPostScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
   jobId: 'jobId',
+  board: 'board',
   categoryId: 'categoryId',
   title: 'title',
   body: 'body',
@@ -7818,6 +7819,20 @@ export type EnumJobActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$
  * Reference to a field of type 'JobActivityType[]'
  */
 export type ListEnumJobActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobActivityType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'JobBoard'
+ */
+export type EnumJobBoardFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobBoard'>
+    
+
+
+/**
+ * Reference to a field of type 'JobBoard[]'
+ */
+export type ListEnumJobBoardFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobBoard[]'>
     
 
 

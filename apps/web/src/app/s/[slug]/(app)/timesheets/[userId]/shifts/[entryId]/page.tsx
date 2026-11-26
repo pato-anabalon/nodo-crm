@@ -6,7 +6,7 @@ import { asPoint } from "@nodo/core/timeclock/geofence";
 import { decodeTrack } from "@nodo/core/timeclock/track";
 import { wallClock } from "@nodo/core/zoned-time";
 import { can, requireCompanyContext } from "@/lib/auth/session";
-import { Badge } from "@/components/ui/badge";
+import { ShiftFlagBadges } from "@/modules/timeclock/shift-flags";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { correctShiftAction, deleteShiftAction } from "@/modules/timeclock/actions";
@@ -74,15 +74,7 @@ export default async function ShiftPage({ params }: { params: Promise<{ userId: 
             {dayTitle(shift.day, formatLocale)} · <span className="tabular-nums">{range}</span>
             {shift.minutes !== null ? <> · <span className="tabular-nums">{hoursAndMinutes(shift.minutes)}</span></> : null}
           </p>
-          {flags.length > 0 ? (
-            <div className="flex flex-wrap gap-1 pt-1">
-              {flags.map((flag) => (
-                <Badge key={flag} variant="outline" className="font-normal">
-                  {flag}
-                </Badge>
-              ))}
-            </div>
-          ) : null}
+          <ShiftFlagBadges flags={flags} className="pt-1" />
         </div>
       </div>
 

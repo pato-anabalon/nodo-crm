@@ -1,6 +1,6 @@
 import { DEFAULT_BREAK_POLICY } from "@nodo/core/timeclock/pay";
 import { parseHourlyRate } from "../rate";
-import { hoursAndMinutes, personTimesheet, toShift, type ShiftInput } from "../timesheet";
+import { hoursAndMinutes, needsReview, personTimesheet, shiftFlags, toShift, type ShiftInput } from "../timesheet";
 import { timesheetCsv } from "../timesheet-export";
 import { weekFrom } from "../week";
 
@@ -163,5 +163,35 @@ describe("timesheetCsv", () => {
     expect(sheet).toMatchObject({ workedMinutes: 480, travelMinutes: 30, paidMinutes: 450, flagged: true });
     const [, monday] = timesheetCsv([{ ...people[0], sheet }], "day", zone, labels).trim().split("\r\n");
     expect(monday).toBe("'=Wendy,wendy@example.com,2026-11-09,12 Kegworth Pl; 4 Ponsonby Rd,3,07:00,15:00,8,0.5,2,30,7.5,30,225,1 by the clock");
+  });
+});
+
+describe("the shift that marks the week", () => {
+  const say = (flag: string) => flag;
+  const cases = [
+    shift("open", "2026-11-09T07:00:00", null),
+    shift("late", "2026-11-09T07:00:00", "2026-11-09T11:00:00", { clockOutReceivedAt: at("2026-11-09T12:00:00") }),
+    shift("away", "2026-11-09T07:00:00", "2026-11-09T11:00:00", { clockOutInside: false }),
+    shift("clock", "2026-11-09T07:00:00", "2026-11-09T11:00:00", { endedBy: "LEFT_SITE", clockOutInside: null }),
+    shift("travel", "2026-11-09T07:00:00", "2026-11-09T11:00:00", { kind: "TRAVEL", endedBy: "TRAVEL_LIMIT", clockOutInside: null }),
+    shift("manual", "2026-11-09T07:00:00", "2026-11-09T11:00:00", { source: "MANUAL", editedAt: at("2026-11-10T09:00:00") }),
+    shift("plain", "2026-11-09T07:00:00", "2026-11-09T11:00:00"),
+  ].map((input) => toShift(input, zone));
+
+  it("carries an amber flag exactly when it is what marks the person", () => {
+    for (const one of cases) {
+      const reviewed = shiftFlags(one, say).some((flag) => flag.review);
+      expect([one.id, reviewed]).toEqual([one.id, needsReview(one)]);
+      expect([one.id, personTimesheet("u1", [one], week.from, week.to, DEFAULT_BREAK_POLICY).flagged]).toEqual([one.id, needsReview(one)]);
+    }
+  });
+
+  it("leaves travel, by hand and corrected as description, not something to look at", () => {
+    const manual = cases.find((one) => one.id === "manual")!;
+    expect(shiftFlags(manual, say)).toEqual([
+      { label: "manual", review: false },
+      { label: "edited", review: false },
+    ]);
+    expect(needsReview(manual)).toBe(false);
   });
 });

@@ -51,3 +51,4 @@ apps/web/scripts/.output/
 .agents/
 .claude/skills/
 .taste-skill/
+.archify/

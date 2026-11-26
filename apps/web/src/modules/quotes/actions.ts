@@ -9,7 +9,7 @@ import { translateFieldErrors } from "@/lib/i18n-errors";
 import { QuoteStatus } from "@/generated/prisma/enums";
 import { sendAcceptedEmail } from "@/modules/email-templates/accepted-email";
 import { quoteFormDataToInput, quoteFormSchema, teamAcceptSchema, teamDeclineSchema, type TeamDecline } from "./schemas";
-import { changeQuoteStatus, createQuote, deleteQuote, getQuote, quoteCustomerNotice, updateQuote, visibilityWhere, type TeamAcceptance } from "./service";
+import { changeQuoteStatus, createQuote, deleteQuote, getQuote, quoteCustomerNotice, reopenQuote, updateQuote, visibilityWhere, type TeamAcceptance } from "./service";
 import { notifyQuoteUpdated } from "@/modules/notifications/quote-updated";
 import { formatDateTime } from "@/lib/format";
 import { revokeShare } from "@/modules/portal/service";
@@ -149,6 +149,50 @@ export async function sendQuoteAction(id: string): Promise<QuoteActionState> {
   return delivery.sent
     ? { message: withFailures(t("sentTo", { email: delivery.to }), delivery.failed, t) }
     : { message: t("markedAsSent", { reason: delivery.reason }) };
+}
+
+/**
+ * Gives an expired quote a new date (`reopenQuote`), and tells the customer
+ * when the person asked. That email is the same "your quote was updated" a save
+ * sends, but not held to its rules: a reopening happens once, and a customer
+ * who never opened it is exactly who it is for. Only a revoked link stops it —
+ * the email issues a link, and issuing one reopens a revoked share.
+ *
+ * Somebody about to change it first — a further discount, say — leaves the
+ * tick off and tells the customer on saving, with everything at once.
+ */
+export async function reopenQuoteAction(id: string, formData: FormData): Promise<QuoteActionState> {
+  const ctx = await requirePermission("quotes.send");
+  const t = await getTranslations("quotes");
+
+  const validUntil = String(formData.get("validUntil") ?? "").trim() || null;
+  const result = await reopenQuote(ctx, id, validUntil);
+  if (!result.ok) {
+    if (result.reason === "date-required" || result.reason === "date-past") {
+      return { fieldErrors: { validUntil: [t(`reopen.errors.${result.reason}`)] } };
+    }
+    return { error: t(result.reason === "not-found" ? "notFound" : `reopen.errors.${result.reason}`) };
+  }
+
+  let message = t("reopen.done");
+  if (formData.get("notifyCustomer") === "on") {
+    const share = await ctx.db.quoteShare.findFirst({ where: { quoteId: id }, select: { revokedAt: true } });
+    if (share && !share.revokedAt) {
+      const { eventId } = result;
+      after(async () => {
+        if (await sendToCustomer(id, EmailTemplateKind.QUOTE_UPDATED, { byHand: true })) {
+          await ctx.db.quoteEvent.update({ where: { id: eventId }, data: { customerNotifiedAt: new Date() } });
+        }
+      });
+      message = t("reopen.doneCustomerTold");
+    } else {
+      message = t("reopen.doneLinkClosed");
+    }
+  }
+
+  revalidatePath("/quotes");
+  revalidatePath(`/quotes/${id}`);
+  return { message };
 }
 
 /**

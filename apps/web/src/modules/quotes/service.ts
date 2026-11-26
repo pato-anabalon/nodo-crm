@@ -7,7 +7,8 @@ import { calculateQuoteTotals } from "./totals";
 import { resolveSelectedSectionAmounts, type BundleDiscount } from "./section-selection";
 import { canChangeLead, canTransition, isQuoteEditable, sectionStatuses, teamDecisionEvent } from "./constants";
 import { moveLeadAlong } from "./lead-sync";
-import { quoteChanges, TEXT_FIELDS, type QuoteSnapshot } from "./changes";
+import { quoteChanges, TEXT_FIELDS, type QuoteChange, type QuoteSnapshot } from "./changes";
+import { reopenRefusal } from "./reopen";
 import { customerNotice, type CustomerNotice } from "./update-notice";
 import { quoteRanOut } from "@/modules/portal/share";
 import { EmailTemplateKind } from "@/generated/prisma/enums";
@@ -946,6 +947,78 @@ export async function changeQuoteStatus(
   }
 
   return { ok: true as const, quote };
+}
+
+/** Where this company's own quotes start (`isNativeQuote`); read by id, since the context doesn't carry it. */
+export async function quoteNumberStartOf(ctx: CompanyContext): Promise<number> {
+  const company = await prisma.company.findUnique({ where: { id: ctx.company.id }, select: { quoteNumberStart: true } });
+  return company?.quoteNumberStart ?? 1;
+}
+
+/**
+ * Gives an expired quote a new date and puts it back in front of the customer
+ * (`reopenRefusal` says when it may). Not `changeQuoteStatus`: that would stamp
+ * `sentAt` again, counting it as sent twice and restarting the follow-ups'
+ * clock, and this isn't a send — the links already out open it again.
+ *
+ * It is a change to what the customer sees, so it moves the revision on, as a
+ * save does: a page left open on the expired version is told there's a new
+ * one. Running out stays in the history; this adds a line, it removes none.
+ */
+export async function reopenQuote(ctx: CompanyContext, id: string, validUntil: string | null, now = new Date()) {
+  const current = await ctx.db.quote.findFirst({
+    where: { id, ...visibilityWhere(ctx) },
+    select: { id: true, status: true, number: true, leadId: true, validUntil: true },
+  });
+  if (!current) return { ok: false as const, reason: "not-found" as const };
+  const refusal = reopenRefusal(current, await quoteNumberStartOf(ctx), validUntil, now);
+  if (refusal) return { ok: false as const, reason: refusal };
+
+  const eventId = await prisma.$transaction(async (tx) => {
+    // Only while it is still expired: two people pressing at once reopen it once.
+    const { count } = await tx.quote.updateMany({
+      where: { id, companyId: ctx.company.id, status: QuoteStatus.EXPIRED },
+      data: { status: QuoteStatus.SENT, validUntil: new Date(validUntil!), revision: { increment: 1 } },
+    });
+    if (count === 0) return null;
+
+    const event = await tx.quoteEvent.create({
+      data: {
+        companyId: ctx.company.id,
+        quoteId: id,
+        type: QuoteEventType.REOPENED,
+        userId: ctx.user.id,
+        userName: ctx.user.name || ctx.user.email,
+        changes: [
+          {
+            kind: "value",
+            field: "validUntil",
+            from: current.validUntil ? current.validUntil.toISOString().slice(0, 10) : null,
+            to: validUntil,
+          },
+        ] satisfies QuoteChange[] as Prisma.InputJsonValue,
+      },
+      select: { id: true },
+    });
+    return event.id;
+  });
+  if (!eventId) return { ok: false as const, reason: "not-expired" as const };
+
+  if (current.leadId) {
+    await ctx.db.activity.create({
+      data: {
+        companyId: ctx.company.id,
+        leadId: current.leadId,
+        userId: ctx.user.id,
+        type: ActivityType.QUOTE_REOPENED,
+        content: String(current.number),
+      },
+    });
+    // A lead the expiry left lost is somebody reviving it, as a quote sent to it would be.
+    await moveLeadAlong(ctx.db, { companyId: ctx.company.id, leadId: current.leadId, to: QuoteStatus.SENT, userId: ctx.user.id });
+  }
+
+  return { ok: true as const, eventId };
 }
 
 export async function deleteQuote(ctx: CompanyContext, id: string) {

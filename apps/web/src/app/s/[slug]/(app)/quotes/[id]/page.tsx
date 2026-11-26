@@ -15,7 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getQuote, quoteCustomerNotice } from "@/modules/quotes/service";
+import { getQuote, quoteCustomerNotice, quoteNumberStartOf } from "@/modules/quotes/service";
 import { listCompanyMembers } from "@/modules/team/service";
 import { listCompanyDocuments } from "@/modules/documents/service";
 import { QuoteForm } from "@/modules/quotes/quote-form";
@@ -44,6 +44,7 @@ import {
   decideQuoteAction,
   prepareAcceptanceEvidenceUploadAction,
   deleteQuoteAttachmentAction,
+  reopenQuoteAction,
   resendQuoteAction,
   revokeShareAction,
   sendFollowUpAction,
@@ -59,7 +60,9 @@ import { QuoteTabs } from "@/modules/quotes/quote-tabs";
 import { joinNames } from "@/modules/quotes/recipients";
 import { quoteRanOut } from "@/modules/portal/share";
 import { QuoteReuseCard } from "@/modules/quote-templates/quote-actions";
-import { isQuoteEditable, QUOTE_STATUS_CLASS } from "@/modules/quotes/constants";
+import { defaultValidUntil, isQuoteEditable, QUOTE_STATUS_CLASS } from "@/modules/quotes/constants";
+import { canReopen } from "@/modules/quotes/reopen";
+import { wallClock } from "@nodo/core/zoned-time";
 import { taxIsInTotal } from "@/modules/quotes/totals";
 import { HiddenAmount } from "@/modules/quotes/hidden-amount";
 import { currencyOptions } from "@nodo/core/intl/options";
@@ -190,6 +193,20 @@ export default async function QuoteDetailPage({
     ) : null;
 
   const ranOut = quoteRanOut(quote);
+  // An expired quote the company decides to hold for longer, on the same quote.
+  const reopen =
+    can(ctx, "quotes.send") && canReopen(quote, await quoteNumberStartOf(ctx))
+      ? (() => {
+          const now = new Date();
+          const day = (instant: Date) => wallClock(instant, ctx.company.timezone).day;
+          return {
+            onReopen: reopenQuoteAction.bind(null, quote.id),
+            defaultDate: day(defaultValidUntil(ctx.company.quoteValidityDays, now)),
+            minDate: day(new Date(now.getTime() + 24 * 60 * 60 * 1000)),
+            linkOpen: !!quote.share && quote.share.revokedAt === null,
+          };
+        })()
+      : undefined;
   const followUp = can(ctx, "quotes.send") ? nextFollowUp(quote) : null;
   const firstFollowUp = quote.emailsSent.find(
     (email) => email.kind === EmailTemplateKind.FIRST_FOLLOW_UP,
@@ -612,6 +629,7 @@ export default async function QuoteDetailPage({
             previewHref={`/quotes/${quote.id}/preview`}
             job={job ? { href: `/jobs/${job.id}` } : null}
             onStartJob={canStartJob ? startJobAction.bind(null, quote.id) : undefined}
+            reopen={reopen}
           />
         </div>
       </div>
@@ -754,7 +772,7 @@ async function QuoteEvents({
                     <span className="block text-muted-foreground">{event.reasonNote}</span>
                   ) : null}
                   {/* What a save after sending changed, worded for the team; the customer was told only that it changed. */}
-                  {event.type === "UPDATED" ? (
+                  {event.type === "UPDATED" || event.type === "REOPENED" ? (
                     <ul className="mt-1 space-y-0.5 text-muted-foreground">
                       {storedChanges(event.changes).map((change, index) => (
                         <li key={index}>{describeChange(change, words, changeFormat)}</li>

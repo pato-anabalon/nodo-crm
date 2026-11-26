@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useRef, useState, useTransition } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { Briefcase, ExternalLink, Paperclip, X } from "lucide-react";
+import { Briefcase, CalendarClock, ExternalLink, Paperclip, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
@@ -39,6 +41,7 @@ export function QuoteActionsBar({
   previewHref,
   job,
   onStartJob,
+  reopen,
 }: {
   quoteId: string;
   status: QuoteStatus;
@@ -66,11 +69,17 @@ export function QuoteActionsBar({
    * `jobs.create`; the action redirects to the new job on success.
    */
   onStartJob?: () => Promise<QuoteActionState>;
+  /**
+   * Gives an expired quote a new date. Only passed when it may be reopened
+   * (`canReopen`) and the profile holds `quotes.send`.
+   */
+  reopen?: ReopenOptions;
 }) {
   const [pending, startTransition] = useTransition();
   const [busy, setBusy] = useState<string | null>(null);
   const [declining, setDeclining] = useState(false);
   const [accepting, setAccepting] = useState(false);
+  const [reopening, setReopening] = useState(false);
   const t = useTranslations("quotes");
 
   function run(
@@ -95,8 +104,9 @@ export function QuoteActionsBar({
   const accepted = status === QuoteStatus.ACCEPTED;
   const showOpenJob = accepted && Boolean(job);
   const showStartJob = accepted && !job && Boolean(onStartJob);
+  const showReopen = status === QuoteStatus.EXPIRED && Boolean(reopen);
 
-  if (!showSend && !showDecision && !showOpenJob && !showStartJob) return null;
+  if (!showSend && !showDecision && !showOpenJob && !showStartJob && !showReopen) return null;
 
   return (
     // On a phone the bar spans the width and its two buttons take half each (one
@@ -166,6 +176,16 @@ export function QuoteActionsBar({
         </Button>
       ) : null}
 
+      {showReopen && reopen ? (
+        <>
+          <Button onClick={() => setReopening(true)} disabled={pending}>
+            <CalendarClock className="size-4" />
+            {t("actions.reopen")}
+          </Button>
+          <ReopenDialog open={reopening} onOpenChange={setReopening} {...reopen} />
+        </>
+      ) : null}
+
       {showStartJob && onStartJob ? (
         <Button onClick={() => run("startJob", onStartJob)} disabled={pending}>
           <Briefcase className="size-4" />
@@ -173,6 +193,94 @@ export function QuoteActionsBar({
         </Button>
       ) : null}
     </div>
+  );
+}
+
+type ReopenOptions = {
+  onReopen: (formData: FormData) => Promise<QuoteActionState>;
+  /** `YYYY-MM-DD`: today plus the company's validity, on its calendar. */
+  defaultDate: string;
+  /** `YYYY-MM-DD`: tomorrow — a date of today has already run out. */
+  minDate: string;
+  /** Whether the customer's link still opens, so an email can carry one. */
+  linkOpen: boolean;
+};
+
+/**
+ * A new date for an expired quote, and whether the customer hears of it now.
+ * The tick is on by default; somebody about to change the quote first leaves
+ * it off and tells them on saving, with everything at once.
+ */
+function ReopenDialog({
+  open,
+  onOpenChange,
+  onReopen,
+  defaultDate,
+  minDate,
+  linkOpen,
+}: ReopenOptions & { open: boolean; onOpenChange: (open: boolean) => void }) {
+  const t = useTranslations("quotes");
+  const tCommon = useTranslations("common");
+  const [pending, startTransition] = useTransition();
+  const [errors, setErrors] = useState<Record<string, string[]>>({});
+
+  function submit(formData: FormData) {
+    startTransition(async () => {
+      const result = await onReopen(formData);
+      if (result.fieldErrors) return setErrors(result.fieldErrors);
+      if (result.error) return void toast.error(result.error);
+      if (result.message) toast.success(result.message);
+      setErrors({});
+      onOpenChange(false);
+    });
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{t("reopen.title")}</DialogTitle>
+          <DialogDescription>{t("reopen.body")}</DialogDescription>
+        </DialogHeader>
+
+        <form action={submit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="reopen-valid-until">{t("reopen.validUntil")}</Label>
+            <Input
+              id="reopen-valid-until"
+              name="validUntil"
+              type="date"
+              required
+              min={minDate}
+              defaultValue={defaultDate}
+              aria-invalid={errors.validUntil ? true : undefined}
+            />
+            {errors.validUntil ? <p className="text-sm text-destructive">{errors.validUntil[0]}</p> : null}
+          </div>
+
+          {linkOpen ? (
+            <div className="flex items-start gap-2">
+              <Checkbox id="reopen-notify" name="notifyCustomer" defaultChecked />
+              <div className="space-y-1">
+                <Label htmlFor="reopen-notify">{t("reopen.notifyCustomer")}</Label>
+                <p className="text-xs text-muted-foreground">{t("reopen.notifyCustomerHint")}</p>
+              </div>
+            </div>
+          ) : (
+            <p className="text-xs text-muted-foreground">{t("reopen.linkClosed")}</p>
+          )}
+
+          <DialogFooter>
+            <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>
+              {tCommon("cancel")}
+            </Button>
+            <Button type="submit" disabled={pending}>
+              {pending ? tCommon("saving") : t("reopen.confirm")}
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }
 

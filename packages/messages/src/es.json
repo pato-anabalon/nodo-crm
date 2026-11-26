@@ -705,6 +705,7 @@
       "CONVERTED": "Cotización {reference} creada",
       "QUOTE_DECIDED": "La cotización #{reference} fue {status, select, ACCEPTED {aceptada} REJECTED {rechazada} EXPIRED {dejada vencer} other {respondida}}",
       "QUOTE_EDITED": "Cotización #{reference} editada después de enviada",
+      "QUOTE_REOPENED": "Cotización #{reference} reabierta con una nueva fecha de validez",
       "JOB_STARTED": "Trabajo iniciado desde la cotización #{reference}",
       "ACTION_SCHEDULED": "Acción agendada: {title}"
     },
@@ -924,7 +925,8 @@
       "reject": "Marcar rechazada",
       "startJob": "Iniciar trabajo",
       "startingJob": "Iniciando…",
-      "openJob": "Abrir trabajo"
+      "openJob": "Abrir trabajo",
+      "reopen": "Extender validez"
     },
     "jobCompleted": "Trabajo finalizado",
     "detail": "Detalle",
@@ -1033,7 +1035,8 @@
         "ACCEPTED": "Aceptó la cotización",
         "DECLINED": "Rechazó la cotización",
         "MESSAGE_SENT": "Envió un mensaje",
-        "UPDATED": "Actualizada"
+        "UPDATED": "Actualizada",
+        "REOPENED": "Reabierta"
       },
       "eventBy": {
         "OPENED": "Abierta por {name}",
@@ -1044,7 +1047,8 @@
       "eventByTeam": {
         "ACCEPTED": "Aceptada por {name}",
         "DECLINED": "Rechazada por {name}",
-        "UPDATED": "Actualizada por {name}"
+        "UPDATED": "Actualizada por {name}",
+        "REOPENED": "Reabierta por {name}"
       },
       "acceptedBy": "Aceptada por {name}",
       "acceptanceStatement": "Declaración aceptada",
@@ -1203,7 +1207,25 @@
     "cards": {
       "opens": "{count, plural, one {# apertura} other {# aperturas}}"
     },
-    "ownerInvalid": "Esa persona no puede ser responsable de este quote."
+    "ownerInvalid": "Esa persona no puede ser responsable de este quote.",
+    "reopen": {
+      "title": "Extender la validez de esta cotización",
+      "body": "La cotización vuelve a enviada con una fecha nueva: los links que el cliente ya tiene la abren otra vez y le permiten aceptarla. Que venció queda en la historia.",
+      "validUntil": "Válida hasta",
+      "notifyCustomer": "Avisar al cliente ahora",
+      "notifyCustomerHint": "Le llega un email diciendo que la cotización se actualizó, con un link. Si vas a cambiar algo antes, por ejemplo un descuento adicional, déjalo sin marcar y avísale al guardar los cambios.",
+      "linkClosed": "El link del cliente está revocado, así que no se le envía nada. Una vez reabierta, envíala de nuevo desde la tarjeta del link del cliente.",
+      "confirm": "Extender validez",
+      "done": "Cotización reabierta",
+      "doneCustomerTold": "Cotización reabierta; se le está avisando al cliente",
+      "doneLinkClosed": "Cotización reabierta; no se avisó al cliente porque su link está revocado",
+      "errors": {
+        "not-expired": "Solo se puede reabrir una cotización vencida",
+        "imported": "Esta cotización se trajo de otra herramienta, así que no se puede reabrir aquí",
+        "date-required": "Elige la nueva fecha de validez",
+        "date-past": "La nueva fecha tiene que ser posterior a hoy"
+      }
+    }
   },
   "tasks": {
     "title": "Tareas",

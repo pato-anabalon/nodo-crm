@@ -170,6 +170,8 @@ enum QuoteEventType {
   MESSAGE_SENT
   // Somebody on the team changed what the customer sees, after it went out.
   UPDATED
+  // An expired quote given a new date by the team, back in front of the customer.
+  REOPENED
 }
 
 /**
@@ -1409,6 +1411,11 @@ enum ActivityType {
    * changed under it.
    */
   QUOTE_EDITED
+  /**
+   * An expired quote on this lead was given a new date and is open again.
+   * Content is the quote's number.
+   */
+  QUOTE_REOPENED
   // Lead flow actions, each with its author and time.
   RECEIVED
   ASSIGNED

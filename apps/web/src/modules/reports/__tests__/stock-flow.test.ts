@@ -194,6 +194,21 @@ describe("the stock/flow partition behind the Reports cards", () => {
  * as of next January counted it as expired and left "awaiting acceptance" at
  * zero while quotes were genuinely waiting.
  */
+describe("a quote reopened with a new date", () => {
+  // Expired in October, given until December in November: counted by what it is
+  // now, so it leaves October's expired figure rather than staying there.
+  const october: Range = { from: day("2026-10-01T00:00:00Z"), to: day("2026-11-01T00:00:00Z") };
+  const reopened = quote({ sentAt: day("2026-09-20T00:00:00Z"), validUntil: day("2026-12-15T00:00:00Z") });
+
+  it("is no longer expired in the period it first ran out in", () => {
+    expect(wasExpiredWithin(reopened, october, day("2026-11-26T00:00:00Z"))).toBe(false);
+  });
+
+  it("reads as awaiting at that period's close instead", () => {
+    expect(wasAwaitingAt(reopened, october.to)).toBe(true);
+  });
+});
+
 describe("a period that is still open", () => {
   const now = day("2023-07-01T00:00:00Z"); // half way through `period`
 

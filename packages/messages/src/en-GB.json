@@ -705,6 +705,7 @@
       "CONVERTED": "Quote {reference} created",
       "QUOTE_DECIDED": "Quote #{reference} was {status, select, ACCEPTED {accepted} REJECTED {declined} EXPIRED {left to expire} other {answered}}",
       "QUOTE_EDITED": "Quote #{reference} edited after being sent",
+      "QUOTE_REOPENED": "Quote #{reference} reopened with a new validity date",
       "JOB_STARTED": "Job started from quote #{reference}",
       "ACTION_SCHEDULED": "Follow-up scheduled: {title}"
     },
@@ -924,7 +925,8 @@
       "reject": "Mark as declined",
       "startJob": "Start job",
       "startingJob": "Starting…",
-      "openJob": "Open job"
+      "openJob": "Open job",
+      "reopen": "Extend validity"
     },
     "jobCompleted": "Job completed",
     "detail": "Details",
@@ -1033,7 +1035,8 @@
         "ACCEPTED": "Accepted the quote",
         "DECLINED": "Declined the quote",
         "MESSAGE_SENT": "Sent a message",
-        "UPDATED": "Updated"
+        "UPDATED": "Updated",
+        "REOPENED": "Reopened"
       },
       "eventBy": {
         "OPENED": "Opened by {name}",
@@ -1044,7 +1047,8 @@
       "eventByTeam": {
         "ACCEPTED": "Accepted by {name}",
         "DECLINED": "Declined by {name}",
-        "UPDATED": "Updated by {name}"
+        "UPDATED": "Updated by {name}",
+        "REOPENED": "Reopened by {name}"
       },
       "acceptedBy": "Accepted by {name}",
       "acceptanceStatement": "Statement accepted",
@@ -1203,7 +1207,25 @@
     "cards": {
       "opens": "{count, plural, one {# open} other {# opens}}"
     },
-    "ownerInvalid": "That person can't be the owner of this quote."
+    "ownerInvalid": "That person can't be the owner of this quote.",
+    "reopen": {
+      "title": "Extend this quote's validity",
+      "body": "The quote goes back to sent with a new date: the links the customer already has open it again and let them accept. That it expired stays in the history.",
+      "validUntil": "Valid until",
+      "notifyCustomer": "Tell the customer now",
+      "notifyCustomerHint": "They get an email saying the quote was updated, with a link. If you are going to change something first, a further discount say, leave this off and tell them when you save the changes.",
+      "linkClosed": "The customer's link is revoked, so nobody is emailed. Send it again from the customer link card once it is reopened.",
+      "confirm": "Extend validity",
+      "done": "Quote reopened",
+      "doneCustomerTold": "Quote reopened; the customer is being told",
+      "doneLinkClosed": "Quote reopened; the customer wasn't told because their link is revoked",
+      "errors": {
+        "not-expired": "Only an expired quote can be reopened",
+        "imported": "This quote was brought in from another tool, so it can't be reopened here",
+        "date-required": "Choose the new validity date",
+        "date-past": "The new date has to be after today"
+      }
+    }
   },
   "tasks": {
     "title": "Tasks",

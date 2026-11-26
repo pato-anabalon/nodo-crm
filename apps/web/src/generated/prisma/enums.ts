@@ -122,7 +122,8 @@ export const QuoteEventType = {
   ACCEPTED: 'ACCEPTED',
   DECLINED: 'DECLINED',
   MESSAGE_SENT: 'MESSAGE_SENT',
-  UPDATED: 'UPDATED'
+  UPDATED: 'UPDATED',
+  REOPENED: 'REOPENED'
 } as const
 
 export type QuoteEventType = (typeof QuoteEventType)[keyof typeof QuoteEventType]
@@ -299,6 +300,7 @@ export const ActivityType = {
   QUOTE_SENT: 'QUOTE_SENT',
   QUOTE_DECIDED: 'QUOTE_DECIDED',
   QUOTE_EDITED: 'QUOTE_EDITED',
+  QUOTE_REOPENED: 'QUOTE_REOPENED',
   RECEIVED: 'RECEIVED',
   ASSIGNED: 'ASSIGNED',
   DISCARDED: 'DISCARDED',

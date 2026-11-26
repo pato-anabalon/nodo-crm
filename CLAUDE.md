@@ -891,9 +891,41 @@ versions in the customer's inbox — there is only ever the one link, and it now
 shows what was corrected.
 
 `ACCEPTED` stays out of reach for good: what the customer agreed to is what
-freezes. `REJECTED` and `EXPIRED` also stay locked — reviving one is done by
-sending again, which reopens editing along with the link, not by editing a quote
-that's already closed.
+freezes. `REJECTED` stays locked too — it is the customer's answer. `EXPIRED`
+is locked until it is reopened (below), which puts it back to `SENT` and so
+editable again.
+
+### Reopening an expired quote
+
+Running out is still the clock's (the sweep, unattended), but the company can
+decide afterwards to hold the price for longer — on the same quote. The
+alternative was duplicating it, which left two quotes for one job in every
+report: two sent, one expired, a 50% conversion where there was one sale.
+
+"Extend validity" (`reopenQuote`, `quotes.send`) asks for a new date and moves
+the quote back to `SENT`. It is not a send: `changeQuoteStatus` would stamp
+`sentAt` again — counting it as sent twice and restarting the follow-ups'
+clock — so `EXPIRED → SENT` is no longer a transition at all, and this is the
+only door back.
+
+- **The date has to be ahead** by the comparison that expires it
+  (`reopenRefusal`, pure), or the sweep would close it again that night; and
+  only a quote made here (`isNativeQuote`) — the sweep never looks at an
+  imported one, so reopened it would sit `SENT` forever.
+- **Nothing is undone.** The `QUOTE_DECIDED … EXPIRED` line stays on the lead;
+  a `REOPENED` `QuoteEvent` carries the dates as a `validUntil` change, and
+  `QUOTE_REOPENED` goes on the lead, which moves along as a send would (a lead
+  the expiry left `LOST` goes back to `PROPOSAL`).
+- **It moves the revision on**, so a customer with the expired page open gets
+  the bar to see the new version, and the links already out open it again.
+- **Telling the customer is a tick**, on by default: the `QUOTE_UPDATED` email,
+  held only to the link being open (sending one issues a link, and issuing
+  reopens a revoked share) — not to the save's twelve hours or "opened".
+  Somebody changing the quote first, a further discount say, leaves it off and
+  tells them on saving, with everything at once.
+- **Reports count it as what it is now.** Expired is keyed on `validUntil`, so
+  a reopened quote leaves the expired figure of the month it first ran out in
+  and reads as awaiting at its close.
 
 **The lead is the exception: it changes only on a draft** (`canChangeLead`).
 The customer's details are copied from the lead, so re-pointing a sent quote

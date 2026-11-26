@@ -228,6 +228,7 @@ export function QuoteForm({
   taxLabel,
   submitLabel,
   status,
+  customerNotice,
   afterDetails,
   after,
 }: {
@@ -290,7 +291,16 @@ export function QuoteForm({
    * quote the customer already has" confirmation below. A new quote is
    * never `SENT`, so `quotes/new/page.tsx` doesn't pass this. */
   status?: QuoteStatus;
+  /**
+   * On a sent quote, whether a change can be emailed to the customer now
+   * (`customerNotice`): offered as a tick in the confirmation, with the time
+   * when the next email may go while the last one is too recent.
+   */
+  customerNotice?: { kind: "ready" | "unopened" | "closed" } | { kind: "waiting"; until: string };
 }) {
+  // Ticked by default: a customer who has read the quote should hear it changed;
+  // whoever only fixed a comma takes the tick off.
+  const [notifyCustomer, setNotifyCustomer] = useState(true);
   const [state, formAction, pending] = useActionState<
     QuoteActionState,
     FormData
@@ -587,6 +597,8 @@ export function QuoteForm({
         onSubmit={submitWithoutReset}
         className="contents"
       >
+        {/* The tick lives in the confirmation, which renders outside this form; this carries it. */}
+        {customerNotice?.kind === "ready" && notifyCustomer ? <input type="hidden" name="notifyCustomer" value="on" /> : null}
         <div className="min-w-0 space-y-6 lg:col-span-2">
           <Card>
             <CardHeader>
@@ -1536,6 +1548,26 @@ export function QuoteForm({
                       <span className="text-xs text-muted-foreground">
                         {t("form.confirmSentEditNote")}
                       </span>
+                      {customerNotice?.kind === "ready" ? (
+                        <span className="mt-4 flex items-start gap-2 text-left text-foreground">
+                          <Checkbox
+                            id="notify-customer"
+                            checked={notifyCustomer}
+                            onCheckedChange={(checked) => setNotifyCustomer(checked === true)}
+                            className="mt-0.5"
+                          />
+                          <span className="space-y-0.5">
+                            <Label htmlFor="notify-customer">{t("form.notifyCustomer")}</Label>
+                            <span className="block text-xs text-muted-foreground">{t("form.notifyCustomerHint")}</span>
+                          </span>
+                        </span>
+                      ) : customerNotice?.kind === "waiting" ? (
+                        <span className="mt-4 block text-xs text-muted-foreground">
+                          {t("form.notifyCustomerLater", { time: customerNotice.until })}
+                        </span>
+                      ) : customerNotice?.kind === "unopened" ? (
+                        <span className="mt-4 block text-xs text-muted-foreground">{t("form.notifyCustomerUnopened")}</span>
+                      ) : null}
                     </>
                   }
                   confirmLabel={t("form.confirmSentEditConfirm")}

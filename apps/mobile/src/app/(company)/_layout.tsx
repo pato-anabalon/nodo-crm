@@ -35,6 +35,7 @@ export default function CompanyLayout() {
     >
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="jobs/[id]/board" options={{ title: t("board.title") }} />
+      <Stack.Screen name="jobs/[id]/confidential" options={{ title: t("board.confidential.title") }} />
       <Stack.Screen name="jobs/[id]/todos" options={{ title: t("todos.title") }} />
       <Stack.Screen name="jobs/[id]/chat" options={{ title: t("chat.title") }} />
       <Stack.Screen name="jobs/[id]/schedule" options={{ title: t("schedule.title") }} />

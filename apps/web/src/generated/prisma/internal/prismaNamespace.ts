@@ -437,6 +437,7 @@ export const ModelName = {
   QuoteRecipient: 'QuoteRecipient',
   SignatureHandoff: 'SignatureHandoff',
   QuoteEvent: 'QuoteEvent',
+  QuoteEventFile: 'QuoteEventFile',
   QuoteMessage: 'QuoteMessage',
   QuoteAcceptance: 'QuoteAcceptance',
   QuoteSection: 'QuoteSection',
@@ -485,7 +486,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "mobileSession" | "pushDevice" | "mobileChallenge" | "mobileTrustedDevice" | "mobileLoginFailure" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "leadSourceOption" | "leadAccessLog" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteRecipient" | "signatureHandoff" | "quoteEvent" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem" | "job" | "jobMember" | "jobActivity" | "jobFolder" | "jobFile" | "jobPostCategory" | "jobPost" | "jobComment" | "jobEvent" | "jobEventParticipant" | "jobTodoList" | "jobTodo" | "jobTodoAssignee" | "trade" | "membershipTrade" | "jobChatMessage" | "jobScopeItem" | "jobScopeChange" | "timeEntry" | "locationPing" | "timeEntryEvent" | "timesheetDay" | "timesheetChange"
+    modelProps: "company" | "companyQuoteType" | "user" | "membership" | "mobileSession" | "pushDevice" | "mobileChallenge" | "mobileTrustedDevice" | "mobileLoginFailure" | "loginAttempt" | "role" | "permission" | "rolePermission" | "invitation" | "account" | "session" | "verificationToken" | "task" | "notification" | "catalogueItem" | "clientCompany" | "contact" | "leadSourceOption" | "leadAccessLog" | "lead" | "leadSubmission" | "leadAttachment" | "ingestKey" | "ingestAttempt" | "activity" | "quoteTemplate" | "quoteTemplateItem" | "quoteTemplateSection" | "quote" | "companyDocument" | "quoteShare" | "quoteShareToken" | "quoteRecipient" | "signatureHandoff" | "quoteEvent" | "quoteEventFile" | "quoteMessage" | "quoteAcceptance" | "quoteSection" | "quoteAttachment" | "reviewLink" | "quoteEmail" | "emailTemplate" | "companyReview" | "notificationPreference" | "quoteItem" | "job" | "jobMember" | "jobActivity" | "jobFolder" | "jobFile" | "jobPostCategory" | "jobPost" | "jobComment" | "jobEvent" | "jobEventParticipant" | "jobTodoList" | "jobTodo" | "jobTodoAssignee" | "trade" | "membershipTrade" | "jobChatMessage" | "jobScopeItem" | "jobScopeChange" | "timeEntry" | "locationPing" | "timeEntryEvent" | "timesheetDay" | "timesheetChange"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3446,6 +3447,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.QuoteEventCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.QuoteEventCountAggregateOutputType> | number
+        }
+      }
+    }
+    QuoteEventFile: {
+      payload: Prisma.$QuoteEventFilePayload<ExtArgs>
+      fields: Prisma.QuoteEventFileFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.QuoteEventFileFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteEventFilePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.QuoteEventFileFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteEventFilePayload>
+        }
+        findFirst: {
+          args: Prisma.QuoteEventFileFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteEventFilePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.QuoteEventFileFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteEventFilePayload>
+        }
+        findMany: {
+          args: Prisma.QuoteEventFileFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteEventFilePayload>[]
+        }
+        create: {
+          args: Prisma.QuoteEventFileCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteEventFilePayload>
+        }
+        createMany: {
+          args: Prisma.QuoteEventFileCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.QuoteEventFileCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteEventFilePayload>[]
+        }
+        delete: {
+          args: Prisma.QuoteEventFileDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteEventFilePayload>
+        }
+        update: {
+          args: Prisma.QuoteEventFileUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteEventFilePayload>
+        }
+        deleteMany: {
+          args: Prisma.QuoteEventFileDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.QuoteEventFileUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.QuoteEventFileUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteEventFilePayload>[]
+        }
+        upsert: {
+          args: Prisma.QuoteEventFileUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuoteEventFilePayload>
+        }
+        aggregate: {
+          args: Prisma.QuoteEventFileAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateQuoteEventFile>
+        }
+        groupBy: {
+          args: Prisma.QuoteEventFileGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.QuoteEventFileGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.QuoteEventFileCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.QuoteEventFileCountAggregateOutputType> | number
         }
       }
     }
@@ -6509,6 +6584,7 @@ export const QuoteScalarFieldEnum = {
   validUntil: 'validUntil',
   sentAt: 'sentAt',
   decidedAt: 'decidedAt',
+  revision: 'revision',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -6606,10 +6682,28 @@ export const QuoteEventScalarFieldEnum = {
   userName: 'userName',
   reason: 'reason',
   reasonNote: 'reasonNote',
+  acceptReason: 'acceptReason',
+  changes: 'changes',
+  customerNotifiedAt: 'customerNotifiedAt',
   createdAt: 'createdAt'
 } as const
 
 export type QuoteEventScalarFieldEnum = (typeof QuoteEventScalarFieldEnum)[keyof typeof QuoteEventScalarFieldEnum]
+
+
+export const QuoteEventFileScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  eventId: 'eventId',
+  name: 'name',
+  url: 'url',
+  pathname: 'pathname',
+  contentType: 'contentType',
+  size: 'size',
+  createdAt: 'createdAt'
+} as const
+
+export type QuoteEventFileScalarFieldEnum = (typeof QuoteEventFileScalarFieldEnum)[keyof typeof QuoteEventFileScalarFieldEnum]
 
 
 export const QuoteMessageScalarFieldEnum = {
@@ -6881,6 +6975,7 @@ export const JobPostScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
   jobId: 'jobId',
+  board: 'board',
   categoryId: 'categoryId',
   title: 'title',
   body: 'body',
@@ -7588,6 +7683,20 @@ export type ListEnumQuoteDeclineReasonFieldRefInput<$PrismaModel> = FieldRefInpu
 
 
 /**
+ * Reference to a field of type 'QuoteAcceptReason'
+ */
+export type EnumQuoteAcceptReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuoteAcceptReason'>
+    
+
+
+/**
+ * Reference to a field of type 'QuoteAcceptReason[]'
+ */
+export type ListEnumQuoteAcceptReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuoteAcceptReason[]'>
+    
+
+
+/**
  * Reference to a field of type 'MessageAuthor'
  */
 export type EnumMessageAuthorFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageAuthor'>
@@ -7710,6 +7819,20 @@ export type EnumJobActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$
  * Reference to a field of type 'JobActivityType[]'
  */
 export type ListEnumJobActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobActivityType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'JobBoard'
+ */
+export type EnumJobBoardFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobBoard'>
+    
+
+
+/**
+ * Reference to a field of type 'JobBoard[]'
+ */
+export type ListEnumJobBoardFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobBoard[]'>
     
 
 
@@ -7987,6 +8110,7 @@ export type GlobalOmitConfig = {
   quoteRecipient?: Prisma.QuoteRecipientOmit
   signatureHandoff?: Prisma.SignatureHandoffOmit
   quoteEvent?: Prisma.QuoteEventOmit
+  quoteEventFile?: Prisma.QuoteEventFileOmit
   quoteMessage?: Prisma.QuoteMessageOmit
   quoteAcceptance?: Prisma.QuoteAcceptanceOmit
   quoteSection?: Prisma.QuoteSectionOmit

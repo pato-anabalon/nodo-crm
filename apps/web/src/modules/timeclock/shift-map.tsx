@@ -6,12 +6,18 @@ import { useTheme } from "next-themes";
 import { loadGoogleMaps, mapId, mapsKey } from "@/lib/geo/google-maps";
 import { oklchToHex } from "@nodo/core/theme/color";
 import type { Point } from "@nodo/core/timeclock/geofence";
+import { trackRuns } from "@nodo/core/timeclock/track";
 
 /**
  * A shift on the map: the job's circle, where the phone was at clock-in and
- * clock-out, and the positions recorded in between as one line. Read only —
- * a supervisor looks at it to understand a day, not to move anything.
+ * clock-out, and the positions recorded in between as one line — solid in the
+ * company's colour on the job, dashed and red away from it (`trackRuns`), so
+ * the two read apart without telling colours apart. Read only — a supervisor
+ * looks at it to understand a day, not to move anything.
  */
+
+/** Away from the job: a red that holds on the light and the dark map alike, whatever the company's colour. */
+const AWAY = "#dc2626";
 
 export type ShiftMapProps = {
   site: (Point & { radiusM: number }) | null;
@@ -70,8 +76,16 @@ export function ShiftMap({ site, clockIn, clockOut, track }: ShiftMapProps) {
           const circleBounds = circle.getBounds();
           if (circleBounds) bounds.union(circleBounds);
         }
-        if (track.length > 1) {
-          drawn.push(new Polyline({ map, path: track.map(at), strokeColor: brand, strokeOpacity: 0.8, strokeWeight: 3, clickable: false }));
+        for (const run of trackRuns(track, site)) {
+          if (run.points.length < 2) continue;
+          const path = run.points.map(at);
+          if (!run.away) {
+            drawn.push(new Polyline({ map, path, strokeColor: brand, strokeOpacity: 0.8, strokeWeight: 3, clickable: false }));
+            continue;
+          }
+          // A dashed line is a hidden stroke with a dash repeated along it.
+          const dash = { path: "M 0,-1 0,1", strokeColor: AWAY, strokeOpacity: 0.9, strokeWeight: 3, scale: 3 };
+          drawn.push(new Polyline({ map, path, strokeOpacity: 0, clickable: false, icons: [{ icon: dash, offset: "0", repeat: "14px" }] }));
         }
         track.forEach((point) => bounds.extend(at(point)));
 
@@ -101,5 +115,22 @@ export function ShiftMap({ site, clockIn, clockOut, track }: ShiftMapProps) {
 
   if (!mapsKey) return <p className="text-sm text-muted-foreground">{t("noMap")}</p>;
   if (failed) return <p className="text-sm text-muted-foreground">{t("failed")}</p>;
-  return <div ref={box} className="h-72 w-full overflow-hidden rounded-lg bg-muted" role="region" aria-label={t("label")} />;
+  const away = trackRuns(track, site).some((run) => run.away && run.points.length > 1);
+  return (
+    <div className="space-y-2">
+      <div ref={box} className="h-72 w-full overflow-hidden rounded-lg bg-muted" role="region" aria-label={t("label")} />
+      {away ? (
+        <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
+          <li className="flex items-center gap-1.5">
+            <span aria-hidden className="h-0.5 w-5 rounded-full bg-primary" />
+            {t("onJob")}
+          </li>
+          <li className="flex items-center gap-1.5">
+            <span aria-hidden className="w-5 border-t-2 border-dashed" style={{ borderColor: AWAY }} />
+            {t("away")}
+          </li>
+        </ul>
+      ) : null}
+    </div>
+  );
 }

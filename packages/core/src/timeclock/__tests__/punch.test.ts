@@ -3,6 +3,7 @@ import {
   isLatePunch,
   isLeftOpen,
   punchTimeProblem,
+  trackEnd,
   withinShift,
   LEFT_OPEN_AFTER_MS,
   PUNCH_FUTURE_TOLERANCE_MS,
@@ -69,5 +70,22 @@ describe("isLeftOpen", () => {
     expect(isLeftOpen(ago(10 * 60 * 60_000), now)).toBe(false);
     expect(isLeftOpen(ago(LEFT_OPEN_AFTER_MS - 1), now)).toBe(false);
     expect(isLeftOpen(ago(LEFT_OPEN_AFTER_MS), now)).toBe(true);
+  });
+});
+
+describe("trackEnd", () => {
+  const left = ago(60 * 60_000);
+
+  it("stops at the clock-out a person pressed, or a switch made", () => {
+    expect(trackEnd(left, "PUNCH", 15)).toEqual(left);
+    expect(trackEnd(left, "SWITCHED", 15)).toEqual(left);
+  });
+
+  it("keeps where they went until the countdown ran out, for a shift the clock ended at the departure", () => {
+    expect(trackEnd(left, "LEFT_SITE", 15)).toEqual(ago(45 * 60_000));
+  });
+
+  it("has no end while the shift is open", () => {
+    expect(trackEnd(null, null, 15)).toBeNull();
   });
 });

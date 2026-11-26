@@ -1,5 +1,5 @@
 import { distanceM, type Point } from "../geofence";
-import { decodeTrack, encodeTrack, simplifyTrack, thinTrack } from "../track";
+import { decodeTrack, encodeTrack, simplifyTrack, thinTrack, trackRuns } from "../track";
 
 const p = (latitude: number, longitude: number): Point => ({ latitude, longitude });
 
@@ -56,5 +56,28 @@ describe("thinTrack", () => {
     const line = thinTrack(day)!;
     expect(line.length).toBeLessThan(600);
     expect(decodeTrack(line)[0]).toEqual(p(-36.85, 174.76));
+  });
+});
+
+describe("trackRuns", () => {
+  const site = { ...p(-33.1651673, -70.7898245), radiusM: 50 };
+  // About 111 m north per 0.001° of latitude.
+  const north = (metres: number) => p(site.latitude + metres / 111_195, site.longitude);
+
+  it("draws the way out and back as away, sharing the points where the runs meet", () => {
+    const [a, b, c, d, e] = [north(10), north(30), north(80), north(135), north(20)];
+    expect(trackRuns([a, b, c, d, e], site)).toEqual([
+      { away: false, points: [a, b] },
+      { away: true, points: [b, c, d, e] },
+      { away: false, points: [e] },
+    ]);
+  });
+
+  it("is all on the job when the job has no place", () => {
+    expect(trackRuns([north(10), north(500)], null)).toEqual([{ away: false, points: [north(10), north(500)] }]);
+  });
+
+  it("is nothing for no positions", () => {
+    expect(trackRuns([], site)).toEqual([]);
   });
 });

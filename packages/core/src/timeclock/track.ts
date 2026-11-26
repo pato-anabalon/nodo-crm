@@ -1,4 +1,4 @@
-import type { Point } from "./geofence";
+import { distanceM, type Point } from "./geofence";
 
 /**
  * A shift's track once its positions are past the company's retention: the
@@ -124,4 +124,33 @@ export function decodeTrack(encoded: string): Point[] {
 export function thinTrack(points: readonly Point[], toleranceM = TRACK_TOLERANCE_M): string | null {
   if (points.length === 0) return null;
   return encodeTrack(simplifyTrack(points, toleranceM));
+}
+
+export type TrackRun = { away: boolean; points: Point[] };
+
+/**
+ * The track cut where it crosses the job's circle, so the map can draw time
+ * on the job apart from time away. A position is away when it lies beyond
+ * the circle as drawn — what the supervisor sees, not what the phone
+ * believed at the time, which can lag. Neighbouring runs share the point
+ * where they meet, so the line stays whole; the segment that crosses the
+ * edge is drawn as away. With no place for the job, all of it is on the job.
+ */
+export function trackRuns(points: readonly Point[], site: (Point & { radiusM: number }) | null): TrackRun[] {
+  const runs: TrackRun[] = [];
+  let previous: { point: Point; away: boolean } | null = null;
+  for (const point of points) {
+    const away = site !== null && distanceM(site, point) > site.radiusM;
+    const last = runs[runs.length - 1];
+    if (!previous || !last) runs.push({ away, points: [point] });
+    else if (away === last.away) last.points.push(point);
+    else if (away) runs.push({ away: true, points: [previous.point, point] });
+    else {
+      // Coming back: the crossing segment belongs to the time away.
+      last.points.push(point);
+      runs.push({ away: false, points: [point] });
+    }
+    previous = { point, away };
+  }
+  return runs;
 }

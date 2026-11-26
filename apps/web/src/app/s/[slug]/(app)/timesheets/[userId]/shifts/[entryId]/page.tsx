@@ -6,7 +6,7 @@ import { asPoint } from "@nodo/core/timeclock/geofence";
 import { decodeTrack } from "@nodo/core/timeclock/track";
 import { wallClock } from "@nodo/core/zoned-time";
 import { can, requireCompanyContext } from "@/lib/auth/session";
-import { Badge } from "@/components/ui/badge";
+import { ShiftFlagBadges } from "@/modules/timeclock/shift-flags";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { correctShiftAction, deleteShiftAction } from "@/modules/timeclock/actions";
@@ -49,6 +49,8 @@ export default async function ShiftPage({ params }: { params: Promise<{ userId: 
   // Past the company's retention the positions are gone and the line kept on the shift stands in for them.
   const thinned = entry.pings.length === 0 && entry.track !== null;
   const track = thinned ? decodeTrack(entry.track!) : entry.pings;
+  // A shift the clock ended keeps where they went until the countdown ran out (`trackEnd`).
+  const afterEnd = shift.clockOutAt ? entry.pings.filter((ping) => ping.recordedAt > shift.clockOutAt!).length : 0;
 
   return (
     <div className="space-y-6">
@@ -72,15 +74,7 @@ export default async function ShiftPage({ params }: { params: Promise<{ userId: 
             {dayTitle(shift.day, formatLocale)} · <span className="tabular-nums">{range}</span>
             {shift.minutes !== null ? <> · <span className="tabular-nums">{hoursAndMinutes(shift.minutes)}</span></> : null}
           </p>
-          {flags.length > 0 ? (
-            <div className="flex flex-wrap gap-1 pt-1">
-              {flags.map((flag) => (
-                <Badge key={flag} variant="outline" className="font-normal">
-                  {flag}
-                </Badge>
-              ))}
-            </div>
-          ) : null}
+          <ShiftFlagBadges flags={flags} className="pt-1" />
         </div>
       </div>
 
@@ -94,6 +88,7 @@ export default async function ShiftPage({ params }: { params: Promise<{ userId: 
                 : entry.pings.length > 0
                   ? t("shiftPage.trackCount", { count: entry.pings.length })
                   : t("shiftPage.noTrack")}
+              {afterEnd > 0 ? <> {t("shiftPage.trackAfter", { count: afterEnd })}</> : null}
             </p>
           </CardHeader>
           <CardContent className="space-y-3">
@@ -108,7 +103,7 @@ export default async function ShiftPage({ params }: { params: Promise<{ userId: 
               <Punch
                 label={t("shiftPage.clockOut")}
                 value={shift.clockOutAt ? time(shift.clockOutAt) : t("open")}
-                detail={shift.clockOutAt ? punchDetail(t, entry.clockOutDistanceM, entry.clockOutLatitude === null) : null}
+                detail={shift.clockOutAt ? clockOutDetail(t, shift.endedBy, entry.clockOutDistanceM, entry.clockOutLatitude === null) : null}
               />
             </dl>
             {entry.events.length > 0 ? (
@@ -184,6 +179,13 @@ type T = Awaited<ReturnType<typeof getTranslations<"timesheets">>>;
 function punchDetail(t: T, distanceM: number | null, unknownPlace: boolean): string | null {
   if (distanceM !== null) return t("shiftPage.distance", { metres: Math.round(distanceM) });
   return unknownPlace ? t("shiftPage.noPlace") : null;
+}
+
+/** A shift the clock ended has no punch of its own to place: what it says is why it ended. */
+function clockOutDetail(t: T, endedBy: ShiftDetail["shift"]["endedBy"], distanceM: number | null, unknownPlace: boolean): string | null {
+  if (endedBy === "LEFT_SITE") return t("shiftPage.endedLeftSite");
+  if (endedBy === "TRAVEL_LIMIT") return t("shiftPage.endedTravelLimit");
+  return punchDetail(t, distanceM, unknownPlace);
 }
 
 function Punch({ label, value, detail }: { label: string; value: string; detail: string | null }) {

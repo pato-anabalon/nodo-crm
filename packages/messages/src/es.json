@@ -409,6 +409,7 @@
     "jobs": "Trabajos",
     "scope": "Jobs › Alcance del trabajo",
     "messages": "Trabajos › Mensajes",
+    "confidential": "Jobs › Confidencial",
     "comments": "Trabajos › Comentarios",
     "todos": "Trabajos › To-dos",
     "files": "Trabajos › Documentos y archivos",
@@ -462,6 +463,10 @@
     "messages_create": "Publicar mensajes",
     "messages_update": "Editar sus propios mensajes",
     "messages_delete": "Eliminar sus propios mensajes",
+    "confidential_read": "Ver la sección confidencial",
+    "confidential_create": "Publicar en la sección confidencial",
+    "confidential_update": "Editar sus propios mensajes confidenciales",
+    "confidential_delete": "Borrar sus propios mensajes confidenciales",
     "comments_create": "Comentar",
     "comments_update": "Editar sus propios comentarios",
     "comments_delete": "Eliminar sus propios comentarios",
@@ -700,6 +705,7 @@
       "CONVERTED": "Cotización {reference} creada",
       "QUOTE_DECIDED": "La cotización #{reference} fue {status, select, ACCEPTED {aceptada} REJECTED {rechazada} EXPIRED {dejada vencer} other {respondida}}",
       "QUOTE_EDITED": "Cotización #{reference} editada después de enviada",
+      "QUOTE_REOPENED": "Cotización #{reference} reabierta con una nueva fecha de validez",
       "JOB_STARTED": "Trabajo iniciado desde la cotización #{reference}",
       "ACTION_SCHEDULED": "Acción agendada: {title}"
     },
@@ -771,6 +777,8 @@
     "needsLeadToSend": "Vincula un lead antes de enviar esta cotización.",
     "onlySentCanBeDecided": "Solo una cotización enviada puede aceptarse o rechazarse.",
     "changesSaved": "Cambios guardados.",
+    "changesSavedCustomerTold": "Cambios guardados. El cliente recibirá un correo avisando que la cotización se actualizó.",
+    "changesSavedCustomerLater": "Cambios guardados. Al cliente se le avisó de un cambio hace poco, así que esta vez no hay correo; el próximo puede salir después de las {time}.",
     "sentTo": "Cotización enviada a {email}.",
     "markedAsSent": "Cotización marcada como enviada. {reason}",
     "accepted": "Cotización aceptada.",
@@ -837,6 +845,10 @@
       "confirmSentEditBody": "¿Seguro que quieres modificarla?",
       "confirmSentEditNote": "Esto no cambia el estado Sent de la cotización — el enlace del cliente siempre muestra la última versión.",
       "confirmSentEditConfirm": "Guardar cambios",
+      "notifyCustomer": "Avisar al cliente de este cambio",
+      "notifyCustomerHint": "Recibe un correo diciendo que la cotización se actualizó, con el enlace; no lo que cambió. El cambio queda en el historial de la cotización de todas formas.",
+      "notifyCustomerLater": "Al cliente se le avisó de un cambio hace poco. El próximo correo puede salir después de las {time}; este cambio igual queda en el historial.",
+      "notifyCustomerUnopened": "El cliente todavía no la abre, así que verá directamente la versión nueva.",
       "preview": "Vista previa",
       "titleTooShort": "Ponle un título a la cotización",
       "describeItem": "Describe el ítem",
@@ -913,7 +925,8 @@
       "reject": "Marcar rechazada",
       "startJob": "Iniciar trabajo",
       "startingJob": "Iniciando…",
-      "openJob": "Abrir trabajo"
+      "openJob": "Abrir trabajo",
+      "reopen": "Extender validez"
     },
     "jobCompleted": "Trabajo finalizado",
     "detail": "Detalle",
@@ -957,6 +970,8 @@
       "acceptedSubject": "Gracias por aceptar",
       "acceptedBody": "Hola {customer},\n\nRecibimos la aceptación de {acceptedBy}, gracias. Nos pondremos en contacto en breve para coordinar el trabajo.",
       "followUpSubject": "Un recordatorio",
+      "updatedSubject": "Tu cotización fue actualizada",
+      "updatedBody": "Hola {customer},\n\nHicimos algunos cambios en tu cotización. El enlace de abajo siempre muestra la versión más reciente: revísala y, si algo merece conversarse, respóndenos por aquí.",
       "followUpBody": "Hola {customer},\n\nQueríamos saber si alcanzaste a ver la cotización que te enviamos. Si hay algo que ajustar o prefieres conversarlo, respóndenos por aquí y lo vemos.",
       "reviewSubject": "¿Cómo lo hicimos?",
       "reviewBody": "Hola {customer},\n\nGracias de nuevo por confiar en nosotros. Si quedaste conforme con el trabajo, una reseña breve nos ayuda mucho: es como nos encuentra la mayoría de nuestros clientes.",
@@ -968,6 +983,44 @@
       "waiting": "En espera",
       "active": "Activas",
       "closed": "Cerradas"
+    },
+    "changes": {
+      "none": "ninguno",
+      "customerNotified": "Se le avisó al cliente por correo",
+      "value": {
+        "title": "Título: «{from}» → «{to}»",
+        "validUntil": "Válida hasta: {from} → {to}",
+        "currency": "Moneda: {from} → {to}",
+        "taxDisplayMode": "Impuesto: {from} → {to}",
+        "taxRate": "Tasa de impuesto: {from} → {to}",
+        "pricingMode": "Forma de cotizar: {from} → {to}",
+        "quoteType": "Tipo: {from} → {to}",
+        "projectAddress": "Dirección del proyecto: {from} → {to}"
+      },
+      "edited": {
+        "intro": "Introducción editada",
+        "scope": "Alcance del trabajo editado",
+        "notes": "Notas editadas",
+        "exclusions": "Exclusiones editadas",
+        "terms": "Términos editados",
+        "termsDocument": "Documento de términos cambiado",
+        "optionalDiscount": "Descuento por secciones opcionales cambiado"
+      },
+      "discount": "Descuento: {from} → {to}",
+      "total": "Total: {from} → {to}",
+      "item": {
+        "added": "Línea agregada: {description} ({line})",
+        "removed": "Línea quitada: {description} ({line})",
+        "changed": "Línea «{description}»: {from} → {to}"
+      },
+      "section": {
+        "added": "Sección agregada: {title} ({amount})",
+        "removed": "Sección quitada: {title} ({amount})",
+        "renamed": "Sección renombrada: «{from}» → «{to}»",
+        "amount": "Sección «{title}»: {from} → {to}",
+        "body": "Sección «{title}»: descripción editada",
+        "options": "Sección «{title}»: opciones cambiadas"
+      }
     },
     "tracking": {
       "title": "Seguimiento",
@@ -981,7 +1034,9 @@
         "OPENED": "Abrió la cotización",
         "ACCEPTED": "Aceptó la cotización",
         "DECLINED": "Rechazó la cotización",
-        "MESSAGE_SENT": "Envió un mensaje"
+        "MESSAGE_SENT": "Envió un mensaje",
+        "UPDATED": "Actualizada",
+        "REOPENED": "Reabierta"
       },
       "eventBy": {
         "OPENED": "Abierta por {name}",
@@ -991,7 +1046,9 @@
       },
       "eventByTeam": {
         "ACCEPTED": "Aceptada por {name}",
-        "DECLINED": "Rechazada por {name}"
+        "DECLINED": "Rechazada por {name}",
+        "UPDATED": "Actualizada por {name}",
+        "REOPENED": "Reabierta por {name}"
       },
       "acceptedBy": "Aceptada por {name}",
       "acceptanceStatement": "Declaración aceptada",
@@ -1011,6 +1068,33 @@
       "REPLACED": "Se reemplazó por otra cotización",
       "SENT_IN_ERROR": "Se envió por error o está duplicada",
       "OTHER": "Otro"
+    },
+    "acceptReasons": {
+      "CUSTOMER_EMAIL": "El cliente aceptó por correo",
+      "CUSTOMER_MESSAGE": "El cliente aceptó por SMS o WhatsApp",
+      "CUSTOMER_CALL": "El cliente aceptó por teléfono",
+      "IN_PERSON": "En persona o en una copia firmada",
+      "LINK_PROBLEM": "El cliente no pudo aceptar desde el enlace",
+      "OTHER": "Otro"
+    },
+    "accept": {
+      "title": "Marcar como aceptada",
+      "body": "Indica cómo aceptó el cliente y adjunta su respuesta. El historial de la cotización muestra quién la aceptó, por qué y la evidencia; el cliente recibe la confirmación de siempre.",
+      "reason": "Cómo aceptó",
+      "choose": "Elige una opción",
+      "evidence": "Evidencia del cliente",
+      "evidenceHint": "Una captura del mensaje o del correo, o el documento firmado: una imagen o un PDF, hasta {max} archivos.",
+      "addAnother": "Agregar otro archivo",
+      "remove": "Quitar {name}",
+      "note": "Nota (opcional)",
+      "noteForOther": "Nota",
+      "notePlaceholder": "Lo que el equipo deba saber después",
+      "confirm": "Aceptar cotización",
+      "reasonRequired": "Elige cómo aceptó el cliente.",
+      "noteRequired": "Escribe cómo aceptó cuando es «Otro».",
+      "evidenceRequired": "Adjunta la aceptación del cliente: una captura o un documento.",
+      "evidenceTooMany": "Son más archivos de los que admite una aceptación.",
+      "evidenceMissing": "No se pudo comprobar la evidencia. Adjúntala de nuevo."
     },
     "decline": {
       "title": "Marcar como rechazada",
@@ -1123,7 +1207,25 @@
     "cards": {
       "opens": "{count, plural, one {# apertura} other {# aperturas}}"
     },
-    "ownerInvalid": "Esa persona no puede ser responsable de este quote."
+    "ownerInvalid": "Esa persona no puede ser responsable de este quote.",
+    "reopen": {
+      "title": "Extender la validez de esta cotización",
+      "body": "La cotización vuelve a enviada con una fecha nueva: los links que el cliente ya tiene la abren otra vez y le permiten aceptarla. Que venció queda en la historia.",
+      "validUntil": "Válida hasta",
+      "notifyCustomer": "Avisar al cliente ahora",
+      "notifyCustomerHint": "Le llega un email diciendo que la cotización se actualizó, con un link. Si vas a cambiar algo antes, por ejemplo un descuento adicional, déjalo sin marcar y avísale al guardar los cambios.",
+      "linkClosed": "El link del cliente está revocado, así que no se le envía nada. Una vez reabierta, envíala de nuevo desde la tarjeta del link del cliente.",
+      "confirm": "Extender validez",
+      "done": "Cotización reabierta",
+      "doneCustomerTold": "Cotización reabierta; se le está avisando al cliente",
+      "doneLinkClosed": "Cotización reabierta; no se avisó al cliente porque su link está revocado",
+      "errors": {
+        "not-expired": "Solo se puede reabrir una cotización vencida",
+        "imported": "Esta cotización se trajo de otra herramienta, así que no se puede reabrir aquí",
+        "date-required": "Elige la nueva fecha de validez",
+        "date-past": "La nueva fecha tiene que ser posterior a hoy"
+      }
+    }
   },
   "tasks": {
     "title": "Tareas",
@@ -1804,6 +1906,10 @@
     }
   },
   "portal": {
+    "updated": {
+      "title": "Esta cotización se acaba de actualizar.",
+      "reload": "Ver la versión nueva"
+    },
     "yourQuote": "Tu cotización",
     "from": "De",
     "validUntil": "Válida hasta el {date}",
@@ -1850,6 +1956,7 @@
       "signatureRequired": "Firma para poder aceptar",
       "notAvailable": "Esta cotización ya no admite respuesta.",
       "nothingSelected": "Selecciona al menos un ítem antes de aceptar.",
+      "quoteChanged": "Esta cotización se actualizó mientras la tenías abierta. Recarga la página para ver la versión nueva antes de aceptar.",
       "messageEmpty": "Escribe algo antes de enviar",
       "messageTooLong": "El mensaje es demasiado largo"
     },
@@ -1941,6 +2048,11 @@
       "subject": "{reference} fue abierta",
       "heading": "{client} abrió tu cotización"
     },
+    "quoteUpdated": {
+      "subject": "{reference} fue actualizada",
+      "heading": "{name} cambió una cotización que el cliente ya abrió",
+      "line": "{reference} — {title}"
+    },
     "quoteExpiredOpened": {
       "subject": "{customer} abrió {reference}, que ya venció",
       "heading": "{customer} volvió a una cotización vencida",
@@ -1971,6 +2083,7 @@
       "QUOTE_OPENED": "{customer} abrió la cotización {reference}",
       "QUOTE_DECIDED": "La cotización {reference} fue {decision, select, accepted {aceptada} declined {rechazada} other {respondida}}",
       "QUOTE_EXPIRED_OPENED": "{customer} abrió la cotización vencida {reference}",
+      "QUOTE_UPDATED": "{name} actualizó la cotización {reference}, que el cliente ya abrió",
       "CLIENT_MESSAGE": "{customer} respondió en la cotización {reference}",
       "TASK_ASSIGNED": "{by} te dejó la tarea «{title}»",
       "TASK_DUE": "Tarea atrasada: {title}",
@@ -2207,6 +2320,8 @@
       "QUOTE_DECIDED_hint": "Cuando el cliente responde.",
       "QUOTE_EXPIRED_OPENED": "Cotización vencida abierta",
       "QUOTE_EXPIRED_OPENED_hint": "Una vez al día, cuando un cliente abre una cotización que venció. A Owners, Admins y a quien hizo la cotización.",
+      "QUOTE_UPDATED": "Cotización actualizada después de abierta",
+      "QUOTE_UPDATED_hint": "Cuando alguien cambia una cotización que el cliente ya abrió, con lo que cambió. A Owners, Admins y al dueño de la cotización; varios guardados en media hora son un solo aviso.",
       "CLIENT_MESSAGE": "Mensaje del cliente",
       "CLIENT_MESSAGE_hint": "Cuando te escriben en el hilo de una cotización.",
       "TASK_ASSIGNED": "Me asignan una tarea",
@@ -2290,6 +2405,10 @@
         "name": "Primer seguimiento",
         "when": "Unos días después de enviarla, si el cliente no ha respondido."
       },
+      "QUOTE_UPDATED": {
+        "name": "Cotización actualizada",
+        "when": "Cuando alguien cambia una cotización que el cliente ya abrió y marca «Avisar al cliente». Como máximo una vez cada 12 horas por cotización."
+      },
       "SECOND_FOLLOW_UP": {
         "name": "Segundo seguimiento",
         "when": "Más adelante, si todavía no hay respuesta."
@@ -2305,7 +2424,7 @@
     },
     "shared": {
       "title": "Común a todos los correos",
-      "subtitle": "Se configura una vez y vale para los cinco.",
+      "subtitle": "Se configura una vez y vale para los seis.",
       "senderName": "De quién llega el correo",
       "senderNameHint": "Por ahora la dirección siempre es no-reply@nodo.co.nz; sólo cambia el nombre.",
       "slogan": "Lema",
@@ -2599,6 +2718,8 @@
       "FOLDER_CREATED": "{actor} creó la carpeta {name}",
       "POST_PUBLISHED": "{actor} publicó un mensaje: {title}",
       "COMMENT_ADDED": "{actor} comentó en {title}",
+      "CONFIDENTIAL_POST_PUBLISHED": "{actor} publicó en Confidencial: {title}",
+      "CONFIDENTIAL_COMMENT_ADDED": "{actor} comentó en {title} (Confidencial)",
       "TODO_LIST_CREATED": "{actor} creó la lista de to-dos {name}",
       "TODO_ADDED": "{actor} agregó un to-do: {title}",
       "TODO_COMPLETED": "{actor} completó {title}",
@@ -2780,7 +2901,15 @@
       "commentDeleted": "Comentario eliminado",
       "count": "{count, plural, =0 {Sin mensajes} one {# mensaje} other {# mensajes}}",
       "cardEmpty": "Todavía no hay mensajes.",
-      "commentCount": "{count, plural, one {# comentario} other {# comentarios}}"
+      "commentCount": "{count, plural, one {# comentario} other {# comentarios}}",
+      "confidential": {
+        "title": "Confidencial",
+        "backToBoard": "Volver a Confidencial",
+        "empty": "Todavía no se ha publicado nada confidencial en este trabajo.",
+        "emptyCanPost": "Todavía no hay mensajes. Aquí va el contrato, el resumen de facturación o cualquier cosa que el equipo de obra no deba ver.",
+        "cardEmpty": "Nada confidencial todavía.",
+        "notice": "Solo las personas cuyo perfil puede abrir Confidencial ven estos mensajes, sus archivos y sus comentarios, y solo a ellas se les avisa."
+      }
     },
     "todos": {
       "title": "To-dos",
@@ -2942,6 +3071,7 @@
       "radiusOption": "{metres} m",
       "radiusHint": "Qué tan cerca de la obra tiene que estar el teléfono para marcar entrada. Bajo 200 m, un teléfono con poca señal —adentro, bajo techo— puede tener que esperar una mejor.",
       "pin": "La obra",
+      "openInMaps": "Abrir en Google Maps",
       "mapLabel": "Mapa de la obra",
       "mapFailed": "No se pudo cargar el mapa.",
       "saved": "Ubicación guardada",
@@ -3337,13 +3467,16 @@
     "shiftPage": {
       "back": "Volver a la semana",
       "where": "Dónde",
-      "trackCount": "{count, plural, one {1 posición registrada durante la jornada} other {# posiciones registradas durante la jornada}}",
+      "trackCount": "{count, plural, one {1 posición registrada.} other {# posiciones registradas.}}",
       "noTrack": "No hay posiciones registradas entre la entrada y la salida.",
       "trackThinned": "Recorrido simplificado: las posiciones pasaron el plazo de retención de la empresa.",
       "clockIn": "Entrada",
       "clockOut": "Salida",
       "distance": "a {metres} m del trabajo",
       "noPlace": "Sin posición registrada",
+      "endedLeftSite": "Se cerró sola, a la hora en que salió de la obra: no volvió a tiempo",
+      "endedTravelLimit": "Se cerró sola: el traslado pasó el tope de la empresa",
+      "trackAfter": "{count, plural, one {1 de ellas es} other {# de ellas son}} de después de salir, hasta que venció el plazo para volver. No cuenta como trabajado.",
       "history": "Historial",
       "correctedBy": "Corregida por {person}",
       "enteredBy": "Ingresada a mano por {person}",
@@ -3356,7 +3489,9 @@
         "clockIn": "Entrada",
         "clockOut": "Salida",
         "inGlyph": "E",
-        "outGlyph": "S"
+        "outGlyph": "S",
+        "onJob": "En la obra",
+        "away": "Fuera de la obra"
       },
       "movement": "Fuera de la obra",
       "left": "Salió de la obra",

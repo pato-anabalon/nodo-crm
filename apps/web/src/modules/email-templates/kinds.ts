@@ -19,6 +19,10 @@ export const TEMPLATE_KINDS: Record<EmailTemplateKind, KindDefaults> = {
   // Sending a quote *is* emailing the customer, so there is nothing to turn off.
   [EmailTemplateKind.NEW_QUOTE]: { enabled: true, optional: false },
 
+  // Sent only when the person saving a change ticks "Tell the customer", so the
+  // tick is the switch: a second one on this screen would only contradict it.
+  [EmailTemplateKind.QUOTE_UPDATED]: { enabled: true, optional: false },
+
   // A confirmation to somebody who just acted. It can only reach a person who
   // pressed accept a second earlier, so it is on from the start.
   [EmailTemplateKind.QUOTE_ACCEPTED]: { enabled: true, optional: true },
@@ -40,6 +44,7 @@ export const TEMPLATE_KINDS: Record<EmailTemplateKind, KindDefaults> = {
 /** The order the settings screen lists them in: the life of a quote. */
 export const TEMPLATE_ORDER: EmailTemplateKind[] = [
   EmailTemplateKind.NEW_QUOTE,
+  EmailTemplateKind.QUOTE_UPDATED,
   EmailTemplateKind.FIRST_FOLLOW_UP,
   EmailTemplateKind.SECOND_FOLLOW_UP,
   EmailTemplateKind.QUOTE_ACCEPTED,

@@ -1,4 +1,5 @@
-import { act, render } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
+import { renderWithIntl } from "@/test/intl";
 import { PresenceHeartbeat } from "../heartbeat";
 
 describe("PresenceHeartbeat", () => {
@@ -52,5 +53,22 @@ describe("PresenceHeartbeat", () => {
     });
 
     expect(navigator.sendBeacon).not.toHaveBeenCalled();
+  });
+
+  /** Somebody on the team saved a change while the customer had the quote open. */
+  it("says the quote was updated when a beat hears a newer revision, without reloading", async () => {
+    global.fetch = jest.fn().mockResolvedValue({ ok: true, status: 200, json: async () => ({ revision: 3 }) } as Response);
+    renderWithIntl(<PresenceHeartbeat token="tok123" revision={2} />);
+
+    expect(await screen.findByText("This quote has just been updated.")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "See the new version" })).toBeInTheDocument();
+  });
+
+  it("stays quiet while the page shows the current revision", async () => {
+    global.fetch = jest.fn().mockResolvedValue({ ok: true, status: 200, json: async () => ({ revision: 2 }) } as Response);
+    renderWithIntl(<PresenceHeartbeat token="tok123" revision={2} />);
+
+    await act(async () => undefined);
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
   });
 });

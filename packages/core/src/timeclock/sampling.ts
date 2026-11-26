@@ -5,11 +5,13 @@
  * asks only as often as the situation can change. Pure, so the intervals are
  * checked without a phone and tuned from the pilot's numbers in one place.
  *
- * - **On the job and still**: the place is already known — a position every
- *   fifteen minutes is enough to show they stayed.
+ * - **On the job and still**: the place is already known, but a position is
+ *   also how the phone learns they left when the system's geofencing is slow
+ *   to say so — every five minutes bounds how late that can be.
  * - **Moving**: every two minutes or fifty metres, so a drive reads as a line.
  * - **Away from the job, not moving**: every five minutes — what the
- *   supervisor will look at if the shift ends by itself.
+ *   supervisor will look at if the shift ends by itself, kept up to the
+ *   moment it did (`trackEnd`).
  *
  * Balanced precision throughout (wifi and towers, ample for a circle of
  * hundreds of metres); high precision is for the few seconds of a punch,
@@ -36,7 +38,7 @@ export const MOVING_SPEED_MPS = 2.5;
 const MINUTE = 60_000;
 
 const SAMPLING: Record<SamplingMode, Omit<Sampling, "mode" | "accuracy">> = {
-  still_on_site: { intervalMs: 15 * MINUTE, distanceM: 100 },
+  still_on_site: { intervalMs: 5 * MINUTE, distanceM: 100 },
   moving: { intervalMs: 2 * MINUTE, distanceM: 50 },
   still_away: { intervalMs: 5 * MINUTE, distanceM: 50 },
 };

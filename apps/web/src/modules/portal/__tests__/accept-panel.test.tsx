@@ -18,6 +18,7 @@ function renderPanel(over: Partial<AcceptanceSettings> = {}) {
     <AcceptPanel
       settings={settings(over)}
       viewerName="Bruno Díaz"
+      revision={0}
       acceptAction={async () => ({})}
       declineAction={async () => ({})}
     />,
@@ -62,6 +63,7 @@ describe("AcceptPanel — signing from a touch device", () => {
       <AcceptPanel
         settings={settings({ requireSignature: true })}
         viewerName="Bruno Díaz"
+      revision={0}
         acceptAction={async () => ({})}
         declineAction={async () => ({})}
         signatureHandoff={handoff}

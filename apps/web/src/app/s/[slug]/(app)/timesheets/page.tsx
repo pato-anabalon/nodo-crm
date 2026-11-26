@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AlertTriangle, Download } from "lucide-react";
+import { Download } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { addDays } from "@nodo/core/jobs/schedule/calendar";
 import { payAmount } from "@nodo/core/timeclock/pay";
@@ -12,6 +12,7 @@ import { hoursAndMinutes, daysOf } from "@/modules/timeclock/timesheet";
 import { timesheets } from "@/modules/timeclock/timesheet-service";
 import { dayHeading, weekFrom, weekRange } from "@/modules/timeclock/week";
 import { WeekNav } from "@/modules/timeclock/week-nav";
+import { FlagHint } from "@/modules/timeclock/flag-hint";
 
 export async function generateMetadata() {
   const t = await getTranslations("timesheets");
@@ -88,7 +89,7 @@ export default async function TimesheetsPage({ searchParams }: { searchParams: P
                         {person.name ?? person.email}
                       </Link>
                       {person.sheet.flagged ? (
-                        <AlertTriangle className="ml-1.5 inline size-3.5 text-[var(--status-viewing)]" aria-label={t("flagged")} />
+                        <FlagHint label={t("flagged")} />
                       ) : null}
                     </TableCell>
                     {person.sheet.days.map((day) => (

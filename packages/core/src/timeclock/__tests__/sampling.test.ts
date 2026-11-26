@@ -1,14 +1,16 @@
 import { FLUSH_AT_QUEUED, MOVING_SPEED_MPS, samplingFor, shouldFlush } from "../sampling";
 
 describe("samplingFor", () => {
-  it("asks rarely on the job, often on the move, and in between when away", () => {
+  it("asks often on the move, and no more often on the job than away", () => {
     const onSite = samplingFor({ inside: true, speedMps: 0.3 });
     const moving = samplingFor({ inside: false, speedMps: 15 });
     const away = samplingFor({ inside: false, speedMps: 0 });
     expect(onSite.mode).toBe("still_on_site");
     expect(moving.mode).toBe("moving");
     expect(away.mode).toBe("still_away");
-    expect(onSite.intervalMs).toBeGreaterThan(away.intervalMs);
+    expect(onSite.intervalMs).toBeGreaterThanOrEqual(away.intervalMs);
+    // How late a departure can be read from the track when the system's geofencing is slow to say so.
+    expect(onSite.intervalMs).toBeLessThanOrEqual(5 * 60_000);
     expect(away.intervalMs).toBeGreaterThan(moving.intervalMs);
   });
 

@@ -1,4 +1,4 @@
-import { nextPingBatch, pingFrom, reactTo, regionJobId, regionsFor, watchFor, type QueuedPing } from "../movement";
+import { crossingsAt, nextPingBatch, pingFrom, reactTo, regionJobId, regionsFor, systemCrossingCounts, watchFor, type QueuedPing } from "../movement";
 
 describe("reactTo", () => {
   const watch = watchFor("shift", "a");
@@ -24,6 +24,37 @@ describe("reactTo", () => {
 
   it("has no job of its own while travelling", () => {
     expect(reactTo(watchFor("drive", null), { jobId: "a", entered: true }).reaction).toEqual({ suggest: "a" });
+  });
+});
+
+describe("crossingsAt", () => {
+  // About 111 m north per 0.001° of latitude.
+  const site = { latitude: -33.1651673, longitude: -70.7898245, radiusM: 50 };
+  const jobs = [{ id: "own", name: "own", address: null, site }, { id: "none", name: "none", address: null, site: null }];
+  const north = (metres: number, accuracyM: number) => ({ latitude: site.latitude + metres / 111_195, longitude: site.longitude, accuracyM });
+
+  it("reads a sure fix away from a small job as having left it, before the system's hundred metres would", () => {
+    expect(crossingsAt(jobs, north(90, 20))).toEqual([{ jobId: "own", entered: false }]);
+  });
+
+  it("reads a fix on site as being there, with the same allowance a punch gets", () => {
+    expect(crossingsAt(jobs, north(60, 20))).toEqual([{ jobId: "own", entered: true }]);
+  });
+
+  it("says nothing on a fix vaguer than the circle", () => {
+    expect(crossingsAt(jobs, north(135, 80))).toEqual([]);
+  });
+
+  it("only lets the system's arrival count when it watches the job's own circle", () => {
+    expect(systemCrossingCounts(50, false)).toBe(true);
+    expect(systemCrossingCounts(50, true)).toBe(false);
+    expect(systemCrossingCounts(300, true)).toBe(true);
+  });
+
+  it("leaves a departure the positions already reported to them, so the system's late word adds nothing", () => {
+    const left = reactTo(watchFor("shift", "own"), crossingsAt(jobs, north(90, 20))[0]);
+    expect(left.reaction).toEqual({ event: "LEFT" });
+    expect(reactTo(left.watch, { jobId: "own", entered: false }).reaction).toEqual({});
   });
 });
 

@@ -2,12 +2,14 @@ import { z } from "zod";
 import {
   DiscountType,
   PricingMode,
+  QuoteAcceptReason,
   QuoteDeclineReason,
   QuoteSectionKind,
   QuoteStatus,
   TaxDisplayMode,
 } from "@/generated/prisma/enums";
 import { isSupportedCurrency } from "@nodo/core/intl/options";
+import { MAX_EVIDENCE_FILES } from "./attachments";
 import { QUOTE_SECTIONS } from "./constants";
 
 /** Blank left empty rather than coerced to 0 — "nothing typed" has to stay
@@ -335,3 +337,30 @@ export const teamDeclineSchema = z
   });
 
 export type TeamDecline = z.infer<typeof teamDeclineSchema>;
+
+/**
+ * Accepting on the customer's behalf says how they said yes, and carries
+ * their word itself: one file at least, uploaded to the store before the
+ * form is sent and named here by where it went. The paths are claims the
+ * action checks against the store, never trusted as they come.
+ */
+export const teamAcceptSchema = z
+  .object({
+    reason: z.nativeEnum(QuoteAcceptReason, { message: "quotes.accept.reasonRequired" }),
+    note: z
+      .string()
+      .trim()
+      .max(500)
+      .nullish()
+      .transform((value) => value || null),
+    evidence: z
+      .array(z.object({ pathname: z.string().min(1).max(500), name: z.string().trim().min(1).max(255) }))
+      .min(1, { message: "quotes.accept.evidenceRequired" })
+      .max(MAX_EVIDENCE_FILES, { message: "quotes.accept.evidenceTooMany" }),
+  })
+  .refine((value) => value.reason !== QuoteAcceptReason.OTHER || value.note, {
+    path: ["note"],
+    message: "quotes.accept.noteRequired",
+  });
+
+export type TeamAccept = z.infer<typeof teamAcceptSchema>;

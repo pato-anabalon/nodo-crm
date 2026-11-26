@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { AlertTriangle, ArrowLeft } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { addDays } from "@nodo/core/jobs/schedule/calendar";
 import { dayIn } from "@nodo/core/jobs/timeline";
@@ -8,13 +8,13 @@ import { payAmount } from "@nodo/core/timeclock/pay";
 import { wallClock } from "@nodo/core/zoned-time";
 import { can, requireCompanyContext } from "@/lib/auth/session";
 import { formatMoney } from "@/lib/format";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { adjustMealAction, addShiftAction } from "@/modules/timeclock/actions";
 import { AddShiftButton, MealButton } from "@/modules/timeclock/correction-forms";
 import { shiftJobs } from "@/modules/timeclock/corrections-service";
-import { hoursAndMinutes, shiftFlags, type Shift } from "@/modules/timeclock/timesheet";
+import { hoursAndMinutes, needsReview, shiftFlags, type Shift } from "@/modules/timeclock/timesheet";
+import { ShiftFlagBadges } from "@/modules/timeclock/shift-flags";
 import { timesheets } from "@/modules/timeclock/timesheet-service";
 import { dayTitle, weekFrom, weekRange } from "@/modules/timeclock/week";
 import { WeekNav } from "@/modules/timeclock/week-nav";
@@ -176,20 +176,16 @@ function ShiftLine({
           <Link href={href} className="after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:rounded-md focus-visible:after:ring-2 focus-visible:after:ring-ring">
             {shift.kind === "TRAVEL" ? t("shift.travel", { job: shift.jobName }) : shift.jobName}
           </Link>
+          {/* The same mark as beside the person on the week: this is the shift that raised it. */}
+          {needsReview(shift) ? (
+            <AlertTriangle className="ml-1.5 inline size-3.5 align-[-2px] text-[var(--status-viewing)]" aria-label={t("flagged")} />
+          ) : null}
         </p>
         <p className="text-xs text-muted-foreground tabular-nums">
           {shift.clockOutAt ? t("shift.range", { start: time(shift.clockInAt), end: time(shift.clockOutAt) }) : t("shift.since", { start: time(shift.clockInAt) })}
           {shift.clockInDistanceM !== null ? ` · ${t("shift.distance", { metres: Math.round(shift.clockInDistanceM) })}` : null}
         </p>
-        {flags.length > 0 ? (
-          <div className="flex flex-wrap gap-1">
-            {flags.map((flag) => (
-              <Badge key={flag} variant="outline" className="font-normal">
-                {flag}
-              </Badge>
-            ))}
-          </div>
-        ) : null}
+        <ShiftFlagBadges flags={flags} />
       </div>
       <p className="text-sm tabular-nums">{shift.minutes === null ? "–" : hoursAndMinutes(shift.minutes)}</p>
     </li>

@@ -89,6 +89,13 @@ export async function acceptQuoteAction(
 
   const company = share.company;
 
+  // What they read has to be what they accept: a page drawn before somebody on
+  // the team changed the quote posts an older revision. The write below asks
+  // again, so a change landing between here and there is caught too.
+  const quoteChanged = { error: t("portal.errors.quoteChanged") };
+  const shown = Number(formData.get("revision"));
+  if (formData.get("revision") !== null && shown !== share.quote.revision) return quoteChanged;
+
   // The checkbox only exists when the company requires it.
   if (company.acceptanceMode === "STATEMENT_WITH_CHECKBOX" && formData.get("agree") !== "on") {
     return { fieldErrors: { agree: [t("portal.errors.statementRequired")] } };
@@ -224,8 +231,20 @@ export async function acceptQuoteAction(
     userAgent: meta.userAgent,
   });
 
-  await prisma.$transaction([
-    prisma.quoteAcceptance.create({
+  const accepted = await prisma.$transaction(async (tx) => {
+    const { count } = await tx.quote.updateMany({
+      where: { id: share.quoteId, status: QuoteStatus.SENT, revision: quote.revision },
+      data: {
+        status: QuoteStatus.ACCEPTED,
+        decidedAt: acceptedAt,
+        subtotal: totals.subtotal,
+        discount: totals.discount,
+        taxAmount: totals.taxAmount,
+        total: totals.total,
+      },
+    });
+    if (count === 0) return false;
+    await tx.quoteAcceptance.create({
       data: {
         companyId: company.id,
         quoteId: share.quoteId,
@@ -246,19 +265,8 @@ export async function acceptQuoteAction(
         recordDigest,
         acceptedAt,
       },
-    }),
-    prisma.quote.update({
-      where: { id: share.quoteId },
-      data: {
-        status: QuoteStatus.ACCEPTED,
-        decidedAt: acceptedAt,
-        subtotal: totals.subtotal,
-        discount: totals.discount,
-        taxAmount: totals.taxAmount,
-        total: totals.total,
-      },
-    }),
-    prisma.quoteEvent.create({
+    });
+    await tx.quoteEvent.create({
       data: {
         companyId: company.id,
         quoteId: share.quoteId,
@@ -267,8 +275,11 @@ export async function acceptQuoteAction(
         ipAddress: meta.ipAddress,
         userAgent: meta.userAgent,
       },
-    }),
-  ]);
+    });
+    return true;
+  });
+  // Changed, or decided, since this request read it.
+  if (!accepted) return quoteChanged;
 
   await settleLead(quote, QuoteStatus.ACCEPTED);
 

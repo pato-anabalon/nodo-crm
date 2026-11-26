@@ -61,8 +61,8 @@ describe("canTransition", () => {
     expect(canTransition(QuoteStatus.DRAFT, QuoteStatus.ACCEPTED)).toBe(false);
   });
 
-  it("allows resending an expired quote", () => {
-    expect(canTransition(QuoteStatus.EXPIRED, QuoteStatus.SENT)).toBe(true);
+  it("reopens an expired quote only through reopenQuote, never by sending it again", () => {
+    expect(canTransition(QuoteStatus.EXPIRED, QuoteStatus.SENT)).toBe(false);
   });
 });
 

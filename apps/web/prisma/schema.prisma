@@ -108,6 +108,7 @@ enum QuoteSectionKind {
  */
 enum EmailTemplateKind {
   NEW_QUOTE
+  QUOTE_UPDATED
   QUOTE_ACCEPTED
   FIRST_FOLLOW_UP
   SECOND_FOLLOW_UP
@@ -167,6 +168,23 @@ enum QuoteEventType {
   ACCEPTED
   DECLINED
   MESSAGE_SENT
+  // Somebody on the team changed what the customer sees, after it went out.
+  UPDATED
+  // An expired quote given a new date by the team, back in front of the customer.
+  REOPENED
+}
+
+/**
+ * How the customer said yes when somebody on the team records the acceptance
+ * for them — or why they couldn't say it through the link.
+ */
+enum QuoteAcceptReason {
+  CUSTOMER_EMAIL
+  CUSTOMER_MESSAGE
+  CUSTOMER_CALL
+  IN_PERSON
+  LINK_PROBLEM
+  OTHER
 }
 
 /**
@@ -236,6 +254,7 @@ enum NotificationKind {
   QUOTE_EXPIRED_OPENED
   TIMECLOCK_AUTO_OUT
   TIMECLOCK_LEFT_OPEN
+  QUOTE_UPDATED
 }
 
 /**
@@ -470,6 +489,7 @@ model Company {
   quoteShares             QuoteShare[]
   notificationPreferences NotificationPreference[]
   quoteEvents             QuoteEvent[]
+  quoteEventFiles         QuoteEventFile[]
   quoteMessages           QuoteMessage[]
   acceptances             QuoteAcceptance[]
   reviews                 CompanyReview[]
@@ -1391,6 +1411,11 @@ enum ActivityType {
    * changed under it.
    */
   QUOTE_EDITED
+  /**
+   * An expired quote on this lead was given a new date and is open again.
+   * Content is the quote's number.
+   */
+  QUOTE_REOPENED
   // Lead flow actions, each with its author and time.
   RECEIVED
   ASSIGNED
@@ -1581,6 +1606,13 @@ model Quote {
   validUntil DateTime?
   sentAt     DateTime?
   decidedAt  DateTime?
+  /**
+   * How many times what the customer sees changed after it went out — one per
+   * save that changed something (`QuoteEventType.UPDATED`). The customer's page
+   * knows the one it was drawn from: a newer one says so on screen, and an
+   * acceptance of an older one is refused.
+   */
+  revision   Int       @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -1850,6 +1882,26 @@ model QuoteEvent {
   reason     QuoteDeclineReason?
   reasonNote String?
 
+  /**
+   * Why the team accepted it on the customer's behalf — how the customer said
+   * yes — with `reasonNote` beside it as for a decline. An acceptance recorded
+   * by hand also carries the customer's word itself, a screenshot or a
+   * document (`files`): the portal's signature and fingerprint have no
+   * equivalent here otherwise.
+   */
+  acceptReason QuoteAcceptReason?
+  files        QuoteEventFile[]
+
+  /**
+   * What an `UPDATED` changed, as tokens (`quotes/changes.ts`), worded when
+   * read. Long texts say only that they were edited.
+   */
+  changes            Json?
+  /**
+   * When the customer was emailed about this change; null when they weren't.
+   */
+  customerNotifiedAt DateTime?
+
   createdAt DateTime @default(now())
 
   company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
@@ -1858,6 +1910,28 @@ model QuoteEvent {
 
   @@index([quoteId, createdAt])
   @@index([companyId, type, createdAt])
+}
+
+/**
+ * The evidence of a decision the team recorded: the customer's email, message
+ * or signed copy. Stored under the quote's own folder in Blob, apart from its
+ * attachments — those go to the customer, these never do.
+ */
+model QuoteEventFile {
+  id          String   @id @default(cuid())
+  companyId   String
+  eventId     String
+  name        String
+  url         String
+  pathname    String   @unique
+  contentType String
+  size        Int
+  createdAt   DateTime @default(now())
+
+  company Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  event   QuoteEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([eventId])
 }
 
 /**
@@ -2411,6 +2485,12 @@ enum JobActivityType {
    */
   COMMENT_ADDED
   /**
+   * The two above, on the confidential board: a type of their own so the
+   * timeline shows them only to whoever reads that board.
+   */
+  CONFIDENTIAL_POST_PUBLISHED
+  CONFIDENTIAL_COMMENT_ADDED
+  /**
    * params: `{ listId, name }`
    */
   TODO_LIST_CREATED
@@ -2565,6 +2645,17 @@ model JobPostCategory {
 }
 
 /**
+ * Which of a job's two boards a post is on. They work alike; the permissions
+ * that open each one are `@nodo/core/jobs/boards`.
+ */
+enum JobBoard {
+  /** The Message Board, for everybody on the job. */
+  TEAM
+  /** What the office keeps from the crew: the contract, the invoicing. */
+  CONFIDENTIAL
+}
+
+/**
  * A Message Board post. `publishedAt` null is a draft, which only its author
  * sees; publishing is what writes the timeline line and raises the notices.
  */
@@ -2572,6 +2663,7 @@ model JobPost {
   id          String    @id @default(cuid())
   companyId   String
   jobId       String
+  board       JobBoard  @default(TEAM)
   categoryId  String?
   title       String
   // Sanitised HTML, the "full" profile.
@@ -2589,7 +2681,7 @@ model JobPost {
   comments JobComment[]
   files    JobFile[]
 
-  @@index([companyId, jobId, publishedAt])
+  @@index([companyId, jobId, board, publishedAt])
 }
 
 /**

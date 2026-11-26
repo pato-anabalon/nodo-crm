@@ -11,7 +11,7 @@ import type { Auth } from "./api";
 import type { ClockJob } from "./clock";
 import { formatTime } from "./format";
 import { translator, type Locale } from "./i18n";
-import { pingFrom, reactTo, regionJobId, regionsFor, watchFor, type Watch } from "./movement";
+import { crossingsAt, pingFrom, reactTo, regionJobId, regionsFor, systemCrossingCounts, watchFor, type Reaction, type Watch } from "./movement";
 import { appendPings, flushPings } from "./pings";
 import { enqueuePunch, punchKey } from "./punches";
 import { storage } from "./storage";
@@ -230,22 +230,43 @@ export async function dismissLeftNotice(): Promise<void> {
   await (await notifications()).dismissNotificationAsync(LEFT_NOTICE).catch(() => undefined);
 }
 
+/** The system's word that the phone crossed one of the circles it was handed. */
 async function onCrossing(identifier: string | undefined, entered: boolean) {
   const jobId = regionJobId(identifier);
   if (!jobId) return;
+  const site = (await readTracking())?.jobs.find((job) => job.id === jobId)?.site;
+  if (!site || !systemCrossingCounts(site.radiusM, entered)) return;
+  await heard([{ jobId, entered, at: new Date() }]);
+}
+
+/**
+ * Acts on crossings, from the system or from positions, in the order they
+ * happened: each is weighed against what was last believed, so the second
+ * source to notice a departure changes nothing.
+ */
+async function heard(changes: readonly { jobId: string; entered: boolean; at: Date }[]) {
+  if (changes.length === 0) return;
   const found = await serial(async () => {
     const tracking = await readTracking();
     if (!tracking) return null;
-    const { watch, reaction } = reactTo(tracking.watch, { jobId, entered });
+    let watch = tracking.watch;
+    const reactions: { reaction: Reaction; at: Date }[] = [];
+    for (const change of changes) {
+      const step = reactTo(watch, change);
+      watch = step.watch;
+      if (step.reaction.event || step.reaction.suggest || step.reaction.withdraw) reactions.push({ reaction: step.reaction, at: change.at });
+    }
     const updated = { ...tracking, watch };
     await writeTracking(updated);
-    return { tracking: updated, reaction };
+    return { tracking: updated, reactions };
   });
   if (!found) return;
-  const { tracking, reaction } = found;
+  for (const { reaction, at } of found.reactions) await carryOut(found.tracking, reaction, at);
+}
+
+async function carryOut(tracking: Tracking, reaction: Reaction, at: Date) {
   const t = translator(tracking.locale);
   const Notifications = await notifications();
-  const at = new Date();
   const data = (extra: Partial<MovementData>): MovementData => ({ movement: "left", company: tracking.company, ...extra });
 
   if (reaction.event) {
@@ -299,6 +320,16 @@ async function onPositions(locations: Location.LocationObject[]) {
   if (!tracking) return;
   const key = punchKey(tracking.company, tracking.userId);
   const { queued, oldestAt } = await appendPings(key, locations.map((location) => pingFrom(tracking.entry, location)));
+
+  // Each position also says where the phone was, dated when it was recorded rather than when the batch woke the task.
+  const ordered = [...locations].sort((a, b) => a.timestamp - b.timestamp);
+  await heard(
+    ordered.flatMap((location) => {
+      const { latitude, longitude, accuracy } = location.coords;
+      const changes = crossingsAt(tracking.jobs, { latitude, longitude, accuracyM: accuracy ?? 9_999 });
+      return changes.map((change) => ({ ...change, at: new Date(location.timestamp) }));
+    }),
+  );
 
   const last = locations[locations.length - 1].coords;
   const site = tracking.jobs.find((job) => job.id === tracking.jobId)?.site ?? null;

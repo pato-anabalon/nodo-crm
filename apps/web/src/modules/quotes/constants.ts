@@ -17,8 +17,9 @@ export const QUOTE_STATUSES: readonly QuoteStatus[] = [
  * rather than leaving a stale copy in their inbox alongside a fresh one.
  *
  * Once the customer has answered, the quote is history: `ACCEPTED` is frozen
- * for good, and a `REJECTED` or `EXPIRED` one is revived by sending again
- * (which reopens editing), not by editing what's already closed.
+ * for good and `REJECTED` stays closed. An `EXPIRED` one is reopened with a new
+ * date (`reopenQuote`), which puts it back to `SENT` and so editable again —
+ * not edited while it is still closed.
  */
 export function isQuoteEditable(status: QuoteStatus): boolean {
   return status === QuoteStatus.DRAFT || status === QuoteStatus.SENT;
@@ -87,7 +88,9 @@ export const QUOTE_TRANSITIONS: Record<QuoteStatus, readonly QuoteStatus[]> = {
   SENT: [QuoteStatus.ACCEPTED, QuoteStatus.REJECTED, QuoteStatus.EXPIRED],
   ACCEPTED: [],
   REJECTED: [],
-  EXPIRED: [QuoteStatus.SENT],
+  // Reopened with a new date by `reopenQuote`, never sent again: a send stamps
+  // `sentAt` anew and restarts the follow-ups' clock.
+  EXPIRED: [],
 };
 
 export function canTransition(from: QuoteStatus, to: QuoteStatus): boolean {

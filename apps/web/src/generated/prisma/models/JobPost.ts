@@ -30,6 +30,7 @@ export type JobPostMinAggregateOutputType = {
   id: string | null
   companyId: string | null
   jobId: string | null
+  board: $Enums.JobBoard | null
   categoryId: string | null
   title: string | null
   body: string | null
@@ -44,6 +45,7 @@ export type JobPostMaxAggregateOutputType = {
   id: string | null
   companyId: string | null
   jobId: string | null
+  board: $Enums.JobBoard | null
   categoryId: string | null
   title: string | null
   body: string | null
@@ -58,6 +60,7 @@ export type JobPostCountAggregateOutputType = {
   id: number
   companyId: number
   jobId: number
+  board: number
   categoryId: number
   title: number
   body: number
@@ -74,6 +77,7 @@ export type JobPostMinAggregateInputType = {
   id?: true
   companyId?: true
   jobId?: true
+  board?: true
   categoryId?: true
   title?: true
   body?: true
@@ -88,6 +92,7 @@ export type JobPostMaxAggregateInputType = {
   id?: true
   companyId?: true
   jobId?: true
+  board?: true
   categoryId?: true
   title?: true
   body?: true
@@ -102,6 +107,7 @@ export type JobPostCountAggregateInputType = {
   id?: true
   companyId?: true
   jobId?: true
+  board?: true
   categoryId?: true
   title?: true
   body?: true
@@ -189,6 +195,7 @@ export type JobPostGroupByOutputType = {
   id: string
   companyId: string
   jobId: string
+  board: $Enums.JobBoard
   categoryId: string | null
   title: string
   body: string
@@ -224,6 +231,7 @@ export type JobPostWhereInput = {
   id?: Prisma.StringFilter<"JobPost"> | string
   companyId?: Prisma.StringFilter<"JobPost"> | string
   jobId?: Prisma.StringFilter<"JobPost"> | string
+  board?: Prisma.EnumJobBoardFilter<"JobPost"> | $Enums.JobBoard
   categoryId?: Prisma.StringNullableFilter<"JobPost"> | string | null
   title?: Prisma.StringFilter<"JobPost"> | string
   body?: Prisma.StringFilter<"JobPost"> | string
@@ -244,6 +252,7 @@ export type JobPostOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
+  board?: Prisma.SortOrder
   categoryId?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
@@ -267,6 +276,7 @@ export type JobPostWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.JobPostWhereInput | Prisma.JobPostWhereInput[]
   companyId?: Prisma.StringFilter<"JobPost"> | string
   jobId?: Prisma.StringFilter<"JobPost"> | string
+  board?: Prisma.EnumJobBoardFilter<"JobPost"> | $Enums.JobBoard
   categoryId?: Prisma.StringNullableFilter<"JobPost"> | string | null
   title?: Prisma.StringFilter<"JobPost"> | string
   body?: Prisma.StringFilter<"JobPost"> | string
@@ -287,6 +297,7 @@ export type JobPostOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
+  board?: Prisma.SortOrder
   categoryId?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
@@ -307,6 +318,7 @@ export type JobPostScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"JobPost"> | string
   companyId?: Prisma.StringWithAggregatesFilter<"JobPost"> | string
   jobId?: Prisma.StringWithAggregatesFilter<"JobPost"> | string
+  board?: Prisma.EnumJobBoardWithAggregatesFilter<"JobPost"> | $Enums.JobBoard
   categoryId?: Prisma.StringNullableWithAggregatesFilter<"JobPost"> | string | null
   title?: Prisma.StringWithAggregatesFilter<"JobPost"> | string
   body?: Prisma.StringWithAggregatesFilter<"JobPost"> | string
@@ -319,6 +331,7 @@ export type JobPostScalarWhereWithAggregatesInput = {
 
 export type JobPostCreateInput = {
   id?: string
+  board?: $Enums.JobBoard
   title: string
   body: string
   publishedAt?: Date | string | null
@@ -337,6 +350,7 @@ export type JobPostUncheckedCreateInput = {
   id?: string
   companyId: string
   jobId: string
+  board?: $Enums.JobBoard
   categoryId?: string | null
   title: string
   body: string
@@ -351,6 +365,7 @@ export type JobPostUncheckedCreateInput = {
 
 export type JobPostUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -369,6 +384,7 @@ export type JobPostUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
@@ -385,6 +401,7 @@ export type JobPostCreateManyInput = {
   id?: string
   companyId: string
   jobId: string
+  board?: $Enums.JobBoard
   categoryId?: string | null
   title: string
   body: string
@@ -397,6 +414,7 @@ export type JobPostCreateManyInput = {
 
 export type JobPostUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -409,6 +427,7 @@ export type JobPostUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
@@ -438,6 +457,7 @@ export type JobPostCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
+  board?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
@@ -452,6 +472,7 @@ export type JobPostMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
+  board?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
@@ -466,6 +487,7 @@ export type JobPostMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
+  board?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
@@ -660,6 +682,10 @@ export type JobPostUncheckedUpdateManyWithoutCategoryNestedInput = {
   deleteMany?: Prisma.JobPostScalarWhereInput | Prisma.JobPostScalarWhereInput[]
 }
 
+export type EnumJobBoardFieldUpdateOperationsInput = {
+  set?: $Enums.JobBoard
+}
+
 export type JobPostCreateNestedOneWithoutCommentsInput = {
   create?: Prisma.XOR<Prisma.JobPostCreateWithoutCommentsInput, Prisma.JobPostUncheckedCreateWithoutCommentsInput>
   connectOrCreate?: Prisma.JobPostCreateOrConnectWithoutCommentsInput
@@ -678,6 +704,7 @@ export type JobPostUpdateOneWithoutCommentsNestedInput = {
 
 export type JobPostCreateWithoutCompanyInput = {
   id?: string
+  board?: $Enums.JobBoard
   title: string
   body: string
   publishedAt?: Date | string | null
@@ -694,6 +721,7 @@ export type JobPostCreateWithoutCompanyInput = {
 export type JobPostUncheckedCreateWithoutCompanyInput = {
   id?: string
   jobId: string
+  board?: $Enums.JobBoard
   categoryId?: string | null
   title: string
   body: string
@@ -739,6 +767,7 @@ export type JobPostScalarWhereInput = {
   id?: Prisma.StringFilter<"JobPost"> | string
   companyId?: Prisma.StringFilter<"JobPost"> | string
   jobId?: Prisma.StringFilter<"JobPost"> | string
+  board?: Prisma.EnumJobBoardFilter<"JobPost"> | $Enums.JobBoard
   categoryId?: Prisma.StringNullableFilter<"JobPost"> | string | null
   title?: Prisma.StringFilter<"JobPost"> | string
   body?: Prisma.StringFilter<"JobPost"> | string
@@ -751,6 +780,7 @@ export type JobPostScalarWhereInput = {
 
 export type JobPostCreateWithoutAuthorInput = {
   id?: string
+  board?: $Enums.JobBoard
   title: string
   body: string
   publishedAt?: Date | string | null
@@ -768,6 +798,7 @@ export type JobPostUncheckedCreateWithoutAuthorInput = {
   id?: string
   companyId: string
   jobId: string
+  board?: $Enums.JobBoard
   categoryId?: string | null
   title: string
   body: string
@@ -807,6 +838,7 @@ export type JobPostUpdateManyWithWhereWithoutAuthorInput = {
 
 export type JobPostCreateWithoutJobInput = {
   id?: string
+  board?: $Enums.JobBoard
   title: string
   body: string
   publishedAt?: Date | string | null
@@ -823,6 +855,7 @@ export type JobPostCreateWithoutJobInput = {
 export type JobPostUncheckedCreateWithoutJobInput = {
   id?: string
   companyId: string
+  board?: $Enums.JobBoard
   categoryId?: string | null
   title: string
   body: string
@@ -863,6 +896,7 @@ export type JobPostUpdateManyWithWhereWithoutJobInput = {
 
 export type JobPostCreateWithoutFilesInput = {
   id?: string
+  board?: $Enums.JobBoard
   title: string
   body: string
   publishedAt?: Date | string | null
@@ -880,6 +914,7 @@ export type JobPostUncheckedCreateWithoutFilesInput = {
   id?: string
   companyId: string
   jobId: string
+  board?: $Enums.JobBoard
   categoryId?: string | null
   title: string
   body: string
@@ -909,6 +944,7 @@ export type JobPostUpdateToOneWithWhereWithoutFilesInput = {
 
 export type JobPostUpdateWithoutFilesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -926,6 +962,7 @@ export type JobPostUncheckedUpdateWithoutFilesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
@@ -939,6 +976,7 @@ export type JobPostUncheckedUpdateWithoutFilesInput = {
 
 export type JobPostCreateWithoutCategoryInput = {
   id?: string
+  board?: $Enums.JobBoard
   title: string
   body: string
   publishedAt?: Date | string | null
@@ -956,6 +994,7 @@ export type JobPostUncheckedCreateWithoutCategoryInput = {
   id?: string
   companyId: string
   jobId: string
+  board?: $Enums.JobBoard
   title: string
   body: string
   authorId?: string | null
@@ -995,6 +1034,7 @@ export type JobPostUpdateManyWithWhereWithoutCategoryInput = {
 
 export type JobPostCreateWithoutCommentsInput = {
   id?: string
+  board?: $Enums.JobBoard
   title: string
   body: string
   publishedAt?: Date | string | null
@@ -1012,6 +1052,7 @@ export type JobPostUncheckedCreateWithoutCommentsInput = {
   id?: string
   companyId: string
   jobId: string
+  board?: $Enums.JobBoard
   categoryId?: string | null
   title: string
   body: string
@@ -1041,6 +1082,7 @@ export type JobPostUpdateToOneWithWhereWithoutCommentsInput = {
 
 export type JobPostUpdateWithoutCommentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1058,6 +1100,7 @@ export type JobPostUncheckedUpdateWithoutCommentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1072,6 +1115,7 @@ export type JobPostUncheckedUpdateWithoutCommentsInput = {
 export type JobPostCreateManyCompanyInput = {
   id?: string
   jobId: string
+  board?: $Enums.JobBoard
   categoryId?: string | null
   title: string
   body: string
@@ -1084,6 +1128,7 @@ export type JobPostCreateManyCompanyInput = {
 
 export type JobPostUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1100,6 +1145,7 @@ export type JobPostUpdateWithoutCompanyInput = {
 export type JobPostUncheckedUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1115,6 +1161,7 @@ export type JobPostUncheckedUpdateWithoutCompanyInput = {
 export type JobPostUncheckedUpdateManyWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1129,6 +1176,7 @@ export type JobPostCreateManyAuthorInput = {
   id?: string
   companyId: string
   jobId: string
+  board?: $Enums.JobBoard
   categoryId?: string | null
   title: string
   body: string
@@ -1140,6 +1188,7 @@ export type JobPostCreateManyAuthorInput = {
 
 export type JobPostUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1157,6 +1206,7 @@ export type JobPostUncheckedUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1172,6 +1222,7 @@ export type JobPostUncheckedUpdateManyWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1184,6 +1235,7 @@ export type JobPostUncheckedUpdateManyWithoutAuthorInput = {
 export type JobPostCreateManyJobInput = {
   id?: string
   companyId: string
+  board?: $Enums.JobBoard
   categoryId?: string | null
   title: string
   body: string
@@ -1196,6 +1248,7 @@ export type JobPostCreateManyJobInput = {
 
 export type JobPostUpdateWithoutJobInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1212,6 +1265,7 @@ export type JobPostUpdateWithoutJobInput = {
 export type JobPostUncheckedUpdateWithoutJobInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1227,6 +1281,7 @@ export type JobPostUncheckedUpdateWithoutJobInput = {
 export type JobPostUncheckedUpdateManyWithoutJobInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1241,6 +1296,7 @@ export type JobPostCreateManyCategoryInput = {
   id?: string
   companyId: string
   jobId: string
+  board?: $Enums.JobBoard
   title: string
   body: string
   authorId?: string | null
@@ -1252,6 +1308,7 @@ export type JobPostCreateManyCategoryInput = {
 
 export type JobPostUpdateWithoutCategoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1269,6 +1326,7 @@ export type JobPostUncheckedUpdateWithoutCategoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1284,6 +1342,7 @@ export type JobPostUncheckedUpdateManyWithoutCategoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  board?: Prisma.EnumJobBoardFieldUpdateOperationsInput | $Enums.JobBoard
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1337,6 +1396,7 @@ export type JobPostSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   companyId?: boolean
   jobId?: boolean
+  board?: boolean
   categoryId?: boolean
   title?: boolean
   body?: boolean
@@ -1358,6 +1418,7 @@ export type JobPostSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   companyId?: boolean
   jobId?: boolean
+  board?: boolean
   categoryId?: boolean
   title?: boolean
   body?: boolean
@@ -1376,6 +1437,7 @@ export type JobPostSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   companyId?: boolean
   jobId?: boolean
+  board?: boolean
   categoryId?: boolean
   title?: boolean
   body?: boolean
@@ -1394,6 +1456,7 @@ export type JobPostSelectScalar = {
   id?: boolean
   companyId?: boolean
   jobId?: boolean
+  board?: boolean
   categoryId?: boolean
   title?: boolean
   body?: boolean
@@ -1404,7 +1467,7 @@ export type JobPostSelectScalar = {
   updatedAt?: boolean
 }
 
-export type JobPostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "jobId" | "categoryId" | "title" | "body" | "authorId" | "publishedAt" | "editedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["jobPost"]>
+export type JobPostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "jobId" | "board" | "categoryId" | "title" | "body" | "authorId" | "publishedAt" | "editedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["jobPost"]>
 export type JobPostInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
@@ -1441,6 +1504,7 @@ export type $JobPostPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     id: string
     companyId: string
     jobId: string
+    board: $Enums.JobBoard
     categoryId: string | null
     title: string
     body: string
@@ -1881,6 +1945,7 @@ export interface JobPostFieldRefs {
   readonly id: Prisma.FieldRef<"JobPost", 'String'>
   readonly companyId: Prisma.FieldRef<"JobPost", 'String'>
   readonly jobId: Prisma.FieldRef<"JobPost", 'String'>
+  readonly board: Prisma.FieldRef<"JobPost", 'JobBoard'>
   readonly categoryId: Prisma.FieldRef<"JobPost", 'String'>
   readonly title: Prisma.FieldRef<"JobPost", 'String'>
   readonly body: Prisma.FieldRef<"JobPost", 'String'>

@@ -1,5 +1,6 @@
 import { plainTextToHtml } from "@/lib/rich-text";
 import { commentSchema } from "@/modules/jobs/board/schemas";
+import { BOARDS } from "@nodo/core/jobs/boards";
 import { createComment, findPost } from "@/modules/jobs/board/service";
 import { found, jobIn } from "@/modules/mobile/jobs/guard";
 import { textSchema } from "@/modules/mobile/jobs/schemas";
@@ -16,7 +17,7 @@ export const POST = mobileRoute({
   handler: async ({ ctx: base, params, body }) => {
     const post = found(await findPost(base, String(params.id)));
     if (!post.publishedAt) throw notFound();
-    const { ctx } = await jobIn(base, post.jobId, "comments.create", "messages.read");
+    const { ctx } = await jobIn(base, post.jobId, "comments.create", BOARDS[post.board].read);
 
     const values = validate(commentSchema, { body: plainTextToHtml(body.body) });
     const outcome = await createComment(ctx, post, values.body, body.uploads ?? []);

@@ -1,5 +1,6 @@
 import type { CompanyContext } from "@/lib/auth/session";
 import { JobActivityType, NotificationKind } from "@/generated/prisma/client";
+import { BOARDS, boardPath, type JobBoard } from "@nodo/core/jobs/boards";
 import { notifyEach } from "@/modules/notifications/inbox";
 import { emailJobNotice } from "../emails";
 import { attachFiles, deleteStored, detachFiles, jobFileSelect, type UploadedFile } from "../files-service";
@@ -11,7 +12,11 @@ import { excerptOf } from "./excerpt";
 import type { NotifyMode, PostValues } from "./schemas";
 
 /**
- * The Message Board: posts, the drafts behind them and the comments under them.
+ * The Message Board and the confidential board: posts, the drafts behind them
+ * and the comments under them. The two work alike, so they are one table and
+ * one module, and every lookup says which board it reads — a confidential post
+ * answering a Message Board query is a contract shown to the crew.
+ * `board-isolation.test.ts` reads this file and fails on a query that doesn't.
  *
  * Every function takes the `jobId` the caller confirmed through
  * `requireJobContext` — for anything inside the job, the one read from the
@@ -30,13 +35,18 @@ function visiblePosts(ctx: CompanyContext) {
   return { OR: [{ publishedAt: { not: null } }, { authorId: ctx.user.id }] };
 }
 
+/** What a list on one board shows: what is out, on that board. */
+function published(jobId: string, board: JobBoard) {
+  return { jobId, board, publishedAt: { not: null } };
+}
+
 export async function listPostCategories(ctx: CompanyContext) {
   return ctx.db.jobPostCategory.findMany({ orderBy: [{ position: "asc" }, { createdAt: "asc" }], select: categorySelect });
 }
 
-export async function listPosts(ctx: CompanyContext, jobId: string, categoryId: string | null) {
+export async function listPosts(ctx: CompanyContext, jobId: string, board: JobBoard, categoryId: string | null) {
   const posts = await ctx.db.jobPost.findMany({
-    where: { jobId, publishedAt: { not: null }, ...(categoryId ? { categoryId } : {}) },
+    where: { ...published(jobId, board), ...(categoryId ? { categoryId } : {}) },
     orderBy: { publishedAt: "desc" },
     select: {
       id: true,
@@ -54,19 +64,19 @@ export async function listPosts(ctx: CompanyContext, jobId: string, categoryId: 
 
 export type PostListRow = Awaited<ReturnType<typeof listPosts>>[number];
 
-export async function myDrafts(ctx: CompanyContext, jobId: string) {
+export async function myDrafts(ctx: CompanyContext, jobId: string, board: JobBoard) {
   return ctx.db.jobPost.findMany({
-    where: { jobId, publishedAt: null, authorId: ctx.user.id },
+    where: { jobId, board, publishedAt: null, authorId: ctx.user.id },
     orderBy: { updatedAt: "desc" },
     select: { id: true, title: true, updatedAt: true },
   });
 }
 
 /** The latest few, for the card on the job's page. */
-export async function latestPosts(ctx: CompanyContext, jobId: string, take = 3) {
+export async function latestPosts(ctx: CompanyContext, jobId: string, board: JobBoard, take = 3) {
   const [posts, count] = await Promise.all([
     ctx.db.jobPost.findMany({
-      where: { jobId, publishedAt: { not: null } },
+      where: published(jobId, board),
       orderBy: { publishedAt: "desc" },
       take,
       select: {
@@ -78,17 +88,18 @@ export async function latestPosts(ctx: CompanyContext, jobId: string, take = 3) 
         _count: { select: { comments: true } },
       },
     }),
-    ctx.db.jobPost.count({ where: { jobId, publishedAt: { not: null } } }),
+    ctx.db.jobPost.count({ where: published(jobId, board) }),
   ]);
   return { posts, count };
 }
 
-export async function getPost(ctx: CompanyContext, jobId: string, postId: string) {
+export async function getPost(ctx: CompanyContext, jobId: string, board: JobBoard, postId: string) {
   return ctx.db.jobPost.findFirst({
-    where: { id: postId, jobId, ...visiblePosts(ctx) },
+    where: { id: postId, jobId, board, ...visiblePosts(ctx) },
     select: {
       id: true,
       jobId: true,
+      board: true,
       title: true,
       body: true,
       authorId: true,
@@ -105,11 +116,15 @@ export async function getPost(ctx: CompanyContext, jobId: string, postId: string
 
 export type PostDetail = NonNullable<Awaited<ReturnType<typeof getPost>>>;
 
-/** A post as the guards need it: whose job, whose post, whether it is out. */
+/**
+ * A post as the guards need it: whose job, whose post, which board, whether
+ * it is out. The one lookup on any board, because a guard finds the post
+ * before it knows which permission to ask for — and then asks the board's.
+ */
 export async function findPost(ctx: CompanyContext, postId: string) {
   return ctx.db.jobPost.findFirst({
     where: { id: postId, ...visiblePosts(ctx) },
-    select: { id: true, jobId: true, authorId: true, title: true, publishedAt: true },
+    select: { id: true, jobId: true, board: true, authorId: true, title: true, publishedAt: true },
   });
 }
 
@@ -130,6 +145,7 @@ export type PostOutcome = { ok: true; postId: string } | { ok: false; reason: "f
 export async function createPost(
   ctx: CompanyContext,
   jobId: string,
+  board: JobBoard,
   values: PostValues,
   options: { publish: boolean; uploads: UploadedFile[]; notify: NotifyMode; notifyUserIds: string[] },
 ): Promise<PostOutcome> {
@@ -137,6 +153,7 @@ export async function createPost(
     data: {
       companyId: ctx.company.id,
       jobId,
+      board,
       title: values.title,
       body: values.body,
       categoryId: await categoryOrNull(ctx, values.categoryId),
@@ -150,7 +167,7 @@ export async function createPost(
     return { ok: false, reason: "files" };
   }
 
-  if (options.publish) await publish(ctx, jobId, post.id, values.title, options);
+  if (options.publish) await publish(ctx, { id: post.id, jobId, board }, values.title, options);
   return { ok: true, postId: post.id };
 }
 
@@ -161,7 +178,7 @@ export async function createPost(
  */
 export async function updatePost(
   ctx: CompanyContext,
-  post: { id: string; jobId: string; publishedAt: Date | null },
+  post: { id: string; jobId: string; board: JobBoard; publishedAt: Date | null },
   values: PostValues,
   options: { publish: boolean; uploads: UploadedFile[]; removeFileIds: string[]; notify: NotifyMode; notifyUserIds: string[] },
 ): Promise<PostOutcome> {
@@ -178,23 +195,23 @@ export async function updatePost(
     },
   });
 
-  if (!post.publishedAt && options.publish) await publish(ctx, post.jobId, post.id, values.title, options);
+  if (!post.publishedAt && options.publish) await publish(ctx, post, values.title, options);
   return { ok: true, postId: post.id };
 }
 
 /** A draft going out: the moment it reaches the timeline and anybody's bell. */
 async function publish(
   ctx: CompanyContext,
-  jobId: string,
-  postId: string,
+  post: { id: string; jobId: string; board: JobBoard },
   title: string,
   options: { notify: NotifyMode; notifyUserIds: string[] },
 ) {
+  const { id: postId, jobId, board } = post;
   // Only the first publish counts: two presses of the button raise one line
   // and one round of notices, not two.
-  const { count } = await ctx.db.jobPost.updateMany({ where: { id: postId, publishedAt: null }, data: { publishedAt: new Date() } });
+  const { count } = await ctx.db.jobPost.updateMany({ where: { id: postId, board, publishedAt: null }, data: { publishedAt: new Date() } });
   if (count === 0) return;
-  await logJobActivity(ctx, jobId, JobActivityType.POST_PUBLISHED, { postId, title });
+  await logJobActivity(ctx, jobId, JobActivityType[BOARDS[board].published], { postId, title });
 
   if (options.notify === "nobody") return;
   const members = await ctx.db.jobMember.findMany({
@@ -207,7 +224,7 @@ async function publish(
   const recipients = await readersAmong(
     ctx,
     members.map((member) => member.userId).filter((id) => id !== ctx.user.id),
-    "messages.read",
+    BOARDS[board].read,
   );
   if (recipients.length === 0) return;
 
@@ -216,9 +233,9 @@ async function publish(
     companyId: ctx.company.id,
     kind: NotificationKind.JOB_POST,
     params,
-    href: `/jobs/${jobId}/messages/${postId}`,
+    href: boardPath(jobId, board, postId),
   });
-  emailJobNotice(ctx, { userIds: raised, template: "post", params, path: `/jobs/${jobId}/messages/${postId}` });
+  emailJobNotice(ctx, { userIds: raised, template: "post", params, path: boardPath(jobId, board, postId) });
 }
 
 /**
@@ -243,14 +260,14 @@ export async function deletePost(ctx: CompanyContext, jobId: string, postId: str
  */
 export async function createComment(
   ctx: CompanyContext,
-  post: { id: string; jobId: string; title: string; authorId: string | null },
+  post: { id: string; jobId: string; board: JobBoard; title: string; authorId: string | null },
   body: string,
   uploads: UploadedFile[],
 ): Promise<CommentOutcome> {
   const outcome = await addComment(ctx, post.jobId, { postId: post.id }, body, uploads);
   if (!outcome.ok) return outcome;
 
-  await logJobActivity(ctx, post.jobId, JobActivityType.COMMENT_ADDED, {
+  await logJobActivity(ctx, post.jobId, JobActivityType[BOARDS[post.board].commented], {
     postId: post.id,
     commentId: outcome.commentId,
     title: post.title,
@@ -258,21 +275,26 @@ export async function createComment(
   await notifyConversation(ctx, {
     jobId: post.jobId,
     people: [post.authorId, ...(await commenters(ctx, { postId: post.id }))],
-    permission: "messages.read",
+    permission: BOARDS[post.board].read,
     title: post.title,
-    href: commentHref(post.jobId, { kind: "post", id: post.id }, outcome.commentId),
+    href: commentHref(post.jobId, { kind: "post", id: post.id, board: post.board }, outcome.commentId),
   });
   return outcome;
 }
 
-/** Everybody on the job but the person writing — who "only the people I pick" picks from. */
-export async function otherMembers(ctx: CompanyContext, jobId: string) {
+/**
+ * Everybody on the job who reads this board, but the person writing — who
+ * "only the people I pick" picks from. Offering somebody who can't open the
+ * post would be offering a notice nobody sends.
+ */
+export async function otherMembers(ctx: CompanyContext, jobId: string, board: JobBoard) {
   const members = await ctx.db.jobMember.findMany({
     where: { jobId, userId: { not: ctx.user.id } },
     orderBy: { createdAt: "asc" },
     select: { user: { select: personSelect } },
   });
-  return members.map((member) => member.user);
+  const readers = new Set(await readersAmong(ctx, members.map((member) => member.user.id), BOARDS[board].read));
+  return members.map((member) => member.user).filter((user) => readers.has(user.id));
 }
 
 // ---------------------------------------------------------------------------

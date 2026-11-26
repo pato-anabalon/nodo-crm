@@ -108,25 +108,33 @@ describe("todoDatesLabel", () => {
 
 describe("comment subjects", () => {
   it("reads which thing a comment is on", () => {
-    expect(commentSubject({ postId: "p", todoId: null, todoListId: null, eventId: null })).toEqual({ kind: "post", id: "p" });
+    expect(commentSubject({ postId: "p", todoId: null, todoListId: null, eventId: null })).toEqual({ kind: "post", id: "p", board: "TEAM" });
     expect(commentSubject({ postId: null, todoId: "t", todoListId: null, eventId: null })).toEqual({ kind: "todo", id: "t" });
     expect(commentSubject({ postId: null, todoId: null, todoListId: "l", eventId: null })).toEqual({ kind: "list", id: "l" });
     expect(commentSubject({ postId: null, todoId: null, todoListId: null, eventId: "e" })).toEqual({ kind: "event", id: "e" });
     expect(commentSubject({ postId: null, todoId: null, todoListId: null, eventId: null })).toBeNull();
+    expect(commentSubject({ postId: "p", post: { board: "CONFIDENTIAL" }, todoId: null, todoListId: null, eventId: null })).toEqual({
+      kind: "post",
+      id: "p",
+      board: "CONFIDENTIAL",
+    });
   });
 
   it("is read through the tool it belongs to", () => {
-    expect(subjectReadPermission({ kind: "post", id: "p" })).toBe("messages.read");
+    expect(subjectReadPermission({ kind: "post", id: "p", board: "TEAM" })).toBe("messages.read");
     expect(subjectReadPermission({ kind: "todo", id: "t" })).toBe("todos.read");
     expect(subjectReadPermission({ kind: "list", id: "l" })).toBe("todos.read");
     expect(subjectReadPermission({ kind: "event", id: "e" })).toBe("schedule.read");
+    // A comment on a confidential post is as confidential as the post.
+    expect(subjectReadPermission({ kind: "post", id: "p", board: "CONFIDENTIAL" })).toBe("confidential.read");
   });
 
   it("lives on the page of what it is about", () => {
-    expect(subjectPath("j", { kind: "post", id: "p" })).toBe("/jobs/j/messages/p");
+    expect(subjectPath("j", { kind: "post", id: "p", board: "TEAM" })).toBe("/jobs/j/messages/p");
     expect(subjectPath("j", { kind: "todo", id: "t" })).toBe("/jobs/j/todos/t");
     expect(subjectPath("j", { kind: "list", id: "l" })).toBe("/jobs/j/todos/lists/l");
     expect(subjectPath("j", { kind: "event", id: "e" })).toBe("/jobs/j/schedule/e");
+    expect(subjectPath("j", { kind: "post", id: "p", board: "CONFIDENTIAL" })).toBe("/jobs/j/confidential/p");
     expect(commentHref("j", { kind: "todo", id: "t" }, "c")).toBe("/jobs/j/todos/t#comment-c");
   });
 });

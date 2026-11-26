@@ -3,7 +3,7 @@
 import { useActionState, useEffect, useRef, useState, useTransition } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
-import { AlertTriangle, MapPin, Pencil } from "lucide-react";
+import { AlertTriangle, ExternalLink, MapPin, Pencil } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,7 @@ import { NativeSelect } from "@/components/ui/native-select";
 import { ConfirmButton } from "@/components/confirm-button";
 import { useActionToast } from "@/lib/use-action-toast";
 import { loadGoogleMaps, mapId, mapsKey } from "@/lib/geo/google-maps";
+import { googleMapsUrl } from "@nodo/core/maps-link";
 import { oklchToHex } from "@nodo/core/theme/color";
 import { GEOFENCE_RADII_M, parseCoordinates, type Point } from "@nodo/core/timeclock/geofence";
 import type { JobActionState } from "./actions";
@@ -113,10 +114,46 @@ export function JobLocationCard({
             </>
           }
         />
-      ) : location.point && mapsKey ? (
-        <SiteMap point={location.point} radiusM={location.radiusM} />
+      ) : location.point ? (
+        <>
+          {mapsKey ? <SiteMap point={location.point} radiusM={location.radiusM} onOpen={() => openInMaps(location.point!)} /> : null}
+          <OpenInMaps point={location.point} />
+        </>
       ) : null}
     </section>
+  );
+}
+
+/**
+ * The site for whoever can't place it: the same map, read only, and the way
+ * to get there — a tap on the map or the link opens Google Maps, which on a
+ * phone is the app with directions one press away.
+ */
+export function JobLocationView({ point, radiusM }: { point: Point; radiusM: number }) {
+  const t = useTranslations("jobs.location");
+  return (
+    <section className="space-y-3 rounded-xl border bg-card p-4">
+      <div className="flex flex-wrap items-center gap-2">
+        <MapPin className="size-5 text-muted-foreground" />
+        <h2 className="font-semibold">{t("title")}</h2>
+      </div>
+      {mapsKey ? <SiteMap point={point} radiusM={radiusM} onOpen={() => openInMaps(point)} /> : null}
+      <OpenInMaps point={point} />
+    </section>
+  );
+}
+
+const openInMaps = (point: Point) => window.open(googleMapsUrl(point), "_blank", "noopener,noreferrer");
+
+function OpenInMaps({ point }: { point: Point }) {
+  const t = useTranslations("jobs.location");
+  return (
+    <Button asChild variant="outline" size="sm">
+      <a href={googleMapsUrl(point)} target="_blank" rel="noopener noreferrer">
+        <ExternalLink className="size-4" />
+        {t("openInMaps")}
+      </a>
+    </Button>
   );
 }
 
@@ -223,9 +260,20 @@ function LocationEditor({
 
 /**
  * The pin and its circle. With `onMove` the pin can be dragged, or put
- * somewhere else with a click; without it the map only shows.
+ * somewhere else with a click; without it the map only shows, and a click
+ * on it is `onOpen`.
  */
-function SiteMap({ point, radiusM, onMove }: { point: Point; radiusM: number; onMove?: (point: Point) => void }) {
+function SiteMap({
+  point,
+  radiusM,
+  onMove,
+  onOpen,
+}: {
+  point: Point;
+  radiusM: number;
+  onMove?: (point: Point) => void;
+  onOpen?: () => void;
+}) {
   const t = useTranslations("jobs.location");
   const locale = useLocale();
   const box = useRef<HTMLDivElement>(null);
@@ -235,9 +283,11 @@ function SiteMap({ point, radiusM, onMove }: { point: Point; radiusM: number; on
   const dark = resolvedTheme === "dark";
   const editable = Boolean(onMove);
   const moveRef = useRef(onMove);
+  const openRef = useRef(onOpen);
   useEffect(() => {
     moveRef.current = onMove;
-  }, [onMove]);
+    openRef.current = onOpen;
+  }, [onMove, onOpen]);
 
   // The map is built once per theme — a map's colour scheme is fixed when it is made.
   useEffect(() => {
@@ -286,6 +336,9 @@ function SiteMap({ point, radiusM, onMove }: { point: Point; radiusM: number; on
         if (editable) {
           listeners.push(marker.addListener("dragend", () => moveTo(marker.position)));
           listeners.push(map.addListener("click", (event: google.maps.MapMouseEvent) => moveTo(event.latLng)));
+        } else {
+          listeners.push(map.addListener("click", () => openRef.current?.()));
+          listeners.push(marker.addListener("click", () => openRef.current?.()));
         }
         parts.current = { map, marker, circle };
       })

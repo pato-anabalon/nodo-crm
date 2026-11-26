@@ -144,6 +144,18 @@ describe("Message Board lines", () => {
     );
   });
 
+  it("keeps the confidential board's lines to whoever reads that board, and leads into it", () => {
+    expect(activityPermission(JobActivityType.CONFIDENTIAL_POST_PUBLISHED)).toBe("confidential.read");
+    expect(activityPermission(JobActivityType.CONFIDENTIAL_COMMENT_ADDED)).toBe("confidential.read");
+    expect(activityHref("j1", JobActivityType.CONFIDENTIAL_POST_PUBLISHED, { postId: "p1" })).toBe("/jobs/j1/confidential/p1");
+    expect(activityHref("j1", JobActivityType.CONFIDENTIAL_COMMENT_ADDED, { postId: "p1", commentId: "c1" })).toBe(
+      "/jobs/j1/confidential/p1#comment-c1",
+    );
+    expect(
+      describeJobActivity({ type: JobActivityType.CONFIDENTIAL_POST_PUBLISHED, params: { title: "Contract" }, actorName: "Ana" }, t, helpers),
+    ).toBe('CONFIDENTIAL_POST_PUBLISHED{"actor":"Ana","title":"Contract"}');
+  });
+
   it("leads files to their folder, and the job's own lines nowhere", () => {
     expect(activityHref("j1", JobActivityType.FILES_UPLOADED, { folderId: "f1" })).toBe("/jobs/j1/files?folder=f1");
     expect(activityHref("j1", JobActivityType.FILES_UPLOADED, { folderId: null })).toBe("/jobs/j1/files");

@@ -65,6 +65,7 @@ export type QuoteSectionKind = (typeof QuoteSectionKind)[keyof typeof QuoteSecti
 
 export const EmailTemplateKind = {
   NEW_QUOTE: 'NEW_QUOTE',
+  QUOTE_UPDATED: 'QUOTE_UPDATED',
   QUOTE_ACCEPTED: 'QUOTE_ACCEPTED',
   FIRST_FOLLOW_UP: 'FIRST_FOLLOW_UP',
   SECOND_FOLLOW_UP: 'SECOND_FOLLOW_UP',
@@ -120,10 +121,24 @@ export const QuoteEventType = {
   OPENED: 'OPENED',
   ACCEPTED: 'ACCEPTED',
   DECLINED: 'DECLINED',
-  MESSAGE_SENT: 'MESSAGE_SENT'
+  MESSAGE_SENT: 'MESSAGE_SENT',
+  UPDATED: 'UPDATED',
+  REOPENED: 'REOPENED'
 } as const
 
 export type QuoteEventType = (typeof QuoteEventType)[keyof typeof QuoteEventType]
+
+
+export const QuoteAcceptReason = {
+  CUSTOMER_EMAIL: 'CUSTOMER_EMAIL',
+  CUSTOMER_MESSAGE: 'CUSTOMER_MESSAGE',
+  CUSTOMER_CALL: 'CUSTOMER_CALL',
+  IN_PERSON: 'IN_PERSON',
+  LINK_PROBLEM: 'LINK_PROBLEM',
+  OTHER: 'OTHER'
+} as const
+
+export type QuoteAcceptReason = (typeof QuoteAcceptReason)[keyof typeof QuoteAcceptReason]
 
 
 export const QuoteDeclineReason = {
@@ -185,7 +200,8 @@ export const NotificationKind = {
   JOB_TODO_DUE: 'JOB_TODO_DUE',
   QUOTE_EXPIRED_OPENED: 'QUOTE_EXPIRED_OPENED',
   TIMECLOCK_AUTO_OUT: 'TIMECLOCK_AUTO_OUT',
-  TIMECLOCK_LEFT_OPEN: 'TIMECLOCK_LEFT_OPEN'
+  TIMECLOCK_LEFT_OPEN: 'TIMECLOCK_LEFT_OPEN',
+  QUOTE_UPDATED: 'QUOTE_UPDATED'
 } as const
 
 export type NotificationKind = (typeof NotificationKind)[keyof typeof NotificationKind]
@@ -284,6 +300,7 @@ export const ActivityType = {
   QUOTE_SENT: 'QUOTE_SENT',
   QUOTE_DECIDED: 'QUOTE_DECIDED',
   QUOTE_EDITED: 'QUOTE_EDITED',
+  QUOTE_REOPENED: 'QUOTE_REOPENED',
   RECEIVED: 'RECEIVED',
   ASSIGNED: 'ASSIGNED',
   DISCARDED: 'DISCARDED',
@@ -337,6 +354,8 @@ export const JobActivityType = {
   FOLDER_CREATED: 'FOLDER_CREATED',
   POST_PUBLISHED: 'POST_PUBLISHED',
   COMMENT_ADDED: 'COMMENT_ADDED',
+  CONFIDENTIAL_POST_PUBLISHED: 'CONFIDENTIAL_POST_PUBLISHED',
+  CONFIDENTIAL_COMMENT_ADDED: 'CONFIDENTIAL_COMMENT_ADDED',
   TODO_LIST_CREATED: 'TODO_LIST_CREATED',
   TODO_ADDED: 'TODO_ADDED',
   TODO_COMPLETED: 'TODO_COMPLETED',
@@ -351,6 +370,14 @@ export const JobActivityType = {
 } as const
 
 export type JobActivityType = (typeof JobActivityType)[keyof typeof JobActivityType]
+
+
+export const JobBoard = {
+  TEAM: 'TEAM',
+  CONFIDENTIAL: 'CONFIDENTIAL'
+} as const
+
+export type JobBoard = (typeof JobBoard)[keyof typeof JobBoard]
 
 
 export const JobScopeChangeKind = {

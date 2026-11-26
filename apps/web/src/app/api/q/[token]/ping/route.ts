@@ -31,6 +31,9 @@ import { quoteRanOut } from "@/modules/portal/share";
  * usual timer. Without it, closing the tab looked exactly like a heartbeat
  * gone briefly quiet, and the panel kept saying "viewing now" for up to the
  * whole presence window after the customer had actually gone.
+ *
+ * **Every other beat answers with the quote's revision**, which is how a page
+ * left open hears that somebody on the team just changed the quote.
  */
 export async function POST(request: Request, context: { params: Promise<{ token: string }> }) {
   const { token } = await context.params;
@@ -46,7 +49,9 @@ export async function POST(request: Request, context: { params: Promise<{ token:
 
   if (leaving) {
     await markLeft(share.id);
-  } else if (first) {
+    return new NextResponse(null, { status: 204 });
+  }
+  if (first) {
     const headers = request.headers;
     after(async () => {
       await recordOpen({
@@ -65,5 +70,5 @@ export async function POST(request: Request, context: { params: Promise<{ token:
     await touchPresence(share.id);
   }
 
-  return new NextResponse(null, { status: 204 });
+  return NextResponse.json({ revision: share.quote.revision });
 }

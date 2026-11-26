@@ -319,6 +319,14 @@ export type SignatureHandoff = Prisma.SignatureHandoffModel
  */
 export type QuoteEvent = Prisma.QuoteEventModel
 /**
+ * Model QuoteEventFile
+ * *
+ *  * The evidence of a decision the team recorded: the customer's email, message
+ *  * or signed copy. Stored under the quote's own folder in Blob, apart from its
+ *  * attachments — those go to the customer, these never do.
+ */
+export type QuoteEventFile = Prisma.QuoteEventFileModel
+/**
  * Model QuoteMessage
  * *
  *  * Message thread between the company and the customer, inside the quote.

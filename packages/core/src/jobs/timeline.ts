@@ -1,4 +1,5 @@
 import type { Permission } from "../auth/permissions";
+import { boardPath, type JobBoard } from "./boards";
 
 /** The database's `JobActivityType`, as plain strings; a test in the web holds the two together. */
 export const JOB_ACTIVITY_TYPES = [
@@ -13,6 +14,8 @@ export const JOB_ACTIVITY_TYPES = [
   "FOLDER_CREATED",
   "POST_PUBLISHED",
   "COMMENT_ADDED",
+  "CONFIDENTIAL_POST_PUBLISHED",
+  "CONFIDENTIAL_COMMENT_ADDED",
   "TODO_LIST_CREATED",
   "TODO_ADDED",
   "TODO_COMPLETED",
@@ -147,6 +150,9 @@ export function describeJobActivity(
       return t("POST_PUBLISHED", { actor, title: str("title") ?? "" });
     case "COMMENT_ADDED":
       return t("COMMENT_ADDED", { actor, title: str("title") ?? "" });
+    case "CONFIDENTIAL_POST_PUBLISHED":
+    case "CONFIDENTIAL_COMMENT_ADDED":
+      return t(line.type, { actor, title: str("title") ?? "" });
     case "TODO_LIST_CREATED":
       return t("TODO_LIST_CREATED", { actor, name: str("name") ?? "" });
     case "TODO_ADDED":
@@ -200,6 +206,9 @@ export function activityPermission(type: string): Permission {
     case "POST_PUBLISHED":
     case "COMMENT_ADDED":
       return "messages.read";
+    case "CONFIDENTIAL_POST_PUBLISHED":
+    case "CONFIDENTIAL_COMMENT_ADDED":
+      return "confidential.read";
     case "TODO_LIST_CREATED":
     case "TODO_ADDED":
     case "TODO_COMPLETED":
@@ -238,12 +247,11 @@ export function activityHref(jobId: string, type: string, params: unknown): stri
   const commentAnchor = typeof p.commentId === "string" ? `#comment-${p.commentId}` : "";
   switch (type) {
     case "POST_PUBLISHED":
-      return postId ? `/jobs/${jobId}/messages/${postId}` : null;
+    case "CONFIDENTIAL_POST_PUBLISHED":
+      return postId ? boardPath(jobId, lineBoard(type), postId) : null;
     case "COMMENT_ADDED":
-      if (!postId) return null;
-      return typeof p.commentId === "string"
-        ? `/jobs/${jobId}/messages/${postId}#comment-${p.commentId}`
-        : `/jobs/${jobId}/messages/${postId}`;
+    case "CONFIDENTIAL_COMMENT_ADDED":
+      return postId ? `${boardPath(jobId, lineBoard(type), postId)}${commentAnchor}` : null;
     case "FILES_UPLOADED":
     case "FOLDER_CREATED":
       return typeof p.folderId === "string" ? `/jobs/${jobId}/files?folder=${p.folderId}` : `/jobs/${jobId}/files`;
@@ -266,4 +274,9 @@ export function activityHref(jobId: string, type: string, params: unknown): stri
     default:
       return null;
   }
+}
+
+/** Which board a post's line is about. */
+function lineBoard(type: string): JobBoard {
+  return type.startsWith("CONFIDENTIAL_") ? "CONFIDENTIAL" : "TEAM";
 }

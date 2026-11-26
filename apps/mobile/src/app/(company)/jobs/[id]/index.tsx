@@ -1,8 +1,9 @@
 import { Image } from "expo-image";
 import { Link, useLocalSearchParams } from "expo-router";
-import { CalendarDays, ChevronRight, FolderOpen, ListChecks, MapPin, Megaphone, MessagesSquare } from "lucide-react-native";
+import { CalendarDays, ChevronRight, ExternalLink, FolderOpen, ListChecks, Lock, MapPin, Megaphone, MessagesSquare } from "lucide-react-native";
 import type { ReactNode } from "react";
-import { Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
+import { Linking, Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
+import { googleMapsUrl } from "@nodo/core/maps-link";
 import { useTranslations } from "use-intl";
 import { Avatar, AvatarStack } from "@/components/avatars";
 import { Failed, Loading } from "@/components/screen";
@@ -47,7 +48,6 @@ function Header({ detail, formatLocale }: { detail: JobDetail; formatLocale: str
   const t = useTranslations();
   const { job } = detail;
   const { dates } = useTimeline(job.members, formatLocale);
-  const pin = useColor("muted-foreground");
 
   return (
     <View className="gap-stack-loose">
@@ -59,18 +59,51 @@ function Header({ detail, formatLocale }: { detail: JobDetail; formatLocale: str
           {t(`jobs.status.${job.status}`)} · {dates(job.startsOn, job.endsOn)}
         </Text>
       </View>
-      {job.address ? (
-        <View className="flex-row items-start gap-2">
-          <MapPin size={16} color={pin} style={{ marginTop: 2 }} />
-          <Text className="flex-1 text-callout text-foreground">{job.address}</Text>
-        </View>
-      ) : null}
+      {job.address || job.site ? <Place address={job.address} site={job.site} /> : null}
       {job.closed ? (
         <View className="rounded-xl bg-muted px-card-pad py-3">
           <Text className="text-callout text-foreground">{t("mobile.job.closed")}</Text>
         </View>
       ) : null}
       <AvatarStack people={job.members} max={6} size={32} />
+    </View>
+  );
+}
+
+/**
+ * Where the job is, and the way there: with a pin, the address and the
+ * button open Google Maps — the app with directions, or the browser without
+ * it — by the pin's coordinates, which are where the site really is.
+ */
+function Place({ address, site }: { address: string | null; site: JobDetail["job"]["site"] }) {
+  const t = useTranslations("jobs.location");
+  const pin = useColor("muted-foreground");
+  const ink = useColor("brand-ink");
+  const open = site ? () => void Linking.openURL(googleMapsUrl(site)) : undefined;
+
+  return (
+    <View className="gap-stack">
+      {address ? (
+        <Pressable
+          accessibilityRole={open ? "link" : undefined}
+          disabled={!open}
+          onPress={open}
+          className="flex-row items-start gap-2"
+        >
+          <MapPin size={16} color={pin} style={{ marginTop: 2 }} />
+          <Text className="flex-1 text-callout text-foreground">{address}</Text>
+        </Pressable>
+      ) : null}
+      {open ? (
+        <Pressable
+          accessibilityRole="link"
+          onPress={open}
+          className="min-h-11 flex-row items-center gap-2 self-start rounded-xl border border-border bg-card px-4"
+        >
+          <ExternalLink size={18} color={ink} />
+          <Text className="text-callout font-semibold text-brand-ink">{t("openInMaps")}</Text>
+        </Pressable>
+      ) : null}
     </View>
   );
 }
@@ -106,6 +139,15 @@ function Tools({ detail }: { detail: JobDetail }) {
     ) : null,
     canOn(detail, "schedule.read") ? (
       <ToolRow key="schedule" href={{ pathname: "/jobs/[id]/schedule", params }} icon={<CalendarDays size={22} color={icon} />} title={t("schedule.title")} />
+    ) : null,
+    // Last, and apart: what the office keeps from the crew.
+    canOn(detail, "confidential.read") ? (
+      <ToolRow
+        key="confidential"
+        href={{ pathname: "/jobs/[id]/confidential", params }}
+        icon={<Lock size={22} color={icon} />}
+        title={t("board.confidential.title")}
+      />
     ) : null,
   ].filter((row) => row !== null);
 

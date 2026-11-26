@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, CalendarDays, ClipboardList, Lock, FileText, Flag, FolderOpen, ListChecks, MapPin, MessageCircle, MessagesSquare, Paperclip } from "lucide-react";
@@ -28,6 +29,7 @@ import { filesByIds, filesSummary } from "@/modules/jobs/files-service";
 import { extensionOf, kindOfContentType } from "@nodo/core/jobs/files";
 import { DocumentTile, FolderGlyph } from "@/modules/jobs/docs/document-tile";
 import { latestPosts } from "@/modules/jobs/board/service";
+import { boardPath } from "@nodo/core/jobs/boards";
 import { todosSummary } from "@/modules/jobs/todos/service";
 import { upcomingEvents } from "@/modules/jobs/schedule/service";
 import { chatSummary } from "@/modules/jobs/chat/service";
@@ -49,7 +51,7 @@ import {
   UnlinkQuoteButton,
 } from "@/modules/jobs/job-controls";
 import { isJobClosed, withoutWrites } from "@/modules/jobs/closing";
-import { JobLocationCard } from "@/modules/jobs/location-card";
+import { JobLocationCard, JobLocationView } from "@/modules/jobs/location-card";
 import { addressMovedSincePin } from "@/modules/jobs/location";
 import { clearJobLocationAction, placeJobFromAddressAction, saveJobLocationAction } from "@/modules/jobs/location-actions";
 
@@ -74,23 +76,25 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
   const canMembers = can(ctx, "jobs.members");
   const canFiles = can(ctx, "files.read");
   const canBoard = can(ctx, "messages.read");
+  const canConfidential = can(ctx, "confidential.read");
   const canTodos = can(ctx, "todos.read");
   const canSchedule = can(ctx, "schedule.read");
   const canChat = can(ctx, "chat.read");
   const canScope = can(ctx, "scope.read");
   const today = dayIn(new Date(), ctx.company.timezone);
-  const [t, tRoles, activity, candidates, trades, files, board, todos, schedule, chat, scope] = await Promise.all([
+  const [t, tRoles, activity, candidates, trades, files, board, todos, schedule, chat, scope, confidential] = await Promise.all([
     getTranslations("jobs"),
     getTranslations("roles"),
     jobActivity(ctx, job.id),
     canMembers ? memberCandidates(ctx, job.id) : Promise.resolve([]),
     tradesByUser(ctx, job.members.map((m) => m.userId)),
     canFiles ? filesSummary(ctx, job.id) : Promise.resolve(null),
-    canBoard ? latestPosts(ctx, job.id) : Promise.resolve(null),
+    canBoard ? latestPosts(ctx, job.id, "TEAM") : Promise.resolve(null),
     canTodos ? todosSummary(ctx, job.id) : Promise.resolve(null),
     canSchedule ? upcomingEvents(ctx, job.id, today) : Promise.resolve(null),
     canChat ? chatSummary(ctx, job.id) : Promise.resolve(null),
     canScope ? jobScope(ctx, job.id) : Promise.resolve([]),
+    canConfidential ? latestPosts(ctx, job.id, "CONFIDENTIAL") : Promise.resolve(null),
   ]);
   const [describe, mentionedFiles] = await Promise.all([
     activityDescriber(ctx, activity),
@@ -268,7 +272,8 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
         }}
       />
 
-      {/* Where the clock measures punches against; for whoever places the job, which is whoever edits it. */}
+      {/* Where the clock measures punches against; placed by whoever edits the job, and shown to everybody
+          else once it has a place — the way to the site. */}
       {can(ctx, "jobs.update") ? (
         <JobLocationCard
           location={{
@@ -288,6 +293,8 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
             return clearJobLocationAction(jobId);
           }}
         />
+      ) : job.latitude !== null && job.longitude !== null ? (
+        <JobLocationView point={{ latitude: job.latitude, longitude: job.longitude }} radiusM={job.geofenceRadiusM} />
       ) : null}
 
       {/* With nothing quoted it still shows to whoever may write the first line. */}
@@ -313,40 +320,17 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
         </Link>
       ) : null}
 
-      {board || todos || schedule || chat || files ? (
+      {board || todos || schedule || chat || files || confidential ? (
         <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {board ? (
-            <Link
-              href={`/jobs/${jobId}/messages`}
-              className="group flex flex-col gap-3 rounded-xl border bg-card p-4 transition-colors hover:bg-accent/40"
-            >
-              <span className="flex items-center gap-2 font-semibold">
-                <MessagesSquare className="size-5 text-muted-foreground" />
-                {t("board.title")}
-                <span className="ml-auto text-xs font-normal text-muted-foreground">
-                  {t("board.count", { count: board.count })}
-                </span>
-              </span>
-              {board.posts.length > 0 ? (
-                <ul className="space-y-2">
-                  {board.posts.map((post) => (
-                    <li key={post.id} className="min-w-0 text-sm">
-                      <span className="block truncate font-medium">
-                        {post.category ? `${post.category.emoji} ` : null}
-                        {post.title}
-                      </span>
-                      <span className="block truncate text-xs text-muted-foreground">
-                        {post.author ? personName(post.author) : t("board.someone")}
-                        {post.category ? ` · ${postCategoryName(post.category, (key) => t(`board.${key}`))}` : null}
-                        {post._count.comments > 0 ? ` · ${t("board.commentCount", { count: post._count.comments })}` : null}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <span className="text-sm italic text-muted-foreground">{t("board.cardEmpty")}</span>
-              )}
-            </Link>
+            <BoardCard
+              href={boardPath(jobId, "TEAM")}
+              icon={<MessagesSquare className="size-5 text-muted-foreground" />}
+              title={t("board.title")}
+              empty={t("board.cardEmpty")}
+              summary={board}
+              t={t}
+            />
           ) : null}
           {todos ? (
             <Link
@@ -507,6 +491,16 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
               )}
             </Link>
           ) : null}
+          {confidential ? (
+            <BoardCard
+              href={boardPath(jobId, "CONFIDENTIAL")}
+              icon={<Lock className="size-5 text-muted-foreground" />}
+              title={t("board.confidential.title")}
+              empty={t("board.confidential.cardEmpty")}
+              summary={confidential}
+              t={t}
+            />
+          ) : null}
         </section>
       ) : null}
 
@@ -560,5 +554,56 @@ export default async function JobPage({ params }: { params: Promise<{ id: string
         )}
       </section>
     </div>
+  );
+}
+
+/** A board's card on the job: its latest posts, the same for both boards. */
+function BoardCard({
+  href,
+  icon,
+  title,
+  empty,
+  summary,
+  t,
+}: {
+  href: string;
+  icon: ReactNode;
+  title: string;
+  empty: string;
+  summary: Awaited<ReturnType<typeof latestPosts>>;
+  t: Awaited<ReturnType<typeof getTranslations<"jobs">>>;
+}) {
+  return (
+    <Link
+      href={href}
+      className="group flex flex-col gap-3 rounded-xl border bg-card p-4 transition-colors hover:bg-accent/40"
+    >
+      <span className="flex items-center gap-2 font-semibold">
+        {icon}
+        {title}
+        <span className="ml-auto text-xs font-normal text-muted-foreground">
+          {t("board.count", { count: summary.count })}
+        </span>
+      </span>
+      {summary.posts.length > 0 ? (
+        <ul className="space-y-2">
+          {summary.posts.map((post) => (
+            <li key={post.id} className="min-w-0 text-sm">
+              <span className="block truncate font-medium">
+                {post.category ? `${post.category.emoji} ` : null}
+                {post.title}
+              </span>
+              <span className="block truncate text-xs text-muted-foreground">
+                {post.author ? personName(post.author) : t("board.someone")}
+                {post.category ? ` · ${postCategoryName(post.category, (key) => t(`board.${key}`))}` : null}
+                {post._count.comments > 0 ? ` · ${t("board.commentCount", { count: post._count.comments })}` : null}
+              </span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <span className="text-sm italic text-muted-foreground">{empty}</span>
+      )}
+    </Link>
   );
 }

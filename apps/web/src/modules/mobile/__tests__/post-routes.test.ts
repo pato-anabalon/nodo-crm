@@ -36,7 +36,7 @@ import { POST } from "@/app/api/m/v1/posts/[id]/comments/route";
  */
 
 const ctx = (permissions: string[]) => ({ user: { id: "u1" }, company: { id: "c1" }, permissions: new Set(permissions) });
-const published = { id: "p1", jobId: "job-from-row", authorId: "u2", title: "Week 3", publishedAt: new Date("2026-11-01T00:00:00Z") };
+const published = { id: "p1", jobId: "job-from-row", board: "TEAM", authorId: "u2", title: "Week 3", publishedAt: new Date("2026-11-01T00:00:00Z") };
 const route = { params: Promise.resolve({ id: "p1" }) };
 const headers = { "content-type": "application/json", "x-nodo-company": "acme" };
 
@@ -73,6 +73,26 @@ it("reads a published post with its body sanitised and its comments' flags", asy
   expect(post.publishedAt).toBe("2026-11-01T00:00:00.000Z");
   expect(post.comments[0]).toMatchObject({ id: "c1", canUpdate: false, canDelete: false });
   expect(jobContextFor).toHaveBeenCalledWith(expect.anything(), "job-from-row", "messages.read");
+});
+
+it("holds a confidential post to the confidential board's permission, not the Message Board's", async () => {
+  findPost.mockResolvedValue({ ...published, board: "CONFIDENTIAL" });
+  // As `jobContextFor` does: a job this person may not act on this way isn't one they see.
+  jobContextFor.mockImplementation(async (base, jobId, permission) =>
+    base.permissions.has(permission) ? { ctx: base, job: { id: jobId, name: "Job", closed: false } } : null,
+  );
+  expect((await read()).status).toBe(404);
+  expect(jobContextFor).toHaveBeenCalledWith(expect.anything(), "job-from-row", "confidential.read");
+  const forbidden = await comment({ body: "Hi" });
+  expect(forbidden.status).toBe(403);
+  expect(await forbidden.json()).toEqual({ error: "forbidden", permission: "confidential.read" });
+  expect(getPost).not.toHaveBeenCalled();
+  expect(createComment).not.toHaveBeenCalled();
+
+  buildCompanyContext.mockResolvedValue(ctx(["jobs.read", "confidential.read"]));
+  getPost.mockResolvedValue(null);
+  expect((await read()).status).toBe(404);
+  expect(getPost).toHaveBeenCalledWith(expect.anything(), "job-from-row", "CONFIDENTIAL", "p1");
 });
 
 it("answers 404 for a draft, even the reader's own", async () => {

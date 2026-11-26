@@ -8,11 +8,13 @@ import { requirePermission } from "@/lib/auth/session";
 import { translateFieldErrors } from "@/lib/i18n-errors";
 import { QuoteStatus } from "@/generated/prisma/enums";
 import { sendAcceptedEmail } from "@/modules/email-templates/accepted-email";
-import { quoteFormDataToInput, quoteFormSchema, teamDeclineSchema, type TeamDecline } from "./schemas";
-import { changeQuoteStatus, createQuote, deleteQuote, getQuote, updateQuote } from "./service";
+import { quoteFormDataToInput, quoteFormSchema, teamAcceptSchema, teamDeclineSchema, type TeamDecline } from "./schemas";
+import { changeQuoteStatus, createQuote, deleteQuote, getQuote, quoteCustomerNotice, reopenQuote, updateQuote, visibilityWhere, type TeamAcceptance } from "./service";
+import { notifyQuoteUpdated } from "@/modules/notifications/quote-updated";
+import { formatDateTime } from "@/lib/format";
 import { revokeShare } from "@/modules/portal/service";
 import { logLeadConverted } from "@/modules/leads/service";
-import { MessageAuthor } from "@/generated/prisma/enums";
+import { EmailTemplateKind, MessageAuthor } from "@/generated/prisma/enums";
 import { clientMessageSchema } from "@/modules/portal/schemas";
 import { formatQuoteNumber } from "@/lib/format";
 import { del, head } from "@vercel/blob";
@@ -22,7 +24,10 @@ import {
   MAX_ATTACHMENT_BYTES,
   attachmentPathname,
   checkAttachment,
+  checkEvidence,
+  evidencePathname,
   isAttachmentPathOf,
+  isEvidencePathOf,
   type AttachmentCheck,
 } from "./attachments";
 import { sendQuoteEmail } from "./email";
@@ -91,9 +96,33 @@ export async function updateQuoteAction(
     return { error: t(reasons[result.reason]) };
   }
 
+  // A change to what the customer sees, after it went out: the team hears of
+  // it (when the customer has opened it), and the customer too when the person
+  // saving asked — at most once every twelve hours (`customerNotice`).
+  let message = t("changesSaved");
+  if (result.update) {
+    const { eventId } = result.update;
+    after(() => notifyQuoteUpdated(eventId));
+    if (formData.get("notifyCustomer") === "on") {
+      const notice = await quoteCustomerNotice(ctx, id);
+      if (notice.kind === "ready") {
+        after(async () => {
+          if (await sendToCustomer(id, EmailTemplateKind.QUOTE_UPDATED, { byHand: true })) {
+            await ctx.db.quoteEvent.update({ where: { id: eventId }, data: { customerNotifiedAt: new Date() } });
+          }
+        });
+        message = t("changesSavedCustomerTold");
+      } else if (notice.kind === "waiting") {
+        message = t("changesSavedCustomerLater", {
+          time: formatDateTime(notice.until, ctx.company.formatLocale, ctx.company.timezone),
+        });
+      }
+    }
+  }
+
   revalidatePath("/quotes");
   revalidatePath(`/quotes/${id}`);
-  return { message: t("changesSaved") };
+  return { message };
 }
 
 /** Marks the quote as sent and, if the contact has an email, sends it. */
@@ -120,6 +149,50 @@ export async function sendQuoteAction(id: string): Promise<QuoteActionState> {
   return delivery.sent
     ? { message: withFailures(t("sentTo", { email: delivery.to }), delivery.failed, t) }
     : { message: t("markedAsSent", { reason: delivery.reason }) };
+}
+
+/**
+ * Gives an expired quote a new date (`reopenQuote`), and tells the customer
+ * when the person asked. That email is the same "your quote was updated" a save
+ * sends, but not held to its rules: a reopening happens once, and a customer
+ * who never opened it is exactly who it is for. Only a revoked link stops it —
+ * the email issues a link, and issuing one reopens a revoked share.
+ *
+ * Somebody about to change it first — a further discount, say — leaves the
+ * tick off and tells the customer on saving, with everything at once.
+ */
+export async function reopenQuoteAction(id: string, formData: FormData): Promise<QuoteActionState> {
+  const ctx = await requirePermission("quotes.send");
+  const t = await getTranslations("quotes");
+
+  const validUntil = String(formData.get("validUntil") ?? "").trim() || null;
+  const result = await reopenQuote(ctx, id, validUntil);
+  if (!result.ok) {
+    if (result.reason === "date-required" || result.reason === "date-past") {
+      return { fieldErrors: { validUntil: [t(`reopen.errors.${result.reason}`)] } };
+    }
+    return { error: t(result.reason === "not-found" ? "notFound" : `reopen.errors.${result.reason}`) };
+  }
+
+  let message = t("reopen.done");
+  if (formData.get("notifyCustomer") === "on") {
+    const share = await ctx.db.quoteShare.findFirst({ where: { quoteId: id }, select: { revokedAt: true } });
+    if (share && !share.revokedAt) {
+      const { eventId } = result;
+      after(async () => {
+        if (await sendToCustomer(id, EmailTemplateKind.QUOTE_UPDATED, { byHand: true })) {
+          await ctx.db.quoteEvent.update({ where: { id: eventId }, data: { customerNotifiedAt: new Date() } });
+        }
+      });
+      message = t("reopen.doneCustomerTold");
+    } else {
+      message = t("reopen.doneLinkClosed");
+    }
+  }
+
+  revalidatePath("/quotes");
+  revalidatePath(`/quotes/${id}`);
+  return { message };
 }
 
 /**
@@ -207,12 +280,30 @@ export async function revokeShareAction(id: string): Promise<QuoteActionState> {
 export async function decideQuoteAction(
   id: string,
   decision: "ACCEPTED" | "REJECTED",
-  /** The decline dialog's form: a reason, and a note beside it. */
+  /** The dialog's form: a reason, a note beside it and, accepting, the evidence. */
   formData?: FormData,
 ): Promise<QuoteActionState> {
   const ctx = await requirePermission("quotes.decide");
 
   const t = await getTranslations("quotes");
+
+  // Accepting for the customer says how they said yes and carries their word,
+  // already in the store: checked here against the store itself.
+  let accept: TeamAcceptance | undefined;
+  if (decision === "ACCEPTED") {
+    const parsed = teamAcceptSchema.safeParse({
+      reason: formData?.get("reason") || undefined,
+      note: formData?.get("note"),
+      evidence: parseEvidence(formData?.get("evidence")),
+    });
+    if (!parsed.success) {
+      const tAll = await getTranslations();
+      return { fieldErrors: translateFieldErrors(parsed.error.flatten().fieldErrors, tAll) };
+    }
+    const files = await storedEvidence(ctx, id, parsed.data.evidence);
+    if (!files) return { fieldErrors: { evidence: [t("accept.evidenceMissing")] } };
+    accept = { reason: parsed.data.reason, note: parsed.data.note, files };
+  }
 
   // Declining always says why, on the server too: the dialog's `required` is
   // only a courtesy, and a hand-made post could otherwise skip it.
@@ -229,8 +320,10 @@ export async function decideQuoteAction(
     decline = parsed.data;
   }
 
-  const result = await changeQuoteStatus(ctx, id, QuoteStatus[decision], decline);
+  const result = await changeQuoteStatus(ctx, id, QuoteStatus[decision], decline, accept);
   if (!result.ok) {
+    // Nothing will ever point at evidence for a decision that didn't happen.
+    if (accept) await Promise.all(accept.files.map((file) => del(file.url).catch(() => undefined)));
     return {
       error: result.reason === "invalid-transition" ? t("onlySentCanBeDecided") : t("notFound"),
     };
@@ -479,4 +572,75 @@ export async function deleteQuoteAttachmentAction(
 
   revalidatePath(`/quotes/${quoteId}`);
   return { message: t("deleted") };
+}
+
+function parseEvidence(value: FormDataEntryValue | null | undefined): unknown {
+  if (typeof value !== "string" || !value) return [];
+  try {
+    return JSON.parse(value);
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * The evidence the browser says it uploaded, as the store has it — or null
+ * when any of it isn't there, isn't in this quote's evidence folder, isn't a
+ * type or size the dialog takes, or is already another decision's. On a
+ * refusal, what did reach the folder unclaimed goes: nothing will point at it.
+ */
+async function storedEvidence(
+  ctx: Awaited<ReturnType<typeof requirePermission>>,
+  quoteId: string,
+  claims: readonly { pathname: string; name: string }[],
+): Promise<TeamAcceptance["files"] | null> {
+  const ours = claims.filter((claim) => isEvidencePathOf(ctx.company.id, quoteId, claim.pathname));
+  const stored = await Promise.all(ours.map((claim) => head(claim.pathname).catch(() => null)));
+  const files = stored.flatMap((blob, index) =>
+    blob
+      ? [{ name: ours[index].name, url: blob.url, pathname: blob.pathname, contentType: blob.contentType, size: blob.size }]
+      : [],
+  );
+  const taken = await ctx.db.quoteEventFile.count({ where: { pathname: { in: files.map((file) => file.pathname) } } });
+  const valid =
+    files.length === claims.length &&
+    taken === 0 &&
+    files.every((file, index) => checkEvidence({ name: file.name, size: file.size, type: file.contentType }, index).ok);
+  if (valid) return files;
+  if (taken === 0) await Promise.all(files.map((file) => del(file.url).catch(() => undefined)));
+  return null;
+}
+
+/**
+ * Step one of sending a piece of evidence, as for an attachment: the browser
+ * gets a token for one file at a path of the server's, in the quote's own
+ * evidence folder, and uploads it straight to the store. Only while the quote
+ * is still waiting for an answer this person may record.
+ */
+export async function prepareAcceptanceEvidenceUploadAction(
+  quoteId: string,
+  file: AttachmentFileInfo,
+): Promise<AttachmentUploadTicket> {
+  const ctx = await requirePermission("quotes.decide");
+  const t = await getTranslations("quotes.attachments");
+
+  const quote = await ctx.db.quote.findFirst({
+    where: { id: quoteId, status: QuoteStatus.SENT, ...visibilityWhere(ctx) },
+    select: { id: true },
+  });
+  if (!quote) return { error: t("notFound") };
+
+  const error = await attachmentCheckError(checkEvidence(file, 0));
+  if (error) return { error };
+
+  const pathname = evidencePathname(ctx.company.id, quoteId, file.name);
+  const token = await generateClientTokenFromReadWriteToken({
+    pathname,
+    allowedContentTypes: [file.type],
+    maximumSizeInBytes: MAX_ATTACHMENT_BYTES,
+    addRandomSuffix: true,
+    allowOverwrite: false,
+    validUntil: Date.now() + UPLOAD_TOKEN_TTL_MS,
+  });
+  return { pathname, token };
 }

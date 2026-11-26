@@ -21,6 +21,8 @@ export const GET = mobileRoute({
         name: job.name,
         description: job.description,
         address: job.address,
+        // Where the site is, for the way there; the clock reads its circle from `/timeclock`.
+        site: job.latitude !== null && job.longitude !== null ? { latitude: job.latitude, longitude: job.longitude } : null,
         status: job.status,
         closed: access.closed,
         closedAt: job.closedAt?.toISOString() ?? null,

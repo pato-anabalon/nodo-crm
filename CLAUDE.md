@@ -891,9 +891,41 @@ versions in the customer's inbox — there is only ever the one link, and it now
 shows what was corrected.
 
 `ACCEPTED` stays out of reach for good: what the customer agreed to is what
-freezes. `REJECTED` and `EXPIRED` also stay locked — reviving one is done by
-sending again, which reopens editing along with the link, not by editing a quote
-that's already closed.
+freezes. `REJECTED` stays locked too — it is the customer's answer. `EXPIRED`
+is locked until it is reopened (below), which puts it back to `SENT` and so
+editable again.
+
+### Reopening an expired quote
+
+Running out is still the clock's (the sweep, unattended), but the company can
+decide afterwards to hold the price for longer — on the same quote. The
+alternative was duplicating it, which left two quotes for one job in every
+report: two sent, one expired, a 50% conversion where there was one sale.
+
+"Extend validity" (`reopenQuote`, `quotes.send`) asks for a new date and moves
+the quote back to `SENT`. It is not a send: `changeQuoteStatus` would stamp
+`sentAt` again — counting it as sent twice and restarting the follow-ups'
+clock — so `EXPIRED → SENT` is no longer a transition at all, and this is the
+only door back.
+
+- **The date has to be ahead** by the comparison that expires it
+  (`reopenRefusal`, pure), or the sweep would close it again that night; and
+  only a quote made here (`isNativeQuote`) — the sweep never looks at an
+  imported one, so reopened it would sit `SENT` forever.
+- **Nothing is undone.** The `QUOTE_DECIDED … EXPIRED` line stays on the lead;
+  a `REOPENED` `QuoteEvent` carries the dates as a `validUntil` change, and
+  `QUOTE_REOPENED` goes on the lead, which moves along as a send would (a lead
+  the expiry left `LOST` goes back to `PROPOSAL`).
+- **It moves the revision on**, so a customer with the expired page open gets
+  the bar to see the new version, and the links already out open it again.
+- **Telling the customer is a tick**, on by default: the `QUOTE_UPDATED` email,
+  held only to the link being open (sending one issues a link, and issuing
+  reopens a revoked share) — not to the save's twelve hours or "opened".
+  Somebody changing the quote first, a further discount say, leaves it off and
+  tells them on saving, with everything at once.
+- **Reports count it as what it is now.** Expired is keyed on `validUntil`, so
+  a reopened quote leaves the expired figure of the month it first ran out in
+  and reads as awaiting at its close.
 
 **The lead is the exception: it changes only on a draft** (`canChangeLead`).
 The customer's details are copied from the lead, so re-pointing a sent quote
@@ -904,6 +936,34 @@ before that it kept the first lead's, and a send went to the wrong address.
 The edit itself leaves a line in the lead's activity (`QUOTE_EDITED`), the same
 way sending and deciding do, so the history says a sent quote changed even
 though the customer's link didn't.
+
+**And the quote's own history says what changed** (`quotes/changes.ts`). A
+save of a sent quote is compared with what was there, as the customer sees
+it — the owner and the lead aren't changes — and one that changed something
+writes an `UPDATED` `QuoteEvent` with the changes as tokens, worded when read
+(`changes-text.ts`), and moves `Quote.revision` on by one. Short values keep
+before and after; lines are matched by their description (they're replaced on
+every save), sections by their row; long texts and a section's description
+say only that they were edited — what the customer agreed to is frozen at
+acceptance anyway. Three things hang off it:
+
+- **The team hears of it once the customer has opened the quote**
+  (`QUOTE_UPDATED`: Owners, Admins and the quote's owner, never whoever
+  changed it), with the list of changes. Saves within half an hour of the one
+  before are one notice; the history keeps each.
+- **The customer is emailed only when the person saving ticks "Tell the
+  customer"**, in the confirmation a sent quote already asks for — ticked by
+  default, and offered only when the quote was opened, its link is open and
+  the last such email went more than twelve hours ago (`customerNotice`).
+  The email (`EmailTemplateKind.QUOTE_UPDATED`, editable, no switch: the tick
+  is the switch) says only that the quote was updated, with a fresh link per
+  recipient, as a follow-up does; the history marks the change as told.
+- **A customer with it open is told on the page.** Each heartbeat answers
+  with the revision, and a page drawn from an older one shows a bar to see
+  the new version — never a reload by itself, since they may be signing.
+  Accepting posts the revision it showed, and the acceptance is written only
+  if the quote is still on it (`updateMany … where revision`), so nobody
+  accepts a version that no longer exists.
 
 ### Sections the customer decides on
 
@@ -1060,7 +1120,12 @@ can't be clocked into.
   of address only says so on the job, with "Place from the address" beside
   it. Dragging the pin or pasting coordinates makes it manual; changing the
   radius alone doesn't.
-- **The card on the job is `jobs.update`'s**, like the address. The map is
+- **The card on the job is `jobs.update`'s**, like the address; everybody
+  else sees the placed site read only, and a tap on the map or "Open in
+  Google Maps" (`googleMapsUrl` in `@nodo/core/maps-link`, by coordinates)
+  opens it there — on a phone, the app with directions. The app's job screen
+  has the same button, and its address opens it too (`site` in `GET
+  /jobs/<id>`); it draws no map of its own. The map is
   Maps JavaScript (`NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`, a browser key restricted
   by referrer — a different key from the server's), loaded only by the
   screen that draws one; without it a job is placed by pasting coordinates.
@@ -1292,6 +1357,40 @@ moving over already know.
   stored by `key` and translated like a standard profile. The migration seeded
   them for every company already there; `createCompanyWithOwner` seeds each
   new one; a test holds the two lists together.
+
+### The confidential board
+
+The Message Board's twin, for what the office keeps from the crew — the
+contract, the invoicing summary (`/jobs/<id>/confidential`). It is the same
+`JobPost` with `board: CONFIDENTIAL`, so it has everything the board has —
+drafts, categories, the full editor, files, comments, notices, moderation —
+and the four screens are written once (`board/pages.tsx`) for both.
+
+- **Its own four permissions**, `confidential.read/create/update/delete`,
+  nobody's by default but `OWNER`'s: who reads it is somebody's decision.
+  Existing companies' owners get them from
+  `scripts/grant-owner-permissions.ts`. Being on the job grants nothing, as
+  everywhere; `@nodo/core/jobs/boards` is the table of which permission
+  opens which board, its path and its timeline lines.
+- **The leak to guard against is a query that forgets the board** — it would
+  show the contract on the Message Board and nothing would fail. Every read
+  of `jobPost` lives in `board/service.ts` and names its board;
+  `board-isolation.test.ts` reads the source and fails otherwise. A guard
+  that finds a post by id (`findPost`) reads the board off the row and asks
+  that board's permission, never the one the form or the app named.
+- **Nothing reaches anybody else on the way out.** Its timeline lines are
+  types of their own (`CONFIDENTIAL_POST_PUBLISHED`, `…_COMMENT_ADDED`)
+  read with `confidential.read`; a comment on it is read with the post's
+  board (`commentSubject`); notices and the "only the people I pick" list are
+  cut to whoever reads it; its files are attachments, so Docs & Files never
+  lists them.
+- **The files are on the public store**, like every other file: the link
+  doesn't guess, but it opens for whoever holds it, and keeps opening after
+  a permission is taken away. A private store with a download route that
+  checks the session is the step up if that ever matters.
+- **The app reads it as it reads the board** — `GET /jobs/<id>/posts?board=
+  confidential`, and `/posts/<id>` answering to the post's own board — and
+  comments on it; writing posts stays on the web.
 
 ### To-dos
 
@@ -1656,6 +1755,18 @@ web enquiry uses). A copy can be made primary or taken off.
   with `OTHER`, where it is the reason (`teamDeclineSchema`, checked on the
   server). The history reads "Declined by María · Replaced by another
   quote". The customer's own decline still puts its reason in the thread.
+- **Accepting from the company's side asks how, and for the customer's
+  word.** One of `QuoteAcceptReason` (by email, by SMS or WhatsApp, on the
+  phone, in person, the link didn't work, other) and at least one file —
+  the screenshot, the email, the signed copy — because a button pressed in
+  the office has neither the portal's signature nor its fingerprint. The
+  files go from the browser straight to Blob, in the quote's own
+  `evidence/` folder (`prepareAcceptanceEvidenceUploadAction`), and the
+  decision names them; `decideQuoteAction` checks each against the store
+  (`isEvidencePathOf`, `head()`, the attachment's types and size) and they
+  become `QuoteEventFile` rows on the `ACCEPTED` event. They are the team's,
+  listed under that line of the history, and never reach the customer; a
+  decision that fails deletes them.
 - **One primary per quote** is a partial unique index written by hand in the
   migration — Prisma can't declare one — so the swap clears before it sets.
 

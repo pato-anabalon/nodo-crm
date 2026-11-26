@@ -91,6 +91,7 @@ export const ModelName = {
   QuoteRecipient: 'QuoteRecipient',
   SignatureHandoff: 'SignatureHandoff',
   QuoteEvent: 'QuoteEvent',
+  QuoteEventFile: 'QuoteEventFile',
   QuoteMessage: 'QuoteMessage',
   QuoteAcceptance: 'QuoteAcceptance',
   QuoteSection: 'QuoteSection',
@@ -721,6 +722,7 @@ export const QuoteScalarFieldEnum = {
   validUntil: 'validUntil',
   sentAt: 'sentAt',
   decidedAt: 'decidedAt',
+  revision: 'revision',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -818,10 +820,28 @@ export const QuoteEventScalarFieldEnum = {
   userName: 'userName',
   reason: 'reason',
   reasonNote: 'reasonNote',
+  acceptReason: 'acceptReason',
+  changes: 'changes',
+  customerNotifiedAt: 'customerNotifiedAt',
   createdAt: 'createdAt'
 } as const
 
 export type QuoteEventScalarFieldEnum = (typeof QuoteEventScalarFieldEnum)[keyof typeof QuoteEventScalarFieldEnum]
+
+
+export const QuoteEventFileScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  eventId: 'eventId',
+  name: 'name',
+  url: 'url',
+  pathname: 'pathname',
+  contentType: 'contentType',
+  size: 'size',
+  createdAt: 'createdAt'
+} as const
+
+export type QuoteEventFileScalarFieldEnum = (typeof QuoteEventFileScalarFieldEnum)[keyof typeof QuoteEventFileScalarFieldEnum]
 
 
 export const QuoteMessageScalarFieldEnum = {
@@ -1093,6 +1113,7 @@ export const JobPostScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
   jobId: 'jobId',
+  board: 'board',
   categoryId: 'categoryId',
   title: 'title',
   body: 'body',

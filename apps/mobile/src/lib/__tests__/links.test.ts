@@ -6,6 +6,9 @@ describe("appHref", () => {
     expect(appHref("/jobs/j1/todos/t1#comment-c9")).toBe("/todos/t1");
     expect(appHref("/jobs/j1/messages/p1#comment-c2")).toBe("/posts/p1");
     expect(appHref("/jobs/j1/chat#message-m4")).toBe("/jobs/j1/chat");
+    // A confidential post is a post: the server decides who may open it.
+    expect(appHref("/jobs/j1/confidential/p1#comment-c2")).toBe("/posts/p1");
+    expect(appHref("/jobs/j1/confidential")).toBe("/jobs/j1/confidential");
   });
 
   it("takes what the app has no screen for to the nearest one it has", () => {

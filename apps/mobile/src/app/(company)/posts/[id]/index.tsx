@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
 import { KeyboardAvoidingView, Platform, RefreshControl, ScrollView, Text, View } from "react-native";
 import { useTranslations } from "use-intl";
 import { Avatar, personName } from "@/components/avatars";
@@ -33,6 +33,7 @@ export default function PostScreen() {
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} keyboardVerticalOffset={100} className="flex-1">
+      {detail.board === "CONFIDENTIAL" ? <Stack.Screen options={{ title: t("jobs.board.confidential.title") }} /> : null}
       <ScrollView
         contentContainerClassName="gap-section px-gutter pb-section pt-stack"
         keyboardShouldPersistTaps="handled"

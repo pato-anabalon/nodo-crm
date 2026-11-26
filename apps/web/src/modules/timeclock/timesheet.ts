@@ -124,16 +124,26 @@ export function personTimesheet(
     paidMinutes: sum("paidMinutes"),
     travelMinutes: sum("travelMinutes"),
     daysWorked: days.filter((day) => day.workedMinutes > 0).length,
-    flagged: days.some((day) =>
-      day.shifts.some((shift) => shift.minutes === null || shift.late || shift.leftAway || shift.endedByClock),
-    ),
+    flagged: days.some((day) => day.shifts.some(needsReview)),
   };
 }
 
 export type ShiftFlag = "open" | "travel" | "manual" | "edited" | "late" | "leftAway" | "leftSite" | "travelLimit";
 
+/**
+ * The flags that ask somebody to look, rather than only describe the shift:
+ * still open, sent late, ended away from the job or ended by the clock. One
+ * of them is what marks the person on the week (`flagged`), so the shift that
+ * carries it is marked the same way where it is listed.
+ */
+const REVIEW_FLAGS: ReadonlySet<ShiftFlag> = new Set(["open", "late", "leftAway", "leftSite", "travelLimit"]);
+
+export function needsReview(shift: Shift): boolean {
+  return shift.minutes === null || shift.late || shift.leftAway || shift.endedByClock;
+}
+
 /** What a shift carries that somebody should know, in the order it is shown, worded by `say`. */
-export function shiftFlags(shift: Shift, say: (flag: ShiftFlag) => string): string[] {
+export function shiftFlags(shift: Shift, say: (flag: ShiftFlag) => string): { label: string; review: boolean }[] {
   const flags: ShiftFlag[] = [];
   if (shift.minutes === null) flags.push("open");
   if (shift.kind === "TRAVEL") flags.push("travel");
@@ -143,7 +153,7 @@ export function shiftFlags(shift: Shift, say: (flag: ShiftFlag) => string): stri
   if (shift.leftAway) flags.push("leftAway");
   if (shift.endedBy === "LEFT_SITE") flags.push("leftSite");
   if (shift.endedBy === "TRAVEL_LIMIT") flags.push("travelLimit");
-  return flags.map(say);
+  return flags.map((flag) => ({ label: say(flag), review: REVIEW_FLAGS.has(flag) }));
 }
 
 /** `h:mm`, the way a timesheet reads a duration: 7:45, 0:20. */

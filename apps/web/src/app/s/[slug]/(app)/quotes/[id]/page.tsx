@@ -1,7 +1,7 @@
 import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, FileText } from "lucide-react";
+import { ArrowLeft, FileText, Paperclip } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { can, requireCompanyContext } from "@/lib/auth/session";
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getQuote } from "@/modules/quotes/service";
+import { getQuote, quoteCustomerNotice, quoteNumberStartOf } from "@/modules/quotes/service";
 import { listCompanyMembers } from "@/modules/team/service";
 import { listCompanyDocuments } from "@/modules/documents/service";
 import { QuoteForm } from "@/modules/quotes/quote-form";
@@ -42,7 +42,9 @@ import { jobForQuote, quoteHasJob } from "@/modules/jobs/service";
 import { startJobAction } from "@/modules/jobs/actions";
 import {
   decideQuoteAction,
+  prepareAcceptanceEvidenceUploadAction,
   deleteQuoteAttachmentAction,
+  reopenQuoteAction,
   resendQuoteAction,
   revokeShareAction,
   sendFollowUpAction,
@@ -58,7 +60,9 @@ import { QuoteTabs } from "@/modules/quotes/quote-tabs";
 import { joinNames } from "@/modules/quotes/recipients";
 import { quoteRanOut } from "@/modules/portal/share";
 import { QuoteReuseCard } from "@/modules/quote-templates/quote-actions";
-import { isQuoteEditable, QUOTE_STATUS_CLASS } from "@/modules/quotes/constants";
+import { defaultValidUntil, isQuoteEditable, QUOTE_STATUS_CLASS } from "@/modules/quotes/constants";
+import { canReopen } from "@/modules/quotes/reopen";
+import { wallClock } from "@nodo/core/zoned-time";
 import { taxIsInTotal } from "@/modules/quotes/totals";
 import { HiddenAmount } from "@/modules/quotes/hidden-amount";
 import { currencyOptions } from "@nodo/core/intl/options";
@@ -75,6 +79,7 @@ import { sendStaffMessageAction } from "@/modules/quotes/actions";
 import { isViewingNow } from "@/modules/portal/share";
 import { formatDateTime } from "@/lib/format";
 import { formatDate, formatMoney, formatQuoteNumber } from "@/lib/format";
+import { describeChange, storedChanges, type ChangeFormat, type Words } from "@/modules/quotes/changes-text";
 import { getTranslations as getT } from "next-intl/server";
 
 export default async function QuoteDetailPage({
@@ -128,6 +133,13 @@ export default async function QuoteDetailPage({
   const resendAction = resendQuoteAction.bind(null, quote.id);
   const revokeAction = revokeShareAction.bind(null, quote.id);
 
+  // Whether a change saved now can be emailed to the customer, for the tick in the save's confirmation.
+  const notice = editable && quote.status === QuoteStatus.SENT ? await quoteCustomerNotice(ctx, quote.id) : null;
+  const customerNoticeProp = notice
+    ? notice.kind === "waiting"
+      ? { kind: "waiting" as const, until: formatDateTime(notice.until, ctx.company.formatLocale, ctx.company.timezone) }
+      : { kind: notice.kind }
+    : undefined;
   const [documents, catalogueAvailable, companyQuoteTypes] = editable
     ? await Promise.all([
         listCompanyDocuments(ctx),
@@ -181,6 +193,20 @@ export default async function QuoteDetailPage({
     ) : null;
 
   const ranOut = quoteRanOut(quote);
+  // An expired quote the company decides to hold for longer, on the same quote.
+  const reopen =
+    can(ctx, "quotes.send") && canReopen(quote, await quoteNumberStartOf(ctx))
+      ? (() => {
+          const now = new Date();
+          const day = (instant: Date) => wallClock(instant, ctx.company.timezone).day;
+          return {
+            onReopen: reopenQuoteAction.bind(null, quote.id),
+            defaultDate: day(defaultValidUntil(ctx.company.quoteValidityDays, now)),
+            minDate: day(new Date(now.getTime() + 24 * 60 * 60 * 1000)),
+            linkOpen: !!quote.share && quote.share.revokedAt === null,
+          };
+        })()
+      : undefined;
   const followUp = can(ctx, "quotes.send") ? nextFollowUp(quote) : null;
   const firstFollowUp = quote.emailsSent.find(
     (email) => email.kind === EmailTemplateKind.FIRST_FOLLOW_UP,
@@ -217,6 +243,7 @@ export default async function QuoteDetailPage({
       deleteAttachment={deleteQuoteAttachmentAction}
       action={updateAction}
       status={quote.status}
+      customerNotice={customerNoticeProp}
       documents={documents.map((doc) => ({ id: doc.id, name: doc.name }))}
       quoteTypes={companyQuoteTypes.map((type) => type.label)}
       currency={ctx.company.currency}
@@ -518,6 +545,7 @@ export default async function QuoteDetailPage({
           {quote.share ? (
             <QuoteEvents
               events={quote.events}
+              currency={quote.currency}
               formatLocale={ctx.company.formatLocale}
               timezone={ctx.company.timezone}
             />
@@ -597,9 +625,11 @@ export default async function QuoteDetailPage({
               "use server";
               return decideAction(decision, formData);
             }}
+            prepareEvidence={prepareAcceptanceEvidenceUploadAction.bind(null, quote.id)}
             previewHref={`/quotes/${quote.id}/preview`}
             job={job ? { href: `/jobs/${job.id}` } : null}
             onStartJob={canStartJob ? startJobAction.bind(null, quote.id) : undefined}
+            reopen={reopen}
           />
         </div>
       </div>
@@ -673,6 +703,7 @@ async function QuoteEmails({
 
 async function QuoteEvents({
   events,
+  currency,
   formatLocale,
   timezone,
 }: {
@@ -683,13 +714,26 @@ async function QuoteEvents({
     recipientName: string | null;
     userName: string | null;
     reason: string | null;
+    acceptReason: string | null;
     reasonNote: string | null;
+    files: Array<{ id: string; name: string; url: string }>;
+    changes: unknown;
+    customerNotifiedAt: Date | null;
   }>;
+  currency: string;
   formatLocale: string;
   timezone: string;
 }) {
   const t = await getT("quotes.tracking");
   const tReasons = await getT("quotes.declineReasons");
+  const tAcceptReasons = await getT("quotes.acceptReasons");
+  const tQuotes = await getT("quotes");
+  const words: Words = (key, values) => tQuotes(key as never, values as never);
+  // A day is a calendar day, not an instant: written as the company writes dates, in no timezone at all.
+  const changeFormat: ChangeFormat = {
+    money: (amount) => formatMoney(amount, currency, formatLocale),
+    date: (day) => formatDate(new Date(`${day}T00:00:00Z`), formatLocale, "UTC"),
+  };
 
   return (
     <Card>
@@ -714,16 +758,44 @@ async function QuoteEvents({
                     : event.recipientName
                       ? t(`eventBy.${event.type}`, { name: event.recipientName })
                       : t(`eventTypes.${event.type}`)}
-                  {event.reason ? (
+                  {event.reason || event.acceptReason ? (
                     <>
                       {" · "}
-                      {event.reason === "OTHER" && event.reasonNote
+                      {(event.reason ?? event.acceptReason) === "OTHER" && event.reasonNote
                         ? event.reasonNote
-                        : tReasons(event.reason)}
+                        : event.reason
+                          ? tReasons(event.reason)
+                          : tAcceptReasons(event.acceptReason!)}
                     </>
                   ) : null}
-                  {event.reasonNote && event.reason !== "OTHER" ? (
+                  {event.reasonNote && (event.reason ?? event.acceptReason) !== "OTHER" ? (
                     <span className="block text-muted-foreground">{event.reasonNote}</span>
+                  ) : null}
+                  {/* What a save after sending changed, worded for the team; the customer was told only that it changed. */}
+                  {event.type === "UPDATED" || event.type === "REOPENED" ? (
+                    <ul className="mt-1 space-y-0.5 text-muted-foreground">
+                      {storedChanges(event.changes).map((change, index) => (
+                        <li key={index}>{describeChange(change, words, changeFormat)}</li>
+                      ))}
+                      {event.customerNotifiedAt ? <li className="text-xs">{tQuotes("changes.customerNotified")}</li> : null}
+                    </ul>
+                  ) : null}
+                  {/* The customer's word for an acceptance recorded by hand: the team's eyes only. */}
+                  {event.files.length > 0 ? (
+                    <span className="mt-1 flex flex-wrap gap-x-3 gap-y-1">
+                      {event.files.map((file) => (
+                        <a
+                          key={file.id}
+                          href={file.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex max-w-full items-center gap-1 text-xs underline-offset-2 hover:underline"
+                        >
+                          <Paperclip className="size-3 shrink-0" />
+                          <span className="truncate">{file.name}</span>
+                        </a>
+                      ))}
+                    </span>
                   ) : null}
                 </span>
                 <time

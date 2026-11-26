@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useTransition } from "react";
-import { useTranslations } from "next-intl";
+import { useRef, useState, useTransition } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { Briefcase, ExternalLink } from "lucide-react";
+import { Briefcase, CalendarClock, ExternalLink, Paperclip, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
@@ -17,9 +19,11 @@ import {
 import { Label } from "@/components/ui/label";
 import { NativeSelect } from "@/components/ui/native-select";
 import { Textarea } from "@/components/ui/textarea";
-import { QuoteDeclineReason, QuoteStatus } from "@/generated/prisma/enums";
+import { QuoteAcceptReason, QuoteDeclineReason, QuoteStatus } from "@/generated/prisma/enums";
 import { acceptedKey, celebrate, originOf } from "@/lib/celebrate";
-import type { QuoteActionState } from "./actions";
+import { formatBytes } from "@/modules/documents/constants";
+import type { AttachmentFileInfo, AttachmentUploadTicket, QuoteActionState } from "./actions";
+import { ACCEPTED_ATTACHMENT_TYPES, MAX_ATTACHMENT_BYTES, MAX_EVIDENCE_FILES, checkEvidence } from "./attachments";
 
 /**
  * Status-change buttons. Valid transitions are decided by the server; here we
@@ -33,9 +37,11 @@ export function QuoteActionsBar({
   hasLead,
   onSend,
   onDecide,
+  prepareEvidence,
   previewHref,
   job,
   onStartJob,
+  reopen,
 }: {
   quoteId: string;
   status: QuoteStatus;
@@ -46,8 +52,10 @@ export function QuoteActionsBar({
    * once clicked. */
   hasLead: boolean;
   onSend: () => Promise<QuoteActionState>;
-  /** Declining carries the dialog's form: why, and a note. */
+  /** Both carry the dialog's form: why, a note and, accepting, the evidence. */
   onDecide: (decision: "ACCEPTED" | "REJECTED", formData?: FormData) => Promise<QuoteActionState>;
+  /** A token to upload one piece of the customer's word, before accepting. */
+  prepareEvidence: (file: AttachmentFileInfo) => Promise<AttachmentUploadTicket>;
   /**
    * The quote's own `/preview` route, shown beside Send so it can be checked
    * right before it goes out. Only offered alongside Send — once the quote is
@@ -61,12 +69,18 @@ export function QuoteActionsBar({
    * `jobs.create`; the action redirects to the new job on success.
    */
   onStartJob?: () => Promise<QuoteActionState>;
+  /**
+   * Gives an expired quote a new date. Only passed when it may be reopened
+   * (`canReopen`) and the profile holds `quotes.send`.
+   */
+  reopen?: ReopenOptions;
 }) {
   const [pending, startTransition] = useTransition();
   const [busy, setBusy] = useState<string | null>(null);
   const [declining, setDeclining] = useState(false);
+  const [accepting, setAccepting] = useState(false);
+  const [reopening, setReopening] = useState(false);
   const t = useTranslations("quotes");
-  const tCommon = useTranslations("common");
 
   function run(
     label: string,
@@ -90,8 +104,9 @@ export function QuoteActionsBar({
   const accepted = status === QuoteStatus.ACCEPTED;
   const showOpenJob = accepted && Boolean(job);
   const showStartJob = accepted && !job && Boolean(onStartJob);
+  const showReopen = status === QuoteStatus.EXPIRED && Boolean(reopen);
 
-  if (!showSend && !showDecision && !showOpenJob && !showStartJob) return null;
+  if (!showSend && !showDecision && !showOpenJob && !showStartJob && !showReopen) return null;
 
   return (
     // On a phone the bar spans the width and its two buttons take half each (one
@@ -128,20 +143,19 @@ export function QuoteActionsBar({
 
       {showDecision ? (
         <>
-          <Button
-            variant="default"
-            onClick={() =>
-              // Recording by hand what the customer said on the phone is the
-              // same news as them clicking accept. The key is the one the page
-              // uses, so revalidating into ACCEPTED can't celebrate it twice.
-              run("accept", () => onDecide("ACCEPTED"), () =>
-                void celebrate({ key: acceptedKey.staff(quoteId) }),
-              )
-            }
-            disabled={pending}
-          >
-            {busy === "accept" ? tCommon("saving") : t("actions.accept")}
+          <Button variant="default" onClick={() => setAccepting(true)} disabled={pending}>
+            {t("actions.accept")}
           </Button>
+          <AcceptDialog
+            open={accepting}
+            onOpenChange={setAccepting}
+            prepareEvidence={prepareEvidence}
+            // Recording what the customer said elsewhere is the same news as them
+            // clicking accept. The key is the one the page uses, so revalidating
+            // into ACCEPTED can't celebrate it twice.
+            onAccept={(formData) => onDecide("ACCEPTED", formData)}
+            onAccepted={() => void celebrate({ key: acceptedKey.staff(quoteId) })}
+          />
           <Button variant="outline" onClick={() => setDeclining(true)} disabled={pending}>
             {t("actions.reject")}
           </Button>
@@ -162,6 +176,16 @@ export function QuoteActionsBar({
         </Button>
       ) : null}
 
+      {showReopen && reopen ? (
+        <>
+          <Button onClick={() => setReopening(true)} disabled={pending}>
+            <CalendarClock className="size-4" />
+            {t("actions.reopen")}
+          </Button>
+          <ReopenDialog open={reopening} onOpenChange={setReopening} {...reopen} />
+        </>
+      ) : null}
+
       {showStartJob && onStartJob ? (
         <Button onClick={() => run("startJob", onStartJob)} disabled={pending}>
           <Briefcase className="size-4" />
@@ -169,6 +193,94 @@ export function QuoteActionsBar({
         </Button>
       ) : null}
     </div>
+  );
+}
+
+type ReopenOptions = {
+  onReopen: (formData: FormData) => Promise<QuoteActionState>;
+  /** `YYYY-MM-DD`: today plus the company's validity, on its calendar. */
+  defaultDate: string;
+  /** `YYYY-MM-DD`: tomorrow — a date of today has already run out. */
+  minDate: string;
+  /** Whether the customer's link still opens, so an email can carry one. */
+  linkOpen: boolean;
+};
+
+/**
+ * A new date for an expired quote, and whether the customer hears of it now.
+ * The tick is on by default; somebody about to change the quote first leaves
+ * it off and tells them on saving, with everything at once.
+ */
+function ReopenDialog({
+  open,
+  onOpenChange,
+  onReopen,
+  defaultDate,
+  minDate,
+  linkOpen,
+}: ReopenOptions & { open: boolean; onOpenChange: (open: boolean) => void }) {
+  const t = useTranslations("quotes");
+  const tCommon = useTranslations("common");
+  const [pending, startTransition] = useTransition();
+  const [errors, setErrors] = useState<Record<string, string[]>>({});
+
+  function submit(formData: FormData) {
+    startTransition(async () => {
+      const result = await onReopen(formData);
+      if (result.fieldErrors) return setErrors(result.fieldErrors);
+      if (result.error) return void toast.error(result.error);
+      if (result.message) toast.success(result.message);
+      setErrors({});
+      onOpenChange(false);
+    });
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{t("reopen.title")}</DialogTitle>
+          <DialogDescription>{t("reopen.body")}</DialogDescription>
+        </DialogHeader>
+
+        <form action={submit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="reopen-valid-until">{t("reopen.validUntil")}</Label>
+            <Input
+              id="reopen-valid-until"
+              name="validUntil"
+              type="date"
+              required
+              min={minDate}
+              defaultValue={defaultDate}
+              aria-invalid={errors.validUntil ? true : undefined}
+            />
+            {errors.validUntil ? <p className="text-sm text-destructive">{errors.validUntil[0]}</p> : null}
+          </div>
+
+          {linkOpen ? (
+            <div className="flex items-start gap-2">
+              <Checkbox id="reopen-notify" name="notifyCustomer" defaultChecked />
+              <div className="space-y-1">
+                <Label htmlFor="reopen-notify">{t("reopen.notifyCustomer")}</Label>
+                <p className="text-xs text-muted-foreground">{t("reopen.notifyCustomerHint")}</p>
+              </div>
+            </div>
+          ) : (
+            <p className="text-xs text-muted-foreground">{t("reopen.linkClosed")}</p>
+          )}
+
+          <DialogFooter>
+            <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>
+              {tCommon("cancel")}
+            </Button>
+            <Button type="submit" disabled={pending}>
+              {pending ? tCommon("saving") : t("reopen.confirm")}
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }
 
@@ -252,6 +364,200 @@ function DeclineDialog({
             </Button>
             <Button type="submit" variant="destructive" disabled={pending}>
               {pending ? tCommon("saving") : t("decline.confirm")}
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+const ACCEPT_REASONS = Object.values(QuoteAcceptReason);
+
+/** Above this, a file goes up in parts that retry on their own, as an attachment does. */
+const MULTIPART_FROM_BYTES = 5 * 1024 * 1024;
+
+/**
+ * Accepting on the customer's behalf asks how they said yes and for their
+ * word itself — the email, the WhatsApp, the signed copy — because nothing
+ * else backs it: the portal's acceptance has a signature and a fingerprint,
+ * a button pressed in the office has neither. The files go straight to the
+ * store before the form is sent, and the server checks them there.
+ */
+function AcceptDialog({
+  open,
+  onOpenChange,
+  prepareEvidence,
+  onAccept,
+  onAccepted,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  prepareEvidence: (file: AttachmentFileInfo) => Promise<AttachmentUploadTicket>;
+  onAccept: (formData: FormData) => Promise<QuoteActionState>;
+  onAccepted: () => void;
+}) {
+  const t = useTranslations("quotes");
+  const tFiles = useTranslations("quotes.attachments");
+  const tCommon = useTranslations("common");
+  const [pending, startTransition] = useTransition();
+  const [reason, setReason] = useState("");
+  const [files, setFiles] = useState<File[]>([]);
+  const [errors, setErrors] = useState<Record<string, string[]>>({});
+  const input = useRef<HTMLInputElement>(null);
+  const locale = useLocale();
+
+  function refusal(file: File, index: number): string | null {
+    const check = checkEvidence({ name: file.name, size: file.size, type: file.type }, index);
+    if (check.ok) return null;
+    if (check.reason === "type") return tFiles("errors.type");
+    if (check.reason === "size") return tFiles("errors.size", { max: MAX_ATTACHMENT_BYTES / (1024 * 1024) });
+    if (check.reason === "too-many") return tFiles("errors.tooMany", { max: MAX_EVIDENCE_FILES });
+    return tFiles("errors.empty");
+  }
+
+  function choose(chosen: FileList | null) {
+    const next = [...files, ...Array.from(chosen ?? [])];
+    const problem = next.map(refusal).find(Boolean);
+    if (problem) setErrors((current) => ({ ...current, evidence: [problem] }));
+    else
+      setErrors((current) => {
+        const { evidence, ...rest } = current;
+        return evidence ? rest : current;
+      });
+    setFiles(next.filter((file, index) => !refusal(file, index)));
+    if (input.current) input.current.value = "";
+  }
+
+  async function upload(file: File): Promise<{ pathname: string; name: string } | null> {
+    const ticket = await prepareEvidence({ name: file.name, size: file.size, type: file.type });
+    if (ticket.error || !ticket.pathname || !ticket.token) return null;
+    try {
+      const { put } = await import("@vercel/blob/client");
+      const stored = await put(ticket.pathname, file, {
+        access: "public",
+        token: ticket.token,
+        contentType: file.type,
+        multipart: file.size > MULTIPART_FROM_BYTES,
+      });
+      return { pathname: stored.pathname, name: file.name };
+    } catch {
+      return null;
+    }
+  }
+
+  function submit(formData: FormData) {
+    if (files.length === 0) return setErrors((current) => ({ ...current, evidence: [t("accept.evidenceRequired")] }));
+    startTransition(async () => {
+      const uploaded = await Promise.all(files.map(upload));
+      if (uploaded.some((file) => !file)) return setErrors((current) => ({ ...current, evidence: [tFiles("errors.failed")] }));
+      formData.set("evidence", JSON.stringify(uploaded));
+      const result = await onAccept(formData);
+      if (result.fieldErrors) return setErrors(result.fieldErrors);
+      if (result.error) return void toast.error(result.error);
+      if (result.message) toast.success(result.message);
+      setErrors({});
+      setReason("");
+      setFiles([]);
+      onOpenChange(false);
+      onAccepted();
+    });
+  }
+
+  const other = reason === QuoteAcceptReason.OTHER;
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{t("accept.title")}</DialogTitle>
+          <DialogDescription>{t("accept.body")}</DialogDescription>
+        </DialogHeader>
+
+        <form action={submit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="accept-reason">{t("accept.reason")}</Label>
+            <NativeSelect
+              id="accept-reason"
+              name="reason"
+              required
+              value={reason}
+              onChange={(event) => setReason(event.target.value)}
+              placeholder={t("accept.choose")}
+              options={ACCEPT_REASONS.map((value) => ({ value, label: t(`acceptReasons.${value}`) }))}
+              aria-invalid={errors.reason ? true : undefined}
+            />
+            {errors.reason ? <p className="text-sm text-destructive">{errors.reason[0]}</p> : null}
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="accept-evidence">{t("accept.evidence")}</Label>
+            <p id="accept-evidence-hint" className="text-xs text-muted-foreground">
+              {t("accept.evidenceHint", { max: MAX_EVIDENCE_FILES })}
+            </p>
+            {/* Positioned, so the hidden input has something to hang off. */}
+            <div className="relative space-y-2">
+              <input
+                ref={input}
+                id="accept-evidence"
+                type="file"
+                multiple
+                accept={ACCEPTED_ATTACHMENT_TYPES.join(",")}
+                className="sr-only"
+                aria-describedby="accept-evidence-hint"
+                onChange={(event) => choose(event.target.files)}
+              />
+              {files.length > 0 ? (
+                <ul className="space-y-1 text-sm">
+                  {files.map((file, index) => (
+                    <li key={`${file.name}-${index}`} className="flex items-center gap-2 rounded-md border px-2 py-1">
+                      <span className="min-w-0 flex-1 truncate">{file.name}</span>
+                      <span className="shrink-0 text-xs text-muted-foreground tabular-nums">{formatBytes(file.size, locale)}</span>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="size-7"
+                        disabled={pending}
+                        onClick={() => setFiles(files.filter((_, position) => position !== index))}
+                      >
+                        <X className="size-4" />
+                        <span className="sr-only">{t("accept.remove", { name: file.name })}</span>
+                      </Button>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              {files.length < MAX_EVIDENCE_FILES ? (
+                <Button type="button" variant="outline" size="sm" disabled={pending} onClick={() => input.current?.click()}>
+                  <Paperclip className="size-4" />
+                  {files.length === 0 ? tFiles("choose") : t("accept.addAnother")}
+                </Button>
+              ) : null}
+            </div>
+            {errors.evidence ? <p className="text-sm text-destructive">{errors.evidence[0]}</p> : null}
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="accept-note">{other ? t("accept.noteForOther") : t("accept.note")}</Label>
+            <Textarea
+              id="accept-note"
+              name="note"
+              rows={3}
+              maxLength={500}
+              required={other}
+              placeholder={t("accept.notePlaceholder")}
+              aria-invalid={errors.note ? true : undefined}
+            />
+            {errors.note ? <p className="text-sm text-destructive">{errors.note[0]}</p> : null}
+          </div>
+
+          <DialogFooter>
+            <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>
+              {tCommon("cancel")}
+            </Button>
+            <Button type="submit" disabled={pending}>
+              {pending ? tCommon("saving") : t("accept.confirm")}
             </Button>
           </DialogFooter>
         </form>

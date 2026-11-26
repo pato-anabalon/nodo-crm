@@ -139,7 +139,7 @@ export async function QuoteDocument({
       locale={locale}
       messages={{ portal: (allMessages as Record<string, unknown>).portal }}
     >
-      {token ? <PresenceHeartbeat token={token} /> : null}
+      {token ? <PresenceHeartbeat token={token} revision={quote.revision} /> : null}
 
       {/*
         The watermark hangs 125px past the document's right edge, which is the
@@ -415,6 +415,7 @@ export async function QuoteDocument({
                   askOrderReference: company.askOrderReference,
                 }}
                 viewerName={viewerName ?? quote.clientName ?? ""}
+                revision={quote.revision}
                 acceptAction={acceptQuoteAction.bind(null, token)}
                 signatureHandoff={{
                   start: startSignatureHandoffAction.bind(null, token),
